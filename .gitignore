@@ -5,3 +5,7 @@
 .buildpath
 .project
 .settings
+
+# Chester 
+.sass-cache/
+
