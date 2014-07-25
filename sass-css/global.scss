@@ -1,3 +1,26 @@
 @import "libs/html5boilerplate/normalize.scss";
 @import "libs/html5boilerplate/main.scss";
-@import "modules/grids/grid_two_column/grid_two_column.scss";
+
+$bg-colors: (
+	#574038,
+	#E8DEAD,
+	#8C513F
+);
+
+$color: red;
+
+%maincolumn {
+	margin: 0 auto;
+	max-width: 500px;
+	background-color: blue;
+}
+
+#header {
+	@extend %maincolumn;	
+	height: 100px;
+	color: $color;
+}
+
+#maincontainer{
+	@extend %maincolumn;
+}

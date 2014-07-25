@@ -1,6 +1,6 @@
-<?php
+<?php /*
 //require the site controller we just created
-require_once(dirname(__FILE__).'/mvc/controllers/site_controller.php');
+require_once(dirname(__FILE__).'/mvc/controllers/SiteController.php');
 
 //init the site controller
 $siteController = new SiteController();
