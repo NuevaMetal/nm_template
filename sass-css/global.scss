@@ -1,5 +1,6 @@
 @import "libs/html5boilerplate/normalize.scss";
 @import "libs/html5boilerplate/main.scss";
+@import "compass/css3";
 
 $bg-colors: (
 	#574038,
@@ -10,17 +11,37 @@ $bg-colors: (
 $color: red;
 
 %maincolumn {
-	margin: 0 auto;
-	max-width: 500px;
-	background-color: blue;
+	background-color: #F7F8E0;
+	margin: 0px auto;
+	max-width: 1200px;
+	padding: 0 5px;
 }
 
 #header {
 	@extend %maincolumn;	
 	height: 100px;
 	color: $color;
+	margin-bottom: 20px;
 }
 
-#maincontainer{
+#content{
 	@extend %maincolumn;
+	@include columns(20em 3);
+}
+
+#footer{
+	@extend %maincolumn;
+	margin-top: 20px;
+	border: {
+		width: 1px;
+		color: #ccc;
+		style: solid;
+	}
+}
+
+#sidebar {
+	@extend %maincolumn;  	
+  	a { 
+  		text-decoration: none; 
+  	}
 }

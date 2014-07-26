@@ -1,0 +1,17 @@
+<ul>
+	{{#next_posts_link}}<li>{{{next_posts_link}}}</li>{{/next_posts_link}}
+	{{#previous_posts_link}}<li>{{{previous_posts_link}}}</li>{{/previous_posts_link}}
+</ul>
+
+{{#posts}}
+    <h2><a href="{{permalink}}">{{{title}}}</a></h2>
+    <p>{{time}}</p>
+    {{#featured_image_url_medium}}
+    	<img src="{{featured_image_url_medium}}" />
+    {{/featured_image_url_medium}}
+    {{{excerpt}}}
+    {{> tags}}
+    {{> categories}}
+{{/posts}}
+
+

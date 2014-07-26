@@ -1,10 +1,7 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/TestController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
 
-/*$siteController = new SiteController();
-$siteController->showHome();*/
-
-$siteController = new TestController();
-$siteController->homeTest();
+$pageController = new PageController();
+$pageController->getHome();
 
 ?>

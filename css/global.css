@@ -689,15 +689,39 @@ textarea {
     page-break-after: avoid;
   }
 }
-/* line 12, ../sass-css/global.scss */
-#header, #maincontainer {
-  margin: 0 auto;
-  max-width: 500px;
-  background-color: blue;
+/* line 13, ../sass-css/global.scss */
+#header, #content, #footer, #sidebar {
+  background-color: #F7F8E0;
+  margin: 0px auto;
+  max-width: 1200px;
+  padding: 0 5px;
 }
 
-/* line 18, ../sass-css/global.scss */
+/* line 20, ../sass-css/global.scss */
 #header {
   height: 100px;
   color: red;
+  margin-bottom: 20px;
+}
+
+/* line 27, ../sass-css/global.scss */
+#content {
+  -webkit-columns: 20em 3;
+  -moz-columns: 20em 3;
+  -ms-columns: 20em 3;
+  -o-columns: 20em 3;
+  columns: 20em 3;
+}
+
+/* line 32, ../sass-css/global.scss */
+#footer {
+  margin-top: 20px;
+  border-width: 1px;
+  border-color: #ccc;
+  border-style: solid;
+}
+
+/* line 44, ../sass-css/global.scss */
+#sidebar a {
+  text-decoration: none;
 }
