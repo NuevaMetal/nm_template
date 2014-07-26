@@ -1,4 +1,234 @@
+/* 
+* Autor: José María Valera Reales <@Chemaclass>
+*/
+
 @import "libs/html5boilerplate/normalize.scss";
 @import "libs/html5boilerplate/main.scss";
+@import "compass/css3/inline-block";
 
-$a:red;
+$maxWidth: 1200px; //960px;
+
+.post {
+	border: 1px solid red;
+	height: 500px;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+body {
+	background: url(../img/nm_back.jpg);
+	background-repeat: fixed;
+	background-position: center 0%;
+	//padding-top: 60px;
+	//padding-bottom: 40px;
+	font-family:"Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
+	font-size: 13px;
+	color:#333;
+  	background-color: #000;
+}
+
+#page{
+  	background-color: #fff;
+	margin: 0px auto;
+	max-width: $maxWidth;
+}
+
+.block a.more:hover, .page-navi.single #mostrar-mas:hover{
+  //color: #fff;
+}
+
+#mostrar-mas ul {	
+	li {
+		@include inline-block;
+		margin: 5px;
+		padding: 4px 0 6px;
+		color: #333;
+		text-decoration: none;		
+        &:hover{
+        	background-color: ghostwhite;
+        	border-radius: 40px;
+        	text-decoration: none;
+        }      
+	}
+}
+
+
+
+
+
+/* ******************************************************************/
+/* 								IDs 								*/
+/* ******************************************************************/
+#buscador {
+	margin-top: 20px;
+}
+
+#header {
+	height: 330px;
+	background: url(../img/nm_head.jpg) no-repeat center;
+	width: 100%;
+	margin: 0px auto;
+}
+
+/* Separar la page para que no oculte el menú el header *
+#page {
+	//background: transparent url(../img/nm_logo.jpg) no-repeat center top;
+	//margin-top: 90px !important;
+}*/
+
+#logeo {
+	/* margin-left: 20px;*/
+	//padding: 20px;
+	//padding-bottom: 0;
+}
+
+#logeo .login .acciones{	
+	//display: inline-block;
+}
+
+#mostrar-login-form:hover {
+	cursor: pointer;
+}
+
+#subheader #loginform .btn-ayuda{	
+	padding-top: 5px;
+	
+}
+
+
+/* ******************************************************************/
+/* 							 Clases 								*/
+/* ******************************************************************/
+.caja-home-banda {
+	/*border: 1px solid red;*/
+	height: 560px;
+}
+
+.caja-home-video, .caja-generica {
+	/*border: 1px solid yellow;*/
+	height: 590px;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.caja-home-entrevista {
+	/*border: 1px solid green;*/
+	/*height:605px;*/
+	
+}
+
+.clear {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+
+.hentry ol, ul {
+	padding-left: 15px;
+}
+/*
+.home-title a {
+	color: #333;
+	text-decoration: none;
+}*/
+
+.limitar-ancho {
+	overflow: hidden;
+}
+
+/* Quitamos el icono de flecha default*/
+.nav .arrow {
+	background: none;
+}
+
+/* Separar un poco los submenus de sus padres */
+.nav-main ul li ul {
+	margin-top: 10px !important;
+}
+
+/* Colocar el menu arriba del todo */
+.nav-main {
+	margin: 0px 0px !important;
+}
+
+.navbar-header {
+	color: #000;
+	background: #cecece;
+	border-bottom: 2px solid red;
+}
+
+.nav-footer {
+	margin: 0 auto !important;
+	max-width: 1200px;
+}
+
+.nav-footer a:hover {
+	color: #333 !important;
+}
+
+.nav-footer .submenu ul li {
+	border-radius: none !important;
+	color: red;
+}
+
+.page-content {
+	max-width: 1200px;
+}
+
+.pagination {
+	display: block;
+	border-radius: 4px;
+}
+
+.posts-videos {
+	background-color: #F8F8FF;
+}
+
+.similar {
+	margin-bottom: 3px;
+}
+
+.similar-title {
+	
+}
+
+.similar-img {
+	
+}
+
+.similar.even {
+	background-color: #f8f8ff;
+}
+
+/* Eliminar hueco del menu ppal */
+.sub-menu {
+	margin-top: 0 !important;
+}
+
+@media ( min-width : 768px) {
+	#logo {
+		height: 265px;
+	}
+	#page {
+		margin: auto;
+		margin-top: 40px !important;
+		background: transparent;
+	}
+	.navbar-header a {
+		border-bottom: 0px solid red;
+		color: #000;
+		font-size: 16px;
+		padding-top: 16px;
+	}
+	.nav-main {
+		background: #cecece url(../../mystique/images/bg-nav.png) repeat-x center top;
+	}
+}
+
+@media ( min-width : 992px) {
+}
+
+@media ( min-width : 1200px) {
+}
+
+/*** GENERAL ELEMENTS: LISTS ***/
