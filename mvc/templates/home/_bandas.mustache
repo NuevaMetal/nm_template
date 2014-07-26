@@ -1,10 +1,5 @@
-<ul >
-	{{#next_posts_link}}<li>{{{next_posts_link}}}</li>{{/next_posts_link}}
-	{{#previous_posts_link}}<li>{{{previous_posts_link}}}</li>{{/previous_posts_link}}
-</ul>
-
 {{#posts}}
-	<div class="post col-xs-12 col-sm-6 col-md-6 col-lg-3">
+	<div id="post-{{id}}" class="post col-xs-12 col-sm-6 col-md-6 col-lg-3">
 	    <h2><a href="{{permalink}}">{{{title}}}</a></h2>
 	    <p>{{time}}</p>
 	    {{#featured_image_url_medium}}
@@ -15,5 +10,3 @@
 	    {{> categories}}
 	</div>
 {{/posts}}
-
-

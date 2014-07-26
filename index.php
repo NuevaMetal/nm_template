@@ -1,4 +1,4 @@
-<?php /*
+<?php
 //require the site controller we just created
 require_once(dirname(__FILE__).'/mvc/controllers/SiteController.php');
 
