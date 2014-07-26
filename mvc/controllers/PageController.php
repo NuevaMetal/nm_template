@@ -7,6 +7,13 @@
  */
 class PageController extends ChesterBaseController {
 
+	public function PageController() {
+		parent::__construct();
+		echo $this->render('menu/principal', array(
+			'home_url' => get_home_url()
+		));
+	}
+
 	/**
 	 * home.php
 	 */
@@ -16,7 +23,8 @@ class PageController extends ChesterBaseController {
 		$content = $this->render('home', array(
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
+			'previous_posts_link' => get_previous_posts_link(),
+			'home_url' => get_home_url()
 		));
 
 		echo $this->renderPage('base', array(
