@@ -8,29 +8,30 @@
 
 $maxWidth: 1200px; //960px;
 
+body {
+  	background-color: #000;
+	background: url(../img/nm_back.jpg);
+	background-repeat: fixed;
+	background-attachment: fixed;
+	background-position: center 0%;
+	color:#333;
+	font-family:"Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
+	font-size: 13px;
+	//padding-bottom: 40px;
+	//padding-top: 60px;
+}
+
+#page{
+  	background-color: #fff;
+	margin: 0px 1px;;
+	max-width: $maxWidth;
+}
+
 .post {
 	border: 1px solid red;
 	height: 500px;
 	word-wrap: break-word;
 	overflow: hidden;
-}
-
-body {
-	background: url(../img/nm_back.jpg);
-	background-repeat: fixed;
-	background-position: center 0%;
-	//padding-top: 60px;
-	//padding-bottom: 40px;
-	font-family:"Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
-	font-size: 13px;
-	color:#333;
-  	background-color: #000;
-}
-
-#page{
-  	background-color: #fff;
-	margin: 0px auto;
-	max-width: $maxWidth;
 }
 
 .block a.more:hover, .page-navi.single #mostrar-mas:hover{
@@ -65,9 +66,13 @@ body {
 
 #header {
 	height: 330px;
-	background: url(../img/nm_head.jpg) no-repeat center;
 	width: 100%;
-	margin: 0px auto;
+	margin: -10px auto;	
+	background: url(../img/nm_head.jpg) no-repeat top center fixed;
+	background-attachment: fixed;
+	color: #FFFFFF;
+	//min-height: calc(100vw - 300px);
+	width: 100w;
 }
 
 /* Separar la page para que no oculte el menú el header *
@@ -159,7 +164,7 @@ body {
 
 .nav-footer {
 	margin: 0 auto !important;
-	max-width: 1200px;
+	max-width: $maxWidth;
 }
 
 .nav-footer a:hover {
@@ -172,7 +177,7 @@ body {
 }
 
 .page-content {
-	max-width: 1200px;
+	max-width: $maxWidth;
 }
 
 .pagination {
