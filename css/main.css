@@ -694,8 +694,12 @@ textarea {
   }
 }
 /* line 1, ../sass-css/navbar.scss */
-header.navbar {
+navbar {
   color: red !important;
+}
+/* line 3, ../sass-css/navbar.scss */
+navbar ul * {
+  height: 10px !important;
 }
 
 /* line 12, ../sass-css/main.scss */
@@ -757,22 +761,22 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 75, ../sass-css/main.scss */
+/* line 76, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 79, ../sass-css/main.scss */
+/* line 80, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 89, ../sass-css/main.scss */
+/* line 90, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 93, ../sass-css/main.scss */
+/* line 94, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -780,18 +784,18 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 101, ../sass-css/main.scss */
+/* line 102, ../sass-css/main.scss */
 .hentry ol, ul {
   padding-left: 15px;
 }
 
-/* line 105, ../sass-css/main.scss */
+/* line 106, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 110, ../sass-css/main.scss */
+/* line 111, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;

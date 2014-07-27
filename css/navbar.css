@@ -1,4 +1,8 @@
 /* line 1, ../sass-css/navbar.scss */
-header.navbar {
+navbar {
   color: red !important;
+}
+/* line 3, ../sass-css/navbar.scss */
+navbar ul * {
+  height: 10px !important;
 }
