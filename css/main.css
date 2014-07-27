@@ -693,41 +693,61 @@ textarea {
     page-break-after: avoid;
   }
 }
-/* line 11, ../sass-css/main.scss */
+/* line 1, ../sass-css/navbar.scss */
+header.navbar {
+  color: red !important;
+}
+
+/* line 12, ../sass-css/main.scss */
+#content {
+  overflow: hidden;
+}
+
+/* line 23, ../sass-css/main.scss */
 body {
   background-color: #000;
   background: url(../img/nm_back.jpg);
   background-repeat: fixed;
   background-attachment: fixed;
-  background-position: center 0%;
+  background-position: center;
   color: #333;
   font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
-  font-size: 13px;
+  font-size: 16px;
+  margin: 0px;
 }
 
-/* line 22, ../sass-css/main.scss */
+/* line 35, ../sass-css/main.scss */
+.site-title {
+  height: 200px;
+  width: 100%;
+  margin: 0px auto;
+  background: url(../img/nm_head1.jpg) no-repeat top center fixed;
+  background-attachment: fixed;
+  color: transparent;
+}
+
+/* line 45, ../sass-css/main.scss */
 #page {
   background-color: #fff;
 }
 
-/* line 26, ../sass-css/main.scss */
+/* line 49, ../sass-css/main.scss */
 .post {
-  border: 1px solid red;
   height: 400px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
-/* line 33, ../sass-css/main.scss */
+/* line 56, ../sass-css/main.scss */
 #mostrar-mas {
   margin: 15px;
 }
-/* line 36, ../sass-css/main.scss */
+/* line 59, ../sass-css/main.scss */
 #mostrar-mas ul li {
   color: #333;
   text-decoration: none;
 }
-/* line 39, ../sass-css/main.scss */
+/* line 62, ../sass-css/main.scss */
 #mostrar-mas ul li:hover {
   background-color: ghostwhite;
   border-radius: 40px;
@@ -737,33 +757,22 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 52, ../sass-css/main.scss */
+/* line 75, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 56, ../sass-css/main.scss */
-#header {
-  height: 365px;
-  width: 100%;
-  margin: -10px auto;
-  background: url(../img/nm_head.jpg) no-repeat top center fixed;
-  background-attachment: fixed;
-  width: 100w;
-  color: transparent;
-}
-
-/* line 66, ../sass-css/main.scss */
+/* line 79, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 76, ../sass-css/main.scss */
+/* line 89, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 80, ../sass-css/main.scss */
+/* line 93, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -771,138 +780,19 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 89, ../sass-css/main.scss */
-.caja-home-banda {
-  /*border: 1px solid red;*/
-  height: 560px;
-}
-
-/* line 94, ../sass-css/main.scss */
-.caja-home-video, .caja-generica {
-  /*border: 1px solid yellow;*/
-  height: 590px;
-  word-wrap: break-word;
-  overflow: hidden;
-}
-
 /* line 101, ../sass-css/main.scss */
-.caja-home-entrevista {
-  /*border: 1px solid green;*/
-  /*height:605px;*/
-}
-
-/* line 107, ../sass-css/main.scss */
-.clear {
-  clear: both;
-  margin: 0;
-  padding: 0;
-}
-
-/* line 113, ../sass-css/main.scss */
 .hentry ol, ul {
   padding-left: 15px;
 }
 
-/* line 117, ../sass-css/main.scss */
+/* line 105, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 122, ../sass-css/main.scss */
-.limitar-ancho {
-  overflow: hidden;
-}
-
-/* Quitamos el icono de flecha default*/
-/* line 127, ../sass-css/main.scss */
-.nav .arrow {
-  background: none;
-}
-
-/* Separar un poco los submenus de sus padres */
-/* line 132, ../sass-css/main.scss */
-.nav-main ul li ul {
-  margin-top: 10px !important;
-}
-
-/* Colocar el menu arriba del todo */
-/* line 137, ../sass-css/main.scss */
-.nav-main {
-  margin: 0px 0px !important;
-}
-
-/* line 141, ../sass-css/main.scss */
-.navbar-header {
-  background: #cecece;
-  border-bottom: 2px solid red;
-}
-
-/* line 147, ../sass-css/main.scss */
-.nav-footer {
-  margin: 0 auto !important;
-  max-width: 1200px;
-}
-
-/* line 152, ../sass-css/main.scss */
-.nav-footer a:hover {
-  color: #333 !important;
-}
-
-/* line 156, ../sass-css/main.scss */
-.nav-footer .submenu ul li {
-  border-radius: none !important;
-  color: red;
-}
-
-/* line 161, ../sass-css/main.scss */
-#page#content {
-  max-width: 1200px;
-}
-
-/* line 165, ../sass-css/main.scss */
+/* line 110, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;
 }
-
-/* line 170, ../sass-css/main.scss */
-.posts-videos {
-  background-color: #F8F8FF;
-}
-
-/* line 174, ../sass-css/main.scss */
-.similar {
-  margin-bottom: 3px;
-}
-
-/* line 186, ../sass-css/main.scss */
-.similar.even {
-  background-color: #f8f8ff;
-}
-
-/* Eliminar hueco del menu ppal */
-/* line 191, ../sass-css/main.scss */
-.sub-menu {
-  margin-top: 0 !important;
-}
-
-@media (min-width: 768px) {
-  /* line 196, ../sass-css/main.scss */
-  #page {
-    margin: auto;
-  }
-
-  /* line 199, ../sass-css/main.scss */
-  .navbar-header a {
-    border-bottom: 0px solid yellow;
-    color: #000;
-    font-size: 16px;
-  }
-
-  /* line 205, ../sass-css/main.scss */
-  .nav-main {
-    background: #cecece url(../img/bg-nav.png) repeat-x center top;
-  }
-}
-/*** GENERAL ELEMENTS: LISTS ***/

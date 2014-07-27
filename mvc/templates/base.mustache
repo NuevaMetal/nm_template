@@ -1,20 +1,16 @@
-	
-<div id="header" class="col-xs-12 container"></div>	
+<section id="page" class="container">
+	{{{menuPrincipal}}}
 
-{{{menuPrincipal}}}
-
-<div id="page" class="container">
-	
-    <div id="content" class="col-xs-12 {{#sidebar}}col-sm-8 col-md-9 col-lg-8{{/sidebar}}">
+    <div id="content" class="col-xs-12 {{#sidebar}}col-sm-8{{/sidebar}}">
         {{{content}}}
     </div>
 
     {{#sidebar}}
-    <div id="sidebar" class="col-xs-12 col-sm-4 col-md-3 col-lg-4">
+    <div id="sidebar" class="col-xs-12 col-sm-4 ">
         {{{sidebar}}}
     </div>
     {{/sidebar}}
-</div>
-<div class="container">
+	
 	{{{menuFooter}}}
-</div>
+
+</section>

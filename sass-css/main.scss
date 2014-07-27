@@ -5,26 +5,49 @@
 @import "libs/html5boilerplate/normalize.scss";
 @import "libs/html5boilerplate/main.scss";
 @import "compass/css3/inline-block";
+@import "navbar.scss";
 
 $maxWidth: 1200px; //960px;
+
+#content{
+	overflow: hidden;
+	*{
+		//border: 1px solid red; 
+	}
+}
+
+#sidebar{
+	
+}
 
 body {
   	background-color: #000;
 	background: url(../img/nm_back.jpg);
 	background-repeat: fixed;
 	background-attachment: fixed;
-	background-position: center 0%;
+	background-position: center;
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
-	font-size: 13px;
+	font-size: 16px ;
+	margin: 0px;	
+}
+
+.site-title {
+	height: 200px;
+	width: 100%;
+	margin: 0px auto;
+	background: url(../img/nm_head1.jpg) no-repeat top center fixed;
+	background-attachment: fixed;	
+	//width: 100w;
+	color: transparent;
 }
 
 #page{
-  	background-color: #fff;
+  	background-color: #fff;  	
 }
 
 .post {
-	border: 1px solid red;
+	//border: 1px solid red;
 	height: 400px;
 	word-wrap: break-word;
 	overflow: hidden;
@@ -53,16 +76,6 @@ body {
 	margin-top: 20px;
 }
 
-#header {
-	height: 365px;
-	width: 100%;
-	margin: -10px auto;
-	background: url(../img/nm_head.jpg) no-repeat top center fixed;
-	background-attachment: fixed;	
-	width: 100w;
-	color: transparent;
-}
-
 #logeo {
 	/* margin-left: 20px;*/
 	//padding: 20px;
@@ -82,34 +95,9 @@ body {
 	
 }
 
-
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-.caja-home-banda {
-	/*border: 1px solid red;*/
-	height: 560px;
-}
-
-.caja-home-video, .caja-generica {
-	/*border: 1px solid yellow;*/
-	height: 590px;
-	word-wrap: break-word;
-	overflow: hidden;
-}
-
-.caja-home-entrevista {
-	/*border: 1px solid green;*/
-	/*height:605px;*/
-	
-}
-
-.clear {
-	clear: both;
-	margin: 0;
-	padding: 0;
-}
-
 .hentry ol, ul {
 	padding-left: 15px;
 }
@@ -119,98 +107,7 @@ body {
 	text-decoration: none;
 }
 
-.limitar-ancho {
-	overflow: hidden;
-}
-
-/* Quitamos el icono de flecha default*/
-.nav .arrow {
-	background: none;
-}
-
-/* Separar un poco los submenus de sus padres */
-.nav-main ul li ul {
-	margin-top: 10px !important;
-}
-
-/* Colocar el menu arriba del todo */
-.nav-main {
-	margin: 0px 0px !important;
-}
-
-.navbar-header {
-	//color: #000;
-	background: #cecece;
-	border-bottom: 2px solid red;
-}
-
-.nav-footer {
-	margin: 0 auto !important;
-	max-width: $maxWidth;
-}
-
-.nav-footer a:hover {
-	color: #333 !important;
-}
-
-.nav-footer .submenu ul li {
-	border-radius: none !important;
-	color: red;
-}
-
-#page#content {
-	max-width: $maxWidth;
-}
-
 .pagination {
 	display: block;
 	border-radius: 4px;
 }
-
-.posts-videos {
-	background-color: #F8F8FF;
-}
-
-.similar {
-	margin-bottom: 3px;
-}
-
-.similar-title {
-	
-}
-
-.similar-img {
-	
-}
-
-.similar.even {
-	background-color: #f8f8ff;
-}
-
-/* Eliminar hueco del menu ppal */
-.sub-menu {
-	margin-top: 0 !important;
-}
-
-@media ( min-width : 768px) {	
-	#page {
-		margin: auto;
-	}
-	.navbar-header a {
-		border-bottom: 0px solid yellow;
-		color: #000;
-		font-size: 16px;
-		//padding-top: 16px;
-	}
-	.nav-main {
-		background: #cecece url(../img/bg-nav.png) repeat-x center top;
-	}
-}
-
-@media ( min-width : 992px) {
-}
-
-@media ( min-width : 1200px) {
-}
-
-/*** GENERAL ELEMENTS: LISTS ***/
