@@ -1,7 +1,18 @@
-{{#post}}	
-    <h1><a href="{{permalink}}">{{{title}}}</a></h1>
-    <p>{{time}}</p>
-    {{{content}}}
-    {{>tags}}
-    {{>categories}}	
+{{#post}}
+	<h1><a href="{{permalink}}">{{{title}}}</a></h1>
+	<p>{{time}} - {{author}}</p>
+	<div class="info">
+	  <div class="categories">
+	    	{{> categories}}
+	    </div>
+	</div>	    
+	{{#featured_image_url_medium}}
+		<a href="{{permalink}}" class="thumbnail">
+			<img src="{{featured_image_url_medium}}" />
+		</a>
+	{{/featured_image_url_medium}}
+	{{{content}}}
+	<div class="tags">
+		{{> tags}}
+	</div>
 {{/post}}
