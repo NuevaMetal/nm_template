@@ -742,41 +742,25 @@ body {
   overflow: hidden;
 }
 
-/* line 56, ../sass-css/main.scss */
-#mostrar-mas {
-  margin: 15px;
-}
-/* line 59, ../sass-css/main.scss */
-#mostrar-mas ul li {
-  color: #333;
-  text-decoration: none;
-}
-/* line 62, ../sass-css/main.scss */
-#mostrar-mas ul li:hover {
-  background-color: ghostwhite;
-  border-radius: 40px;
-  text-decoration: none;
-}
-
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 76, ../sass-css/main.scss */
+/* line 59, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 80, ../sass-css/main.scss */
+/* line 63, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 90, ../sass-css/main.scss */
+/* line 73, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 94, ../sass-css/main.scss */
+/* line 77, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -784,18 +768,18 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 102, ../sass-css/main.scss */
+/* line 85, ../sass-css/main.scss */
 .hentry ol, ul {
   padding-left: 15px;
 }
 
-/* line 106, ../sass-css/main.scss */
+/* line 89, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 111, ../sass-css/main.scss */
+/* line 94, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;

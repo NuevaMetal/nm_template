@@ -1,7 +1,8 @@
-<div id="mostrar-mas" >
-	{{#previous_posts_link}}<p class="col-xs-6 text-left">{{{previous_posts_link}}}</p>{{/previous_posts_link}}
-	{{#next_posts_link}}<p class="col-xs-{{#previous_posts_link}}6{{/previous_posts_link}}{{^previous_posts_link}}12{{/previous_posts_link}} text-right">{{{next_posts_link}}}</p>{{/next_posts_link}}
-</div>
+
+<ul class="pager">
+  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</a></li>{{/previous_posts_link}}
+  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</a></li>{{/next_posts_link}}
+</ul>
 
 {{#posts}}
 	<div class="post col-xs-12 col-sm-6 col-md-6 col-lg-3">
