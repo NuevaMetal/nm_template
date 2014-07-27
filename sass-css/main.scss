@@ -14,47 +14,36 @@ body {
 	background-repeat: fixed;
 	background-attachment: fixed;
 	background-position: center 0%;
-	color:#333;
-	font-family:"Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
+	color: #333;
+	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 13px;
-	//padding-bottom: 40px;
-	//padding-top: 60px;
 }
 
 #page{
   	background-color: #fff;
-	margin: 0px 1px;;
-	max-width: $maxWidth;
 }
 
 .post {
 	border: 1px solid red;
-	height: 500px;
+	height: 400px;
 	word-wrap: break-word;
 	overflow: hidden;
 }
 
-.block a.more:hover, .page-navi.single #mostrar-mas:hover{
-  //color: #fff;
-}
-
-#mostrar-mas ul {	
-	li {
-		@include inline-block;
-		margin: 5px;
-		padding: 4px 0 6px;
-		color: #333;
-		text-decoration: none;		
-        &:hover{
-        	background-color: ghostwhite;
-        	border-radius: 40px;
-        	text-decoration: none;
-        }      
+#mostrar-mas {
+	margin: 15px;
+	ul {
+		li {
+			color: #333;
+			text-decoration: none;		
+	        &:hover{
+	        	background-color: ghostwhite;
+	        	border-radius: 40px;
+	        	text-decoration: none;
+	        }      
+		}
 	}
 }
-
-
-
 
 
 /* ******************************************************************/
@@ -65,21 +54,14 @@ body {
 }
 
 #header {
-	height: 330px;
+	height: 365px;
 	width: 100%;
-	margin: -10px auto;	
+	margin: -10px auto;
 	background: url(../img/nm_head.jpg) no-repeat top center fixed;
-	background-attachment: fixed;
-	color: #FFFFFF;
-	//min-height: calc(100vw - 300px);
+	background-attachment: fixed;	
 	width: 100w;
+	color: transparent;
 }
-
-/* Separar la page para que no oculte el menú el header *
-#page {
-	//background: transparent url(../img/nm_logo.jpg) no-repeat center top;
-	//margin-top: 90px !important;
-}*/
 
 #logeo {
 	/* margin-left: 20px;*/
@@ -131,11 +113,11 @@ body {
 .hentry ol, ul {
 	padding-left: 15px;
 }
-/*
+
 .home-title a {
 	color: #333;
 	text-decoration: none;
-}*/
+}
 
 .limitar-ancho {
 	overflow: hidden;
@@ -157,7 +139,7 @@ body {
 }
 
 .navbar-header {
-	color: #000;
+	//color: #000;
 	background: #cecece;
 	border-bottom: 2px solid red;
 }
@@ -176,7 +158,7 @@ body {
 	color: red;
 }
 
-.page-content {
+#page#content {
 	max-width: $maxWidth;
 }
 
@@ -210,23 +192,18 @@ body {
 	margin-top: 0 !important;
 }
 
-@media ( min-width : 768px) {
-	#logo {
-		height: 265px;
-	}
+@media ( min-width : 768px) {	
 	#page {
 		margin: auto;
-		margin-top: 40px !important;
-		background: transparent;
 	}
 	.navbar-header a {
-		border-bottom: 0px solid red;
+		border-bottom: 0px solid yellow;
 		color: #000;
 		font-size: 16px;
-		padding-top: 16px;
+		//padding-top: 16px;
 	}
 	.nav-main {
-		background: #cecece url(../../mystique/images/bg-nav.png) repeat-x center top;
+		background: #cecece url(../img/bg-nav.png) repeat-x center top;
 	}
 }
 

@@ -9,9 +9,9 @@ class PageController extends ChesterBaseController {
 
 	public function PageController() {
 		parent::__construct();
-		echo $this->render('menu/principal', array(
-			'home_url' => get_home_url()
-		));
+		/*
+		 * echo $this->render('menu/principal', array( 'home_url' => get_home_url() ));
+		 */
 	}
 
 	/**
@@ -20,16 +20,20 @@ class PageController extends ChesterBaseController {
 	public function getHome() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->render('home', array(
+		$menuPrincipal = $this->render('menu/principal', [
+			'home_url' => get_home_url()
+		]);
+
+		$content = $this->render('home', [
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link(),
-			'home_url' => get_home_url()
-		));
+			'previous_posts_link' => get_previous_posts_link()
+		]);
 
-		echo $this->renderPage('base', array(
+		return $this->renderPage('base', [
+			'menuPrincipal' => $menuPrincipal,
 			'content' => $content
-		));
+		]);
 	}
 
 	/**
@@ -38,19 +42,37 @@ class PageController extends ChesterBaseController {
 	public function getPost() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		if (isset($posts [0])) {
-
-			$content = $this->render('post', array(
-				'post' => $posts [0]
-			));
-
-			$sidebar = $this->render('sidebar');
-
-			echo $this->renderPage('base', array(
-				'content' => $content,
-				'sidebar' => $sidebar
-			));
+		if (!isset($posts [0])) {
+			return $this->renderPage('404');
 		}
+
+		$menuPrincipal = $this->render('menu/principal', [
+			'home_url' => get_home_url()
+		]);
+
+		$content = $this->render('post', [
+			'post' => $posts [0]
+		]);
+
+		$sidebar = $this->render('sidebar');
+
+		return $this->renderPage('base', [
+			'menuPrincipal' => $menuPrincipal,
+			'content' => $content,
+			'sidebar' => $sidebar
+		]);
+	}
+
+	/**
+	 * 404.php
+	 */
+	public function getError($num) {
+		$content = $this->render('error', array(
+			'num' => $num
+		));
+		return $this->renderPage('base', array(
+			'content' => $content
+		));
 	}
 
 }

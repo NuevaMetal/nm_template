@@ -705,35 +705,29 @@ body {
   font-size: 13px;
 }
 
-/* line 24, ../sass-css/main.scss */
+/* line 22, ../sass-css/main.scss */
 #page {
   background-color: #fff;
-  margin: 0px 1px;
-  max-width: 1200px;
 }
 
-/* line 30, ../sass-css/main.scss */
+/* line 26, ../sass-css/main.scss */
 .post {
   border: 1px solid red;
-  height: 500px;
+  height: 400px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
-/* line 42, ../sass-css/main.scss */
+/* line 33, ../sass-css/main.scss */
+#mostrar-mas {
+  margin: 15px;
+}
+/* line 36, ../sass-css/main.scss */
 #mostrar-mas ul li {
-  display: -moz-inline-stack;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  zoom: 1;
-  *display: inline;
-  margin: 5px;
-  padding: 4px 0 6px;
   color: #333;
   text-decoration: none;
 }
-/* line 48, ../sass-css/main.scss */
+/* line 39, ../sass-css/main.scss */
 #mostrar-mas ul li:hover {
   background-color: ghostwhite;
   border-radius: 40px;
@@ -743,38 +737,33 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 63, ../sass-css/main.scss */
+/* line 52, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 67, ../sass-css/main.scss */
+/* line 56, ../sass-css/main.scss */
 #header {
-  height: 330px;
+  height: 365px;
   width: 100%;
   margin: -10px auto;
   background: url(../img/nm_head.jpg) no-repeat top center fixed;
   background-attachment: fixed;
-  color: #FFFFFF;
   width: 100w;
+  color: transparent;
 }
 
-/* Separar la page para que no oculte el menú el header *
-#page {
-	//background: transparent url(../img/nm_logo.jpg) no-repeat center top;
-	//margin-top: 90px !important;
-}*/
-/* line 84, ../sass-css/main.scss */
+/* line 66, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 94, ../sass-css/main.scss */
+/* line 76, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 98, ../sass-css/main.scss */
+/* line 80, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -782,13 +771,13 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 107, ../sass-css/main.scss */
+/* line 89, ../sass-css/main.scss */
 .caja-home-banda {
   /*border: 1px solid red;*/
   height: 560px;
 }
 
-/* line 112, ../sass-css/main.scss */
+/* line 94, ../sass-css/main.scss */
 .caja-home-video, .caja-generica {
   /*border: 1px solid yellow;*/
   height: 590px;
@@ -796,132 +785,124 @@ body {
   overflow: hidden;
 }
 
-/* line 119, ../sass-css/main.scss */
+/* line 101, ../sass-css/main.scss */
 .caja-home-entrevista {
   /*border: 1px solid green;*/
   /*height:605px;*/
 }
 
-/* line 125, ../sass-css/main.scss */
+/* line 107, ../sass-css/main.scss */
 .clear {
   clear: both;
   margin: 0;
   padding: 0;
 }
 
-/* line 131, ../sass-css/main.scss */
+/* line 113, ../sass-css/main.scss */
 .hentry ol, ul {
   padding-left: 15px;
 }
 
-/*
+/* line 117, ../sass-css/main.scss */
 .home-title a {
-	color: #333;
-	text-decoration: none;
-}*/
-/* line 140, ../sass-css/main.scss */
+  color: #333;
+  text-decoration: none;
+}
+
+/* line 122, ../sass-css/main.scss */
 .limitar-ancho {
   overflow: hidden;
 }
 
 /* Quitamos el icono de flecha default*/
-/* line 145, ../sass-css/main.scss */
+/* line 127, ../sass-css/main.scss */
 .nav .arrow {
   background: none;
 }
 
 /* Separar un poco los submenus de sus padres */
-/* line 150, ../sass-css/main.scss */
+/* line 132, ../sass-css/main.scss */
 .nav-main ul li ul {
   margin-top: 10px !important;
 }
 
 /* Colocar el menu arriba del todo */
-/* line 155, ../sass-css/main.scss */
+/* line 137, ../sass-css/main.scss */
 .nav-main {
   margin: 0px 0px !important;
 }
 
-/* line 159, ../sass-css/main.scss */
+/* line 141, ../sass-css/main.scss */
 .navbar-header {
-  color: #000;
   background: #cecece;
   border-bottom: 2px solid red;
 }
 
-/* line 165, ../sass-css/main.scss */
+/* line 147, ../sass-css/main.scss */
 .nav-footer {
   margin: 0 auto !important;
   max-width: 1200px;
 }
 
-/* line 170, ../sass-css/main.scss */
+/* line 152, ../sass-css/main.scss */
 .nav-footer a:hover {
   color: #333 !important;
 }
 
-/* line 174, ../sass-css/main.scss */
+/* line 156, ../sass-css/main.scss */
 .nav-footer .submenu ul li {
   border-radius: none !important;
   color: red;
 }
 
-/* line 179, ../sass-css/main.scss */
-.page-content {
+/* line 161, ../sass-css/main.scss */
+#page#content {
   max-width: 1200px;
 }
 
-/* line 183, ../sass-css/main.scss */
+/* line 165, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;
 }
 
-/* line 188, ../sass-css/main.scss */
+/* line 170, ../sass-css/main.scss */
 .posts-videos {
   background-color: #F8F8FF;
 }
 
-/* line 192, ../sass-css/main.scss */
+/* line 174, ../sass-css/main.scss */
 .similar {
   margin-bottom: 3px;
 }
 
-/* line 204, ../sass-css/main.scss */
+/* line 186, ../sass-css/main.scss */
 .similar.even {
   background-color: #f8f8ff;
 }
 
 /* Eliminar hueco del menu ppal */
-/* line 209, ../sass-css/main.scss */
+/* line 191, ../sass-css/main.scss */
 .sub-menu {
   margin-top: 0 !important;
 }
 
 @media (min-width: 768px) {
-  /* line 214, ../sass-css/main.scss */
-  #logo {
-    height: 265px;
-  }
-
-  /* line 217, ../sass-css/main.scss */
+  /* line 196, ../sass-css/main.scss */
   #page {
     margin: auto;
-    margin-top: 40px !important;
-    background: transparent;
   }
 
-  /* line 222, ../sass-css/main.scss */
+  /* line 199, ../sass-css/main.scss */
   .navbar-header a {
-    border-bottom: 0px solid red;
+    border-bottom: 0px solid yellow;
     color: #000;
     font-size: 16px;
-    padding-top: 16px;
   }
 
-  /* line 228, ../sass-css/main.scss */
+  /* line 205, ../sass-css/main.scss */
   .nav-main {
-    background: #cecece url(../../mystique/images/bg-nav.png) repeat-x center top;
+    background: #cecece url(../img/bg-nav.png) repeat-x center top;
   }
 }
 /*** GENERAL ELEMENTS: LISTS ***/
