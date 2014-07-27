@@ -702,12 +702,12 @@ navbar ul * {
   height: 10px !important;
 }
 
-/* line 12, ../sass-css/main.scss */
+/* line 11, ../sass-css/main.scss */
 #content {
   overflow: hidden;
 }
 
-/* line 23, ../sass-css/main.scss */
+/* line 22, ../sass-css/main.scss */
 body {
   background-color: #000;
   background: url(../img/nm_back.jpg);
@@ -720,7 +720,7 @@ body {
   margin: 0px;
 }
 
-/* line 35, ../sass-css/main.scss */
+/* line 34, ../sass-css/main.scss */
 .site-title {
   height: 200px;
   width: 100%;
@@ -730,37 +730,41 @@ body {
   color: transparent;
 }
 
-/* line 45, ../sass-css/main.scss */
+/* line 44, ../sass-css/main.scss */
 #page {
   background-color: #fff;
 }
 
-/* line 49, ../sass-css/main.scss */
+/* line 48, ../sass-css/main.scss */
 .post {
-  height: 400px;
+  height: 430px;
   word-wrap: break-word;
   overflow: hidden;
+}
+/* line 53, ../sass-css/main.scss */
+.post .info a {
+  color: #999;
 }
 
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 59, ../sass-css/main.scss */
+/* line 61, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 63, ../sass-css/main.scss */
+/* line 65, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 73, ../sass-css/main.scss */
+/* line 75, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 77, ../sass-css/main.scss */
+/* line 79, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -768,18 +772,68 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 85, ../sass-css/main.scss */
-.hentry ol, ul {
+/* line 87, ../sass-css/main.scss */
+ul {
   padding-left: 15px;
 }
-
 /* line 89, ../sass-css/main.scss */
+ul li {
+  list-style: none;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+
+/* line 96, ../sass-css/main.scss */
+.categories li {
+  background: white;
+  border-radius: 7px;
+  padding: 0px 3px;
+}
+/* line 100, ../sass-css/main.scss */
+.categories li:hover {
+  background: black;
+}
+/* line 102, ../sass-css/main.scss */
+.categories li:hover a {
+  color: white;
+}
+/* line 106, ../sass-css/main.scss */
+.categories li a {
+  color: red;
+  text-decoration: none;
+}
+
+/* line 96, ../sass-css/main.scss */
+.tags li {
+  background: #dddddd;
+  border-radius: 7px;
+  padding: 0px 3px;
+}
+/* line 100, ../sass-css/main.scss */
+.tags li:hover {
+  background: #222222;
+}
+/* line 102, ../sass-css/main.scss */
+.tags li:hover a {
+  color: #dddddd;
+}
+/* line 106, ../sass-css/main.scss */
+.tags li a {
+  color: #222222;
+  text-decoration: none;
+}
+
+/* line 121, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 94, ../sass-css/main.scss */
+/* line 126, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;
