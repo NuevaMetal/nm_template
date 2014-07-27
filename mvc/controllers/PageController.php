@@ -9,9 +9,25 @@ class PageController extends ChesterBaseController {
 
 	public function PageController() {
 		parent::__construct();
-		/*
-		 * echo $this->render('menu/principal', array( 'home_url' => get_home_url() ));
-		 */
+	}
+
+	/**
+	 * Pintar la plantilla base con los menus
+	 *
+	 * @param array $args
+	 *        Lista de parámetros a pasar a la plantilla base
+	 */
+	public function renderBase($args = []) {
+		$menuPrincipal = $this->render('menu/principal', [
+			'home_url' => get_home_url()
+		]);
+		$menuFooter = $this->render('menu/footer', [
+			'home_url' => get_home_url()
+		]);
+		$args ['menuPrincipal'] = $menuPrincipal;
+		$args ['menuFooter'] = $menuFooter;
+
+		return $this->renderPage('base', $args);
 	}
 
 	/**
@@ -20,18 +36,13 @@ class PageController extends ChesterBaseController {
 	public function getHome() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$menuPrincipal = $this->render('menu/principal', [
-			'home_url' => get_home_url()
-		]);
-
 		$content = $this->render('home', [
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
 		]);
 
-		return $this->renderPage('base', [
-			'menuPrincipal' => $menuPrincipal,
+		return $this->renderBase([
 			'content' => $content
 		]);
 	}
@@ -56,8 +67,7 @@ class PageController extends ChesterBaseController {
 
 		$sidebar = $this->render('sidebar');
 
-		return $this->renderPage('base', [
-			'menuPrincipal' => $menuPrincipal,
+		return $this->renderBase([
 			'content' => $content,
 			'sidebar' => $sidebar
 		]);
@@ -70,9 +80,9 @@ class PageController extends ChesterBaseController {
 		$content = $this->render('error', array(
 			'num' => $num
 		));
-		return $this->renderPage('base', array(
+		return $this->renderBase([
 			'content' => $content
-		));
+		]);
 	}
 
 }
