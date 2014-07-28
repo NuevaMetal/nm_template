@@ -1,35 +1,28 @@
-<ul class="pager">
-  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</a></li>{{/previous_posts_link}}
-  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</a></li>{{/next_posts_link}}
-</ul>
-<div class="page-header col-xs-12">
-  <h1>Bandas <small>Discografías</small></h1>
-</div>
-{{#posts}}
-	<div class="home-post-banda col-xs-12 col-sm-6 col-md-6 col-lg-3">
-	    <h2><a href="{{permalink}}">{{{title}}}</a></h2>
-	    <p>{{time}} - {{author}}</p>
-	    <div class="info">
-	      <div class="categories">
-		    	{{> categories}}
-		    </div>
-	    </div>	    
-	    {{#featured_image_url_medium}}
-	    	<a href="{{permalink}}" class="thumbnail">
-	    		<img src="{{featured_image_url_medium}}" />
-	    	</a>
-	    {{/featured_image_url_medium}}
-	    {{{excerpt}}}
-	    <div class="tags">
-	    	{{> tags}}
-	    </div>
-	</div>
-{{/posts}}
+<section id="home">
 
-<div class="page-header col-xs-12">
-  <h1>Vídeos <small>Últimos videoclips, singles, covers...</small></h1>
-</div>
+	<ul class="pager">
+	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</a></li>{{/previous_posts_link}}
+	  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</a></li>{{/next_posts_link}}
+	</ul>
 
-<div class="page-header col-xs-12">
-  <h1>Entrevistas <small>Aún falta por implementar todo esto que ya verás tú si podremos o no xD</small></h1>
-</div>
+	<article class="posts-bandas">
+		<section>
+			<header class="page-header col-xs-12">
+				<h1>Bandas <small>Discografías</small></h1>
+			</header>
+			{{#posts}}
+				{{>home/_banda}}
+			{{/posts}}
+		</section>
+	</article>	
+	
+	<article class="posts-bandas">
+		<section>
+		<header class="page-header col-xs-12">
+			<h1>Vídeos <small>Últimos videoclips, singles, covers...</small></h1>
+		</header>
+		
+		</section>
+	</article>
+	
+</section>

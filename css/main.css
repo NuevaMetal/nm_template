@@ -693,23 +693,28 @@ textarea {
     page-break-after: avoid;
   }
 }
-/* line 3, ../sass-css/_home.scss */
-.home-post-banda {
+/* line 4, ../sass-css/_home.scss */
+#home .banda {
   height: auto;
   word-wrap: break-word;
   overflow: hidden;
 }
-/* line 7, ../sass-css/_home.scss */
-.home-post-banda .info a {
+/* line 8, ../sass-css/_home.scss */
+#home .banda .info a {
   color: #999;
+}
+/* line 11, ../sass-css/_home.scss */
+#home .banda img {
+  width: 100%;
+  max-height: 220px;
 }
 
 /* line 4, ../sass-css/_posts.scss */
-.post ul, .home-post-banda ul {
+.post ul {
   padding-left: 15px;
 }
 /* line 6, ../sass-css/_posts.scss */
-.post ul li, .home-post-banda ul li {
+.post ul li {
   list-style: none;
   display: -moz-inline-stack;
   display: inline-block;
@@ -720,40 +725,40 @@ textarea {
 }
 
 /* line 14, ../sass-css/_posts.scss */
-.post .categories li, .home-post-banda .categories li {
+.post .categories li {
   background: white;
   border-radius: 7px;
   padding: 0px 3px;
 }
 /* line 18, ../sass-css/_posts.scss */
-.post .categories li:hover, .home-post-banda .categories li:hover {
+.post .categories li:hover {
   background: black;
 }
 /* line 20, ../sass-css/_posts.scss */
-.post .categories li:hover a, .home-post-banda .categories li:hover a {
+.post .categories li:hover a {
   color: white;
 }
 /* line 24, ../sass-css/_posts.scss */
-.post .categories li a, .home-post-banda .categories li a {
+.post .categories li a {
   color: #333333;
   text-decoration: none;
 }
 /* line 14, ../sass-css/_posts.scss */
-.post .tags li, .home-post-banda .tags li {
+.post .tags li {
   background: #dddddd;
   border-radius: 7px;
   padding: 0px 3px;
 }
 /* line 18, ../sass-css/_posts.scss */
-.post .tags li:hover, .home-post-banda .tags li:hover {
+.post .tags li:hover {
   background: #222222;
 }
 /* line 20, ../sass-css/_posts.scss */
-.post .tags li:hover a, .home-post-banda .tags li:hover a {
+.post .tags li:hover a {
   color: #dddddd;
 }
 /* line 24, ../sass-css/_posts.scss */
-.post .tags li a, .home-post-banda .tags li a {
+.post .tags li a {
   color: #222222;
   text-decoration: none;
 }
