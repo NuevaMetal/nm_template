@@ -1,10 +1,5 @@
 // _home.scss
 
-.home-title a {
-	color: #333;
-	text-decoration: none;
-}
-
 .home-post-banda {	
 	height: auto;
 	word-wrap: break-word;
@@ -14,7 +9,6 @@
 	}
 }
 
-.pagination {
-	display: block;
-	border-radius: 4px;
+.pager {
+	//margin:0;
 }

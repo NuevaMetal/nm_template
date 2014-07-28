@@ -694,26 +694,14 @@ textarea {
   }
 }
 /* line 3, ../sass-css/_home.scss */
-.home-title a {
-  color: #333;
-  text-decoration: none;
-}
-
-/* line 8, ../sass-css/_home.scss */
 .home-post-banda {
   height: auto;
   word-wrap: break-word;
   overflow: hidden;
 }
-/* line 12, ../sass-css/_home.scss */
+/* line 7, ../sass-css/_home.scss */
 .home-post-banda .info a {
   color: #999;
-}
-
-/* line 17, ../sass-css/_home.scss */
-.pagination {
-  display: block;
-  border-radius: 4px;
 }
 
 /* line 4, ../sass-css/_posts.scss */
@@ -839,25 +827,35 @@ body {
   background-color: #fff;
 }
 
+/* line 94, ../sass-css/main.scss */
+.page-header {
+  margin: 0px;
+}
+/* line 96, ../sass-css/main.scss */
+.page-header a {
+  color: #333;
+  text-decoration: none;
+}
+
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 98, ../sass-css/main.scss */
+/* line 106, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 102, ../sass-css/main.scss */
+/* line 110, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 112, ../sass-css/main.scss */
+/* line 120, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 116, ../sass-css/main.scss */
+/* line 124, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
