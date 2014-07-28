@@ -46,7 +46,6 @@ body {
 }
 
 .post {
-	//border: 1px solid red;
 	height: 430px;
 	word-wrap: break-word;
 	overflow: hidden;
@@ -92,7 +91,7 @@ ul {
 	}
 }
 
-@mixin sombreado-color($bg-color: #ccc, $bg-hover: #fff){
+@mixin sombreado-color($bg-color: #ddd, $bg-hover: #222){
 	li{
 		background:  $bg-color;
 		border-radius: 7px;
@@ -111,7 +110,7 @@ ul {
 }
 
 .categories{
-	@include sombreado-color(#fff, red);
+	@include sombreado-color(#fff, #333);
 }
 
 .tags {

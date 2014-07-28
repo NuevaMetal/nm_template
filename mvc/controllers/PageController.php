@@ -17,7 +17,7 @@ class PageController extends ChesterBaseController {
 	 * @param array $args
 	 *        Lista de parámetros a pasar a la plantilla base
 	 */
-	public function renderBase($args = []) {
+	private function _renderBase($args = []) {
 		$menuPrincipal = $this->render('menu/principal', [
 			'home_url' => get_home_url()
 		]);
@@ -42,7 +42,7 @@ class PageController extends ChesterBaseController {
 			'previous_posts_link' => get_previous_posts_link()
 		]);
 
-		return $this->renderBase([
+		return $this->_renderBase([
 			'content' => $content
 		]);
 	}
@@ -67,7 +67,7 @@ class PageController extends ChesterBaseController {
 
 		$sidebar = $this->render('sidebar');
 
-		return $this->renderBase([
+		return $this->_renderBase([
 			'content' => $content,
 			'sidebar' => $sidebar
 		]);
@@ -80,7 +80,7 @@ class PageController extends ChesterBaseController {
 		$content = $this->render('error', array(
 			'num' => $num
 		));
-		return $this->renderBase([
+		return $this->_renderBase([
 			'content' => $content
 		]);
 	}
