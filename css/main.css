@@ -706,7 +706,7 @@ textarea {
 /* line 13, ../sass-css/_home.scss */
 #home .banda img {
   width: 100%;
-  max-height: 180px;
+  max-height: 200px;
 }
 @media only screen and (min-width: 768px) {
   /* line 4, ../sass-css/_home.scss */
