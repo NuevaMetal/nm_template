@@ -1,11 +1,20 @@
 <h2>¡Bienvenido!</h2>
 <hr>
-<p>
-	¿Te gusta lo que ves? ¿Tienes una banda y quieres necesitas difusión?
-	¿Te gustaría publicar tus bandas preferidas? ¿Te gusta escribir críticas de los nuevos álbumes?
-</p>
-<p>¡Únete a la comundidad nuevametalera!</p>
-<p><a href="/tutorial">Empieza a publicar tu música metal</a></p>
+{{>sidebar/_primero}}
 <hr>
-{{> sidebar/login }}
+
+{{! Si no está registrado/logueado el user }}
+{{^current_user}}
+<div class="sidebar-item">
+	{{> sidebar/_login }}
+</div>
 <hr>
+{{/current_user}}
+
+{{! Si ya está logueado el user }}
+{{#current_user}}
+<div class="sidebar-item">
+	{{> sidebar/_ya_logueado }}
+</div>
+<hr>
+{{/current_user}}
