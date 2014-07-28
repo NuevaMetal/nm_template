@@ -53,15 +53,18 @@ class PageController extends ChesterBaseController {
 	public function getHome() {
 		$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$posts_videos = ChesterWPCoreDataHelpers::getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false);
+		//$posts_videos = ChesterWPCoreDataHelpers::getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false);
+
 
 		$content = $this->render('home', [
 			'bandas' => $posts_bandas,
-			'videos' => $posts_videos
-		]);
-		//'next_posts_link' => get_next_posts_link(),
-		//'previous_posts_link' => get_previous_posts_link()
+			//'videos' => $posts_videos
 
+
+			'next_posts_link' => get_next_posts_link(),
+
+			'previous_posts_link' => get_previous_posts_link()
+		]);
 		return $this->_renderBase([
 			'content' => $content
 		]);
