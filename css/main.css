@@ -693,36 +693,114 @@ textarea {
     page-break-after: avoid;
   }
 }
-/* line 28, ../sass-css/main.scss */
+/* line 3, ../sass-css/_home.scss */
+.home-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* line 8, ../sass-css/_home.scss */
+.home-post-banda {
+  height: 430px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+/* line 12, ../sass-css/_home.scss */
+.home-post-banda .info a {
+  color: #999;
+}
+
+/* line 17, ../sass-css/_home.scss */
+.pagination {
+  display: block;
+  border-radius: 4px;
+}
+
+/* line 3, ../sass-css/_posts.scss */
+ul {
+  padding-left: 15px;
+}
+/* line 5, ../sass-css/_posts.scss */
+ul li {
+  list-style: none;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+
+/* line 12, ../sass-css/_posts.scss */
+.categories li {
+  background: white;
+  border-radius: 7px;
+  padding: 0px 3px;
+}
+/* line 16, ../sass-css/_posts.scss */
+.categories li:hover {
+  background: black;
+}
+/* line 18, ../sass-css/_posts.scss */
+.categories li:hover a {
+  color: white;
+}
+/* line 22, ../sass-css/_posts.scss */
+.categories li a {
+  color: #333333;
+  text-decoration: none;
+}
+
+/* line 12, ../sass-css/_posts.scss */
+.tags li {
+  background: #dddddd;
+  border-radius: 7px;
+  padding: 0px 3px;
+}
+/* line 16, ../sass-css/_posts.scss */
+.tags li:hover {
+  background: #222222;
+}
+/* line 18, ../sass-css/_posts.scss */
+.tags li:hover a {
+  color: #dddddd;
+}
+/* line 22, ../sass-css/_posts.scss */
+.tags li a {
+  color: #222222;
+  text-decoration: none;
+}
+
+/* line 31, ../sass-css/main.scss */
 .site-title {
   font-size: 40px;
   text-align: center;
 }
 @media only screen and (min-width: 768px) {
-  /* line 28, ../sass-css/main.scss */
+  /* line 31, ../sass-css/main.scss */
   .site-title {
     padding-top: 40px;
   }
 }
 @media only screen and (min-width: 992px) {
-  /* line 28, ../sass-css/main.scss */
+  /* line 31, ../sass-css/main.scss */
   .site-title {
     font-size: 50px;
     padding-top: 28px;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 28, ../sass-css/main.scss */
+  /* line 31, ../sass-css/main.scss */
   .site-title {
     font-size: 60px;
     padding-top: 0px;
   }
 }
-/* line 42, ../sass-css/main.scss */
+/* line 45, ../sass-css/main.scss */
 .site-title a {
   color: #E6E6E6;
 }
-/* line 44, ../sass-css/main.scss */
+/* line 47, ../sass-css/main.scss */
 .site-title a:hover {
   text-decoration: none;
 }
@@ -762,36 +840,25 @@ body {
   background-color: #fff;
 }
 
-/* line 94, ../sass-css/main.scss */
-.post {
-  height: 430px;
-  word-wrap: break-word;
-  overflow: hidden;
-}
-/* line 98, ../sass-css/main.scss */
-.post .info a {
-  color: #999;
-}
-
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 106, ../sass-css/main.scss */
+/* line 98, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 110, ../sass-css/main.scss */
+/* line 102, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 120, ../sass-css/main.scss */
+/* line 112, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 124, ../sass-css/main.scss */
+/* line 116, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -799,68 +866,13 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 132, ../sass-css/main.scss */
-ul {
-  padding-left: 15px;
-}
-/* line 134, ../sass-css/main.scss */
-ul li {
-  list-style: none;
-  display: -moz-inline-stack;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  zoom: 1;
-  *display: inline;
-}
-
-/* line 141, ../sass-css/main.scss */
-.categories li {
-  background: white;
-  border-radius: 7px;
-  padding: 0px 3px;
-}
-/* line 145, ../sass-css/main.scss */
-.categories li:hover {
-  background: black;
-}
-/* line 147, ../sass-css/main.scss */
-.categories li:hover a {
-  color: white;
-}
-/* line 151, ../sass-css/main.scss */
-.categories li a {
-  color: #333333;
-  text-decoration: none;
-}
-
-/* line 141, ../sass-css/main.scss */
-.tags li {
-  background: #dddddd;
-  border-radius: 7px;
-  padding: 0px 3px;
-}
-/* line 145, ../sass-css/main.scss */
-.tags li:hover {
-  background: #222222;
-}
-/* line 147, ../sass-css/main.scss */
-.tags li:hover a {
-  color: #dddddd;
-}
-/* line 151, ../sass-css/main.scss */
-.tags li a {
-  color: #222222;
-  text-decoration: none;
-}
-
-/* line 166, ../sass-css/main.scss */
+/* line 125, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 171, ../sass-css/main.scss */
+/* line 130, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;

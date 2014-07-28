@@ -1,0 +1,35 @@
+// _posts.scss
+
+ul {
+	padding-left: 15px;
+	li {
+		list-style: none;
+		@include inline-block;
+	}
+}
+
+@mixin sombreado-color($bg-color: #ddd, $bg-hover: #222){
+	li{
+		background:  $bg-color;
+		border-radius: 7px;
+		padding: 0px 3px;
+		&:hover{
+			background: invert($bg-color);
+			a {
+				color: $bg-color; 
+			}
+		}
+		a {
+			color: $bg-hover;			
+			text-decoration: none;			
+		}
+	}
+}
+
+.categories{
+	@include sombreado-color(#fff, #333);
+}
+
+.tags {
+	@include sombreado-color(#ddd, #222);
+}

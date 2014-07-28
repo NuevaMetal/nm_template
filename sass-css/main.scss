@@ -5,6 +5,9 @@
 @import "libs/html5boilerplate/main.scss";
 @import "compass/css3/inline-block";
 
+@import "home.scss";
+@import "posts.scss";
+
 $screen-xs-max: 767px;
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
@@ -47,9 +50,6 @@ $screen-lg-min: 1200px;
 	}
 }
 
-
-$maxWidth: 1200px; //960px;
-
 #content{
 	overflow: hidden;
 	*{
@@ -91,14 +91,6 @@ body {
   	background-color: #fff;  	
 }
 
-.post {
-	height: 430px;
-	word-wrap: break-word;
-	overflow: hidden;
-	.info a {
-		color: #999;
-	}
-}
 
 /* ******************************************************************/
 /* 								IDs 								*/
@@ -129,39 +121,6 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-ul {
-	padding-left: 15px;
-	li {
-		list-style: none;
-		@include inline-block;
-	}
-}
-
-@mixin sombreado-color($bg-color: #ddd, $bg-hover: #222){
-	li{
-		background:  $bg-color;
-		border-radius: 7px;
-		padding: 0px 3px;
-		&:hover{
-			background: invert($bg-color);
-			a {
-				color: $bg-color; 
-			}
-		}
-		a {
-			color: $bg-hover;			
-			text-decoration: none;			
-		}
-	}
-}
-
-.categories{
-	@include sombreado-color(#fff, #333);
-}
-
-.tags {
-	@include sombreado-color(#ddd, #222);
-}
 
 .home-title a {
 	color: #333;

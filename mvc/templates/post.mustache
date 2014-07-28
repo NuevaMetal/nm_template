@@ -1,3 +1,4 @@
+<div class="post">
 {{#post}}
 	<h1>{{{title}}}</h1>
 	<p>{{time}} - {{author}}</p>
@@ -11,8 +12,11 @@
 	    	{{> categories}}
 	    </div>	
 	</div>
-	{{{content}}}
+	<div class="content">
+		{{{content}}}
+	</div>
 	<div class="tags">
 		{{> tags}}
 	</div>
 {{/post}}
+</div>

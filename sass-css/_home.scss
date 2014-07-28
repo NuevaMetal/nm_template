@@ -1,0 +1,20 @@
+// _home.scss
+
+.home-title a {
+	color: #333;
+	text-decoration: none;
+}
+
+.home-post-banda {
+	height: 430px;
+	word-wrap: break-word;
+	overflow: hidden;
+	.info a {
+		color: #999;
+	}
+}
+
+.pagination {
+	display: block;
+	border-radius: 4px;
+}
