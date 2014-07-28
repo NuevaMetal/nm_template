@@ -69,6 +69,11 @@ body {
 #page{
   	background-color: #fff;  	
 }
+/*.pager{
+	a {
+		color: red;
+	}
+}*/
 
 .page-header {
 	margin: 0px;
@@ -76,6 +81,10 @@ body {
 		color: #333;
 		text-decoration: none;
 	}
+}
+
+.post.thumbnail {
+	height: 350px;
 }
 
 .sin-thumbnail{

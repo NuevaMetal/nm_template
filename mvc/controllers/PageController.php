@@ -85,7 +85,9 @@ class PageController extends ChesterBaseController {
 		]);
 
 		$content = $this->render('post', [
-			'post' => $posts [0]
+			'post' => $posts [0],
+			'next_post' => get_next_post_link("%link"),
+			'previous_post' => get_previous_post_link("%link")
 		]);
 
 		$sidebar = $this->render('sidebar');

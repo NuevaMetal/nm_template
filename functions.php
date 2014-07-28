@@ -1,5 +1,6 @@
 <?php
 require_once (dirname(__FILE__) . '/lib/chester/require.php');
+require_once (dirname(__FILE__). '/lib/chemaclass/require.php');
 
 $galleryLocationBlock = array(
 	'name' => 'location',
