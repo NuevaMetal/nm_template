@@ -1,10 +1,12 @@
 // _posts.scss
 
-ul {
-	padding-left: 15px;
-	li {
-		list-style: none;
-		@include inline-block;
+%ul-inline {
+	ul {
+		padding-left: 15px;
+		li {
+			list-style: none;
+			@include inline-block;
+		}
 	}
 }
 
@@ -26,10 +28,15 @@ ul {
 	}
 }
 
-.categories{
-	@include sombreado-color(#fff, #333);
-}
+.post, .home-post-banda {
 
-.tags {
-	@include sombreado-color(#ddd, #222);
+	@extend %ul-inline;	
+	
+	.categories{
+		@include sombreado-color(#fff, #333);
+	}
+	
+	.tags {
+		@include sombreado-color(#ddd, #222);
+	}
 }

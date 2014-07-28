@@ -701,7 +701,7 @@ textarea {
 
 /* line 8, ../sass-css/_home.scss */
 .home-post-banda {
-  height: 430px;
+  height: auto;
   word-wrap: break-word;
   overflow: hidden;
 }
@@ -716,12 +716,12 @@ textarea {
   border-radius: 4px;
 }
 
-/* line 3, ../sass-css/_posts.scss */
-ul {
+/* line 4, ../sass-css/_posts.scss */
+.post ul, .home-post-banda ul {
   padding-left: 15px;
 }
-/* line 5, ../sass-css/_posts.scss */
-ul li {
+/* line 6, ../sass-css/_posts.scss */
+.post ul li, .home-post-banda ul li {
   list-style: none;
   display: -moz-inline-stack;
   display: inline-block;
@@ -731,42 +731,41 @@ ul li {
   *display: inline;
 }
 
-/* line 12, ../sass-css/_posts.scss */
-.categories li {
+/* line 14, ../sass-css/_posts.scss */
+.post .categories li, .home-post-banda .categories li {
   background: white;
   border-radius: 7px;
   padding: 0px 3px;
 }
-/* line 16, ../sass-css/_posts.scss */
-.categories li:hover {
+/* line 18, ../sass-css/_posts.scss */
+.post .categories li:hover, .home-post-banda .categories li:hover {
   background: black;
 }
-/* line 18, ../sass-css/_posts.scss */
-.categories li:hover a {
+/* line 20, ../sass-css/_posts.scss */
+.post .categories li:hover a, .home-post-banda .categories li:hover a {
   color: white;
 }
-/* line 22, ../sass-css/_posts.scss */
-.categories li a {
+/* line 24, ../sass-css/_posts.scss */
+.post .categories li a, .home-post-banda .categories li a {
   color: #333333;
   text-decoration: none;
 }
-
-/* line 12, ../sass-css/_posts.scss */
-.tags li {
+/* line 14, ../sass-css/_posts.scss */
+.post .tags li, .home-post-banda .tags li {
   background: #dddddd;
   border-radius: 7px;
   padding: 0px 3px;
 }
-/* line 16, ../sass-css/_posts.scss */
-.tags li:hover {
+/* line 18, ../sass-css/_posts.scss */
+.post .tags li:hover, .home-post-banda .tags li:hover {
   background: #222222;
 }
-/* line 18, ../sass-css/_posts.scss */
-.tags li:hover a {
+/* line 20, ../sass-css/_posts.scss */
+.post .tags li:hover a, .home-post-banda .tags li:hover a {
   color: #dddddd;
 }
-/* line 22, ../sass-css/_posts.scss */
-.tags li a {
+/* line 24, ../sass-css/_posts.scss */
+.post .tags li a, .home-post-banda .tags li a {
   color: #222222;
   text-decoration: none;
 }
@@ -866,14 +865,3 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 125, ../sass-css/main.scss */
-.home-title a {
-  color: #333;
-  text-decoration: none;
-}
-
-/* line 130, ../sass-css/main.scss */
-.pagination {
-  display: block;
-  border-radius: 4px;
-}
