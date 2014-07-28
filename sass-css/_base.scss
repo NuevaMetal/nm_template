@@ -1,0 +1,19 @@
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+@mixin col($media) {
+	@if $media == xs {
+		@media only screen and (max-width: $screen-xs-max) { @content; }
+	}
+	@else if $media == sm {
+		@media only screen and (min-width: $screen-sm-min) { @content; }
+	}
+	@else if $media == md {
+		@media only screen and (min-width: $screen-md-min) { @content; }
+	}
+	@else if $media == lg {
+		@media only screen and (min-width: $screen-lg-min) { @content; }
+	}
+}

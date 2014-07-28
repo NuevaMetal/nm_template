@@ -699,14 +699,26 @@ textarea {
   word-wrap: break-word;
   overflow: hidden;
 }
-/* line 8, ../sass-css/_home.scss */
+/* line 10, ../sass-css/_home.scss */
 #home .banda .info a {
   color: #999;
 }
-/* line 11, ../sass-css/_home.scss */
+/* line 13, ../sass-css/_home.scss */
 #home .banda img {
   width: 100%;
   max-height: 220px;
+}
+@media only screen and (min-width: 768px) {
+  /* line 4, ../sass-css/_home.scss */
+  #home .banda {
+    height: 515px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 4, ../sass-css/_home.scss */
+  #home .banda {
+    height: auto;
+  }
 }
 
 /* line 4, ../sass-css/_posts.scss */
@@ -763,46 +775,46 @@ textarea {
   text-decoration: none;
 }
 
-/* line 31, ../sass-css/main.scss */
+/* line 12, ../sass-css/main.scss */
 .site-title {
   font-size: 40px;
   text-align: center;
 }
 @media only screen and (min-width: 768px) {
-  /* line 31, ../sass-css/main.scss */
+  /* line 12, ../sass-css/main.scss */
   .site-title {
     padding-top: 40px;
   }
 }
 @media only screen and (min-width: 992px) {
-  /* line 31, ../sass-css/main.scss */
+  /* line 12, ../sass-css/main.scss */
   .site-title {
     font-size: 50px;
     padding-top: 28px;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 31, ../sass-css/main.scss */
+  /* line 12, ../sass-css/main.scss */
   .site-title {
     font-size: 60px;
     padding-top: 0px;
   }
 }
-/* line 45, ../sass-css/main.scss */
+/* line 26, ../sass-css/main.scss */
 .site-title a {
   color: #E6E6E6;
 }
-/* line 47, ../sass-css/main.scss */
+/* line 28, ../sass-css/main.scss */
 .site-title a:hover {
   text-decoration: none;
 }
 
-/* line 53, ../sass-css/main.scss */
+/* line 34, ../sass-css/main.scss */
 #content {
   overflow: hidden;
 }
 
-/* line 64, ../sass-css/main.scss */
+/* line 45, ../sass-css/main.scss */
 body {
   background-color: #000;
   background: url(../img/nm_back.jpg);
@@ -815,7 +827,7 @@ body {
   margin: 0px;
 }
 
-/* line 78, ../sass-css/main.scss */
+/* line 57, ../sass-css/main.scss */
 .header-img {
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -827,40 +839,47 @@ body {
   width: 100%;
 }
 
-/* line 90, ../sass-css/main.scss */
+/* line 69, ../sass-css/main.scss */
 #page {
   background-color: #fff;
 }
 
-/* line 94, ../sass-css/main.scss */
+/* line 73, ../sass-css/main.scss */
 .page-header {
   margin: 0px;
 }
-/* line 96, ../sass-css/main.scss */
+/* line 75, ../sass-css/main.scss */
 .page-header a {
   color: #333;
   text-decoration: none;
 }
 
+/* line 81, ../sass-css/main.scss */
+.sin-thumbnail {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../img/sin_thumbnail.jpg");
+}
+
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 106, ../sass-css/main.scss */
+/* line 91, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 110, ../sass-css/main.scss */
+/* line 95, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 120, ../sass-css/main.scss */
+/* line 105, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 124, ../sass-css/main.scss */
+/* line 109, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }

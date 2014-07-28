@@ -5,28 +5,9 @@
 @import "libs/html5boilerplate/main.scss";
 @import "compass/css3/inline-block";
 
+@import "base.scss";
 @import "home.scss";
 @import "posts.scss";
-
-$screen-xs-max: 767px;
-$screen-sm-min: 768px;
-$screen-md-min: 992px;
-$screen-lg-min: 1200px;
-
-@mixin col($media) {
-	@if $media == xs {
-		@media only screen and (max-width: $screen-xs-max) { @content; }
-	}
-	@else if $media == sm {
-		@media only screen and (min-width: $screen-sm-min) { @content; }
-	}
-	@else if $media == md {
-		@media only screen and (min-width: $screen-md-min) { @content; }
-	}
-	@else if $media == lg {
-		@media only screen and (min-width: $screen-lg-min) { @content; }
-	}
-}
 
 .site-title {
 	@include col(sm) {
@@ -73,8 +54,6 @@ body {
 	margin: 0px;
 }
 
-
-
 .header-img {
 	//background-position: center;
 	background-repeat: no-repeat;
@@ -97,6 +76,12 @@ body {
 		color: #333;
 		text-decoration: none;
 	}
+}
+
+.sin-thumbnail{
+	background-position:center; 
+	background-size: cover;
+	background-image: url('../img/sin_thumbnail.jpg');
 }
 
 

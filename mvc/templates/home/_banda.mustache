@@ -6,11 +6,16 @@
 	    	{{> categories}}
 	    </div>
     </div>
-    {{#featured_image_url_medium}}
-    	<a href="{{permalink}}" class="thumbnail">
-    		<img src="{{featured_image_url_medium}}" />
-    	</a>
-    {{/featured_image_url_medium}}
+    
+	<a href="{{permalink}}" class="thumbnail">
+		{{#featured_image_url_medium}}
+			<img src="{{featured_image_url_medium}}" />		
+		{{/featured_image_url_medium}}	
+		{{^featured_image_url_medium}}
+			<img class="sin-thumbnail" src="#" />
+		{{/featured_image_url_medium}}
+	</a>
+    
     {{{excerpt}}}
     <div class="tags">
     	{{> tags}}
