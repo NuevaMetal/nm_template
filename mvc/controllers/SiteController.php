@@ -7,7 +7,7 @@ class SiteController extends ChesterBaseController {
 	public function showPostPreviews() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content_block_1 = $this->render('post_previews', array(
+		$content_block_1 = $this->render('home', array(
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()

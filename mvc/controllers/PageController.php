@@ -31,16 +31,36 @@ class PageController extends ChesterBaseController {
 	}
 
 	/**
-	 * home.php
+	 * index.php
 	 */
-	public function getHome() {
+	public function getIndex() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->render('home', [
+		$content = $this->render('index', array(
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
+		));
+
+		return $this->_renderBase([
+			'content' => $content
 		]);
+	}
+
+	/**
+	 * home.php
+	 */
+	public function getHome() {
+		$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+
+		$posts_videos = ChesterWPCoreDataHelpers::getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false);
+
+		$content = $this->render('home', [
+			'bandas' => $posts_bandas,
+			'videos' => $posts_videos
+		]);
+		//'next_posts_link' => get_next_posts_link(),
+		//'previous_posts_link' => get_previous_posts_link()
 
 		return $this->_renderBase([
 			'content' => $content
@@ -83,6 +103,37 @@ class PageController extends ChesterBaseController {
 		return $this->_renderBase([
 			'content' => $content
 		]);
+	}
+
+	/**
+	 * page-pattern-primer.php
+	 */
+	public function showPatternPrimer() {
+		$patternPrimerController = new ChesterPatternPrimerController();
+
+		$post = $patternPrimerController->renderPattern('post', array(
+			'post' => array(
+				'permalink' => 'http://brightonculture.co.uk',
+				'title' => 'Post title',
+				'time' => '12th Nov 2012',
+				'content' => '<p>Sample content</p>'
+			)
+		));
+
+		$postPreview = $patternPrimerController->renderPattern('home', array(
+			'posts' => array(
+				'permalink' => 'http://brightonculture.co.uk',
+				'title' => 'Post preview title',
+				'time' => '12th Nov 2012',
+				'content' => '<p>Sample content</p>'
+			)
+		));
+
+		$patternGroup = $patternPrimerController->renderCustomPatternGroup($post . $postPreview, 'modules/');
+		return $patternPrimerController->showPatternPrimer(array(
+			'typography',
+			'grids'
+		), $patternGroup);
 	}
 
 }

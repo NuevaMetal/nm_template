@@ -1,0 +1,22 @@
+<section id="index">
+
+	<ul class="pager">
+	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</a></li>{{/previous_posts_link}}
+	  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</a></li>{{/next_posts_link}}
+	</ul>
+
+	<article class="posts-bandas">
+		<section>
+			<header class="page-header col-xs-12">
+				<h1>Resultados <small>¿No encontraste lo que buscabas? 
+					Escríbenos a nuestras redes <a href="https://www.facebook.com/nuevametalweb" title="/NuevaMetal">FB</a> 
+					<a href="https://twitter.com/NuevaMetal" title="@NuevaMetal">TW</a>
+					<a href="https://plus.google.com/+NuevametalWeb/posts" title="+NuevaMetal">G+</a>
+					</small></h1>
+			</header>
+			{{#posts}}
+				{{>home/_banda}}
+			{{/posts}}
+		</section>
+	</article>	
+</section>

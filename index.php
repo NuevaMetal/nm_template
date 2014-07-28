@@ -1,11 +1,7 @@
 <?php
-//require the site controller we just created
-require_once(dirname(__FILE__).'/mvc/controllers/SiteController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
 
-//init the site controller
-$siteController = new SiteController();
+$pageController = new PageController();
 
-//call the showPostPreviews function
-$siteController->showPostPreviews();
-
+$pageController->getIndex();
 ?>

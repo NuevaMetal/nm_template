@@ -10,9 +10,9 @@
 			<header class="page-header col-xs-12">
 				<h1>Bandas <small>Discografías</small></h1>
 			</header>
-			{{#posts}}
+			{{#bandas}}
 				{{>home/_banda}}
-			{{/posts}}
+			{{/bandas}}
 		</section>
 	</article>	
 	
@@ -21,7 +21,9 @@
 		<header class="page-header col-xs-12">
 			<h1>Vídeos <small>Últimos videoclips, singles, covers...</small></h1>
 		</header>
-		
+		{{#videos}}
+			{{>home/_video}}
+		{{/videos}}
 		</section>
 	</article>
 	
