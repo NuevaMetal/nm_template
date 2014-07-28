@@ -1,11 +1,11 @@
 {{#post}}
-	<h1><a href="{{permalink}}">{{{title}}}</a></h1>
+	<h1>{{{title}}}</h1>
 	<p>{{time}} - {{author}}</p>
 	<div class="info">
 		{{#featured_image_url_medium}}
-			<a href="{{permalink}}" class="thumbnail col-xs-2">
+			<div class="thumbnail col-xs-2">
 				<img src="{{featured_image_url_thumbnail}}" />
-			</a>
+			</div>
 		{{/featured_image_url_medium}}
 	  	<div class="categories">
 	    	{{> categories}}

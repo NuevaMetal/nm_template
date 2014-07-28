@@ -693,21 +693,46 @@ textarea {
     page-break-after: avoid;
   }
 }
-/* line 1, ../sass-css/navbar.scss */
-navbar {
-  color: red !important;
+/* line 28, ../sass-css/main.scss */
+.site-title {
+  font-size: 40px;
+  text-align: center;
 }
-/* line 3, ../sass-css/navbar.scss */
-navbar ul * {
-  height: 10px !important;
+@media only screen and (min-width: 768px) {
+  /* line 28, ../sass-css/main.scss */
+  .site-title {
+    padding-top: 40px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  /* line 28, ../sass-css/main.scss */
+  .site-title {
+    font-size: 50px;
+    padding-top: 28px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 28, ../sass-css/main.scss */
+  .site-title {
+    font-size: 60px;
+    padding-top: 0px;
+  }
+}
+/* line 42, ../sass-css/main.scss */
+.site-title a {
+  color: #E6E6E6;
+}
+/* line 44, ../sass-css/main.scss */
+.site-title a:hover {
+  text-decoration: none;
 }
 
-/* line 11, ../sass-css/main.scss */
+/* line 53, ../sass-css/main.scss */
 #content {
   overflow: hidden;
 }
 
-/* line 22, ../sass-css/main.scss */
+/* line 64, ../sass-css/main.scss */
 body {
   background-color: #000;
   background: url(../img/nm_back.jpg);
@@ -720,28 +745,30 @@ body {
   margin: 0px;
 }
 
-/* line 34, ../sass-css/main.scss */
-.site-title {
-  height: 200px;
-  width: 100%;
-  margin: 0px auto;
-  background: url(../img/nm_head1.jpg) no-repeat top center fixed;
+/* line 78, ../sass-css/main.scss */
+.header-img {
+  background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
+  background-color: #000000;
+  background-image: url("../img/nm_head.jpg");
   color: transparent;
+  min-height: 150px;
+  width: 100%;
 }
 
-/* line 44, ../sass-css/main.scss */
+/* line 90, ../sass-css/main.scss */
 #page {
   background-color: #fff;
 }
 
-/* line 48, ../sass-css/main.scss */
+/* line 94, ../sass-css/main.scss */
 .post {
   height: 430px;
   word-wrap: break-word;
   overflow: hidden;
 }
-/* line 52, ../sass-css/main.scss */
+/* line 98, ../sass-css/main.scss */
 .post .info a {
   color: #999;
 }
@@ -749,22 +776,22 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 60, ../sass-css/main.scss */
+/* line 106, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 64, ../sass-css/main.scss */
+/* line 110, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 74, ../sass-css/main.scss */
+/* line 120, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 78, ../sass-css/main.scss */
+/* line 124, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
@@ -772,11 +799,11 @@ body {
 /* ******************************************************************/
 /* 							 Clases 								*/
 /* ******************************************************************/
-/* line 86, ../sass-css/main.scss */
+/* line 132, ../sass-css/main.scss */
 ul {
   padding-left: 15px;
 }
-/* line 88, ../sass-css/main.scss */
+/* line 134, ../sass-css/main.scss */
 ul li {
   list-style: none;
   display: -moz-inline-stack;
@@ -787,53 +814,53 @@ ul li {
   *display: inline;
 }
 
-/* line 95, ../sass-css/main.scss */
+/* line 141, ../sass-css/main.scss */
 .categories li {
   background: white;
   border-radius: 7px;
   padding: 0px 3px;
 }
-/* line 99, ../sass-css/main.scss */
+/* line 145, ../sass-css/main.scss */
 .categories li:hover {
   background: black;
 }
-/* line 101, ../sass-css/main.scss */
+/* line 147, ../sass-css/main.scss */
 .categories li:hover a {
   color: white;
 }
-/* line 105, ../sass-css/main.scss */
+/* line 151, ../sass-css/main.scss */
 .categories li a {
   color: #333333;
   text-decoration: none;
 }
 
-/* line 95, ../sass-css/main.scss */
+/* line 141, ../sass-css/main.scss */
 .tags li {
   background: #dddddd;
   border-radius: 7px;
   padding: 0px 3px;
 }
-/* line 99, ../sass-css/main.scss */
+/* line 145, ../sass-css/main.scss */
 .tags li:hover {
   background: #222222;
 }
-/* line 101, ../sass-css/main.scss */
+/* line 147, ../sass-css/main.scss */
 .tags li:hover a {
   color: #dddddd;
 }
-/* line 105, ../sass-css/main.scss */
+/* line 151, ../sass-css/main.scss */
 .tags li a {
   color: #222222;
   text-decoration: none;
 }
 
-/* line 120, ../sass-css/main.scss */
+/* line 166, ../sass-css/main.scss */
 .home-title a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 125, ../sass-css/main.scss */
+/* line 171, ../sass-css/main.scss */
 .pagination {
   display: block;
   border-radius: 4px;

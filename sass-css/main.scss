@@ -4,7 +4,49 @@
 @import "libs/html5boilerplate/normalize.scss";
 @import "libs/html5boilerplate/main.scss";
 @import "compass/css3/inline-block";
-@import "navbar.scss";
+
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+@mixin col($media) {
+	@if $media == xs {
+		@media only screen and (max-width: $screen-xs-max) { @content; }
+	}
+	@else if $media == sm {
+		@media only screen and (min-width: $screen-sm-min) { @content; }
+	}
+	@else if $media == md {
+		@media only screen and (min-width: $screen-md-min) { @content; }
+	}
+	@else if $media == lg {
+		@media only screen and (min-width: $screen-lg-min) { @content; }
+	}
+}
+
+.site-title {
+	@include col(sm) {
+		padding-top: 40px;
+	}
+	@include col(md) {
+		font-size: 50px;
+		padding-top: 28px;
+	}
+	@include col(lg) {
+		font-size: 60px;
+		padding-top: 0px;
+	}	
+	font-size: 40px;
+	text-align: center;	
+	a {
+		color: #E6E6E6;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
 
 $maxWidth: 1200px; //960px;
 
@@ -28,17 +70,21 @@ body {
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 16px ;
-	margin: 0px;	
+	margin: 0px;
 }
 
-.site-title {
-	height: 200px;
-	width: 100%;
-	margin: 0px auto;
-	background: url(../img/nm_head1.jpg) no-repeat top center fixed;
-	background-attachment: fixed;	
-	//width: 100w;
+
+
+.header-img {
+	//background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #000000;
+	background-image: url('../img/nm_head.jpg');
 	color: transparent;
+	min-height: 150px;
+	width: 100%;
 }
 
 #page{
