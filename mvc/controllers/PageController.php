@@ -72,7 +72,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_tag = single_tag_title("", false);
 		$content = $this->render('home', [
-			'header' => "Búsqueda por tag '$current_tag'",
+			'header' => "Búsqueda por la etiqueta '$current_tag'",
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
