@@ -94,12 +94,9 @@ class PageController extends ChesterBaseController {
 
 		$sidebar = $this->render('sidebar', [
 			'home_url' => get_home_url(),
-			//'is_user_logged_in' => is_user_logged_in(),
 			'is_admin' => is_admin(),
-			'current_user' => $current_user->ID != 0 ? $current_user : false
+			'display_name' => $current_user->display_name
 		]);
-
-		error_log("id : {$current_user->ID}");
 
 		return $this->_renderBase([
 			'content' => $content,

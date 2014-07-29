@@ -4,17 +4,17 @@
 <hr>
 
 {{! Si no está registrado/logueado el user }}
-{{^current_user}}
+{{^display_name}}
 <div class="sidebar-item">
 	{{> sidebar/_login }}
 </div>
 <hr>
-{{/current_user}}
+{{/display_name}}
 
 {{! Si ya está logueado el user }}
-{{#current_user}}
+{{#display_name}}
 <div class="sidebar-item">
 	{{> sidebar/_ya_logueado }}
 </div>
 <hr>
-{{/current_user}}
+{{/display_name}}
