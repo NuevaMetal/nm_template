@@ -1,0 +1,16 @@
+<div class="title">
+	<h4>Bienvenido {{current_user.display_name}}</h4>
+</div>
+<div class="avatar col-xs-12 col-sm-2">
+	{{{user_avatar}}}
+</div>
+<div class="col-xs-12 col-sm-9">
+	<div>
+		<ul class="list-group ">
+			<li class="list-group-item col-xs-12 col-sm-3"><a class="dashboard" href="/wp-admin/">Escritorio</a></li>
+			<li class="list-group-item col-xs-12 col-sm-3"><a class="write" href="/wp-admin/post-new.php">Escribir</a></li>
+			<li class="list-group-item col-xs-12 col-sm-3"><a class="profile" href="/wp-admin/profile.php">Perfil</a></li>
+			<li class="list-group-item col-xs-12 col-sm-3"><a class="log-out last" id="wp-logout" href="/wp-login.php?action=logout&amp;redirect_to={{home_url}}">Logout</a></li>
+		</ul>
+	</div>
+</div>

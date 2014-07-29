@@ -18,9 +18,14 @@ class PageController extends ChesterBaseController {
 	 *        Lista de parámetros a pasar a la plantilla base
 	 */
 	private function _renderBase($args = []) {
+		$current_user = wp_get_current_user();
+
 		$menuPrincipal = $this->render('menu/principal', [
-			'home_url' => get_home_url()
+			'home_url' => get_home_url(),
+			'current_user' => $current_user->ID != 0 ? $current_user : false,
+			'user_avatar' => get_avatar($current_user->ID)
 		]);
+
 		$menuFooter = $this->render('menu/footer', [
 			'home_url' => get_home_url()
 		]);
@@ -85,7 +90,7 @@ class PageController extends ChesterBaseController {
 			'user_avatar' => get_avatar(get_the_author_meta('ID'), 32),
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
-			'description' => get_the_author_meta('description'),
+			'description' => get_the_author_meta('description')
 		]);
 
 		$content = $this->render('post', [
@@ -100,8 +105,8 @@ class PageController extends ChesterBaseController {
 		$sidebar = $this->render('sidebar', [
 			'home_url' => get_home_url(),
 			'is_admin' => is_admin(),
-			'current_user' => $current_user,
-			'user_avatar' => get_avatar($current_user->ID,120)
+			'current_user' => $current_user->ID != 0 ? $current_user : false,
+			'user_avatar' => get_avatar($current_user->ID, 120)
 		]);
 
 		return $this->_renderBase([

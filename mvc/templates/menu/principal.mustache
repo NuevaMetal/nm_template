@@ -66,6 +66,23 @@
 			      </span>
 			    </div>
 			</form>
+			<div class="navbar-login">
+				{{! Si ya está logueado el user }}
+				{{#current_user}}
+				<div class="sidebar-item">
+					{{> menu/_ya_logueado }}
+				</div>
+				<hr>
+				{{/current_user}}
+				
+				{{! Si no está logueado el user }}
+				{{^current_user}}
+				<div class="sidebar-item">
+					{{> menu/_login }}
+				</div>
+				<hr>
+				{{/current_user}}
+			</div>
 		</nav>
 	</div>
 </header>
