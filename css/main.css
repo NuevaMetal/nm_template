@@ -775,46 +775,54 @@ textarea {
   text-decoration: none;
 }
 
-/* line 12, ../sass-css/main.scss */
+/* line 3, ../sass-css/_sidebar.scss */
+.sidebar-item .login .avatar {
+  height: auto;
+  width: 100%;
+  max-height: 160px;
+  max-width: 160px;
+}
+
+/* line 13, ../sass-css/main.scss */
 .site-title {
   font-size: 40px;
   text-align: center;
 }
 @media only screen and (min-width: 768px) {
-  /* line 12, ../sass-css/main.scss */
+  /* line 13, ../sass-css/main.scss */
   .site-title {
     padding-top: 40px;
   }
 }
 @media only screen and (min-width: 992px) {
-  /* line 12, ../sass-css/main.scss */
+  /* line 13, ../sass-css/main.scss */
   .site-title {
     font-size: 50px;
     padding-top: 28px;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 12, ../sass-css/main.scss */
+  /* line 13, ../sass-css/main.scss */
   .site-title {
     font-size: 60px;
     padding-top: 0px;
   }
 }
-/* line 26, ../sass-css/main.scss */
+/* line 27, ../sass-css/main.scss */
 .site-title a {
   color: #E6E6E6;
 }
-/* line 28, ../sass-css/main.scss */
+/* line 29, ../sass-css/main.scss */
 .site-title a:hover {
   text-decoration: none;
 }
 
-/* line 34, ../sass-css/main.scss */
+/* line 35, ../sass-css/main.scss */
 #content {
   overflow: hidden;
 }
 
-/* line 45, ../sass-css/main.scss */
+/* line 46, ../sass-css/main.scss */
 body {
   background-color: #000;
   background: url(../img/nm_back.jpg);
@@ -827,7 +835,7 @@ body {
   margin: 0px;
 }
 
-/* line 57, ../sass-css/main.scss */
+/* line 58, ../sass-css/main.scss */
 .header-img {
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -839,7 +847,7 @@ body {
   width: 100%;
 }
 
-/* line 69, ../sass-css/main.scss */
+/* line 70, ../sass-css/main.scss */
 #page {
   background-color: #fff;
 }
@@ -849,22 +857,22 @@ body {
 		color: red;
 	}
 }*/
-/* line 78, ../sass-css/main.scss */
+/* line 79, ../sass-css/main.scss */
 .page-header {
   margin: 0px;
 }
-/* line 80, ../sass-css/main.scss */
+/* line 81, ../sass-css/main.scss */
 .page-header a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 86, ../sass-css/main.scss */
+/* line 87, ../sass-css/main.scss */
 .post.thumbnail {
   height: 350px;
 }
 
-/* line 90, ../sass-css/main.scss */
+/* line 91, ../sass-css/main.scss */
 .sin-thumbnail {
   background-position: center;
   background-size: cover;
@@ -874,22 +882,22 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 100, ../sass-css/main.scss */
+/* line 101, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 104, ../sass-css/main.scss */
+/* line 105, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 114, ../sass-css/main.scss */
+/* line 115, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 118, ../sass-css/main.scss */
+/* line 119, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
