@@ -11,24 +11,22 @@ class BandasController extends BaseController {
 	/**
 	 * index.php
 	 */
-	public function showGalleries() {
-		//Set third variable to true
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop(false, array(
-			'location',
-			'map',
-			'website'
-		), true);
+	public function getBandas() {
+		$posts = ChesterWPCoreDataHelpers::getPosts($dateFormat = false,
+				$postType = 'post',
+				$numberPostsToFetch = -1,
+				$customFields = array(
+					'categoria' => 'achemacat'
+				),
+				$oddOrEven = false);
 
-		$content_block_1 = $this->render('galleries', array(
-			'posts' => $posts
+		$content = $this->render('bandas', array(
+			'bandas' => $posts
 		));
 
-		$content_block_2 = $this->render('sidebar');
-
-		echo $this->renderPage('grids/grid_two_column', array(
-			'content_block_1' => $content_block_1,
-			'content_block_2' => $content_block_2
-		));
+		return $this->_renderBase([
+			'content' => $content
+		]);
 	}
 
 }

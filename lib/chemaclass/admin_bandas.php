@@ -1,11 +1,23 @@
 <?php
+$nombreBanda = array(
+	'name' => 'nombre',
+	'blockTitle' => 'Nombre de la banda',
+	'fields' => array(
+		array(
+			'name' => 'nombre',
+			'labelTitle' => 'Nombre de la banda',
+			'fieldType' => 'textField'
+		)
+	)
+);
+
 $genero = array(
 	'name' => 'genero',
-	'blockTitle' => 'Género',
+	'blockTitle' => 'Géneros',
 	'fields' => array(
 		array(
 			'name' => 'genero',
-			'labelTitle' => 'País',
+			'labelTitle' => 'Género',
 			'fieldType' => 'textField'
 		)
 	)
@@ -18,6 +30,11 @@ $pais = array(
 		array(
 			'name' => 'pais',
 			'labelTitle' => 'País',
+			'fieldType' => 'textField'
+		),
+		array(
+			'name' => 'provincia',
+			'labelTitle' => 'Provincia',
 			'fieldType' => 'textField'
 		)
 	)
@@ -45,22 +62,45 @@ $redesSociales = array(
 	)
 );
 
+$albumes = array(
+	'name' => 'albumes',
+	'blockTitle' => 'Álbumes',
+	'fields' => array(
+		array(
+			'name' => 'albumes',
+			'labelTitle' => 'Álbumes',
+			'fieldType' => 'textarea'
+		),
+		array(
+			'name' => 'portada',
+			'labelTitle' => 'Imágen de su último trabajo',
+			'fieldType' => 'imageUploader'
+		)
+	)
+);
+
 $bandasCustomPostType = array(
 	'name' => 'banda',
 	'displayName' => 'banda',
 	'pluralDisplayName' => 'bandas',
 	'enablePostThumbnailSupport' => true,
 	'fieldBlocks' => array(
+		$nombreBanda,
 		$genero,
 		$pais,
-		$redesSociales
-	)
+		$redesSociales,
+		$albumes
+	),
+	/*'supports' => array(
+		'editor' => false
+	)*/
 );
 
 $adminSettings = array(
 	'customPostTypes' => array(
 		$bandasCustomPostType
-	)
+	),
+	'thumbnailsInStandardPosts' => true
 );
 
 $adminController = new ChesterAdminController($adminSettings);

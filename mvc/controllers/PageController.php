@@ -29,11 +29,17 @@ class PageController extends BaseController {
 	 * home.php
 	 */
 	public function getHome() {
-		$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		//$posts_videos = ChesterWPCoreDataHelpers::getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false);
-
-
+	/*	$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop(false, [
+			'categoria' => 'bandass'
+		]);
+*/
+		$catBandasId = get_cat_ID('bandass');
+		$posts_bandas = get_posts([
+			'category' => $catBandasId
+		]);
+		foreach($posts_bandas as $p){
+			echo "$p->title";
+		}
 		$content = $this->render('home', [
 			'bandas' => $posts_bandas,
 			//'videos' => $posts_videos

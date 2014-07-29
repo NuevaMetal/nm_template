@@ -1,11 +1,14 @@
 <?php
 class SiteController extends ChesterBaseController {
 
-
+	public function __construct() {
+		Utils::debug("SiteController BEGIN");
+	}
 
 	/**
 	 */
 	public function showGalleries() {
+		Utils::debug("showGalleries BEGIN");
 		//Set third variable to true
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop(false, array(
 			'location',
@@ -23,6 +26,8 @@ class SiteController extends ChesterBaseController {
 			'content_block_1' => $content_block_1,
 			'content_block_2' => $content_block_2
 		));
+
+		Utils::debug("showGalleries END");
 	}
 
 	/**
