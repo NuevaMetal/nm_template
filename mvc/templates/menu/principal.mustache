@@ -57,15 +57,17 @@
 					</ul>
 				</li>
 			</ul>
-			<form action="/" method="get" class="navbar-form " role="search">
-			    <div class="input-group">
-			      <input type="text" name="s" class="form-control">
-			      <input type="hidden" value="submit">
-			      <span class="input-group-btn">
-			        <button class="btn btn-default" type="button">Go!</button>
-			      </span>
-			    </div>
-			</form>
+			<div class="">
+				<form action="/" method="get" class="navbar-form" role="search">
+				    <div class="input-group">
+				      <input type="text" name="s" class="form-control" >
+				      
+				      <span class="input-group-btn">
+				        <button class="btn btn-default" type="button">Buscar</button>
+				      </span>
+				    </div>
+				</form>
+			</div>
 			<div class="navbar-login">
 				{{#current_user}}
 					{{> menu/_ya_logueado }}
@@ -74,6 +76,6 @@
 					{{> menu/_login }}
 				{{/current_user}}
 			</div>
-		</nav>
+		</div>
 	</div>
-</header>
+</nav>

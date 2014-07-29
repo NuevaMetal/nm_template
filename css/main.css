@@ -785,8 +785,9 @@ textarea {
 
 /* line 6, ../sass-css/_navbar.scss */
 .navbar .navbar-login img {
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 5px;
 }
 
 /* line 14, ../sass-css/main.scss */
