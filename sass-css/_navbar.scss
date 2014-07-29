@@ -2,15 +2,13 @@
 	.sidebar-item{
 		
 	}
-	.navbar-login{		
-		height: 100px;
+	.navbar-login{
 		img{
 			width: 60px;
 			height: 60px;
 		}
 		@include col(xs) { 
 			display:none;
-		}			
-		
+		}		
 	}	
 }

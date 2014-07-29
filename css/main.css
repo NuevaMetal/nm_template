@@ -783,11 +783,7 @@ textarea {
   max-width: 160px;
 }
 
-/* line 5, ../sass-css/_navbar.scss */
-.navbar .navbar-login {
-  height: 100px;
-}
-/* line 7, ../sass-css/_navbar.scss */
+/* line 6, ../sass-css/_navbar.scss */
 .navbar .navbar-login img {
   width: 60px;
   height: 60px;
