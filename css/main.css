@@ -714,12 +714,6 @@ textarea {
     height: 515px;
   }
 }
-@media only screen and (min-width: 1200px) {
-  /* line 4, ../sass-css/_home.scss */
-  #home .banda {
-    height: auto;
-  }
-}
 
 /* line 4, ../sass-css/_posts.scss */
 .post ul {
