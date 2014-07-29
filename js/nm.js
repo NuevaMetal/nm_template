@@ -19,6 +19,7 @@ $(window).scroll(function() {
 function scrollOn() {
 	$(".navbar-principal").addClass("navbar-fixed-top");
 	$(".navbar-login").addClass("hidden");
+	$("#content").addClass("aumentar-padding-top-content");
 }
 
 /**
@@ -27,4 +28,5 @@ function scrollOn() {
 function scrollOff() {
 	$(".navbar-principal").removeClass("navbar-fixed-top");
 	$(".navbar-login").removeClass("hidden");
+	$("#content").removeClass("aumentar-padding-top-content");
 }

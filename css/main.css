@@ -879,25 +879,30 @@ body {
   background-image: url("../img/sin_thumbnail.jpg");
 }
 
+/* line 99, ../sass-css/main.scss */
+.aumentar-padding-top-content {
+  padding-top: 155px;
+}
+
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 103, ../sass-css/main.scss */
+/* line 107, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 107, ../sass-css/main.scss */
+/* line 111, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 117, ../sass-css/main.scss */
+/* line 121, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 121, ../sass-css/main.scss */
+/* line 125, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
