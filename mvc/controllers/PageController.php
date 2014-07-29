@@ -29,17 +29,10 @@ class PageController extends BaseController {
 	 * home.php
 	 */
 	public function getHome() {
-		$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		/*
-		 * $catBandasId = get_cat_ID('bandass');
-		 * $posts_bandas = get_posts([ 'category' => $catBandasId ]);
-		 * foreach($posts_bandas as $p){ echo "$p->title"; }
-		 */
 		$content = $this->render('home', [
-			'header' => '',
-			'posts' => $posts_bandas,
-			//'videos' => $posts_videos
+			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
 		]);
@@ -73,6 +66,25 @@ class PageController extends BaseController {
 		$current_tag = single_tag_title("", false);
 		$content = $this->render('home', [
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
+			'posts' => $posts,
+			'next_posts_link' => get_next_posts_link(),
+			'previous_posts_link' => get_previous_posts_link()
+		]);
+		return $this->_renderBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * tag.php
+	 */
+	public function getAuthor() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$current_user = wp_get_current_user();
+		$user_post_count = count_user_posts($current_user->ID);
+
+		$content = $this->render('home', [
+			'header' => "Entradas de '$current_user->display_name' ($user_post_count entradas)",
 			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
