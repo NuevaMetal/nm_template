@@ -1,42 +1,7 @@
 <?php
 class SiteController extends ChesterBaseController {
 
-	/**
-	 * index.php
-	 */
-	public function showPostPreviews() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content_block_1 = $this->render('home', array(
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
-		));
-
-		$content_block_2 = $this->render('sidebar');
-
-		echo $this->renderPage('grids/grid_two_column', array(
-			'content_block_1' => $content_block_1,
-			'content_block_2' => $content_block_2
-		));
-	}
-
-	public function showPost() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-		if (isset($posts [0])) {
-
-			$content_block_1 = $this->render('post', array(
-				'post' => $posts [0]
-			));
-
-			$content_block_2 = $this->render('sidebar');
-
-			echo $this->renderPage('grids/grid_two_column', array(
-				'content_block_1' => $content_block_1,
-				'content_block_2' => $content_block_2
-			));
-		}
-	}
 
 	/**
 	 */
@@ -57,32 +22,6 @@ class SiteController extends ChesterBaseController {
 		echo $this->renderPage('grids/grid_two_column', array(
 			'content_block_1' => $content_block_1,
 			'content_block_2' => $content_block_2
-		));
-	}
-
-	/**
-	 * home.php
-	 */
-	public function showHome() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		$content_block_1 = $this->render('post_previews', array(
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
-		));
-
-		$latestGallery = $this->render('galleries', array(
-			'posts' => ChesterWPCoreDataHelpers::getPosts(false, 'gallery', '1', array(
-				'location',
-				'map',
-				'website'
-			))
-		));
-
-		echo $this->renderPage('grids/grid_two_column', array(
-			'content_block_1' => $content_block_1,
-			'content_block_2' => $latestGallery
 		));
 	}
 
