@@ -22,4 +22,24 @@ class Utils {
 		return $matches [1];
 	}
 
+	/**
+	 * Función para info
+	 *
+	 * @param string $str
+	 *        Cadena a pintar
+	 */
+	public static function info($str) {
+		error_log(" INFO - " . $str);
+	}
+
+	/**
+	 * Función para DEBUG
+	 *
+	 * @param string $str
+	 *        Cadena a pintar
+	 */
+	public static function debug($str) {
+		error_log(" DEBUG - " . $str);
+	}
+
 }
