@@ -6,7 +6,7 @@
  */
 $(window).scroll(function() {
 	var scroll = $(window).scrollTop();
-	if (scroll >= 200) {
+	if (scroll >= 240) {
 		scrollOn();
 	} else {
 		scrollOff();

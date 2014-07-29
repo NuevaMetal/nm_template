@@ -788,12 +788,6 @@ textarea {
   width: 60px;
   height: 60px;
 }
-@media only screen and (max-width: 767px) {
-  /* line 5, ../sass-css/_navbar.scss */
-  .navbar .navbar-login {
-    display: none;
-  }
-}
 
 /* line 14, ../sass-css/main.scss */
 .site-title {
