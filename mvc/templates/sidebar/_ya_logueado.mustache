@@ -1,2 +1,24 @@
-
-<h2>Bienvenido {{display_name}}!</h2>
+<div class="sidebar-item">
+	
+	<div class="block-content block-login clear-block" id="instance-atom-login-5">
+		<div class="title">
+			<h3>Bienvenido {{display_name}}</h3>	
+			<div class="bl"></div>
+			<div class="br"></div>
+		</div>
+		<div class="i"></div>
+		
+		<div class="box fadethis login-block">
+			<div class="avatar">
+				{{{user_avatar}}}
+			</div>
+			<ul class="menu fadeThis">
+				<li><a class="dashboard" href="http://nuevametal.com/wp-admin/">Escritorio</a></li>
+				<li><a class="write" href="http://nuevametal.com/wp-admin/post-new.php">Escribir</a></li>
+				<li><a class="profile" href="http://nuevametal.com/wp-admin/profile.php">Perfil</a></li>
+				<li><a class="log-out last" id="wp-logout" href="http://nuevametal.com/wp-login.php?action=logout&amp;redirect_to={{home_url}}">Cerrar sesión</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

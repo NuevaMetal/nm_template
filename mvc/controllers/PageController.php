@@ -59,10 +59,7 @@ class PageController extends ChesterBaseController {
 		$content = $this->render('home', [
 			'bandas' => $posts_bandas,
 			//'videos' => $posts_videos
-
-
 			'next_posts_link' => get_next_posts_link(),
-
 			'previous_posts_link' => get_previous_posts_link()
 		]);
 		return $this->_renderBase([
@@ -84,8 +81,16 @@ class PageController extends ChesterBaseController {
 			'home_url' => get_home_url()
 		]);
 
+		$meta = $this->render('posts/_meta', [
+			'user_avatar' => get_avatar(get_the_author_meta('ID'), 32),
+			'user_url' => get_the_author_meta('user_url'),
+			'display_name' => get_the_author_meta('display_name'),
+			'description' => get_the_author_meta('description'),
+		]);
+
 		$content = $this->render('post', [
 			'post' => $posts [0],
+			'meta' => $meta,
 			'next_post' => get_next_post_link("%link"),
 			'previous_post' => get_previous_post_link("%link")
 		]);
@@ -95,7 +100,8 @@ class PageController extends ChesterBaseController {
 		$sidebar = $this->render('sidebar', [
 			'home_url' => get_home_url(),
 			'is_admin' => is_admin(),
-			'display_name' => $current_user->display_name
+			'display_name' => $current_user->display_name,
+			'user_avatar' => get_avatar($current_user->ID, 120)
 		]);
 
 		return $this->_renderBase([
