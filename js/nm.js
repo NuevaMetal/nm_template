@@ -1,24 +1,30 @@
 /*
- Autor: José María Valera Reales <@Chemaclass>
+ Autor: Jose Maria Valera Reales <@Chemaclass>
  */
-
-function subheaderLoginFormToogle() {
-	$('#subheader #loginform .ayuda').slideToggle();
-}
-
-$(document).ready(function() {
-	subheaderLoginFormToogle();
-	$('#subheader #loginform ').click(function() {
-		subheaderLoginFormToogle();
-		console.log("clicaste");
-	});
-});
-
+/**
+ * Controlar el scroll
+ */
 $(window).scroll(function() {
 	var scroll = $(window).scrollTop();
 	if (scroll >= 200) {
-		$(".navbar-principal").addClass("navbar-fixed-top");
+		scrollOn();
 	} else {
-		$(".navbar-principal").removeClass("navbar-fixed-top");
+		scrollOff();
 	}
 });
+
+/**
+ * Cuando se hace scroll y se deja de ver el header
+ */
+function scrollOn() {
+	$(".navbar-principal").addClass("navbar-fixed-top");
+	$(".navbar-login").addClass("hidden");
+}
+
+/**
+ * Cuando se está viendo el header; aún no se ha hecho scroll
+ */
+function scrollOff() {
+	$(".navbar-principal").removeClass("navbar-fixed-top");
+	$(".navbar-login").removeClass("hidden");
+}
