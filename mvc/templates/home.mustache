@@ -1,10 +1,9 @@
 <section id="home">
-
 	<ul class="pager">
 	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
 	  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</li>{{/next_posts_link}}
 	</ul>
-
+	
 	<article class="posts-bandas">
 		<section>
 			<header class="page-header col-xs-12">
@@ -14,17 +13,16 @@
 				{{>home/_banda}}
 			{{/bandas}}
 		</section>
-	</article>	
-	
+	</article>
+
+	{{#videos}}
 	<article class="posts-videos">
 		<section>
 		<header class="page-header col-xs-12">
 			<h1>Vídeos <small>Últimos videoclips, singles, covers...</small></h1>
-		</header>
-		{{#videos}}
-			{{>home/_video}}
-		{{/videos}}
+		</header>		
+			{{>home/_video}}		
 		</section>
 	</article>
-	
+	{{/videos}}
 </section>

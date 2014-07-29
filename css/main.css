@@ -852,27 +852,27 @@ body {
   background-color: #fff;
 }
 
-/*.pager{
-	a {
-		color: red;
-	}
-}*/
-/* line 79, ../sass-css/main.scss */
+/* line 73, ../sass-css/main.scss */
+.pager {
+  margin: 0px;
+}
+
+/* line 80, ../sass-css/main.scss */
 .page-header {
   margin: 0px;
 }
-/* line 81, ../sass-css/main.scss */
+/* line 82, ../sass-css/main.scss */
 .page-header a {
   color: #333;
   text-decoration: none;
 }
 
-/* line 87, ../sass-css/main.scss */
+/* line 88, ../sass-css/main.scss */
 .post.thumbnail {
   height: 350px;
 }
 
-/* line 91, ../sass-css/main.scss */
+/* line 92, ../sass-css/main.scss */
 .sin-thumbnail {
   background-position: center;
   background-size: cover;
@@ -882,22 +882,22 @@ body {
 /* ******************************************************************/
 /* 								IDs 								*/
 /* ******************************************************************/
-/* line 101, ../sass-css/main.scss */
+/* line 102, ../sass-css/main.scss */
 #buscador {
   margin-top: 20px;
 }
 
-/* line 105, ../sass-css/main.scss */
+/* line 106, ../sass-css/main.scss */
 #logeo {
   /* margin-left: 20px;*/
 }
 
-/* line 115, ../sass-css/main.scss */
+/* line 116, ../sass-css/main.scss */
 #mostrar-login-form:hover {
   cursor: pointer;
 }
 
-/* line 119, ../sass-css/main.scss */
+/* line 120, ../sass-css/main.scss */
 #subheader #loginform .btn-ayuda {
   padding-top: 5px;
 }
