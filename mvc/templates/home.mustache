@@ -6,23 +6,18 @@
 	
 	<article class="posts-bandas">
 		<section>
-			<header class="page-header col-xs-12">
-				<h1>Bandas <small>Discografías</small></h1>
-			</header>
+			<header class="page-header col-xs-12">		
+				{{# header }}
+			      <h1>{{{header}}}</h1>
+			    {{/ header }}
+				{{^ header }}
+			      <h1>Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small></h1>
+			    {{/ header }}
+	      	</header>
 			{{#posts}}
 				{{>home/_post}}
 			{{/posts}}
 		</section>
 	</article>
 
-	{{#videos}}
-	<article class="posts-videos">
-		<section>
-		<header class="page-header col-xs-12">
-			<h1>Vídeos <small>Últimos videoclips, singles, covers...</small></h1>
-		</header>		
-			{{>home/_video}}		
-		</section>
-	</article>
-	{{/videos}}
 </section>

@@ -32,16 +32,48 @@ class PageController extends BaseController {
 		$posts_bandas = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
 		/*
-		 $catBandasId = get_cat_ID('bandass');
-		$posts_bandas = get_posts([
-				'category' => $catBandasId
-				]);
-		foreach($posts_bandas as $p){
-		echo "$p->title";
-		}*/
+		 * $catBandasId = get_cat_ID('bandass');
+		 * $posts_bandas = get_posts([ 'category' => $catBandasId ]);
+		 * foreach($posts_bandas as $p){ echo "$p->title"; }
+		 */
 		$content = $this->render('home', [
+			'header' => '',
 			'posts' => $posts_bandas,
 			//'videos' => $posts_videos
+			'next_posts_link' => get_next_posts_link(),
+			'previous_posts_link' => get_previous_posts_link()
+		]);
+		return $this->_renderBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * category.php
+	 */
+	public function getCategory() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$current_category = single_cat_title("", false);
+		$content = $this->render('home', [
+			'header' => "Búsqueda en la categoría '$current_category'",
+			'posts' => $posts,
+			'next_posts_link' => get_next_posts_link(),
+			'previous_posts_link' => get_previous_posts_link()
+		]);
+		return $this->_renderBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * tag.php
+	 */
+	public function getTag() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$current_tag = single_tag_title("", false);
+		$content = $this->render('home', [
+			'header' => "Búsqueda por tag '$current_tag'",
+			'posts' => $posts,
 			'next_posts_link' => get_next_posts_link(),
 			'previous_posts_link' => get_previous_posts_link()
 		]);
