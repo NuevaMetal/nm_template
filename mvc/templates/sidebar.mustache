@@ -1,20 +1,23 @@
 <h2>¡Bienvenido!</h2>
 <hr>
-{{>sidebar/_primero}}
-<hr>
 
-{{! Si no está registrado/logueado el user }}
-{{^display_name}}
 <div class="sidebar-item">
-	{{> sidebar/_login }}
+	{{>sidebar/_primero}}
 </div>
 <hr>
-{{/display_name}}
 
 {{! Si ya está logueado el user }}
-{{#display_name}}
+{{#current_user}}
 <div class="sidebar-item">
 	{{> sidebar/_ya_logueado }}
 </div>
 <hr>
-{{/display_name}}
+{{/current_user}}
+
+{{! Si no está logueado el user }}
+{{^current_user}}
+<div class="sidebar-item">
+	{{> sidebar/_login }}
+</div>
+<hr>
+{{/current_user}}

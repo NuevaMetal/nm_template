@@ -100,8 +100,8 @@ class PageController extends ChesterBaseController {
 		$sidebar = $this->render('sidebar', [
 			'home_url' => get_home_url(),
 			'is_admin' => is_admin(),
-			'display_name' => $current_user->display_name,
-			'user_avatar' => get_avatar($current_user->ID, 120)
+			'current_user' => $current_user,
+			'user_avatar' => get_avatar($current_user->ID,120)
 		]);
 
 		return $this->_renderBase([
