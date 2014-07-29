@@ -838,7 +838,6 @@ body {
   color: #333;
   font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
   font-size: 16px;
-  margin: 0px;
 }
 
 /* line 59, ../sass-css/main.scss */
@@ -856,11 +855,6 @@ body {
 /* line 71, ../sass-css/main.scss */
 #page {
   background-color: #fff;
-}
-
-/* line 74, ../sass-css/main.scss */
-.pager {
-  margin: 0px;
 }
 
 /* line 81, ../sass-css/main.scss */
