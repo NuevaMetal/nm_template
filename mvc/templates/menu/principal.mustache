@@ -68,14 +68,15 @@
 				    </div>
 				</form>
 			</div>
-			<div class="navbar-login">
-				{{#current_user}}
-					{{> menu/_ya_logueado }}
-				{{/current_user}}
-				{{^current_user}}
-					{{> menu/_login }}
-				{{/current_user}}
-			</div>
+			
 		</div>
 	</div>
 </nav>
+<div class="navbar-login">
+	{{#current_user}}
+		{{> menu/_ya_logueado }}
+	{{/current_user}}
+	{{^current_user}}
+		{{> menu/_login }}
+	{{/current_user}}
+</div>
