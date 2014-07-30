@@ -12,7 +12,7 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param array $args
 	 *        Lista de parámetros a pasar a la plantilla base
 	 */
-	protected function _renderBase($args = []) {
+	protected function _renderPageBase($args = []) {
 		$current_user = wp_get_current_user();
 		if($current_user->ID)
 			$current_user->url = get_author_posts_url($current_user->ID);
@@ -45,5 +45,22 @@ abstract class BaseController extends ChesterBaseController {
 
 		return $this->render('home', $args);
 	}
+
+	/**
+	 * Renderizar la home con
+	 *
+	 * @param array $args
+	 */
+	protected function _renderPage($args = []) {
+		$next_posts_link = get_next_posts_link();
+		$previous_posts_link = get_previous_posts_link();
+
+		$args ['next_posts_link'] = $next_posts_link;
+		$args ['previous_posts_link'] = $previous_posts_link;
+
+		return $this->render('post', $args);
+	}
+
+
 
 }

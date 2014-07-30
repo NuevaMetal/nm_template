@@ -18,7 +18,7 @@ class PageController extends BaseController {
 			'posts' => $posts
 		]);
 
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -32,7 +32,7 @@ class PageController extends BaseController {
 		$content = $this->_renderHome([
 			'posts' => $posts
 		]);
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -47,7 +47,7 @@ class PageController extends BaseController {
 			'header' => "Búsqueda en la categoría '$current_category'",
 			'posts' => $posts
 		]);
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -62,7 +62,7 @@ class PageController extends BaseController {
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
 			'posts' => $posts
 		]);
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -79,7 +79,7 @@ class PageController extends BaseController {
 			'header' => "Entradas de '$current_user->display_name' ($user_post_count entradas)",
 			'posts' => $posts
 		]);
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -95,7 +95,21 @@ class PageController extends BaseController {
 			'header' => "Resultado de la búsqueda '$search_query'",
 			'posts' => $posts
 		]);
-		return $this->_renderBase([
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * page.php
+	 */
+	public function getPage() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+
+		$content = $this->_renderPage([
+			'post' => $posts [0]
+		]);
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}
@@ -137,7 +151,7 @@ class PageController extends BaseController {
 			'user_avatar' => get_avatar($current_user->ID, 120)
 		]);
 
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content,
 			'sidebar' => $sidebar
 		]);
@@ -150,7 +164,7 @@ class PageController extends BaseController {
 		$content = $this->render('error', array(
 			'num' => $num
 		));
-		return $this->_renderBase([
+		return $this->_renderPageBase([
 			'content' => $content
 		]);
 	}

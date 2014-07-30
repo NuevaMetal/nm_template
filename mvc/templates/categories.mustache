@@ -1,7 +1,5 @@
-{{#has_categories}}
-    <ul>
-        {{#the_categories}}
-        <li><a href="{{category_link}}">{{name}}</a></li>
-        {{/the_categories}}
-    </ul>
+{{#has_categories}}    
+	{{#the_categories}}
+		<a href="{{category_link}}">{{name}}</a> 
+	{{/the_categories}}
 {{/has_categories}}
