@@ -7,6 +7,9 @@
 		word-wrap: break-word;
 		overflow: hidden;
 		
+		.post-title, .post-time, .post-author{
+			@extend %negrita;
+		}
 		.info{
 			 a {
 				color: #999;
@@ -19,7 +22,13 @@
 		@include col(sm) {
 			height: 515px;
 			//border: 1px solid red;
-		}		
+		}
+		
+		a {
+			&:hover{
+		 		text-decoration: none;
+		 	}
+		}
 	}
 		
 	footer{

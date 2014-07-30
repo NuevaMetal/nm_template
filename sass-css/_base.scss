@@ -17,3 +17,7 @@ $screen-lg-min: 1200px;
 		@media only screen and (min-width: $screen-lg-min) { @content; }
 	}
 }
+
+%negrita {
+	font-weight: bold;
+}
