@@ -30,7 +30,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
 		$content = $this->_renderHome([
-			'posts' => $posts
+			'posts' => $posts,
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -138,6 +138,10 @@ class PageController extends BaseController {
 		$content = $this->render('post', [
 			'post' => $posts [0],
 			'meta' => $meta,
+			'comments' => get_comments([
+				'post_id' => $posts [0]->ID
+			]),
+			'edit_post' => get_edit_post_link(),
 			'next_post' => get_next_post_link("%link"),
 			'previous_post' => get_previous_post_link("%link")
 		]);

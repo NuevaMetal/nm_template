@@ -32,10 +32,19 @@
 
 	@extend %ul-inline;	
 	
+	.btn-editar{
+		float:right;
+	}
 	.categories{
 		@include sombreado-color(#fff, #333);
 	}
 	
+	.post-time{
+		margin-left: 20px;
+	}
+	.info{
+		
+	}
 	.tags {
 		@include sombreado-color(#ddd, #222);
 	}
