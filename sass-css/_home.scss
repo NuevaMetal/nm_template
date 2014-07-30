@@ -1,14 +1,16 @@
 // _home.scss
 
 #home {
-	.banda {
+	.post {
 		
 		height: auto;
 		word-wrap: break-word;
 		overflow: hidden;
 		
-		.info a {
-			color: #999;
+		.info{
+			 a {
+				color: #999;
+			}	
 		}
 		img{
 			width: 100%;
@@ -17,11 +19,7 @@
 		@include col(sm) {
 			height: 515px;
 			//border: 1px solid red;
-		}
-		@include col(lg) {
-			//height: auto;
-			//border: 1px solid yellow;
-		}
+		}		
 	}
 		
 	footer{

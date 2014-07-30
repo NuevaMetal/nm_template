@@ -30,4 +30,19 @@ abstract class BaseController extends ChesterBaseController {
 		return $this->renderPage('base', $args);
 	}
 
+	/**
+	 * Renderizar la home con
+	 *
+	 * @param array $args
+	 */
+	protected function _renderHome($args = []) {
+		$next_posts_link = get_next_posts_link();
+		$previous_posts_link = get_previous_posts_link();
+
+		$args ['next_posts_link'] = $next_posts_link;
+		$args ['previous_posts_link'] = $previous_posts_link;
+
+		return $this->render('home', $args);
+	}
+
 }

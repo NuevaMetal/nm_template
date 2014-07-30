@@ -694,23 +694,23 @@ textarea {
   }
 }
 /* line 4, ../sass-css/_home.scss */
-#home .banda {
+#home .post {
   height: auto;
   word-wrap: break-word;
   overflow: hidden;
 }
-/* line 10, ../sass-css/_home.scss */
-#home .banda .info a {
+/* line 11, ../sass-css/_home.scss */
+#home .post .info a {
   color: #999;
 }
-/* line 13, ../sass-css/_home.scss */
-#home .banda img {
+/* line 15, ../sass-css/_home.scss */
+#home .post img {
   width: 100%;
   max-height: 200px;
 }
 @media only screen and (min-width: 768px) {
   /* line 4, ../sass-css/_home.scss */
-  #home .banda {
+  #home .post {
     height: 515px;
   }
 }

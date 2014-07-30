@@ -1,12 +1,13 @@
-<article class="post banda col-xs-12 col-sm-6 col-md-6 col-lg-3">
+<article class="post text-center col-xs-12 col-sm-6 col-md-6 col-lg-3">
     <h2><a href="{{permalink}}">{{{title}}}</a></h2>
-    <p>{{time}} - {{{author_link}}}</p>
-    <div class="info">
-      <div class="categories">
-	    	{{> categories}}
+    <p>{{time}} - {{{author_link}}}
+	    <div class="info"> 
+	    Categoría: 
+	      <div class="categories">
+		    	{{> categories}}
+		    </div>
 	    </div>
-    </div>
-    
+    </p>
 	<a href="{{permalink}}" class="thumbnail">
 		{{#featured_image_url_medium}}
 			<img src="{{featured_image_url_medium}}" />		

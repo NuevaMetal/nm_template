@@ -31,10 +31,8 @@ class PageController extends BaseController {
 	public function getHome() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->render('home', [
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
+		$content = $this->_renderHome([
+			'posts' => $posts
 		]);
 		return $this->_renderBase([
 			'content' => $content
@@ -47,11 +45,9 @@ class PageController extends BaseController {
 	public function getCategory() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_category = single_cat_title("", false);
-		$content = $this->render('home', [
+		$content = $this->_renderHome([
 			'header' => "Búsqueda en la categoría '$current_category'",
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
+			'posts' => $posts
 		]);
 		return $this->_renderBase([
 			'content' => $content
@@ -64,11 +60,9 @@ class PageController extends BaseController {
 	public function getTag() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_tag = single_tag_title("", false);
-		$content = $this->render('home', [
+		$content = $this->_renderHome([
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
+			'posts' => $posts
 		]);
 		return $this->_renderBase([
 			'content' => $content
@@ -83,11 +77,9 @@ class PageController extends BaseController {
 		$current_user = wp_get_current_user();
 		$user_post_count = count_user_posts($current_user->ID);
 
-		$content = $this->render('home', [
+		$content = $this->_renderHome([
 			'header' => "Entradas de '$current_user->display_name' ($user_post_count entradas)",
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
+			'posts' => $posts
 		]);
 		return $this->_renderBase([
 			'content' => $content
