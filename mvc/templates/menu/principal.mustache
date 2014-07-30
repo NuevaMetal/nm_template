@@ -1,3 +1,12 @@
+<div class="navbar-login">
+	{{#current_user}}
+		{{> menu/_ya_logueado }}
+	{{/current_user}}
+	{{^current_user}}
+		{{> menu/_login }}
+	{{/current_user}}
+</div>
+
 <nav class="navbar navbar-default navbar-principal" role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -72,11 +81,3 @@
 		</div>
 	</div>
 </nav>
-<div class="navbar-login">
-	{{#current_user}}
-		{{> menu/_ya_logueado }}
-	{{/current_user}}
-	{{^current_user}}
-		{{> menu/_login }}
-	{{/current_user}}
-</div>
