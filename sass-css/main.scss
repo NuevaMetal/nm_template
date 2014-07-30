@@ -46,8 +46,8 @@
 
 body {
   	background-color: #000;
-	background: url(../img/nm_back.jpg);
-	background-repeat: fixed;
+	background: url(../img/nm_back.png);
+	background-repeat: repeat;
 	//background-attachment: fixed;
 	background-position: center;
 	color: #333;
@@ -62,7 +62,7 @@ body {
 	//background-attachment: fixed;
 	background-size: cover;
 	background-color: #000000;
-	background-image: url('../img/nm_head.jpg');
+	background-image: url('../img/is_anyone.jpg');
 	color: transparent;
 	min-height: 150px;
 	width: 100%;
