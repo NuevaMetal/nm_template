@@ -3,7 +3,7 @@
   {{#next_post}}<li class="next col-sm-12 col-md-6">{{{next_post}}}</li>{{/next_post}}
 </ul>
 
-<div class="post text-center">
+<div class="post ">
 {{#post}}
 	<h1 class="page-header">{{{title}}}</h1>
 	<p>{{time}} - {{author}}</p>
@@ -17,14 +17,19 @@
 	    	{{> categories}}
 	    </div>
 	</div>
-	<div class="content">
+	<div class="content text-center col-xs-12">
 		{{{content}}}
 	</div>
 	<div class="tags">
 		{{> tags}}
 	</div>
 	
-	{{{meta}}}
+	{{{meta}}}	
 	
 {{/post}}
 </div>
+
+<ul class="pager">
+  {{#previous_post}}<li class="previous col-sm-12 col-md-6">{{{previous_post}}}</li>{{/previous_post}}
+  {{#next_post}}<li class="next col-sm-12 col-md-6">{{{next_post}}}</li>{{/next_post}}
+</ul>
