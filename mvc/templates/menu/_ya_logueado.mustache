@@ -4,7 +4,14 @@
 	</div>
 	
 	<div class="title text-center col-xs-8 col-sm-10">
-		<h3>Bienvenido <a href="{{current_user.url}}" title="Entradas de {{current_user.display_name}}">{{current_user.display_name}}</a></h3>
+		<h3>Bienvenido 
+		{{#current_user.url}}
+			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{current_user.display_name}}</a>
+		{{/current_user.url}}
+		{{^current_user.url}}
+			{{current_user.display_name}}
+		{{/current_user.url}}
+		</h3>
 	</div>
 	<div class="col-xs-12 col-sm-10">	
 		<ul class="list-group ">

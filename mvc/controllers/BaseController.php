@@ -14,7 +14,8 @@ abstract class BaseController extends ChesterBaseController {
 	 */
 	protected function _renderBase($args = []) {
 		$current_user = wp_get_current_user();
-		$current_user->url = get_author_posts_url($current_user->ID);
+		if($current_user->ID)
+			$current_user->url = get_author_posts_url($current_user->ID);
 		$menuPrincipal = $this->render('menu/principal', [
 			'home_url' => get_home_url(),
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
