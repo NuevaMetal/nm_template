@@ -14,11 +14,9 @@ class PageController extends BaseController {
 	public function getIndex() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->render('index', array(
-			'posts' => $posts,
-			'next_posts_link' => get_next_posts_link(),
-			'previous_posts_link' => get_previous_posts_link()
-		));
+		$content = $this->_renderHome([
+			'posts' => $posts
+		]);
 
 		return $this->_renderBase([
 			'content' => $content
@@ -79,6 +77,22 @@ class PageController extends BaseController {
 
 		$content = $this->_renderHome([
 			'header' => "Entradas de '$current_user->display_name' ($user_post_count entradas)",
+			'posts' => $posts
+		]);
+		return $this->_renderBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * search.php
+	 */
+	public function getSearch() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$search_query = get_search_query();
+
+		$content = $this->_renderHome([
+			'header' => "Resultado de la búsqueda '$search_query'",
 			'posts' => $posts
 		]);
 		return $this->_renderBase([
