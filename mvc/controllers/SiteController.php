@@ -1,39 +1,11 @@
 <?php
 class SiteController extends ChesterBaseController {
 
-	public function __construct() {
-		Utils::debug("SiteController BEGIN");
-	}
-
-	/**
-	 */
-	public function showGalleries() {
-		Utils::debug("showGalleries BEGIN");
-		//Set third variable to true
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop(false, array(
-			'location',
-			'map',
-			'website'
-		), true);
-
-		$content_block_1 = $this->render('galleries', array(
-			'posts' => $posts
-		));
-
-		$content_block_2 = $this->render('sidebar');
-
-		echo $this->renderPage('grids/grid_two_column', array(
-			'content_block_1' => $content_block_1,
-			'content_block_2' => $content_block_2
-		));
-
-		Utils::debug("showGalleries END");
-	}
-
 	/**
 	 * page-pattern-primer.php
 	 */
 	public function showPatternPrimer() {
+		//TODO: todavía sin darle uso a esta funcionalidad. Falta estudiarla
 		$patternPrimerController = new ChesterPatternPrimerController();
 
 		$post = $patternPrimerController->renderPattern('post', array(
@@ -63,4 +35,3 @@ class SiteController extends ChesterBaseController {
 	}
 
 }
-?>
