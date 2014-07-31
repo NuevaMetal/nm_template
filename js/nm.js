@@ -45,9 +45,13 @@ function scrollOff() {
  */
 function moverTextoIzquierda(elem) {
 	var text = $(elem).children('a').text();
-	function getTiempo(len) {
+	function getTiempo(wid, len) {
+		// console.log("wid: " + wid + ", len: " + len);
+		if (len < 52 && w > COL.MD && w < COL.LG) {
+			len -= 20;
+		}
 		if (len < 40)
-			return len * 0.4;
+			return len * 0.3;
 		else if (len < 50)
 			return len * 2.2;
 		else if (len < 60)
@@ -56,8 +60,8 @@ function moverTextoIzquierda(elem) {
 			return len * 4;
 		return len;
 	}
-	var c = getTiempo(text.length);
 	var w = $(window).width();
+	var c = getTiempo(w, text.length);
 	// Sólo animar si no está siendo animado ya. Para evitar sobrecarga
 	if (!$(elem).is(':animated') && (w > COL.SM || w < 500)) {
 		$(elem).animate({
