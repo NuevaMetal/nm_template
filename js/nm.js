@@ -103,10 +103,10 @@ $(document).ready( function() {
 
 	$( ".thumbnail" )
     .mouseenter(function() {
-        $(this).find('.caption').removeClass("flipOutX").addClass("flipInX").show();
+        $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
     })
     .mouseleave(function() {
-        $(this).find('.caption').removeClass("flipInX").addClass("flipOutX");
-    });   
+        $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
+    });
 
 });
