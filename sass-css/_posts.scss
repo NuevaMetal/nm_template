@@ -42,6 +42,12 @@
 	.post-time{
 		margin-left: 20px;
 	}
+	
+	.post-meta{
+		h1 {	
+			@include inline-block;
+		}
+	}
 	.info{
 		
 	}

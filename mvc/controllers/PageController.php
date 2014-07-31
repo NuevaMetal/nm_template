@@ -30,7 +30,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
 		$content = $this->_renderHome([
-			'posts' => $posts,
+			'posts' => $posts
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -129,10 +129,12 @@ class PageController extends BaseController {
 		]);
 
 		$meta = $this->render('posts/_meta', [
-			'user_avatar' => get_avatar(get_the_author_meta('ID'), 32),
+			'user_avatar' => get_avatar(get_the_author_meta('ID'), 36),
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
-			'description' => get_the_author_meta('description')
+			'description' => get_the_author_meta('description'),
+			'edit_user_link' => (get_the_author_meta('ID') == wp_get_current_user()->ID)
+							? get_edit_user_link() : false
 		]);
 
 		$content = $this->render('post', [
