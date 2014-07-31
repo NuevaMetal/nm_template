@@ -66,10 +66,10 @@ function moverTextoIzquierda(elem) {
 	if (!$(elem).is(':animated') && (w > COL.SM || w < 500)) {
 		$(elem).animate({
 			marginLeft : "-=" + c
-		}, 1000, function() {
+		}, 2500, function() {
 			setTimeout(function() {
 				$(elem).removeAttr('style');
-			}, 600);
+			}, 2500);
 		});
 	}
 }
