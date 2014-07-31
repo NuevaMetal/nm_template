@@ -21,6 +21,7 @@
 		}
 		.post-title {		
 			font-size: 18px;
+			//text-indent:-100px;
 		}
 		.post-title, .post-time, .post-author{
 			@extend %negrita;			
@@ -34,7 +35,7 @@
 		}
 
 		@include col(xs) {
-			border: 1px solid yellow;
+			//border: 1px solid yellow;
 		}
 		
 		@include col(sm) {
