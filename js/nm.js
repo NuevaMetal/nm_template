@@ -11,6 +11,12 @@ $(window).scroll(function() {
 	} else {
 		scrollOff();
 	}
+
+	if ($(this).scrollTop() > 220) {
+		$('.back-to-top').fadeIn(500);
+	} else {
+		$('.back-to-top').fadeOut(500);
+	}
 });
 
 /**
@@ -53,7 +59,7 @@ function moverTextoIzquierda(elem) {
 	var c = getTiempo(text.length);
 	var w = $(window).width();
 	// Sólo animar si no está siendo animado ya. Para evitar sobrecarga
-	if (!$(elem).is(':animated') && (w > COL.SM ||  w < 500)) {
+	if (!$(elem).is(':animated') && (w > COL.SM || w < 500)) {
 		$(elem).animate({
 			marginLeft : "-=" + c
 		}, 1000, function() {
@@ -64,16 +70,30 @@ function moverTextoIzquierda(elem) {
 	}
 }
 
+/**
+ * Constantes de la anchura
+ */
 var COL = {
 	SM : 768,
 	MD : 992,
 	LG : 1200
 };
 
+/**
+ * Documento listo para JQuery
+ */
 $(document).ready(function() {
 	$('.post-title').hover(function() {
 		moverTextoIzquierda(this);
 	}, function() {
 		// $(this).removeAttr('style');
+	});
+
+	$('.back-to-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({
+			scrollTop : 0
+		}, 500);
+		return false;
 	});
 });
