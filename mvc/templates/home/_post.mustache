@@ -10,11 +10,9 @@
 	<div class="thumbnail">
         <div class="caption animated">
             <h4>{{{title}}}</h4>            
-			<p>
-				{{{ excerpt }}}
-			    <div class="tags">{{>tags}}</div> 
-		    </p>
+			<p>{{{ excerpt }}}</p>
             <p><a href="{{permalink}}" type="button" class="btn btn-danger">Ver entrada</a></p>
+            <p><div class="tags">{{>tags}}</div> </p>
         </div>
         
 		{{#featured_image_url_medium}}
