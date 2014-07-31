@@ -71,10 +71,7 @@ body {
   	background-color: #fff;  	
 }
 .pager{
-	margin: 4px;
-	a {
-		//color: red;
-	}
+	margin: 10px;	
 }
 
 #footer{
@@ -103,35 +100,3 @@ body {
 .aumentar-padding-top-content{
 	padding-top: 155px;
 }
-
-
-/* ******************************************************************/
-/* 								IDs 								*/
-/* ******************************************************************/
-#buscador {
-	margin-top: 20px;
-}
-
-#logeo {
-	/* margin-left: 20px;*/
-	//padding: 20px;
-	//padding-bottom: 0;
-}
-
-#logeo .login .acciones{	
-	//display: inline-block;
-}
-
-#mostrar-login-form:hover {
-	cursor: pointer;
-}
-
-#subheader #loginform .btn-ayuda{	
-	padding-top: 5px;
-	
-}
-
-/* ******************************************************************/
-/* 							 Clases 								*/
-/* ******************************************************************/
-

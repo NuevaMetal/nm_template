@@ -47,10 +47,7 @@
 		h1 {	
 			@include inline-block;
 		}
-	}
-	.info{
-		
-	}
+	}	
 	.tags {
 		@include sombreado-color(#ddd, #222);
 	}
