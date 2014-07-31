@@ -1,4 +1,5 @@
 <section id="home">
+    
 	<ul class="pager">
 	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
 	  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</li>{{/next_posts_link}}
@@ -12,9 +13,11 @@
 			     Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
 			    {{/ header }}
 	      	</header>
+	      	
 			{{#posts}}
 				{{>home/_post}}
 			{{/posts}}
+			
 		</section>
 	</article>
 	<ul class="pager">

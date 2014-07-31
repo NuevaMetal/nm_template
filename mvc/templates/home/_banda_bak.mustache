@@ -1,12 +1,13 @@
-<article class="post banda col-xs-12 col-sm-6 col-md-6 col-lg-3">
-    <h2><a href="{{permalink}}">{{{title}}}</a></h2>
-    <p>{{time}} - {{author}}</p>
-    <div class="info">
-      <div class="categories">
-	    	{{> categories}}
-	    </div>
-    </div>
+<article class="post col-xs-12 col-sm-6 col-md-6 col-lg-3">
     
+    <h2 class="post-title"><a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a></h2>
+    
+    <div class="info">
+    	<span class="post-time">{{time}} </span>
+	    por <span class="post-author">{{{author}}} </span>
+	    en <span class="categories">{{> categories}}</span>    
+	</div>
+	
 	<a href="{{permalink}}" class="thumbnail">
 		{{#featured_image_url_medium}}
 			<img src="{{featured_image_url_medium}}" />		
@@ -15,9 +16,9 @@
 			<img class="sin-thumbnail" src="#" />
 		{{/featured_image_url_medium}}
 	</a>
-    
-    {{{excerpt}}}
-    <div class="tags">
-    	{{> tags}}
-    </div>
+	    
+    {{! {excerpt} }}
+    {{! <div class="tags"> }}
+    	{{!> tags}}
+    {{! </div> }} 
 </article>

@@ -86,7 +86,7 @@ var COL = {
 /**
  * Documento listo para JQuery
  */
-$(document).ready(function() {
+$(document).ready( function() {
 	$('.post-title').hover(function() {
 		moverTextoIzquierda(this);
 	}, function() {
@@ -100,4 +100,14 @@ $(document).ready(function() {
 		}, 500);
 		return false;
 	});
+
+	$(".thumbnail").mouseenter( function() {
+		$(this).find('.caption').removeClass("fadeOutUp")
+				.addClass("fadeInDown").show();
+	})
+	.mouseleave( function() {
+		$(this).find('.caption').removeClass("fadeInDown")
+				.addClass("fadeOutUp");
+	});
+
 });
