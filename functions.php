@@ -6,3 +6,5 @@ add_theme_support('post-thumbnails', array(
 	'post',
 	'page'
 ));
+
+show_admin_bar(false);
