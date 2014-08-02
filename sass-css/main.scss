@@ -12,7 +12,7 @@
 @import "navbar.scss";
 
 .site-title {
-	@include col(sm) {
+/*	@include col(sm) {
 		padding-top: 40px;
 	}
 	@include col(md) {
@@ -30,10 +30,20 @@
 		&:hover {
 			text-decoration: none;
 		}
-	}
+	}*/
 }
 
-
+header .header-img {	
+	background-attachment: fixed;
+	background-color: #000;
+	background: url('../img/nm_head1.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: top;
+	background-size: 100% ;
+	color: transparent;	
+	min-height: 160px;
+}
 
 #content{
 	overflow: hidden;
@@ -48,25 +58,13 @@
 
 body {
   	background-color: #000;
-	background: url(../img/nm_back.jpg);
+	background: url(../img/01.jpg);
 	background-repeat: repeat;
 	background-attachment: fixed;
 	background-position: center;
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 16px ;
-}
-
-.header-img {
-	//background-position: center;
-	background-repeat: no-repeat;
-	//background-attachment: fixed;
-	background-size: cover;
-	background-color: #000000;
-	background-image: url('../img/nm_head1.jpg');
-	color: transparent;
-	min-height: 150px;
-	width: 100%;
 }
 
 #page{
