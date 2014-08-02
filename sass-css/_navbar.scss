@@ -2,12 +2,20 @@
 	
 }
 .navbar-login{
+
 	margin-top: 6px;
 	margin-bottom: 4px;
+	
 	img{
 		width: 100px;
 		height: 100px;
 		
+	}
+	
+	.acciones {
+		@include col(md) {
+			margin-top: 28px;
+		}
 	}
 }	
 

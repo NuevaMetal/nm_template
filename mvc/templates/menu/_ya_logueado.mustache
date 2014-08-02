@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="avatar col-xs-4 col-sm-2">
+	<div class="avatar col-xs-4 col-sm-2 col-md-2">
 		{{#current_user.url}}
 			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{{user_avatar}}}</a>
 		{{/current_user.url}}
@@ -8,7 +8,7 @@
 		{{/current_user.url}}
 	</div>
 	
-	<div class="title text-center col-xs-8 col-sm-10">
+	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
 		<h3>Bienvenido 
 		{{#current_user.url}}
 			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{current_user.display_name}}</a>
@@ -18,7 +18,8 @@
 		{{/current_user.url}}
 		</h3>
 	</div>
-	<div class="col-xs-12 col-sm-10">	
+	
+	<div class="acciones col-xs-12 col-sm-10 col-md-7 ">	
 		<ul class="list-group ">
 			<li class="list-group-item col-xs-12 col-sm-3">
 				<a href="/wp-admin/" target="_blank"><i class="fa fa-home"></i> Escritorio </a></li>
