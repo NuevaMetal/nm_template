@@ -6,7 +6,7 @@
 		height: auto;
 		word-wrap: break-word;
 		overflow: hidden;
-		white-space:nowrap;
+		//white-space:nowrap;
 		
 		a {
 			&:hover{
@@ -42,7 +42,7 @@
 		}
 		
 		@include col(sm) {
-			height: 320px;			
+			height: 460px;
 			img {
 				width: 100%;
 				height: 220px;
@@ -51,9 +51,24 @@
 			    text-align: center;				
 			}
 		}
+		@include col(md) {
+			height: 500px;
+			img {
+				width: 100%;
+				height: 220px;
+			}
+		}
+		@include col(lg) {
+			height: 560px;
+			img {
+				width: 100%;
+				height: 220px;
+			}
+		}
 	}	
 }
 
+/*
 .thumbnail {
     position:relative;
     overflow:hidden;
@@ -71,5 +86,5 @@
     text-align:center;
     color:#fff !important;
     z-index:2;
-}
+}*/
  

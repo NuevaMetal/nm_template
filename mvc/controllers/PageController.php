@@ -133,8 +133,7 @@ class PageController extends BaseController {
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
-			'edit_user_link' => (get_the_author_meta('ID') == wp_get_current_user()->ID)
-							? get_edit_user_link() : false
+			'edit_user_link' => (get_the_author_meta('ID') == wp_get_current_user()->ID) ? get_edit_user_link() : false
 		]);
 
 		$content = $this->render('post', [

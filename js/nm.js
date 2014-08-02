@@ -86,12 +86,7 @@ var COL = {
 /**
  * Documento listo para JQuery
  */
-$(document).ready( function() {
-	$('.post-title').hover(function() {
-		moverTextoIzquierda(this);
-	}, function() {
-		// $(this).removeAttr('style');
-	});
+$(document).ready(function() {
 
 	$('.back-to-top').click(function(event) {
 		event.preventDefault();
@@ -101,12 +96,18 @@ $(document).ready( function() {
 		return false;
 	});
 
-	$( ".thumbnail" )
-    .mouseenter(function() {
-        $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
-    })
-    .mouseleave(function() {
-        $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
-    });
+	// $('.post-title').hover(function() {
+	// moverTextoIzquierda(this);
+	// }, function() {
+	// // $(this).removeAttr('style');
+	// });
+
+	// $( ".thumbnail" )
+	// .mouseenter(function() {
+	// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
+	// })
+	// .mouseleave(function() {
+	// $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
+	// });
 
 });
