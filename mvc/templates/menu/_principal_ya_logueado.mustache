@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="avatar col-sm-12">
+		{{{user_avatar}}}
+	</div>
+	
+	<div class="title text-center col-sm-12">
+		<h3>Bienvenido 
+		{{#current_user.url}}
+			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{current_user.display_name}}</a>
+		{{/current_user.url}}
+		{{^current_user.url}}
+			{{current_user.display_name}}
+		{{/current_user.url}}
+		</h3>
+	</div>
+	<div class="col-sm-12">	
+		<ul class="list-group ">
+			<li class="list-group-item col-xs-12 ">
+				<a href="/wp-admin/" target="_blank"><i class="fa fa-home"></i> Escritorio </a></li>
+			<li class="list-group-item col-xs-12 ">
+				<a href="/wp-admin/post-new.php" target="_blank"><i class="fa fa-pencil"></i> Escribir </a></li>
+			<li class="list-group-item col-xs-12 ">
+				<a href="/wp-admin/profile.php" target="_blank"><i class="fa fa-user"></i> Perfil </a></li>
+			<li class="list-group-item col-xs-12 ">
+				<a href="/wp-login.php?action=logout&amp;redirect_to={{home_url}}" target="_blank">
+				<i class="fa fa-exclamation-circle"></i> Cerrar sesión </a></li>
+		</ul>	
+	</div>
+	
+</div>

@@ -65,9 +65,8 @@
 						<li><a href="/category/cronicas/">Crónicas</a></li>
 					</ul>
 				</li>
-			</ul>
-			<div class="">
-				<form action="/" method="get" class="navbar-form" role="search">
+			<li>			
+				<form action="/" method="get" class="navbar-form form-horizontal" role="search">
 				    <div class="input-group">
 				      <input type="text" name="s" class="form-control" >
 				      
@@ -76,8 +75,23 @@
 				      </span>
 				    </div>
 				</form>
-			</div>
-			
+			</li>
+			</ul>
+			<ul class="hidden-xs nav navbar-nav navbar-right navbar-principal-login hidden">
+			    <li class="dropdown">
+			      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"> Login</i></a>
+			      <ul class="dropdown-menu" role="menu">
+			        <li>
+				        {{#current_user}}
+							{{> menu/_principal_ya_logueado }}
+						{{/current_user}}
+						{{^current_user}}
+							{{> menu/_principal_login }}
+						{{/current_user}}
+					 </li>
+				  </ul>
+			    </li>
+			</ul>			
 		</div>
 	</div>
 </nav>
