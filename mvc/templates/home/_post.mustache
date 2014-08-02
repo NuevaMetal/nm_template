@@ -15,18 +15,14 @@
 		{{/featured_image_url_medium}}
 		</a>
 	</div>
-	<div class="info">
-    	<span class="post-time">{{time}} </span>
-	    por <span class="post-author">{{{author}}} </span>
-	    en <span class="categories">{{> categories}}</span>    
-	</div>	
-    
+	    
     <h2 class="post-title">
     	<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
     </h2>
-	<p>{{{ excerpt }}}</p>  
-	       
-    <p><a href="{{permalink}}" type="button" class="btn btn-danger btn-lg">Ver entrada</a></p>
+	<p>
+		{{{ excerpt }}}
+		<a href="{{permalink}}" type="button" class="btn btn-default btn-xs">Ver entrada</a>
+	</p>
 
     
     {{! <div class="tags"> }}
