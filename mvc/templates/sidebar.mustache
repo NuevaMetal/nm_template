@@ -6,18 +6,12 @@
 </div>
 <hr>
 
-{{! Si ya está logueado el user }}
-{{#current_user}}
-<div class="sidebar-item">
-	{{> sidebar/_ya_logueado }}
+<div class="sidebar-item text-center">
+	{{#current_user}} {{! Si ya está logueado el user }}
+		{{> sidebar/_ya_logueado }}
+	{{/current_user}}
+	{{^current_user}} {{! Si NO está logueado el user }}
+		{{> sidebar/_login }}
+	{{/current_user}}
 </div>
 <hr>
-{{/current_user}}
-
-{{! Si no está logueado el user }}
-{{^current_user}}
-<div class="sidebar-item">
-	{{> sidebar/_login }}
-</div>
-<hr>
-{{/current_user}}

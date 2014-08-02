@@ -42,4 +42,14 @@ class Utils {
 		error_log(" DEBUG - " . $str);
 	}
 
+	/**
+	 * Imprimir por pantalla el resultado de una expresión y luego finalizar su ejecución
+	 *
+	 * @param mixed $expression
+	 */
+	public static function dd($expression) {
+		var_dump($expression);
+		exit();
+	}
+
 }

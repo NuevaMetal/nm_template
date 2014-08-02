@@ -158,7 +158,8 @@ class PageController extends BaseController {
 		]);
 
 		$current_user = wp_get_current_user();
-
+		if($current_user->ID)
+			$current_user->url = get_author_posts_url($current_user->ID);
 		$sidebar = $this->render('sidebar', [
 			'home_url' => get_home_url(),
 			'is_admin' => is_admin(),
