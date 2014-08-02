@@ -1,6 +1,11 @@
 <div class="row">
 	<div class="avatar col-xs-4 col-sm-2">
-		{{{user_avatar}}}
+		{{#current_user.url}}
+			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{{user_avatar}}}</a>
+		{{/current_user.url}}
+		{{^current_user.url}}
+			{{{user_avatar}}}
+		{{/current_user.url}}
 	</div>
 	
 	<div class="title text-center col-xs-8 col-sm-10">
