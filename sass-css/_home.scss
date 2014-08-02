@@ -6,8 +6,7 @@
 		height: auto;
 		word-wrap: break-word;
 		overflow: hidden;
-		//white-space:nowrap;
-		
+				
 		a {
 			&:hover{
 		 		text-decoration: none;
@@ -30,6 +29,7 @@
 		
 		.info{
 			font-size: 14px;
+			white-space:nowrap;
 			 a {
 				font-size: 13px;
 				color: #999;
