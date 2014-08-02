@@ -81,7 +81,8 @@ class PageController extends BaseController {
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
-			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false
+			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false,
+			'' => ''
 		]);
 
 		$content = $this->_renderHome([
@@ -157,10 +158,14 @@ class PageController extends BaseController {
 			'previous_post' => get_previous_post_link("%link")
 		]);
 
+		$similares = Utils::getPostsSimilares(4);
+
 		$current_user = wp_get_current_user();
-		if($current_user->ID)
+		if ($current_user->ID)
 			$current_user->url = get_author_posts_url($current_user->ID);
 		$sidebar = $this->render('sidebar', [
+			'similares' => $similares,
+			'hay_similares' => count($similares) > 0,
 			'home_url' => get_home_url(),
 			'is_admin' => is_admin(),
 			'current_user' => $current_user->ID != 0 ? $current_user : false,

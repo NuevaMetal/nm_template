@@ -1,17 +1,26 @@
 <h2>¡Bienvenido!</h2>
 <hr>
 
-<div class="sidebar-item">
+<div class="sidebar-item col-sm-12">
 	{{>sidebar/_primero}}
 </div>
-<hr>
 
-<div class="sidebar-item text-center">
+{{#hay_similares}}
+<div class="sidebar-item col-sm-12 similares">
+	<h3>Entradas similares</h3>
+	<section>
+	{{#similares}}
+		{{>sidebar/_post_similar}}
+	{{/similares}}
+	</section>
+</div>
+{{/hay_similares}}
+
+<div class="sidebar-item text-center col-sm-12 login"> 
 	{{#current_user}} {{! Si ya está logueado el user }}
-		{{> sidebar/_ya_logueado }}
+		{{> sidebar/_ya_logueado }} 
 	{{/current_user}}
 	{{^current_user}} {{! Si NO está logueado el user }}
 		{{> sidebar/_login }}
 	{{/current_user}}
 </div>
-<hr>
