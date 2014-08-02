@@ -44,7 +44,7 @@
 		}
 		
 		@include col(sm) {
-			height: 400px;
+			height: 380px;
 			img {
 				width: 100%;
 				height: 220px;
@@ -52,21 +52,7 @@
 			    overflow: hidden;
 			    text-align: center;				
 			}
-		}
-		@include col(md) {
-			height: 400px;
-			img {
-				width: 100%;
-				height: 220px;
-			}
-		}
-		@include col(lg) {
-			height: 400px;
-			img {
-				width: 100%;
-				height: 220px;
-			}
-		}
+		}		
 	}	
 }
 
@@ -82,10 +68,10 @@
     background:rgba(0, 0, 0, 0.2);
     width:100%;
     height:auto;
-    //padding:1%;
+    padding:1%;
     display: none;
     text-align:center;
     color:#fff !important;    
-    z-index:2;    
+    z-index:2;
 }
  
