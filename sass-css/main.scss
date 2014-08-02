@@ -74,10 +74,16 @@ body {
 	@include col(sm) {
 		padding-top: 40px;
 		margin: 0 1%;
-	}  	
+	}  
+	@include col(lg) {
+		margin: 0 3%;
+	}
+	@include col(xl) {
+		margin: 0 6%;
+	}
 }
 .pager{
-	margin: 10px;	
+	margin: 10px;
 }
 
 #footer{

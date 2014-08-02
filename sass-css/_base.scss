@@ -2,6 +2,7 @@ $screen-xs-max: 767px;
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1200px;
+$screen-xl-min: 1400px;
 
 @mixin col($media) {
 	@if $media == xs {
@@ -15,6 +16,9 @@ $screen-lg-min: 1200px;
 	}
 	@else if $media == lg {
 		@media only screen and (min-width: $screen-lg-min) { @content; }
+	}
+	@else if $media == xl {
+		@media only screen and (min-width: $screen-xl-min) { @content; }
 	}
 }
 
