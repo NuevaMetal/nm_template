@@ -43,17 +43,6 @@ class Utils {
 	}
 
 	/**
-	 * Imprimir por pantalla el resultado de una expresión y luego finalizar su ejecución
-	 *
-	 * @param mixed $expression
-	 */
-	public static function dd($expression, $tag = "Tag") {
-		echo '' . $tag . '<br>';
-		var_dump($expression);
-		exit();
-	}
-
-	/**
 	 * Devuelve un array con posts similares basásndose en sus tags
 	 *
 	 * @param number $max
@@ -81,7 +70,7 @@ class Utils {
 				);
 
 				$posts = get_posts($args);
-				// dd($posts);
+
 				foreach ($posts as $k => $_p) {
 					$post = array(
 						'permalink' => get_permalink($_p->ID),
@@ -91,7 +80,6 @@ class Utils {
 						'author' => get_user_by('id', $_p->post_author)->display_name,
 						'author_link' => get_author_posts_url($_p->post_author)
 					);
-
 					$post = self::addThumbnailsToPost($post, $_p);
 
 					$postsSimilares [] = $post;
@@ -103,7 +91,6 @@ class Utils {
 			wp_reset_query();
 			$nextTagThumb = ($nextTagThumb + 1);
 		}
-		//dd($postsSimilares, 'PostsSimilares');
 		return $postsSimilares;
 	}
 
@@ -114,16 +101,12 @@ class Utils {
 			'large',
 			'full'
 		);
-
 		foreach ($sizes as $size) {
-
-			//dd($_p);
 			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($_p->ID), $size);
 			if (!empty($imageObject)) {
 				$post ['featured_image_url_' . $size] = $imageObject [0];
 			}
 		}
-
 		return $post;
 	}
 
@@ -131,7 +114,7 @@ class Utils {
 
 /**
  * -------------------------------------
- * Funciones para acceso rápido
+ * Funciones de acceso rápido
  * -------------------------------------
  */
 
