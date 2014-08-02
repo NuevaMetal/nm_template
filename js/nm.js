@@ -38,43 +38,6 @@ function scrollOff() {
 }
 
 /**
- * Mover texto a la izquierda
- * 
- * @param elem
- *            Elemento contenedor a mover
- */
-function moverTextoIzquierda(elem) {
-	var text = $(elem).children('a').text();
-	function getTiempo(wid, len) {
-		// console.log("wid: " + wid + ", len: " + len);
-		if (len < 52 && w > COL.MD && w < COL.LG) {
-			len -= 20;
-		}
-		if (len < 40)
-			return len * 0.3;
-		else if (len < 50)
-			return len * 2.2;
-		else if (len < 60)
-			return len * 3;
-		else if (len < 100)
-			return len * 4;
-		return len;
-	}
-	var w = $(window).width();
-	var c = getTiempo(w, text.length);
-	// Sólo animar si no está siendo animado ya. Para evitar sobrecarga
-	if (!$(elem).is(':animated') && (w > COL.SM || w < 500)) {
-		$(elem).animate({
-			marginLeft : "-=" + c
-		}, 2500, function() {
-			setTimeout(function() {
-				$(elem).removeAttr('style');
-			}, 2500);
-		});
-	}
-}
-
-/**
  * Constantes de la anchura
  */
 var COL = {
@@ -96,18 +59,12 @@ $(document).ready(function() {
 		return false;
 	});
 
-	// $('.post-title').hover(function() {
-	// moverTextoIzquierda(this);
-	// }, function() {
-	// // $(this).removeAttr('style');
-	// });
-
-	// $( ".thumbnail" )
-	// .mouseenter(function() {
-	// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
-	// })
-	// .mouseleave(function() {
-	// $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
-	// });
+	$( ".thumbnail" )
+    .mouseenter(function() {
+        $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
+    })
+    .mouseleave(function() {
+        $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
+    }); 
 
 });

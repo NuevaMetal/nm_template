@@ -5,16 +5,21 @@
 	    por <span class="post-author">{{{author}}} </span>
 	    en <span class="categories">{{> categories}}</span>    
 	</div>
-    <div class="thumbnail" >
-    	<a href="{{permalink}}" title="{{{title}}}">
-    	{{#featured_image_url_medium}}
-			<img src="{{featured_image_url_medium}}" />
-		{{/featured_image_url_medium}}
-		{{^featured_image_url_medium}}
-			<img class="sin-thumbnail" src="#" />
-		{{/featured_image_url_medium}}
+	
+	<div class="thumbnail">		
+        <div class="caption animated">	            
+            <p><div class="tags">{{>tags}}</div> </p>
+        </div>
+	    <a href="{{permalink}}" title="{{{title}}}">
+			{{#featured_image_url_medium}}
+				<img src="{{featured_image_url_medium}}" />
+			{{/featured_image_url_medium}}
+			{{^featured_image_url_medium}}
+				<img class="sin-thumbnail" src="#" />
+			{{/featured_image_url_medium}}
 		</a>
-	</div>
+    </div>
+    
 	    
     <h2 class="post-title">
     	<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
