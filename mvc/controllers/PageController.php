@@ -76,7 +76,7 @@ class PageController extends BaseController {
 		$author_name = get_the_author($author_id);
 		$user_post_count = count_user_posts($author_id);
 
-		$meta = $this->render('author/_meta', [
+		$meta = $this->render('posts/_meta', [
 			'user_avatar' => get_avatar($author_id, 36),
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
