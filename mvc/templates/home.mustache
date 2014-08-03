@@ -1,33 +1,20 @@
 <section id="home" class="text-center">
-    
-	<article class="posts-bandas">
+
+    <article class="posts-bandas">
 		<section>
-		
-			<header class="page-header col-xs-12">
-				 <h2>
-				 {{# header }} {{{header}}} {{/ header }}
-				{{^ header }}
-			     Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
-			    {{/ header }}
-			    {{# subheader }} {{{subheader}}} {{/ subheader }}
-	      	</header>
-	      	
-		    <ul class="pager">
-			  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
-			  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</li>{{/next_posts_link}}
-			</ul>
-	      	
-			{{#posts}}
-				{{>home/_post}}
-			{{/posts}}
-			
-		</section>
-		
-		<ul class="pager">
-		  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
-		  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</li>{{/next_posts_link}}
-		</ul>	
-		
-	</article>
-	
+			{{{bandas}}}
+    	</section>
+    </article>
+    
+    <article class="posts-videos">
+		<section>
+    		{{{videos}}}
+    	</section>
+    </article>
+    
+    <article class="posts-entrevistas">
+		<section>
+    		{{{entrevistas}}}
+    	</section>
+    </article>
 </section>

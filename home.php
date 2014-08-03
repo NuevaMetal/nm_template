@@ -1,7 +1,7 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/HomeController.php');
 
-$pageController = new PageController();
-$pageController->getHomePorSecciones();
+$controller = new HomeController();
+$controller->getHomePorSecciones();
 
 ?>

@@ -1,0 +1,13 @@
+<header class="page-header col-xs-12">
+	 <h2>
+		{{# header }} {{{header}}} {{/ header }}
+		{{^ header }}
+	     	Últimas bandas <small>Discografías, novedades, etc</small>
+	    {{/ header }} 
+    </h2>
+    {{# subheader }} {{{subheader}}} {{/ subheader }}
+</header>
+
+{{#posts}}
+	{{>home/_post}}
+{{/posts}}
