@@ -29,27 +29,17 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-		$catBandas = get_cat_ID('bandas');
 		$catVideos = get_cat_ID('videos');
 		$catEntrevistas = get_cat_ID('entrevistas');
 
-		$postsBandas = self::_getPostsByCategory($catBandas, 4);
 		$postsVideos = self::_getPostsByCategory($catVideos, 4);
 		$postsEntrevistas = self::_getPostsByCategory($catEntrevistas, 2);
 
-		$bandas = $this->render('home/_posts', [
-			'header' => 'Bandas',
-			'posts' => $postsBandas
-		]);
+		$bandas = $this->_getSeccion('bandas', 4);
 
-		$videos = $this->render('home/_posts', [
-			'header' => 'Vídeos',
-			'posts' => $postsVideos,
-		]);
+		$videos = $this->_getSeccion('videos', 4);
 
-		$entrevistas = $this->render('home/_posts', [
-			'header' => 'Entrevistas',
-			'posts' => $postsEntrevistas,
+		$entrevistas = $this->_getSeccion('entrevistas', 2, [
 			'reducido' => true
 		]);
 
@@ -61,6 +51,29 @@ class HomeController extends BaseController {
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
+	}
+
+	/**
+	 * Devuelve la sección de bandas
+	 *
+	 * @param string $seccion
+	 *        Nombre de la categoría de la que sacar la sección
+	 * @param number $cant
+	 *        Cantidad de entradas a obtener
+	 * @param array $args
+	 *        Lista de parámetros opcionales para la vista de post
+	 */
+	private function _getSeccion($seccion, $cant = 4, $args = []) {
+		$cat = get_cat_ID($seccion);
+		$posts = self::_getPostsByCategory($cat, $cant);
+
+		$args ['header'] = $this->render('home/_header', [
+			'header' => ucfirst($seccion),
+			'url' => ''
+		]);
+		$args ['posts'] = $posts;
+
+		return $this->render('home/_posts', $args);
 	}
 
 	/**

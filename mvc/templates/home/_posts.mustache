@@ -1,12 +1,6 @@
-<header class="page-header col-xs-12">
-	 <h1>
-		{{# header }} {{{header}}} {{/ header }}
-		{{^ header }}
-	     	Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
-	    {{/ header }} 
-    </h1>
-    {{# subheader }} {{{subheader}}} {{/ subheader }}
-</header>
+{{#header}}
+	{{{header}}}
+{{/header}}
 
 {{#posts}}
 	{{> home/_post }}
