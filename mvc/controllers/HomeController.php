@@ -35,7 +35,7 @@ class HomeController extends BaseController {
 
 		$postsBandas = self::_getPostsByCategory($catBandas, 4);
 		$postsVideos = self::_getPostsByCategory($catVideos, 4);
-		$postsEntrevistas = self::_getPostsByCategory($catEntrevistas, 4);
+		$postsEntrevistas = self::_getPostsByCategory($catEntrevistas, 2);
 
 		$bandas = $this->render('home/_posts', [
 			'header' => 'Bandas',
@@ -44,12 +44,13 @@ class HomeController extends BaseController {
 
 		$videos = $this->render('home/_posts', [
 			'header' => 'Vídeos',
-			'posts' => $postsVideos
+			'posts' => $postsVideos,
 		]);
 
 		$entrevistas = $this->render('home/_posts', [
 			'header' => 'Entrevistas',
-			'posts' => $postsEntrevistas
+			'posts' => $postsEntrevistas,
+			'reducido' => true
 		]);
 
 		$content = $this->render('home', [
