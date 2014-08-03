@@ -26,8 +26,8 @@ function scrollOn() {
 	if (!getWindowWidth('xs')) {
 		$(".navbar-principal").addClass("navbar-fixed-top");
 		$("#content").addClass("aumentar-padding-top-content");
+		$(".perfil-login").addClass("hidden");
 	}
-	$(".perfil-login").addClass("hidden");
 	$(".navbar-principal-login").removeClass("hidden");
 }
 
