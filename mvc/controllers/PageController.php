@@ -24,58 +24,6 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * home.php
-	 */
-	public function getHome() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		$content = $this->_renderBusqueda([
-			'posts' => $posts
-		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * home.php
-	 */
-	public function getHomePorSecciones() {
-		$catBandas = get_cat_ID('bandas');
-		$catVideos = get_cat_ID('videos');
-		$catEntrevistas = get_cat_ID('entrevistas');
-
-		$bandas = self::_getPostsByCategory($catBandas, 4);
-		$videos = self::_getPostsByCategory($catVideos, 4);
-		$entrevistas = self::_getPostsByCategory($catEntrevistas, 4);
-
-		$content = $this->_renderBusqueda([
-			'bandas' => $bandas,
-			'videos' => $videos,
-			'entrevistas' => $entrevistas
-		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Devuelve un número determinado de posts en base al ID de su categoría
-	 *
-	 * @param number $catId
-	 *        ID de la categoría
-	 * @param number $max
-	 *        número máximo de posts a devolver
-	 * @return multitype:
-	 */
-	private static function _getPostsByCategory($catId, $max = 4) {
-		$moreQuerySettings = [
-			'cat' => "$catId"
-		];
-		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
-	}
-
-	/**
 	 * category.php
 	 */
 	public function getCategory() {
