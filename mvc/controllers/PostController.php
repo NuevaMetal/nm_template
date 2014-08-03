@@ -21,13 +21,12 @@ class PostController extends BaseController {
 		$content = $this->render('post', [
 			'post' => $posts [0],
 			'meta' => $this->_getMeta(),
-			'comments' => get_comments([
-				'post_id' => $posts [0]->ID
-			]),
+			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 			'edit_post' => get_edit_post_link(),
 			'next_post' => get_next_post_link("%link"),
 			'previous_post' => get_previous_post_link("%link")
 		]);
+
 		return $this->_renderPageBase([
 			'content' => $content,
 			'sidebar' => $this->_getSidebar()
