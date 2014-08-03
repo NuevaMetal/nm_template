@@ -1,5 +1,5 @@
-<section id="home" class="text-center">
-    
+<section id="home" class="posts">
+
 	<header class="page-header col-xs-12">
 		 <h2>
 		 {{# header }} {{{header}}} {{/ header }}
@@ -7,14 +7,16 @@
 	     Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
 	    {{/ header }}
 	    {{# subheader }} {{{subheader}}} {{/ subheader }}
-  	</header>	      	
+  	</header>
+
     <ul class="pager">
 	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
 	  {{#next_posts_link}}<li class="next">{{{next_posts_link}}}</li>{{/next_posts_link}}
-	</ul>	      	
+	</ul>
+
 	{{#posts}}
 		{{> busqueda/_post }}
-	{{/posts}}			
+	{{/posts}}
 
 	<ul class="pager">
 	  {{#previous_posts_link}}<li class="previous">{{{previous_posts_link}}}</li>{{/previous_posts_link}}
