@@ -36,14 +36,14 @@ abstract class BaseController extends ChesterBaseController {
 	 *
 	 * @param array $args
 	 */
-	protected function _renderHome($args = []) {
+	protected function _renderBusqueda($args = []) {
 		$next_posts_link = get_next_posts_link();
 		$previous_posts_link = get_previous_posts_link();
 
 		$args ['next_posts_link'] = $next_posts_link;
 		$args ['previous_posts_link'] = $previous_posts_link;
 
-		return $this->render('home', $args);
+		return $this->render('busqueda', $args);
 	}
 
 	/**

@@ -14,7 +14,7 @@ class PageController extends BaseController {
 	public function getIndex() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'posts' => $posts
 		]);
 
@@ -29,7 +29,7 @@ class PageController extends BaseController {
 	public function getHome() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'posts' => $posts
 		]);
 		return $this->_renderPageBase([
@@ -49,10 +49,10 @@ class PageController extends BaseController {
 		$videos = self::_getPostsByCategory($catVideos, 4);
 		$entrevistas = self::_getPostsByCategory($catEntrevistas, 4);
 
-		$posts = array_merge($bandas, $videos, $entrevistas);
-
-		$content = $this->_renderHome([
-			'posts' => $posts
+		$content = $this->_renderBusqueda([
+			'bandas' => $bandas,
+			'videos' => $videos,
+			'entrevistas' => $entrevistas
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -81,7 +81,7 @@ class PageController extends BaseController {
 	public function getCategory() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_category = single_cat_title("", false);
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'header' => "Búsqueda en la categoría '$current_category'",
 			'posts' => $posts
 		]);
@@ -96,7 +96,7 @@ class PageController extends BaseController {
 	public function getTag() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_tag = single_tag_title("", false);
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
 			'posts' => $posts
 		]);
@@ -123,7 +123,7 @@ class PageController extends BaseController {
 			'' => ''
 		]);
 
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'header' => "Entradas de '$author_name' ($user_post_count entradas)",
 			'subheader' => $meta,
 			'posts' => $posts
@@ -140,7 +140,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$search_query = get_search_query();
 
-		$content = $this->_renderHome([
+		$content = $this->_renderBusqueda([
 			'header' => "Resultado de la búsqueda '$search_query'",
 			'posts' => $posts
 		]);
