@@ -2,12 +2,12 @@
 	 <h2>
 		{{# header }} {{{header}}} {{/ header }}
 		{{^ header }}
-	     	Últimas bandas <small>Discografías, novedades, etc</small>
+	     	Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
 	    {{/ header }} 
     </h2>
     {{# subheader }} {{{subheader}}} {{/ subheader }}
 </header>
 
 {{#posts}}
-	{{>home/_post}}
+	{{> home/_post }}
 {{/posts}}

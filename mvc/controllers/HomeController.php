@@ -37,15 +37,18 @@ class HomeController extends BaseController {
 		$postsVideos = self::_getPostsByCategory($catVideos, 4);
 		$postsEntrevistas = self::_getPostsByCategory($catEntrevistas, 4);
 
-		$bandas = $this->render('home/_bandas', [
+		$bandas = $this->render('home/_posts', [
+			'header' => 'Últimas entradas <small>Biografías, discografías y promoción</small>',
 			'posts' => $postsBandas
 		]);
 
-		$videos = $this->render('home/_videos', [
+		$videos = $this->render('home/_posts', [
+			'header' => 'Últimos vídeos <small>Videoclips, singles, directos, covers</small>',
 			'posts' => $postsVideos
 		]);
 
-		$entrevistas = $this->render('home/_entrevistas', [
+		$entrevistas = $this->render('home/_posts', [
+			'header' => 'Últimas entrevistas <small></small>',
 			'posts' => $postsEntrevistas
 		]);
 
