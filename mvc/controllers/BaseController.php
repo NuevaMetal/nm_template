@@ -22,10 +22,10 @@ abstract class BaseController extends ChesterBaseController {
 			'user_avatar' => get_avatar($current_user->ID)
 		]);
 
-		//dd($menuPerfil);
-
 		$menuPrincipal = $this->render('menu/principal', [
-			'home_url' => get_home_url()
+			'home_url' => get_home_url(),
+			'current_user' => $current_user->ID != 0 ? $current_user : false,
+			'user_avatar' => get_avatar($current_user->ID)
 		]);
 
 		$menuFooter = $this->render('menu/footer', [
