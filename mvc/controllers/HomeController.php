@@ -69,7 +69,7 @@ class HomeController extends BaseController {
 
 		$args ['header'] = $this->render('home/_header', [
 			'header' => ucfirst($seccion),
-			'url' => ''
+			'url' => get_category_link($cat)
 		]);
 		$args ['posts'] = $posts;
 

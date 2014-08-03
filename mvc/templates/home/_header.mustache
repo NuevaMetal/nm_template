@@ -1,9 +1,11 @@
 <header class="page-header col-xs-12">
 	 <h1>
+		{{#url}}<a href="{{url}}">{{/url}}
 		{{# header }} {{{header}}} {{/ header }}
 		{{^ header }}
 	     	Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
 	    {{/ header }} 
+	    {{#url}}</a>{{/url}}
     </h1>
     {{# subheader }} {{{subheader}}} {{/ subheader }}
 </header>
