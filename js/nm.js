@@ -70,12 +70,16 @@ $(document).ready(function() {
         $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
     }); 
 
+
+	/**
+	 * Cargar Disqus
+	 */
+	var disqus_shortname = 'nuevametalweb';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+	
 });
 
-
-var disqus_shortname = 'nuevametalweb';
-(function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();

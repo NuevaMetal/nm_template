@@ -66,7 +66,7 @@ class Utils {
 						$post->ID
 					),
 					'showposts' => 3,
-					'caller_get_posts' => 1
+					'ignore_stickies' => 1
 				);
 
 				$posts = get_posts($args);
@@ -76,7 +76,6 @@ class Utils {
 						'permalink' => get_permalink($_p->ID),
 						'title' => $_p->post_title,
 						'time' => $_p->post_modified,
-						'excerpt' => get_the_excerpt($_p->ID),
 						'author' => get_user_by('id', $_p->post_author)->display_name,
 						'author_link' => get_author_posts_url($_p->post_author)
 					);
@@ -113,7 +112,7 @@ class Utils {
 	/**
 	 * Función Disqus
 	 */
-	function getDisqusEmbed($disqus_shortname) {
+	public static function getDisqusEmbed($disqus_shortname) {
 		global $post;
 		return '<div id="disqus_thread"></div>
     <script type="text/javascript">
