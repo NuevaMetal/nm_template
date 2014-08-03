@@ -67,7 +67,7 @@ class HomeController extends BaseController {
 		$cat = get_cat_ID($seccion);
 		$posts = self::_getPostsByCategory($cat, $cant);
 
-		$args ['header'] = $this->render('home/_header', [
+		$args ['header'] = $this->render('home/_posts_header', [
 			'header' => ucfirst($seccion),
 			'url' => get_category_link($cat)
 		]);
