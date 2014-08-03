@@ -30,7 +30,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_category = single_cat_title("", false);
 		$content = $this->_renderBusqueda([
-			'header' => "Búsqueda en la categoría '$current_category'",
+			'header' => "Categoría '$current_category'",
 			'posts' => $posts
 		]);
 		return $this->_renderPageBase([

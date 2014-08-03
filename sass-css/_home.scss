@@ -1,7 +1,9 @@
 // _home.scss
 
 .posts{
- 		
+
+	text-align: center;
+	
  	h1 {
  		@extend %negrita;
  		font-size: 2.5em;;
