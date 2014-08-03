@@ -1,0 +1,28 @@
+<div class="perfil-login hidden-xs">
+	{{#current_user}}
+		{{> menu/perfil/_ya_logueado }}
+	{{/current_user}}
+	{{^current_user}}
+		{{> menu/perfil/_login }}
+	{{/current_user}}
+</div>
+
+<ul class="visible-xs">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 			      
+      <i class="fa fa-user"> 
+      {{#current_user}}{{current_user.user_login}}{{/current_user}}
+	  {{^current_user}}Login{{/current_user}}
+      </i></a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="text-center">
+	        {{#current_user}}
+				{{> menu/_principal_ya_logueado }}
+			{{/current_user}}
+			{{^current_user}}
+				{{> menu/_principal_login }}
+			{{/current_user}}
+		 </li>
+	  </ul>
+    </li>
+</ul>

@@ -23,11 +23,12 @@ $(window).scroll(function() {
  * Cuando se hace scroll y se deja de ver el header
  */
 function scrollOn() {
-	$(".navbar-principal").addClass("navbar-fixed-top");
-	$(".navbar-login").addClass("hidden");
+	if (!getWindowWidth('xs')) {
+		$(".navbar-principal").addClass("navbar-fixed-top");
+		$("#content").addClass("aumentar-padding-top-content");
+	}
+	$(".perfil-login").addClass("hidden");
 	$(".navbar-principal-login").removeClass("hidden");
-	$("#content").addClass("aumentar-padding-top-content");
-	
 }
 
 /**
@@ -35,9 +36,9 @@ function scrollOn() {
  */
 function scrollOff() {
 	$(".navbar-principal").removeClass("navbar-fixed-top");
-	$(".navbar-login").removeClass("hidden");
-	$(".navbar-principal-login").addClass("hidden");
 	$("#content").removeClass("aumentar-padding-top-content");
+	$(".perfil-login").removeClass("hidden");
+	$(".navbar-principal-login").addClass("hidden");
 }
 
 /**
@@ -46,40 +47,64 @@ function scrollOff() {
 var COL = {
 	SM : 768,
 	MD : 992,
-	LG : 1200
+	LG : 1200,
+	XL : 1600,
 };
+
+/**
+ * Devuelve verdadero si el tamaño de la ventana se corresponde con el
+ * solicitado mediante el parámetro que se le pasa.
+ * 
+ * @param string
+ *            tam Tamaño
+ * @returns {Boolean}
+ */
+function getWindowWidth(tam) {
+	var w = $(window).width();
+	if (tam == "xs") {
+		return w < COL.SM;
+	} else if (tam == "sm") {
+		return w < COL.MD;
+	} else if (tam == "md") {
+		return w < COL.LG;
+	} else if (tam == "lg") {
+		return w < COL.XL;
+	}
+	return true;
+}
 
 /**
  * Documento listo para JQuery
  */
-$(document).ready(function() {
+$(document).ready(
+		function() {
+			$('.back-to-top').click(function(event) {
+				event.preventDefault();
+				$('html, body').animate({
+					scrollTop : 0
+				}, 500);
+				return false;
+			});
 
-	$('.back-to-top').click(function(event) {
-		event.preventDefault();
-		$('html, body').animate({
-			scrollTop : 0
-		}, 500);
-		return false;
-	});
+			// $( ".thumbnail" )
+			// .mouseenter(function() {
+			// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
+			// })
+			// .mouseleave(function() {
+			// $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
+			// });
 
-//	$( ".thumbnail" )
-//    .mouseenter(function() {
-//        $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
-//    })
-//    .mouseleave(function() {
-//        $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
-//    }); 
+			/**
+			 * Cargar Disqus
+			 */
+			var disqus_shortname = 'nuevametalweb';
+			(function() {
+				var dsq = document.createElement('script');
+				dsq.type = 'text/javascript';
+				dsq.async = true;
+				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				(document.getElementsByTagName('head')[0] || document
+						.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
 
-
-	/**
-	 * Cargar Disqus
-	 */
-	var disqus_shortname = 'nuevametalweb';
-	(function() {
-	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
-	
-});
-
+		});
