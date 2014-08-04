@@ -39,6 +39,7 @@ function scrollOff() {
 	$("#content").removeClass("aumentar-padding-top-content");
 	$(".perfil-login").removeClass("hidden");
 	$(".navbar-principal-login").addClass("hidden");
+	
 }
 
 /**
@@ -76,35 +77,33 @@ function getWindowWidth(tam) {
 /**
  * Documento listo para JQuery
  */
-$(document).ready(
-		function() {
-			$('.back-to-top').click(function(event) {
-				event.preventDefault();
-				$('html, body').animate({
-					scrollTop : 0
-				}, 500);
-				return false;
-			});
+$(document).ready(function() {
+	$('.back-to-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({
+			scrollTop : 0
+		}, 500);
+		return false;
+	});
 
-			// $( ".thumbnail" )
-			// .mouseenter(function() {
-			// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
-			// })
-			// .mouseleave(function() {
-			// $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
-			// });
+	// $( ".thumbnail" )
+	// .mouseenter(function() {
+	// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
+	// })
+	// .mouseleave(function() {
+	// $(this).find('.caption').removeClass("fadeInDown").addClass("fadeOutUp");
+	// });
 
-			/**
-			 * Cargar Disqus
-			 */
-			var disqus_shortname = 'nuevametalweb';
-			(function() {
-				var dsq = document.createElement('script');
-				dsq.type = 'text/javascript';
-				dsq.async = true;
-				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-				(document.getElementsByTagName('head')[0] || document
-						.getElementsByTagName('body')[0]).appendChild(dsq);
-			})();
-
-		});
+	/**
+	 * Cargar Disqus
+	 */
+	var disqus_shortname = 'nuevametalweb';
+	(function() {
+		var dsq = document.createElement('script');
+		dsq.type = 'text/javascript';
+		dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document
+				.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();	
+});
