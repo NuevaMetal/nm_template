@@ -28,7 +28,10 @@
 
 }
 
-.navbar-principal-login .principal-login {
-	margin: 5px;
-	//border: 1px solid red;	
+.navbar-principal-login {
+	.principal-login {
+		margin: 5px;
+		width: 200px;
+	}
 }
+
