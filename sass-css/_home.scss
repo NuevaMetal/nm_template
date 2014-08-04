@@ -69,7 +69,8 @@
 
 .thumbnail {
     position:relative;
-    overflow:hidden;
+    overflow:hidden;    
+    border: 0px;
 }
  
 .caption {
@@ -85,4 +86,4 @@
     color:#fff !important;    
     z-index:2;
 }
- 
+
