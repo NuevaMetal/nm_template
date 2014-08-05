@@ -45,6 +45,14 @@ header .header-img {
 	min-height: 160px;
 }
 
+#alertas{
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: auto;
+	z-index: 2;
+}
+
 #content{
 	overflow: hidden;
 	*{
@@ -126,3 +134,5 @@ body {
 	background-size: cover;
 	background-image: url('../img/sin_thumbnail.jpg');
 }
+
+

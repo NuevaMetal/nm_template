@@ -39,18 +39,13 @@ function scrollOff() {
 	$("#content").removeClass("aumentar-padding-top-content");
 	$(".perfil-login").removeClass("hidden");
 	$(".navbar-principal-login").addClass("hidden");
-	
+
 }
 
 /**
  * Constantes de la anchura
  */
-var COL = {
-	SM : 768,
-	MD : 992,
-	LG : 1200,
-	XL : 1600,
-};
+var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
 
 /**
  * Devuelve verdadero si el tamaño de la ventana se corresponde con el
@@ -73,6 +68,7 @@ function getWindowWidth(tam) {
 	}
 	return true;
 }
+
 
 /**
  * Documento listo para JQuery
@@ -105,5 +101,46 @@ $(document).ready(function() {
 		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 		(document.getElementsByTagName('head')[0] || document
 				.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();	
+	})();
+
+	/**
+	 * Botón notificar
+	 */
+	$('#btn-notificar').click(function(e) {
+		e.preventDefault();
+		var formulario = $(this).parents('.formulario');
+		var form = formulario.find('form');
+		var post_val = form.find('[name=post]').val();
+		var user_val = form.find('[name=user]').val();
+		var submit = form.find('[name="submit"]'); 
+		var url = form.attr('action');
+		var data = {
+			submit : 'notificar',
+			post : post_val,
+			user : user_val
+		};
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : data,
+			dataType : "json",
+			beforeSend: function() {
+				formulario.find('.fa-spinner').removeClass('hidden');
+			},
+			success : function(json) {
+				$('#alertas').html(json.alerta);
+				$('#alertas').fadeIn();
+				formulario.find('.fa-spinner').addClass('hidden');				
+				setTimeout(function(){
+					$('#alertas').fadeOut();
+				}, 5000);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+		        alert("Ocurrió un error inesperado.\n" 
+		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+				console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+				+ ",\n thrownError "+thrownError);
+		     }
+		});
+	});
 });

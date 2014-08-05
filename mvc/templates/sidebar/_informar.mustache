@@ -1,0 +1,9 @@
+<h3>Informar <small>Enlaces o vídeos caídos, infracción, etc</small></h3>
+<div class="formulario">
+	<form action="{{template_url}}/ajax.php">
+		<input type="hidden" name="post" value="{{post_id}}">
+		<input type="hidden" name="user" value="{{user_id}}">
+		<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+		<input type="submit" id="btn-notificar" name="submit" value="Notificar" class="btn btn-info">
+	</form>
+</div>
