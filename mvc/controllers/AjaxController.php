@@ -57,11 +57,6 @@ class AjaxController extends BaseController {
 	 * @return View
 	 */
 	public function crearAlertaSuccess($mensaje, $strong = false) {
-		$post_id = $_POST ['post'];
-		//$user_id = $_POST ['user'];
-		$post = get_post($post_id);
-		//$user = get_current_user();
-		$strong = $post->post_title;
 		return $this->crearAlerta('success', $mensaje, $strong);
 	}
 
@@ -82,8 +77,34 @@ class AjaxController extends BaseController {
 	 * @return View
 	 */
 	public function crearNotificacion() {
-		//TODO: Falta implementar funcitonalidad
-		return $this->crearAlertaSuccess('Notificación enviada con éxito');
+		global $wpdb;
+		$post_id = $_POST ['post'];
+		$user_id = $_POST ['user'];
+		$post = get_post($post_id);
+		$strong = $post->post_title;
+
+		//Primero comprobamos si está
+		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		 	FROM ' . $wpdb->prefix . "notificaciones WHERE `active` = 1
+			AND post_id = $post_id;");
+		if (!$num) {
+			//Si no existe, lo creamos
+			$result = $wpdb->query($wpdb->prepare("
+INSERT INTO {$wpdb->prefix}notificaciones (post_id,user_id,created_at,updated_at)
+ VALUES (%d, %d, null, null );", $post_id, $user_id));
+		} else {
+			//Si ya existe, aumnetamos su contador
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}notificaciones
+					SET count = count + 1
+					WHERE post_id = %d
+						AND active = 1;", $post_id));
+		}
+
+		if ($result) {
+			return $this->crearAlertaSuccess('Notificación enviada con éxito', $strong);
+		} else {
+			return $this->crearAlertaDanger('Ocurrió un error inesperado');
+		}
 	}
 
 }
