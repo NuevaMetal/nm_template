@@ -103,6 +103,9 @@ $(document).ready(function() {
 				.getElementsByTagName('body')[0]).appendChild(dsq);
 	})();
 
+	/**
+	 * Botón notificar
+	 */
 	$('#btn-notificar').click(function(e) {
 		e.preventDefault();
 		var formulario = $(this).parents('.formulario');
@@ -125,23 +128,17 @@ $(document).ready(function() {
 				formulario.find('.fa-spinner').removeClass('hidden');
 			},
 			success : function(json) {
-				var alerta = json.alerta;
-				pintarAlerta(alerta);
+				setTimeout(function(){
+					$('#alertas').fadeOut();
+				}, 6000);
+				$('#alertas').html(json.alerta);
+				$('#alertas').fadeIn("slow");
 				formulario.find('.fa-spinner').addClass('hidden');
 			},
-			 error: function (xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 		        alert("Ocurrió un error inesperado.\n" 
 		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
-				 //console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-		         //	+ ",\n thrownError "+thrownError);
-		      }
+		     }
 		});
 	});
 });
-
-
-function pintarAlerta(alerta) {
-	$('#alertas').html();
-	$('#alertas').removeClass("hidden");
-	$('#alertas').html(alerta);
-}

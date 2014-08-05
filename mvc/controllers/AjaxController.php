@@ -37,19 +37,33 @@ function mostrarNuevasNotificaciones() {
 }
 class AjaxController extends BaseController {
 
-	public function crearAlerta($tipo, $mensaje) {
+	/**
+	 * Crear una alerta
+	 *
+	 * @param string $tipo
+	 *        Tipo de alerta. Será el nombre de la clase que definirá el estilo de la alerta
+	 * @param string $mensaje
+	 * @return unknown
+	 */
+	public function crearAlerta($tipo, $mensaje, $strong = false) {
+		$post_id = $_POST ['post'];
+		$user_id = $_POST ['user'];
+
+		$post = get_post($post_id);
+		$user = get_current_user();
+		$strong = $post->post_title;
 		$alerta = $this->render('ajax/alerta', [
 			'tipo' => $tipo,
-			'mensaje' => $mensaje
+			'mensaje' => $mensaje,
+			'strong' => $strong
 		]);
-
 		return $alerta;
 	}
 
 }
 $ajax = new AjaxController();
 
-$json ['alerta'] = $ajax->crearAlerta('success', 'Notificación realizada con éxito');
+$json ['alerta'] = $ajax->crearAlerta('success', 'Notificación enviada con éxito');
 
 echo json_encode($json);
 
