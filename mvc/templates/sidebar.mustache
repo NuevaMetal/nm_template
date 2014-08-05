@@ -5,6 +5,17 @@
 	{{>sidebar/_primero}}
 </div>
 
+<div class="sidebar-item col-sm-12">
+	<h3>Informar <small>Enlaces o vídeos caídos, infracción, etc</small></h3>
+	<div>
+		<form type="POST" action="">
+			<input type="hidden" name="post_id" value="{{post_id}}">
+			<input type="hidden" name="user_id" value="{{user_id}}">
+			<input type="submit" id="btn-notificar" name="submit" value="Notificar" class="btn btn-info">
+		</form>
+	</div>
+</div>
+
 {{#hay_similares}}
 <div class="sidebar-item col-sm-12 similares">
 	<h3>Entradas similares</h3>

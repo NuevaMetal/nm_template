@@ -39,7 +39,7 @@ function scrollOff() {
 	$("#content").removeClass("aumentar-padding-top-content");
 	$(".perfil-login").removeClass("hidden");
 	$(".navbar-principal-login").addClass("hidden");
-	
+
 }
 
 /**
@@ -105,5 +105,31 @@ $(document).ready(function() {
 		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 		(document.getElementsByTagName('head')[0] || document
 				.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();	
+	})();
+
+	$('#btn-notificar').click(function() {
+		this.preventDefault();
+		var form = $(this).parents('form');
+		var post_id = form.get('[name=post_id]').val();
+		var user_id = form.get('[name=user_id]').val();
+		var data = {
+			notificar: true,
+			post_id : post_id,
+			user_id : user_id
+		};
+		$.ajax({
+			url : "notificar",
+			type : "POST",
+			data : data,
+			dataType : "json",
+			success : function() {
+				console.log("btn-notificar->ajax()->success ")
+
+			},
+			error : function() {
+				console.log("btn-notificar->ajax()->error ")
+			}
+		});
+
+	});
 });
