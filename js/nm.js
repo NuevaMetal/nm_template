@@ -45,12 +45,7 @@ function scrollOff() {
 /**
  * Constantes de la anchura
  */
-var COL = {
-	SM : 768,
-	MD : 992,
-	LG : 1200,
-	XL : 1600,
-};
+var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
 
 /**
  * Devuelve verdadero si el tamaño de la ventana se corresponde con el
@@ -73,6 +68,7 @@ function getWindowWidth(tam) {
 	}
 	return true;
 }
+
 
 /**
  * Documento listo para JQuery
@@ -107,29 +103,45 @@ $(document).ready(function() {
 				.getElementsByTagName('body')[0]).appendChild(dsq);
 	})();
 
-	$('#btn-notificar').click(function() {
-		this.preventDefault();
-		var form = $(this).parents('form');
-		var post_id = form.get('[name=post_id]').val();
-		var user_id = form.get('[name=user_id]').val();
+	$('#btn-notificar').click(function(e) {
+		e.preventDefault();
+		var formulario = $(this).parents('.formulario');
+		var form = formulario.find('form');
+		var post_val = form.find('[name=post]').val();
+		var user_val = form.find('[name=user]').val();
+		var submit = form.find('[name="submit"]'); 
+		var url = form.attr('action');
 		var data = {
-			notificar: true,
-			post_id : post_id,
-			user_id : user_id
+			notificar : true,
+			post : post_val,
+			user : user_val
 		};
 		$.ajax({
-			url : "notificar",
+			url : url,
 			type : "POST",
 			data : data,
 			dataType : "json",
-			success : function() {
-				console.log("btn-notificar->ajax()->success ")
-
+			beforeSend: function() {
+				formulario.find('.fa-spinner').removeClass('hidden');
 			},
-			error : function() {
-				console.log("btn-notificar->ajax()->error ")
-			}
+			success : function(json) {
+				var alerta = json.alerta;
+				pintarAlerta(alerta);
+				formulario.find('.fa-spinner').addClass('hidden');
+			},
+			 error: function (xhr, ajaxOptions, thrownError) {
+		        alert("Ocurrió un error inesperado.\n" 
+		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+				 //console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+		         //	+ ",\n thrownError "+thrownError);
+		      }
 		});
-
 	});
 });
+
+
+function pintarAlerta(alerta) {
+	$('#alertas').html();
+	$('#alertas').removeClass("hidden");
+	$('#alertas').html(alerta);
+}

@@ -18,8 +18,10 @@ class PostController extends BaseController {
 			return $this->renderPage('404');
 		}
 		$current_user = wp_get_current_user();
+		$post = $posts [0];
+
 		$content = $this->render('post', [
-			'post' => $posts [0],
+			'post' => $post,
 			'meta' => $this->_getMeta(),
 			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 			'edit_post' => get_edit_post_link(),
@@ -28,7 +30,7 @@ class PostController extends BaseController {
 		]);
 		return $this->_renderPageBase([
 			'content' => $content,
-			'sidebar' => $this->_getSidebar($posts [0]->ID, $current_user->ID)
+			'sidebar' => $this->_getSidebar($post['ID'], $current_user->ID)
 		]);
 	}
 
@@ -65,7 +67,8 @@ class PostController extends BaseController {
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
 			'user_avatar' => get_avatar($current_user->ID, 120),
 			'post_id' => $post_id,
-			'user_id' => $user_id
+			'user_id' => $user_id,
+			'template_url' => get_template_directory_uri()
 		]);
 	}
 
