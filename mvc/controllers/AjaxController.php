@@ -107,6 +107,13 @@ INSERT INTO {$wpdb->prefix}notificaciones (post_id,user_id,created_at,updated_at
 		}
 	}
 
+	/**
+	 * Corregir notificacion
+	 */
+	public function corregirNotificacion() {
+		// TODO: implementar
+	}
+
 }
 
 $json = array();
@@ -116,6 +123,9 @@ $ajax = new AjaxController();
 switch ($_REQUEST ['submit']) {
 	case "notificar" :
 		$json ['alerta'] = $ajax->crearNotificacion();
+		break;
+	case "notificar-corregido" :
+		$json ['alerta'] = $ajax->corregirNotificacion();
 		break;
 	default :
 		$json ['alerta'] = $ajax->crearAlertaDanger('Ocurrió un error inesperado');
