@@ -115,7 +115,7 @@ $(document).ready(function() {
 		var submit = form.find('[name="submit"]'); 
 		var url = form.attr('action');
 		var data = {
-			notificar : true,
+			submit : 'notificar',
 			post : post_val,
 			user : user_val
 		};
@@ -128,16 +128,18 @@ $(document).ready(function() {
 				formulario.find('.fa-spinner').removeClass('hidden');
 			},
 			success : function(json) {
+				$('#alertas').html(json.alerta);
+				$('#alertas').fadeIn();
+				formulario.find('.fa-spinner').addClass('hidden');				
 				setTimeout(function(){
 					$('#alertas').fadeOut();
-				}, 6000);
-				$('#alertas').html(json.alerta);
-				$('#alertas').fadeIn("slow");
-				formulario.find('.fa-spinner').addClass('hidden');
+				}, 5000);
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 		        alert("Ocurrió un error inesperado.\n" 
 		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+				console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+				+ ",\n thrownError "+thrownError);
 		     }
 		});
 	});
