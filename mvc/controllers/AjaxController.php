@@ -26,17 +26,17 @@ class AjaxController extends AlertaController {
 
 		// Primero comprobamos si dicho usuario ya notificó sobre dicho post
 		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 	FROM ' . $wpdb->prefix . "notificaciones WHERE `status` = 0
+		 	FROM ' . $wpdb->prefix . "revisiones WHERE `status` = 0
 			AND post_id = $post_id AND user_id = $user_id;");
 
 		// Si no existe, lo creamos
 		if (!$num) {
 			$result = $wpdb->query($wpdb->prepare("
-INSERT INTO {$wpdb->prefix}notificaciones (post_id,user_id,created_at,updated_at)
+INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
  VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
 			//Si ya existe, aumetamos su contador
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}notificaciones
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}revisiones
 		 		SET count = count + 1
 		 		WHERE post_id = %d
 		 		AND status = 0;", $post_id));
