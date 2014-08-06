@@ -24,7 +24,16 @@ class AjaxController extends AlertaController {
 		$post = get_post($post_id);
 		$strong = $post->post_title;
 
-		// Primero comprobamos si dicho usuario ya notificó sobre dicho post
+		// Primero comprobamos que el user no esté baneado
+		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
+				FROM ' . $wpdb->prefix . "revisiones_ban
+				WHERE user_id = $user_id AND status = 1;");
+		if ($isBan) {
+			return $this->renderAlertaWarning('Usuario baneado.
+					Ponte en contacto con los administradores si
+					quieres volver a enviar revisiones');
+		}
+		// Segundo comprobamos si dicho usuario ya notificó sobre dicho post
 		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
 		 	FROM ' . $wpdb->prefix . "revisiones WHERE `status` = 0
 			AND post_id = $post_id AND user_id = $user_id;");
