@@ -143,4 +143,11 @@ $(document).ready(function() {
 		     }
 		});
 	});
+	
+	
+	$('.login-necesario').click(function(e){
+		e.preventDefault();
+		$('.back-to-top').trigger('click');
+	});
+	
 });

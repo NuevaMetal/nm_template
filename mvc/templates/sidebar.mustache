@@ -6,7 +6,12 @@
 </div>
 
 <div class="sidebar-item col-sm-12">
-	{{> sidebar/_informar}}	
+	{{#current_user}}
+		{{> sidebar/_informar}}
+	{{/current_user}}
+	{{^current_user}}
+		{{> sidebar/_informar_necesita_logueo}}
+	{{/current_user}}	
 </div>
 
 {{#hay_similares}}

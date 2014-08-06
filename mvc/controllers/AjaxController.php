@@ -2,7 +2,6 @@
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
-require_once 'AlertaController.php';
 require_once 'BaseController.php';
 
 /**
