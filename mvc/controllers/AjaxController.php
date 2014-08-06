@@ -2,74 +2,15 @@
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
+require_once 'AlertaController.php';
 
-require_once 'BaseController.php';
-
-function mostrarNuevasNotificaciones() {
-	echo "<br> > mostrarNuevasNotificaciones()<br>";
-	global $wpdb, $current_user;
-	$allowed_roles = array(
-		'editor',
-		'administrator'
-	);
-	if (array_intersect($allowed_roles, $current_user->roles)) {
-		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 FROM ' . $wpdb->prefix . 'notificaciones WHERE `active` = 1;');
-		if (!$num)
-			return;
-		$admin_url = admin_url('admin.php?page=class-notificaciones');
-		if ($num == 1) {
-			//echo '<div id="mensaje" class="error">Hay '. $num .' nueva notificación</div>';
-			$msg = "Hay $num nueva notificación pendiente";
-		} else {
-			$msg = "Hay $num nuevas notificaciones pendientes";
-		}
-		echo "<div id='message' class='error'><p><b>Ey bro!</b> $msg en <a href='$admin_url'>Notificaciones</a></p></div>";
-		echo "<br>";
-	} else {
-		echo "no tienes permisos";
-	}
-}
-class AjaxController extends BaseController {
-
-	/**
-	 * Crear una alerta
-	 *
-	 * @param string $tipo
-	 *        Tipo de alerta. Será el nombre de la clase que definirá el estilo de la alerta
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @param unknown $args
-	 * @return View
-	 */
-	protected function crearAlerta($tipo, $mensaje, $strong = false, $args = []) {
-		$args ['tipo'] = $tipo;
-		$args ['mensaje'] = $mensaje;
-		$args ['strong'] = $strong;
-		return $this->render('ajax/alerta', $args);
-	}
-
-	/**
-	 * Crear una alerta de tipo Success
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	public function crearAlertaSuccess($mensaje, $strong = false) {
-		return $this->crearAlerta('success', $mensaje, $strong);
-	}
-
-	/**
-	 * Crear una alerta de tipo Danger
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	public function crearAlertaDanger($mensaje, $strong = false) {
-		return $this->crearAlerta('danger', $mensaje, $strong);
-	}
+/**
+ * Controlador del AJAX
+ *
+ * @author Chemaclass
+ *
+ */
+class AjaxController extends AlertaController {
 
 	/**
 	 * Crear una nueva notificacion de informe de un post en la BBDD
@@ -83,28 +24,31 @@ class AjaxController extends BaseController {
 		$post = get_post($post_id);
 		$strong = $post->post_title;
 
-		//Primero comprobamos si está
+		// Primero comprobamos si dicho usuario ya notificó sobre dicho post
 		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 	FROM ' . $wpdb->prefix . "notificaciones WHERE `active` = 1
-			AND post_id = $post_id;");
+		 	FROM ' . $wpdb->prefix . "notificaciones WHERE `status` = 0
+			AND post_id = $post_id AND user_id = $user_id;");
+
+		// Si no existe, lo creamos
 		if (!$num) {
-			//Si no existe, lo creamos
 			$result = $wpdb->query($wpdb->prepare("
 INSERT INTO {$wpdb->prefix}notificaciones (post_id,user_id,created_at,updated_at)
  VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
-			//Si ya existe, aumnetamos su contador
+			//Si ya existe, aumetamos su contador
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}notificaciones
-					SET count = count + 1
-					WHERE post_id = %d
-						AND active = 1;", $post_id));
+		 		SET count = count + 1
+		 		WHERE post_id = %d
+		 		AND status = 0;", $post_id));
+			// y notificamos que ya envió una notificación para este post
+			return $this->renderAlertaInfo('Ya notificaste esta entrada', $strong);
 		}
 
-		if ($result) {
-			return $this->crearAlertaSuccess('Notificación enviada con éxito', $strong);
-		} else {
-			return $this->crearAlertaDanger('Ocurrió un error inesperado');
+		if (!empty($result)) {
+			return $this->renderAlertaSuccess('Notificación enviada con éxito', $strong);
 		}
+
+		return $this->renderAlertaDanger('Ocurrió un error inesperado');
 	}
 
 	/**
@@ -128,7 +72,7 @@ switch ($_REQUEST ['submit']) {
 		$json ['alerta'] = $ajax->corregirNotificacion();
 		break;
 	default :
-		$json ['alerta'] = $ajax->crearAlertaDanger('Ocurrió un error inesperado');
+		$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 }
 
 echo json_encode($json);
