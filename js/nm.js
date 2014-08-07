@@ -11,12 +11,15 @@ $(window).scroll(function() {
 	} else {
 		scrollOff();
 	}
-
+	
 	if ($(this).scrollTop() > 220) {
-		$('.back-to-top').fadeIn(500);
+		if (!getWindowWidth('xs')) {
+			$('.back-to-top').fadeIn(500);
+		}
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
+	
 });
 
 /**
