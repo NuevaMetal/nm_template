@@ -1,7 +1,7 @@
 <div class="row login">
 	<div class="col-sm-12">	
-		<form name="loginform" id="loginform" action="/wp-login.php"
-			method="post" role="form" class="form " style="overflow:hidden">
+		<form name="loginform" id="loginform" action="{{login_url}}"
+			method="post" role="form" class="form">
 			<div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-2">
 					<input type="text" name="log" id="user_login"
@@ -14,7 +14,7 @@
 				<div class="login-submit col-xs-6 col-sm-3 col-md-2">
 					<input type="submit" name="wp-submit" id="wp-submit"
 						class="btn btn-default form-control" value="Acceder" >
-					<input type="hidden" name="redirect_to" value="{{home_url}}" >
+					
 				</div>
 				 <div class="checkbox col-xs-6 col-sm-3 col-md-2">
 				 	<label><input name="rememberme" type="checkbox" id="rememberme" 

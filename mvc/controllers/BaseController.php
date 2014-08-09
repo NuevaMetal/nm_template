@@ -14,23 +14,31 @@ abstract class BaseController extends ChesterBaseController {
 	 */
 	protected function _renderPageBase($args = []) {
 		$current_user = wp_get_current_user();
+
 		if ($current_user->ID) {
 			$current_user->url = get_author_posts_url($current_user->ID);
 		}
+
+		$redirect = $_SERVER [REQUEST_URI];
+
 		$menuPerfil = $this->render('menu/perfil', [
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
+			'login_url' => wp_login_url($redirect),
+			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID)
 		]);
 
 		$menuPrincipal = $this->render('menu/principal', [
-			'home_url' => get_home_url(),
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
+			'login_url' => wp_login_url($redirect),
+			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID)
 		]);
 
 		$menuFooter = $this->render('menu/footer', [
 			'home_url' => get_home_url()
 		]);
+
 		$args ['menuPrincipal'] = $menuPrincipal;
 		$args ['menuPerfil'] = $menuPerfil;
 		$args ['menuFooter'] = $menuFooter;
