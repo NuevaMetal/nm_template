@@ -1,34 +1,21 @@
-<div class="post ">
 {{#post}}
+<div class="post ">
 
 	<h1 class="page-header">{{{title}}}</h1>
 		
-	<div class="info">		
-    	<span class="post-time">{{time}} </span>
-	    por <span class="post-author">{{{author_link}}} </span>
-	    en <span class="categories">{{> categories}}</span>    
-		{{#edit_post}}<a href="{{{edit_post}}}" class="btn btn-primary btn-editar">Editar</a>{{/edit_post}}
-	</div>	
+	{{>post/_info}}
 	
 	<div class="content text-center col-xs-12">
 		{{{content}}}
 	</div>
-	<div class="tags col-xs-12">
-		{{> tags}}
-	</div>
-	
-	<div class="meta">
-		{{{meta}}}
-	</div>
+		
+	{{>post/_tags}}
+	{{>post/_meta}}
 	
 	{{#comments}}	
 		{{{comments}}}
 	{{/comments}}
 	
-{{/post}}
 </div>
-
-<ul class="pager">
-  {{#previous_post}}<li class="previous col-sm-12 col-md-6">{{{previous_post}}}</li>{{/previous_post}}
-  {{#next_post}}<li class="next col-sm-12 col-md-6">{{{next_post}}}</li>{{/next_post}}
-</ul>
+{{>post/_pager}}
+{{/post}}

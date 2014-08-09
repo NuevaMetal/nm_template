@@ -20,9 +20,15 @@ class PostController extends BaseController {
 		$current_user = wp_get_current_user();
 		$post = $posts [0];
 
+		$edit_user_link = (get_the_author_meta('ID') == wp_get_current_user()->ID) ? get_edit_user_link() : false;
+
 		$content = $this->render('post', [
 			'post' => $post,
-			'meta' => $this->_getMeta(),
+			'user_avatar' => get_avatar(get_the_author_meta('ID'), 36),
+			'user_url' => get_the_author_meta('user_url'),
+			'display_name' => get_the_author_meta('display_name'),
+			'description' => get_the_author_meta('description'),
+			'edit_user_link' => $edit_user_link,
 			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 			'edit_post' => get_edit_post_link(),
 			'next_post' => get_next_post_link("%link"),
@@ -30,20 +36,7 @@ class PostController extends BaseController {
 		]);
 		return $this->_renderPageBase([
 			'content' => $content,
-			'sidebar' => $this->_getSidebar($post['ID'], $current_user->ID)
-		]);
-	}
-
-	/**
-	 * Devuelve la vista de los metadatos del post
-	 */
-	private function _getMeta() {
-		return $this->render('posts/_meta', [
-			'user_avatar' => get_avatar(get_the_author_meta('ID'), 36),
-			'user_url' => get_the_author_meta('user_url'),
-			'display_name' => get_the_author_meta('display_name'),
-			'description' => get_the_author_meta('description'),
-			'edit_user_link' => (get_the_author_meta('ID') == wp_get_current_user()->ID) ? get_edit_user_link() : false
+			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)
 		]);
 	}
 

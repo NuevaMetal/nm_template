@@ -123,6 +123,41 @@ class Utils {
     </script>';
 	}
 
+	/**
+	 * Devuelve un array con los roles de un User apartir de su ID
+	 *
+	 * @param integer $uid
+	 *        ID del User
+	 * @return array<string> Roles del user
+	 */
+	public static function getRoleByUserId($uid) {
+		global $wpdb;
+		$role = $wpdb->get_var("SELECT meta_value
+				FROM {$wpdb->usermeta}
+				WHERE meta_key = 'wp_capabilities'
+				AND user_id = {$uid}");
+		if (!$role)
+			return 'non-user';
+		$rarr = unserialize($role);
+		$roles = is_array($rarr) ? array_keys($rarr) : array(
+			'non-user'
+		);
+		return $roles[0];
+	}
+
+	/**
+	 * Comprueba que un User tenga un rol
+	 *
+	 * @param integer $user_id
+	 *        ID del user
+	 * @param array<string> $roles
+	 *        Lista de roles a comprobar
+	 * @return boolean
+	 */
+	public static function isUserRol($user_id, $roles) {
+		return in_array(self::getRoleByUserId($user_id), $roles);
+	}
+
 }
 
 /**
