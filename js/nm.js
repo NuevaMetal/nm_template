@@ -85,6 +85,10 @@ $(document).ready(function() {
 		return false;
 	});
 
+	$('.navbar-header .navbar-brand').click(function(){
+		$('.back-to-top').trigger('click');
+	});
+
 	// $( ".thumbnail" )
 	// .mouseenter(function() {
 	// $(this).find('.caption').removeClass("fadeOutUp").addClass("fadeInDown").show();
