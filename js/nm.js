@@ -151,10 +151,44 @@ $(document).ready(function() {
 		});
 	});
 	
-	
 	$('.login-necesario').click(function(e){
 		e.preventDefault();
 		$('.back-to-top').trigger('click');
 	});
 	
+	$('.mostrar-mas').click(function(e){
+		e.preventDefault();
+		var posts = $(this).parents('.posts');
+		var seccion = $(posts).find('.seccion');
+		var que = $(this).attr('mostrar-mas');
+		var url = $(this).attr('url');
+		var size = $(seccion).children().size();
+		
+		var data = {
+			submit : 'mostrar-mas',
+			que : que,
+			max: 4,
+			size: size 
+		};
+		console.log("mostrar-mas: " + que);
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : data,
+			dataType : "json",
+			beforeSend: function() {
+				$(posts).find('.fa-spinner').removeClass('hidden');
+			},
+			success : function(json) {
+				$(seccion).append(json.content);
+				$(posts).find('.fa-spinner').addClass('hidden');
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+		        alert("Ocurrió un error inesperado.\n" 
+		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+				console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+				+ ",\n thrownError "+thrownError);
+		     }
+		});
+	});
 });

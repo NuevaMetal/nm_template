@@ -3,6 +3,7 @@
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
 require_once 'BaseController.php';
+require_once 'HomeController.php';
 
 /**
  * Controlador de las alertas
@@ -138,6 +139,23 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		// TODO: implementar
 	}
 
+	/**
+	 * Devuelve una lista de post para mostrar más
+	 *
+	 * @param unknown $que
+	 */
+	public function mostrarMas($que, $max = 2, $size) {
+		$homeController = new HomeController();
+		$size--; // Quitamos uno por el header
+		$moreQuerySettings ['offset'] = $size;
+
+		$bandas = $homeController->getPostsByCategory($que, $max, $moreQuerySettings);
+
+		return $this->render('home/_posts', [
+			'posts' => $bandas
+		]);
+	}
+
 }
 
 $json = array();
@@ -150,6 +168,13 @@ switch ($_REQUEST ['submit']) {
 		break;
 	case "notificar-corregido" :
 		$json ['alerta'] = $ajax->corregirNotificacion();
+		break;
+	case "mostrar-mas" :
+		$que = $_REQUEST ['que'];
+		$max = $_REQUEST ['max'];
+		$size = $_REQUEST ['size'];
+		$json ['code'] = 200;
+		$json ['content'] = $ajax->mostrarMas($que, $max, $size);
 		break;
 	default :
 		$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');

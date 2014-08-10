@@ -32,14 +32,14 @@ class HomeController extends BaseController {
 		$catVideos = get_cat_ID('videos');
 		$catEntrevistas = get_cat_ID('entrevistas');
 
-		$postsVideos = self::_getPostsByCategory($catVideos, 4);
-		$postsEntrevistas = self::_getPostsByCategory($catEntrevistas, 2);
+		$postsVideos = self::getPostsByCategory($catVideos, 4);
+		$postsEntrevistas = self::getPostsByCategory($catEntrevistas, 2);
 
-		$bandas = $this->_getSeccion('bandas', 4);
+		$bandas = $this->getSeccion('bandas', 4);
 
-		$videos = $this->_getSeccion('videos', 4);
+		$videos = $this->getSeccion('videos', 4);
 
-		$entrevistas = $this->_getSeccion('entrevistas', 2, [
+		$entrevistas = $this->getSeccion('entrevistas', 2, [
 			'reducido' => true
 		]);
 
@@ -63,16 +63,16 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	private function _getSeccion($seccion, $cant = 4, $args = []) {
+	public function getSeccion($seccion, $cant = 4, $args = []) {
 		$cat = get_cat_ID($seccion);
-		$posts = self::_getPostsByCategory($cat, $cant);
 
 		$args ['header'] = $this->render('home/_posts_header', [
 			'header' => ucfirst($seccion),
 			'url' => get_category_link($cat)
 		]);
-		$args ['posts'] = $posts;
-		$args ['seccion'] = 'seccion-' . $seccion;
+		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
+		$args ['seccion'] = $seccion;
+		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}
 
@@ -85,10 +85,11 @@ class HomeController extends BaseController {
 	 *        número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	private static function _getPostsByCategory($catId, $max = 4) {
-		$moreQuerySettings = [
-			'cat' => "$catId"
-		];
+	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = []) {
+		$catId = get_cat_ID($seccion);
+
+		$moreQuerySettings ['cat'] = "$catId";
+
 		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
 	}
 
