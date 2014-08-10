@@ -19,13 +19,13 @@ class PostController extends BaseController {
 		}
 		$current_user = wp_get_current_user();
 		$post = $posts [0];
+		$author_id = get_the_author_meta('ID');
+		$edit_user_link = ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false;
 
-		$edit_user_link = (get_the_author_meta('ID') == wp_get_current_user()->ID) ? get_edit_user_link() : false;
-
-		$content = $this->render('post', [
+		$argsContent = [
 			'post' => $post,
-			'user_avatar' => get_avatar(get_the_author_meta('ID'), 36),
-			'user_url' => get_the_author_meta('user_url'),
+			'user_avatar' => get_avatar($author_id, 36),
+			'user_url' => get_author_posts_url($author_id),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
 			'edit_user_link' => $edit_user_link,
@@ -33,7 +33,9 @@ class PostController extends BaseController {
 			'edit_post' => get_edit_post_link(),
 			'next_post' => get_next_post_link("%link"),
 			'previous_post' => get_previous_post_link("%link")
-		]);
+		];
+
+		$content = $this->render('post', $argsContent);
 		return $this->_renderPageBase([
 			'content' => $content,
 			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)

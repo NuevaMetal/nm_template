@@ -38,16 +38,21 @@
 	.categories{
 		@include sombreado-color(#fff, #333);
 	}
-	
+
+	.info {
+		margin: 6px;
+		padding: 6px;
+	}
+
 	.post-time{
 		margin-left: 20px;
 	}
 	
 	.post-meta{
-		h1 {	
+		h1 {
 			@include inline-block;
 		}
-	}	
+	}
 	.tags {
 		@include sombreado-color(#ddd, #222);
 	}
