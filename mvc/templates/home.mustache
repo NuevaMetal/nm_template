@@ -1,20 +1,15 @@
 <section id="home" class="text-center">
 
-    <article class="posts posts-bandas">
-		<section>
-			{{{bandas}}}
-    	</section>
-    </article>
-    
-    <article class="posts posts-videos">
-		<section>
-    		{{{videos}}}
-    	</section>
-    </article>
-    
-    <article class="posts posts-entrevistas">
-		<section>
-    		{{{entrevistas}}}
-    	</section>
-    </article>
+	{{#bandas}}
+		{{> home/_posts}}
+	{{/bandas}}
+
+	{{#videos}}
+		{{> home/_posts}}
+	{{/videos}}
+
+	{{#entrevistas}}
+		{{> home/_posts}}
+	{{/entrevistas}}
+	
 </section>

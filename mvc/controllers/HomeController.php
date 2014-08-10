@@ -72,8 +72,8 @@ class HomeController extends BaseController {
 			'url' => get_category_link($cat)
 		]);
 		$args ['posts'] = $posts;
-
-		return $this->render('home/_posts', $args);
+		$args ['seccion'] = 'seccion-' . $seccion;
+		return $args;
 	}
 
 	/**
