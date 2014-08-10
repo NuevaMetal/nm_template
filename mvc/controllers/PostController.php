@@ -23,16 +23,18 @@ class PostController extends BaseController {
 		$edit_user_link = ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false;
 
 		$argsContent = [
-			'post' => $post,
-			'user_avatar' => get_avatar($author_id, 36),
-			'user_url' => get_author_posts_url($author_id),
+			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
-			'edit_user_link' => $edit_user_link,
-			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 			'edit_post' => get_edit_post_link(),
+			'edit_user_link' => $edit_user_link,
 			'next_post' => get_next_post_link("%link"),
-			'previous_post' => get_previous_post_link("%link")
+			'post' => $post,
+			'previous_post' => get_previous_post_link("%link"),
+			'user_avatar' => get_avatar($author_id, 36),
+			'user_posts_url' => get_author_posts_url($author_id),
+			'user_url' => get_the_author_meta('url'),
+			'user_rol' => ucfirst(Utils::getRoleByUserId($author_id))
 		];
 
 		$content = $this->render('post', $argsContent);
