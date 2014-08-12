@@ -12,10 +12,11 @@
 	{{>post/_tags}}
 	{{>post/_meta}}
 	
-	{{{comment_form}}}
-	
+	<div class="comment-form col-xs-12">
+		{{{comment_form}}}
+	</div>
 	{{#has_comments}}
-	<div class="comments">
+	<div class="comments col-xs-12">
 		{{#comments}}
 			{{> post/_comment}}
 		{{/comments}}

@@ -38,11 +38,21 @@
 	.categories{
 		@include sombreado-color(#fff, #333);
 	}
-	
-	.comment {
-		
+	.comment-form{
+		margin-bottom: 10px;
 	}
-
+	
+	.comments{
+		.comment {
+			.author{
+				.name{}
+				.date{text-align:right}
+			}
+			p {
+				margin-top: 10px;
+			}
+		}
+	}
 	.info {
 		margin: 6px;
 		padding: 6px;
