@@ -12,10 +12,15 @@
 	{{>post/_tags}}
 	{{>post/_meta}}
 	
-	{{#comments}}	
-		{{{comments}}}
-	{{/comments}}
+	{{{comment_form}}}
 	
+	{{#has_comments}}
+	<div class="comments">
+		{{#comments}}
+			{{> post/_comment}}
+		{{/comments}}
+	</div>
+	{{/has_comments}}
 </div>
 {{>post/_pager}}
 {{/post}}

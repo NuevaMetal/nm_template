@@ -22,8 +22,14 @@ class PostController extends BaseController {
 		$author_id = get_the_author_meta('ID');
 		$edit_user_link = ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false;
 
+		$comment_form = $this->_getComentForm($post ['ID']);
+		$comments = $this->_getComments($post ['ID']);
+
+		//'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 		$argsContent = [
-			'comments' => Utils::getDisqusEmbed('nuevametalweb'),
+			'has_comments' => count($comments) > 0 ? true : false,
+			'comment_form' => $comment_form,
+			'comments' => $comments,
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
@@ -42,6 +48,41 @@ class PostController extends BaseController {
 			'content' => $content,
 			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)
 		]);
+	}
+
+	/**
+	 * Devuelve el form para un nuevo comentario
+	 *
+	 * @return View
+	 */
+	private function _getComentForm($postId) {
+		ob_start();
+		$params = [
+			'comment_notes_after' => '',
+			'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Your Name') . '</label>
+					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
+			'comment_field' => '<div class="form-group comment-form-comment">
+			            <label for="comment">' . _x('Comment', 'noun') . '</label>
+			            <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+			        </div>'
+		];
+		comment_form($params, $postId);
+		$comment_form = ob_get_clean();
+		$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
+		$comment_form = str_replace('id="submit"', 'class="btn btn-primary"', $comment_form);
+		return $comment_form;
+	}
+
+	/**
+	 * Devuelve una lista de comentarios
+	 */
+	private function _getComments($postId) {
+		$args_comments = array(
+			'post_id' => $postId,
+			'orderby' => 'comment_date_gmt',
+			'status' => 'approve'
+		);
+		return get_comments($args_comments, $postId);
 	}
 
 	/**
