@@ -1,39 +1,15 @@
 <section id="home" class="text-center">
 
 	{{#bandas}}
-		<article class="posts">
-			<div class="seccion {{seccion}}">
-				{{#header}}
-					{{{header}}}
-				{{/header}}			
-				{{> home/_posts }}	
-			</div>
-			{{> home/_btn_mostrar_mas }}
-		</article>
+		{{>home/_seccion}}
 	{{/bandas}}
 
 	{{#videos}}
-		<article class="posts">
-			<div class="seccion {{seccion}}">
-				{{#header}}
-					{{{header}}}
-				{{/header}}			
-				{{> home/_posts }}	
-			</div>
-			{{> home/_btn_mostrar_mas }}
-		</article>
+		{{>home/_seccion}}
 	{{/videos}}
 
 	{{#entrevistas}}
-		<article class="posts">
-			<div class="seccion {{seccion}}">
-				{{#header}}
-					{{{header}}}
-				{{/header}}			
-				{{> home/_posts }}	
-			</div>
-			{{> home/_btn_mostrar_mas }}
-		</article>
+		{{>home/_seccion}}
 	{{/entrevistas}}
 	
 </section>
