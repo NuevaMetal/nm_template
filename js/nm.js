@@ -6,7 +6,7 @@
  */
 $(window).scroll(function() {
 	var scroll = $(window).scrollTop();
-	if (scroll >= 240) {
+	if (scroll >= 200) {
 		scrollOn();
 	} else {
 		scrollOff();
@@ -29,6 +29,7 @@ function scrollOn() {
 	if (!getWindowWidth('xs')) {
 		$(".navbar-principal").addClass("navbar-fixed-top");
 		$("#content").addClass("aumentar-padding-top-content");
+		$("#sidebar").addClass("aumentar-padding-top-content");
 		$(".perfil-login").addClass("hidden");
 	}
 	$(".navbar-principal-login").removeClass("hidden");
@@ -40,6 +41,7 @@ function scrollOn() {
 function scrollOff() {
 	$(".navbar-principal").removeClass("navbar-fixed-top");
 	$("#content").removeClass("aumentar-padding-top-content");
+	$("#sidebar").removeClass("aumentar-padding-top-content");
 	$(".perfil-login").removeClass("hidden");
 	$(".navbar-principal-login").addClass("hidden");
 
