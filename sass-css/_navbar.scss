@@ -1,23 +1,23 @@
 .navbar{
-	
+
 }
-.perfil-login{
+.perfil-login {
 
 	margin-top: 6px;
 	margin-bottom: 4px;
-	
+
 	img{
 		width: 100px;
 		height: 100px;
 		
 	}
-	
+
 	.acciones {
 		@include col(md) {
 			margin-top: 28px;
 		}
 	}
-	
+
 	.dropdown {
 		list-style: none;
 	}
@@ -31,17 +31,14 @@
 .navbar-principal-login {
 	background-color: #eee;
 	.principal-login {
-		margin: 5px;
+		//margin: 5px;
 		width: 200px;
 	}
-	
 }
 
 .navbar-principal-login-xs {
 	margin: -14px;
-	//padding: 0;
-	.dropdown-toggle{
+	.dropdown-toggle {
 		color: #333;
 	}
-	
 }
