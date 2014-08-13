@@ -120,23 +120,23 @@ body {
 .back-to-top {
     position: fixed;
     bottom: 2em;
+    border-radius: 50px;
     right: 0px;
-    text-decoration: none;
     color: #000000;
     background-color: rgba(235, 235, 235, 0.80);
     font-size: 12px;
-    padding: 1em;
-    display: none;	  
+    padding: 8px;
+    display: none;
+
+	&:hover {
+		color: #000;
+		background-color: rgba(135, 135, 135, 0.50);
+		text-decoration: none;
+    }
 }
 
-.back-to-top:hover {    
-    background-color: rgba(135, 135, 135, 0.50);
-}
-
-.sin-thumbnail{
+.sin-thumbnail {
 	background-position:center; 
 	background-size: cover;
 	background-image: url('../img/sin_thumbnail.jpg');
 }
-
-
