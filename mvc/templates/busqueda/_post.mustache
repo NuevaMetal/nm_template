@@ -1,14 +1,13 @@
-<article class="post col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<article class="post col-xs-12 col-sm-6 col-lg-3">
 
 	<div class="info">
     	<span class="post-time">{{time}} </span>
 	    por <span class="post-author">{{{author}}} </span>
-	    en <span class="categories">{{> post/_categories}}</span>    
 	</div>
-	
-	<div class="thumbnail">		
-        <div class="caption animated">	            
-            <p><div class="tags">{{>tags}}</div> 
+
+	<div class="thumbnail">
+        <div class="caption animated">
+            <p><div class="tags">{{>tags}}</div>
             <a href="{{permalink}}" type="button" class="btn btn-default btn-xs">Leer más</a>
             </p>
         </div>
@@ -21,18 +20,12 @@
 			{{/featured_image_url_medium}}
 		</a>
     </div>
-    
-	    
+
     <h2 class="post-title">
     	<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
     </h2>
 	<p>
 		{{{ excerpt }}}
-		
 	</p>
 
-    
-    {{! <div class="tags"> }}
-    	{{!> tags}}
-    {{! </div> }} 
 </article>

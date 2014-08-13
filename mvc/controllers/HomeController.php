@@ -29,7 +29,6 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-
 		$bandas = self::getSeccion('bandas', 4);
 
 		$videos = self::getSeccion('videos', 4);
@@ -49,7 +48,7 @@ class HomeController extends BaseController {
 	}
 
 	/**
-	 * Devuelve la sección de bandas
+	 * Devuelve una sección en base a una categoría o etiqueta
 	 *
 	 * @param string $seccion
 	 *        Nombre de la categoría de la que sacar la sección
@@ -61,7 +60,7 @@ class HomeController extends BaseController {
 	public static function getSeccion($seccion, $cant = 4, $args = []) {
 		$cat = get_cat_ID($seccion);
 
-		$args ['header'] =[
+		$args ['header'] = [
 			'header' => ucfirst($seccion),
 			'url' => get_category_link($cat)
 		];

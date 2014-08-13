@@ -61,4 +61,14 @@ abstract class BaseController extends ChesterBaseController {
 		return $this->render('page', $args);
 	}
 
+	protected function _renderBusqueda($args = []) {
+		$next_posts_link = get_next_posts_link();
+		$previous_posts_link = get_previous_posts_link();
+
+		$args ['next_posts_link'] = $next_posts_link;
+		$args ['previous_posts_link'] = $previous_posts_link;
+
+		return $this->render('busqueda_chester', $args);
+	}
+
 }

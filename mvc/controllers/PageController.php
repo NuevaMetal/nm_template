@@ -15,7 +15,7 @@ class PageController extends BaseController {
 	public function getIndex() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->_renderBusqueda([
+		$content = $this->render('busqueda', [
 			'posts' => $posts
 		]);
 
@@ -46,12 +46,15 @@ class PageController extends BaseController {
 	 * tag.php
 	 */
 	public function getTag() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_tag = single_tag_title("", false);
-		$content = $this->_renderBusqueda([
+
+		$seccion = HomeController::getSeccion($current_tag, 4);
+
+		$content = $this->render('busqueda', [
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
-			'posts' => $posts
+			'seccion' => $seccion
 		]);
+
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
