@@ -1,5 +1,6 @@
 <?php
 require_once 'BaseController.php';
+require_once 'HomeController.php';
 /**
  * Controlador principal de la web
  *
@@ -27,12 +28,15 @@ class PageController extends BaseController {
 	 * category.php
 	 */
 	public function getCategory() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$current_category = single_cat_title("", false);
-		$content = $this->_renderBusqueda([
+
+		$seccion = HomeController::getSeccion($current_category, 4);
+
+		$content = $this->render('busqueda', [
 			'header' => "Categoría '$current_category'",
-			'posts' => $posts
+			'seccion' => $seccion
 		]);
+
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -67,8 +71,7 @@ class PageController extends BaseController {
 			'user_url' => get_the_author_meta('user_url'),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
-			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false,
-
+			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false
 		]);
 
 		$content = $this->_renderBusqueda([

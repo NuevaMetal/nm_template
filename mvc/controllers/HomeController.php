@@ -29,17 +29,12 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-		$catVideos = get_cat_ID('videos');
-		$catEntrevistas = get_cat_ID('entrevistas');
 
-		$postsVideos = self::getPostsByCategory($catVideos, 4);
-		$postsEntrevistas = self::getPostsByCategory($catEntrevistas, 2);
+		$bandas = self::getSeccion('bandas', 4);
 
-		$bandas = $this->getSeccion('bandas', 4);
+		$videos = self::getSeccion('videos', 4);
 
-		$videos = $this->getSeccion('videos', 4);
-
-		$entrevistas = $this->getSeccion('entrevistas', 2, [
+		$entrevistas = self::getSeccion('entrevistas', 2, [
 			'reducido' => true
 		]);
 
@@ -63,13 +58,13 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public function getSeccion($seccion, $cant = 4, $args = []) {
+	public static function getSeccion($seccion, $cant = 4, $args = []) {
 		$cat = get_cat_ID($seccion);
 
-		$args ['header'] = $this->render('home/_posts_header', [
+		$args ['header'] =[
 			'header' => ucfirst($seccion),
 			'url' => get_category_link($cat)
-		]);
+		];
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['template_url'] = get_template_directory_uri();
