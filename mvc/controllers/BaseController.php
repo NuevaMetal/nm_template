@@ -73,7 +73,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['next_posts_link'] = $next_posts_link;
 		$args ['previous_posts_link'] = $previous_posts_link;
 
-		return $this->render('post', $args);
+		return $this->render('page', $args);
 	}
 
 }
