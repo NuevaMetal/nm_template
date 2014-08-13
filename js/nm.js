@@ -6,21 +6,41 @@
  */
 $(window).scroll(function() {
 	var scroll = $(window).scrollTop();
+	var windowHeight = $( window ).height();
+	var documentHeight = $(document).height();
+
 	if (scroll >= 200) {
 		scrollOn();
 	} else {
 		scrollOff();
 	}
 	
-	if ($(this).scrollTop() > 220) {
+	if (scroll > 200) {
 		//if (!getWindowWidth('xs')) {
 			$('.back-to-top').fadeIn(500);
 		//}
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
-	
+
+	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
+	var flag = (documentHeight - windowHeight)-scroll;
+	if( $('.mostrar-mas').size() == 1 && flag <= 150) {
+		if (puedeMostrarMas) {
+			$('.mostrar-mas').trigger('click');
+			puedeMostrarMas = false;
+		} else {
+			setTimeout(function() {
+				puedeMostrarMas = true;
+			}, 150);
+		}
+	}
 });
+
+/**
+ * Controlar que no se sobrecargue el trigger de mostrar más
+ */
+var puedeMostrarMas = true;
 
 /**
  * Cuando se hace scroll y se deja de ver el header
@@ -184,7 +204,7 @@ $(document).ready(function() {
 			max: 4,
 			size: size 
 		};
-		console.log("mostrar-mas: " + que);
+		//console.log("mostrar-mas: " + que);
 		$.ajax({
 			url : url,
 			type : "POST",
