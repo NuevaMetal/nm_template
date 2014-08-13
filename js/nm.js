@@ -26,23 +26,31 @@ $(window).scroll(function() {
  * Cuando se hace scroll y se deja de ver el header
  */
 function scrollOn() {
-	//if (!getWindowWidth('xs')) {
-		$(".navbar-principal").addClass("navbar-fixed-top");
+
+	$(".navbar-principal").addClass("navbar-fixed-top");
+	$(".perfil-login").addClass("hidden");
+	
+	if (!getWindowWidth('xs')) {
 		$("#content").addClass("aumentar-padding-top-content");
 		$("#sidebar").addClass("aumentar-padding-top-content");
-		$(".perfil-login").addClass("hidden");
-	//}
+	}
+	
 	$(".navbar-principal-login").removeClass("hidden");
+	$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
 }
 
 /**
  * Cuando se está viendo el header; aún no se ha hecho scroll
  */
 function scrollOff() {
-	$(".navbar-principal").removeClass("navbar-fixed-top");
-	$("#content").removeClass("aumentar-padding-top-content");
-	$("#sidebar").removeClass("aumentar-padding-top-content");
-	$(".perfil-login").removeClass("hidden");
+	if (!getWindowWidth('xs')) {
+		$(".navbar-principal").removeClass("navbar-fixed-top");
+		$(".perfil-login").removeClass("hidden");
+		$(".navbar-principal-login-xs").parent('button').addClass("hidden");
+	}
+		$("#content").removeClass("aumentar-padding-top-content");
+		$("#sidebar").removeClass("aumentar-padding-top-content");
+	
 	$(".navbar-principal-login").addClass("hidden");
 
 }
@@ -79,6 +87,10 @@ function getWindowWidth(tam) {
  * Documento listo para JQuery
  */
 $(document).ready(function() {
+	if (getWindowWidth('xs')) {
+		scrollOn()
+		scrollOff()
+	}
 	$('.back-to-top').click(function(event) {
 		event.preventDefault();
 		$('html, body').animate({

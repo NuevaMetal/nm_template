@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-principal" role="navigation">
+<nav class="navbar navbar-default navbar-principal " role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -7,6 +7,27 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
+	      </button>
+	      <button type="button" class="navbar-toggle hidden" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+	        <ul class=" nav navbar-right navbar-principal-login-xs">
+			    <li class="dropdown">
+			      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 			      
+				      <i class="fa fa-user"> 
+				      {{#current_user}}{{current_user.user_login}}{{/current_user}}
+					  {{^current_user}}Login{{/current_user}}
+				      </i></a>
+			      <ul class="dropdown-menu" role="menu" id="foo">
+			        <li class="text-center">
+				        {{#current_user}}
+							{{> menu/_principal_ya_logueado }}
+						{{/current_user}}
+						{{^current_user}}
+							{{> menu/_principal_login }}
+						{{/current_user}}
+					 </li>
+				  </ul>
+			    </li>
+			</ul>
 	      </button>
 	      <a class="navbar-brand" href="{{home_url}}">NuevaMetal</a>
 	    </div>
