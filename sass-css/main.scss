@@ -34,12 +34,16 @@
 }
 
 header .header-img {	
-	background-attachment: fixed;
 	background-color: #000;
 	background: url('../img/nm_head1.jpg');
 	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: top;
+	
+	//background-position: top;
+	//background-attachment: fixed;
+	@include col(xs) {
+		margin-top: 50px;
+		margin-bottom: -50px;
+	}
 	background-size: 100% ;
 	color: transparent;	
 	min-height: 160px;
@@ -65,7 +69,7 @@ header .header-img {
 }
 
 body {
-  	background-color: #000;
+  	background-color: #fff;
 	background: url(../img/01.jpg);
 	background-repeat: repeat;
 	background-attachment: fixed;
