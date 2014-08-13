@@ -13,9 +13,9 @@ $(window).scroll(function() {
 	}
 	
 	if ($(this).scrollTop() > 220) {
-		if (!getWindowWidth('xs')) {
+		//if (!getWindowWidth('xs')) {
 			$('.back-to-top').fadeIn(500);
-		}
+		//}
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
@@ -26,12 +26,12 @@ $(window).scroll(function() {
  * Cuando se hace scroll y se deja de ver el header
  */
 function scrollOn() {
-	if (!getWindowWidth('xs')) {
+	//if (!getWindowWidth('xs')) {
 		$(".navbar-principal").addClass("navbar-fixed-top");
 		$("#content").addClass("aumentar-padding-top-content");
 		$("#sidebar").addClass("aumentar-padding-top-content");
 		$(".perfil-login").addClass("hidden");
-	}
+	//}
 	$(".navbar-principal-login").removeClass("hidden");
 }
 
