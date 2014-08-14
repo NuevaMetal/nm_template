@@ -25,14 +25,16 @@ abstract class BaseController extends ChesterBaseController {
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
 			'login_url' => wp_login_url($redirect),
 			'home_url' => get_home_url(),
-			'user_avatar' => get_avatar($current_user->ID)
+			'user_avatar' => get_avatar($current_user->ID),
+				'redirect_to' => $redirect,
 		]);
 
 		$menuPrincipal = $this->render('menu/principal', [
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
 			'login_url' => wp_login_url($redirect),
 			'home_url' => get_home_url(),
-			'user_avatar' => get_avatar($current_user->ID)
+			'user_avatar' => get_avatar($current_user->ID),
+			'redirect_to' => $redirect,
 		]);
 
 		$menuFooter = $this->render('menu/footer', [

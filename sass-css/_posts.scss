@@ -32,13 +32,17 @@
 
 	@extend %ul-inline;	
 	
-	.btn-editar{
+	.page-header {
+		margin-top: 25px;
+	}
+	
+	.btn-editar {
 		float:right;
 	}
-	.categories{
+	.categories {
 		@include sombreado-color(#fff, #333);
 	}
-	.comment-form{
+	.comment-form {
 		margin-bottom: 10px;
 	}
 	
