@@ -244,11 +244,13 @@ $(document).ready(function() {
 				+ ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
 		document.cookie = c_name + "=" + c_value;
 	}
-	if (getCookie('aviso') != "1") {
+	if (getCookie('nm_aviso') != "1") {
 		document.getElementById("cookies").style.display = "block";
 	}
-	function PonerCookie() {
-		setCookie('aviso', '1', 365);
+	
+	$('.poner-cookie').click(function() {
+		setCookie('nm_aviso', '1', 365);
 		document.getElementById("cookies").style.display = "none";
-	}
+	});
+	
 });
