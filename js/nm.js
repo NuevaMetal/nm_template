@@ -156,7 +156,7 @@ $(document).ready(function() {
 				formulario.find('.fa-spinner').removeClass('hidden');
 			},
 			success : function(json) {
-				$('#alertas').html(json.alerta);
+				$('#alertas').html(json.content);
 				$('#alertas').fadeIn();
 				formulario.find('.fa-spinner').addClass('hidden');				
 				setTimeout(function(){

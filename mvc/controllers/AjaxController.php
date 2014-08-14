@@ -27,7 +27,10 @@ abstract class AlertaController extends BaseController {
 		$args ['tipo'] = $tipo;
 		$args ['mensaje'] = $mensaje;
 		$args ['strong'] = $strong;
-		return $this->render('ajax/alerta', $args);
+		return [
+			'code' => 200,
+			'content' => $this->render('ajax/alerta', $args)
+		];
 	}
 
 	/**
@@ -89,10 +92,8 @@ class AjaxController extends AlertaController {
 	 *
 	 * @return View
 	 */
-	public function crearNotificacion() {
+	public function crearNotificacion($post_id, $user_id) {
 		global $wpdb;
-		$post_id = $_POST ['post'];
-		$user_id = $_POST ['user'];
 		$post = get_post($post_id);
 		$post_title = $post->post_title;
 
@@ -133,27 +134,24 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	}
 
 	/**
-	 * Corregir notificacion
-	 */
-	public function corregirNotificacion() {
-		// TODO: implementar
-	}
-
-	/**
 	 * Devuelve una lista de post para mostrar más
 	 *
-	 * @param unknown $que
+	 * @param string $que
+	 * @param integer $max
+	 * @param integer $offset
+	 * @return array
 	 */
-	public function mostrarMas($que, $max = 2, $offset) {
+	public function mostrarMas($que, $max, $offset) {
 		$homeController = new HomeController();
 		$offset--; // Quitamos uno por el header
 		$moreQuerySettings ['offset'] = $offset;
 
 		$bandas = $homeController->getPostsByCategory($que, $max, $moreQuerySettings);
-
-		return $this->render('home/_posts', [
+		$json ['code'] = 200;
+		$json ['content'] = $this->render('home/_posts', [
 			'posts' => $bandas
 		]);
+		return $json;
 	}
 
 }
@@ -161,23 +159,22 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 $json = array();
 
 $ajax = new AjaxController();
-//dd($_REQUEST);
+
 switch ($_REQUEST ['submit']) {
 	case "notificar" :
-		$json ['alerta'] = $ajax->crearNotificacion();
-		break;
-	case "notificar-corregido" :
-		$json ['alerta'] = $ajax->corregirNotificacion();
+		$post_id = $_POST ['post'];
+		$user_id = $_POST ['user'];
+		$json = $ajax->crearNotificacion($post_id, $user_id);
 		break;
 	case "mostrar-mas" :
 		$que = $_REQUEST ['que'];
 		$max = $_REQUEST ['max'];
-		$size = $_REQUEST ['size'];
-		$json ['code'] = 200;
-		$json ['content'] = $ajax->mostrarMas($que, $max, $size);
+		$offset = $_REQUEST ['size'];
+
+		$json = $ajax->mostrarMas($que, $max, $offset);
 		break;
 	default :
-		$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
+		$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 }
 
 echo json_encode($json);
