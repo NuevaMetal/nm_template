@@ -94,7 +94,7 @@ class AjaxController extends AlertaController {
 		$post_id = $_POST ['post'];
 		$user_id = $_POST ['user'];
 		$post = get_post($post_id);
-		$strong = $post->post_title;
+		$post_title = $post->post_title;
 
 		// Primero comprobamos que el user no esté baneado
 		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
@@ -122,11 +122,11 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		 		WHERE post_id = %d
 		 		AND status = 0;", $post_id));
 			// y notificamos que ya envió una notificación para este post
-			return $this->renderAlertaInfo('Ya notificaste esta entrada', $strong);
+			return $this->renderAlertaInfo('Ya notificaste esta entrada', $post_title);
 		}
 
 		if (!empty($result)) {
-			return $this->renderAlertaSuccess('Notificación enviada con éxito', $strong);
+			return $this->renderAlertaSuccess("exito: $exito. Notificación enviada con éxito", $post_title);
 		}
 
 		return $this->renderAlertaDanger('Ocurrió un error inesperado');
@@ -144,10 +144,10 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 *
 	 * @param unknown $que
 	 */
-	public function mostrarMas($que, $max = 2, $size) {
+	public function mostrarMas($que, $max = 2, $offset) {
 		$homeController = new HomeController();
-		$size--; // Quitamos uno por el header
-		$moreQuerySettings ['offset'] = $size;
+		$offset--; // Quitamos uno por el header
+		$moreQuerySettings ['offset'] = $offset;
 
 		$bandas = $homeController->getPostsByCategory($que, $max, $moreQuerySettings);
 

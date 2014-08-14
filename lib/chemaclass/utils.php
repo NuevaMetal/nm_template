@@ -142,7 +142,7 @@ class Utils {
 		$roles = is_array($rarr) ? array_keys($rarr) : array(
 			'non-user'
 		);
-		return $roles[0];
+		return $roles [0];
 	}
 
 	/**
@@ -156,6 +156,24 @@ class Utils {
 	 */
 	public static function isUserRol($user_id, $roles) {
 		return in_array(self::getRoleByUserId($user_id), $roles);
+	}
+
+	/**
+	 * Devuelve un array con el total de usuarios y los post que han creado
+	 *
+	 * @return array
+	 */
+	public static function getArrayTotalPostPorUser() {
+		global $wpdb;
+		$select = "SELECT u.ID, u.user_login nombre, COUNT( p.ID ) total
+					FROM wp_posts p, wp_users u
+					WHERE p.post_author = u.ID
+					AND p.post_name NOT LIKE '%revision%'
+					AND p.post_type = 'post'
+					GROUP BY u.ID
+					ORDER BY total DESC";
+		$result = $wpdb->query($select);
+		return $result;
 	}
 
 }
