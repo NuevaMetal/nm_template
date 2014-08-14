@@ -64,6 +64,28 @@ header .header-img {
 	}
 }
 
+#cookies {
+	
+	background: #333;
+	bottom: 0px;
+	color:#ddd;
+	display: none;
+	left: 0px;
+	height: auto;
+	
+	position: fixed;
+	width: 100%;
+	right: 0px;
+	text-align: center;
+	z-index: 99999;
+	font-family: verdana;
+	font-size: 12px;
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
 #sidebar{
 	
 }
@@ -119,9 +141,10 @@ body {
 
 .back-to-top {
     position: fixed;
-    bottom: 2em;
-    border-radius: 50px;
+    bottom: 28px;
+    border-radius: 20px;
     right: 0px;
+   
     color: #000000;
     background-color: rgba(235, 235, 235, 0.80);
     font-size: 12px;
