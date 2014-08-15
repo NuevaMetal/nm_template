@@ -25,7 +25,6 @@ class PostController extends BaseController {
 		$comment_form = $this->_getComentForm($post ['ID']);
 		$comments = $this->_getComments($post ['ID']);
 
-		//'comments' => Utils::getDisqusEmbed('nuevametalweb'),
 		$argsContent = [
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
