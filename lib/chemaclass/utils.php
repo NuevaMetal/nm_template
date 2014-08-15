@@ -162,6 +162,21 @@ class Utils {
 		return $result;
 	}
 
+	/**
+	 * Devuelve el id en base al nombre de una tag
+	 *
+	 * @param string $tag_name
+	 * @return number
+	 */
+	public static function getTagID($tag_name) {
+		$tag = get_term_by('name', $tag_name, 'post_tag');
+		if ($tag) {
+			return $tag->term_id;
+		} else {
+			return 0;
+		}
+	}
+
 }
 
 /**

@@ -82,6 +82,27 @@ class HomeController extends BaseController {
 	}
 
 	/**
+	 * Devuelve una sección en base a una categoría o etiqueta
+	 *
+	 * @param string $seccion
+	 *        Nombre de la categoría de la que sacar la sección
+	 * @param number $cant
+	 *        Cantidad de entradas a obtener
+	 * @param array $args
+	 *        Lista de parámetros opcionales para la vista de post
+	 */
+	public static function getTags($seccion, $cant = 4, $args = []) {
+		$args ['header'] = [
+			'header' => ucfirst($seccion)
+		];
+		$args ['posts'] = self::getPostsByTag($seccion, $cant);
+		$args ['seccion'] = $seccion;
+		$args ['cant'] = $cant;
+		$args ['template_url'] = get_template_directory_uri();
+		return $args;
+	}
+
+	/**
 	 * Devuelve un número determinado de posts en base al ID de su categoría
 	 *
 	 * @param number $catId
@@ -91,10 +112,30 @@ class HomeController extends BaseController {
 	 * @return multitype:
 	 */
 	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = []) {
-		$catId = get_cat_ID($seccion);
+		return self::getPostsBy('category', $seccion, $max, $moreQuerySettings);
+	}
 
-		$moreQuerySettings ['cat'] = "$catId";
+	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = []) {
+		return self::getPostsBy('tag', $seccion, $max, $moreQuerySettings);
+	}
 
+	/**
+	 * Devuelve un número determinado de posts en base al ID de su categoría
+	 *
+	 * @param number $catId
+	 *        ID de la categoría
+	 * @param number $max
+	 *        número máximo de posts a devolver
+	 * @return multitype:
+	 */
+	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = []) {
+		if ($tipo == 'tag') {
+			$catId = Utils::getTagID($seccion);
+			$moreQuerySettings ['tag_id'] = "$catId";
+		} else {
+			$catId = get_cat_ID($seccion);
+			$moreQuerySettings ['cat'] = "$catId";
+		}
 		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
 	}
 

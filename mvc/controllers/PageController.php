@@ -48,7 +48,7 @@ class PageController extends BaseController {
 	public function getTag() {
 		$current_tag = single_tag_title("", false);
 
-		$seccion = HomeController::getSeccion($current_tag, 4);
+		$seccion = HomeController::getTags($current_tag, 4);
 
 		$content = $this->render('busqueda', [
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
