@@ -127,7 +127,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		}
 
 		if (!empty($result)) {
-			return $this->renderAlertaSuccess("exito: $exito. Notificación enviada con éxito", $post_title);
+			return $this->renderAlertaSuccess("Notificación enviada con éxito", $post_title);
 		}
 
 		return $this->renderAlertaDanger('Ocurrió un error inesperado');
