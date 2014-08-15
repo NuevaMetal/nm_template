@@ -12,12 +12,15 @@
 		{{>home/_seccion}}
 	{{/entrevistas}}
 	
-	{{#noticias}}
-		{{>home/_seccion}}
-	{{/noticias}}
+	<div class="col-lg-6">
+		{{#noticias}}
+			{{>home/_seccion}}
+		{{/noticias}}
+	</div>
 
-	{{#conciertos}}
-		{{>home/_seccion}}
-	{{/conciertos}}
-
+	<div class="col-lg-6">
+		{{#conciertos}}
+			{{>home/_seccion}}
+		{{/conciertos}}
+	</div>
 </section>
