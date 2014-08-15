@@ -181,6 +181,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var posts = $(this).parents('.posts');
 		var seccion = $(posts).find('.seccion');
+		var cant = $(posts).find('.cant').text();
 		var que = $(this).attr('mostrar-mas');
 		var url = $(this).attr('url');
 		var size = $(seccion).children().size();
@@ -188,7 +189,7 @@ $(document).ready(function() {
 		var data = {
 			submit : 'mostrar-mas',
 			que : que,
-			max: 4,
+			cant: cant,
 			size: size 
 		};
 		//console.log("mostrar-mas: " + que);

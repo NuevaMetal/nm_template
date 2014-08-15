@@ -37,10 +37,20 @@ class HomeController extends BaseController {
 			'reducido' => true
 		]);
 
+		$noticias = self::getSeccion('noticias', 2, [
+			'reducido' => true
+		]);
+
+		$conciertos = self::getSeccion('conciertos', 2, [
+			'reducido' => true
+		]);
+
 		$content = $this->render('home', [
 			'bandas' => $bandas,
 			'videos' => $videos,
-			'entrevistas' => $entrevistas
+			'entrevistas' => $entrevistas,
+			'noticias' => $noticias,
+			'conciertos' => $conciertos
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -66,6 +76,7 @@ class HomeController extends BaseController {
 		];
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
 		$args ['seccion'] = $seccion;
+		$args ['cant'] = $cant;
 		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}
