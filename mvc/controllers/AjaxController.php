@@ -141,12 +141,15 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 * @param integer $offset
 	 * @return array
 	 */
-	public function mostrarMas($que, $cant, $offset) {
+	public function mostrarMas($tipo, $que, $cant, $offset) {
 		$homeController = new HomeController();
 		$offset--; // Quitamos uno por el header
 		$moreQuerySettings ['offset'] = $offset;
-
-		$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings);
+		if ($tipo == 'tag') {
+			$bandas = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
+		} else {
+			$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings);
+		}
 		$json ['code'] = 200;
 
 		$json ['content'] = $this->render('home/_posts', [
@@ -169,11 +172,12 @@ switch ($_REQUEST ['submit']) {
 		$json = $ajax->crearNotificacion($post_id, $user_id);
 		break;
 	case "mostrar-mas" :
+		$tipo = $_REQUEST ['tipo'];
 		$que = $_REQUEST ['que'];
 		$cant = $_REQUEST ['cant'];
 		$offset = $_REQUEST ['size'];
 
-		$json = $ajax->mostrarMas($que, $cant, $offset);
+		$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
 		break;
 	default :
 		$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');

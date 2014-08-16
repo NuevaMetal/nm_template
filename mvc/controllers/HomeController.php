@@ -77,6 +77,7 @@ class HomeController extends BaseController {
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
+		$args ['tipo'] = 'category';
 		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}
@@ -98,6 +99,7 @@ class HomeController extends BaseController {
 		$args ['posts'] = self::getPostsByTag($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
+		$args ['tipo'] = 'tag';
 		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}

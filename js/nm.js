@@ -161,6 +161,7 @@ $(document).ready(function() {
 		var posts = $(this).parents('.posts');
 		var seccion = $(posts).find('.seccion');
 		var cant = $(posts).find('.cant').text();
+		var tipo = $(posts).find('.tipo').text();
 		var que = $(this).attr('mostrar-mas');
 		var url = $(this).attr('url');
 		var size = $(seccion).children().size();
@@ -169,7 +170,8 @@ $(document).ready(function() {
 			submit : 'mostrar-mas',
 			que : que,
 			cant: cant,
-			size: size 
+			size: size,
+			tipo: tipo
 		};
 		//console.log("mostrar-mas: " + que);
 		$.ajax({
