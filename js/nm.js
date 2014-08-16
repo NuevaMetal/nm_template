@@ -24,7 +24,7 @@ $(window).scroll(function() {
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var flag = (documentHeight - windowHeight)-scroll;
 	var noHaySpinner = $('.mostrar-mas').find('.fa-spinner').hasClass('hidden');
-	if( $('.mostrar-mas').size() == 1 && noHaySpinner && flag <= 200) {
+	if( $('.mostrar-mas').size() == 1 && noHaySpinner && flag <= 280) {
 		$('.mostrar-mas').trigger('click');
 	}
 });
