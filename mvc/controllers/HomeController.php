@@ -77,7 +77,7 @@ class HomeController extends BaseController {
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
-		$args ['tipo'] = 'category';
+		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}
@@ -99,7 +99,7 @@ class HomeController extends BaseController {
 		$args ['posts'] = self::getPostsByTag($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
-		$args ['tipo'] = 'tag';
+		$args ['tipo'] = Utils::TIPO_TAG;
 		$args ['template_url'] = get_template_directory_uri();
 		return $args;
 	}
@@ -114,11 +114,11 @@ class HomeController extends BaseController {
 	 * @return multitype:
 	 */
 	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = []) {
-		return self::getPostsBy('category', $seccion, $max, $moreQuerySettings);
+		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings);
 	}
 
 	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = []) {
-		return self::getPostsBy('tag', $seccion, $max, $moreQuerySettings);
+		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings);
 	}
 
 	/**
@@ -132,7 +132,7 @@ class HomeController extends BaseController {
 	 */
 	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = []) {
 		if ($tipo == 'tag') {
-			$catId = Utils::getTagID($seccion);
+			$catId = Utils::getTagIdbyName($seccion);
 			$moreQuerySettings ['tag_id'] = "$catId";
 		} else {
 			$catId = get_cat_ID($seccion);

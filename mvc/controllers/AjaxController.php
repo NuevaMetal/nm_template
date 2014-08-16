@@ -145,9 +145,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		$homeController = new HomeController();
 		$offset--; // Quitamos uno por el header
 		$moreQuerySettings ['offset'] = $offset;
-		if ($tipo == 'tag') {
+		if ($tipo == Utils::TIPO_TAG) {
 			$bandas = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
-		} else {
+		} else if ($tipo == Utils::TIPO_CATEGORY){
 			$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings);
 		}
 		$json ['code'] = 200;

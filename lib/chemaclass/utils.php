@@ -7,6 +7,10 @@
  */
 class Utils {
 
+	const TIPO_TAG = 'tag';
+
+	const TIPO_CATEGORY = 'category';
+
 	/**
 	 * devuelve el contenido de un texto etiquetadoencontrado entre las etiquetas especificadas
 	 *
@@ -168,8 +172,8 @@ class Utils {
 	 * @param string $tag_name
 	 * @return number
 	 */
-	public static function getTagID($tag_name) {
-		$tag = get_term_by('name', $tag_name, 'post_tag');
+	public static function getTagIdbyName($tagName) {
+		$tag = get_term_by('name', $tagName, 'post_tag');
 		if ($tag) {
 			return $tag->term_id;
 		} else {
