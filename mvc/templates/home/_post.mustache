@@ -1,9 +1,5 @@
-{{#reducido}}
-<article class="post col-xs-12 col-sm-6">
-{{/reducido}}
-{{^reducido}}
-<article class="post col-xs-12 col-sm-6 col-lg-3">
-{{/reducido}}
+<article class="post col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" 
+	itemscope itemType="http://schema.org/BlogPosting">
 
 	<div class="info">
     	<span class="post-time">{{time}} </span>
