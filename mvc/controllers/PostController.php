@@ -12,14 +12,15 @@ class PostController extends BaseController {
 	 * single.php
 	 */
 	public function getPost() {
-		$dateFormat = 'l, d M Y';
+		$dateFormat = 'l, d F Y';
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop($dateFormat);
+		$post = $posts [0];
 
-		if (!isset($posts [0])) {
+		if (!isset($post)) {
 			return $this->renderPage('404');
 		}
 		$current_user = wp_get_current_user();
-		$post = $posts [0];
+
 		$author_id = get_the_author_meta('ID');
 		$edit_user_link = ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false;
 
@@ -34,9 +35,9 @@ class PostController extends BaseController {
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
 			'edit_user_link' => $edit_user_link,
-			'next_post' => get_next_post_link("%link"),
+			//'next_post' => get_next_post_link("%link"),
 			'post' => $post,
-			'previous_post' => get_previous_post_link("%link"),
+			//'previous_post' => get_previous_post_link("%link"),
 			'user_avatar' => get_avatar($author_id, 36),
 			'user_posts_url' => get_author_posts_url($author_id),
 			'user_url' => get_the_author_meta('url'),
