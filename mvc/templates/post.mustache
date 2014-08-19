@@ -1,17 +1,17 @@
 {{#post}}
-<div class="post ">
+<div class="post" itemscope itemType="http://schema.org/BlogPosting">
 
-	<h1 class="page-header">{{{title}}}</h1>
-		
+	<h1 class="page-header" itemprop="headline">{{{title}}}</h1>
+
 	{{>post/_info}}
-	
-	<div class="content text-center col-xs-12">
+
+	<div class="content text-center col-xs-12" itemprop="articleBody">
 		{{{content}}}
 	</div>
-		
+
 	{{>post/_tags}}
 	{{>post/_meta}}
-	
+
 	<div class="comment-form col-xs-12">
 		{{{comment_form}}}
 	</div>

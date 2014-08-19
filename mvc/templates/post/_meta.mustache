@@ -1,28 +1,35 @@
 <div class="post-meta page-header col-xs-12">
-	<h2>
-	<div class="col-xs-12 col-sm-8">
-	  {{{user_avatar}}}  <a href="{{user_posts_url}}">{{display_name}}</a>  <small>{{user_rol}}</small>
-	</div>
-	{{#user_url}}
-	<div class="col-sm-4">
-		{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-info">Editar perfil</a>{{/edit_user_link}}
-		{{#user_posts_url}}<a class="btn btn-info btn-md" role="button" href="{{user_url}}" target="_blank">Web</a>{{/user_posts_url}}
-	</div>	
-	{{/user_url}}
-	</h2>
-	
-	<div class="col-xs-12">
-		<blockquote>
-			<p>
+
+	<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+		<h2>
+		<div class="col-xs-12 col-sm-8" >
+			<span itemprop="image">{{{user_avatar}}}</span>
+			<a href="{{user_posts_url}}" itemprop="name">{{display_name}}</a>
+			<small itemprop="jobTitle">{{user_rol}}</small>
+		</div>
+		</h2>
+		{{#user_url}}
+		<div class="col-sm-4">
+			{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-info">Editar perfil</a>{{/edit_user_link}}
+			{{#user_posts_url}}<a class="btn btn-info btn-md" role="button" href="{{user_url}}" target="_blank">Web</a>{{/user_posts_url}}
+		</div>
+		{{/user_url}}
+
+		<div class="col-xs-12">
+			<blockquote>
 				{{#description}}
 					<small>Bio</small>
-					{{{description}}}
 				{{/description}}
 				{{^description}}
-					{{#edit_user_link}}<p><a href="{{{edit_user_link}}}" class="btn btn-warning">Editar perfil</a></p>{{/edit_user_link}}
-					<footer>Este usuario no ha compartido ninguna información de perfil :(</footer>
+					{{#edit_user_link}}<p><a href="{{{edit_user_link}}}" class="btn btn-warning">Actualizar mi información de perfil</a></p>{{/edit_user_link}}
 				{{/description}}
-			</p>			
-		</blockquote>
+				<p itemprop="description">
+				{{description}}
+				{{^description}}
+					Este usuario no ha compartido ninguna información de perfil :(
+				{{/description}}
+				</p>
+			</blockquote>
+		</div>
 	</div>
 </div>
