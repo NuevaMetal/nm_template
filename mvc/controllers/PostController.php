@@ -12,7 +12,8 @@ class PostController extends BaseController {
 	 * single.php
 	 */
 	public function getPost() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+		$dateFormat = 'l, d M Y';
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop($dateFormat);
 
 		if (!isset($posts [0])) {
 			return $this->renderPage('404');
