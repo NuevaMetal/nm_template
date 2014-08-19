@@ -12,6 +12,45 @@ class Utils {
 	const TIPO_CATEGORY = 'category';
 
 	/**
+	 * Devuelve una lista con el nombre de los días de la semana
+	 *
+	 * @return multitype:string
+	 */
+	public static function getDias() {
+		return array(
+			"Domingo",
+			"Lunes",
+			"Martes",
+			"Miercoles",
+			"Jueves",
+			"Viernes",
+			"Sábado"
+		);
+	}
+
+	/**
+	 * Devuelve una lista con el nombre de los días de los meses
+	 *
+	 * @return multitype:string
+	 */
+	public static function getMeses() {
+		return array(
+			"Enero",
+			"Febrero",
+			"Marzo",
+			"Abril",
+			"Mayo",
+			"Junio",
+			"Julio",
+			"Agosto",
+			"Septiembre",
+			"Octubre",
+			"Noviembre",
+			"Diciembre"
+		);
+	}
+
+	/**
 	 * devuelve el contenido de un texto etiquetadoencontrado entre las etiquetas especificadas
 	 *
 	 * @param string $string
