@@ -34,9 +34,9 @@
 }
 
 a {
-	color: #d9534f;
+	color: $rojo-danger;
 	&:hover,&:focus,&.focus,&.active{
-		color: #c9302c;
+		color: $rojo-danger-hover;
 	}
 }
 
