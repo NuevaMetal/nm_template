@@ -33,6 +33,13 @@
 	}*/
 }
 
+a {
+	color: #d9534f;
+	&:hover,&:focus,&.focus,&.active{
+		color: #c9302c;
+	}
+}
+
 header .header-img {	
 	background-color: #000;
 	background: url('../img/nm_head1.jpg');
