@@ -1,10 +1,20 @@
 <?php
+require_once dirname(__FILE__) . '/../i18n/I18n.php';
 /**
  *
  * @author chema
  *
  */
 abstract class BaseController extends ChesterBaseController {
+
+	public function __construct() {
+		parent::__construct();
+		$this->template->setHelpers(array(
+			'i18n' => function ($text) {
+				return I18n::trans($text);
+			}
+		));
+	}
 
 	/**
 	 * Pintar la plantilla base con los menus
@@ -26,7 +36,7 @@ abstract class BaseController extends ChesterBaseController {
 			'login_url' => wp_login_url($redirect),
 			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID),
-				'redirect_to' => $redirect,
+			'redirect_to' => $redirect
 		]);
 
 		$menuPrincipal = $this->render('menu/principal', [
@@ -34,7 +44,7 @@ abstract class BaseController extends ChesterBaseController {
 			'login_url' => wp_login_url($redirect),
 			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID),
-			'redirect_to' => $redirect,
+			'redirect_to' => $redirect
 		]);
 
 		$menuFooter = $this->render('menu/footer', [
