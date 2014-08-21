@@ -10,7 +10,7 @@
 	</div>
 	
 	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
-		<h3>{{#trans}}bienvenido{{/trans}}
+		<h3>{{#transu}}bienvenido{{/transu}}
 		{{#current_user.url}}
 			<a href="{{current_user.url}}" title="Entradas de {{current_user.display_name}}">
 			{{current_user.display_name}}</a>			
@@ -24,21 +24,21 @@
 	<div class="acciones text-center col-xs-12 col-sm-10 col-md-7">
 		<div class="list-group">
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/" target="_blank">
-		  	<i class="fa fa-home"></i> Escritorio </a>
+		  	<i class="fa fa-home"></i> {{#transu}}escritorio{{/transu}} </a>
 		 		  
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-pencil"></i> Escribir</span>
-			<span class="visible-lg"><i class="fa fa-pencil"></i> Nueva Entrada</span>
+			<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
+			<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
 			</a>
 		  	
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/profile.php" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-user"></i> Perfil</span>
-			<span class="visible-lg"><i class="fa fa-user"></i> Ver Perfil</span>
+			<span class="hidden-lg"><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
+			<span class="visible-lg"><i class="fa fa-user"></i>{{#transu}}ver_perfil{{/transu}}</span>
 			</a>
 			
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-exclamation-circle"></i> Salir</span>
-			<span class="visible-lg"><i class="fa fa-exclamation-circle"></i> Cerrar Sesión</span>
+			<span class="hidden-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}}</span>
+			<span class="visible-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}}</span>
 			</a>
 		</div>
 	</div>
