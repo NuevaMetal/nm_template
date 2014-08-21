@@ -12,6 +12,18 @@ class I18n {
 	const LANG_EN = 'en';
 
 	/**
+	 * Devuelve una lista con todos los idiomas disponibles
+	 *
+	 * @return array<string> Nombre de los ficheros de los idiomas disponibles
+	 */
+	private static function _getTodosIdiomasDisponibles() {
+		return [
+			self::LANG_ES,
+			self::LANG_EN
+		];
+	}
+
+	/**
 	 * Devuelve la palabra traducida según el idioma del navegador
 	 *
 	 * @param string $key
@@ -49,18 +61,6 @@ class I18n {
 	 */
 	public static function transupper($key, $params = [], $idiomaForzado = false) {
 		return strtoupper(self::trans($key, $params, $idiomaForzado));
-	}
-
-	/**
-	 * Devuelve una lista con todos los idiomas disponibles
-	 *
-	 * @return array<string> Nombre de los ficheros de los idiomas disponibles
-	 */
-	private static function _getTodosIdiomasDisponibles() {
-		return [
-			self::LANG_ES,
-			self::LANG_EN
-		];
 	}
 
 }
