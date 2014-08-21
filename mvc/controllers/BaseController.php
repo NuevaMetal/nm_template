@@ -10,9 +10,9 @@ abstract class BaseController extends ChesterBaseController {
 	public function __construct() {
 		parent::__construct();
 		$this->template->setHelpers(array(
-			'i18n' => function ($text) {
+			'trans' => function ($text) {
 				return I18n::trans($text);
-			}
+			},
 		));
 	}
 
