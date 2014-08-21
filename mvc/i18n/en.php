@@ -11,6 +11,7 @@ return [
 	'conciertos' => 'concerts',
 	'contrasena' => 'password',
 	'contrasena_perdida' => 'password?',
+	'contrasena_perdida_title' => 'do you lost your password?',
 	'criticas' => 'reviews',
 	'cronicas' => 'chronics',
 

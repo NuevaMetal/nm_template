@@ -78,20 +78,20 @@
 					</ul>
 				</li>
 				<li class="dropdown hidden-lg">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Secciones <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{#transu}}secciones{{/transu}} <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="/categoria/bandas/">Bandas</a></li>
-						<li><a href="/categoria/videos/">Vídeos</a></li>
-						<li><a href="/categoria/entrevistas/">Entrevistas</a></li>
-						<li><a href="/categoria/criticas/">Críticas</a></li>
-						<li><a href="/categoria/cronicas/">Crónicas</a></li>
+						<li><a href="/categoria/bandas/">{{#transu}}bandas{{/transu}}</a></li>
+						<li><a href="/categoria/videos/">{{#transu}}videos{{/transu}}</a></li>
+						<li><a href="/categoria/entrevistas/">{{#transu}}entrevistas{{/transu}}</a></li>
+						<li><a href="/categoria/criticas/">{{#transu}}criticas{{/transu}}</a></li>
+						<li><a href="/categoria/cronicas/">{{#transu}}cronicas{{/transu}}</a></li>
 					</ul>
 				</li>
-				<li class="visible-lg"><a href="/categoria/bandas/">Bandas</a></li>
-				<li class="visible-lg"><a href="/categoria/videos/">Vídeos</a></li>
-				<li class="visible-lg"><a href="/categoria/entrevistas/">Entrevistas</a></li>
-				<li class="visible-lg"><a href="/categoria/criticas/">Críticas</a></li>
-				<li class="visible-lg"><a href="/categoria/cronicas/">Crónicas</a></li>					
+				<li class="visible-lg"><a href="/categoria/bandas/">{{#transu}}bandas{{/transu}}</a></li>
+				<li class="visible-lg"><a href="/categoria/videos/">{{#transu}}videos{{/transu}}</a></li>
+				<li class="visible-lg"><a href="/categoria/entrevistas/">{{#transu}}entrevistas{{/transu}}</a></li>
+				<li class="visible-lg"><a href="/categoria/criticas/">{{#transu}}criticas{{/transu}}</a></li>
+				<li class="visible-lg"><a href="/categoria/cronicas/">{{#transu}}cronicas{{/transu}}</a></li>					
 				<li class="hidden-xs">
 					<form action="/" method="get" class="navbar-form form-horizontal" role="search">
 					    <div class="input-group">
@@ -109,7 +109,7 @@
 			      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 			      
 			      <i class="fa fa-user"> 
 			      {{#current_user}}{{current_user.user_login}}{{/current_user}}
-				  {{^current_user}}Login{{/current_user}}
+				  {{^current_user}}{{#transu}}acceder{{/transu}}{{/current_user}}
 			      </i></a>
 			      <ul class="dropdown-menu" role="menu" id="foo">
 			        <li class="text-center">

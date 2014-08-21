@@ -11,6 +11,7 @@ return [
 	'conciertos' => 'conciertos',
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Contraseña?',
+	'contrasena_perdida_title' => '¿Has perdido tu contraseña?',
 	'criticas' => 'críticas',
 	'cronicas' => 'crónicas',
 

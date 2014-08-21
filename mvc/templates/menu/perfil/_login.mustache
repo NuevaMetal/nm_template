@@ -5,26 +5,26 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-2">
 					<input type="text" name="log" id="user_login"
-						class="form-control" value="" size="20" placeholder="User">
+						class="form-control" value="" size="20" placeholder="user">
 				</div>
 				<div class="col-xs-12 col-sm-3 col-md-2">
 				 <input type="password" name="pwd" id="user_pass"
-				 	class="form-control" value="" size="20"  placeholder="Password">
+				 	class="form-control" value="" size="20"  placeholder="password">
 				</div>
 				<div class="login-submit col-xs-6 col-sm-3 col-md-2">
 					<input type="submit" name="wp-submit" id="wp-submit"
-						class="btn btn-danger form-control" value="Acceder" >
+						class="btn btn-danger form-control" value="{{#transu}}acceder{{/transu}}" >
 					
 				</div>
 				 <div class="checkbox col-xs-6 col-sm-3 col-md-2">
 				 	<label><input name="rememberme" type="checkbox" id="rememberme" 
-				    	 value="forever"> Recuérdame</label>
+				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=register" title="¡Registrate!">Registrarse</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=register">{{#transu}}registrarse{{/transu}}</a>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword" title="¿Has perdido tu contraseña?">¿Contraseña?</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword">{{#transu}}contrasena_perdida{{/transu}}</a>
 				</div>	
 			</div>
 		</form>
