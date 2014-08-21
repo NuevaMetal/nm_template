@@ -35,6 +35,7 @@ return [
 
 	'pagina_anterior' => 'previous page',
 	'pagina_siguiente' => 'next page',
+	'panel' => 'panel',
 	'perfil' => 'profile',
 	'por' => 'by',
 
