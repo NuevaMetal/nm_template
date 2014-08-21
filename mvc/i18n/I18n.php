@@ -24,7 +24,6 @@ class I18n {
 		} else {
 			$lang = Utils::getLang();
 		}
-		Utils::debug("> lang: $lang");
 		// Lista con las claves /valor según el idioma
 		$langArray = require (dirname(__FILE__) . '/' . $lang . '.php');
 		return isset($langArray [$key]) ? $langArray [$key] : $key;
