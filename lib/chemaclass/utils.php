@@ -220,6 +220,32 @@ class Utils {
 		}
 	}
 
+	/**
+	 * Devuelve el idioma actual que entiende la web.
+	 * Si no tuviera dicha i18n devolvería el idioma inglés por defecto
+	 *
+	 * @return string
+	 */
+	public static function getLang() {
+		$lang = self::getLangBrowser();
+		switch ($lang) {
+			case "es" :
+				return I18n::LANG_ES;
+				break;
+			default :
+				return I18n::LANG_EN;
+		}
+	}
+
+	/**
+	 * Devuelve el idioma actual del navegador.
+	 *
+	 * @return string Los dos primeros chars. Ej: es, en, fr
+	 */
+	public static function getLangBrowser() {
+		return substr($_SERVER ['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+	}
+
 }
 
 /**
