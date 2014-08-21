@@ -14,10 +14,10 @@ abstract class BaseController extends ChesterBaseController {
 				return I18n::trans($text);
 			},
 			'transu' => function ($text) {
-				return ucfirst(I18n::trans($text));
+				return I18n::transu($text);
 			},
 			'transupper' => function ($text) {
-				return strtoupper(I18n::trans($text));
+				return I18n::transupper($text);
 			}
 		));
 	}
