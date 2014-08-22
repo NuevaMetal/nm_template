@@ -3,7 +3,7 @@ return [
 	'acceder' => 'login',
 
 	'bandas' => 'bands',
-	'bienvenido' => 'welcome',
+	'bienvenido' => 'welcome :nombre',
 	'biografia' => 'biography',
 	'buscar' => 'search',
 
