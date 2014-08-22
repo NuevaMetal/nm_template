@@ -21,6 +21,8 @@ return [
 
 	'hola' => 'hola',
 
+	'informar' => 'informar',
+
 	'editar_perfil' => 'editar perfil',
 	'entrada' => 'entrada',
 	'entradas' => 'entradas',
@@ -50,6 +52,9 @@ return [
 	'registrarse' => 'registrarse',
 
 	'redes' => 'redes',
+	'reportar' => 'reportar',
+	'reportar_entrada' => 'Reportar esta entrada :titulo',
+	'reportar_info' => 'Reportar enlaces o vídeos caídos para esta entrada.',
 
 	'salir' => 'salir',
 	'secciones' => 'secciones',

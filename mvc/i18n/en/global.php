@@ -21,6 +21,8 @@ return [
 
 	'hola' => 'hello',
 
+	'informar' => 'notify',
+
 	'editar_perfil' => 'edit profile',
 	'entrada' => 'post',
 	'entradas' => 'posts',
@@ -50,6 +52,9 @@ return [
 	'registrarse' => 'Sign in',
 
 	'redes' => 'networks',
+	'reportar' => 'report',
+	'reportar_entrada' => 'report this post: :titulo',
+	'reportar_info' => 'Report links or fallen videos for this post.',
 
 	'salir' => 'exit',
 	'secciones' => 'sections',
