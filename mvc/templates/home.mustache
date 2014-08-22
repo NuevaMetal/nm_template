@@ -1,24 +1,55 @@
 <section id="home" class="text-center">
 
 	{{#bandas}}
+	<div class="col-xs-12 seccion-posts">
+		<header class="page-header col-xs-12">
+			<h1>
+				<a href="{{url}}">{{#transu}}bandas{{/transu}}</a>
+			</h1>
+		</header>
 		{{>home/_seccion}}
+	</div>
 	{{/bandas}}
 
 	{{#videos}}
+	<div class="col-xs-12 seccion-posts">
+		<header class="page-header col-xs-12">
+			<h1>
+				<a href="{{url}}">{{#transu}}videos{{/transu}}</a>
+			</h1>
+		</header>
 		{{>home/_seccion}}
+	</div>
 	{{/videos}}
 
 	{{#entrevistas}}
+	<div class="col-xs-12 seccion-posts">
+		<header class="page-header col-xs-12">
+			<h1>
+				<a href="{{url}}">{{#transu}}entrevistas{{/transu}}</a>
+			</h1>
+		</header>
 		{{>home/_seccion}}
+	</div>
 	{{/entrevistas}}
 	
-	<div class="col-lg-6">
+	<div class="col-lg-6 seccion-posts">
+		<header class="page-header col-xs-12">
+			<h1>
+				<a href="{{url}}">{{#transu}}noticias{{/transu}}</a>
+			</h1>
+		</header>
 		{{#noticias}}
 			{{>home/_seccion}}
 		{{/noticias}}
 	</div>
 
-	<div class="col-lg-6">
+	<div class="col-lg-6 seccion-posts">
+		<header class="page-header col-xs-12">
+			<h1>
+				<a href="{{url}}">{{#transu}}conciertos{{/transu}}</a>
+			</h1>
+		</header>
 		{{#conciertos}}
 			{{>home/_seccion}}
 		{{/conciertos}}

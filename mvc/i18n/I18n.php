@@ -32,6 +32,7 @@ class I18n {
 	 */
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
 		$traducir = strtolower($traducir);
+		//Utils::debug("trad: $traducir");
 		static::_getParams($traducir, $params);
 		if ($idiomaForzado && in_array($idiomaForzado, static::_getTodosIdiomasDisponibles())) {
 			$dir = $idiomaForzado;
@@ -48,6 +49,7 @@ class I18n {
 		$langArray = require (dirname(__FILE__) . "/$dir/$file.php");
 		$key = trim($key);
 		$valor = isset($langArray [$key]) ? $langArray [$key] : $key;
+		//Utils::debug("trad: $traducir | key: $key | valor: $valor ||");
 		if (is_numeric(strpos($valor, ':')) && !empty($params)) {
 			//Utils::debug("/$dir/$file.php > valor: $valor");
 			$valor = static::_setParams($valor, $params);

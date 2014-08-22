@@ -1,20 +1,7 @@
 <article class="posts">
 	<span class="hidden cant">{{cant}}</span>
 	<span class="hidden tipo">{{tipo}}</span>
-	<div class="seccion {{seccion}}">
-		{{#header}}
-			<header class="page-header col-xs-12">
-				 <h1>
-					{{#url}}<a href="{{url}}">{{/url}}
-					{{# header }} {{#trans}}{{header}}{{/trans}} {{/ header }}
-					{{^ header }}
-				     	Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
-				    {{/ header }} 
-				    {{#url}}</a>{{/url}}
-			    </h1>
-			    {{# subheader }} {{{subheader}}} {{/ subheader }}
-			</header>
-		{{/header}}
+	<div class="seccion {{seccion}}">		
 		{{> home/_posts }}
 	</div>
 	{{> home/_btn_mostrar_mas }}

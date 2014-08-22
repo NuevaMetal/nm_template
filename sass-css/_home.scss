@@ -2,12 +2,7 @@
 
 .posts{
 
-	text-align: center;
-	
- 	h1 {
- 		font-size: 2em;;
- 		text-align: left;
- 	}
+	text-align: center;	
  	
 	.post {
 		
@@ -64,6 +59,13 @@
 			}
 		}
 	}
+}
+
+.seccion-posts, .posts {
+	h1 {
+ 		font-size: 2em;;
+ 		text-align: left;
+ 	}
 }
 
 
