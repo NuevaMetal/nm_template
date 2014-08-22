@@ -22,7 +22,7 @@ return [
 	'editar_perfil' => 'editar perfil',
 	'entrada' => 'entrada',
 	'entradas' => 'entradas',
-	'entradas_de' => 'entradas de {{nombre}}',
+	'entradas_de' => 'entradas de :nombre',
 	'entrevistas' => 'entrevistas',
 	'escritorio' => 'escritorio',
 	'escribir' => 'escribir',
