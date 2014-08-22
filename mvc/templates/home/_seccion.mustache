@@ -3,7 +3,17 @@
 	<span class="hidden tipo">{{tipo}}</span>
 	<div class="seccion {{seccion}}">
 		{{#header}}
-			{{>home/_posts_header}}
+			<header class="page-header col-xs-12">
+				 <h1>
+					{{#url}}<a href="{{url}}">{{/url}}
+					{{# header }} {{#trans}}{{header}}{{/trans}} {{/ header }}
+					{{^ header }}
+				     	Últimas entradas <small>Discografías, videoclips, entrevistas, etc</small>
+				    {{/ header }} 
+				    {{#url}}</a>{{/url}}
+			    </h1>
+			    {{# subheader }} {{{subheader}}} {{/ subheader }}
+			</header>
 		{{/header}}
 		{{> home/_posts }}
 	</div>

@@ -31,6 +31,7 @@ class I18n {
 	 * @return string valor del idioma al que le corresponde dicha clave
 	 */
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
+		$traducir = strtolower($traducir);
 		static::_getParams($traducir, $params);
 		if ($idiomaForzado && in_array($idiomaForzado, static::_getTodosIdiomasDisponibles())) {
 			$dir = $idiomaForzado;
@@ -51,6 +52,7 @@ class I18n {
 			//Utils::debug("/$dir/$file.php > valor: $valor");
 			$valor = static::_setParams($valor, $params);
 		}
+		//Utils::debug("> valor: $valor");
 		return $valor;
 	}
 
