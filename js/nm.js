@@ -23,8 +23,8 @@ $(window).scroll(function() {
 
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var flag = (documentHeight - windowHeight)-scroll;
-	var noHaySpinner = $('.mostrar-mas').find('.fa-spinner').hasClass('hidden');
-	if( $('.mostrar-mas').size() == 1 && noHaySpinner && flag <= 280) {
+	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
+	if( $('.mostrar-mas').size() == 1 && noHayspin && flag <= 280) {
 		$('.mostrar-mas').trigger('click');
 	}
 });
@@ -132,12 +132,12 @@ $(document).ready(function() {
 			data : data,
 			dataType : "json",
 			beforeSend: function() {
-				formulario.find('.fa-spinner').removeClass('hidden');
+				formulario.find('.fa-spin').removeClass('hidden');
 			},
 			success : function(json) {
 				$('#alertas').html(json.content);
 				$('#alertas').fadeIn();
-				formulario.find('.fa-spinner').addClass('hidden');				
+				formulario.find('.fa-spin').addClass('hidden');				
 				setTimeout(function(){
 					$('#alertas').fadeOut();
 				}, 5000);
@@ -180,11 +180,11 @@ $(document).ready(function() {
 			data : data,
 			dataType : "json",
 			beforeSend: function() {
-				$(posts).find('.fa-spinner').removeClass('hidden');
+				$(posts).find('.fa-spin').removeClass('hidden');
 			},
 			success : function(json) {
 				$(seccion).append(json.content);
-				$(posts).find('.fa-spinner').addClass('hidden');
+				$(posts).find('.fa-spin').addClass('hidden');
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 		        alert("Ocurrió un error inesperado.\n" 
