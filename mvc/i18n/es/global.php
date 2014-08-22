@@ -27,6 +27,8 @@ return [
 	'escritorio' => 'escritorio',
 	'escribir' => 'escribir',
 
+	'leer_mas' => 'leer más',
+
 	'mostrar_mas' => 'mostrar más',
 
 	'noticias' => 'noticias',

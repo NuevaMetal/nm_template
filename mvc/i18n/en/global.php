@@ -27,6 +27,8 @@ return [
 	'escritorio' => 'dashboard',
 	'escribir' => 'write',
 
+	'leer_mas' => 'show more',
+
 	'mostrar_mas' => 'show more',
 
 	'noticias' => 'news',
