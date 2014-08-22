@@ -70,10 +70,7 @@ class HomeController extends BaseController {
 	public static function getSeccion($seccion, $cant = 4, $args = []) {
 		$cat = get_cat_ID($seccion);
 
-		$args ['header'] = [
-			'header' => ucfirst($seccion),
-			'url' => get_category_link($cat)
-		];
+		$args ['url'] = get_category_link($cat);
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
@@ -93,9 +90,7 @@ class HomeController extends BaseController {
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getTags($seccion, $cant = 4, $args = []) {
-		$args ['header'] = [
-			'header' => ucfirst($seccion)
-		];
+		$args ['header'] = ucfirst($seccion);
 		$args ['posts'] = self::getPostsByTag($seccion, $cant);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
