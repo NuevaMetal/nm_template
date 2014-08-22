@@ -30,14 +30,20 @@ class I18n {
 	 *        clave del fichero de idiomas
 	 * @return string valor del idioma al que le corresponde dicha clave
 	 */
-	public static function trans($key, $params = [], $idiomaForzado = false) {
+	public static function trans($traducir, $params = [], $idiomaForzado = false) {
+		list($file, $key) = explode('.', $traducir);
 		if ($idiomaForzado && in_array($idiomaForzado, static::_getTodosIdiomasDisponibles())) {
-			$lang = $idiomaForzado;
+			$dir = $idiomaForzado;
 		} else {
-			$lang = Utils::getLang();
+			$dir = Utils::getLang();
+		}
+		// Si no le pasamos fichero a traducir, sogerá del fichero global
+		if (is_null($key)) {
+			$key = $file;
+			$file = "global";
 		}
 		// Lista con las claves /valor según el idioma
-		$langArray = require (dirname(__FILE__) . '/' . $lang . '.php');
+		$langArray = require (dirname(__FILE__) . "/$dir/$file.php");
 		return isset($langArray [$key]) ? $langArray [$key] : $key;
 	}
 
