@@ -246,6 +246,17 @@ class Utils {
 		return substr($_SERVER ['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 	}
 
+	/**
+	 * Devuelve el idioma actual del navegador en su forma convencional.
+	 *
+	 * @return string Los 5 primeros chars. Ej: es_ES, en_EN, fr_FR
+	 */
+	public static function getLangBrowserFull() {
+		$l = static::getLangBrowser();
+		Utils::debug("l: $l");
+		return $l . '_' . strtoupper($l);
+	}
+
 }
 
 /**
