@@ -47,7 +47,7 @@ class I18n {
 		$langArray = require (dirname(__FILE__) . "/$dir/$file.php");
 		$key = trim($key);
 		$valor = isset($langArray [$key]) ? $langArray [$key] : $key;
-		if (strpos($valor, ':') && !empty($params)) {
+		if (is_numeric(strpos($valor, ':')) && !empty($params)) {
 			//Utils::debug("/$dir/$file.php > valor: $valor");
 			$valor = static::_setParams($valor, $params);
 		}
@@ -73,7 +73,9 @@ class I18n {
 					$esUltimo = ($j == strlen($strFinal) - 1);
 					if (in_array($strFinal [$j], [
 						' ',
-						','
+						',',
+						'\\',
+						'\''
 					]) || $esUltimo) { // 2º
 						$_b = $j;
 						$_b = ($esUltimo) ? $_b + 1 : $_b;
