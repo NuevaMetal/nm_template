@@ -31,6 +31,7 @@ class PostController extends BaseController {
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
 			'comments' => $comments,
+			'current_user' => Utils::getCurrentUser(),
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),

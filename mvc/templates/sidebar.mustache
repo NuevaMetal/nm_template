@@ -5,18 +5,6 @@
 	{{>sidebar/_primero}}
 </div>
 
-<div class="sidebar-item col-sm-12">
-	<h3>Informar</h3>
-	<section>
-	{{#current_user}}
-		{{> sidebar/_informar}}
-	{{/current_user}}
-	{{^current_user}}
-		{{> sidebar/_informar_necesita_logueo}}
-	{{/current_user}}
-	</section>
-</div>
-
 {{#hay_similares}}
 <div class="sidebar-item col-sm-12 similares">
 	<h3>Entradas similares</h3>
