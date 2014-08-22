@@ -4,29 +4,29 @@ return [
 	/**
 	 * Metal
 	 */
-	'alternative-metal' => 'Metal alternativo',
-	'black-metal' => 'Black metal',
-	'death-metal' => 'Death metal',
-	'melodic-death' => 'Death metal melódico',
-	'folk-metal' => 'Folk Metal',
-	'gothic-metal-2' => 'Gothic metal',
-	'groove-metal' => 'Groove metal',
-	'heavy-metal' => 'Heavy metal',
-	'industrial-metal' => 'Metal industrial',
-	'melodic-metal' => 'Metal melódico',
-	'nu-metal' => 'Nu Metal',
-	'power-meta' => 'Power Metal',
-	'progressive-metal' => 'Metal progresivo',
-	'thrash-metal' => 'Thrash Metal',
-	'technical-death' => 'Death metal técnico',
+	'alternative-metal' => 'metal alternativo',
+	'black-metal' => 'black metal',
+	'death-metal' => 'death metal',
+	'melodic-death' => 'death metal melódico',
+	'folk-metal' => 'folk Metal',
+	'gothic-metal-2' => 'gothic metal',
+	'groove-metal' => 'groove metal',
+	'heavy-metal' => 'heavy metal',
+	'industrial-metal' => 'metal industrial',
+	'melodic-metal' => 'metal melódico',
+	'nu-metal' => 'nu Metal',
+	'power-meta' => 'power metal',
+	'progressive-metal' => 'metal progresivo',
+	'thrash-metal' => 'thrash metal',
+	'technical-death' => 'death metal técnico',
 
 	/**
 	 * Core
 	 */
-	'deathcore' => 'Deathcore',
-	'djent' => 'Djent',
-	'hardcore' => 'Hardcore',
-	'metalcore' => 'Metalcore',
-	'post-hardcore' => 'Post hardcore',
-	'trancecore' => 'Trancecore'
+	'deathcore' => 'deathcore',
+	'djent' => 'djent',
+	'hardcore' => 'hardcore',
+	'metalcore' => 'metalcore',
+	'post-hardcore' => 'post hardcore',
+	'trancecore' => 'trancecore'
 ];
