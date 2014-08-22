@@ -1,7 +1,7 @@
 <section class="col-xs-12">
 <h3>{{#transu}}informar{{/transu}}</h3>
-{{#current_user}}
 	<p><small> {{#transu}}reportar_info{{/transu}}</small></p>
+{{#current_user}}
 	<div class="formulario">
 		<form action="{{template_url}}/ajax.php">
 			<input type="hidden" name="post" value="{{post_id}}">
@@ -14,7 +14,6 @@
 	</div>
 {{/current_user}}
 {{^current_user}}
-	<p><small> Reportar enlaces o vídeos caídos para esta entrada.</small></p>
 	<p><span class="login-necesario">Para ello es necesario estar logueado</span></p>
 {{/current_user}}
 </section>

@@ -42,7 +42,10 @@ class PostController extends BaseController {
 			'user_avatar' => get_avatar($author_id, 36),
 			'user_posts_url' => get_author_posts_url($author_id),
 			'user_url' => get_the_author_meta('url'),
-			'user_rol' => ucfirst(Utils::getRoleByUserId($author_id))
+			'user_rol' => ucfirst(Utils::getRoleByUserId($author_id)),
+			'template_url' => get_template_directory_uri(),
+			'post_id' => $post ['ID'],
+			'user_id' => $current_user->ID
 		];
 
 		$content = $this->render('post', $argsContent);
