@@ -1,6 +1,7 @@
 <?php
 return [
 	'acceder' => 'acceder',
+	'aviso_legal' => 'aviso legal',
 
 	'bandas' => 'bandas',
 	'bienvenido' => 'bienvenido',
@@ -9,6 +10,7 @@ return [
 
 	'cerrar_sesion' => 'cerrar Sesión',
 	'conciertos' => 'conciertos',
+	'contacto' => 'contacto',
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Contraseña?',
 	'contrasena_perdida_title' => '¿Has perdido tu contraseña?',
@@ -42,8 +44,12 @@ return [
 	'perfil' => 'perfil',
 	'por' => 'por',
 
+	'que_es_nm' => '¿NuevaMetal?',
+
 	'recuerdame' => 'recuérdame',
 	'registrarse' => 'registrarse',
+
+	'redes' => 'redes',
 
 	'salir' => 'salir',
 	'secciones' => 'secciones',
