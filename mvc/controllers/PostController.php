@@ -19,10 +19,10 @@ class PostController extends BaseController {
 		if (!isset($post)) {
 			return $this->renderPage('404');
 		}
-		$current_user = wp_get_current_user();
+		$current_user = Utils::getCurrentUser();
 
 		$author_id = get_the_author_meta('ID');
-		$edit_user_link = ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false;
+		$edit_user_link = ($author_id == $current_user->ID) ? get_edit_user_link() : false;
 
 		$comment_form = $this->_getComentForm($post ['ID']);
 		$comments = $this->_getComments($post ['ID']);
@@ -31,7 +31,7 @@ class PostController extends BaseController {
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
 			'comments' => $comments,
-			'current_user' => Utils::getCurrentUser(),
+			'current_user' => $current_user,
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
