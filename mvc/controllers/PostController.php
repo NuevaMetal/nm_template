@@ -39,6 +39,7 @@ class PostController extends BaseController {
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
 			'edit_user_link' => $edit_user_link,
+			'me_gusta' => Utils::getSiUserGustaPost($post ['ID'], $current_user->ID),
 			//'next_post' => get_next_post_link("%link"),
 			'post' => $post,
 			//'previous_post' => get_previous_post_link("%link"),
@@ -55,6 +56,8 @@ class PostController extends BaseController {
 			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)
 		]);
 	}
+
+
 
 	/**
 	 * Devuelve el form para un nuevo comentario

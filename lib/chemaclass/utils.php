@@ -275,7 +275,8 @@ class Utils {
 	 * Traducir todo el contenido que tengamos dentro de nuestro i18n
 	 * en el fichero post.php
 	 *
-	 * @param string $content Contenido del post
+	 * @param string $content
+	 *        Contenido del post
 	 */
 	public static function traducirPost($content) {
 		$lista = I18n::getFicheroIdioma('post');
@@ -284,63 +285,22 @@ class Utils {
 	}
 
 	/**
-	 * Reemplaza todos los acentos por sus equivalentes sin ellos
+	 * Devuelve si a un user le gusta un post
 	 *
-	 * @param string $string
-	 *  	la cadena a sanear
-	 *  @param boolean $completo
-	 *  	se encarga de eliminar cualquier caracter extraño
-	 *
-	 * @return string $string Texto saneado
+	 * @param int $post_id
+	 *        Identificador del post
+	 * @param int $user_id
+	 *        Identificador del usuario
 	 */
-	public static function sanearString($string, $completo = false) {
-	    $string = trim($string);
-	    $string = str_replace(
-	        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-	        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
-	        $string
-	    );
-	    $string = str_replace(
-	        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-	        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
-	        $string
-	    );
-	    $string = str_replace(
-	        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-	        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
-	        $string
-	    );
-	    $string = str_replace(
-	        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-	        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
-	        $string
-	    );
-	    $string = str_replace(
-	        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-	        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
-	        $string
-	    );
-	    $string = str_replace(
-	        array('ñ', 'Ñ', 'ç', 'Ç'),
-	        array('n', 'N', 'c', 'C',),
-	        $string
-	    );
-	    //Esta parte se encarga de eliminar cualquier caracter extraño
-		if($completo){
-		    $string = str_replace(
-		        array("\\", "¨", "º", "-", "~",
-		             "#", "@", "|", "!", "\"",
-		             "·", "$", "%", "&", "/",
-		             "(", ")", "?", "'", "¡",
-		             "¿", "[", "^", "`", "]",
-		             "+", "}", "{", "¨", "´",
-		             ">", "< ", ";", ",", ":",
-		             ".", " "),
-		        '',
-		        $string
-		    );
-		}
-	    return $string;
+	public static function getSiUserGustaPost($post_id, $user_id) {
+		global $wpdb;
+		$post = get_post($post_id);
+		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM ' . $wpdb->prefix . "me_gustas
+				WHERE user_id = %d
+				AND post_id = %d
+				AND status = 1;", $user_id, $post_id));
+		return $leGusta > 0;
 	}
 
 }

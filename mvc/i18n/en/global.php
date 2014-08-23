@@ -77,5 +77,7 @@ return [
 
 	'ver_perfil' => 'see profile',
 	'videos' => 'videos',
-	'volver_arriba' => 'back to top'
+	'volver_arriba' => 'back to top',
+
+	'ya_no_me_gusta' => 'don\'t like'
 ];

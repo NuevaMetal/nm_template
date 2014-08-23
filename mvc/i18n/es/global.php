@@ -79,5 +79,7 @@ return [
 
 	'ver_perfil' => 'ver perfil',
 	'videos' => 'vídeos',
-	'volver_arriba' => 'volver arriba'
+	'volver_arriba' => 'volver arriba',
+
+	'ya_no_me_gusta' => 'ya no me gusta'
 ];
