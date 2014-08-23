@@ -71,7 +71,7 @@ return [
 	'salir' => 'salir',
 	'secciones' => 'secciones',
 	'sitios_de_interes' => 'sitios de interés',
-	'subscriber' => 'subscriptor',
+	'subscriber' => 'suscriptor',
 
 	'usuario' => 'usuario',
 	'unete_y_colabora' => 'únete y colabora',
