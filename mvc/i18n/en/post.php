@@ -3,9 +3,15 @@ return [
 	'álbumes' => 'Albums',
 	'Álbumes' => 'Albums',
 
+	'activo' => 'Active',
+
 	'bajo' => 'Bass',
 	'bateria' => 'Drums',
-	'batería' => 'Drums',
+
+	'estado' => 'Status',
+
+	'hasta' => 'since',
+	'hoy' => 'today',
 
 	'género' => 'Genre',
 	'guitarra' => 'Guitar',
@@ -15,6 +21,10 @@ return [
 	'miembros' => 'Members',
 
 	'redes sociales' => 'Social netwoks',
+	'redes' => 'Social netwoks',
 	'vocalista' => 'Vocal',
+	'vocals' => 'Vocal',
 	'voz' => 'Vocal',
+
+	'teclados' => 'Keyboards',
 ];

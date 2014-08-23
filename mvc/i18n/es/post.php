@@ -1,20 +1,28 @@
 <?php
 return [
-	'álbumes' => 'Álbumes',
-	'Álbumes' => 'Álbumes',
 
-	'bajo' => 'bajo',
-	'bateria' => 'batería',
-	'batería' => 'batería',
+	'albums' => 'Álbumes',
 
-	'género' => 'Género',
-	'guitarra' => 'guitarra',
+	'bass' => 'Bajo',
+	'bateria' => 'Batería',
 
-	'país' => 'País',
+	'drums' => 'Batería',
 
-	'miembros' => 'Miembros',
+	'estado' => 'Estado',
 
-	'redes sociales' => 'redes sociales',
-	'vocalista' => 'vocalista',
-	'voz' => 'voz',
+	'hasta' => 'hasta',
+	'hoy' => 'hoy',
+
+	'guitar' => 'Guitarra',
+
+	'country' => 'País',
+
+	'members' => 'Miembros',
+
+	'social netwoks' => 'Redes sociales',
+	'vocals' => 'Voz',
+	'vocal' => 'Voz',
+	'vocalist' => 'Voz',
+
+	'keyboards' => 'Teclados',
 ];
