@@ -8,7 +8,7 @@ return [
 
 	'unete' => 'Join now to our metal community!!',
 
-	'si_no_quieres_aparecer' => 'If you wont be in NuevaMetal, please, send us a mail to
+	'si_no_quieres_aparecer' => 'If you don\'t want to be in NuevaMetal,  please, send us a mail to
 		<span class="hidden-sm">nuevametal[@]outlook.com</span>
 		<span class="visible-sm"><small>nuevametal[@]outlook.com</small></span>
 		and we delete your content.',
