@@ -27,8 +27,6 @@ class PostController extends BaseController {
 		$comment_form = $this->_getComentForm($post ['ID']);
 		$comments = $this->_getComments($post ['ID']);
 
-		$post['content'] = Utils::traducirContenido($post['content']);
-
 		$argsContent = [
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
@@ -46,8 +44,6 @@ class PostController extends BaseController {
 			'user_url' => get_the_author_meta('url'),
 			'user_rol' => ucfirst(Utils::getRoleByUserId($author_id)),
 			'template_url' => get_template_directory_uri(),
-			'post_id' => $post ['ID'],
-			'user_id' => $current_user->ID
 		];
 
 		$content = $this->render('post', $argsContent);
