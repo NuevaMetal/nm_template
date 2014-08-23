@@ -24,6 +24,7 @@ return [
 
 	'informar' => 'notify',
 
+	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
 	'entrada' => 'post',
 	'entradas' => 'posts',

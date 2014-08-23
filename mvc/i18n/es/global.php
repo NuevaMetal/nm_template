@@ -24,6 +24,7 @@ return [
 
 	'informar' => 'informar',
 
+	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',
 	'entrada' => 'entrada',
 	'entradas' => 'entradas',
