@@ -277,7 +277,7 @@ class Utils {
 	 *
 	 * @param string $content Contenido del post
 	 */
-	public static function traducirContenido($content) {
+	public static function traducirPost($content) {
 		$lista = I18n::getFicheroIdioma('post');
 		//Sustituimos todos los str del contenido que estén en la lista
 		return str_ireplace(array_keys($lista), $lista, $content);
