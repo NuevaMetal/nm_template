@@ -95,7 +95,7 @@ class I18n {
 					$langKey = $params [$key];
 					$strFinalA = substr($strFinal, 0, $_a - 1);
 					$strFinalB = substr($strFinal, $_b);
-					$strFinal = $strFinalA . '{{' . $langKey . '}}' . $strFinalB;
+					$strFinal = $strFinalA . $langKey  . $strFinalB;
 					//Utils::debug($strFinal);
 				}
 			}

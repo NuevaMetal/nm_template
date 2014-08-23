@@ -1,19 +1,19 @@
 <section class="col-xs-12">
-<h3>{{#transu}}informar{{/transu}}</h3>
-	<p><small> {{#transu}}reportar_info{{/transu}}</small></p>
-{{#current_user}}
-	<div class="formulario">
-		<form action="{{template_url}}/ajax.php">
-			<input type="hidden" name="post" value="{{post_id}}">
-			<input type="hidden" name="user" value="{{user_id}}">
-			<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
-			<input type="submit" id="btn-notificar" name="submit" 
-				value="{{#transu}}reportar_entrada [titulo:{title}]{{/transu}}" 
-				class="btn btn-danger col-xs-12">
-		</form>
-	</div>
-{{/current_user}}
-{{^current_user}}
-	<p><span class="login-necesario">Para ello es necesario estar logueado</span></p>
-{{/current_user}}
+	<h3>{{#transu}}informar{{/transu}}</h3>
+		<p><small> {{#transu}}reportar_info{{/transu}}</small></p>
+	{{#current_user}}
+		<div class="formulario">
+			<form action="{{template_url}}/ajax.php">
+				<input type="hidden" name="post" value="{{post_id}}">
+				<input type="hidden" name="user" value="{{user_id}}">
+				<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+				<input type="submit" id="btn-notificar" name="submit" 
+					value="{{#transu}}reportar_entrada [titulo:{{{title}}}]{{/transu}}" 
+					class="btn btn-danger col-xs-12">
+			</form>
+		</div>
+	{{/current_user}}
+	{{^current_user}}
+		<p><span class="login-necesario">Para ello es necesario estar logueado</span></p>
+	{{/current_user}}
 </section>
