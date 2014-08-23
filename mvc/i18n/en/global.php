@@ -9,6 +9,7 @@ return [
 	'buscar' => 'search',
 
 	'cerrar_sesion' => 'logout',
+	'compartir_con' => 'share with',
 	'conciertos' => 'concerts',
 	'contacto' => 'contact',
 	'contrasena' => 'password',

@@ -1,7 +1,22 @@
 <div class="info">
-	<meta itemprop="datePublished" content="{{date_published}}"/>
-	<span class="post-time">{{time}}</span>
-	por <span class="post-author"><a href="{{user_posts_url}}">{{display_name}}</a></span>
-	en <span class="categories">{{> post/_categories}}</span>
-	{{#edit_post}}<a href="{{{edit_post}}}" class="btn btn-primary btn-editar">Editar</a>{{/edit_post}}
+	<div class="col-xs-9">
+		<meta itemprop="datePublished" content="{{date_published}}"/>
+		<span class="post-time">{{time}}</span>
+		{{#trans}}por{{/trans}} <span class="post-author"><a href="{{user_posts_url}}">{{display_name}}</a></span>
+		{{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>
+	</div>
+	<div class="col-xs-3 text-right">		
+		<a class="btn btn-social-icon btn-twitter btn-xs" title="{{#transu}}compartir_con{{/transu}} twitter">
+			<i class="fa fa-twitter"></i> 
+		</a>
+		<a class="btn btn-social-icon btn-facebook btn-xs" title="{{#transu}}compartir_con{{/transu}} facebook">
+			<i class="fa fa-facebook"></i> 
+		</a>
+		<a class="btn btn-social-icon btn-google-plus btn-xs" title="{{#transu}}compartir_con{{/transu}} google plus">
+			<i class="fa fa-google-plus"></i> 
+		</a>
+	</div>
+
+	{{#edit_post}}<a href="{{{edit_post}}}" class="btn btn-primary btn-editar col-xs-8 col-xs-push-2">{{#transu}}editar{{/transu}}</a>{{/edit_post}}
+
 </div>
