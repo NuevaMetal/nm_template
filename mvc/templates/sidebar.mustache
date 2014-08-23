@@ -1,4 +1,4 @@
-<h2>¡Bienvenido!</h2>
+<h2>{{#trans}}sidebar.bienvenido{{/trans}}</h2>
 <hr>
 
 <div class="sidebar-item col-sm-12">
@@ -7,7 +7,7 @@
 
 {{#hay_similares}}
 <div class="sidebar-item col-sm-12 similares">
-	<h3>Entradas similares</h3>
+	<h3>{{#trans}}sidebar.entradas_similares{{/trans}}</h3>
 	<section>
 	{{#similares}}
 		{{>sidebar/_post_similar}}
@@ -17,8 +17,5 @@
 {{/hay_similares}}
 
 <div class="sidebar-item text-center col-sm-12"> 
-	<p>Si no quieres aparecer en NuevaMetal envíanos un correo a 
-	<span class="hidden-sm">nuevametal[@]outlook.com</span>
-	<span class="visible-sm"><small>nuevametal[@]outlook.com</small></span> 
-	y borraremos el contenido relacionado con tu banda.
+	<p>{{#trans}}sidebar.si_no_quieres_aparecer{{/trans}}
 </div>
