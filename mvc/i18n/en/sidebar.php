@@ -14,6 +14,6 @@ return [
 		and we delete your content.',
 
 	'te_gusta_lo_que_ves' => 'Do you like it?
-		Do you have a metal band and (you want be know/you want appear in NuevaMetal)?
-		Would you like (to) post your entries?'
+		Do you have a metal band and you want appear in NuevaMetal?
+		Would you like post your entries?'
 ];
