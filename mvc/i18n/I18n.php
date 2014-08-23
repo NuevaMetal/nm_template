@@ -46,7 +46,7 @@ class I18n {
 			$file = "global";
 		}
 		// Lista con las claves/valor según el idioma
-		$langArray = require (dirname(__FILE__) . "/$dir/$file.php");
+		$langArray = self::getFicheroIdioma($file, $dir);
 		$key = trim($key);
 		$valor = isset($langArray [$key]) ? $langArray [$key] : $key;
 		//Utils::debug("trad: $traducir | key: $key | valor: $valor ||");
@@ -56,6 +56,21 @@ class I18n {
 		}
 		//Utils::debug("> valor: $valor");
 		return $valor;
+	}
+
+	/**
+	 * Devuelve el array asociado al fichero de idioma que se le indica por parametros
+	 *
+	 * @param string $idioma
+	 *        Iniciales del idioma
+	 * @param string $fichero
+	 *        Nombre del fichero del idioma
+	 */
+	public static function getFicheroIdioma($fichero, $idioma = null) {
+		if ($idioma == null) {
+			$idioma = Utils::getLang();
+		}
+		return require (dirname(__FILE__) . "/$idioma/$fichero.php");
 	}
 
 	/**
@@ -95,7 +110,7 @@ class I18n {
 					$langKey = $params [$key];
 					$strFinalA = substr($strFinal, 0, $_a - 1);
 					$strFinalB = substr($strFinal, $_b);
-					$strFinal = $strFinalA . $langKey  . $strFinalB;
+					$strFinal = $strFinalA . $langKey . $strFinalB;
 					//Utils::debug($strFinal);
 				}
 			}
