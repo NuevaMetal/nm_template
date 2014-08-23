@@ -43,6 +43,7 @@ return [
 
 	'leer_mas' => 'show more',
 
+	'me_gusta' => 'like',
 	'mostrar_mas' => 'show more',
 
 	'noticias' => 'news',

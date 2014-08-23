@@ -45,6 +45,7 @@ return [
 
 	'leer_mas' => 'leer más',
 
+	'me_gusta' => 'me gusta',
 	'mostrar_mas' => 'mostrar más',
 
 	'noticias' => 'noticias',

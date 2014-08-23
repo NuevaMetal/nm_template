@@ -10,8 +10,17 @@
 	</div>
 </div>
 
-{{#edit_post}}
-	<a href="{{{edit_post}}}" class="btn btn-default btn-editar col-xs-10 col-xs-push-1">
-		<i class="fa fa-edit"></i> {{#transu}}editar{{/transu}}
-	</a>
-{{/edit_post}}
+<div class="btn-me-gusta row">
+	{{#edit_post}}
+	<div class="col-xs-6">
+		<a href="{{{edit_post}}}" class="btn btn-default btn-editar col-xs-12">
+			<i class="fa fa-edit"></i> {{#transu}}editar{{/transu}}
+		</a>
+	</div>
+	{{/edit_post}}
+	
+	{{#edit_post}}<div class="col-xs-6"> {{/edit_post}}
+	{{^edit_post}}<div class="col-xs-10 col-xs-push-1"> {{/edit_post}}
+		{{> post/_me_gusta}}
+	</div>
+</div>
