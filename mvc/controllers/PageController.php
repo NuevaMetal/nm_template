@@ -80,9 +80,10 @@ class PageController extends BaseController {
 		$header = I18n::trans('entradas_de', [
 			'nombre' => $author_name
 		]);
+		$entradas = I18n::trans('entradas');
 
 		$content = $this->_renderBusqueda([
-			'header' => "$header ($user_post_count entradas)",
+			'header' => "$header ($user_post_count $entradas)",
 			'subheader' => $meta,
 			'posts' => $posts
 		]);

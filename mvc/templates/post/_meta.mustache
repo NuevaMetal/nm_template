@@ -10,23 +10,23 @@
 		</h2>
 		{{#user_url}}
 		<div class="col-sm-4">
-			{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-info">Editar perfil</a>{{/edit_user_link}}
-			{{#user_posts_url}}<a class="btn btn-info btn-md" role="button" href="{{user_url}}" target="_blank">Web</a>{{/user_posts_url}}
+			{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-info">{{#transu}}user.editar_perfil{{/transu}}</a>{{/edit_user_link}}
+			{{#user_posts_url}}<a class="btn btn-info btn-md" role="button" href="{{user_url}}" target="_blank">{{#transu}}web{{/transu}}</a>{{/user_posts_url}}
 		</div>
 		{{/user_url}}
 
 		<div class="col-xs-12">
 			<blockquote>
 				{{#description}}
-					<small>Bio</small>
+					<small>{{#transu}}biografia{{/transu}}</small>
 				{{/description}}
 				{{^description}}
-					{{#edit_user_link}}<p><a href="{{{edit_user_link}}}" class="btn btn-warning">Actualizar mi información de perfil</a></p>{{/edit_user_link}}
+					{{#edit_user_link}}<p><a href="{{{edit_user_link}}}" class="btn btn-warning">{{#transu}}user.actualizar_mi_perfil{{/transu}}</a></p>{{/edit_user_link}}
 				{{/description}}
 				<p itemprop="description">
 				{{description}}
 				{{^description}}
-					Este usuario no ha compartido ninguna información de perfil :(
+					{{#transu}}user.no_hay_info_perfil{{/transu}}
 				{{/description}}
 				</p>
 			</blockquote>
