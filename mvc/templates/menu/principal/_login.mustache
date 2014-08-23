@@ -12,17 +12,17 @@
 				</div>
 				<div class="login-submit col-xs-12 ">
 					<input type="submit" name="wp-submit" id="wp-submit"
-						class="btn btn-danger form-control" value="Acceder" >
+						class="btn btn-danger form-control" value="{{#transu}}acceder{{/transu}}" >
 				</div>
 				 <div class="checkbox col-xs-12 ">
 				 	<label><input name="rememberme" type="checkbox" id="rememberme" 
-				    	 value="forever"> Recuérdame</label>
+				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
 				</div>
 				<div class="col-xs-12 ">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=register" title="¡Registrate!">Registrarse</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=register" >{{#transu}}registrarse{{/transu}}</a>
 				</div>
 				<div class="col-xs-12 ">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword" title="¿Has perdido tu contraseña?">¿Contraseña?</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword">{{#transu}}contrasena_perdida{{/transu}}</a>
 				</div>
 		</form>
 	</div>

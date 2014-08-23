@@ -4,9 +4,9 @@
 	</div>
 	
 	<div class="title text-center col-sm-12">
-		<h3>Bienvenido 
+		<h3>{{#transu}}bienvenido{{/transu}} 
 		{{#current_user.url}}
-			<a href="{{current_user.url}}"title="Entradas de {{current_user.display_name}}">{{current_user.display_name}}</a>
+			<a href="{{current_user.url}}"title="{{#transu}}entradas_de [nombre:current_user.display_name]{{/transu}}">{{current_user.display_name}}</a>
 		{{/current_user.url}}
 		{{^current_user.url}}
 			{{current_user.display_name}}
@@ -17,14 +17,14 @@
 	<div class="title text-center col-sm-12">
 		<div class="list-group">		
 		  <a class="list-group-item" href="/wp-admin/" target="_blank">
-		  	<i class="fa fa-home"></i> Escritorio </a>
+		  	<i class="fa fa-home"></i> {{#transu}}escritorio{{/transu}}  </a>
 		  <a class="list-group-item" href="/wp-admin/post-new.php" target="_blank">
-		  	<i class="fa fa-pencil"></i> Escribir </a>
+		  	<i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}} </a>
 		  <a class="list-group-item" href="/wp-admin/profile.php" target="_blank">
-		  	<i class="fa fa-user"></i> Perfil </a>
+		  	<i class="fa fa-user"></i> {{#transu}}ver_perfil{{/transu}} </a>
 		  <a class="list-group-item" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
-			<i class="fa fa-exclamation-circle"></i> Cerrar sesión </a>
+			<i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}} </a>
 		</div>
 	</div>
-	
+		
 </div>
