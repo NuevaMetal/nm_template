@@ -2,6 +2,10 @@
 return [
 	'acceder' => 'acceder',
 	'aviso_legal' => 'aviso legal',
+	'aviso_cookies' => 'Utilizamos cookies para mejorar tu experiencia.
+		Si continúas navegando es que aceptas nuestra
+		<a href="/legal/" target="_blank">política de cookies.</a>
+		<a class="btn btn-xs btn-danger poner-cookie">OK</a>',
 
 	'bandas' => 'bandas',
 	'bienvenido' => 'bienvenido',
