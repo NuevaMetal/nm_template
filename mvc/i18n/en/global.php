@@ -26,6 +26,7 @@ return [
 
 	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
+	'en' => 'in',
 	'entrada' => 'post',
 	'entradas' => 'posts',
 	'entradas_de' => ':nombre\'s posts',

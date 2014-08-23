@@ -27,6 +27,7 @@ return [
 	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',
 	'entrada' => 'entrada',
+	'en' => 'en',
 	'entradas' => 'entradas',
 	'entradas_de' => 'entradas de :nombre',
 	'entrevistas' => 'entrevistas',
