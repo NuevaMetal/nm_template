@@ -1,6 +1,8 @@
 <?php
 return [
 	'acceder' => 'login',
+	'administrator' => 'administrator',
+	'author' => 'author',
 	'aviso_legal' => 'legal disclaimer',
 	'aviso_cookies' => 'We use cookies to improve your experience.
 			If you continue browsing is that you accept
@@ -19,6 +21,7 @@ return [
 	'contrasena' => 'password',
 	'contrasena_perdida' => 'password?',
 	'contrasena_perdida_title' => 'do you lost your password?',
+	'contributor' => 'contributor',
 	'criticas' => 'reviews',
 	'cronicas' => 'chronics',
 
@@ -66,6 +69,7 @@ return [
 	'salir' => 'exit',
 	'secciones' => 'sections',
 	'sitios_de_interes' => 'interest sites',
+	'subscriber' => 'subscriber',
 
 	'usuario' => 'user',
 	'unete_y_colabora' => 'join and collaborate',

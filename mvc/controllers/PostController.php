@@ -27,6 +27,9 @@ class PostController extends BaseController {
 		$comment_form = $this->_getComentForm($post ['ID']);
 		$comments = $this->_getComments($post ['ID']);
 
+		$user_rol = Utils::getRoleByUserId($author_id);
+		$user_rol = I18n::trans($user_rol);
+
 		$argsContent = [
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
@@ -42,7 +45,7 @@ class PostController extends BaseController {
 			'user_avatar' => get_avatar($author_id, 36),
 			'user_posts_url' => get_author_posts_url($author_id),
 			'user_url' => get_the_author_meta('url'),
-			'user_rol' => ucfirst(Utils::getRoleByUserId($author_id)),
+			'user_rol' => ucfirst($user_rol),
 			'template_url' => get_template_directory_uri(),
 		];
 

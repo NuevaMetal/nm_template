@@ -1,6 +1,8 @@
 <?php
 return [
 	'acceder' => 'acceder',
+	'administrator' => 'administrador',
+	'author' => 'autor',
 	'aviso_legal' => 'aviso legal',
 	'aviso_cookies' => 'Utilizamos cookies para mejorar tu experiencia.
 		Si continúas navegando es que aceptas nuestra
@@ -19,10 +21,13 @@ return [
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Contraseña?',
 	'contrasena_perdida_title' => '¿Has perdido tu contraseña?',
+	'contributor' => 'contribuidor',
 	'criticas' => 'críticas',
 	'cronicas' => 'crónicas',
 
 	'de' => 'de',
+
+	'editor' => 'editor',
 
 	'hola' => 'hola',
 
@@ -66,6 +71,7 @@ return [
 	'salir' => 'salir',
 	'secciones' => 'secciones',
 	'sitios_de_interes' => 'sitios de interés',
+	'subscriber' => 'subscriptor',
 
 	'usuario' => 'usuario',
 	'unete_y_colabora' => 'únete y colabora',
