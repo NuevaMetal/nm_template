@@ -1,12 +1,14 @@
 <?php
 return [
-	'álbumes' => 'Albums',
-	'Álbumes' => 'Albums',
 
 	'activo' => 'Active',
+	'álbumes' => 'Albums',
+	'Álbumes' => 'Albums',
+	'antiguos' => 'Last',
 
 	'bajo' => 'Bass',
 	'bateria' => 'Drums',
+	'batería' => 'Drums',
 
 	'estado' => 'Status',
 
