@@ -296,7 +296,7 @@ class Utils {
 		global $wpdb;
 		$post = get_post($post_id);
 		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . "me_gustas
+				FROM ' . $wpdb->prefix . "favoritos
 				WHERE user_id = %d
 				AND post_id = %d
 				AND status = 0;", $user_id, $post_id));

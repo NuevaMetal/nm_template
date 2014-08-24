@@ -169,23 +169,23 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
 		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "me_gustas
+		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE post_id = $post_id
 				AND user_id = $user_id;");
 
 		// Si no existe, lo creamos
 		if (!$num) {
 			$result = $wpdb->query($wpdb->prepare("
-					INSERT INTO {$wpdb->prefix}me_gustas (post_id,user_id,created_at,updated_at)
+					INSERT INTO {$wpdb->prefix}favoritos (post_id,user_id,created_at,updated_at)
 					VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
 			//Si ya existe, aumetamos su contador
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}me_gustas
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET count = count + 1
 			WHERE post_id = %d
 			AND user_id = %d;", $post_id, $user_id));
 			// Y modificamos su estado para decir que te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}me_gustas
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET status =  0
 			WHERE post_id = %d
 			AND user_id = %d
@@ -219,19 +219,19 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
 		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "me_gustas
+		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE status = 0
 				AND post_id = $post_id
 				AND user_id = $user_id;");
 		if ($num) {
 			//Si ya existe, aumetamos su contador
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}me_gustas
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET count = count + 1
 			WHERE post_id = %d
 			AND user_id = %d
 			AND status = 0;", $post_id, $user_id));
 			// Y modificamos su estado para decir que ya no te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}me_gustas
+			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET status =  1
 			WHERE post_id = %d
 			AND user_id = %d
