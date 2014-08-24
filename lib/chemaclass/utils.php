@@ -281,6 +281,8 @@ class Utils {
 	public static function traducirPost($content) {
 		$lista = I18n::getFicheroIdioma('post');
 		//Sustituimos todos los str del contenido que estén en la lista
+		$content = str_ireplace(array_keys($lista), $lista, $content);
+		$lista = I18n::getFicheroIdioma('../post_format');
 		return str_ireplace(array_keys($lista), $lista, $content);
 	}
 
