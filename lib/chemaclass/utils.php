@@ -305,6 +305,37 @@ class Utils {
 		return $leGusta > 0;
 	}
 
+	/**
+	 * Devuelve un fragmento del contenido de un post conociendo su ID
+	 *
+	 * @param integer $post_id
+	 *        Identificador del post
+	 * @param number $limit
+	 *        Limite de palabras a buscar
+	 * @return string Extracto obtenido
+	 */
+	public static function getExcerptById($post_id, $limit = 8) {
+		$the_post = get_post($post_id);
+		$the_excerpt = $the_post->post_content;
+		$excerpt_length = $limit;
+		// Quito las etiquetas e img
+		$the_excerpt = strip_tags(strip_shortcodes($the_excerpt));
+		// Dejo el str en una única línea
+		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
+		// Sustituyo todos los espacios raros por espacios normales
+		$the_excerpt = str_replace("\xc2;", '&nbsp;', $the_excerpt);
+		$words = explode(' ', $the_excerpt, $excerpt_length + 1);
+		// Si el content fuese más largo que el excerpt, concatenar '...'
+		if (count($words) > $excerpt_length) {
+			array_pop($words);
+			$permalink = get_permalink($post_id);
+			$words [] = '...';
+		}
+		$words [] = '<a href="' . $permalink . '" class="btn btn-default btn-xs">' . I18n::transu('mostrar_mas') . '</a>';
+		$the_excerpt = implode(' ', $words);
+		return $the_excerpt;
+	}
+
 }
 
 /**
