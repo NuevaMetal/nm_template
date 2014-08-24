@@ -329,6 +329,12 @@ class Utils {
 		// Genero un array a partir del content separando por espacios
 		$palabras = explode(' ', $the_excerpt, $excerpt_length + 1);
 		$nPalabras = count($palabras);
+		// Aplicamos un filtro para quitar determinadas palabras
+		$palabras = array_filter($palabras, function ($item) {
+			return !self::strContieneAlgunValorArray($item, [
+				'youtube'
+			]) ? $item : '';
+		});
 		// Quitamos los valores vacíos
 		$palabrasFiltradas = array_filter($palabras, 'strlen');
 		$nPalabrasFiltradas = count($palabrasFiltradas);
@@ -356,6 +362,22 @@ class Utils {
 			'/(Miembros)/i'
 		], '<b>$1</b>', $the_excerpt);
 		return $the_excerpt;
+	}
+
+	/**
+	 * Devuelve true si el la cadena contiene algún valor del array
+	 *
+	 * @param string $str
+	 * @param array $arr
+	 * @return boolean
+	 */
+	public static function strContieneAlgunValorArray($str, array $arr) {
+		foreach ($arr as $a) {
+			if (stripos($str, $a)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
