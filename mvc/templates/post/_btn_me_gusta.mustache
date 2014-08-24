@@ -1,0 +1,10 @@
+{{#me_gusta}}
+	<button id="btn-me-gusta" te-gusta="no" class="btn btn-warning col-xs-12">
+		<i class='fa fa-thumbs-o-down'></i> {{#transu}}ya_no_me_gusta{{/transu}} <i class="fa fa-spinner fa-spin hidden"></i>
+	</button>
+{{/me_gusta}}
+{{^me_gusta}}
+	<button id="btn-me-gusta" te-gusta="si"  class="btn btn-primary col-xs-12">
+		<i class='fa fa-thumbs-o-up'></i> {{#transu}}me_gusta{{/transu}} <i class="fa fa-spinner fa-spin hidden"></i>
+	</button>
+{{/me_gusta}}

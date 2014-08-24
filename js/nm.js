@@ -91,6 +91,52 @@ function getWindowWidth(tam) {
 
 
 /**
+ * Botón notificar
+ */
+$(document).on('click', '#btn-me-gusta', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	var formulario = $(this).parents('.formulario');
+	var form = formulario.find('form');
+	var post_val = form.find('[name=post]').val();
+	var user_val = form.find('[name=user]').val();
+	var te_gusta = $(this).attr('te-gusta'); 
+	var url = form.attr('action');
+	var data = {
+		submit : 'me-gusta',
+		post : post_val,
+		user : user_val,
+		te_gusta: te_gusta
+	};
+	console.log(data);
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			formulario.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			console.log(json);
+			$('#alertas').html(json.content);
+			$this.replaceWith(json.btn);
+			$('#alertas').fadeIn();
+			formulario.find('.fa-spin').addClass('hidden');				
+			setTimeout(function(){
+				$('#alertas').fadeOut();
+			}, 5000);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+	        alert("Ocurrió un error inesperado.\n" 
+	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
+/**
  * Documento listo para JQuery
  */
 $(document).ready(function() {
@@ -119,7 +165,6 @@ $(document).ready(function() {
 		var form = formulario.find('form');
 		var post_val = form.find('[name=post]').val();
 		var user_val = form.find('[name=user]').val();
-		var submit = form.find('[name="submit"]'); 
 		var url = form.attr('action');
 		var data = {
 			submit : 'notificar',
@@ -150,6 +195,8 @@ $(document).ready(function() {
 		     }
 		});
 	});
+	
+	
 	
 	$('.login-necesario').click(function(e){
 		e.preventDefault();

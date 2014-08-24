@@ -299,7 +299,7 @@ class Utils {
 				FROM ' . $wpdb->prefix . "me_gustas
 				WHERE user_id = %d
 				AND post_id = %d
-				AND status = 1;", $user_id, $post_id));
+				AND status = 0;", $user_id, $post_id));
 		return $leGusta > 0;
 	}
 

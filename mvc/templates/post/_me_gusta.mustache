@@ -4,17 +4,9 @@
 		<form action="{{template_url}}/ajax.php">
 			<input type="hidden" name="post" value="{{post.ID}}">
 			<input type="hidden" name="user" value="{{current_user.ID}}">
-			<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
-			{{#me_gusta}}
-				<button id="btn-ya-no-me-gusta" name="submit" class="btn btn-warning col-xs-12">
-					<i class='fa fa-thumbs-o-down'></i> {{#transu}}ya_no_me_gusta{{/transu}} 
-				</button>
-			{{/me_gusta}}
-			{{^me_gusta}}
-				<button id="btn-me-gusta" name="submit" class="btn btn-primary col-xs-12">
-					<i class='fa fa-thumbs-o-up'></i> {{#transu}}me_gusta{{/transu}} 
-				</button>
-			{{/me_gusta}}
+			<span class="btn-me-gusta-ajax">
+			{{> post/_btn_me_gusta}}
+			</span>
 		</form>
 	</div>
 	
