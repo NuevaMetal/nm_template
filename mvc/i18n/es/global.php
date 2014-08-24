@@ -2,6 +2,7 @@
 return [
 	'acceder' => 'acceder',
 	'administrator' => 'administrador',
+	'anadir_favoritos' => 'añadir a mis favoritos',
 	'author' => 'autor',
 	'aviso_legal' => 'aviso legal',
 	'aviso_cookies' => 'Utilizamos cookies para mejorar tu experiencia.

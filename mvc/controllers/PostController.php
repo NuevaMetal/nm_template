@@ -34,7 +34,7 @@ class PostController extends BaseController {
 			'has_comments' => count($comments) > 0 ? true : false,
 			'comment_form' => $comment_form,
 			'comments' => $comments,
-			'current_user' => $current_user,
+			'current_user' => ($current_user->ID) ? $current_user : false,
 			'display_name' => get_the_author_meta('display_name'),
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
@@ -47,7 +47,7 @@ class PostController extends BaseController {
 			'user_posts_url' => get_author_posts_url($author_id),
 			'user_url' => get_the_author_meta('url'),
 			'user_rol' => ucfirst($user_rol),
-			'template_url' => get_template_directory_uri(),
+			'template_url' => get_template_directory_uri()
 		];
 
 		$content = $this->render('post', $argsContent);
@@ -56,8 +56,6 @@ class PostController extends BaseController {
 			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)
 		]);
 	}
-
-
 
 	/**
 	 * Devuelve el form para un nuevo comentario

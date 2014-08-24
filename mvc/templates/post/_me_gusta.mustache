@@ -1,5 +1,4 @@
-{{#current_user}}
-	
+{{#current_user}}	
 	<div class="formulario">
 		<form action="{{template_url}}/ajax.php">
 			<input type="hidden" name="post" value="{{post.ID}}">
@@ -8,9 +7,13 @@
 			{{> post/_btn_me_gusta}}
 			</span>
 		</form>
-	</div>
-	
+	</div>	
 {{/current_user}}
 {{^current_user}}
-	<p><span class="login-necesario">{{#transu}}user.login_necesario{{/transu}}</span></p>
+	
+	<button class="login-necesario btn btn-default col-xs-12">
+		<i class='fa fa-thumbs-o-up'></i> 
+		{{#transu}}anadir_favoritos{{/transu}}. {{#transu}}user.login_necesario{{/transu}}
+	</button>		
+
 {{/current_user}}

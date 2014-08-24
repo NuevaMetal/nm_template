@@ -107,7 +107,7 @@ $(document).on('click', '#btn-me-gusta', function(e) {
 		post : post_val,
 		user : user_val,
 		te_gusta: te_gusta
-	};	
+	};
 	$.ajax({
 		url : url,
 		type : "POST",
