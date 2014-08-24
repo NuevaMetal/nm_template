@@ -274,6 +274,8 @@ class Utils {
 	/**
 	 * Traducir todo el contenido que tengamos dentro de nuestro i18n
 	 * en el fichero post.php
+	 * Y aplicamos el filtro de idioma de forma genérica, aplicado a todos los idiomas,
+	 * que se encuentra en el fichero post_format
 	 *
 	 * @param string $content
 	 *        Contenido del post
@@ -322,11 +324,9 @@ class Utils {
 		$the_excerpt = strip_tags(strip_shortcodes($the_excerpt));
 		// Dejo el str en una única línea
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
-
 		// Sustituyo todos los espacios raros por espacios normales
-		//$the_excerpt = str_replace("\xc2|\xa0", ' ', $the_excerpt);
 		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
-
+		// Genero un array a partir del content separando por espacios
 		$palabras = explode(' ', $the_excerpt, $excerpt_length + 1);
 		$nPalabras = count($palabras);
 		// Quitamos los valores vacíos
@@ -343,8 +343,18 @@ class Utils {
 			$permalink = get_permalink($post_id);
 			$palabras [] = '...';
 		}
+		// Añado btn de mostrar más
 		$palabras [] = '<a href="' . $permalink . '" class="btn btn-default btn-xs">' . I18n::transu('mostrar_mas') . '</a>';
+		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
 		$the_excerpt = implode(' ', $palabras);
+		// Aplicamos negrita a ciertas palabras
+		$the_excerpt = preg_replace([
+			'/(Género)/i',
+			'/(País)/i',
+			'/(Álbumes)/i',
+			'/(Estado)/i',
+			'/(Miembros)/i'
+		], '<b>$1</b>', $the_excerpt);
 		return $the_excerpt;
 	}
 
