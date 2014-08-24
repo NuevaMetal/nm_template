@@ -10,10 +10,9 @@
 	</div>	
 {{/current_user}}
 {{^current_user}}
-	
-	<button class="login-necesario btn btn-default col-xs-12">
+	<a class="login-necesario form-control btn btn-default" 
+		href="/wp-login.php?action=register" target="_blank">
 		<i class='fa fa-thumbs-o-up'></i> 
-		{{#transu}}anadir_favoritos{{/transu}}. {{#transu}}user.login_necesario{{/transu}}
-	</button>		
-
+		{{#transu}}anadir_favoritos{{/transu}}
+	</a>
 {{/current_user}}
