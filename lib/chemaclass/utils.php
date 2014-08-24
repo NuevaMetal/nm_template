@@ -322,17 +322,29 @@ class Utils {
 		$the_excerpt = strip_tags(strip_shortcodes($the_excerpt));
 		// Dejo el str en una única línea
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
+
 		// Sustituyo todos los espacios raros por espacios normales
-		$the_excerpt = str_replace("\xc2;", '&nbsp;', $the_excerpt);
-		$words = explode(' ', $the_excerpt, $excerpt_length + 1);
-		// Si el content fuese más largo que el excerpt, concatenar '...'
-		if (count($words) > $excerpt_length) {
-			array_pop($words);
-			$permalink = get_permalink($post_id);
-			$words [] = '...';
+		//$the_excerpt = str_replace("\xc2|\xa0", ' ', $the_excerpt);
+		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
+
+		$palabras = explode(' ', $the_excerpt, $excerpt_length + 1);
+		$nPalabras = count($palabras);
+		// Quitamos los valores vacíos
+		$palabrasFiltradas = array_filter($palabras, 'strlen');
+		$nPalabrasFiltradas = count($palabrasFiltradas);
+		// Si hay un distinto número de palabras, significará que se filtraron algunas
+		if ($nPalabrasFiltradas != $nPalabras) {
+			$excerpt_length -= ($nPalabras - $nPalabrasFiltradas);
+			$palabras = $palabrasFiltradas;
 		}
-		$words [] = '<a href="' . $permalink . '" class="btn btn-default btn-xs">' . I18n::transu('mostrar_mas') . '</a>';
-		$the_excerpt = implode(' ', $words);
+		// Si el content fuese más largo que el extracto, concatenar '...'
+		if (count($palabras) > $excerpt_length) {
+			array_pop($palabras);
+			$permalink = get_permalink($post_id);
+			$palabras [] = '...';
+		}
+		$palabras [] = '<a href="' . $permalink . '" class="btn btn-default btn-xs">' . I18n::transu('mostrar_mas') . '</a>';
+		$the_excerpt = implode(' ', $palabras);
 		return $the_excerpt;
 	}
 
