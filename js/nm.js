@@ -107,8 +107,7 @@ $(document).on('click', '#btn-me-gusta', function(e) {
 		post : post_val,
 		user : user_val,
 		te_gusta: te_gusta
-	};
-	console.log(data);
+	};	
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -118,7 +117,6 @@ $(document).on('click', '#btn-me-gusta', function(e) {
 			formulario.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			console.log(json);
 			$('#alertas').html(json.content);
 			$this.replaceWith(json.btn);
 			$('#alertas').fadeIn();
