@@ -14,6 +14,10 @@
 		</div>
 	{{/current_user}}
 	{{^current_user}}
-		<p><span class="login-necesario">{{#transu}}user.login_necesario{{/transu}}</span></p>
+		<a class="login-necesario form-control btn btn-default" 
+		href="/wp-login.php" target="_blank">
+		<i class='fa fa-flag'></i> 
+		{{#transu}}user.login_necesario{{/transu}}
+	</a>
 	{{/current_user}}
 </section>
