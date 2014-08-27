@@ -143,7 +143,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function mostrarMas($tipo, $que, $cant, $offset) {
 		$homeController = new HomeController();
-		$offset--; // Quitamos uno por el header
 		$moreQuerySettings ['offset'] = $offset;
 		if ($tipo == Utils::TIPO_TAG) {
 			$bandas = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
