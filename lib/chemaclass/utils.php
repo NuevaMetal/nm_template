@@ -397,7 +397,25 @@ class Utils {
 	 * @param string $post_id
 	 */
 	public static function crearNonce($tipoNonceString, $post_id = null) {
-		return wp_create_nonce($tipoNonceString);
+		if ($post_id == null) {
+			global $post;
+			$post_id = $post->ID;
+		}
+		return wp_create_nonce($tipoNonceString . $post_id);
+	}
+
+	/**
+	 * Crear clave Nonce para las peticiones AJAX
+	 *
+	 * @param string $tipoNonceString
+	 * @param string $post_id
+	 */
+	public static function esNonce($nonce, $submit, $post_id = null) {
+		if ($post_id == null) {
+			global $post;
+			$post_id = $post->ID;
+		}
+		return wp_verify_nonce($nonce, $submit . $post_id);
 	}
 
 }

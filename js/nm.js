@@ -109,7 +109,6 @@ $(document).on('click', '.mostrar-mas', function(e) {
 	var cant = $(posts).find('.cant').text();
 	var tipo = $(posts).find('.tipo').text();
 	var que = $(this).attr('mostrar-mas');
-	var nonce = $(this).attr('nonce');
 	var url = $(this).attr('url');
 	var size = $(seccion).children().size();
 	
@@ -118,8 +117,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		que : que,
 		cant: cant,
 		size: size,
-		tipo: tipo,
-		nonce: nonce
+		tipo: tipo
 	};
 	//console.log("mostrar-mas: " + que);	
 	$.ajax({
@@ -131,12 +129,15 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			$(posts).find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			$(seccion).append(json.content);
+			console.log(json);
+			if(json.code == 200 ) {
+				$(seccion).append(json.content);
+			}
 			$(posts).find('.fa-spin').addClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	        alert("Ocurrió un error inesperado.\n" 
-	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			+ ",\n thrownError "+thrownError);
 	     }

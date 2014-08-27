@@ -274,11 +274,8 @@ $nonce = $_POST ['nonce'];
 if (in_array($submit, [
 	Utils::NOTIFICAR,
 	Utils::ME_GUSTA
-]) && !wp_verify_nonce($nonce, $submit)) {
-	Utils::debug("NO nonce - $nonce ? $submit");
-	die("NO nonce - $nonce ? $submit");
-} else{
-	Utils::debug("SI nonce - $nonce ? $submit");
+]) && !Utils::esNonce($nonce, $submit, $_POST ['post'])) {
+	die("An unexpected error has ocurred.");
 }
 
 switch ($submit) {
