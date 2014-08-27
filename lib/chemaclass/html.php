@@ -36,4 +36,18 @@ class Html {
 		return $html;
 	}
 
+	/**
+	 * Ajustar vídeos
+	 *
+	 * @param string $content
+	 * @return string Content con los vídeos ajustados
+	 */
+	public static function ajustarVideos($content) {
+		$alto = (in_category('videos', $content)) ? 360 : 300;
+		$pattern = '/<iframe width="[0-9]+%?" height="[0-9]+"/i';
+		$replacement = '<iframe width="100%" height="' . $alto . '"';
+		$content = preg_replace($pattern, $replacement, $content);
+		return $content;
+	}
+
 }
