@@ -7,9 +7,19 @@
  */
 class Utils {
 
+	const SI = 'si';
+
+	const NO = 'no';
+
 	const TIPO_TAG = 'tag';
 
 	const TIPO_CATEGORY = 'category';
+
+	const ME_GUSTA = "me-gusta";
+
+	const NOTIFICAR = "notificar";
+
+	const MOSTRAR_MAS = "mostrar-mas";
 
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
@@ -380,6 +390,15 @@ class Utils {
 		return false;
 	}
 
+	/**
+	 * Crear clave Nonce para las peticiones AJAX
+	 *
+	 * @param string $tipoNonceString
+	 * @param string $post_id
+	 */
+	public static function crearNonce($tipoNonceString, $post_id = null) {
+		return wp_create_nonce($tipoNonceString);
+	}
 
 }
 

@@ -109,6 +109,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 	var cant = $(posts).find('.cant').text();
 	var tipo = $(posts).find('.tipo').text();
 	var que = $(this).attr('mostrar-mas');
+	var nonce = $(this).attr('nonce');
 	var url = $(this).attr('url');
 	var size = $(seccion).children().size();
 	
@@ -117,7 +118,8 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		que : que,
 		cant: cant,
 		size: size,
-		tipo: tipo
+		tipo: tipo,
+		nonce: nonce
 	};
 	//console.log("mostrar-mas: " + que);	
 	$.ajax({
@@ -145,7 +147,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 /**
  * Botón notificar
  */
-$(document).on('click', '#btn-me-gusta', function(e) {
+$(document).on('click', '.btn-me-gusta', function(e) {
 	e.preventDefault();
 	var $this = $(this);
 	var formulario = $(this).parents('.formulario');
@@ -153,12 +155,14 @@ $(document).on('click', '#btn-me-gusta', function(e) {
 	var post_val = form.find('[name=post]').val();
 	var user_val = form.find('[name=user]').val();
 	var te_gusta = $(this).attr('te-gusta'); 
+	var nonce = $(this).attr('nonce');  
 	var url = form.attr('action');
 	var data = {
 		submit : 'me-gusta',
 		post : post_val,
 		user : user_val,
-		te_gusta: te_gusta
+		te_gusta: te_gusta,
+		nonce: nonce
 	};
 	$.ajax({
 		url : url,
@@ -201,17 +205,19 @@ $(document).on('click', '.navbar-header .navbar-brand', function(e) {
 /**
  * Botón notificar
  */
-$(document).on('click', '#btn-notificar', function(e) {
+$(document).on('click', '.btn-notificar', function(e) {
 	e.preventDefault();
 	var formulario = $(this).parents('.formulario');
 	var form = formulario.find('form');
 	var post_val = form.find('[name=post]').val();
 	var user_val = form.find('[name=user]').val();
+	var nonce = form.find('[name=nonce]').val();
 	var url = form.attr('action');
 	var data = {
 		submit : 'notificar',
 		post : post_val,
-		user : user_val
+		user : user_val,
+		nonce: nonce
 	};
 	$.ajax({
 		url : url,

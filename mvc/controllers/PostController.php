@@ -40,6 +40,8 @@ class PostController extends BaseController {
 			'edit_post' => get_edit_post_link(),
 			'edit_user_link' => $edit_user_link,
 			'me_gusta' => Utils::getSiUserGustaPost($post ['ID'], $current_user->ID),
+			'nonce_me_gusta' => Utils::crearNonce(Utils::ME_GUSTA),
+			'nonce_notificar' => Utils::crearNonce(Utils::NOTIFICAR),
 			//'next_post' => get_next_post_link("%link"),
 			'post' => $post,
 			//'previous_post' => get_previous_post_link("%link"),

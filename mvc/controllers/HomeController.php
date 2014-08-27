@@ -29,9 +29,9 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-		$bandas = self::getSeccion('bandas', 4);
+		$bandas = self::getSeccion('bandas', 4, []);
 
-		$videos = self::getSeccion('videos', 4);
+		$videos = self::getSeccion('videos', 4, []);
 
 		$entrevistas = self::getSeccion('entrevistas', 2, [
 			'reducido' => true

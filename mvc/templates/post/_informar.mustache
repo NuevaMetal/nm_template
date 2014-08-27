@@ -6,10 +6,13 @@
 			<form action="{{template_url}}/ajax.php">
 				<input type="hidden" name="post" value="{{post.ID}}">
 				<input type="hidden" name="user" value="{{current_user.ID}}">
-				<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
-				<input type="submit" id="btn-notificar" name="submit" 
-					value="{{#transu}}reportar_entrada [titulo:{{{title}}}]{{/transu}}" 
-					class="btn btn-danger col-xs-12">
+				<input type="hidden" name="nonce" value="{{nonce_notificar}}">
+				
+				
+				<button type="submit" name="submit" class="btn-notificar btn btn-danger col-xs-12" >
+					{{#transu}}reportar_entrada [titulo:{{{title}}}]{{/transu}}
+					<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+				</button>
 			</form>
 		</div>
 	{{/current_user}}

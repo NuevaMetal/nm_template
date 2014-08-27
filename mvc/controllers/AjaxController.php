@@ -163,6 +163,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function crearMeGusta($post_id, $user_id) {
 		global $wpdb;
+		$nonce = $_POST ['nonce'];
 		$post = get_post($post_id);
 		$post_title = $post->post_title;
 
@@ -194,14 +195,16 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if (!empty($result)) {
 			$json ['code'] = 200;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true
+				'me_gusta' => true,
+				'nonce_me_gusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
 		} else {
 			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false
+				'me_gusta' => false,
+				'nonce_me_gusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -213,6 +216,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function quitarMeGusta($post_id, $user_id) {
 		global $wpdb;
+		$nonce = $_POST ['nonce'];
 		$post = get_post($post_id);
 		$post_title = $post->post_title;
 
@@ -239,14 +243,16 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if (!empty($result)) {
 			$json ['code'] = 200;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false
+				'me_gusta' => false,
+				'nonce_me_gusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
 		} else {
 			Utils::debug("quitarMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true
+				'me_gusta' => true,
+				'nonce_me_gusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -255,33 +261,48 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 
 }
 
-$json = array();
+$json = [
+	'code' => 504 // Error default
+];
 
 $ajax = new AjaxController();
 
-switch ($_REQUEST ['submit']) {
-	case "notificar" :
+$submit = $_POST ['submit'];
+
+$nonce = $_POST ['nonce'];
+
+if (in_array($submit, [
+	Utils::NOTIFICAR,
+	Utils::ME_GUSTA
+]) && !wp_verify_nonce($nonce, $submit)) {
+	Utils::debug("NO nonce - $nonce ? $submit");
+	die("NO nonce - $nonce ? $submit");
+} else{
+	Utils::debug("SI nonce - $nonce ? $submit");
+}
+
+switch ($submit) {
+	case Utils::NOTIFICAR :
 		$post_id = $_POST ['post'];
 		$user_id = $_POST ['user'];
 		$json = $ajax->crearNotificacion($post_id, $user_id);
 		break;
-	case "me-gusta" :
+	case Utils::ME_GUSTA :
 		$post_id = $_POST ['post'];
 		$user_id = $_POST ['user'];
 		$te_gusta = $_POST ['te_gusta'];
 
-		if ($te_gusta == "si") {
+		if ($te_gusta == Utils::SI) {
 			$json = $ajax->crearMeGusta($post_id, $user_id);
 		} else {
 			$json = $ajax->quitarMeGusta($post_id, $user_id);
 		}
 		break;
-	case "mostrar-mas" :
+	case Utils::MOSTRAR_MAS :
 		$tipo = $_REQUEST ['tipo'];
 		$que = $_REQUEST ['que'];
 		$cant = $_REQUEST ['cant'];
 		$offset = $_REQUEST ['size'];
-
 		$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
 		break;
 	default :
