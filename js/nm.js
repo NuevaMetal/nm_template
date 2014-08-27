@@ -89,6 +89,58 @@ function getWindowWidth(tam) {
 	return true;
 }
 
+/**
+ * Documento listo para JQuery
+ */
+$(document).ready(function() {
+	if (getWindowWidth('xs')) {
+		scrollOn()
+		scrollOff()
+	}
+});
+
+/**
+ * Mostrar más
+ */
+$(document).on('click', '.mostrar-mas', function(e) {
+	e.preventDefault();
+	var posts = $(this).parents('.posts');
+	var seccion = $(posts).find('.seccion');
+	var cant = $(posts).find('.cant').text();
+	var tipo = $(posts).find('.tipo').text();
+	var que = $(this).attr('mostrar-mas');
+	var url = $(this).attr('url');
+	var size = $(seccion).children().size();
+	
+	var data = {
+		submit : 'mostrar-mas',
+		que : que,
+		cant: cant,
+		size: size,
+		tipo: tipo
+	};
+	//console.log("mostrar-mas: " + que);	
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$(posts).find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			$(seccion).append(json.content);
+			$(posts).find('.fa-spin').addClass('hidden');
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+	        alert("Ocurrió un error inesperado.\n" 
+	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
 
 /**
  * Botón notificar
@@ -134,143 +186,93 @@ $(document).on('click', '#btn-me-gusta', function(e) {
 	});
 });
 
+$(document).on('click', '.back-to-top', function(e) {
+	e.preventDefault();
+	$('html, body').animate({
+		scrollTop : 0
+	}, 500);
+	return false;
+});
+
+$(document).on('click', '.navbar-header .navbar-brand', function(e) {
+	$('.back-to-top').trigger('click');
+});
+
 /**
- * Documento listo para JQuery
+ * Botón notificar
  */
-$(document).ready(function() {
-	if (getWindowWidth('xs')) {
-		scrollOn()
-		scrollOff()
+$(document).on('click', '#btn-notificar', function(e) {
+	e.preventDefault();
+	var formulario = $(this).parents('.formulario');
+	var form = formulario.find('form');
+	var post_val = form.find('[name=post]').val();
+	var user_val = form.find('[name=user]').val();
+	var url = form.attr('action');
+	var data = {
+		submit : 'notificar',
+		post : post_val,
+		user : user_val
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			formulario.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			$('#alertas').html(json.content);
+			$('#alertas').fadeIn();
+			formulario.find('.fa-spin').addClass('hidden');				
+			setTimeout(function(){
+				$('#alertas').fadeOut();
+			}, 5000);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+	        alert("Ocurrió un error inesperado.\n" 
+	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
+/* 
+ * **************************************
+ *              Cookies
+ * **************************************
+ */
+function getCookie(c_name) {
+	var c_value = document.cookie;
+	var c_start = c_value.indexOf(" " + c_name + "=");
+	if (c_start == -1) {
+		c_start = c_value.indexOf(c_name + "=");
 	}
-	$('.back-to-top').click(function(event) {
-		event.preventDefault();
-		$('html, body').animate({
-			scrollTop : 0
-		}, 500);
-		return false;
-	});
-
-	$('.navbar-header .navbar-brand').click(function(){
-		$('.back-to-top').trigger('click');
-	});
-
-	/**
-	 * Botón notificar
-	 */
-	$('#btn-notificar').click(function(e) {
-		e.preventDefault();
-		var formulario = $(this).parents('.formulario');
-		var form = formulario.find('form');
-		var post_val = form.find('[name=post]').val();
-		var user_val = form.find('[name=user]').val();
-		var url = form.attr('action');
-		var data = {
-			submit : 'notificar',
-			post : post_val,
-			user : user_val
-		};
-		$.ajax({
-			url : url,
-			type : "POST",
-			data : data,
-			dataType : "json",
-			beforeSend: function() {
-				formulario.find('.fa-spin').removeClass('hidden');
-			},
-			success : function(json) {
-				$('#alertas').html(json.content);
-				$('#alertas').fadeIn();
-				formulario.find('.fa-spin').addClass('hidden');				
-				setTimeout(function(){
-					$('#alertas').fadeOut();
-				}, 5000);
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert("Ocurrió un error inesperado.\n" 
-		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
-				console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-				+ ",\n thrownError "+thrownError);
-		     }
-		});
-	});
-
-	$('.mostrar-mas').click(function(e){
-		e.preventDefault();
-		var posts = $(this).parents('.posts');
-		var seccion = $(posts).find('.seccion');
-		var cant = $(posts).find('.cant').text();
-		var tipo = $(posts).find('.tipo').text();
-		var que = $(this).attr('mostrar-mas');
-		var url = $(this).attr('url');
-		var size = $(seccion).children().size();
-		
-		var data = {
-			submit : 'mostrar-mas',
-			que : que,
-			cant: cant,
-			size: size,
-			tipo: tipo
-		};
-		//console.log("mostrar-mas: " + que);
-		$.ajax({
-			url : url,
-			type : "POST",
-			data : data,
-			dataType : "json",
-			beforeSend: function() {
-				$(posts).find('.fa-spin').removeClass('hidden');
-			},
-			success : function(json) {
-				$(seccion).append(json.content);
-				$(posts).find('.fa-spin').addClass('hidden');
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert("Ocurrió un error inesperado.\n" 
-		        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
-				console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-				+ ",\n thrownError "+thrownError);
-		     }
-		});
-	});
-
-
-	/* 
-	 * **************************************
-	 *              Cookies
-	 * **************************************
-	 */
-	function getCookie(c_name) {
-		var c_value = document.cookie;
-		var c_start = c_value.indexOf(" " + c_name + "=");
-		if (c_start == -1) {
-			c_start = c_value.indexOf(c_name + "=");
+	if (c_start == -1) {
+		c_value = null;
+	} else {
+		c_start = c_value.indexOf("=", c_start) + 1;
+		var c_end = c_value.indexOf(";", c_start);
+		if (c_end == -1) {
+			c_end = c_value.length;
 		}
-		if (c_start == -1) {
-			c_value = null;
-		} else {
-			c_start = c_value.indexOf("=", c_start) + 1;
-			var c_end = c_value.indexOf(";", c_start);
-			if (c_end == -1) {
-				c_end = c_value.length;
-			}
-			c_value = unescape(c_value.substring(c_start, c_end));
-		}
-		return c_value;
+		c_value = unescape(c_value.substring(c_start, c_end));
 	}
-	function setCookie(c_name, value, exdays) {
-		var exdate = new Date();
-		exdate.setDate(exdate.getDate() + exdays);
-		var c_value = escape(value)
-				+ ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
-		document.cookie = c_name + "=" + c_value;
-	}
-	if (getCookie('nm_aviso') != "1") {
-		document.getElementById("cookies").style.display = "block";
-	}
-	
-	$('.poner-cookie').click(function() {
-		setCookie('nm_aviso', '1', 365);
-		document.getElementById("cookies").style.display = "none";
-	});
-	
+	return c_value;
+}
+function setCookie(c_name, value, exdays) {
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value = escape(value)
+			+ ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+	document.cookie = c_name + "=" + c_value;
+}
+if (getCookie('nm_aviso') != "1") {
+	document.getElementById("cookies").style.display = "block";
+}
+
+$('.poner-cookie').click(function() {
+	setCookie('nm_aviso', '1', 365);
+	document.getElementById("cookies").style.display = "none";
 });
