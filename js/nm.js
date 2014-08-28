@@ -9,7 +9,7 @@ $(window).scroll(function() {
 	var windowHeight = $( window ).height();
 	var documentHeight = $(document).height();
 
-	if (scroll >= 200) {
+	if (scroll >= 260) {
 		scrollOn();
 	} else {
 		scrollOff();
