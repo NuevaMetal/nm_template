@@ -12,19 +12,22 @@
 				 	class="form-control" value="" size="20"  placeholder="Password">
 				</div>
 				<div class="login-submit col-xs-6 col-sm-3 col-md-2">
-					<input type="submit" name="wp-submit" id="wp-submit"
-						class="btn btn-danger form-control" value="{{#transu}}acceder{{/transu}}" >
-					
+					<button type="submit" name="wp-submit" id="wp-submit"
+						class="btn btn-danger form-control">
+						<i class="fa fa-sign-in"></i> {{#transu}}acceder{{/transu}}
+					</button>
 				</div>
 				 <div class="checkbox col-xs-6 col-sm-3 col-md-2">
 				 	<label><input name="rememberme" type="checkbox" id="rememberme" 
 				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=register">{{#transu}}registrarse{{/transu}}</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=register">
+						<i class="fa fa-mail-forward"></i> {{#transu}}registrarse{{/transu}}</a>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword">{{#transu}}contrasena_perdida{{/transu}}</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword">
+						<i class="fa fa-question-circle "></i> {{#transu}}contrasena_perdida{{/transu}}</a>
 				</div>	
 			</div>
 		</form>
