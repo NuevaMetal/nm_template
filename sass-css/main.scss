@@ -12,25 +12,16 @@
 @import "navbar.scss";
 
 .site-title {
-/*	@include col(sm) {
-		padding-top: 40px;
-	}
-	@include col(md) {
-		font-size: 50px;
-		padding-top: 28px;
-	}
-	@include col(lg) {
-		font-size: 60px;
-		padding-top: 0px;
-	}
-	font-size: 40px;
-	text-align: center;	
-	a {
-		color: #E6E6E6;
-		&:hover {
-			text-decoration: none;
+	padding: 0;
+	margin: 10px 0;
+	margin-left: -15px !important;
+	@include col(xs) {
+		margin: 5px 0;
+		padding-top: 52px;
+		img {
+			width: 100%;
 		}
-	}*/
+	}	
 }
 
 a {
@@ -38,33 +29,6 @@ a {
 	&:hover,&:focus,&.focus,&.active{
 		color: $rojo-danger-hover;
 	}
-}
-
-header .header-img {	
-	background-color: #000;
-	background: url('../img/NM_header.png');
-	background-repeat: no-repeat;
-	
-	//background-position: top;
-	//background-attachment: fixed;
-	@include col(xs) {
-		margin-top: 80px;
-		margin-bottom: -50px;
-	}
-	@include col(sm) {
-		margin-top: 20px;
-		margin-bottom: -10px;
-	}
-	@include col(md) {
-		margin: 20px 0;
-		min-height: 170px;
-	}
-	@include col(lg) {
-		min-height: 200px;
-	}
-	background-size: 100% ;
-	color: transparent;	
-	min-height: 160px;	
 }
 
 #alertas{
@@ -76,10 +40,7 @@ header .header-img {
 }
 
 #content{
-	overflow: hidden;
-	*{
-		//border: 1px solid red; 
-	}
+	overflow: hidden;	
 }
 
 #cookies {
