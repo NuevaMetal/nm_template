@@ -4,6 +4,7 @@ return [
 	'administrator' => 'administrador',
 	'anadir_favoritos' => 'añadir a mis favoritos',
 	'author' => 'autor',
+	'aviso' => 'aviso',
 	'aviso_legal' => 'aviso legal',
 	'aviso_cookies' => 'Utilizamos cookies para mejorar tu experiencia.
 		Si continúas navegando es que aceptas nuestra
