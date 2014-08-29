@@ -25,7 +25,7 @@
 		//height: 250px;
 		margin-bottom: 10px;
 		.sidebar-post-similar {
-			height: 75px;
+			height: 100px;
 			padding: 1px;
 			overflow: hidden;
 			img {			
@@ -44,8 +44,16 @@
 				height: auto;
 				width: auto;
 			}
+			.sidebar-post-similar {
+				height: 180px;
+			}
 		}
 		
+		@include col(md) {
+			.sidebar-post-similar {
+				height: 75px;
+			}
+		}
 	}
 	
 	.login {

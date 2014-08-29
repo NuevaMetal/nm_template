@@ -98,7 +98,7 @@ class PostController extends BaseController {
 	 * Devuelve la vista del sidebar
 	 */
 	private function _getSidebar($post_id = null, $user_id = null) {
-		$similares = Utils::getPostsSimilares(4);
+		$similares = Utils::getPostsSimilares(6);
 
 		$current_user = wp_get_current_user();
 
