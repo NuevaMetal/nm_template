@@ -11,7 +11,8 @@
 		word-wrap: break-word;
 		overflow: hidden;
 		border-bottom: 1px solid #ccc;
-		margin: 10px 0;
+		//margin: 10px 0;
+		padding: 0;
 		a {
 			&:hover{
 		 		text-decoration: none;
@@ -82,7 +83,7 @@
     background:rgba(0, 0, 0, 0.2);
     width:100%;
     height:auto;
-    padding:1%;
+    //padding:1%;
     display: none;
     text-align:center;
     color:#fff !important;    

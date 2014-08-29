@@ -1,12 +1,11 @@
 <article class="post col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" 
 	itemscope itemType="http://schema.org/BlogPosting">
 
-	<div class="info">
-    	<span class="post-time">{{time}} </span>
-	    {{#trans}}por{{/trans}} <span class="post-author">{{{author}}} </span>
-	</div>
-
 	<div class="thumbnail">
+		<div class="info">
+	    	<span class="post-time">{{time}} </span>
+		    {{#trans}}por{{/trans}} <span class="post-author">{{{author}}} </span>
+		</div>
         <div class="caption">
             <div class="tags">{{>tags}}</div>
             <a href="{{permalink}}" type="button" class="btn btn-default btn-xs">{{#transu}}leer_mas{{/transu}}</a>
