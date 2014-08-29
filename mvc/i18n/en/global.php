@@ -44,6 +44,7 @@ return [
 
 	'leer_mas' => 'show more',
 
+	'mas' => 'more',
 	'me_gusta' => 'like',
 	'mostrar_mas' => 'show more',
 
