@@ -7,8 +7,7 @@ return [
 	'aviso_legal' => 'legal disclaimer',
 	'aviso_cookies' => 'We use cookies to improve your experience.
 			If you continue browsing is that you accept
-		<a href="/legal/" target="_blank">our cookies policy.</a>
-		<a class="btn btn-xs btn-danger poner-cookie">OK</a>',
+		<a href="/legal/" target="_blank">our cookies policy.</a>',
 
 	'bandas' => 'bands',
 	'bienvenido' => 'welcome',
