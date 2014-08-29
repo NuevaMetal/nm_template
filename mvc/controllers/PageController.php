@@ -77,9 +77,10 @@ class PageController extends BaseController {
 			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false
 		]);
 
-		$header = I18n::trans('entradas_de', [
+		$header = I18n::transu('entradas_de', [
 			'nombre' => $author_name
 		]);
+
 		$entradas = I18n::trans('entradas');
 
 		$content = $this->_renderBusqueda([

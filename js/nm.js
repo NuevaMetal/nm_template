@@ -112,6 +112,7 @@ $(document).ready(function() {
  */
 $(document).on('click', '.mostrar-mas', function(e) {
 	e.preventDefault();
+	var $this = $(this);
 	var posts = $(this).parents('.posts');
 	var seccion = $(posts).find('.seccion');
 	var cant = $(posts).find('.cant').text();
@@ -135,6 +136,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		dataType : "json",
 		beforeSend: function() {
 			$(posts).find('.fa-spin').removeClass('hidden');
+			$this.attr("disabled", true);
 		},
 		success : function(json) {
 			console.log(json);
@@ -142,6 +144,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 				$(seccion).append(json.content);
 			}
 			$(posts).find('.fa-spin').addClass('hidden');
+			$this.attr("disabled", false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	        alert("Ocurrió un error inesperado.\n" 
