@@ -5,16 +5,25 @@
  * Controlar el scroll
  */
 $(window).scroll(function() {
+	seHaceScroll();
+});
+
+$(window).on("resize", function(){	
+	seHaceScroll();
+});
+
+function seHaceScroll(){
 	var scroll = $(window).scrollTop();
 	var windowHeight = $( window ).height();
 	var documentHeight = $(document).height();
+	var winWidth = $(window).width();
 
-	if (scroll >= 260) {
+	if (scroll >= 260 || winWidth < COL.SM-15) {
 		scrollOn();
 	} else {
 		scrollOff();
 	}
-	
+
 	if (scroll > 200) {
 		$('.back-to-top').fadeIn(500);
 	} else {
@@ -26,9 +35,8 @@ $(window).scroll(function() {
 	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
 	if( $('.mostrar-mas').size() == 1 && noHayspin && flag <= 280) {
 		$('.mostrar-mas').trigger('click');
-	}
-});
-
+	}	
+}
 /**
  * Cuando se hace scroll y se deja de ver el header
  */
