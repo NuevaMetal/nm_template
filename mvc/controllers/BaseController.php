@@ -32,13 +32,14 @@ abstract class BaseController extends ChesterBaseController {
 		$current_user = Utils::getCurrentUser();
 
 		$redirect = $_SERVER [REQUEST_URI];
-
+		$template_url = get_template_directory_uri();
 		$menuArgs = [
 			'current_user' => $current_user->ID != 0 ? $current_user : false,
 			'login_url' => wp_login_url($redirect),
 			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID),
-			'redirect_to' => $redirect
+			'redirect_to' => $redirect,
+			'template_url' => $template_url
 		];
 		$menuPerfil = $this->render('menu/perfil', $menuArgs);
 
@@ -51,7 +52,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['menuPrincipal'] = $menuPrincipal;
 		$args ['menuPerfil'] = $menuPerfil;
 		$args ['menuFooter'] = $menuFooter;
-		$args ['template_url'] = get_template_directory_uri();
+		$args ['template_url'] = $template_url;
 		$args ['blog_name'] = get_bloginfo('name');
 
 		return $this->renderPage('base', $args);
