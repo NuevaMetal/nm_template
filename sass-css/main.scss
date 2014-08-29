@@ -146,6 +146,13 @@ body {
     }
 }
 
+.perfil-login a:hover {
+    @extend %negrita;
+	.fa:hover {
+		color: $rojo-danger;
+	}
+}
+
 .sin-thumbnail {
 	background-position:center; 
 	background-size: cover;
