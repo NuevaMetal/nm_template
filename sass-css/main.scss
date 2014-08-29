@@ -123,14 +123,7 @@ body {
 }
 
 .aumentar-padding-top-content{	
-	padding-top: 140px; // sm
-	
-	@include col(md) {
-		padding-top: 110px;
-	}
-	@include col(lg) {
-		padding-top: 80px;
-	}
+	padding-top: 130px; // sm	
 }
 
 .back-to-top {
