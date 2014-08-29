@@ -275,9 +275,12 @@ function setCookie(c_name, value, exdays) {
 			+ ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
 	document.cookie = c_name + "=" + c_value;
 }
-if (getCookie('nm_aviso') != "1") {
-	document.getElementById("cookies").style.display = "block";
-}
+
+$(document).ready(function(){
+	if (getCookie('nm_aviso') != "1") {
+		document.getElementById("cookies").style.display = "block";
+	}
+});
 
 $('.poner-cookie').click(function() {
 	setCookie('nm_aviso', '1', 365);
