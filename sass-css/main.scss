@@ -11,17 +11,26 @@
 @import "sidebar.scss";
 @import "navbar.scss";
 
-.site-title {
-	padding: 0;
-	margin: 30px 0;
-	margin-left: -15px;
-	@include col(xs) {
-		margin: 20px 9px;
-		padding-top: 52px;
-		img {
-			width: 100%;
-		}
-	}	
+#top{
+	.site-title {
+		padding: 0;
+		margin: 30px 0;
+		margin-left: -15px;
+		@include col(xs) {
+			margin: 20px 9px;
+			padding-top: 52px;
+			img {
+				width: 100%;
+			}
+		}	
+	}
+	.redes-sociales{
+		position: fixed;
+	    bottom: 19px;
+	    left: 10px;
+	    z-index: 99999;
+	    a { margin: 3px 0;}
+	}
 }
 
 a {
@@ -126,7 +135,7 @@ body {
 
 .back-to-top {
     position: fixed;
-    bottom: 28px;
+    bottom: 19px;
     border-radius: 20px;
     right: 0px;
    
