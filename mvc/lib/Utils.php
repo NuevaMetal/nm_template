@@ -428,7 +428,7 @@ class Utils {
 	 * @return array<string> lista de todos los modelos
 	 */
 	private static function getTodosModelos() {
-		$DIR_MODELS = path('app') . 'models';
+		$DIR_MODELS = path('models');
 		$models = array();
 		if ($handle = opendir($DIR_MODELS)) {
 			while (false !== ($entry = readdir($handle))) {

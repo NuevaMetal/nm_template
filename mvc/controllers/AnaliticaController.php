@@ -65,11 +65,11 @@ class AnaliticaController extends BaseController {
 	 * @return string
 	 */
 	public function getIndex() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
 		$content = $this->render('analitica/analitica', [
-			'analiticas' => Analitica::all()
+			'analiticas' => Analitica::find(1)
 		]);
+
 		return $this->_renderPageBasePlugin([
 			'content' => $content
 		]);

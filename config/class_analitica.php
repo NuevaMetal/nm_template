@@ -17,24 +17,8 @@ define(CLASS_ANALITICA, 'class_analitica');
  * Author URI: http://chemaclass.com
  * License: GPL2
  */
-require_once (dirname(__FILE__) . '/../mvc/controllers/AnaliticaController.php');
-
 // use Controllers\AnaliticaController ;
-
-if (class_exists('AnaliticaController')) {
-	Utils::debug("> ANALITICACONTROLLER SI EXISTE < ");
-}
-/**
- * Registramos el hook
- */
-register_activation_hook(__FILE__, [
-	'AnaliticaController',
-	'install'
-]);
-register_deactivation_hook(__FILE__, [
-	'AnaliticaController',
-	'uninstall'
-]);
+require_once (dirname(__FILE__) . '/../mvc/controllers/AnaliticaController.php');
 
 /**
  * Registramos el menú en para el admin
@@ -51,9 +35,6 @@ add_action('admin_menu', function () {
 	add_submenu_page($menu_slug, $page_title, $sub_menu_title, $capability, $menu_slug, $function);
 });
 
-/**
- * Mostrar tablas de revisiones
- */
 function class_analitica_index() {
 	if (!current_user_can('edit_others_posts')) {
 		wp_die('You do not have sufficient permissions to access this page.');
@@ -67,6 +48,6 @@ add_action('wp', function () {
 		$analitica = new Analitica();
 		$analitica->save();
 	} catch (Exception $e) {
-		Utils::debug('wp.analitica.save()? ' . $e->getMessage());
+		Utils::debug('No se pudo guardar la Analitica ?');
 	}
 });

@@ -11,10 +11,10 @@
 			</tr>
 		{{#analiticas}}
 			<tr>
-				<td>{{ a.ID }}</td>
-				<td>{{ a.user_id }}</td>
-				<td>{{ a.created_at }}</td>
-				<td>{{ a.updated_at }}</td>
+				<td>{{ ID }}</td>
+				<td>{{ user_id }}</td>
+				<td>{{ created_at }}</td>
+				<td>{{updated_at }}</td>
 			</tr>
 			<tr><td colspan="4">
 				<p>Seguimiento de Usuarios por post:</p>
@@ -28,17 +28,17 @@
 						<th>created_id</th>
 						<th>updated_id</th>
 					</tr>
-				{{# a.getSeguimientos}}
+				{{# getSeguimientos }}
 					<tr>
-						<td>{{s.ID}}</td>
-						<td>{{ s.analitica_id }}</td>
-						<td>{{ s.post_id }}</td>
-						<td>{{ s.total }}</td>
-						<td>{{ s.ip }}</td>
-						<td>{{ s.created_at }}</td>
-						<td>{{ s.updated_at }}</td>
+						<td>{{ ID }}</td>
+						<td>{{ analitica_id }}</td>
+						<td>{{ post_id }}</td>
+						<td>{{ total }}</td>
+						<td>{{ ip }}</td>
+						<td>{{ created_at }}</td>
+						<td>{{ updated_at }}</td>
 					</tr>
-				{{/a.getSeguimientos}}
+				{{/ getSeguimientos }}
 				</table>
 				</td>
 			</tr>

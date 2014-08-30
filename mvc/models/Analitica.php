@@ -1,19 +1,17 @@
 <?php
+require_once 'ModelBase.php';
 /**
  * Analítica
  *
  * @author chema
  *
  */
-class Analitica {
+class Analitica extends ModelBase {
 	public static $table = "analitica";
-	public $ID;
 	public $user_id;
-	public $created_at;
-	public $updated_at;
 
 	public function __construct() {
-		$this->ID = -1;
+		parent::__construct();
 	}
 
 	/**
@@ -47,44 +45,6 @@ class Analitica {
 				FROM {$wpdb->prefix}" . Seguimiento::$table . "
 				WHERE analitica_id = $this->ID";
 		return $wpdb->get_results($query);
-	}
-
-	/**
-	 * Devuelve todas las analíticas
-	 *
-	 * @return array<Analitica>
-	 */
-	public static function all() {
-		global $wpdb;
-		$query = "SELECT *
-		FROM {$wpdb->prefix}" . Analitica::$table . "";
-		$queryResults = $wpdb->get_results($query);
-		$result = array();
-		foreach($queryResults as $qr){
-			$a = new Analitica();
-			$a->ID = $qr->ID;
-			$a->user_id = $qr->user_id;
-			$a->created_at = $qr->created_at;
-			$a->updated_at = $qr->updated_at;
-			$result[] = $a;
-		}
-		return $result;
-	}
-
-	/**
-	 *
-	 * @param string $ID
-	 * @return NULL
-	 */
-	public static function find($ID = null) {
-		if ($ID == null || !is_numeric($ID)) {
-			$ID = -1;
-		}
-		global $wpdb;
-		$query = "SELECT *
-		FROM {$wpdb->prefix}" . static::$table . "
-		WHERE ID = $ID";
-		return $wpdb->get_row($query);
 	}
 
 	/**

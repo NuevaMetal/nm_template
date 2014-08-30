@@ -1,10 +1,8 @@
 <?php
 
-namespace Controllers\PageController;
-
-use Controllers\BaseController;
-use Controllers\HomeController;
-
+// namespace Controllers\PageController;
+// use Controllers\BaseController;
+require_once 'BaseController.php';
 /**
  * Controlador principal de la web
  *

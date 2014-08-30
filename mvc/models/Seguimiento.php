@@ -1,21 +1,18 @@
 <?php
+require_once 'ModelBase.php';
 /**
  * Seguimiento
  *
  * @author chema
  *
  */
-class Seguimiento {
+class Seguimiento extends ModelBase {
 	public static $table = "seguimiento";
-	public $ID;
 	public $analitica_id;
 	public $post_id;
-	public $created_at;
-	public $updated_at;
 
 	public function __construct() {
-		global $wpdb;
-		$this->ID = -1;
+		parent::__construct();
 	}
 
 	/**
@@ -28,39 +25,7 @@ class Seguimiento {
 		if ($this->analitica_id == null) {
 			return null;
 		}
-		global $wpdb;
-		$query = "SELECT *
-				FROM {$wpdb->prefix}" . Analitica::$table . "
-				WHERE analitica_id = $this->analitica_id";
-		return $wpdb->get_row($query);
-	}
-
-	/**
-	 * Devuelve todos los Seguimiento
-	 *
-	 * @return array<Seguimiento>
-	 */
-	public static function all() {
-		global $wpdb;
-		$query = "SELECT *
-		FROM {$wpdb->prefix}" . Seguimiento::$table . "";
-		return $wpdb->get_results($query);
-	}
-
-	/**
-	 *
-	 * @param string $ID
-	 * @return NULL
-	 */
-	public static function find($ID = null) {
-		if ($ID == null || !is_numeric($ID)) {
-			return null;
-		}
-		global $wpdb;
-		$query = "SELECT *
-			FROM {$wpdb->prefix}" . static::$table . "
-			WHERE ID = $ID";
-		return $wpdb->get_row($query);
+		return Analitica::find($this->analitica_id);
 	}
 
 	/**
@@ -81,6 +46,12 @@ class Seguimiento {
 		return $seguimiento;
 	}
 
+	/**
+	 * Buscar un seguimiento a partir de su analítica y post
+	 *
+	 * @param unknown $analitica_ID
+	 * @param unknown $post_ID
+	 */
 	public static function findByAnaliticaYPost($analitica_ID, $post_ID) {
 		if ($analitica_ID == null || !is_numeric($analitica_ID)) {
 			$analitica_ID = -1;
@@ -111,11 +82,7 @@ class Seguimiento {
 			//Si existe actualizamos
 			$wpdb->query($wpdb->prepare("
 				UPDATE $wpdb->prefix" . static::$table . "
-					SET updated_at = now()
-					WHERE ID = %d", $seguimiento->ID));
-			$wpdb->query($wpdb->prepare("
-					UPDATE $wpdb->prefix" . static::$table . "
-					SET total = total + 1
+					SET updated_at = now(),total = total + 1
 					WHERE ID = %d", $seguimiento->ID));
 			$this->ID = $seguimiento->ID;
 		} else {
