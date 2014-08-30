@@ -12,6 +12,10 @@ class Utils {
 
 	const NO = 'no';
 
+	const ACTIVO = 0;
+
+	const BORRADO = 1;
+
 	const TIPO_TAG = 'tag';
 
 	const TIPO_CATEGORY = 'category';
@@ -147,7 +151,7 @@ class Utils {
 		return $postsSimilares;
 	}
 
-	private static function addThumbnailsToPost($post, $_p) {
+	public static function addThumbnailsToPost($post, $_p) {
 		$sizes = array(
 			'thumbnail',
 			'medium',
@@ -392,6 +396,27 @@ class Utils {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Devuelve el número de post que le gustan a un usuario
+	 *
+	 * @param integer $user_id
+	 *        Identificador del user. Si se omite este parámetro se obtendrán del usuario actual
+	 * @return number
+	 */
+	public static function getTotalMeGustas($user_id = false) {
+		global $wpdb;
+		if (!$user_id) {
+			$current_user = wp_get_current_user();
+			$user_id = $current_user->ID;
+		}
+		$activo = self::ACTIVO;
+		$total = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		 		FROM ' . $wpdb->prefix . "favoritos
+				WHERE user_id = $user_id
+				AND status = $activo;");
+		return $total;
 	}
 
 	/**

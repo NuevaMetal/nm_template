@@ -7,7 +7,7 @@ require_once 'ModelBase.php';
  *
  */
 class Analitica extends ModelBase {
-	public static $table = "analitica";
+	public static $table = "analiticas";
 	public $user_id;
 
 	public function __construct() {

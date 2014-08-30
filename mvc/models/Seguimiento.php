@@ -7,7 +7,7 @@ require_once 'ModelBase.php';
  *
  */
 class Seguimiento extends ModelBase {
-	public static $table = "seguimiento";
+	public static $table = "seguimientos";
 	public $analitica_id;
 	public $post_id;
 

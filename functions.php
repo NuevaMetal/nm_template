@@ -20,7 +20,10 @@ foreach (glob(dirname(__FILE__) . '/config/*.php') as $filename) {
  * Instalar las tablas
  */
 add_action('after_switch_theme', function () {
+	AnaliticaController::uninstall();
+	FavoritosController::uninstall();
 	AnaliticaController::install();
+	FavoritosController::install();
 });
 
 add_theme_support('post-thumbnails', array(

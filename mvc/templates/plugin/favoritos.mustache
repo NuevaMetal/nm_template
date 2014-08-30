@@ -1,0 +1,9 @@
+<div id="page" class="container-fluid">
+<h1>Tus favoritos {{ current_user.display_name }}</h1>
+<p>Estas son las entradas que te gustan. En total {{ total }}</p>
+	<div class="posts">
+	{{# favoritos }}
+		{{> home/_post }}
+	{{/ favoritos }}	
+	</div>
+</div>

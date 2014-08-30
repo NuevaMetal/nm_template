@@ -20,7 +20,7 @@ class AnaliticaController extends BaseController {
 		Utils::debug("> AnaliticaController->install() ");
 		global $wpdb;
 		// Create table
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}analitica (
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}analiticas (
 			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`user_id` bigint(20) UNSIGNED NOT NULL,
 			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
@@ -31,7 +31,7 @@ class AnaliticaController extends BaseController {
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$wpdb->query($query);
 
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimiento (
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimientos (
 			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`analitica_id` bigint(20) UNSIGNED NOT NULL,
 			`post_id` bigint(20) UNSIGNED NOT NULL,
@@ -54,8 +54,8 @@ class AnaliticaController extends BaseController {
 	 */
 	public static function uninstall() {
 		global $wpdb;
-		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimiento ");
-		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analitica ");
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos ");
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
 	}
 
 	/**
@@ -65,9 +65,8 @@ class AnaliticaController extends BaseController {
 	 * @return string
 	 */
 	public function getIndex() {
-
-		$content = $this->render('analitica/analitica', [
-			'analiticas' => Analitica::find(1)
+		$content = $this->render('plugin/analitica', [
+			'analiticas' => Analitica::all()
 		]);
 
 		return $this->_renderPageBasePlugin([
