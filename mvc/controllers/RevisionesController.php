@@ -23,15 +23,19 @@ class RevisionesController extends BaseController {
 
 		$pendientes = self::_parsearRevisiones($listaPendientes, $pendiente = true);
 		$revisadas = self::_parsearRevisiones($listaRevisadas, $pendiente = false);
+		$template_url = get_template_directory_uri();
+
 		$content = $this->render('plugin/revisiones', [
 			'current_user' => $current_user,
 			'pendientes' => [
 				'estado' => 'Pendientes',
-				'reportes' => $pendientes
+				'reportes' => $pendientes,
+				'url_accion' => "$template_url/ajax.php"
 			],
 			'revisadas' => [
 				'estado' => 'Revisadas',
-				'reportes' => $revisadas
+				'reportes' => $revisadas,
+				'url_accion' => "$template_url/ajax.php"
 			]
 		]);
 
@@ -51,6 +55,8 @@ class RevisionesController extends BaseController {
 			$revision ['post_id'] = $post->ID;
 			$revision ['title'] = $post->post_title;
 			$revision ['pendiente'] = $pendiente;
+			$revision ['estado'] = ($pendiente) ? Revision::ESTADO_CORREGIDO : Revision::ESTADO_PENDIENTE;
+			$revision ['estado_borrar'] = Revision::ESTADO_BORRADO;
 			$revision ['usuarios'] = self::_parsearUsersByRevision($l);
 			//dd($revision);
 			$revisiones [] = $revision;

@@ -26,6 +26,8 @@ class Utils {
 
 	const MOSTRAR_MAS = "mostrar-mas";
 
+	const REVISION = "revision";
+
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
 	 *

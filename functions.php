@@ -34,6 +34,12 @@ add_action('admin_print_styles', function () {
 	wp_enqueue_style('main', get_template_directory_uri() . '/public/css/main.css');
 });
 
+add_action('admin_print_scripts', function () {
+	wp_enqueue_script('jquery-plugin', get_template_directory_uri() . '/public/third/jquery/jquery.min.js');
+	wp_enqueue_script('bootstrap-plugin', get_template_directory_uri() . '/public/third/bootstrap/js/bootstrap.min.js');
+	wp_enqueue_script('nm-plugin', get_template_directory_uri() . '/public/js/nm-plugin.js');
+});
+
 add_theme_support('post-thumbnails', array(
 	'post',
 	'page'

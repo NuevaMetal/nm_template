@@ -16,9 +16,7 @@ class Revision extends ModelBase {
 	const USER_BANEADO = 1;
 
 	const USER_DESBANEADO = 2;
-
 	public static $table = "revisiones";
-
 	public $user_id;
 	public $post_id;
 

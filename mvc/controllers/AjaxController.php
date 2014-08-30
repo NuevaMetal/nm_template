@@ -1,83 +1,5 @@
 <?php
-// Cargamos WP.
-// Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
-require_once dirname(__FILE__) . '/../../../../../wp-load.php';
-require_once 'BaseController.php';
-require_once 'HomeController.php';
-
-/**
- * Controlador de las alertas
- *
- * @author Chemaclass
- *
- */
-abstract class AlertaController extends BaseController {
-
-	/**
-	 * Crear una alerta
-	 *
-	 * @param string $tipo
-	 *        Tipo de alerta. Será el nombre de la clase que definirá el estilo de la alerta
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @param unknown $args
-	 * @return View
-	 */
-	protected function renderAlerta($tipo, $mensaje, $strong = false, $args = []) {
-		$args ['tipo'] = $tipo;
-		$args ['mensaje'] = $mensaje;
-		$args ['strong'] = $strong;
-		return [
-			'code' => 200,
-			'content' => $this->render('ajax/alerta', $args)
-		];
-	}
-
-	/**
-	 * Crear una alerta de tipo Success
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	protected function renderAlertaSuccess($mensaje, $strong = false) {
-		return $this->renderAlerta('success', $mensaje, $strong);
-	}
-
-	/**
-	 * Crear una alerta de tipo Danger
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	public function renderAlertaDanger($mensaje, $strong = false) {
-		return $this->renderAlerta('danger', $mensaje, $strong);
-	}
-
-	/**
-	 * Crear una alerta de tipo Info
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	protected function renderAlertaInfo($mensaje, $strong = false) {
-		return $this->renderAlerta('info', $mensaje, $strong);
-	}
-
-	/**
-	 * Crear una alerta de tipo Warning
-	 *
-	 * @param string $mensaje
-	 * @param string $strong
-	 * @return View
-	 */
-	protected function renderAlertaWarning($mensaje, $strong = false) {
-		return $this->renderAlerta('warning', $mensaje, $strong);
-	}
-
-}
+require_once 'AlertaController.php';
 
 /**
  * Controlador del AJAX
@@ -211,6 +133,27 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		return $json;
 	}
 
+	public function editarRevision($estado, $post_id) {
+		global $wpdb;
+		$nonce = $_POST ['nonce'];
+		$mensaje = ':3';
+		switch ($estado) {
+			case Revision::ESTADO_PENDIENTE :
+				$mensaje = Revision::pendiente($post_id);
+				break;
+			case Revision::ESTADO_CORREGIDO :
+				$mensaje = Revision::corregir($post_id);
+				break;
+			case Revision::ESTADO_BORRADO :
+				$mensaje = Revision::borrar($post_id);
+				break;
+		}
+
+		$json ['code'] = 200;
+		$json ['alert'] = $this->renderAlertaSuccess($mensaje);
+		return $json;
+	}
+
 	/**
 	 * Crear me gusta
 	 */
@@ -242,35 +185,81 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		}
 		if (!empty($result)) {
 			$json ['code'] = 200;
+			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
 				'me_gusta' => false,
 				'nonce_me_gusta' => $nonce
 			]);
-			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
 		} else {
 			Utils::debug("quitarMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
+			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
 				'me_gusta' => true,
 				'nonce_me_gusta' => $nonce
 			]);
-			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
+		}
+		return $json;
+	}
+
+	/**
+	 *
+	 * @param string $submit
+	 */
+	public static function getJsonBySubmit($submit, $_datos) {
+		$ajax = new AjaxController();
+
+		switch ($submit) {
+			case Utils::NOTIFICAR :
+				$post_id = $_datos ['post'];
+				$user_id = $_datos ['user'];
+				$json = $ajax->crearNotificacion($post_id, $user_id);
+				break;
+			case Utils::ME_GUSTA :
+				$post_id = $_datos ['post'];
+				$user_id = $_datos ['user'];
+				$te_gusta = $_datos ['te_gusta'];
+
+				if ($te_gusta == Utils::SI) {
+					$json = $ajax->crearMeGusta($post_id, $user_id);
+				} else {
+					$json = $ajax->quitarMeGusta($post_id, $user_id);
+				}
+				break;
+			case Utils::MOSTRAR_MAS :
+				$tipo = $_datos ['tipo'];
+				$que = $_datos ['que'];
+				$cant = $_datos ['cant'];
+				$offset = $_datos ['size'];
+				$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
+				break;
+			case Utils::REVISION :
+				$estado = $_datos ['estado'];
+				$post_id = $_datos ['post'];
+				$json = $ajax->editarRevision($estado, $post_id);
+				break;
+			default :
+				$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
 		return $json;
 	}
 
 }
 
+/**
+ * -------------------------------------
+ * Controlador para las peticiones AJAX
+ * -------------------------------------
+ */
 $json = [
 	'code' => 504 // Error default
 ];
-
-$ajax = new AjaxController();
 
 $submit = $_POST ['submit'];
 
 $nonce = $_POST ['nonce'];
 
+//dd($_POST);
 if (in_array($submit, [
 	Utils::NOTIFICAR,
 	Utils::ME_GUSTA
@@ -278,32 +267,6 @@ if (in_array($submit, [
 	die("An unexpected error has ocurred.");
 }
 
-switch ($submit) {
-	case Utils::NOTIFICAR :
-		$post_id = $_POST ['post'];
-		$user_id = $_POST ['user'];
-		$json = $ajax->crearNotificacion($post_id, $user_id);
-		break;
-	case Utils::ME_GUSTA :
-		$post_id = $_POST ['post'];
-		$user_id = $_POST ['user'];
-		$te_gusta = $_POST ['te_gusta'];
-
-		if ($te_gusta == Utils::SI) {
-			$json = $ajax->crearMeGusta($post_id, $user_id);
-		} else {
-			$json = $ajax->quitarMeGusta($post_id, $user_id);
-		}
-		break;
-	case Utils::MOSTRAR_MAS :
-		$tipo = $_REQUEST ['tipo'];
-		$que = $_REQUEST ['que'];
-		$cant = $_REQUEST ['cant'];
-		$offset = $_REQUEST ['size'];
-		$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
-		break;
-	default :
-		$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
-}
+$json = AjaxController::getJsonBySubmit($submit, $_POST);
 
 echo json_encode($json);
