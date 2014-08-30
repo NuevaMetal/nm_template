@@ -75,7 +75,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['menuFooter'] = $menuFooter;
 		$args ['template_url'] = $template_url;
 		$args ['blog_name'] = get_bloginfo('name');
-		return $this->renderPage('base_plugin', $args);
+		echo $this->render('base_plugin', $args);
 	}
 
 	/**
