@@ -11,7 +11,7 @@ require_once 'HomeController.php';
 class FavoritosController extends BaseController {
 
 	/**
-	 * Create table and register an option when activate
+	 * Creamos las tablas
 	 *
 	 * @return void
 	 */
