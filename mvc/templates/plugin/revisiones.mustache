@@ -1,0 +1,12 @@
+<div id="page" class="container-fluid">
+<h1>Tus favoritos {{ current_user.display_name }}</h1>
+
+	{{# pendientes }}
+		{{> plugin/revisiones/_tabla_revisiones }}
+	{{/ pendientes }}
+	
+	{{# revisadas }}
+		{{> plugin/revisiones/_tabla_revisiones }}
+	{{/ revisadas }}
+	
+</div>

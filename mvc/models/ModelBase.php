@@ -9,7 +9,6 @@ abstract class ModelBase {
 
 	// Columnas de la tabla del modelo
 	protected static $columnas = array();
-
 	public $ID;
 	public $created_at;
 	public $updated_at;
@@ -64,6 +63,63 @@ abstract class ModelBase {
 		}
 		$result [] = $a;
 		return $result;
+	}
+
+	/**
+	 * Devuelve el resultado del filtrado where a todos los elementos de su tabla
+	 *
+	 * @param string $columna
+	 * @param string $que
+	 * @param string $valor
+	 */
+	public static function where($columna, $que, $valor) {
+		global $wpdb;
+
+		$all = self::all();
+		$result = [];
+		foreach ($all as $item) {
+			if (isset($item->$columna)) {
+				if (self::_getComparacion($item->$columna, $que, $valor)) {
+					$result [] = $item;
+				}
+			}
+		}
+		return $result;
+	}
+
+	private static function _getComparacion($columna, $que, $valor) {
+		switch ($que) {
+			case "=" :
+				if ($columna == $valor) {
+					return true;
+				}
+				return false;
+			case "<" :
+				if ($columna < $valor) {
+					return true;
+				}
+				return false;
+			case ">" :
+				if ($columna > $valor) {
+					return true;
+				}
+				return false;
+			case ">=" :
+				if ($columna >= $valor) {
+					return true;
+				}
+				return false;
+			case "<=" :
+				if ($columna <= $valor) {
+					return true;
+				}
+				return false;
+		}
+		return false;
+	}
+
+	public function __toArray() {
+		return call_user_func('get_object_vars', $this);
 	}
 
 }

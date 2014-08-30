@@ -1,0 +1,38 @@
+<h2> Reportes <small>Estado: {{ estado }}</small> </h2>
+<table class=" table table-condensed table-responsive">
+	<thead>
+		<tr>
+			<th class="col-xs-1">Nº</th>
+			<th class="col-xs-3">Entrada</th>
+			<th class="col-xs-7">Usuarios</th>
+			<th class="col-xs-1">Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+	{{# reportes }}
+		<tr>
+	  		<td>{{ num }}</td>
+			<td><a href="{{ permalink }}" target="_blank">{{ title }}</a></td>
+			<td>{{> plugin/revisiones/_users_tabla }}</td>
+			<td>
+				<form method="get" >
+					<input type="hidden" name="post_id" value="{{ post_id }}">
+					<input type="hidden" name="page" value="class-revisiones">
+				{{# pendiente }}
+					<input type="submit" name="submit" value="Corregido"
+						title="Marcar como corregido/revisado"
+						class="btn btn-success btn-sm btn-block">
+				{{/ pendiente }}
+				{{^ pendiente }}
+					<input type="submit" name="submit" value="Pendiente"
+						title="Volver a poder en estado pendiente"
+						class="btn btn-info btn-sm btn-block">
+					<input type="submit" name="submit" value="Borrar" title="Borrar"
+						class="btn btn-warning btn-sm btn-block">
+				{{/ pendiente }}
+				</form>
+			</td>
+		</tr>
+   	{{/ reportes }}
+   	</tbody>
+</table>

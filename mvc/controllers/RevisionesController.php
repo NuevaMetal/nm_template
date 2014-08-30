@@ -18,17 +18,42 @@ class RevisionesController extends BaseController {
 	 */
 	public function getIndex() {
 		$current_user = wp_get_current_user();
-		$favoritos = Favorito::getFavoritosByUserId($current_user->ID);
+		$listaPendientes = Revision::where('status', '=', Revision::ESTADO_PENDIENTE);
+		$listaRevisadas = Revision::where('status', '=', Revision::ESTADO_CORREGIDO);
 
-		$content = $this->render('plugin/favoritos', [
+		$pendientes = self::_parsearRevisiones($listaPendientes, $pendiente = true);
+		$revisadas = self::_parsearRevisiones($listaRevisadas, $pendiente = false);
+		$content = $this->render('plugin/revisiones', [
 			'current_user' => $current_user,
-			'total' => Utils::getTotalMeGustas($current_user->ID),
-			'favoritos' => $favoritos
+			'pendientes' => [
+				'estado' => 'Pendientes',
+				'reportes' => $pendientes
+			],
+			'revisadas' => [
+				'estado' => 'Revisadas',
+				'reportes' => $revisadas
+			]
 		]);
 
 		return $this->_renderPageBasePlugin([
 			'content' => $content
 		]);
+	}
+
+	private function _parsearRevisiones($listaRevisiones, $pendiente) {
+		$revisiones = [];
+		foreach ($listaRevisiones as $num => $l) {
+			$post = get_post($l->post_id);
+			$revision = [];
+			$revision ['num'] = $num + 1;
+			$revision ['permalink'] = get_permalink($post->ID);
+			$revision ['post_id'] = $post->ID;
+			$revision ['title'] = $post->post_title;
+			$revision ['pendiente'] = $pendiente;
+			$revision ['usuarios'] = [];
+			$revisiones [] = $revision;
+		}
+		return $revisiones;
 	}
 
 	/**
@@ -41,7 +66,7 @@ class RevisionesController extends BaseController {
 		$current_user = wp_get_current_user();
 		$favoritos = Favorito::getFavoritosByUserId($current_user->ID);
 
-		$content = $this->render('plugin/favoritos', [
+		$content = $this->render('plugin/revisiones_ban', [
 			'current_user' => $current_user,
 			'total' => Utils::getTotalMeGustas($current_user->ID),
 			'favoritos' => $favoritos
