@@ -46,14 +46,28 @@ class RevisionesController extends BaseController {
 			$post = get_post($l->post_id);
 			$revision = [];
 			$revision ['num'] = $num + 1;
+			$revision ['count'] = $l->count;
 			$revision ['permalink'] = get_permalink($post->ID);
 			$revision ['post_id'] = $post->ID;
 			$revision ['title'] = $post->post_title;
 			$revision ['pendiente'] = $pendiente;
-			$revision ['usuarios'] = [];
+			$revision ['usuarios'] = self::_parsearUsersByRevision($l);
+			//dd($revision);
 			$revisiones [] = $revision;
 		}
 		return $revisiones;
+	}
+
+	private function _parsearUsersByRevision($revision) {
+		$user = get_user_by('id', $revision->user_id);
+		//dd($user);
+		return [
+			'user_id' => $user->ID,
+			'user_login' => $user->user_login,
+			'user_posts_url' => get_author_posts_url($user->ID),
+			'updated_at' => $revision->updated_at,
+			'baneado' => Revision::isUserBan($user->ID)
+		];
 	}
 
 	/**

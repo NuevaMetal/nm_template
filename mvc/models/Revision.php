@@ -177,9 +177,10 @@ class Revision extends ModelBase {
 	 */
 	public static function isUserBan($user_id) {
 		global $wpdb;
+		$statusBan = Revision::USER_BANEADO;
 		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . "revisiones_ban
-				WHERE user_id = $user_id AND status = 1;");
+				WHERE user_id = $user_id AND status = $statusBan;");
 		return $isBan > 0;
 	}
 
