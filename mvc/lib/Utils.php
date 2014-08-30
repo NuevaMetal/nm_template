@@ -4,6 +4,7 @@
  *
  * @author chemaclass
  *
+ *
  */
 class Utils {
 
@@ -173,8 +174,8 @@ class Utils {
 		global $wpdb;
 		$role = $wpdb->get_var("SELECT meta_value
 				FROM {$wpdb->usermeta}
-				WHERE meta_key = 'wp_capabilities'
-				AND user_id = {$uid}");
+		WHERE meta_key = 'wp_capabilities'
+		AND user_id = {$uid}");
 		if (!$role)
 			return 'non-user';
 		$rarr = unserialize($role);
@@ -251,6 +252,7 @@ class Utils {
 	 * Devuelve el idioma actual del navegador.
 	 *
 	 * @return string Los dos primeros chars. Ej: es, en, fr
+	 *
 	 */
 	public static function getLangBrowser() {
 		return substr($_SERVER ['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -260,6 +262,7 @@ class Utils {
 	 * Devuelve el idioma actual del navegador en su forma convencional.
 	 *
 	 * @return string Los 5 primeros chars. Ej: es_ES, en_EN, fr_FR
+	 *
 	 */
 	public static function getLangBrowserFull() {
 		$l = static::getLangBrowser();
@@ -312,8 +315,8 @@ class Utils {
 		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . "favoritos
 				WHERE user_id = %d
-				AND post_id = %d
-				AND status = 0;", $user_id, $post_id));
+	AND post_id = %d
+	 AND status = 0;", $user_id, $post_id));
 		return $leGusta > 0;
 	}
 
@@ -380,6 +383,7 @@ class Utils {
 	 * @param string $str
 	 * @param array $arr
 	 * @return boolean
+	 *
 	 */
 	public static function strContieneAlgunValorArray($str, array $arr) {
 		foreach ($arr as $a) {
@@ -418,21 +422,38 @@ class Utils {
 		return wp_verify_nonce($nonce, $submit . $post_id);
 	}
 
-}
+	/**
+	 * Obtener todos los modelos
+	 *
+	 * @return array<string> lista de todos los modelos
+	 */
+	private static function getTodosModelos() {
+		$DIR_MODELS = path('app') . 'models';
+		$models = array();
+		if ($handle = opendir($DIR_MODELS)) {
+			while (false !== ($entry = readdir($handle))) {
+				if ($entry != "." && $entry != ".." && is_file("$DIR_MODELS/$entry")) {
+					$class = self::generaNombreModelo($entry);
+					if (strlen($class) > 0) {
+						$models [] = $class;
+					}
+				}
+			}
+			closedir($handle);
+		}
+		return $models;
+	}
 
-/**
- * -------------------------------------
- * Funciones de acceso rápido
- * -------------------------------------
- */
+	/**
+	 * Obtener el nombre del fichero del modelo.
+	 *
+	 * @param string $entry
+	 *        Nombre del fichero con su extensión
+	 * @return string nombre de la clase del fichero.
+	 */
+	private static function generaNombreModelo($entry) {
+		list($class, $extension) = explode('.', "$entry");
+		return ucfirst($class);
+	}
 
-/**
- *
- * @param mixed $expression
- * @param string $tag
- */
-function dd($expression, $tag = "Tag") {
-	echo '' . $tag . '<br>';
-	var_dump($expression);
-	exit();
 }

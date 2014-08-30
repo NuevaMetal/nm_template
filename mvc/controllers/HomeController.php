@@ -1,4 +1,6 @@
 <?php
+// namespace Controllers\HomeController;
+// use Controllers\BaseController;
 require_once 'BaseController.php';
 /**
  * Controlador principal de la web

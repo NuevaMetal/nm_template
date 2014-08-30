@@ -1,29 +1,14 @@
-<header id="top" class="container">
+<header id="top" class="container-fluid">
 	<div class="site-title col-xs-12 col-sm-9 col-md-9 col-lg-8" title="{{blog_name}}">
 		<a href="/" class=""><img src="{{template_url}}/public/img/NM_header.png"></a>
-	</div>
-	<div class="redes-sociales">
-		<a class="btn btn-social-icon btn-twitter" href="https://twitter.com/NuevaMetal" 
-			target="_blank" title="@NuevaMetal">
-			<i class="fa fa-twitter"></i>
-		</a><br>
-		<a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/nuevametal" 
-			target="_blank" title="/NuevaMetal">
-			<i class="fa fa-facebook "></i>
-		</a><br>
-		<a class="btn btn-social-icon btn-google-plus" href="https://plus.google.com/+NuevametalWeb/posts" 
-			target="_blank"  title="+NuevaMetalWeb">
-			<i class="fa fa-google-plus "></i>
-		</a><br>
-	</div>
+	</div>	
 </header>
-<div id="page" class="container">
+<div id="page" class="container-fluid">
 	
 	<div id="alertas"></div>
 	
 	<div class="col-xs-12">
 		{{{ menuPrincipal }}}
-		{{{ menuPerfil }}}
 	</div>
 
 	{{#content}}
@@ -45,8 +30,6 @@
 	
 	{{>partials/copyright}}
 </div>
-
-{{>partials/cookies}}
 
 <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i> 
 	{{#transu}}volver_arriba{{/transu}} 

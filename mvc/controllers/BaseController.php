@@ -1,4 +1,5 @@
 <?php
+//namespace Controllers\BaseController;
 require_once dirname(__FILE__) . '/../i18n/I18n.php';
 /**
  *
@@ -56,6 +57,25 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['blog_name'] = get_bloginfo('name');
 
 		return $this->renderPage('base', $args);
+	}
+
+	/**
+	 * Pintar la plantilla base para los plugins
+	 *
+	 * @param array $args
+	 *        Lista de parámetros a pasar a la plantilla base de plugins
+	 */
+	protected function _renderPageBasePlugin($args = []) {
+		$current_user = Utils::getCurrentUser();
+
+		$template_url = get_template_directory_uri();
+
+		$args ['menuPrincipal'] = $menuPrincipal;
+		$args ['menuPerfil'] = $menuPerfil;
+		$args ['menuFooter'] = $menuFooter;
+		$args ['template_url'] = $template_url;
+		$args ['blog_name'] = get_bloginfo('name');
+		return $this->renderPage('base_plugin', $args);
 	}
 
 	/**

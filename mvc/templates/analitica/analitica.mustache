@@ -1,0 +1,48 @@
+<div id="page" class="container-fluid">
+	<h1>Analítica y seguimiento de usuarios </h1>
+	<p>Analítica de usuarios por día</p>
+	<div>
+		<table class="table table-bordered">
+			<tr>
+				<th>ID</th>
+				<th>user_id</th>
+				<th>created_id</th>
+				<th>updated_id</th>
+			</tr>
+		{{#analiticas}}
+			<tr>
+				<td>{{ a.ID }}</td>
+				<td>{{ a.user_id }}</td>
+				<td>{{ a.created_at }}</td>
+				<td>{{ a.updated_at }}</td>
+			</tr>
+			<tr><td colspan="4">
+				<p>Seguimiento de Usuarios por post:</p>
+				<table class="table table-bordered">
+					<tr>
+						<th>ID</th>
+						<th>analitica_id</th>
+						<th>post_id</th>
+						<th>total</th>
+						<th>ip</th>
+						<th>created_id</th>
+						<th>updated_id</th>
+					</tr>
+				{{# a.getSeguimientos}}
+					<tr>
+						<td>{{s.ID}}</td>
+						<td>{{ s.analitica_id }}</td>
+						<td>{{ s.post_id }}</td>
+						<td>{{ s.total }}</td>
+						<td>{{ s.ip }}</td>
+						<td>{{ s.created_at }}</td>
+						<td>{{ s.updated_at }}</td>
+					</tr>
+				{{/a.getSeguimientos}}
+				</table>
+				</td>
+			</tr>
+			{{/analiticas}}
+		</table>
+	</div>
+</div>

@@ -1,5 +1,9 @@
 <?php
+
+// namespace Controllers\PostController;
+// use Controllers\BaseController;
 require_once 'BaseController.php';
+
 /**
  * Controlador de los post de la web
  *
