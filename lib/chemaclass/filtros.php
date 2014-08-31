@@ -28,7 +28,8 @@ add_filter('the_content', function ($content) {
 	$content = Html::ajustarVideos($content);
 	$content = Html::quitarAtributos($content, [
 		'iframe',
-		'img'
+		'img',
+		'a'
 	]);
 	return $content;
 });
@@ -41,7 +42,8 @@ add_filter('content_save_pre', function ($content) {
 	$content = Html::ajustarVideos($content);
 	$content = Html::quitarAtributos($content, [
 		'iframe',
-		'img'
+		'img',
+		'a'
 	]);
 	return $content;
 });
