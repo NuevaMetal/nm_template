@@ -32,14 +32,16 @@ class Favorito extends ModelBase {
 		$posts = [];
 		foreach ($posts_id as $post_id) {
 			$_p = get_post($post_id);
-			$postArray = array(
+			$_time = explode(' ', $_p->post_modified);
+			$time = $_time [0];
+			$postArray = [
 				'permalink' => get_permalink($_p->ID),
 				'title' => $_p->post_title,
-				'time' => $_p->post_modified,
+				'time' => $time,
 				'author' => get_user_by('id', $_p->post_author)->display_name,
 				'author_link' => get_author_posts_url($_p->post_author),
 				'excerpt' => Utils::getExcerptById($_p->ID)
-			);
+			];
 			$postArray = Utils::addThumbnailsToPost($postArray, $_p);
 			$posts [] = $postArray;
 		}
