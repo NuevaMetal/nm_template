@@ -68,14 +68,77 @@ class AnaliticaController extends BaseController {
 	 * @return string
 	 */
 	public function getIndex() {
+		$template_url = get_template_directory_uri();
 		$content = $this->render('plugin/analitica', [
 			'analiticas' => Analitica::all(),
-			'public_directory' => get_bloginfo('template_directory') . '/public'
+			'public_directory' => get_bloginfo('template_directory') . '/public',
+			'template_url' => $template_url
 		]);
 
 		return $this->_renderPageBasePlugin([
 			'content' => $content
 		]);
+	}
+
+	/**
+	 * Devuelve el número total de registros por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalRegistrosPorDia($cantidad = 50) {
+		global $wpdb;
+		$query = 'SELECT DATE( user_registered ) dia, COUNT( * ) total
+				FROM wp_users
+				GROUP BY dia
+				ORDER BY dia DESC limit ' . $cantidad;
+		$result = $wpdb->get_results($query);
+
+		$xKey = 'dia';
+		$yKeys = [
+			'total'
+		];
+		$labels = [
+			'Total'
+		];
+		$json = [
+			'data' => $result,
+			'xkey' => $xKey,
+			'ykeys' => $yKeys,
+			'labels' => $labels
+		];
+		return $json;
+	}
+
+	/**
+	 * Devuelve el número total de visitas por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalVisitas($cantidad = 50) {
+		global $wpdb;
+		$query = '';
+		$json = [];
+		return $json;
+	}
+
+	/**
+	 * Para la analítica por Ajax
+	 *
+	 * @param string $tabla
+	 * @return array
+	 */
+	public static function getByTabla($tabla, $cant) {
+		switch ($tabla) {
+			case 'total-users' :
+				return self::getTotalRegistrosPorDia($cant);
+				break;
+			case 'total-visitas':
+				return self::getTotalVisitas($cant);
+				break;
+		}
+		return [];
 	}
 
 }

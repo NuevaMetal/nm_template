@@ -1,22 +1,39 @@
-$(document).ready(function(){
+/**
+ * 
+ * @param elementId
+ * @param url
+ */
+function pintarMorris(elementId, url) {
+	$.get(url, function(_json) {
+		var json = JSON.parse(_json);
+		crearMorris(elementId, json);
+	});
+}
+
+/**
+ * Crear Morris
+ * 
+ * @param string
+ *            elementId ID del elemento a dibujar
+ * @param string
+ *            _json JSON
+ */
+function crearMorris(elementId, json) {
 	new Morris.Line({
-		// ID of the element in which to draw the chart.
-		element: 'myfirstchart',
-		// Chart data records -- each entry in this array corresponds to a point on
-		// the chart.
-		data: [
-		       { year: '2008', value: 20 },
-		       { year: '2009', value: 10 },
-		       { year: '2010', value: 5 },
-		       { year: '2011', value: 5 },
-		       { year: '2012', value: 20 }
-		       ],
-		       // The name of the data record attribute that contains x-values.
-		       xkey: 'year',
-		       // A list of names of data record attributes that contain y-values.
-		       ykeys: ['value'],
-		       // Labels for the ykeys -- will be displayed when you hover over the
-		       // chart.
-		       labels: ['Value']
-	});	
-});
+		element : elementId,
+		data : json.data,
+		xkey : json.xkey,
+		ykeys : json.ykeys,
+		labels : json.labels,
+		xLabelFormat : function(data) {
+			// var monthNames = [ "January", "February", "March", "April",
+			// "May",
+			// "June", "July", "August", "September", "October",
+			// "November", "December" ];
+			var monthNames = [ "Enero", "Febreo", "Marzo", "Abril", "Mayo",
+					"Junio", "Julio", "Agosto", "Septiembre", "Octubre",
+					"Noviembre", "Diciembre" ];
+			return data.getDate() + " - " + monthNames[data.getMonth()]
+		},
+	});
+}

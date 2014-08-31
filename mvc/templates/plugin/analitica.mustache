@@ -1,57 +1,26 @@
 <div id="page" class="container-fluid">
-	<h1>Analítica y seguimiento de usuarios </h1>
-	<p>Analítica de usuarios por día</p>
+	<h1><i class="fa fa-terminal"></i> Analítica y seguimiento de usuarios </h1>
 	
-	<div id="myfirstchart" style="height: 250px;"></div>
+	<h3><i class="fa fa-area-chart"></i> Total de usuarios registrados por día</h3>
+	<div id="total-users" style="height: 250px; margin-bottom:70px;"></div>
 	
-	<div>
-		<table class="table table-bordered">
-			<tr>
-				<th>ID</th>
-				<th>user_id</th>
-				<th>created_id</th>
-				<th>updated_id</th>
-			</tr>
-		{{#analiticas}}
-			<tr>
-				<td>{{ ID }}</td>
-				<td>{{ user_id }}</td>
-				<td>{{ created_at }}</td>
-				<td>{{updated_at }}</td>
-			</tr>
-			<tr><td colspan="4">
-				<p>Seguimiento de Usuarios por post:</p>
-				<table class="table table-bordered">
-					<tr>
-						<th>ID</th>
-						<th>analitica_id</th>
-						<th>post_id</th>
-						<th>total</th>
-						<th>ip</th>
-						<th>created_id</th>
-						<th>updated_id</th>
-					</tr>
-				{{# getSeguimientos }}
-					<tr>
-						<td>{{ ID }}</td>
-						<td>{{ analitica_id }}</td>
-						<td>{{ post_id }}</td>
-						<td>{{ total }}</td>
-						<td>{{ ip }}</td>
-						<td>{{ created_at }}</td>
-						<td>{{ updated_at }}</td>
-					</tr>
-				{{/ getSeguimientos }}
-				</table>
-				</td>
-			</tr>
-			{{/analiticas}}
-		</table>
-	</div>
+	<h3><i class="fa fa-line-chart"></i> Total de visitas por usuario logueado por día</h3>
+	<div id="total-visitas" style="height: 300px;"></div>
+
 </div>
 
 
 <script src="{{public_directory}}/third/raphael/raphael.min.js"></script>
-<script src="{{public_directory}}/third/morris/morris.min.js"></script>
+<script src="{{public_directory}}/third/morris/morris.js"></script>
 <script src="{{public_directory}}/js/analitica.js"></script>
-	
+
+<script>
+	$(document).ready(function() {
+		var url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-users&cant=50";
+		pintarMorris("total-users", url);
+		
+		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas&cant=50";
+		pintarMorris("total-visitas", url);
+		
+	});
+</script>

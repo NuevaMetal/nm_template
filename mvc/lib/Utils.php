@@ -30,6 +30,8 @@ class Utils {
 
 	const REVISION_BAN = "revision-ban";
 
+	const ANALITICA = "analitica";
+
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
 	 *
