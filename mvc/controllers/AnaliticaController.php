@@ -159,24 +159,36 @@ class AnaliticaController extends BaseController {
 				];
 				break;
 			case Analitica::TOTAL_VISITAS :
-				// total_users_logueados
-				$totalVisitasUsersLogueados = self::getTotalVisitasUsersLogueados($cant);
-				// total_posts_unicos
-				$totalPostUnicosVistos = self::getTotalPostUnicosVistos($cant);
-				// total_visitas
 				$totalVisitas = self::getTotalVisitas($cant);
-				$result = array_merge($totalVisitas, $totalVisitasUsersLogueados, $totalPostUnicosVistos);
-
+				$result = $totalVisitas;
 				$xKey = 'dia';
 				$yKeys = [
-					'total_users_logueados',
-					'total_posts_unicos',
 					'total_visitas'
 				];
 				$labels = [
-					'Usuarios logueados',
-					'Visitas únicas',
 					'Visitas totales'
+				];
+				break;
+			case Analitica::TOTAL_VISITAS_USERS :
+				$totalVisitasUsersLogueados = self::getTotalVisitasUsersLogueados($cant);
+				$result = $totalVisitasUsersLogueados;
+				$xKey = 'dia';
+				$yKeys = [
+					'total_users_logueados'
+				];
+				$labels = [
+					'Usuarios logueados'
+				];
+				break;
+			case Analitica::TOTAL_VISITAS_POST :
+				$totalPostUnicosVistos = self::getTotalPostUnicosVistos($cant);
+				$result = $totalPostUnicosVistos;
+				$xKey = 'dia';
+				$yKeys = [
+					'total_posts_unicos'
+				];
+				$labels = [
+					'Visitas únicas'
 				];
 				break;
 		}

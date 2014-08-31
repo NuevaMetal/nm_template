@@ -8,12 +8,15 @@ require_once 'ModelBase.php';
  */
 class Analitica extends ModelBase {
 
-	const TOTAL_USERS ='total-users';
+	const TOTAL_USERS = 'total-users';
 
 	const TOTAL_VISITAS = 'total-visitas';
 
-	public static $table = "analiticas";
+	const TOTAL_VISITAS_USERS = 'total-visitas-users';
 
+	const TOTAL_VISITAS_POST = 'total-visitas-posts';
+
+	public static $table = "analiticas";
 	public $user_id;
 
 	public function __construct() {
