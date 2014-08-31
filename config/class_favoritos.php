@@ -20,17 +20,6 @@
 require_once (dirname(__FILE__) . '/../mvc/controllers/FavoritosController.php');
 
 /**
- * Registramos el hook
- */
-//register_activation_hook(__FILE__, 'class_favoritos_activate');
-
-/**
- * Registramos las alertas
- */
-//add_action('admin_notices', 'class_favoritos_notify');
-
-
-/**
  * Registramos el menú en para el admin
  */
 add_action('admin_menu', function () {
@@ -50,13 +39,6 @@ add_action('admin_menu', function () {
 	$sub_menu_title = 'Favoritos';
 	add_submenu_page($menu_slug, $page_title, $sub_menu_title, $capability, $menu_slug, $function);
 });
-
-/**
- * Añadir los estilos de nuestro tema
- */
-// add_action('admin_print_styles', function () {
-// 	wp_enqueue_style('class_favoritos', plugin_dir_url(__FILE__) . 'app/public/css/class_favoritos.css');
-// });
 
 /**
  * Mostrar tablas de revisiones

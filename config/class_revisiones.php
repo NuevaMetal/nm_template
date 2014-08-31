@@ -95,25 +95,6 @@ function class_revisiones_notify() {
 		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		  <strong>¡Ey bro!</strong> ' . $msg . ' en <a href="' . $admin_revisiones_url . '"
 						class="alert-link">Revisiones</a>
-						</div>
-						';
+			</div>';
 	}
 }
-
-/**
- * Añado un link de acceso rápido para la lista de usuarios baneados
- */
-// add_filter('plugin_action_links', function ($links, $file) {
-// 	static $this_plugin;
-
-// 	if (!$this_plugin) {
-// 		$this_plugin = plugin_basename(__FILE__);
-// 	}
-
-// 	if ($file == $this_plugin) {
-// 		$settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/admin.php?page=class-revisiones-ban">Usuarios baneados</a>';
-// 		array_unshift($links, $settings_link);
-// 	}
-
-// 	return $links;
-// }, 10, 2);

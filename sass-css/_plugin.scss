@@ -6,13 +6,12 @@
 	background-position: center;
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
-	font-size: 16px ;
-	
-	#page-plugin{
-		
-	}
+	font-size: 16px ;	
 }
 
-.site-title-plugin{
+.site-title-plugin {
 	background: url(../img/01.jpg);
+	@include col(xs) {
+		padding-top: 0 !important;		
+	}
 }
