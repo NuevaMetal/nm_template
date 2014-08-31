@@ -37,6 +37,9 @@ class AnaliticaController extends BaseController {
 			`post_id` bigint(20) UNSIGNED NOT NULL,
 			`total` int(10) NOT NULL DEFAULT '1',
 			`ip` varchar(45) NOT NULL,
+			`user_agent` varchar(200) NOT NULL,
+			`referer` varchar(2000) NOT NULL,
+			`request_time` varchar(50) NOT NULL,
 			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
 			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (`ID`),
@@ -66,7 +69,8 @@ class AnaliticaController extends BaseController {
 	 */
 	public function getIndex() {
 		$content = $this->render('plugin/analitica', [
-			'analiticas' => Analitica::all()
+			'analiticas' => Analitica::all(),
+			'public_directory' => get_bloginfo('template_directory') . '/public'
 		]);
 
 		return $this->_renderPageBasePlugin([

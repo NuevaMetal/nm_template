@@ -88,9 +88,12 @@ class Seguimiento extends ModelBase {
 		} else {
 			//Si no existe lo creamos
 			$current_ip = $_SERVER ['REMOTE_ADDR'];
+			$referer = $_SERVER ['HTTP_REFERER'];
+			$user_agent = $_SERVER ['HTTP_USER_AGENT'];
+			$request_time = $_SERVER ['REQUEST_TIME'];
 			$result = $wpdb->query($wpdb->prepare("
-				INSERT INTO $wpdb->prefix" . static::$table . " (analitica_id, post_id, ip, created_at, updated_at)
-				VALUES (%d, %d, %s,null, null);", $this->analitica_id, $this->post_id, $current_ip));
+				INSERT INTO $wpdb->prefix" . static::$table . " (analitica_id, post_id, ip, referer, user_agent, request_time, created_at, updated_at)
+				VALUES (%d, %d, %s, %s, %s, %s, null, null);", $this->analitica_id, $this->post_id, $current_ip, $referer, $user_agent, $request_time));
 			$this->ID = $wpdb->insert_id;
 		}
 	}
