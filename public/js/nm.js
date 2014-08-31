@@ -33,7 +33,7 @@ function seHaceScroll(){
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var flag = (documentHeight - windowHeight)-scroll;
 	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
-	if( $('.mostrar-mas').size() == 1 && noHayspin && flag <= 280) {
+	if( $('.mostrar-mas').size() == 1 && noHayspin && flag <= 500) {
 		$('.mostrar-mas').trigger('click');
 	}	
 }
