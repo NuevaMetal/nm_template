@@ -1,6 +1,6 @@
 #wpcontent {
 	background-color: #fff;
-	background: url(../img/01.jpg);
+	//background: url(../img/01.jpg);
 	background-repeat: repeat;
 	background-attachment: fixed;
 	background-position: center;
@@ -11,4 +11,8 @@
 	#page-plugin{
 		
 	}
+}
+
+.site-title{
+	background: url(../img/01.jpg);
 }

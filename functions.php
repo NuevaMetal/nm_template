@@ -46,3 +46,10 @@ add_theme_support('post-thumbnails', array(
 ));
 
 show_admin_bar(false);
+
+add_filter('admin_class', function ($classes) {
+	//dd($classes);
+	$classes [] = 'container-fluid';
+	Utils::debug("admin_body_class> $classes");
+	return $classes;
+});

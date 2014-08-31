@@ -10,25 +10,23 @@
 	<tbody>	
 	{{# usuarios }}
 	<tr>
-		<form method="post">
-		<input type="hidden" name="user_id" value="{{ user_id }}">
-			<td> <a href="{{ user_posts_url }}" target="_blank"> 
-				{{ user_login }}</a>
-			</td>
-			<td>{{ count }}</td>
-			<td>{{ updated_at }}</td>
-			<td>
-			{{# baneado  }}
-				<span class="label label-default label-block">Baneado</span>
-			{{/ baneado  }}
-			{{^ baneado  }}
-				<input type="submit" name="submit" value="Banear"
-					class="btn btn-danger btn-xs btn-block"
-					title="El User no podrá volver a mandar revisiones">
-			{{/ baneado  }}		
-			</td>
-			</form>
-		</tr>
+		<td> <a href="{{ user_posts_url }}" target="_blank"> 
+			{{ user_login }}</a>
+		</td>
+		<td>{{ count }}</td>
+		<td>{{ updated_at }}</td>
+		<td>
+		{{# baneado  }}
+			<span class="label label-default label-block">Baneado</span>
+		{{/ baneado  }}
+		{{^ baneado  }}
+			<button class="btn btn-danger btn-xs btn-block dispara-revision"
+					que_id="{{user_id}}" submit="revision-ban" estado="{{ estado }}" url="{{ url_accion }}">
+				{{#transu}}banear{{/transu}}
+			</button>
+		{{/ baneado }}
+		</td>
+	</tr>
 	{{/ usuarios }}
 	</tbody>
 </table>

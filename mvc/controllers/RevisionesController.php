@@ -84,17 +84,40 @@ class RevisionesController extends BaseController {
 	 */
 	public function getBanIndex() {
 		$current_user = wp_get_current_user();
-		$favoritos = Favorito::getFavoritosByUserId($current_user->ID);
+		$listaBaneos = Revision::allBan();
+
+		$baneos = self::_parsearRevisionesBan($listaBaneos);
+		$template_url = get_template_directory_uri();
 
 		$content = $this->render('plugin/revisiones_ban', [
 			'current_user' => $current_user,
-			'total' => Utils::getTotalMeGustas($current_user->ID),
-			'favoritos' => $favoritos
+			'baneos' => $baneos,
+			'url_accion' => "$template_url/ajax.php",
+			'estado' => Revision::USER_DESBANEADO
 		]);
 
 		return $this->_renderPageBasePlugin([
 			'content' => $content
 		]);
+	}
+
+	private function _parsearRevisionesBan($listaBaneos) {
+		$revisiones = [];
+		foreach ($listaBaneos as $num => $l) {
+			$user = get_user_by('id', $l->user_id);
+			$editor = get_user_by('id', $l->editor_id);
+			$revision = [];
+			$revision ['num'] = $num + 1;
+			$revision ['user_id'] = $user->ID;
+			$revision ['user_login'] = $user->user_login;
+			$revision ['user_posts_url'] = get_author_posts_url($user->ID);
+			$revision ['editor_id'] = $editor->ID;
+			$revision ['editor_login'] = $editor->user_login;
+			$revision ['editor_posts_url'] = get_author_posts_url($editor->ID);
+			$revision ['updated_at'] = $l->updated_at;
+			$revisiones [] = $revision;
+		}
+		return $revisiones;
 	}
 
 	/**

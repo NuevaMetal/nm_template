@@ -1,0 +1,33 @@
+<div id="page" class="container-fluid">
+	<h1>Tus favoritos {{ current_user.display_name }}</h1>
+	<h2> Baneos </h2>
+	<table class="table table-hover table-condensed table-responsive">
+		<thead>
+			<tr>
+				<th class="col-xs-1">Nº</th>
+				<th class="col-xs-3">Usuario</th>
+				<th class="col-xs-2">Fecha</th>
+				<th class="col-xs-4">Editor</th>
+				<th class="col-xs-2">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{# baneos }}
+		  	<tr>
+		  		<td>{{ num }}</td>
+				<td><a href="{{ user_posts_url }}"
+				target="_blank">{{ user_login }}</a></td>
+				<td>{{ updated_at }}</td>
+				<td><a href="{{ editor_posts_url }}"
+				target="_blank">{{ editor_login }}</a></td>
+				<td>
+					<button class="btn btn-danger btn-xs btn-block dispara-revision"
+							que_id="{{user_id}}" submit="revision-ban" estado="{{ estado }}" url="{{ url_accion }}">
+						{{#transu}}desbanear{{/transu}}
+					</button>
+				</td>
+			</tr>
+	   	{{/ baneos }}
+	   	</tbody>
+	</table>
+</div>

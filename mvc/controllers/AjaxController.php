@@ -133,10 +133,27 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		return $json;
 	}
 
+	public function editarRevisionBan($estado, $editor_id, $user_id) {
+		global $wpdb;
+		$nonce = $_POST ['nonce'];
+		$mensaje = '?';
+		switch ($estado) {
+			case Revision::USER_BANEADO :
+				$mensaje = Revision::banear($editor_id, $user_id);
+				break;
+			case Revision::USER_DESBANEADO :
+				$mensaje = Revision::desbanear($editor_id, $user_id);
+				break;
+		}
+		$json ['code'] = 200;
+		$json ['alert'] = $this->renderAlertaSuccess($mensaje);
+		return $json;
+	}
+
 	public function editarRevision($estado, $post_id) {
 		global $wpdb;
 		$nonce = $_POST ['nonce'];
-		$mensaje = ':3';
+		$mensaje = '?';
 		switch ($estado) {
 			case Revision::ESTADO_PENDIENTE :
 				$mensaje = Revision::pendiente($post_id);
@@ -148,7 +165,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$mensaje = Revision::borrar($post_id);
 				break;
 		}
-
 		$json ['code'] = 200;
 		$json ['alert'] = $this->renderAlertaSuccess($mensaje);
 		return $json;
@@ -191,7 +207,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'nonce_me_gusta' => $nonce
 			]);
 		} else {
-			Utils::debug("quitarMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
@@ -219,7 +234,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$post_id = $_datos ['post'];
 				$user_id = $_datos ['user'];
 				$te_gusta = $_datos ['te_gusta'];
-
 				if ($te_gusta == Utils::SI) {
 					$json = $ajax->crearMeGusta($post_id, $user_id);
 				} else {
@@ -235,8 +249,14 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				break;
 			case Utils::REVISION :
 				$estado = $_datos ['estado'];
-				$post_id = $_datos ['post'];
+				$post_id = $_datos ['que_id'];
 				$json = $ajax->editarRevision($estado, $post_id);
+				break;
+			case Utils::REVISION_BAN :
+				$estado = $_datos ['estado'];
+				$user_id = $_datos ['que_id'];
+				$editor_id = wp_get_current_user()->ID;
+				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
 			default :
 				$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
@@ -259,7 +279,6 @@ $submit = $_POST ['submit'];
 
 $nonce = $_POST ['nonce'];
 
-//dd($_POST);
 if (in_array($submit, [
 	Utils::NOTIFICAR,
 	Utils::ME_GUSTA

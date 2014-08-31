@@ -13,12 +13,12 @@ $(document).on('click', '.dispara-revision', function(e) {
 	var $this = $(this);
 	var estado = $(this).attr('estado');
 	var submit = $(this).attr('submit');
-	var post = $(this).attr('post');
+	var que_id = $(this).attr('que_id');
 	var url = $(this).attr('url');
 	var data = {
 		submit: submit,
 		estado: estado,
-		post: post		
+		que_id: que_id
 	};
 	console.log(data);	
 	$.ajax({

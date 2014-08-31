@@ -142,14 +142,8 @@ class Revision extends ModelBase {
 	public static function desbanear($editor_id, $user_id) {
 		global $wpdb;
 		$user = get_userdata($user_id);
-		// Primero comprobamos que no sea un admin
-		if (self::isUserRol($user_id, [
-			"administrator"
-		])) {
-			return "El usuario <strong>'{$user->user_login}'</strong> es un administrador. Relaja la raja.";
-		}
 
-		//Segundo comprobamos que si ya está baneado
+		// Comprobamos que si ya está baneado
 		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . "revisiones_ban
 					WHERE user_id = $user_id AND status = 1;");
@@ -160,8 +154,8 @@ class Revision extends ModelBase {
 
 		//De lo contrario crearemos su registro en la tabla de users baneados
 		$result = $wpdb->query($wpdb->prepare("
-	UPDATE {$wpdb->prefix}revisiones_ban
-	SET status = 2 WHERE user_id = %d AND status = 1;", $user_id));
+			UPDATE {$wpdb->prefix}revisiones_ban
+			SET status = 2 WHERE user_id = %d AND status = 1;", $user_id));
 
 		return "Quitado el baneo del Usuario <strong>'{$user->user_login}'</strong> con éxito.";
 	}
@@ -208,6 +202,22 @@ class Revision extends ModelBase {
 	 */
 	public static function isUserRol($user_id, $roles) {
 		return in_array(self::getRoleByUserId($user_id), $roles);
+	}
+
+	/**
+	 * Devuelve la lista total de Users baneados
+	 *
+	 * @return array
+	 */
+	public static function allBan() {
+		global $wpdb;
+		$status = self::USER_BANEADO;
+		$query = "SELECT *
+				FROM {$wpdb->prefix}revisiones_ban
+				WHERE status = $status
+				GROUP BY user_id, status";
+		$result = $wpdb->get_results($query);
+		return $result;
 	}
 
 }
