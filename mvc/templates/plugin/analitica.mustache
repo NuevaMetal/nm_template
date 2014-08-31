@@ -16,8 +16,11 @@
 		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
 		<div id="total-visitas" style="height: 250px; margin-bottom:50px;"></div>
 	</div>
+	<div class="col-xs-12">
+		<h3><i class="fa fa-line-chart"></i> Número de entradas vistas / hora </h3>
+		<div id="total-visitas-horas" style="height: 250px; margin-bottom:50px;"></div>
+	</div>
 </div>
-
 
 <script src="{{public_directory}}/third/raphael/raphael.min.js"></script>
 <script src="{{public_directory}}/third/morris/morris.js"></script>
@@ -37,5 +40,8 @@
 		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-users&cant=50";
 		pintarMorris("total-visitas-users", url);
 		
+		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-hora&cant=50";
+		pintarMorris("total-visitas-horas", url);
+
 	});
 </script>

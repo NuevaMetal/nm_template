@@ -139,6 +139,14 @@ class AnaliticaController extends BaseController {
 		return $wpdb->get_results($query);
 	}
 
+	public static function getTotalVisitasPorHora($cantidad = 50) {
+		global $wpdb;
+		$query = "select time_format(created_at,'%H') hora, count(*) total
+					from wp_seguimientos
+					group by hora LIMIT " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
 	/**
 	 * Para la analítica por Ajax
 	 *
@@ -191,12 +199,36 @@ class AnaliticaController extends BaseController {
 					'Visitas únicas'
 				];
 				break;
+			case Analitica::TOTAL_VISITAS_HORA :
+				$totalPorHora = self::getTotalVisitasPorHora($cant);
+				$result = [];
+				// Las horas vacías ponemos un 0
+				for ($i = 0; $i < 24; $i++) {
+					foreach ($totalPorHora as $t) {
+						if ($i == $t->hora) {
+							$result [] = $t;
+							continue 2;
+						}
+					}
+					$obj = new stdClass();
+					$obj->hora = "$i";
+					$obj->total = "0";
+					$result [] = $obj;
+				}
+				$xKey = 'hora';
+				$yKeys = [
+					'total'
+				];
+				$labels = [
+					'Total por hora'
+				];
+				break;
 		}
 		$json = [
 			'data' => $result,
 			'xkey' => $xKey,
 			'ykeys' => $yKeys,
-			'labels' => $labels
+			'labels' => $labels,
 		];
 		return $json;
 	}
