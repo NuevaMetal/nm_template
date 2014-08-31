@@ -92,22 +92,23 @@ class AnaliticaController extends BaseController {
 				FROM wp_users
 				GROUP BY dia
 				ORDER BY dia DESC limit ' . $cantidad;
-		$result = $wpdb->get_results($query);
+		return $wpdb->get_results($query);
+	}
 
-		$xKey = 'dia';
-		$yKeys = [
-			'total'
-		];
-		$labels = [
-			'Total'
-		];
-		$json = [
-			'data' => $result,
-			'xkey' => $xKey,
-			'ykeys' => $yKeys,
-			'labels' => $labels
-		];
-		return $json;
+	/**
+	 * Devuelve el número total de visitas por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalVisitasUsersLogueados($cantidad = 50) {
+		global $wpdb;
+		$query = 'SELECT DATE( created_at ) dia, count(*) total_users_logueados
+				FROM wp_analiticas
+				where user_id != 0
+				GROUP BY dia
+				ORDER BY dia DESC limit ' . $cantidad;
+		return $wpdb->get_results($query);
 	}
 
 	/**
@@ -118,9 +119,24 @@ class AnaliticaController extends BaseController {
 	 */
 	public static function getTotalVisitas($cantidad = 50) {
 		global $wpdb;
-		$query = '';
-		$json = [];
-		return $json;
+		$query = 'select sum(s.total) as total_visitas, s.dia
+					from (
+					    select distinct post_id, total, date(created_at) dia
+					    from wp_seguimientos
+					    group by dia, post_id) s
+					group by s.dia limit ' . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	public static function getTotalPostUnicosVistos($cantidad = 50) {
+		global $wpdb;
+		$query = 'select count(s.post_id) as total_posts_unicos, s.dia
+					from (
+					  select distinct post_id, date(created_at) dia
+					  from wp_seguimientos
+					  group by dia, post_id) s
+					group by s.dia LIMIT ' . $cantidad;
+		return $wpdb->get_results($query);
 	}
 
 	/**
@@ -129,16 +145,48 @@ class AnaliticaController extends BaseController {
 	 * @param string $tabla
 	 * @return array
 	 */
-	public static function getByTabla($tabla, $cant) {
+	public static function getByTabla($tabla, $cant = 30) {
 		switch ($tabla) {
-			case 'total-users' :
-				return self::getTotalRegistrosPorDia($cant);
+			case Analitica::TOTAL_USERS :
+				$totalRegistros = self::getTotalRegistrosPorDia($cant);
+				$result = $totalRegistros;
+				$xKey = 'dia';
+				$yKeys = [
+					'total'
+				];
+				$labels = [
+					'Total'
+				];
 				break;
-			case 'total-visitas':
-				return self::getTotalVisitas($cant);
+			case Analitica::TOTAL_VISITAS :
+				// total_users_logueados
+				$totalVisitasUsersLogueados = self::getTotalVisitasUsersLogueados($cant);
+				// total_posts_unicos
+				$totalPostUnicosVistos = self::getTotalPostUnicosVistos($cant);
+				// total_visitas
+				$totalVisitas = self::getTotalVisitas($cant);
+				$result = array_merge($totalVisitas, $totalVisitasUsersLogueados, $totalPostUnicosVistos);
+
+				$xKey = 'dia';
+				$yKeys = [
+					'total_users_logueados',
+					'total_posts_unicos',
+					'total_visitas'
+				];
+				$labels = [
+					'Usuarios logueados',
+					'Visitas únicas',
+					'Visitas totales'
+				];
 				break;
 		}
-		return [];
+		$json = [
+			'data' => $result,
+			'xkey' => $xKey,
+			'ykeys' => $yKeys,
+			'labels' => $labels
+		];
+		return $json;
 	}
 
 }

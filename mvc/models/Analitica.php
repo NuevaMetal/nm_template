@@ -7,7 +7,13 @@ require_once 'ModelBase.php';
  *
  */
 class Analitica extends ModelBase {
+
+	const TOTAL_USERS ='total-users';
+
+	const TOTAL_VISITAS = 'total-visitas';
+
 	public static $table = "analiticas";
+
 	public $user_id;
 
 	public function __construct() {
