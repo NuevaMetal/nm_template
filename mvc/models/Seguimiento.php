@@ -82,7 +82,7 @@ class Seguimiento extends ModelBase {
 			//Si existe actualizamos
 			$wpdb->query($wpdb->prepare("
 				UPDATE $wpdb->prefix" . static::$table . "
-					SET updated_at = now(),total = total + 1
+					SET updated_at = now()
 					WHERE ID = %d", $seguimiento->ID));
 			$this->ID = $seguimiento->ID;
 		} else {

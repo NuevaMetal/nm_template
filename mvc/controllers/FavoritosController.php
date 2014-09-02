@@ -42,6 +42,7 @@ class FavoritosController extends BaseController {
 	 * @return void
 	 */
 	public static function uninstall() {
+		Utils::debug("> FavoritosController->uninstall() ");
 		global $wpdb;
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}favoritos ");
 	}

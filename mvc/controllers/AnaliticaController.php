@@ -64,6 +64,7 @@ class AnaliticaController extends BaseController {
 	 * @return void
 	 */
 	public static function uninstall() {
+		Utils::debug("> AnaliticaController->uninstall() ");
 		global $wpdb;
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos_horas ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos ");
@@ -152,7 +153,7 @@ class AnaliticaController extends BaseController {
 	public static function getTotalVisitasPorHora($cantidad = 50) {
 		global $wpdb;
 		$query = "select time_format(created_at,'%H') hora, count(*) total
-					from wp_seguimientos
+					from wp_seguimientos_horas
 					group by hora LIMIT " . $cantidad;
 		return $wpdb->get_results($query);
 	}
@@ -226,13 +227,13 @@ class AnaliticaController extends BaseController {
 			'data' => $result,
 			'xkey' => $xKey,
 			'ykeys' => $yKeys,
-			'labels' => $labels,
+			'labels' => $labels
 		];
 		return $json;
 	}
 
-	private function _formatearHoras($totalPorHora){
-		$result= [];
+	private function _formatearHoras($totalPorHora) {
+		$result = [];
 		// Las horas vacías ponemos un 0
 		for ($i = 0; $i < 24; $i++) {
 			foreach ($totalPorHora as $t) {

@@ -126,6 +126,7 @@ class RevisionesController extends BaseController {
 	 * @return void
 	 */
 	public function install() {
+		Utils::debug("> RevisionesController->install() ");
 		global $wpdb;
 		// Create table
 		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}revisiones (
@@ -168,6 +169,7 @@ class RevisionesController extends BaseController {
 	 * @return void
 	 */
 	public static function uninstall() {
+		Utils::debug("> RevisionesController->uninstall() ");
 		global $wpdb;
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}revisiones ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}revisiones_ban ");
