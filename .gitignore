@@ -9,3 +9,5 @@
 # Chester 
 .sass-cache/
 
+# Pruebas locales
+test.*
