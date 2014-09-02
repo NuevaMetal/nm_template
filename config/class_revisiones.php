@@ -84,14 +84,14 @@ function class_revisiones_notify() {
 		$num = Revision::getTotalPorRevisar();
 		if (!$num)
 			return;
-		$admin_revisiones_url = admin_url('admin.php?page=class-revisiones');
+		$admin_revisiones_url = admin_url('admin.php?page=revisiones');
 		if ($num == 1) {
 			$msg = 'Hay <span class="badge">' . $num . '</span> nueva revisión pendiente';
 		} else {
 			$msg = 'Hay <span class="badge">' . $num . '</span> nuevas revisiones pendientes';
 		}
 		echo '
-		<br><div class="alert alert-info alert-dismissible " role="alert">
+		<br><div class="alert alert-danger alert-dismissible " role="alert">
 		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		  <strong>¡Ey bro!</strong> ' . $msg . ' en <a href="' . $admin_revisiones_url . '"
 						class="alert-link">Revisiones</a>
