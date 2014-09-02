@@ -39,11 +39,21 @@
 	}
 }
 
+
+.perfil-login a:hover, .principal-login a:hover {
+    @extend %negrita;
+	.fa:hover {
+		color: $rojo-danger;
+	}
+}
+
 .navbar-principal-login {
 	background-color: #eee;
 	.principal-login {
-		//margin: 5px;
-		width: 200px;
+		width: 250px;
+		.list-group {
+			margin:0;
+		}
 	}
 }
 

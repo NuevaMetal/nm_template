@@ -1,9 +1,9 @@
-<div class="row principal-login">
+<div class="row principal-login text-center">
 	<div class="avatar col-sm-12">
 		{{{user_avatar}}}
 	</div>
 	
-	<div class="title text-center col-sm-12">
+	<div class="title col-sm-12">
 		<h3>{{#transu}}bienvenido{{/transu}} 
 		{{#current_user.url}}
 			<a href="{{current_user.url}}"title="{{#transu}}entradas_de [nombre:current_user.display_name]{{/transu}}">{{current_user.display_name}}</a>
@@ -14,10 +14,10 @@
 		</h3>
 	</div>
 	
-	<div class="title text-center col-sm-12">
-		<div class="list-group">		
-		  <a class="list-group-item" href="/wp-admin/" target="_blank">
-		  	<i class="fa fa-home"></i> {{#transu}}escritorio{{/transu}}  </a>
+	<div class="title col-sm-12">
+		<div class="list-group">
+		  <a class="list-group-item" href="/wp-admin/admin.php?page=favoritos" target="_blank">		  	
+		  	<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</a>
 		  <a class="list-group-item" href="/wp-admin/post-new.php" target="_blank">
 		  	<i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}} </a>
 		  <a class="list-group-item" href="/wp-admin/profile.php" target="_blank">
