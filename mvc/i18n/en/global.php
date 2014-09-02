@@ -23,6 +23,7 @@ return [
 	'contrasena_perdida' => 'password?',
 	'contrasena_perdida_title' => 'do you lost your password?',
 	'contributor' => 'contributor',
+	'creado_por' => 'created by',
 	'criticas' => 'reviews',
 	'cronicas' => 'chronics',
 
