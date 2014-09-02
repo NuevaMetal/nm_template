@@ -139,7 +139,6 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			$this.attr("disabled", true);
 		},
 		success : function(json) {
-			console.log(json);
 			if(json.code == 200 ) {
 				$(seccion).append(json.content);
 			}
@@ -147,10 +146,11 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			$this.attr("disabled", false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
-	        alert("Ocurrió un error inesperado.\n" 
-	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			+ ",\n thrownError "+thrownError);
+	        // alert("Ocurrió un error inesperado.\n" 
+	        //		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+			// console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			// + ",\n thrownError "+thrownError);
+			$this.addClass("hidden");
 	     }
 	});
 });
