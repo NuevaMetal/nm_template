@@ -5,6 +5,7 @@ return [
 	'empieza_a_publicar_largo' => 'Post your metal music!',
 	'empieza_a_publicar' => 'Post now!',
 	'entradas_similares' => 'Similar entries',
+	'entradas_top' => 'Top posts',
 
 	'unete' => 'Join now to our metal community!!',
 

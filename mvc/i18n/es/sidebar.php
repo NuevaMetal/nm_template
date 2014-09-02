@@ -5,6 +5,7 @@ return [
 	'empieza_a_publicar_largo' => 'Empieza a publicar tu música metal',
 	'empieza_a_publicar' => '¡Empieza a publicar!',
 	'entradas_similares' => 'Entradas similares',
+	'entradas_top' => 'Entradas top',
 
 	'unete' => '¡Únete a la comundidad nuevametalera!',
 
