@@ -54,7 +54,7 @@ return [
 	'mostrar_mas' => 'mostrar más',
 
 	'noticias' => 'noticias',
-	'nueva_entrada' => 'nueva entrada',
+	'nueva_entrada' => 'escribir',
 
 	'ok' => 'ok',
 
