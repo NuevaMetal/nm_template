@@ -88,6 +88,7 @@ body {
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 16px ;
+	margin-bottom: 15px;
 }
 
 #page{
@@ -145,6 +146,12 @@ body {
 		background-color: rgba(135, 135, 135, 0.50);
 		text-decoration: none;
     }
+}
+.copyright {
+	//border: 1px solid red;
+	background-color: #fff;
+	margin: 6px -15px;
+	padding: 6px;
 }
 
 .sin-thumbnail {
