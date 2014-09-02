@@ -30,6 +30,9 @@ return [
 
 	'hola' => 'hello',
 
+	'favorito' => 'favorite',
+	'favoritos' => 'favorites',
+
 	'informar' => 'notify',
 
 	'editar' => 'edit',

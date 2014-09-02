@@ -30,6 +30,9 @@ return [
 
 	'editor' => 'editor',
 
+	'favorito' => 'favorito',
+	'favoritos' => 'favoritos',
+
 	'hola' => 'hola',
 
 	'informar' => 'informar',
