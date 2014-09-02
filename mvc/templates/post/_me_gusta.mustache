@@ -1,4 +1,4 @@
-{{#current_user}}	
+{{#current_user}}
 	<div class="formulario">
 		<form action="{{template_url}}/ajax.php">
 			<input type="hidden" name="post" value="{{post.ID}}">
@@ -7,12 +7,12 @@
 			{{> post/_btn_me_gusta}}
 			</span>
 		</form>
-	</div>	
+	</div>
 {{/current_user}}
 {{^current_user}}
 	<a class="login-necesario form-control btn btn-default" 
 		href="/wp-login.php" target="_blank">
-		<i class='fa fa-thumbs-o-up'></i> 
+		<i class='fa fa-thumbs-o-up'></i>
 		{{#transu}}anadir_favoritos{{/transu}}
 	</a>
 {{/current_user}}

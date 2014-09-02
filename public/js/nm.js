@@ -110,7 +110,7 @@ $(document).ready(function() {
 $(document).on('click', '.btn-me-gusta', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	var post = $this.parents('post');
+	var post = $this.parents('.post');
 	var formulario = $this.parents('.formulario');
 	var form = formulario.find('form');
 	var post_val = form.find('[name=post]').val();
@@ -134,23 +134,11 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 			formulario.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			console.log(json);
-			$('#alertas').html(json.content);
-			$this.replaceWith(json.btn);
-			$('#alertas').fadeIn();
-			
-			formulario.find('.fa-spin').addClass('hidden');				
-			setTimeout(function(){
-				$('#alertas').fadeOut();
-			}, 5000);
-
 			post.find('.total-me-gustas .cant').html(json.total_me_gustas);
-			
-			console.log("total me gustas: "+json.total_me_gustas);
+			formulario.find('.fa-spin').addClass('hidden');
+			$this.replaceWith(json.btn);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
-	        alert("Ocurrió un error inesperado.\n" 
-	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			+ ",\n thrownError "+thrownError);
 	     }
