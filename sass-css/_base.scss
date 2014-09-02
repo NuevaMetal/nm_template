@@ -45,3 +45,10 @@ body {
 	font-family: Raleway;
 	font-size: 16px;
 }*/
+
+::selection {
+  background: #ffb7b7; // WebKit/Blink Browsers
+}
+::-moz-selection {
+  background: #ffb7b7; // Gecko Browsers
+}
