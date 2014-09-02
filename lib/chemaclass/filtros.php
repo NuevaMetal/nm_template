@@ -31,6 +31,7 @@ add_filter('the_content', function ($content) {
 		'img',
 		'a'
 	]);
+	$content = Html::quitarLinksNMAbsolutos($content);
 	return $content;
 });
 
@@ -45,5 +46,6 @@ add_filter('content_save_pre', function ($content) {
 		'img',
 		'a'
 	]);
+	$content = Html::quitarLinksNMAbsolutos($content);
 	return $content;
 });

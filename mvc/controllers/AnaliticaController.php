@@ -26,7 +26,7 @@ class AnaliticaController extends BaseController {
 			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
 			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (`ID`),
-			FOREIGN KEY (`user_id`) REFERENCES `wp_users`(`ID`) ON DELETE SET NULL,
+			FOREIGN KEY (`user_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE SET NULL,
 			UNIQUE KEY (user_id, created_at)
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$wpdb->query($query);
@@ -43,9 +43,19 @@ class AnaliticaController extends BaseController {
 			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
 			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (`ID`),
-			FOREIGN KEY (`analitica_id`) REFERENCES `wp_users`(`ID`) ON DELETE CASCADE,
-			FOREIGN KEY (`post_id`) REFERENCES `wp_posts`(`ID`) ON DELETE SET NULL,
+			FOREIGN KEY (`analitica_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE CASCADE,
+			FOREIGN KEY (`post_id`) REFERENCES `{$wpdb->prefix}posts`(`ID`) ON DELETE SET NULL,
 			UNIQUE KEY (analitica_id, post_id)
+			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+		$wpdb->query($query);
+
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimientos_horas (
+			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			`seguimiento_id` bigint(20) UNSIGNED NOT NULL,
+			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
+			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			PRIMARY KEY (`ID`),
+			FOREIGN KEY (`seguimiento_id`) REFERENCES `{$wpdb->prefix}seguimientos`(`ID`) ON DELETE CASCADE
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$wpdb->query($query);
 	}
@@ -57,6 +67,7 @@ class AnaliticaController extends BaseController {
 	 */
 	public static function uninstall() {
 		global $wpdb;
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos_horas ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
 	}
@@ -201,20 +212,8 @@ class AnaliticaController extends BaseController {
 				break;
 			case Analitica::TOTAL_VISITAS_HORA :
 				$totalPorHora = self::getTotalVisitasPorHora($cant);
-				$result = [];
-				// Las horas vacías ponemos un 0
-				for ($i = 0; $i < 24; $i++) {
-					foreach ($totalPorHora as $t) {
-						if ($i == $t->hora) {
-							$result [] = $t;
-							continue 2;
-						}
-					}
-					$obj = new stdClass();
-					$obj->hora = "$i";
-					$obj->total = "0";
-					$result [] = $obj;
-				}
+				$result = self::_formatearHoras($totalPorHora);
+
 				$xKey = 'hora';
 				$yKeys = [
 					'total'
@@ -231,6 +230,24 @@ class AnaliticaController extends BaseController {
 			'labels' => $labels,
 		];
 		return $json;
+	}
+
+	private function _formatearHoras($totalPorHora){
+		$result= [];
+		// Las horas vacías ponemos un 0
+		for ($i = 0; $i < 24; $i++) {
+			foreach ($totalPorHora as $t) {
+				if ($i == $t->hora) {
+					$result [] = $t;
+					continue 2;
+				}
+			}
+			$obj = new stdClass();
+			$obj->hora = "$i";
+			$obj->total = "0";
+			$result [] = $obj;
+		}
+		return $result;
 	}
 
 }

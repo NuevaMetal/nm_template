@@ -50,4 +50,16 @@ class Html {
 		return $content;
 	}
 
+	/**
+	 * Quitar todos los links de NM absolutos para convertirlos a relativos
+	 *
+	 * @param string $content
+	 * @return string Content con los enlaces ajustados
+	 */
+	public static function quitarLinksNMAbsolutos($content) {
+		$alto = (in_category('videos', $content)) ? 360 : 300;
+		$content = preg_replace('/http:\/\/nuevametal.com/i', '', $content);
+		return $content;
+	}
+
 }
