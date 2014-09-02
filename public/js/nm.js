@@ -153,12 +153,11 @@ $(document).on('click', '.mostrar-mas', function(e) {
 	var $this = $(this);
 	var posts = $(this).parents('.posts');
 	var seccion = $(posts).find('.seccion');
-	var cant = $(posts).find('.cant').text();
-	var tipo = $(posts).find('.tipo').text();
+	var cant = $(posts).children('.cant').text();
+	var tipo = $(posts).children('.tipo').text();
 	var que = $(this).attr('mostrar-mas');
 	var url = $(this).attr('url');
 	var size = $(seccion).children().size();
-	
 	var data = {
 		submit : 'mostrar-mas',
 		que : que,
@@ -166,7 +165,6 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		size: size,
 		tipo: tipo
 	};
-	//console.log("mostrar-mas: " + que);	
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -184,10 +182,10 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			$this.attr("disabled", false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
-	        // alert("Ocurrió un error inesperado.\n" 
-	        //		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-			// console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			// + ",\n thrownError "+thrownError);
+//	         alert("Ocurrió un error inesperado.\n" 
+//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+//			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+//			 + ",\n thrownError "+thrownError);
 			$this.addClass("hidden");
 	     }
 	});
