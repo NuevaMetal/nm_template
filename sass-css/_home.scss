@@ -79,14 +79,15 @@
 .caption {
     position:absolute;
     top:0;
-    right:0;			
-    background:rgba(0, 0, 0, 0.2);
+    right:0;
     width:100%;
     height:auto;
-    //padding:1%;
-    display: none;
-    text-align:center;
-    color:#fff !important;    
+    margin-top: 35px;
+    color:#fff !important;
     z-index:2;
+
+    .total-me-gustas{
+		background:rgba(0, 0, 0, 0.4);
+    }
 }
 
