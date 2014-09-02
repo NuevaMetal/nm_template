@@ -73,4 +73,9 @@
 	.tags {
 		@include sombreado-color(#ddd, #222);
 	}
+	
+	.total-me-gustas {
+		border: 0px;
+		cursor: default;
+	}
 }

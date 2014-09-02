@@ -405,22 +405,28 @@ class Utils {
 	}
 
 	/**
-	 * Devuelve el número de post que le gustan a un usuario
+	 * Devuelve el número de post que le gustan a un usuario o el número de usuarios que le gustan un post
 	 *
-	 * @param integer $user_id
-	 *        Identificador del user. Si se omite este parámetro se obtendrán del usuario actual
-	 * @return number
+	 * @param number $user_id
+	 *        Identificador del usuario
+	 * @param number $post_id
+	 *        Identificador del post
+	 * @return number Número total
 	 */
-	public static function getTotalMeGustas($user_id = false) {
+	public static function getTotalMeGustas($user_id = false, $post_id = false) {
 		global $wpdb;
-		if (!$user_id) {
-			$current_user = wp_get_current_user();
-			$user_id = $current_user->ID;
-		}
+		/*
+		 * if (!$user_id) { $current_user = wp_get_current_user(); $user_id = $current_user->ID; }
+		 */
 		$activo = self::ACTIVO;
+		$andUserId = ($user_id) ? ' AND user_id = ' . $user_id : ' ';
+		$andPostId = ($post_id) ? ' AND post_id = ' . $post_id : ' ';
+
 		$total = ( int ) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE user_id = $user_id
+				WHERE 1 = 1
+				$andUserId
+				$andPostId
 				AND status = $activo;");
 		return $total;
 	}

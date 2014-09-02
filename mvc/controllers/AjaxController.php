@@ -120,6 +120,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'me_gusta' => true,
 				'nonce_me_gusta' => $nonce
 			]);
+
 			$json ['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
 		} else {
 			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
@@ -130,6 +131,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
+		$json ['total_me_gustas'] = Utils::getTotalMeGustas(false, $post_id);
 		return $json;
 	}
 
@@ -214,6 +216,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'nonce_me_gusta' => $nonce
 			]);
 		}
+		$json ['total_me_gustas'] = Utils::getTotalMeGustas(false, $post_id);
 		return $json;
 	}
 

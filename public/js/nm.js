@@ -107,6 +107,56 @@ $(document).ready(function() {
 	}
 });
 
+$(document).on('click', '.btn-me-gusta', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	var post = $this.parents('post');
+	var formulario = $this.parents('.formulario');
+	var form = formulario.find('form');
+	var post_val = form.find('[name=post]').val();
+	var user_val = form.find('[name=user]').val();
+	var te_gusta = $this.attr('te-gusta'); 
+	var nonce = $(this).attr('nonce');  
+	var url = form.attr('action');
+	var data = {
+		submit : 'me-gusta',
+		post : post_val,
+		user : user_val,
+		te_gusta: te_gusta,
+		nonce: nonce
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			formulario.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			console.log(json);
+			$('#alertas').html(json.content);
+			$this.replaceWith(json.btn);
+			$('#alertas').fadeIn();
+			
+			formulario.find('.fa-spin').addClass('hidden');				
+			setTimeout(function(){
+				$('#alertas').fadeOut();
+			}, 5000);
+
+			post.find('.total-me-gustas .cant').html(json.total_me_gustas);
+			
+			console.log("total me gustas: "+json.total_me_gustas);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+	        alert("Ocurrió un error inesperado.\n" 
+	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
 /**
  * Mostrar más
  */
@@ -151,53 +201,6 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			// console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			// + ",\n thrownError "+thrownError);
 			$this.addClass("hidden");
-	     }
-	});
-});
-
-
-/**
- * Botón notificar
- */
-$(document).on('click', '.btn-me-gusta', function(e) {
-	e.preventDefault();
-	var $this = $(this);
-	var formulario = $(this).parents('.formulario');
-	var form = formulario.find('form');
-	var post_val = form.find('[name=post]').val();
-	var user_val = form.find('[name=user]').val();
-	var te_gusta = $(this).attr('te-gusta'); 
-	var nonce = $(this).attr('nonce');  
-	var url = form.attr('action');
-	var data = {
-		submit : 'me-gusta',
-		post : post_val,
-		user : user_val,
-		te_gusta: te_gusta,
-		nonce: nonce
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			formulario.find('.fa-spin').removeClass('hidden');
-		},
-		success : function(json) {
-			$('#alertas').html(json.content);
-			$this.replaceWith(json.btn);
-			$('#alertas').fadeIn();
-			formulario.find('.fa-spin').addClass('hidden');				
-			setTimeout(function(){
-				$('#alertas').fadeOut();
-			}, 5000);
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-	        alert("Ocurrió un error inesperado.\n" 
-	        		+"Por favor, ponte en contacto con los administradores y cómentale qué sucedió");
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			+ ",\n thrownError "+thrownError);
 	     }
 	});
 });
