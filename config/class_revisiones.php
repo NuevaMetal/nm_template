@@ -28,15 +28,15 @@ add_action('admin_notices', 'class_revisiones_notify');
  * Registramos el menú en para el admin
  */
 add_action('admin_menu', function () {
-	$page_title = 'Class Revisiones';
+	$page_title = 'Revisiones';
 	$num = Revision::getTotalPorRevisar();
 	$menu_title = 'Revisiones
 		<span class="update-plugins">
 			<span class="plugin-count">' . $num . '</span>
 		</span>';
 	$capability = 'edit_others_posts';
-	$menu_slug = 'class-revisiones';
-	$function = 'class_revisiones_index';
+	$menu_slug = 'revisiones';
+	$function = 'revisiones_index';
 	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function);
 	// Add submenu page with same slug as parent to ensure no duplicates
 	$sub_menu_title = 'Revisiones';
@@ -52,7 +52,7 @@ add_action('admin_menu', function () {
 /**
  * Mostrar tablas de revisiones
  */
-function class_revisiones_index() {
+function revisiones_index() {
 	if (!current_user_can('edit_others_posts')) {
 		wp_die('You do not have sufficient permissions to access this page.');
 	}

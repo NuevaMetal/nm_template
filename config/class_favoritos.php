@@ -29,11 +29,11 @@ add_action('admin_menu', function () {
 
 
 	// Add the top-level admin menu
-	$page_title = 'Class Favoritos';
+	$page_title = 'Favoritos';
 	$menu_title = 'Favoritos';
 	$capability = 'read';
-	$menu_slug = 'class-favoritos';
-	$function = 'class_favoritos_index';
+	$menu_slug = 'favoritos';
+	$function = 'favoritos_index';
 	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function);
 	// Add submenu page with same slug as parent to ensure no duplicates
 	$sub_menu_title = 'Favoritos';
@@ -43,7 +43,7 @@ add_action('admin_menu', function () {
 /**
  * Mostrar tablas de revisiones
  */
-function class_favoritos_index() {
+function favoritos_index() {
 	if (!current_user_can('read')) {
 		wp_die('You do not have sufficient permissions to access this page.');
 	}
