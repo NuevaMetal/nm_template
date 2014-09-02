@@ -1,7 +1,7 @@
 <?php
 require_once 'ModelBase.php';
 /**
- * Seguimiento
+ * Seguimiento por Hora
  *
  * @author chema
  *
@@ -10,7 +10,8 @@ class SeguimientoHora extends ModelBase {
 	public static $table = "seguimientos_horas";
 	public $seguimiento_id;
 
-	public function __construct() {
+	public function __construct($seguimiento_id = null) {
+		$this->seguimiento_id = $seguimiento_id;
 		parent::__construct();
 	}
 
@@ -34,7 +35,16 @@ class SeguimientoHora extends ModelBase {
 	 */
 	public function save() {
 		global $wpdb;
-		//TODO: Falta implementar
+		//Comprobamos si existe
+		$seguimiento = $wpdb->get_row("SELECT *
+				FROM $wpdb->prefix" . static::$table . "
+				WHERE ID = {$this->ID}");
+		if ($this->seguimiento_id != null) {
+			$result = $wpdb->query($wpdb->prepare("
+				INSERT INTO $wpdb->prefix" . static::$table . " (seguimiento_id)
+				VALUES (%d);", $this->seguimiento_id));
+			$this->ID = $wpdb->insert_id;
+		}
 	}
 
 }

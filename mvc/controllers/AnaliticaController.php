@@ -35,7 +35,6 @@ class AnaliticaController extends BaseController {
 			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`analitica_id` bigint(20) UNSIGNED NOT NULL,
 			`post_id` bigint(20) UNSIGNED NOT NULL,
-			`total` int(10) NOT NULL DEFAULT '1',
 			`ip` varchar(45) NOT NULL,
 			`user_agent` varchar(200) NOT NULL,
 			`referer` varchar(2000) NOT NULL,
@@ -52,8 +51,7 @@ class AnaliticaController extends BaseController {
 		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimientos_horas (
 			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`seguimiento_id` bigint(20) UNSIGNED NOT NULL,
-			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
-			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (`ID`),
 			FOREIGN KEY (`seguimiento_id`) REFERENCES `{$wpdb->prefix}seguimientos`(`ID`) ON DELETE CASCADE
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
@@ -132,8 +130,9 @@ class AnaliticaController extends BaseController {
 		global $wpdb;
 		$query = 'select sum(s.total) as total_visitas, s.dia
 					from (
-					    select distinct post_id, total, date(created_at) dia
-					    from wp_seguimientos
+					    select distinct post_id, count(seh.seguimiento_id) total, date(se.created_at) dia
+					    from wp_seguimientos se, wp_seguimientos_horas seh
+						where se.ID = seh.seguimiento_id
 					    group by dia, post_id) s
 					group by s.dia limit ' . $cantidad;
 		return $wpdb->get_results($query);

@@ -96,6 +96,9 @@ class Seguimiento extends ModelBase {
 				VALUES (%d, %d, %s, %s, %s, %s, null, null);", $this->analitica_id, $this->post_id, $current_ip, $referer, $user_agent, $request_time));
 			$this->ID = $wpdb->insert_id;
 		}
+		// Y guardamos su SeguimientoHora asociado siempre
+		$sh = new SeguimientoHora($this->ID);
+		$sh->save();
 	}
 
 }
