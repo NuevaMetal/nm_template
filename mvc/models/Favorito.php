@@ -27,7 +27,7 @@ class Favorito extends ModelBase {
 		$queryPostId = "SELECT post_id FROM $tabla
 					WHERE status = $status
 					AND user_id = $user_id
-					ORDER BY updated_at";
+					ORDER BY updated_at desc";
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
