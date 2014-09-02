@@ -58,3 +58,5 @@ add_theme_support('post-thumbnails', array(
  * Quitamos la barra del admin en producción
  */
 show_admin_bar(false);
+
+@include_once 'test.php';
