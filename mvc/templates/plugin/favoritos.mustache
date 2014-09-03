@@ -1,9 +1,17 @@
 <div id="page" class="container-fluid">
 <h1>Tus favoritos {{ current_user.display_name }}</h1>
-<p>Estas son las entradas que te gustan. En total {{ total }}</p>
+{{#total}}
+<p>Estas son las entradas que te gustan. En total: <span class="badge">{{total}}</span></p>
 	<div class="posts">
 	{{# favoritos }}
 		{{> home/_post }}
 	{{/ favoritos }}	
 	</div>
 </div>
+{{/total}}
+{{^total}}
+<p>Aún no marcaste ninguna entrada como favorita. <br>
+	Entra ya a una entrada y dale al botón de "<i class="fa fa-star"></i> Me gusta" 
+	para ver el listado completo en esta sección.</p>
+</div>
+{{/total}}
