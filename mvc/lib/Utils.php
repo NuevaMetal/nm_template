@@ -136,9 +136,11 @@ class Utils {
 				$posts = get_posts($args);
 
 				foreach ($posts as $k => $_p) {
+					$title = explode('-',$_p->post_title);
 					$post = array(
 						'permalink' => get_permalink($_p->ID),
 						'title' => $_p->post_title,
+						'title_corto' => $title[0],
 						'time' => $_p->post_modified,
 						'author' => get_user_by('id', $_p->post_author)->display_name,
 						'author_link' => get_author_posts_url($_p->post_author)

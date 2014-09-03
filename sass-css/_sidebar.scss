@@ -23,36 +23,32 @@
 	.similares {		
 		//border: 1px solid red;
 		//height: 250px;
+		@extend %negrita;
 		margin-bottom: 10px;
 		.sidebar-post-similar {
-			height: 100px;
+			height: 130px;
 			padding: 1px;
 			overflow: hidden;
 			img {			
-				height: 100%;
+				height: 100px;
 				width: 100%;
 			}
 			
+			.sidebar-post-similar-title{
+				margin:5px;
+			}			
 		}
 		
 		@include col(xs) {
-			height: 330px;
+			//height: 330px;
 			.sidebar-post-similar {
-				height: 120px;
+				height: 220px;			
+				img {
+					height: 185px;
+					width: 100%;
+				}
 			}
-			img {			
-				height: auto;
-				width: auto;
-			}
-			.sidebar-post-similar {
-				height: 180px;
-			}
-		}
-		
-		@include col(md) {
-			.sidebar-post-similar {
-				height: 75px;
-			}
+			
 		}
 	}
 	
