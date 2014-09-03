@@ -13,8 +13,7 @@
 	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
 		<h3>{{#transu}}bienvenido{{/transu}}
 		{{#current_user.url}}
-			<a href="{{current_user.url}}" title="{{#transu}}entradas_de [nombre:{{current_user.display_name}}]{{/transu}}">
-			{{current_user.display_name}}</a>
+			<a href="{{current_user.url}}">{{current_user.display_name}}</a>
 		{{/current_user.url}}
 		{{^current_user.url}}
 			{{current_user.display_name}}
@@ -25,7 +24,8 @@
 	<div class="acciones text-center col-xs-12 col-sm-10 col-md-7">
 		<div class="list-group">
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/admin.php?page=favoritos" target="_blank">		  	
-		  	<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
+		  	<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
+			<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
 			</a>
 
 		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
