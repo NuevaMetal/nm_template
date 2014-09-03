@@ -1,10 +1,11 @@
 <div class="row ">
 	<div class="avatar col-xs-4 col-sm-2 col-md-2">
 		{{#current_user.url}}
-			<a href="{{current_user.url}}" title="{{#transu}}entradas_de [nombre:current_user.display_name]{{/transu}}" 
+			<a href="{{current_user.url}}" title="{{#transu}}entradas_de [nombre:{{current_user.display_name}}]{{/transu}}" 
 				alt="avatar de {{current_user.display_name}}">{{{user_avatar}}}</a>
 		{{/current_user.url}}
 		{{^current_user.url}}
+		no hay url
 			{{{user_avatar}}}
 		{{/current_user.url}}
 	</div>
@@ -12,7 +13,7 @@
 	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
 		<h3>{{#transu}}bienvenido{{/transu}}
 		{{#current_user.url}}
-			<a href="{{current_user.url}}" title="{{#transu}}entradas_de [nombre:current_user.display_name]{{/transu}}">
+			<a href="{{current_user.url}}" title="{{#transu}}entradas_de [nombre:{{current_user.display_name}}]{{/transu}}">
 			{{current_user.display_name}}</a>
 		{{/current_user.url}}
 		{{^current_user.url}}

@@ -286,12 +286,11 @@ class Utils {
 	 * @return user o false en caso de no estar registrado
 	 */
 	public static function getCurrentUser() {
-		$currentUser = wp_get_current_user();
-
+		$current_user = wp_get_current_user();
 		if ($current_user->ID) {
-			$currentUser->url = get_author_posts_url($current_user->ID);
+			$current_user->url = get_author_posts_url($current_user->ID);
 		}
-		return $currentUser;
+		return $current_user;
 	}
 
 	/**
