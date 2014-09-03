@@ -86,12 +86,9 @@ body {
 	background-attachment: fixed;
 	background-position: center;
 	color: #333;
-	//font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
+	font-family: Helvetica,Arial;
 	font-size: 16px ;
 	margin-bottom: 6px;
-	
-	font-family: 'ralewayextrabold';
-	text-transform:uppercase;
 }
 
 #page{
@@ -174,4 +171,9 @@ body {
 	background-position:center; 
 	background-size: cover;
 	background-image: url('../img/noimage.jpg');
+}
+
+.titular {
+	font-family: 'ralewayextrabold';
+	text-transform:uppercase;
 }
