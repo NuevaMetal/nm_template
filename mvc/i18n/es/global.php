@@ -15,7 +15,7 @@ return [
 	'biografia' => 'biografía',
 	'buscar' => 'buscar',
 
-	'cerrar_sesion' => 'cerrar Sesión',
+	'cerrar_sesion' => 'salir',
 	'compartir_con' => 'compartir con',
 	'conciertos' => 'conciertos',
 	'contacto' => 'contacto',
