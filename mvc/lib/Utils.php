@@ -32,6 +32,21 @@ class Utils {
 
 	const ANALITICA = "analitica";
 
+	// CATEGORÍAS
+	const CATEGORIA_BANDAS = "bandas";
+
+	const CATEGORIA_CRITICAS = "críticas";
+
+	const CATEGORIA_CRONICAS = "crónicas";
+
+	const CATEGORIA_CONCIERTOS = "conciertos";
+
+	const CATEGORIA_ENTREVISTAS = "entrevistas";
+
+	const CATEGORIA_NOTICIAS = "noticias";
+
+	const CATEGORIA_VIDEOS = "vídeos";
+
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
 	 *
@@ -136,14 +151,16 @@ class Utils {
 				$posts = get_posts($args);
 
 				foreach ($posts as $k => $_p) {
-					$title = explode('-',$_p->post_title);
+					$title = explode('-', $_p->post_title);
+					//$category = get_the_category($_p->ID);
 					$post = array(
 						'permalink' => get_permalink($_p->ID),
 						'title' => $_p->post_title,
-						'title_corto' => $title[0],
+						'title_corto' => $title [0],
 						'time' => $_p->post_modified,
 						'author' => get_user_by('id', $_p->post_author)->display_name,
-						'author_link' => get_author_posts_url($_p->post_author)
+						'author_link' => get_author_posts_url($_p->post_author),
+						//'category' => $category [0]->name
 					);
 					$post = self::addThumbnailsToPost($post, $_p);
 
