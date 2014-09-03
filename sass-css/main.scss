@@ -152,6 +152,13 @@ body {
 	background-color: #fff;
 	margin: 5px -15px;
 	padding: 6px;
+	a {
+		color:#333;
+		&:hover{
+			text-decoration: none;
+			@extend %negrita;
+		}
+	}
 }
 
 .sin-thumbnail {
