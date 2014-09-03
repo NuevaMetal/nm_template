@@ -86,9 +86,12 @@ body {
 	background-attachment: fixed;
 	background-position: center;
 	color: #333;
-	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
+	//font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 16px ;
 	margin-bottom: 6px;
+	
+	font-family: 'ralewayextrabold';
+	text-transform:uppercase;
 }
 
 #page{
@@ -159,6 +162,12 @@ body {
 			@extend %negrita;
 		}
 	}
+}
+
+.error-404 {
+	background-position:center; 
+	background-size: cover;
+	background-image: url('../img/404.png');	
 }
 
 .sin-thumbnail {
