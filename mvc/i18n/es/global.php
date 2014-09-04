@@ -48,6 +48,8 @@ return [
 	'escritorio' => 'escritorio',
 	'escribir' => 'escribir',
 
+	'genero' => 'género',
+
 	'leer_mas' => 'leer más',
 
 	'mas' => 'más',
@@ -59,6 +61,7 @@ return [
 
 	'ok' => 'ok',
 
+	'pais' => 'país',
 	'pagina_anterior' => 'página anterior',
 	'pagina_siguiente' => 'página siguiente',
 	'panel' => 'panel',

@@ -46,6 +46,8 @@ return [
 	'escritorio' => 'dashboard',
 	'escribir' => 'write',
 
+	'genero' => 'genre',
+
 	'leer_mas' => 'show more',
 
 	'mas' => 'more',
@@ -57,6 +59,7 @@ return [
 
 	'ok' => 'ok',
 
+	'pais' => 'country',
 	'pagina_anterior' => 'previous page',
 	'pagina_siguiente' => 'next page',
 	'panel' => 'panel',

@@ -25,5 +25,13 @@
     <h2 class="post-title titular">
 		<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
     </h2>
-	{{{ excerpt }}}
+	{{#genero}}
+		{{#transu}}genero{{/transu}}: {{genero}} <br>
+		{{#pais}}
+			{{#transu}}pais{{/transu}}: {{pais}} <br>
+		{{/pais}}
+	{{/genero}}
+	{{^genero}}
+		{{{ excerpt }}
+	{{/genero}}
 </article>

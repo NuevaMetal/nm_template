@@ -153,15 +153,15 @@ class Utils {
 				foreach ($posts as $k => $_p) {
 					$title = explode('-', $_p->post_title);
 					//$category = get_the_category($_p->ID);
-					$post = array(
+					$post = [
 						'permalink' => get_permalink($_p->ID),
 						'title' => $_p->post_title,
 						'title_corto' => $title [0],
 						'time' => $_p->post_modified,
 						'author' => get_user_by('id', $_p->post_author)->display_name,
-						'author_link' => get_author_posts_url($_p->post_author),
-						//'category' => $category [0]->name
-					);
+						'author_link' => get_author_posts_url($_p->post_author)
+					];
+					//'category' => $category [0]->name
 					$post = self::addThumbnailsToPost($post, $_p);
 
 					$postsSimilares [] = $post;
@@ -390,10 +390,9 @@ class Utils {
 			$permalink = get_permalink($post_id);
 			$palabras [] = '...';
 		}
-		// Añado btn de mostrar más
-		$palabras [] = '<a href="' . $permalink . '" class="btn btn-default btn-xs">' . I18n::transu('mostrar_mas') . '</a>';
 		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
 		$the_excerpt = implode(' ', $palabras);
+
 		// Aplicamos negrita a ciertas palabras
 		$the_excerpt = preg_replace([
 			'/(Género)/i',
@@ -403,6 +402,46 @@ class Utils {
 			'/(Miembros)/i'
 		], '<b>$1</b>', $the_excerpt);
 		return $the_excerpt;
+	}
+
+	/**
+	 * Obtener el género de un post
+	 *
+	 * @param integer $post_id
+	 */
+	public static function getGeneroById($post_id) {
+		$the_post = get_post($post_id);
+		$post_content = $the_post->post_content;
+		$post_content = strip_tags(strip_shortcodes($post_content));
+		$post_content = substr($post_content, 0, 60);
+		preg_match('/(?m:\bgé?e?neros?\b\W*\b(\w+)\b\W*(\w*).*$)/ui', $post_content, $out);
+		$count = count($out)-1;
+		if ($count > 1) {
+			$genero = $out [$count-1] . " " . $out [$count];
+		} else {
+			$genero = $out [$count];
+		}
+		return $genero;
+	}
+
+	/**
+	 * Obtener el pais de un post
+	 *
+	 * @param integer $post_id
+	 */
+	public static function getPaisById($post_id) {
+		$the_post = get_post($post_id);
+		$post_content = $the_post->post_content;
+		$post_content = strip_tags(strip_shortcodes($post_content));
+		$post_content = substr($post_content, 0, 100);
+		preg_match('/(?m:\bpa(í|i)s(es)?\b\W*\b(\w+)\b\W*(\w*).*$)/ui', $post_content, $out);
+		$count = count($out)-1;
+		if ($count > 1) {
+			$pais = $out [$count-1] . ", " . $out [$count];
+		} else {
+			$pais = $out [$count];
+		}
+		return $pais;
 	}
 
 	/**
