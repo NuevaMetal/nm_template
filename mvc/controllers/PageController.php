@@ -31,6 +31,7 @@ class PageController extends BaseController {
 	 */
 	public function getCategory() {
 		$current_category = single_cat_title("", false);
+		$current_category = strtolower($current_category);
 
 		$seccion = HomeController::getSeccion($current_category, 4);
 

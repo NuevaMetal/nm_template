@@ -75,7 +75,7 @@ class HomeController extends BaseController {
 		$cat = get_cat_ID($seccion);
 		$args ['url'] = get_category_link($cat);
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
-		$args ['seccion'] = $seccion;
+		$args ['seccion'] = strtolower($seccion);
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
