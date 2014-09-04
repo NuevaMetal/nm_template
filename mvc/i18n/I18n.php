@@ -164,4 +164,14 @@ class I18n {
 		return strtoupper(self::trans($key, $params, $idiomaForzado));
 	}
 
+	public static function substr($key, $params = [], $idiomaForzado = false) {
+		Utils::debug("KEY: $key");
+		list($string, $len) = explode(' ', $key);
+		Utils::debug("$string, $len");
+		if ($len)
+			return substr($string, 0, $len);
+		else
+			return $string;
+	}
+
 }

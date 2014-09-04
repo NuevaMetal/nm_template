@@ -19,6 +19,9 @@ abstract class BaseController extends ChesterBaseController {
 			},
 			'transupper' => function ($text, $params = []) {
 				return I18n::transupper($text, $params);
+			},
+			'substr' => function ($text, $params = []) {
+				return I18n::substr($text, $params);
 			}
 		));
 	}
