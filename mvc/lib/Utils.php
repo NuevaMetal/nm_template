@@ -47,6 +47,14 @@ class Utils {
 
 	const CATEGORIA_VIDEOS = "vídeos";
 
+	// Cantidad del extracto de una entrevista
+	const CANT_EXCERPT_DEFAULT = 12;
+	// Cantidad del título corto por defecto
+	const CANT_TITLE_CORTO_DEFAULT = 8;
+
+	// Cantidad del extracto de una entrevista
+	const CANT_EXCERPT_ENTREVISTA = 20;
+
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
 	 *
@@ -430,7 +438,7 @@ class Utils {
 		array_shift($out); // Quito el primer del array
 		$out = implode('', $out);
 		$out = explode(',', $out);
-		$out= $out[0];
+		$out = $out [0];
 		return $out;
 	}
 
@@ -466,6 +474,21 @@ class Utils {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Quitar palabras innecesarias
+	 *
+	 * @param unknown $titulo
+	 */
+	public static function quitarPalabrasInnecesariasDeSeccion($titulo) {
+		$palabrasAQuitar = [
+			'official','video','clip','(',')'
+		];
+		foreach ($palabrasAQuitar as $p) {
+			$titulo = str_ireplace($p, '', $titulo);
+		}
+		return $titulo;
 	}
 
 	/**

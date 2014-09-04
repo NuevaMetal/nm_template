@@ -38,8 +38,7 @@ class HomeController extends BaseController {
 		$entrevistas = self::getSeccion('entrevistas', 2, [
 			'reducido' => true
 		], [
-			'cant_title_corto' => 8,
-			'cant_excerpt' => 38
+			'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
 		]);
 
 		$noticias = self::getSeccion('noticias', 2, [
