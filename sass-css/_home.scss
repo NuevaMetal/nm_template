@@ -121,3 +121,33 @@ h3.header {
 	margin-bottom: 10px;
 	margin-top: -20px;
 }
+
+.thumbnail {
+	background: #404042;
+	border-radius: 0;
+	color: #FFF;
+	border-bottom: 0;
+}
+span.post-time{
+	margin:0;
+}
+.info.titular {
+	text-transform: initial;
+}
+h2.post-title.titular a {
+	color: #fff;
+}
+h2.post-title.titular {
+	background: #d43f3a;
+	margin-top: 0;
+	padding: 10PX 8PX;
+}
+.posts .post .post-title {
+	min-height: 60px;
+}
+.seccion .thumbnail {
+	margin-bottom: 0;
+}
+.seccion .post {
+	background: rgb(221, 221, 221);
+}
