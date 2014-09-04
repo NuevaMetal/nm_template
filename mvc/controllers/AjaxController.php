@@ -69,7 +69,14 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if ($tipo == Utils::TIPO_TAG) {
 			$bandas = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
-			$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings);
+			$otherParams = [];
+			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
+				$otherParams = [
+					'cant_title_corto' => 8,
+					'cant_excerpt' => 38
+				];
+			}
+			$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		}
 		$json ['code'] = 200;
 
