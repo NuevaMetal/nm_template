@@ -23,13 +23,13 @@
 		</a>
     </div>
     <h2 class="post-title titular">
-		<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
+		<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
     </h2>
 	{{#genero}}
-		<b>{{#transu}}genero{{/transu}}</b>: {{genero}} <br>
+		<b class="titular">{{#transu}}genero{{/transu}}</b>: {{genero}} <br>
 	{{/genero}}
 	{{#pais}}
-		<b>{{#transu}}pais{{/transu}}</b>: {{pais}} <br>
+		<b class="titular">{{#transu}}pais{{/transu}}</b>: {{pais}} <br>
 	{{/pais}}
 	{{^genero}}
 		{{{ excerpt }}

@@ -37,6 +37,9 @@ class HomeController extends BaseController {
 
 		$entrevistas = self::getSeccion('entrevistas', 2, [
 			'reducido' => true
+		], [
+			'cant_title_corto' => 8,
+			'cant_excerpt' => 38
 		]);
 
 		$noticias = self::getSeccion('noticias', 2, [
@@ -69,11 +72,10 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getSeccion($seccion, $cant = 4, $args = []) {
+	public static function getSeccion($seccion, $cant = 4, $args = [], $otherParams = []) {
 		$cat = get_cat_ID($seccion);
-
 		$args ['url'] = get_category_link($cat);
-		$args ['posts'] = self::getPostsByCategory($seccion, $cant);
+		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
@@ -91,9 +93,9 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getTags($seccion, $cant = 4, $args = []) {
+	public static function getTags($seccion, $cant = 4, $args = [], $otherParams = []) {
 		$args ['header'] = ucfirst($seccion);
-		$args ['posts'] = self::getPostsByTag($seccion, $cant);
+		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
 		$args ['seccion'] = $seccion;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_TAG;
@@ -110,12 +112,12 @@ class HomeController extends BaseController {
 	 *        número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = []) {
-		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings);
+	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings, $otherParams);
 	}
 
-	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = []) {
-		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings);
+	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings, $otherParams);
 	}
 
 	/**
@@ -127,7 +129,7 @@ class HomeController extends BaseController {
 	 *        número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = []) {
+	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
 		if ($tipo == 'tag') {
 			$catId = Utils::getTagIdbyName($seccion);
 			$moreQuerySettings ['tag_id'] = "$catId";
@@ -135,7 +137,10 @@ class HomeController extends BaseController {
 			$catId = get_cat_ID($seccion);
 			$moreQuerySettings ['cat'] = "$catId";
 		}
-		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
+		/*
+		 * $otherParams = [ 'cant_title_corto' => 8, 'cant_excerpt' => 8 ];
+		 */
+		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings, $otherParams);
 	}
 
 }

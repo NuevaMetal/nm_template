@@ -360,39 +360,13 @@ class Utils {
 	public static function getExcerptById($post_id, $limit = 8) {
 		$the_post = get_post($post_id);
 		$the_excerpt = $the_post->post_content;
-		$excerpt_length = $limit;
 		// Quito las etiquetas e img
 		$the_excerpt = strip_tags(strip_shortcodes($the_excerpt));
 		// Dejo el str en una única línea
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
 		// Sustituyo todos los espacios raros por espacios normales
 		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
-		// Genero un array a partir del content separando por espacios
-		$palabras = explode(' ', $the_excerpt, $excerpt_length + 1);
-		$nPalabras = count($palabras);
-		// Aplicamos un filtro para quitar determinadas palabras
-		$palabras = array_filter($palabras, function ($item) {
-			return !self::strContieneAlgunValorArray($item, [
-				'youtube'
-			]) ? $item : '';
-		});
-		// Quitamos los valores vacíos
-		$palabrasFiltradas = array_filter($palabras, 'strlen');
-		$nPalabrasFiltradas = count($palabrasFiltradas);
-		// Si hay un distinto número de palabras, significará que se filtraron algunas
-		if ($nPalabrasFiltradas != $nPalabras) {
-			$excerpt_length -= ($nPalabras - $nPalabrasFiltradas);
-			$palabras = $palabrasFiltradas;
-		}
-		// Si el content fuese más largo que el extracto, concatenar '...'
-		if (count($palabras) > $excerpt_length) {
-			array_pop($palabras);
-			$permalink = get_permalink($post_id);
-			$palabras [] = '...';
-		}
-		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
-		$the_excerpt = implode(' ', $palabras);
-
+		$the_excerpt = self::getPalabrasByStr($the_excerpt, $limit);
 		// Aplicamos negrita a ciertas palabras
 		$the_excerpt = preg_replace([
 			'/(Género)/i',
@@ -405,6 +379,43 @@ class Utils {
 	}
 
 	/**
+	 * Devuelve un número de palabras de un string
+	 *
+	 * @param string $str
+	 *        Cadena en la que buscar las palabras
+	 * @param number $cant
+	 *        Cantidad de palabras que queremos obtener
+	 * @return string Cadena 'limitada' al número de palabras especificadas
+	 */
+	public static function getPalabrasByStr($str, $cant = 8, $separador = ' ') {
+		// Genero un array a partir del content separando por espacios
+		$palabras = explode($separador, $str, $cant + 1);
+		$nPalabras = count($palabras);
+		// Aplicamos un filtro para quitar determinadas palabras
+		$palabras = array_filter($palabras, function ($item) {
+			return !self::strContieneAlgunValorArray($item, [
+				'youtube'
+			]) ? $item : '';
+		});
+		// Quitamos los valores vacíos
+		$palabrasFiltradas = array_filter($palabras, 'strlen');
+		$nPalabrasFiltradas = count($palabrasFiltradas);
+		// Si hay un distinto número de palabras, significará que se filtraron algunas
+		if ($nPalabrasFiltradas != $nPalabras) {
+			$cant -= ($nPalabras - $nPalabrasFiltradas);
+			$palabras = $palabrasFiltradas;
+		}
+		// Si el content fuese más largo que el extracto, concatenar '...'
+		if (count($palabras) > $cant) {
+			array_pop($palabras);
+			$permalink = get_permalink($post_id);
+			$palabras [] = '...';
+		}
+		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
+		return implode($separador, $palabras);
+	}
+
+	/**
 	 * Obtener el género de un post
 	 *
 	 * @param integer $post_id
@@ -414,10 +425,10 @@ class Utils {
 		$post_content = $the_post->post_content;
 		$post_content = strip_tags(strip_shortcodes($post_content));
 		$post_content = substr($post_content, 0, 60);
-		preg_match('/(?m:\bgé?e?neros?\b\W*\b(\w+)\b\W*(\w*).*$)/ui', $post_content, $out);
-		$count = count($out)-1;
+		preg_match('/(?m:\bg(é|e)?neros?\b\W*\b(\w+)\b\W*(\w*).*$)/ui', $post_content, $out);
+		$count = count($out) - 1;
 		if ($count > 1) {
-			$genero = $out [$count-1] . " " . $out [$count];
+			$genero = $out [$count - 1] . " " . $out [$count];
 		} else {
 			$genero = $out [$count];
 		}
@@ -435,9 +446,9 @@ class Utils {
 		$post_content = strip_tags(strip_shortcodes($post_content));
 		$post_content = substr($post_content, 0, 100);
 		preg_match('/(?m:\bpa(í|i)s(es)?\b\W*\b(\w+)\b\W*(\w*).*$)/ui', $post_content, $out);
-		$count = count($out)-1;
+		$count = count($out) - 1;
 		if ($count > 1) {
-			$pais = $out [$count-1] . ", " . $out [$count];
+			$pais = $out [$count - 1] . ", " . $out [$count];
 		} else {
 			$pais = $out [$count];
 		}
