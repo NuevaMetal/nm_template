@@ -426,14 +426,12 @@ class Utils {
 		$post_content = strip_tags(strip_shortcodes($post_content));
 		$post_content = substr($post_content, 0, 60);
 		//preg_match('/(?m:\bg[é|e]?neros?\b\W*\b(\w+)\b\W*(.*)[\s]*$)/ui', $post_content, $out);
-		preg_match('/(?m:\bg[é|e]?neros?\b\W*\b(\w+)\b[\W*[^\s+](.*)[\s]*$)/ui', $post_content, $out);
-		$count = count($out) - 1;
-		if ($count > 1) {
-			$genero = $out [$count - 1] . " " . $out [$count];
-		} else {
-			$genero = $out [$count];
-		}
-		return $genero;
+		preg_match('/(?m:\bg[é|e]?neros?\b\W*(\w*)(.*)$)/ui', $post_content, $out);
+		array_shift($out); // Quito el primer del array
+		$out = implode('', $out);
+		$out = explode(',', $out);
+		$out= $out[0];
+		return $out;
 	}
 
 	/**
@@ -446,15 +444,11 @@ class Utils {
 		$post_content = $the_post->post_content;
 		$post_content = strip_tags(strip_shortcodes($post_content));
 		$post_content = substr($post_content, 0, 100);
-		//preg_match('/(?m:\bpa[í|i]s(es)?\b\W*\b(\w+)\b\W*(.*)[\s]*$)/ui', $post_content, $out);
-		preg_match('/(?m:\bpa[í|i]s(es)?\b\W*\b(\w+)\b[\W*[^\s+](.*)[\s]*$)/ui', $post_content, $out);
-		$count = count($out) - 1;
-		if ($count > 1) {
-			$pais = $out [$count - 1] . ", " . $out [$count];
-		} else {
-			$pais = $out [$count];
-		}
-		return $pais;
+		//preg_match('/(?m:\bpa[í|i]s[es]*\b\W*\b(\w*)\b\W*(\w*).*$)/ui', $post_content, $out);
+		preg_match('/(?m:\bpa[í|i]s[es]*\b\W*(\w*)(.*)$)/ui', $post_content, $out);
+		array_shift($out); // Quito el primer del array
+		$out = implode('', $out);
+		return $out;
 	}
 
 	/**
