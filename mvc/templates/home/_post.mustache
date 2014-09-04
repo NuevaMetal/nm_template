@@ -26,11 +26,11 @@
 		<a href="{{permalink}}" title="{{{title}}}">{{{title}}}</a>
     </h2>
 	{{#genero}}
-		{{#transu}}genero{{/transu}}: {{genero}} <br>
-		{{#pais}}
-			{{#transu}}pais{{/transu}}: {{pais}} <br>
-		{{/pais}}
+		<b>{{#transu}}genero{{/transu}}</b>: {{genero}} <br>
 	{{/genero}}
+	{{#pais}}
+		<b>{{#transu}}pais{{/transu}}</b>: {{pais}} <br>
+	{{/pais}}
 	{{^genero}}
 		{{{ excerpt }}
 	{{/genero}}
