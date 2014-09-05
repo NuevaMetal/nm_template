@@ -83,8 +83,14 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			'posts' => $posts,
 			'reducido' => ($cant == 2) ? true : false
 		]);
-		if ($que == Utils::CATEGORIA_ENTREVISTAS) {
-			$content = mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1');
+		if (in_array($que, [
+			Utils::CATEGORIA_ENTREVISTAS,
+			Utils::CATEGORIA_NOTICIAS,
+			Utils::CATEGORIA_CONCIERTOS,
+			Utils::CATEGORIA_CRITICAS,
+			Utils::CATEGORIA_CRONICAS
+		])) {
+ 			$content = utf8_encode($content);
 		}
 		$json ['content'] = $content;
 		return $json;
