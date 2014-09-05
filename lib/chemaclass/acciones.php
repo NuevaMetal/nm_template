@@ -8,13 +8,8 @@ add_action('user_register', function ($user_id) {
 
 	$user_login = stripslashes($user->user_login);
 	$user_email = stripslashes($user->user_email);
-
 	$user_pass = wp_generate_password(12, false);
 	wp_set_password($user_pass, $user_id);
-
-	$message = sprintf(__('New user registration on %s:'), get_option('blogname')) . "<br><br>";
-	$message .= sprintf(__('Username: %s'), $user_login) . "<br>";
-	$message .= sprintf(__('E-mail: %s'), $user_email) . "<br>";
 
 	$emailAvisoAdminNuevoUser = I18n::trans('emails.aviso_admin_nuevo_user', [
 		'user_login' => $user_login,
@@ -24,7 +19,7 @@ add_action('user_register', function ($user_id) {
 
 	$enviado = Correo::enviarCorreoGenerico([
 		get_option('admin_email')
-	], sprintf(__('[%s] New User Registration'), get_option('blogname')), $message);
+	], sprintf(__('[%s] New User Registration'), get_option('blogname')), $emailAvisoAdminNuevoUser);
 
 	if (!$enviado) {
 		Utils::info("Fallo al enviar el correo al User con ID: $user_id");
@@ -46,4 +41,34 @@ add_action('user_register', function ($user_id) {
 		Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 	}
 	header('Location: /wp-login.php');
+});
+/**
+ * Enviar una nueva contraseña al email.
+ */
+add_action('login_init', function () {
+	if ($_REQUEST ['action'] == 'lostpassword' && $_REQUEST ['wp-submit'] == 'Obtener una contraseña nueva') {
+		$user_email = $_POST ['user_login'];
+		$user = get_user_by('email', $user_email);
+
+		$user_login = stripslashes($user->user_login);
+		$user_pass = wp_generate_password(12, false);
+		wp_set_password($user_pass, $user->ID);
+
+		if (empty($user_pass) || !$user->ID)
+			return;
+
+		$emailNuevoUser = I18n::trans('emails.password_reset', [
+			'user_login' => $user_login,
+			'user_pass' => $user_pass,
+			'admin_email' => get_option('admin_email')
+		]);
+
+		$enviado = Correo::enviarCorreoGenerico([
+			$user_email
+		], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
+		if (!$enviado) {
+			Utils::info("Fallo al enviar el correo al User con ID: $user_id");
+		}
+		header('Location: /wp-login.php');
+	}
 });
