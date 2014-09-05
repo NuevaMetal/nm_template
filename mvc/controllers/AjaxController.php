@@ -67,20 +67,19 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		$homeController = new HomeController();
 		$moreQuerySettings ['offset'] = $offset;
 		if ($tipo == Utils::TIPO_TAG) {
-			$bandas = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
+			$posts = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
 			$otherParams = [];
 			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
-				$otherParams = [
-					'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
-				];
+				//$otherParams = ['cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA];
+				$cant = 60;
 			}
-			$bandas = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
+			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		}
 		$json ['code'] = 200;
 
 		$json ['content'] = $this->render('home/_posts', [
-			'posts' => $bandas,
+			'posts' => $posts,
 			'reducido' => ($cant == 2) ? true : false
 		]);
 		return $json;
@@ -296,5 +295,5 @@ if (in_array($submit, [
 }
 
 $json = AjaxController::getJsonBySubmit($submit, $_POST);
-
+$json ['content'] = mb_convert_encoding($json ['content'], "UTF-8", "auto");
 echo json_encode($json);
