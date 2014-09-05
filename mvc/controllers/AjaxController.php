@@ -71,8 +71,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
 			$otherParams = [];
 			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
-				//$otherParams = ['cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA];
-				$cant = 60;
+				$otherParams = ['cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA];
 			}
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		}

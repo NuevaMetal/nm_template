@@ -53,7 +53,7 @@ class Utils {
 	const CANT_TITLE_CORTO_DEFAULT = 8;
 
 	// Cantidad del extracto de una entrevista
-	const CANT_EXCERPT_ENTREVISTA = 20;
+	const CANT_EXCERPT_ENTREVISTA = 16;
 
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
