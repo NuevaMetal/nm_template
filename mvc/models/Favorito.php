@@ -40,9 +40,17 @@ class Favorito extends ModelBase {
 		$_p = get_post($post_id);
 		$_time = explode(' ', $_p->post_modified);
 		$time = $_time [0];
+		$title =  $_p->post_title;
+
+		$title_corto = Utils::getPalabrasByStr($title, 10);
+		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
+
 		$postArray = [
 			'permalink' => get_permalink($_p->ID),
-			'title' => $_p->post_title,
+			'title' => $title,
+			'title_corto' => $title_corto,
+			'genero' => Utils::getGeneroById($post_id),
+			'pais' => Utils::getPaisById($post_id),
 			'time' => $time,
 			'author' => get_user_by('id', $_p->post_author)->display_name,
 			'author_link' => get_author_posts_url($_p->post_author),
