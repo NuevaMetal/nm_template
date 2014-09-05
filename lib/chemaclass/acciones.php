@@ -39,14 +39,11 @@ add_action('user_register', function ($user_id) {
 		'admin_email' => get_option('admin_email')
 	]);
 
-
-
 	$enviado = Correo::enviarCorreoGenerico([
 		$user_email
 	], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
 	if (!$enviado) {
 		Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 	}
-
-	return "<p>Ok. Vuelve a la web (http://nuevametal.com) y haz login cuando recibas la contraseña en tu correo</p>";
-}, 10, 1);
+	header('Location: /wp-login.php');
+});
