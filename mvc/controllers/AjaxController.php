@@ -71,7 +71,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
 			$otherParams = [];
 			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
-				$otherParams = ['cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA];
+				$otherParams = [
+					'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
+				];
 			}
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		}
@@ -294,5 +296,5 @@ if (in_array($submit, [
 }
 
 $json = AjaxController::getJsonBySubmit($submit, $_POST);
-$json ['content'] = mb_convert_encoding($json ['content'], "UTF-8", "auto");
+$json ['content'] = mb_convert_encoding($json ['content'], "UTF-8", 'ISO-8859-1');
 echo json_encode($json);
