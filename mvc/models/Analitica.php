@@ -86,10 +86,14 @@ class Analitica extends ModelBase {
 				VALUES (%d, null, null);", $user->ID));
 			$this->ID = $wpdb->insert_id;
 		}
-		$seguimiento = new Seguimiento();
-		$seguimiento->analitica_id = $this->ID;
-		$seguimiento->post_id = $post->ID;
-		$seguimiento->save();
+
+		// Sólo guardar el seguimiento si el post existe
+		if ($post->ID) {
+			$seguimiento = new Seguimiento();
+			$seguimiento->analitica_id = $this->ID;
+			$seguimiento->post_id = $post->ID;
+			$seguimiento->save();
+		}
 	}
 
 }
