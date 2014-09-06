@@ -6,7 +6,7 @@
 	margin: -7px;
 }
 
-.perfil-login {
+.perfil-login, .principal-login {
 
 	margin-top: 6px;
 	margin-bottom: 4px;
@@ -37,13 +37,12 @@
 			color: #333;
 		}
 	}
-}
 
-
-.perfil-login a:hover, .principal-login a:hover {
-    @extend %negrita;
-	.fa:hover {
-		color: $rojo-danger;
+	a:hover {
+		@extend %negrita;
+		.fa:hover {
+			color: $rojo-danger;
+		}
 	}
 }
 

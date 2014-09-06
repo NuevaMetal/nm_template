@@ -6,7 +6,7 @@
 	<div class="title col-sm-12">
 		<h3>{{#transu}}bienvenido{{/transu}} 
 		{{#current_user.url}}
-			<a href="{{current_user.url}}"title="{{#transu}}entradas_de [nombre:current_user.display_name]{{/transu}}">{{current_user.display_name}}</a>
+			<a href="{{current_user.url}}"title="{{#transu}}entradas_de [nombre:{{current_user.display_name}}]{{/transu}}">{{current_user.display_name}}</a>
 		{{/current_user.url}}
 		{{^current_user.url}}
 			{{current_user.display_name}}
