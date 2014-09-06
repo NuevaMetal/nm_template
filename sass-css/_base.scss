@@ -29,6 +29,13 @@ $screen-xl-min: 1400px;
 $rojo-danger: #d43f3a;
 $rojo-danger-hover: #c9302c;
 
+.rojo-danger {
+	color: $rojo-danger;
+}
+.rojo-danger-hover {
+	color: $rojo-danger-hover;
+}
+
 ::selection {
   background: #ffb7b7; // WebKit/Blink Browsers
 }
