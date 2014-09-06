@@ -1,0 +1,14 @@
+.pagina {
+	&.tutorial {
+		img {
+			widht: auto;
+			height: auto;
+		}
+	}
+	
+	&.redes {
+		.titular a {
+			color: #333;
+		}
+	}
+}

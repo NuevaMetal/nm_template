@@ -148,4 +148,64 @@ class PageController extends BaseController {
 		]);
 	}
 
+	/**
+	 * Paǵina de contacto
+	 */
+	public function getContacto() {
+		$content = $this->render('pages/contacto');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de redes
+	 */
+	public function getRedes() {
+		$content = $this->render('pages/redes');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de sitios de interés
+	 */
+	public function getAmigas() {
+		$content = $this->render('pages/amigas');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de tutorial
+	 */
+	public function getTutorial() {
+		$content = $this->render('pages/tutorial');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de nuevametal
+	 */
+	public function getNuevaMetal() {
+		$content = $this->render('pages/nuevametal');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de nuevametal
+	 */
+	public function getMega() {
+		$content = $this->render('pages/mega');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
 }
