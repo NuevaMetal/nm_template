@@ -139,34 +139,13 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * page-pattern-primer.php
+	 * Paǵina de aviso legal
 	 */
-	public function showPatternPrimer() {
-		$patternPrimerController = new ChesterPatternPrimerController();
-
-		$post = $patternPrimerController->renderPattern('post', array(
-			'post' => array(
-				'permalink' => 'http://brightonculture.co.uk',
-				'title' => 'Post title',
-				'time' => '12th Nov 2012',
-				'content' => '<p>Sample content</p>'
-			)
-		));
-
-		$postPreview = $patternPrimerController->renderPattern('home', array(
-			'posts' => array(
-				'permalink' => 'http://brightonculture.co.uk',
-				'title' => 'Post preview title',
-				'time' => '12th Nov 2012',
-				'content' => '<p>Sample content</p>'
-			)
-		));
-
-		$patternGroup = $patternPrimerController->renderCustomPatternGroup($post . $postPreview, 'modules/');
-		return $patternPrimerController->showPatternPrimer(array(
-			'typography',
-			'grids'
-		), $patternGroup);
+	public function getLegal() {
+		$content = $this->render('pages/legal');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
 	}
 
 }
