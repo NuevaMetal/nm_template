@@ -3,7 +3,7 @@ return [
 	'nuevo_user' => '¡Ey bro!,
 		<br>
 		¡Bienvenido a NuevaMetal! Aquí tienes cómo hacer:
-			<a href="http://dev.nuevametal.local/wp-login.php">login</a>:<br>
+			<a href="http://nuevametal.com/wp-login.php">login</a>:<br>
 		<b>Nombre de usuario</b>: :user_login <br>
 		<b>Contraseña</b>: :user_pass <br>
 		<br>
@@ -17,7 +17,7 @@ return [
 	'password_reset' => '¡Ey bro!,
 		<br>
 		 Aquí tienes tu nueva contraseña. Recuerda que puedes hacer login desde
-			<a href="http://dev.nuevametal.local/wp-login.php">aquí</a>:<br>
+			<a href="http://nuevametal.com/wp-login.php">aquí</a>:<br>
 		<b>Nombre de usuario</b>: :user_login <br>
 		<b>Contraseña</b>: :user_pass <br>
 		<br>
