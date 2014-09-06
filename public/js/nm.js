@@ -18,12 +18,20 @@ function seHaceScroll(){
 	var documentHeight = $(document).height();
 	var winWidth = $(window).width();
 
-	if (scroll >= 260 || winWidth < COL.SM-15) {
-		scrollOn();
+	// Ajuste del menú Para pantallas no xs
+	if (!getWindowWidth('xs')) {
+		if (scroll >= 260 || winWidth < COL.SM-15) {		
+			scrollOn();
+		} else {
+			scrollOff();
+		}
 	} else {
-		scrollOff();
+		// Ajuste del menú Para pantallas xs
+		$(".navbar-principal").addClass("navbar-fixed-top");
+		$(".perfil-login").addClass("hidden");
+		$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
 	}
-
+	
 	if (scroll > 200) {
 		$('.back-to-top').fadeIn(500);
 	} else {
@@ -45,10 +53,8 @@ function scrollOn() {
 	$(".navbar-principal").addClass("navbar-fixed-top");
 	$(".perfil-login").addClass("hidden");
 	
-	if (!getWindowWidth('xs')) {
-		$("#content").addClass("aumentar-padding-top-content");
-		$("#sidebar").addClass("aumentar-padding-top-content");
-	}
+	$("#content").addClass("aumentar-padding-top-content");
+	$("#sidebar").addClass("aumentar-padding-top-content");
 	
 	$(".navbar-principal-login").removeClass("hidden");
 	$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
@@ -58,16 +64,14 @@ function scrollOn() {
  * Cuando se está viendo el header; aún no se ha hecho scroll
  */
 function scrollOff() {
-	if (!getWindowWidth('xs')) {
-		$(".navbar-principal").removeClass("navbar-fixed-top");
-		$(".perfil-login").removeClass("hidden");
-		$(".navbar-principal-login-xs").parent('button').addClass("hidden");
-	}
-		$("#content").removeClass("aumentar-padding-top-content");
-		$("#sidebar").removeClass("aumentar-padding-top-content");
+	$(".navbar-principal").removeClass("navbar-fixed-top");
+	$(".perfil-login").removeClass("hidden");
 	
+	$(".navbar-principal-login-xs").parent('button').addClass("hidden");
+	$("#content").removeClass("aumentar-padding-top-content");
+	
+	$("#sidebar").removeClass("aumentar-padding-top-content");
 	$(".navbar-principal-login").addClass("hidden");
-
 }
 
 /**
@@ -107,6 +111,9 @@ $(document).ready(function() {
 	}
 });
 
+/**
+ * Botón me gusta
+ */
 $(document).on('click', '.btn-me-gusta', function(e) {
 	e.preventDefault();
 	var $this = $(this);
