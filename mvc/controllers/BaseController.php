@@ -59,6 +59,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['template_url'] = $template_url;
 		$args ['blog_name'] = get_bloginfo('name');
 
+		$args ['poner_analitica'] = ($_SERVER ["SERVER_NAME"] == URL_PRODUCCION);
 		return $this->renderPage('base', $args);
 	}
 
@@ -73,9 +74,10 @@ abstract class BaseController extends ChesterBaseController {
 
 		$template_url = get_template_directory_uri();
 
-// 		$args ['menuPrincipal'] = $menuPrincipal;
-// 		$args ['menuPerfil'] = $menuPerfil;
-// 		$args ['menuFooter'] = $menuFooter;
+		// 		$args ['menuPrincipal'] = $menuPrincipal;
+		// 		$args ['menuPerfil'] = $menuPerfil;
+		// 		$args ['menuFooter'] = $menuFooter;
+
 
 		$args ['current_user'] = $current_user;
 		$args ['template_url'] = $template_url;
