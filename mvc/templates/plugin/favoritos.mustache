@@ -1,15 +1,13 @@
 <div id="page" class="container-fluid">
-<h1>Tus favoritos {{ current_user.display_name }}</h1>
+<h1 class="titular">Tus favoritos {{ current_user.display_name }}</h1>
 {{#total}}
-<p>Estas son las entradas que te gustan. En total: <span class="badge">{{total}}</span></p>
+<div class="col-xs-12 titular">Estas son las entradas que te gustan. En total: {{total}}</div>
 
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs" role="tablist">
-
+	<ul class="nav nav-tabs titular" role="tablist">
 	{{#favoritos_tab}}
 		<li {{#activo}}class="active"{{/activo}}><a href="#{{clave}}" role="tab" data-toggle="tab">{{valor}}</a></li>	  
 	{{/favoritos_tab}}
-
 	</ul>
 
 	<!-- Tab panes -->
@@ -18,6 +16,7 @@
 
 		{{#bandas}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="bandas">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}
@@ -26,6 +25,7 @@
 
 		{{#videos}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="videos">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}
@@ -34,6 +34,7 @@
 
 		{{#entrevistas}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="entrevistas">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}
@@ -42,6 +43,7 @@
 
 		{{#noticias}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="noticias">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}
@@ -50,6 +52,7 @@
 
 		{{#conciertos}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="conciertos">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}

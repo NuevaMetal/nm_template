@@ -21,18 +21,19 @@ class Favorito extends ModelBase {
 		$todosFavoritos = self::getTodosFavoritosByUserId($user_id);
 		$favoritos = [];
 		foreach ($todosFavoritos as $k => $f) {
-
-			$cat_name = Utils::getCategoryName($f['post_id']);
-			$cat_name = strtolower($cat_name);
-			if(!isset($favoritos [$cat_name])){
+			$cat_name = strtolower(Utils::getCategoryName($f ['post_id']));
+			if (!isset($favoritos [$cat_name])) {
 				$favoritos [$cat_name] = [];
-				if(!isset($favoritos [$cat_name]['activo']) && $k == 0){
-					$favoritos [$cat_name]['activo'] = true;
+				if ($k == 0 && !isset($favoritos [$cat_name] ['activo'])) {
+					$favoritos [$cat_name] ['activo'] = true;
 				}
 			}
-			$favoritos [$cat_name] ['lista'][] = $f;
+			$favoritos [$cat_name] ['lista'] [] = $f;
 		}
-
+		// Añadimos el total
+		foreach($favoritos as &$f){
+			$f['total_lista'] = count($f['lista']);
+		}
 		return $favoritos;
 	}
 
