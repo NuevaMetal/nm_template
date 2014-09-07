@@ -16,6 +16,11 @@
 	color: #333;
 	font-family: "Segoe UI",Calibri,"Myriad Pro",Myriad,"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size: 16px ;	
+	max-width: 1200px;
+	margin-left: 160px;
+	@include col($screen-lg-min + (160*2)) {
+		margin: 0 auto;
+	}
 }
 
 .site-title-plugin {

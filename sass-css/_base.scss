@@ -20,6 +20,9 @@ $screen-xl-min: 1400px;
 	@else if $media == xl {
 		@media only screen and (min-width: $screen-xl-min) { @content; }
 	}
+	@else {
+		@media only screen and (min-width: $media) { @content; }
+	}
 }
 
 %negrita {
