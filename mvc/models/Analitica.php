@@ -94,4 +94,94 @@ class Analitica extends ModelBase {
 		}
 	}
 
+	/**
+	 * Devuelve el número total de registros por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalRegistrosPorDia($cantidad = 50) {
+		global $wpdb;
+		$query = 'SELECT DATE( user_registered ) dia, COUNT( * ) total
+				FROM wp_users
+				GROUP BY dia
+				ORDER BY dia DESC limit ' . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de visitas por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalVisitasUsersLogueados($cantidad = 50) {
+		global $wpdb;
+		$query = 'SELECT DATE( created_at ) dia, count(*) total_users_logueados
+				FROM wp_analiticas
+				where user_id != 0
+				GROUP BY dia
+				ORDER BY dia DESC limit ' . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de visitas por día
+	 *
+	 * @param number $cantidad
+	 * @return multitype:string multitype:string unknown
+	 */
+	public static function getTotalVisitas($cantidad = 50) {
+		global $wpdb;
+		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
+					from (
+					    select distinct post_id, count(seh.seguimiento_id) total, date(se.created_at) dia
+					    from wp_seguimientos se, wp_seguimientos_horas seh
+						where se.ID = seh.seguimiento_id
+					    group by dia, post_id) s
+					group by s.dia limit " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de visitas únicas por IP por día
+	 *
+	 * @param number $cantidad
+	 */
+	public static function getTotalVisitasUnicasPorIP($cantidad = 50) {
+		global $wpdb;
+		$query = "SELECT COUNT( s.ip ) AS total, s.dia, 'total_unicas' as tipo
+					FROM (
+						SELECT DISTINCT ip, DATE( created_at ) dia
+						FROM wp_seguimientos
+					) s
+					GROUP BY s.dia
+					LIMIT  " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de entradas vistas por usuario por día
+	 *
+	 * @param number $cantidad
+	 */
+	public static function getTotalPostUnicosVistos($cantidad = 50) {
+		global $wpdb;
+		$query = "select count(s.post_id) as total, s.dia, 'total_posts_unicos' as tipo
+					from (
+					  select distinct post_id, date(created_at) dia
+					  from wp_seguimientos
+					  group by dia, post_id) s
+					group by s.dia LIMIT " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	public static function getTotalVisitasPorHora($cantidad = 50) {
+		global $wpdb;
+		$query = "select time_format(created_at,'%H') hora, count(*) total
+					from wp_seguimientos_horas
+					group by hora LIMIT " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
 }
