@@ -184,6 +184,18 @@ class Utils {
 		return $postsSimilares;
 	}
 
+	/**
+	 * Devuelve la primera categoría que encuentra del post
+	 *
+	 * @param integer $post_id
+	 *        Identificador del Post
+	 * @return Categoria
+	 */
+	public static function getCategoryName($post_id) {
+		$cat = get_the_category($post_id);
+		return $cat [0]->name;
+	}
+
 	public static function addThumbnailsToPost($post, $_p) {
 		$sizes = array(
 			'thumbnail',
@@ -483,7 +495,11 @@ class Utils {
 	 */
 	public static function quitarPalabrasInnecesariasDeSeccion($titulo) {
 		$palabrasAQuitar = [
-			'official','video','clip','(',')'
+			'official',
+			'video',
+			'clip',
+			'(',
+			')'
 		];
 		foreach ($palabrasAQuitar as $p) {
 			$titulo = str_ireplace($p, '', $titulo);
@@ -578,6 +594,36 @@ class Utils {
 	private static function generaNombreModelo($entry) {
 		list($class, $extension) = explode('.', "$entry");
 		return ucfirst($class);
+	}
+
+	/**
+	 * Traduce una lista de valores con su correspondiente I18n
+	 *
+	 * @param array $lista
+	 *        Lista a traducir
+	 * @return array Lista traducida
+	 */
+	public static function traducirLista($lista) {
+		$result = [];
+		foreach ($lista as $l) {
+			$result [] = I18n::trans($l);
+		}
+		return $result;
+	}
+
+	/**
+	 * Traduce una lista de valores con su correspondiente I18n con ucfirst
+	 *
+	 * @param array $lista
+	 *        Lista a traducir
+	 * @return array Lista traducida
+	 */
+	public static function traducirListaU($lista) {
+		$result = [];
+		foreach ($lista as $l) {
+			$result [] = I18n::transu($l);
+		}
+		return $result;
 	}
 
 }

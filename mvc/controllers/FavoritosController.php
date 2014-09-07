@@ -60,12 +60,33 @@ class FavoritosController extends BaseController {
 		$content = $this->render('plugin/favoritos', [
 			'current_user' => $current_user,
 			'total' => Utils::getTotalMeGustas($current_user->ID),
-			'favoritos' => $favoritos
+			'favoritos' => $favoritos,
+			'favoritos_tab' => self::_parseaSecciones(array_keys($favoritos))
 		]);
 
 		return $this->_renderPageBasePlugin([
 			'content' => $content
 		]);
+	}
+
+	/**
+	 * Parsea las secciones de los favoritos, tratando la clave de la sección por un lado
+	 * y por otro su traducción a mostrar
+	 *
+	 * @param array $seccionesFavoritos
+	 * @return array string
+	 */
+	private function _parseaSecciones($seccionesFavoritos) {
+		$result = [];
+		//sort($seccionesFavoritos);
+		foreach ($seccionesFavoritos as $k => $v) {
+			$result [] = [
+				'activo' => ($k == 0),
+				'clave' => $v,
+				'valor' => I18n::transu($v)
+			];
+		}
+		return $result;
 	}
 
 }

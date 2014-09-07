@@ -18,6 +18,32 @@ class Favorito extends ModelBase {
 	 * @return array<Favorito>
 	 */
 	public static function getFavoritosByUserId($user_id = false) {
+		$todosFavoritos = self::getTodosFavoritosByUserId($user_id);
+		$favoritos = [];
+		foreach ($todosFavoritos as $k => $f) {
+
+			$cat_name = Utils::getCategoryName($f['post_id']);
+			$cat_name = strtolower($cat_name);
+			if(!isset($favoritos [$cat_name])){
+				$favoritos [$cat_name] = [];
+				if(!isset($favoritos [$cat_name]['activo']) && $k == 0){
+					$favoritos [$cat_name]['activo'] = true;
+				}
+			}
+			$favoritos [$cat_name] ['lista'][] = $f;
+		}
+
+		return $favoritos;
+	}
+
+	/**
+	 * Devuelve la lista de todos los favoritos de un User
+	 *
+	 * @param integer $user_id
+	 *        Identificador del usuario
+	 * @return array<Favorito>
+	 */
+	public static function getTodosFavoritosByUserId($user_id = false) {
 		if (!$user_id || !is_numeric($user_id)) {
 			return null;
 		}
@@ -25,9 +51,9 @@ class Favorito extends ModelBase {
 		$status = Utils::ACTIVO;
 		$tabla = $wpdb->prefix . self::$table;
 		$queryPostId = "SELECT post_id FROM $tabla
-					WHERE status = $status
-					AND user_id = $user_id
-					ORDER BY updated_at desc";
+			WHERE status = $status
+			AND user_id = $user_id
+			ORDER BY updated_at desc";
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
@@ -40,12 +66,13 @@ class Favorito extends ModelBase {
 		$_p = get_post($post_id);
 		$_time = explode(' ', $_p->post_modified);
 		$time = $_time [0];
-		$title =  $_p->post_title;
+		$title = $_p->post_title;
 
 		$title_corto = Utils::getPalabrasByStr($title, 10);
 		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
 
 		$postArray = [
+			'post_id' => $_p->ID,
 			'permalink' => get_permalink($_p->ID),
 			'title' => $title,
 			'title_corto' => $title_corto,

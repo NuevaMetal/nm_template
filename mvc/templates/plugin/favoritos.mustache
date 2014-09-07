@@ -2,11 +2,63 @@
 <h1>Tus favoritos {{ current_user.display_name }}</h1>
 {{#total}}
 <p>Estas son las entradas que te gustan. En total: <span class="badge">{{total}}</span></p>
-	<div class="posts">
+
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+
+	{{#favoritos_tab}}
+		<li {{#activo}}class="active"{{/activo}}><a href="#{{clave}}" role="tab" data-toggle="tab">{{valor}}</a></li>	  
+	{{/favoritos_tab}}
+
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content posts">
 	{{# favoritos }}
-		{{> home/_post }}
-	{{/ favoritos }}	
+
+		{{#bandas}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="bandas">
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/bandas}}
+
+		{{#videos}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="videos">
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/videos}}
+
+		{{#entrevistas}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="entrevistas">
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/entrevistas}}
+
+		{{#noticias}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="noticias">
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/noticias}}
+
+		{{#conciertos}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="conciertos">
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/conciertos}}
+
+	{{/ favoritos }}
 	</div>
+
 </div>
 {{/total}}
 {{^total}}
