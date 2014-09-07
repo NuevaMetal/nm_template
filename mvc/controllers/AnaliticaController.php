@@ -129,24 +129,46 @@ class AnaliticaController extends BaseController {
 	 */
 	public static function getTotalVisitas($cantidad = 50) {
 		global $wpdb;
-		$query = 'select sum(s.total) as total_visitas, s.dia
+		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
 					from (
 					    select distinct post_id, count(seh.seguimiento_id) total, date(se.created_at) dia
 					    from wp_seguimientos se, wp_seguimientos_horas seh
 						where se.ID = seh.seguimiento_id
 					    group by dia, post_id) s
-					group by s.dia limit ' . $cantidad;
+					group by s.dia limit " . $cantidad;
 		return $wpdb->get_results($query);
 	}
 
+	/**
+	 * Devuelve el número total de visitas únicas por IP por día
+	 *
+	 * @param number $cantidad
+	 */
+	public static function getTotalVisitasUnicasPorIP($cantidad = 50) {
+		global $wpdb;
+		$query = "SELECT COUNT( s.ip ) AS total, s.dia, 'total_unicas' as tipo
+					FROM (
+						SELECT DISTINCT ip, DATE( created_at ) dia
+						FROM wp_seguimientos
+					) s
+					GROUP BY s.dia
+					LIMIT  " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de entradas vistas por usuario por día
+	 *
+	 * @param number $cantidad
+	 */
 	public static function getTotalPostUnicosVistos($cantidad = 50) {
 		global $wpdb;
-		$query = 'select count(s.post_id) as total_posts_unicos, s.dia
+		$query = "select count(s.post_id) as total, s.dia, 'total_posts_unicos' as tipo
 					from (
 					  select distinct post_id, date(created_at) dia
 					  from wp_seguimientos
 					  group by dia, post_id) s
-					group by s.dia LIMIT ' . $cantidad;
+					group by s.dia LIMIT " . $cantidad;
 		return $wpdb->get_results($query);
 	}
 
@@ -179,13 +201,23 @@ class AnaliticaController extends BaseController {
 				break;
 			case Analitica::TOTAL_VISITAS :
 				$totalVisitas = self::getTotalVisitas($cant);
-				$result = $totalVisitas;
+				$totalVisitasUnicas = self::getTotalVisitasUnicasPorIP($cant);
+				$totalPostUnicosVistos = self::getTotalPostUnicosVistos($cant);
+				$result = self::_juntarValoresPorDia([
+					$totalVisitasUnicas,
+					$totalVisitas,
+					$totalPostUnicosVistos
+				]);
 				$xKey = 'dia';
 				$yKeys = [
-					'total_visitas'
+					'total_visitas',
+					'total_posts_unicos',
+					'total_unicas'
 				];
 				$labels = [
-					'Visitas totales'
+					'Visitas totales',
+					'Entradas únicas vistas',
+					'Visitas únicas por IP'
 				];
 				break;
 			case Analitica::TOTAL_VISITAS_USERS :
@@ -197,17 +229,6 @@ class AnaliticaController extends BaseController {
 				];
 				$labels = [
 					'Usuarios logueados'
-				];
-				break;
-			case Analitica::TOTAL_VISITAS_POST :
-				$totalPostUnicosVistos = self::getTotalPostUnicosVistos($cant);
-				$result = $totalPostUnicosVistos;
-				$xKey = 'dia';
-				$yKeys = [
-					'total_posts_unicos'
-				];
-				$labels = [
-					'Visitas únicas'
 				];
 				break;
 			case Analitica::TOTAL_VISITAS_HORA :
@@ -232,6 +253,13 @@ class AnaliticaController extends BaseController {
 		return $json;
 	}
 
+	/**
+	 * Añade un 0 a las horas que no tengan resultados.
+	 * Para que se devuelva siempre un valor para cada hora
+	 *
+	 * @param unknown $totalPorHora
+	 * @return multitype:stdClass unknown
+	 */
 	private function _formatearHoras($totalPorHora) {
 		$result = [];
 		// Las horas vacías ponemos un 0
@@ -248,6 +276,28 @@ class AnaliticaController extends BaseController {
 			$result [] = $obj;
 		}
 		return $result;
+	}
+
+	/**
+	 *
+	 * @param unknown $totalVisitasUnicas
+	 * @param unknown $totalVisitas
+	 */
+	private function _juntarValoresPorDia($listaArraysVisitas = []) {
+		$result = [];
+		foreach ($listaArraysVisitas as $lista) {
+			foreach ($lista as $l) {
+				if (!isset($result [$l->dia])) {
+					$obj = new stdClass();
+				} else {
+					$obj = $result [$l->dia];
+				}
+				$obj->dia = $l->dia;
+				$obj->{$l->tipo} = $l->total;
+				$result [$l->dia] = $obj;
+			}
+		}
+		return array_values($result);
 	}
 
 }

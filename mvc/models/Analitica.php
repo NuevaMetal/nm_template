@@ -14,8 +14,6 @@ class Analitica extends ModelBase {
 
 	const TOTAL_VISITAS_USERS = 'total-visitas-users';
 
-	const TOTAL_VISITAS_POST = 'total-visitas-posts';
-
 	const TOTAL_VISITAS_HORA = 'total-visitas-hora';
 	public static $table = "analiticas";
 	public $user_id;

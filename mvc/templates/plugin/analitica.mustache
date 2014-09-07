@@ -1,21 +1,19 @@
 <div id="page" class="container-fluid">
 	<h1><i class="fa fa-terminal"></i> Analítica y seguimiento de usuarios </h1>
-	
+
 	<h3><i class="fa fa-area-chart"></i> Total de usuarios registrados / día</h3>
 	<div id="total-users" style="height: 250px; margin-bottom:50px;"></div>
-	
-	<div class="col-xs-6">
+
+	<div class="col-xs-12">
+		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
+		<div id="total-visitas" style="height: 250px; margin-bottom:90px;"></div>
+	</div>
+
+	<div class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Visitas por usuario / día</h3>
 		<div id="total-visitas-users" style="height: 250px; margin-bottom:50px;"></div>
 	</div>
-	<div class="col-xs-6">
-		<h3><i class="fa fa-line-chart"></i> Entradas vistas / día</h3>
-		<div id="total-visitas-posts" style="height: 250px; margin-bottom:50px;"></div>
-	</div>
-	<div class="col-xs-12">
-		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
-		<div id="total-visitas" style="height: 250px; margin-bottom:50px;"></div>
-	</div>
+
 	<div class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Número de entradas vistas / hora </h3>
 		<div id="total-visitas-horas" style="height: 250px; margin-bottom:50px;"></div>
@@ -30,16 +28,13 @@
 	$(document).ready(function() {
 		var url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-users&cant=50";
 		pintarMorris("total-users", url);
-		
+
 		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas&cant=50";
 		pintarMorris("total-visitas", url);
-		
-		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-posts&cant=50";
-		pintarMorris("total-visitas-posts", url);
-		
+
 		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-users&cant=50";
 		pintarMorris("total-visitas-users", url);
-		
+
 		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-hora&cant=50";
 		pintarMorris("total-visitas-horas", url);
 
