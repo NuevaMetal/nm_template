@@ -31,8 +31,8 @@ class Favorito extends ModelBase {
 			$favoritos [$cat_name] ['lista'] [] = $f;
 		}
 		// Añadimos el total
-		foreach($favoritos as &$f){
-			$f['total_lista'] = count($f['lista']);
+		foreach ($favoritos as &$f) {
+			$f ['total_lista'] = count($f ['lista']);
 		}
 		return $favoritos;
 	}
@@ -82,7 +82,8 @@ class Favorito extends ModelBase {
 			'time' => $time,
 			'author' => get_user_by('id', $_p->post_author)->display_name,
 			'author_link' => get_author_posts_url($_p->post_author),
-			'excerpt' => Utils::getExcerptById($_p->ID)
+			'excerpt' => Utils::traducirPost(Utils::getExcerptById($post_id, Utils::CANT_EXCERPT_DEFAULT)),
+			'total_me_gustas' => Utils::getTotalMeGustas(false, $post_id)
 		];
 		$postArray = Utils::addThumbnailsToPost($postArray, $_p);
 		return $postArray;
