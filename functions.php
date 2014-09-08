@@ -5,8 +5,7 @@ define(URL_PRODUCCION, 'nuevametal.com');
 define(URL_DESARROLLO, 'dev.nuevametal.com');
 
 require_once (dirname(__FILE__) . '/lib/chester/require.php');
-
-require_once (dirname(__FILE__) . '/lib/chemaclass/require.php');
+require_once (dirname(__FILE__) . '/lib/PHPMailer/PHPMailerAutoload.php');
 
 foreach (glob(dirname(__FILE__) . '/mvc/lib/*.php') as $filename) {
 	require_once $filename;

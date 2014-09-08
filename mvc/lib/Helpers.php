@@ -1,4 +1,15 @@
 <?php
+/**
+ *
+ * @param unknown $expression
+ * @param string $tag
+ */
+function dd($expression, $tag = "Tag") {
+	echo '' . $tag . '<br>';
+	var_dump($expression);
+	exit();
+}
+
 
 /**
  * Reemplaza todos los acentos por sus equivalentes sin ellos
@@ -59,4 +70,3 @@ function sanearString($string, $completo = false) {
 	}
 	return $string;
 }
-?>
