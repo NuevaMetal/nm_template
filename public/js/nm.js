@@ -101,15 +101,6 @@ function getWindowWidth(tam) {
 	return true;
 }
 
-/**
- * Documento listo para JQuery
- */
-$(document).ready(function() {
-	if (getWindowWidth('xs')) {
-		scrollOn()
-		scrollOff()
-	}
-});
 
 /**
  * Botón me gusta
@@ -252,11 +243,40 @@ $(document).on('click', '.btn-notificar', function(e) {
 	});
 });
 
+/**
+ * Agrandar los iconos de las redes sociales
+ */
 $(document).on('mouseover', '.redes-sociales a', function(e) {
 	e.preventDefault();
 	$(this).addClass('btn-lg');
 });
+
 $(document).on('mouseleave', '.redes-sociales a', function(e) {
 	e.preventDefault();
 	$(this).removeClass('btn-lg');
+});
+
+/**
+ * Animar el avatar del menú gris<->rojo
+ */
+$(document).on('mouseover', '.navbar-brand img', function(e) {
+	e.preventDefault();
+	var imgUrl = $(this).attr('src').replace('_gris.jpg', '.jpg')
+	$(this).attr('src', imgUrl);
+});
+
+$(document).on('mouseleave', '.navbar-brand img', function(e) {
+	e.preventDefault();
+	var imgUrl = $(this).attr('src').replace('.jpg', '_gris.jpg')
+	$(this).attr('src', imgUrl);
+});
+
+/**
+ * Documento listo para JQuery
+ */
+$(document).ready(function() {
+	if (getWindowWidth('xs')) {
+		scrollOn()
+		scrollOff()
+	}
 });
