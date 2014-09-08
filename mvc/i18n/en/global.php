@@ -3,7 +3,8 @@ return [
 	'acceder' => 'login',
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
-	'author' => 'author',
+	'autor' => 'author',
+	'autores' => 'authors',
 	'aviso' => 'notice',
 	'aviso_legal' => 'legal disclaimer',
 	'aviso_cookies' => 'We use cookies to improve your experience.
@@ -28,6 +29,7 @@ return [
 	'cronicas' => 'chronics',
 
 	'de' => 'of',
+	'diseñador' => 'designer',
 
 	'hola' => 'hello',
 
@@ -66,6 +68,8 @@ return [
 	'panel' => 'panel',
 	'perfil' => 'profile',
 	'por' => 'by',
+	'programador' => 'developer',
+	'programadores' => 'developers',
 
 	'que_es_nm' => 'NuevaMetal?',
 

@@ -1,7 +1,7 @@
 <div class="pagina redes">
-	<h1 class="col-xs-12 titular">Aviso legal</h1>
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">Cookies</h3>
+	<h1 class="col-xs-12 titular">{{#transu}}aviso_legal{{/transu}}</h1>
+	<div id="aviso-cookies" class="col-xs-12 col-sm-6">
+		<h3 class="titular"><i class="fa fa-terminal"></i> Cookies</h3>
 		<p>Nosotros utilizamos cookies para rastrear el uso que los usuarios hacen del sitio
 		 web y conocer cuáles son sus preferencias. Usamos cookies que nos proporcionan 
 		 datos globales sobre el tráfico del sitio y la interacción con el mismo, a fin de 
@@ -10,8 +10,8 @@
 		A través de las opciones de tu explorador, puedes elegir que tu ordenador 
 		te avise cada vez que una cookie sea enviada, o incluso inhabilitar todas las cookies.</p>
 	</div>
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">Creative Common</h3>
+	<div id="copy" class="col-xs-12 col-sm-6">
+		<h3 class="titular"><i class="fa fa-copyright"></i> Creative Common</h3>
 		<p>
 			<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Creative Commons License" /></a>
 		NuevaMetal by <a href="http://chemaclass.com" rel="cc:attributionURL">Chemaclass</a> 
@@ -19,12 +19,16 @@
 			target="_blank" rel="license">Creative Commons Attribution 4.0 International License</a>.
 		</p>
 	</div>
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">Autores</h3>
+	<div id="aviso" class="col-xs-12 col-sm-6">
+		<h3 class="titular"><i class="fa fa-info"></i> {{#transu}}aviso{{/transu}}</h3>
+		<p>{{#trans}}sidebar.si_no_quieres_aparecer{{/trans}}
+	</div>
+	<div id="autores" class="col-xs-12">
+		<h3 class="titular"><i class="fa fa-users"></i> {{#transu}}autores{{/transu}}</h3>
 		<dl class="dl-horizontal">
-		  <dt>Programador</dt>
+		  <dt>{{#transu}}programador{{/transu}}</dt>
 		  <dd>José María Valera Reales <code>@Chemaclass</code></dd>
-		  <dt>Diseñador</dt>
+		  <dt>{{#transu}}Diseñador{{/transu}}</dt>
 		  <dd>Pedro Jesús Macanás <code>pjmacanass@gmail.com</code></dd>
 		</dl>
 	</div>
