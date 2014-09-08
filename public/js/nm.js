@@ -158,12 +158,6 @@ $(document).on('click', '.mostrar-menos', function(e) {
 		for(i=0; i<cant; i++) {
 			$(seccion).find('.post').last().remove();
 		}
-	} else {
-		$('#alertas').html('<div class="alert alert-danger" role="alert"><i class="fa fa-close"></i> No puedes ver menos.</div>');
-		$('#alertas').fadeIn();
-		setTimeout(function() {
-			$('#alertas').fadeOut();
-		}, 3000);
 	}
 });
 
