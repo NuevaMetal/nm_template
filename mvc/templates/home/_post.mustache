@@ -14,25 +14,27 @@
 		{{/ total_me_gustas }}
 
 		{{# analitica }}
-		<div class="analitica">
-			{{#visitas_totales}}
-			<span class=" total-visitas">
-				<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
-				<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
-			</span>
-			{{/visitas_totales}}
-
-			{{#visitas_user}}
-			<span class=" unicas-por-user">
-				<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
-				<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
-			</span>
-			{{/visitas_user}}
-		</div>
+		<a href="{{permalink}}" title="{{{title}}}">
+			<div class="analitica">
+				{{#visitas_totales}}
+				<span class=" total-visitas">
+					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
+					<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
+				</span>
+				{{/visitas_totales}}
+	
+				{{#visitas_user}}
+				<span class=" unicas-por-user">
+					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
+					<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
+				</span>
+				{{/visitas_user}}
+			</div>
+		</a>
 		{{/ analitica }}
 
         </div>
-	    <a href="{{permalink}}" title="{{{title}}}">
+		<a href="{{permalink}}" title="{{{title}}}">
 			{{#featured_image_url_medium}}
 				<img class="img-responsive" src="{{featured_image_url_medium}}" />
 			{{/featured_image_url_medium}}

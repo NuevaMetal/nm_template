@@ -98,9 +98,15 @@ h3.header {
 }
 
 .analitica {
+	background: rgba(0, 0, 0, 0.6);
 	position:absolute;
 	top: 40px;	
-	width: auto;
+	width: 92%;
+	color: #fff;
+	span:hover {
+		text-decoration: underline;
+		cursor: default;
+	}
 }
  
 .caption {
@@ -112,9 +118,9 @@ h3.header {
     margin-top: 35px;
     color:#fff !important;
     z-index:2;
-    .total-me-gustas, .analitica{
+    .total-me-gustas{
     	border-radius: 10px;
-		background:rgba(0, 0, 0, 0.7);	
+		background:rgba(0, 0, 0, 0.7);
 		font-size: 21px;
 		i {
 			color: $rojo-danger-hover;
