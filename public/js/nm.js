@@ -144,6 +144,31 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 });
 
 /**
+ * Mostrar menos
+ */
+$(document).on('click', '.mostrar-menos', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	var posts = $this.parents('.posts');
+	var seccion = $(posts).find('.seccion');
+	var cant = $(posts).children('.cant').text();
+	var size = $(seccion).children().size();
+	// Sólo mostrar menos si hay menos de cant
+	if (size > cant) {
+		for(i=0; i<cant; i++) {
+			$(seccion).find('.post').last().remove();
+		}
+	} else {
+		$('#alertas').html('<div class="alert alert-danger" role="alert"><i class="fa fa-close"></i> No puedes ver menos.</div>');
+		$('#alertas').fadeIn();
+		setTimeout(function() {
+			$('#alertas').fadeOut();
+		}, 3000);
+	}
+});
+
+
+/**
  * Mostrar más
  */
 $(document).on('click', '.mostrar-mas', function(e) {

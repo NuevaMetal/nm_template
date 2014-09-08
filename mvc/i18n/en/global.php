@@ -49,6 +49,7 @@ return [
 	'genero' => 'genre',
 
 	'leer_mas' => 'show more',
+	'leer_menos' => 'show less',
 
 	'mas' => 'more',
 	'me_gusta' => 'like',
