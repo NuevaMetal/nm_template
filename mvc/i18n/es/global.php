@@ -51,6 +51,7 @@ return [
 	'genero' => 'género',
 
 	'leer_mas' => 'leer más',
+	'leer_menos' => 'leer menos',
 
 	'mas' => 'más',
 	'me_gusta' => 'me gusta',
