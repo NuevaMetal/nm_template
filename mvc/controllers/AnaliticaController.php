@@ -12,7 +12,7 @@ require_once 'HomeController.php';
 class AnaliticaController extends BaseController {
 
 	/**
-	 * Create table and register an option when activate
+	 * Crear las tablas para la analítica
 	 *
 	 * @return void
 	 */
@@ -57,10 +57,30 @@ class AnaliticaController extends BaseController {
 			FOREIGN KEY (`seguimiento_id`) REFERENCES `{$wpdb->prefix}seguimientos`(`ID`) ON DELETE CASCADE
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$wpdb->query($query);
+
+		/**
+		 * Registro que cada día se borren los registros de seguimientos_horas de hace 2 días
+		 */
+		register_activation_hook(__FILE__, function () {
+			// Si no está definido lo ponemos
+			if (!wp_next_scheduled('eliminar_seguimientos_horas_2_dias')) {
+				wp_schedule_event(time(), 'daily', 'eliminar_seguimientos_horas_2_dias');
+			}
+		});
+
+		add_action('eliminar_seguimientos_horas_2_dias', function () {
+			// Borrar los registros de los seguimientos_horas de hace 2 días
+			global $wpdb;
+			$result = $wpdb->query('DELETE FROM `wp_seguimientos_horas`
+						WHERE date(created_at) < date(now())-1');
+			if (!$result) {
+				Utils::info("> No se borraron ningún registro en horas (?)");
+			}
+		});
 	}
 
 	/**
-	 * Drop tables
+	 * Eliminar las tablas de analítica
 	 *
 	 * @return void
 	 */
@@ -70,6 +90,15 @@ class AnaliticaController extends BaseController {
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos_horas ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
+		/**
+		 * Elimino el cron que borraba los registros de seguimientos_horas de hacía 2 días
+		 */
+		register_deactivation_hook(__FILE__, function () {
+			// Si está definido lo quitamos
+			if (wp_next_scheduled('eliminar_seguimientos_horas_2_dias')) {
+				wp_clear_scheduled_hook('eliminar_seguimientos_horas_2_dias');
+			}
+		});
 	}
 
 	/**
@@ -80,10 +109,6 @@ class AnaliticaController extends BaseController {
 	 */
 	public function getIndex() {
 		$template_url = get_template_directory_uri();
-		$logueados_hoy = [
-			'url' => '#',
-			'nombre' => 'Chea'
-		];
 		$logueados_hoy = Analitica::getUsersLogueados(50);
 		$logueados_ayer = Analitica::getUsersLogueados(50, 'date(now())-1');
 		$content = $this->render('plugin/analitica', [
