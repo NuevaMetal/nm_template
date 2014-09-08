@@ -89,7 +89,7 @@ class Analitica extends ModelBase {
 		if ($post->ID) {
 			$seguimiento = new Seguimiento();
 			$seguimiento->analitica_id = $this->ID;
-			$seguimiento->post_id = $post->ID;
+			$seguimiento->post_id = is_home() ? 0 : $post->ID;
 			$seguimiento->save();
 		}
 	}
