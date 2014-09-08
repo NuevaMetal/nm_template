@@ -148,7 +148,7 @@ class AnaliticaController extends BaseController {
 				$totalVisitas = Analitica::getTotalVisitas($cant);
 				$totalVisitasUnicas = Analitica::getTotalVisitasUnicasPorIP($cant);
 				$totalPostUnicosVistos = Analitica::getTotalPostUnicosVistos($cant);
-				$result = self::_juntarValoresPorDia([
+				$result = self::_juntarValoresPor('dia', [
 					$totalVisitasUnicas,
 					$totalVisitas,
 					$totalPostUnicosVistos
@@ -178,14 +178,20 @@ class AnaliticaController extends BaseController {
 				break;
 			case Analitica::TOTAL_VISITAS_HORA :
 				$totalPorHora = Analitica::getTotalVisitasPorHora($cant);
-				$result = self::_formatearHoras($totalPorHora);
-
+				$unicasPorHora = Analitica::getUnicasVisitasPorHora($cant);
+				$result = self::_juntarValoresPor('hora', [
+					$totalPorHora,
+					$unicasPorHora
+				]);
+				$result = self::_formatearHoras($result);
 				$xKey = 'hora';
 				$yKeys = [
-					'total'
+					'totales_hora',
+					'unicas_hora'
 				];
 				$labels = [
-					'Total por hora'
+					'Total por hora',
+					'Únicas por hora'
 				];
 				break;
 		}
@@ -202,8 +208,8 @@ class AnaliticaController extends BaseController {
 	 * Añade un 0 a las horas que no tengan resultados.
 	 * Para que se devuelva siempre un valor para cada hora
 	 *
-	 * @param unknown $totalPorHora
-	 * @return multitype:stdClass unknown
+	 * @param array $totalPorHora
+	 * @return array
 	 */
 	private function _formatearHoras($totalPorHora) {
 		$result = [];
@@ -217,29 +223,33 @@ class AnaliticaController extends BaseController {
 			}
 			$obj = new stdClass();
 			$obj->hora = "$i";
-			$obj->total = "0";
+			$obj->totales_hora = "0";
+			$obj->unicas_hora = "0";
 			$result [] = $obj;
 		}
 		return $result;
 	}
 
 	/**
+	 * Juntar valores de 2 arrays en base a que
 	 *
-	 * @param unknown $totalVisitasUnicas
-	 * @param unknown $totalVisitas
+	 * @param string $que
+	 * @param array<array> $listaArraysVisitas
+	 *        Lista de arrays a juntar por su misma que
+	 * @return array
 	 */
-	private function _juntarValoresPorDia($listaArraysVisitas = []) {
+	private function _juntarValoresPor($que, $listaArraysVisitas = []) {
 		$result = [];
 		foreach ($listaArraysVisitas as $lista) {
 			foreach ($lista as $l) {
-				if (!isset($result [$l->dia])) {
+				if (!isset($result [$l->{$que}])) {
 					$obj = new stdClass();
 				} else {
-					$obj = $result [$l->dia];
+					$obj = $result [$l->{$que}];
 				}
-				$obj->dia = $l->dia;
+				$obj->{$que} = $l->{$que};
 				$obj->{$l->tipo} = $l->total;
-				$result [$l->dia] = $obj;
+				$result [$l->{$que}] = $obj;
 			}
 		}
 		return array_values($result);

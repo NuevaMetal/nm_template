@@ -243,9 +243,31 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalVisitasPorHora($cantidad = 24) {
 		global $wpdb;
-		$query = "select time_format(created_at,'%H') hora, count(*) total
-					from wp_seguimientos_horas
-					group by hora LIMIT " . $cantidad;
+		$query = "SELECT CONCAT( TIME_FORMAT( created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  'totales_hora' AS tipo
+				FROM wp_seguimientos_horas
+				GROUP BY hora
+				ORDER BY hora
+				LIMIT " . $cantidad;
+		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número total de visitas únicas entre user/post en las últimas 24 horas
+	 *
+	 * @param number $cantidad
+	 */
+	public static function getUnicasVisitasPorHora($cantidad = 24) {
+		global $wpdb;
+		$query = "SELECT b.hora, COUNT( b.total ) total,  'unicas_hora' AS tipo
+				FROM (
+					SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total
+					FROM wp_seguimientos_horas sh, wp_seguimientos s
+					WHERE sh.seguimiento_id = s.ID
+					GROUP BY hora, s.post_id
+					ORDER BY hora
+				) b
+				GROUP BY b.hora
+				LIMIT " . $cantidad;
 		return $wpdb->get_results($query);
 	}
 
