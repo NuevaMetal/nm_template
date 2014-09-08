@@ -1,7 +1,7 @@
 {{#current_user}}
 	<div class="formulario">
 		<form action="{{template_url}}/ajax.php">
-			<input type="hidden" name="post" value="{{post.ID}}">
+			<input type="hidden" name="post" value="{{post.post_id}}">
 			<input type="hidden" name="user" value="{{current_user.ID}}">
 			<span class="btn-me-gusta-ajax">
 			{{> post/_btn_me_gusta}}

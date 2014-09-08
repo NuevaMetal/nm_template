@@ -58,35 +58,9 @@ class Favorito extends ModelBase {
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
-			$posts [] = self::_getPostArrayByPostId($post_id);
+			$posts [] = ChesterWPCoreDataHelpers::getPost(false, [], $post_id);
 		}
 		return $posts;
-	}
-
-	private static function _getPostArrayByPostId($post_id) {
-		$_p = get_post($post_id);
-		$_time = explode(' ', $_p->post_modified);
-		$time = $_time [0];
-		$title = $_p->post_title;
-
-		$title_corto = Utils::getPalabrasByStr($title, 10);
-		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
-
-		$postArray = [
-			'post_id' => $_p->ID,
-			'permalink' => get_permalink($_p->ID),
-			'title' => $title,
-			'title_corto' => $title_corto,
-			'genero' => Utils::getGeneroById($post_id),
-			'pais' => Utils::getPaisById($post_id),
-			'time' => $time,
-			'author' => get_user_by('id', $_p->post_author)->display_name,
-			'author_link' => get_author_posts_url($_p->post_author),
-			'excerpt' => Utils::traducirPost(Utils::getExcerptById($post_id, Utils::CANT_EXCERPT_DEFAULT)),
-			'total_me_gustas' => Utils::getTotalMeGustas(false, $post_id)
-		];
-		$postArray = Utils::addThumbnailsToPost($postArray, $_p);
-		return $postArray;
 	}
 
 	/**
@@ -105,7 +79,7 @@ class Favorito extends ModelBase {
 		$result = $wpdb->get_results($query);
 		$posts = [];
 		foreach ($result as $k => $r) {
-			$postArray = self::_getPostArrayByPostId($r->post_id);
+			$postArray = ChesterWPCoreDataHelpers::getPost(false, [], $r->post_id);
 			$postArray ['total'] = $r->total;
 			$posts [] = $postArray;
 		}

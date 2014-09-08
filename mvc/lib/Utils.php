@@ -162,6 +162,7 @@ class Utils {
 					$title = explode('-', $_p->post_title);
 					//$category = get_the_category($_p->ID);
 					$post = [
+						'post_id' => $_p->ID,
 						'permalink' => get_permalink($_p->ID),
 						'title' => $_p->post_title,
 						'title_corto' => $title [0],
@@ -170,7 +171,7 @@ class Utils {
 						'author_link' => get_author_posts_url($_p->post_author)
 					];
 					//'category' => $category [0]->name
-					$post = self::addThumbnailsToPost($post, $_p);
+					$post = self::addThumbnailsToPost($post);
 
 					$postsSimilares [] = $post;
 					if (++$cont == $max) {
@@ -196,7 +197,7 @@ class Utils {
 		return $cat [0]->name;
 	}
 
-	public static function addThumbnailsToPost($post, $_p) {
+	public static function addThumbnailsToPost($post) {
 		$sizes = array(
 			'thumbnail',
 			'medium',
@@ -204,7 +205,7 @@ class Utils {
 			'full'
 		);
 		foreach ($sizes as $size) {
-			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($_p->ID), $size);
+			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($post ['post_id']), $size);
 			if (!empty($imageObject)) {
 				$post ['featured_image_url_' . $size] = $imageObject [0];
 			}
@@ -359,12 +360,11 @@ class Utils {
 	 */
 	public static function getSiUserGustaPost($post_id, $user_id) {
 		global $wpdb;
-		$post = get_post($post_id);
 		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . "favoritos
+				FROM ' . $wpdb->prefix . 'favoritos
 				WHERE user_id = %d
-	AND post_id = %d
-	 AND status = 0;", $user_id, $post_id));
+				AND post_id = %d
+				AND status = 0;', $user_id, $post_id));
 		return $leGusta > 0;
 	}
 
@@ -538,10 +538,13 @@ class Utils {
 	 * Crear clave Nonce para las peticiones AJAX
 	 *
 	 * @param string $tipoNonceString
+	 *        Tipo de Nonce a crear
 	 * @param string $post_id
+	 *        Identificador del post
+	 * @return string Clave nonce apartir del tipoNonce + post_id
 	 */
-	public static function crearNonce($tipoNonceString, $post_id = null) {
-		if ($post_id == null) {
+	public static function crearNonce($tipoNonceString, $post_id = false) {
+		if (!$post_id) {
 			global $post;
 			$post_id = $post->ID;
 		}
@@ -549,17 +552,21 @@ class Utils {
 	}
 
 	/**
-	 * Crear clave Nonce para las peticiones AJAX
+	 * Comprueba la clave Nonce para las peticiones AJAX
 	 *
+	 * @param string $nonce
+	 *        Clave a comparar
 	 * @param string $tipoNonceString
+	 *        Tipo de Nonce creado
 	 * @param string $post_id
+	 *        Identificador del post
 	 */
-	public static function esNonce($nonce, $submit, $post_id = null) {
-		if ($post_id == null) {
+	public static function esNonce($nonce, $tipoNonceString, $post_id = false) {
+		if (!$post_id) {
 			global $post;
 			$post_id = $post->ID;
 		}
-		return wp_verify_nonce($nonce, $submit . $post_id);
+		return wp_verify_nonce($nonce, $tipoNonceString . $post_id);
 	}
 
 	/**

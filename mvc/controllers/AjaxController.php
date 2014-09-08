@@ -90,7 +90,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			Utils::CATEGORIA_CRITICAS,
 			Utils::CATEGORIA_CRONICAS
 		])) {
- 			$content = utf8_encode($content);
+			$content = utf8_encode($content);
 		}
 		$json ['content'] = $content;
 		return $json;
@@ -117,14 +117,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 					INSERT INTO {$wpdb->prefix}favoritos (post_id,user_id,created_at,updated_at)
 					VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
-			//Si ya existe, aumetamos su contador
+			//Si ya existe, aumetamos su contador y modificamos su estado para decir que te gusta
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET count = count + 1
-			WHERE post_id = %d
-			AND user_id = %d;", $post_id, $user_id));
-			// Y modificamos su estado para decir que te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET status =  0
+			SET status =  0, count = count + 1
 			WHERE post_id = %d
 			AND user_id = %d
 			AND status = 1;", $post_id, $user_id));
@@ -204,15 +199,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				AND post_id = $post_id
 				AND user_id = $user_id;");
 		if ($num) {
-			//Si ya existe, aumetamos su contador
+			//Si ya existe, aumetamos su contador y modificamos su estado para decir que ya no te gusta
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET count = count + 1
-			WHERE post_id = %d
-			AND user_id = %d
-			AND status = 0;", $post_id, $user_id));
-			// Y modificamos su estado para decir que ya no te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET status =  1
+			SET status =  1, count = count + 1
 			WHERE post_id = %d
 			AND user_id = %d
 			AND status = 0;", $post_id, $user_id));
@@ -295,13 +284,13 @@ $json = [
 ];
 
 $submit = $_POST ['submit'];
-
 $nonce = $_POST ['nonce'];
+$post_id = $_POST ['post'];
 
 if (in_array($submit, [
 	Utils::NOTIFICAR,
 	Utils::ME_GUSTA
-]) && !Utils::esNonce($nonce, $submit, $_POST ['post'])) {
+]) && !Utils::esNonce($nonce, $submit, $post_id)) {
 	die("An unexpected error has ocurred.");
 }
 

@@ -96,6 +96,12 @@ h3.header {
 		width:100% !important;
 	}
 }
+
+.analitica {
+	position:absolute;
+	top: 40px;	
+	width: auto;
+}
  
 .caption {
     position:absolute;
@@ -106,7 +112,7 @@ h3.header {
     margin-top: 35px;
     color:#fff !important;
     z-index:2;
-    .total-me-gustas{
+    .total-me-gustas, .analitica{
     	border-radius: 10px;
 		background:rgba(0, 0, 0, 0.7);	
 		font-size: 21px;

@@ -131,16 +131,44 @@ class Analitica extends ModelBase {
 	 * @param number $cantidad
 	 * @return multitype:string multitype:string unknown
 	 */
-	public static function getTotalVisitas($cantidad = 50) {
+	public static function getTotalVisitas($cantidad = 50, $post_id = false, $agrupadoPorDia = true) {
 		global $wpdb;
+		$andPostId = ($post_id) ? " and post_id = $post_id " : '';
+		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
 		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
 					from (
 					    select distinct post_id, count(seh.seguimiento_id) total, date(se.created_at) dia
 					    from wp_seguimientos se, wp_seguimientos_horas seh
-						where se.ID = seh.seguimiento_id
-					    group by dia, post_id) s
-					group by s.dia limit " . $cantidad;
+						where se.ID = seh.seguimiento_id $andPostId
+					   group by dia, post_id) s
+					$groupBy ";
+		if ($cantidad) {
+			$query .= " limit $cantidad";
+		}
 		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve el número de visitas totales que ha tenido un post totales y hoy
+	 *
+	 * @return array 'totales', 'totales_hoy'
+	 */
+	public static function getTotalVisitasByPostId($post_id) {
+		$totales = self::getTotalVisitas(false, $post_id, false);
+		$hoy = self::getTotalVisitas(false, $post_id, true);
+		return array(
+			'totales' => $totales[0]->total,
+			'totales_hoy' => array_pop($hoy)->total
+		);
+	}
+
+	public static function getVisitasUnicasByPostId($post_id) {
+		$totales = self::getTotalVisitasUnicasPorIP(false, $post_id, false);
+		$hoy = self::getTotalVisitasUnicasPorIP(false, $post_id, true);
+		return array(
+			'unicas' => $totales[0]->total,
+			'unicas_hoy' => array_pop($hoy)->total
+		);
 	}
 
 	/**
@@ -148,17 +176,23 @@ class Analitica extends ModelBase {
 	 *
 	 * @param number $cantidad
 	 */
-	public static function getTotalVisitasUnicasPorIP($cantidad = 50) {
+	public static function getTotalVisitasUnicasPorIP($cantidad = 50, $post_id = false, $agrupadoPorDia = true) {
 		global $wpdb;
+		$wherePostId = ($post_id) ? " where post_id = $post_id " : '';
+		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
 		$query = "SELECT COUNT( s.ip ) AS total, s.dia, 'total_unicas' as tipo
 					FROM (
 						SELECT DISTINCT ip, DATE( created_at ) dia
-						FROM wp_seguimientos
+						FROM wp_seguimientos $wherePostId
 					) s
-					GROUP BY s.dia
-					LIMIT  " . $cantidad;
+					$groupBy";
+		if ($cantidad) {
+			$query .= " limit $cantidad";
+		}
 		return $wpdb->get_results($query);
 	}
+
+
 
 	/**
 	 * Devuelve el número total de entradas vistas por usuario por día
@@ -176,7 +210,12 @@ class Analitica extends ModelBase {
 		return $wpdb->get_results($query);
 	}
 
-	public static function getTotalVisitasPorHora($cantidad = 50) {
+	/**
+	 * Devuelve el número total de visitas en las últimas 24 horas
+	 *
+	 * @param number $cantidad
+	 */
+	public static function getTotalVisitasPorHora($cantidad = 24) {
 		global $wpdb;
 		$query = "select time_format(created_at,'%H') hora, count(*) total
 					from wp_seguimientos_horas

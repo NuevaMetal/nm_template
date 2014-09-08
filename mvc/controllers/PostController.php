@@ -19,6 +19,7 @@ class PostController extends BaseController {
 		$dateFormat = 'l, d F Y';
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop($dateFormat);
 		$post = $posts [0];
+		$post_id = $post ['post_id'];
 
 		if (!isset($post)) {
 			return $this->renderPage('404');
@@ -28,8 +29,8 @@ class PostController extends BaseController {
 		$author_id = get_the_author_meta('ID');
 		$edit_user_link = ($author_id == $current_user->ID) ? get_edit_user_link() : false;
 
-		$comment_form = $this->_getComentForm($post ['ID']);
-		$comments = $this->_getComments($post ['ID']);
+		$comment_form = $this->_getComentForm($post_id);
+		$comments = $this->_getComments($post_id);
 
 		$user_rol = Utils::getRoleByUserId($author_id);
 		$user_rol = I18n::trans($user_rol);
@@ -43,23 +44,25 @@ class PostController extends BaseController {
 			'description' => get_the_author_meta('description'),
 			'edit_post' => get_edit_post_link(),
 			'edit_user_link' => $edit_user_link,
-			'me_gusta' => Utils::getSiUserGustaPost($post ['ID'], $current_user->ID),
-			'nonce_me_gusta' => Utils::crearNonce(Utils::ME_GUSTA . $post->ID),
-			'nonce_notificar' => Utils::crearNonce(Utils::NOTIFICAR . $post->ID),
-			//'next_post' => get_next_post_link("%link"),
+			'me_gusta' => Utils::getSiUserGustaPost($post_id, $current_user->ID),
+			'nonce_me_gusta' => Utils::crearNonce(Utils::ME_GUSTA),
+			'nonce_notificar' => Utils::crearNonce(Utils::NOTIFICAR),
 			'post' => $post,
-			//'previous_post' => get_previous_post_link("%link"),
 			'user_avatar' => get_avatar($author_id, 36),
 			'user_posts_url' => get_author_posts_url($author_id),
 			'user_url' => get_the_author_meta('url'),
 			'user_rol' => ucfirst($user_rol),
 			'template_url' => get_template_directory_uri()
 		];
+		//'next_post' => get_next_post_link("%link"),
+		//'previous_post' => get_previous_post_link("%link"),
+
 
 		$content = $this->render('post', $argsContent);
+
 		return $this->_renderPageBase([
 			'content' => $content,
-			'sidebar' => $this->_getSidebar($post ['ID'], $current_user->ID)
+			'sidebar' => $this->_getSidebar($post_id, $current_user->ID)
 		]);
 	}
 
