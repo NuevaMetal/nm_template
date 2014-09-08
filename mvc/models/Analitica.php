@@ -165,9 +165,9 @@ class Analitica extends ModelBase {
 		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
 		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
 					from (
-					    select distinct post_id, count(seh.seguimiento_id) total, date(se.created_at) dia
-					    from wp_seguimientos se, wp_seguimientos_horas seh
-						where se.ID = seh.seguimiento_id $andPostId
+					    select distinct post_id, se.total total, date(se.created_at) dia
+					    from wp_seguimientos se
+						where 1=1 $andPostId
 					   group by dia, post_id) s
 					$groupBy ";
 		if ($cantidad) {

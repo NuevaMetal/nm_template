@@ -35,6 +35,7 @@ class AnaliticaController extends BaseController {
 			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`analitica_id` bigint(20) UNSIGNED NOT NULL,
 			`post_id` bigint(20) UNSIGNED NOT NULL,
+			`total` integer(10) UNSIGNED NOT NULL DEFAULT 1,
 			`ip` varchar(45) NOT NULL,
 			`user_agent` varchar(200) NOT NULL,
 			`referer` varchar(2000) NOT NULL,
