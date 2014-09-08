@@ -117,12 +117,40 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalVisitasUsersLogueados($cantidad = 50) {
 		global $wpdb;
-		$query = 'SELECT DATE( created_at ) dia, count(*) total_users_logueados
+		$query = 'SELECT DATE( created_at ) dia, count(*) total_users_logueados, user_id
 				FROM wp_analiticas
 				where user_id != 0
 				GROUP BY dia
 				ORDER BY dia DESC limit ' . $cantidad;
 		return $wpdb->get_results($query);
+	}
+
+	/**
+	 * Devuelve una lista con los nombres (y url) de los users logueados
+	 *
+	 * @param number $cantidad
+	 *        Límite máximo de nombres a obtener
+	 * @param string $cuando
+	 *        fecha en SQL de cuándo se quiere dicha lista de nombres.
+	 *        Por defecto será el día actual
+	 * @return array Lista con el nombre y la url del usuario
+	 */
+	public static function getUsersLogueados($cantidad = 50, $cuando = 'DATE(NOW())') {
+		global $wpdb;
+		$query = "SELECT distinct user_id
+				FROM wp_analiticas
+				WHERE user_id !=0
+				AND DATE( created_at ) = $cuando
+				LIMIT $cantidad";
+		$users_id = $wpdb->get_col($query);
+		$users = [];
+		foreach ($users_id as $user_id) {
+			$users [] = [
+				'url' => get_author_posts_url($user_id),
+				'nombre' => get_the_author_meta('display_name', $user_id)
+			];
+		}
+		return $users;
 	}
 
 	/**
@@ -157,7 +185,7 @@ class Analitica extends ModelBase {
 		$totales = self::getTotalVisitas(false, $post_id, false);
 		$hoy = self::getTotalVisitas(false, $post_id, true);
 		return array(
-			'totales' => $totales[0]->total,
+			'totales' => $totales [0]->total,
 			'totales_hoy' => array_pop($hoy)->total
 		);
 	}
@@ -166,7 +194,7 @@ class Analitica extends ModelBase {
 		$totales = self::getTotalVisitasUnicasPorIP(false, $post_id, false);
 		$hoy = self::getTotalVisitasUnicasPorIP(false, $post_id, true);
 		return array(
-			'unicas' => $totales[0]->total,
+			'unicas' => $totales [0]->total,
 			'unicas_hoy' => array_pop($hoy)->total
 		);
 	}
@@ -191,8 +219,6 @@ class Analitica extends ModelBase {
 		}
 		return $wpdb->get_results($query);
 	}
-
-
 
 	/**
 	 * Devuelve el número total de entradas vistas por usuario por día

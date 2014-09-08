@@ -8,16 +8,35 @@
 		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
 		<div id="total-visitas" style="height: 250px; margin-bottom:90px;"></div>
 	</div>
+	
+	<div class="col-xs-12">
+		<h3><i class="fa fa-line-chart"></i> Número de entradas vistas / hora </h3>
+		<div id="total-visitas-horas" style="height: 250px; margin-bottom:50px;"></div>
+	</div>
 
 	<div class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Visitas por usuario / día</h3>
 		<div id="total-visitas-users" style="height: 250px; margin-bottom:50px;"></div>
 	</div>
-
-	<div class="col-xs-12">
-		<h3><i class="fa fa-line-chart"></i> Número de entradas vistas / hora </h3>
-		<div id="total-visitas-horas" style="height: 250px; margin-bottom:50px;"></div>
-	</div>
+	
+	{{#hay_logueados_hoy}}
+		<div class="col-xs-12">
+			<h4 class="titular">Logueados hoy</h4>
+			{{#logueados_hoy}}
+				<span class="col-xs-3"><a href="{{url}}">{{nombre}}</a></span>
+			{{/logueados_hoy}}
+		</div>
+	{{/hay_logueados_hoy}}
+	
+	{{#hay_logueados_ayer}}
+		<div class="col-xs-12">
+			<h4 class="titular">Logueados ayer</h4>
+			{{#logueados_ayer}}
+				<span class="col-xs-3"><a href="{{url}}">{{nombre}}</a></span>
+			{{/logueados_ayer}}
+		</div>
+	{{/hay_logueados_ayer}}
+	
 </div>
 
 <script src="{{public_directory}}/third/raphael/raphael.min.js"></script>

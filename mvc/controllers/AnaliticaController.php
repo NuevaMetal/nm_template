@@ -79,9 +79,18 @@ class AnaliticaController extends BaseController {
 	 */
 	public function getIndex() {
 		$template_url = get_template_directory_uri();
+		$logueados_hoy = [
+			'url' => '#',
+			'nombre' => 'Chea'
+		];
+		$logueados_hoy = Analitica::getUsersLogueados(50);
+		$logueados_ayer = Analitica::getUsersLogueados(50, 'date(now())-1');
 		$content = $this->render('plugin/analitica', [
-			'analiticas' => Analitica::all(),
-			'public_directory' => get_bloginfo('template_directory') . '/public',
+			'logueados_hoy' => $logueados_hoy,
+			'hay_logueados_hoy' => count($logueados_hoy) > 0,
+			'logueados_ayer' => $logueados_ayer,
+			'hay_logueados_ayer' => count($logueados_ayer) > 0,
+			'public_directory' => $template_url . '/public',
 			'template_url' => $template_url
 		]);
 
