@@ -89,7 +89,7 @@ return [
 	'subscriber' => 'suscriptor',
 
 	'usuario' => 'usuario',
-	'unete_y_colabora' => 'únete y colabora',
+	'unete_y_colabora' => 'Únete y colabora',
 
 	'ver_perfil' => 'ver perfil',
 	'videos' => 'vídeos',
