@@ -1,26 +1,28 @@
 <div id="page" class="container-fluid">
 	<h1><i class="fa fa-terminal"></i> Analítica y seguimiento de usuarios </h1>
 
-	<h3><i class="fa fa-bar-chart"></i> Total de usuarios registrados / día</h3>
-	<div id="total-users" style="height: 250px; margin-bottom:50px;"></div>
-
-	<div class="col-xs-12">
+	<div id="usuarios-registrados-dia" class="col-xs-12">
+		<h3><i class="fa fa-bar-chart"></i> Total de usuarios registrados / día</h3>
+		<div id="total-users" style="height: 250px; margin-bottom:50px;"></div>
+	</div>
+	
+	<div id="visitas-totales" class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
 		<div id="total-visitas" style="height: 250px; margin-bottom:90px;"></div>
 	</div>
 	
-	<div class="col-xs-12">
+	<div id="visitas-horas" class="col-xs-12">
 		<h3><i class="fa fa-area-chart"></i> Número de entradas vistas / hora </h3>
 		<div id="total-visitas-horas" style="height: 250px; margin-bottom:110px;"></div>
 	</div>
 
-	<div class="col-xs-12">
+	<div id="visitas-user" class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Visitas por usuario / día</h3>
 		<div id="total-visitas-users" style="height: 250px; margin-bottom:50px;"></div>
 	</div>
 	
 	{{#hay_logueados_hoy}}
-		<div class="col-xs-12">
+		<div id="logueados-hoy" class="col-xs-12">
 			<h4 class="titular">Logueados hoy: {{total_logueados_hoy}}</h4>
 			{{#logueados_hoy}}
 				<span class="col-xs-3"><a href="{{url}}">{{nombre}}</a></span>
@@ -29,7 +31,7 @@
 	{{/hay_logueados_hoy}}
 	
 	{{#hay_logueados_ayer}}
-		<div class="col-xs-12">
+		<div id="logueados-ayer" class="col-xs-12">
 			<h4 class="titular">Logueados ayer: {{total_logueados_ayer}}</h4>
 			{{#logueados_ayer}}
 				<span class="col-xs-3"><a href="{{url}}">{{nombre}}</a></span>
