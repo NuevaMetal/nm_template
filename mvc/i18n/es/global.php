@@ -53,7 +53,10 @@ return [
 	'genero' => 'género',
 
 	'leer_mas' => 'leer más',
+	'leer_mas_movil' => 'más',
 	'leer_menos' => 'leer menos',
+	'leer_menos_movil' => 'menos',
+
 
 	'mas' => 'más',
 	'me_gusta' => 'me gusta',

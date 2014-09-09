@@ -51,7 +51,9 @@ return [
 	'genero' => 'genre',
 
 	'leer_mas' => 'show more',
+	'leer_mas_movil' => 'more',
 	'leer_menos' => 'show less',
+	'leer_menos_movil' => 'less',
 
 	'mas' => 'more',
 	'me_gusta' => 'like',
