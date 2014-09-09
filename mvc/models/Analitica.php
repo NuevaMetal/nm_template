@@ -248,8 +248,11 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalVisitasPorHora($cantidad = 24) {
 		global $wpdb;
-		$query = "SELECT CONCAT( TIME_FORMAT( created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  'totales_hora' AS tipo
-				FROM wp_seguimientos_horas
+		$query = "SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  'totales_hora' AS tipo
+				FROM wp_seguimientos_horas sh, wp_seguimientos s
+				WHERE sh.seguimiento_id = s.ID
+					and LOWER(s.user_agent) not like '%bot%'
+					and LOWER(s.user_agent) not like '%feed%'
 				GROUP BY hora
 				ORDER BY hora
 				LIMIT " . $cantidad;
@@ -268,6 +271,8 @@ class Analitica extends ModelBase {
 					SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total
 					FROM wp_seguimientos_horas sh, wp_seguimientos s
 					WHERE sh.seguimiento_id = s.ID
+						and LOWER(s.user_agent) not like '%bot%'
+						and LOWER(s.user_agent) not like '%feed%'
 					GROUP BY hora, s.post_id
 					ORDER BY hora
 				) b
