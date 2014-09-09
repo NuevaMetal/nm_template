@@ -253,6 +253,7 @@ class Analitica extends ModelBase {
 				WHERE sh.seguimiento_id = s.ID
 					and LOWER(s.user_agent) not like '%bot%'
 					and LOWER(s.user_agent) not like '%feed%'
+					and date(sh.created_at) = date(now())
 				GROUP BY hora
 				ORDER BY hora
 				LIMIT " . $cantidad;
@@ -273,6 +274,7 @@ class Analitica extends ModelBase {
 					WHERE sh.seguimiento_id = s.ID
 						and LOWER(s.user_agent) not like '%bot%'
 						and LOWER(s.user_agent) not like '%feed%'
+						and date(sh.created_at) = date(now())
 					GROUP BY hora, s.post_id
 					ORDER BY hora
 				) b
