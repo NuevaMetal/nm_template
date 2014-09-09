@@ -165,9 +165,11 @@ class Analitica extends ModelBase {
 		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
 		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
 					from (
-					    select distinct post_id, se.total total, date(se.created_at) dia
+					    select se.total total, date(se.created_at) dia
 					    from wp_seguimientos se
-						where 1=1 $andPostId
+						where LOWER(user_agent) not like '%bot%'
+						and LOWER(user_agent) not like '%feed%'
+						$andPostId
 					   group by dia, post_id) s
 					$groupBy ";
 		if ($cantidad) {
@@ -206,12 +208,15 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalVisitasUnicasPorIP($cantidad = 50, $post_id = false, $agrupadoPorDia = true) {
 		global $wpdb;
-		$wherePostId = ($post_id) ? " where post_id = $post_id " : '';
+		$andPostId = ($post_id) ? " and post_id = $post_id " : '';
 		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
 		$query = "SELECT COUNT( s.ip ) AS total, s.dia, 'total_unicas' as tipo
 					FROM (
 						SELECT DISTINCT ip, DATE( created_at ) dia
-						FROM wp_seguimientos $wherePostId
+						FROM wp_seguimientos
+						where LOWER(user_agent) not like '%bot%'
+						and LOWER(user_agent) not like '%feed%'
+						$andPostId
 					) s
 					$groupBy";
 		if ($cantidad) {
