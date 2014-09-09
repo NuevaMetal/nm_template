@@ -153,12 +153,16 @@ $(document).on('click', '.mostrar-menos', function(e) {
 	var seccion = $(posts).find('.seccion');
 	var cant = $(posts).children('.cant').text();
 	var size = $(seccion).children().size();
+	var que = $(this).attr('mostrar-menos');
 	// Sólo mostrar menos si hay menos de cant
 	if (size > cant) {
-		for(i=0; i<cant; i++) {
+		for(i=0; i<size-cant; i++) {
 			$(seccion).find('.post').last().remove();
 		}
 	}
+	$('html,body').animate({
+		scrollTop :  $('#'+que).offset().top-30
+	}, 'slow');
 });
 
 
