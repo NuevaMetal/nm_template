@@ -37,8 +37,6 @@ class HomeController extends BaseController {
 
 		$entrevistas = self::getSeccion('entrevistas', 2, [
 			'reducido' => true
-		], [
-			'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
 		]);
 
 		$noticias = self::getSeccion('noticias', 2, [
@@ -49,11 +47,23 @@ class HomeController extends BaseController {
 			'reducido' => true
 		]);
 
+		// 		$criticas = self::getSeccion('criticas', 2, [
+		// 			'reducido' => true
+		// 		]);
+
+
+		// 		$cronicas = self::getSeccion('cronicas', 2, [
+		// 			'reducido' => true
+		// 		]);
+
+
 		$content = $this->render('home', [
 			'bandas' => $bandas,
 			'videos' => $videos,
 			'entrevistas' => $entrevistas,
 			'noticias' => $noticias,
+			//'criticas' => $criticas,
+			//'cronicas' => $cronicas,
 			'conciertos' => $conciertos
 		]);
 		return $this->_renderPageBase([

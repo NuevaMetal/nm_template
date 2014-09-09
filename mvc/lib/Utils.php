@@ -35,9 +35,9 @@ class Utils {
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
 
-	const CATEGORIA_CRITICAS = "críticas";
+	const CATEGORIA_CRITICAS = "criticas";
 
-	const CATEGORIA_CRONICAS = "crónicas";
+	const CATEGORIA_CRONICAS = "cronicas";
 
 	const CATEGORIA_CONCIERTOS = "conciertos";
 
@@ -45,7 +45,7 @@ class Utils {
 
 	const CATEGORIA_NOTICIAS = "noticias";
 
-	const CATEGORIA_VIDEOS = "vídeos";
+	const CATEGORIA_VIDEOS = "videos";
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_DEFAULT = 12;

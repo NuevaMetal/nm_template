@@ -201,8 +201,8 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
 //	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-//			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-//			 + ",\n thrownError "+thrownError);
+			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			 + ",\n thrownError "+thrownError);
 			$this.addClass("hidden");
 	     }
 	});

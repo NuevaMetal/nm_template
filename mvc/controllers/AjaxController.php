@@ -77,12 +77,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			}
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		}
-		$json ['code'] = 200;
+
+		foreach ($posts as &$p) {
+			$p ['title_corto'] = sanearString($p ['title_corto']);
+			$p ['content'] = sanearString($p ['content']);
+			$p ['excerpt'] = sanearString($p ['excerpt']);
+		}
 
 		$content = $this->render('home/_posts', [
 			'posts' => $posts,
 			'reducido' => ($cant == 2) ? true : false
 		]);
+
 		if (in_array($que, [
 			Utils::CATEGORIA_ENTREVISTAS,
 			Utils::CATEGORIA_NOTICIAS,
@@ -92,7 +98,10 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		])) {
 			$content = utf8_encode($content);
 		}
+
 		$json ['content'] = $content;
+		$json ['code'] = 200;
+
 		return $json;
 	}
 
