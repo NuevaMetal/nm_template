@@ -183,21 +183,29 @@ class AnaliticaController extends BaseController {
 				];
 				break;
 			case Analitica::TOTAL_VISITAS_HORA :
-				$totalPorHora = Analitica::getTotalVisitasPorHora($cant);
-				$unicasPorHora = Analitica::getUnicasVisitasPorHora($cant);
+				$totalPorHoraHoy = Analitica::getTotalVisitasPorHora($cant);
+				$unicasPorHoraHoy = Analitica::getUnicasVisitasPorHora($cant);
+				$totalPorHoraAyer = Analitica::getTotalVisitasPorHora($cant, Utils::AYER);
+				$unicasPorHoraAyer = Analitica::getUnicasVisitasPorHora($cant, Utils::AYER);
 				$result = self::_juntarValoresPor('hora', [
-					$totalPorHora,
-					$unicasPorHora
+					$totalPorHoraHoy,
+					$unicasPorHoraHoy,
+					$totalPorHoraAyer,
+					$unicasPorHoraAyer
 				]);
 				$result = self::_formatearHoras($result);
 				$xKey = 'hora';
 				$yKeys = [
-					'totales_hora',
-					'unicas_hora'
+					'totales_hora_hoy',
+					'unicas_hora_hoy',
+					'totales_hora_ayer',
+					'unicas_hora_ayer'
 				];
 				$labels = [
 					'Total por hora',
-					'Únicas por hora'
+					'Únicas por hora',
+					'Total por hora ayer',
+					'Únicas por hora ayer'
 				];
 				break;
 		}
@@ -229,8 +237,10 @@ class AnaliticaController extends BaseController {
 			}
 			$obj = new stdClass();
 			$obj->hora = "$i";
-			$obj->totales_hora = "0";
-			$obj->unicas_hora = "0";
+			$obj->totales_hora_hoy = "0";
+			$obj->unicas_hora_hoy = "0";
+			$obj->totales_hora_ayer = "0";
+			$obj->unicas_hora_ayer = "0";
 			$result [] = $obj;
 		}
 		return $result;

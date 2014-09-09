@@ -245,15 +245,25 @@ class Analitica extends ModelBase {
 	 * Devuelve el número total de visitas en las últimas 24 horas
 	 *
 	 * @param number $cantidad
+	 *        Cantidad
+	 * @param string $cuando
+	 *        HOY o AYER. Default: HOY
 	 */
-	public static function getTotalVisitasPorHora($cantidad = 24) {
+	public static function getTotalVisitasPorHora($cantidad = 24, $cuando = Utils::HOY) {
+		if ($cuando == Utils::HOY) {
+			$cuandoQuery = 'date(now())';
+			$cuandoAlias = 'totales_hora_hoy';
+		} elseif ($cuando == Utils::AYER) {
+			$cuandoQuery = 'date(now())-1';
+			$cuandoAlias = 'totales_hora_ayer';
+		}
 		global $wpdb;
-		$query = "SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  'totales_hora' AS tipo
+		$query = "SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  '$cuandoAlias' AS tipo
 				FROM wp_seguimientos_horas sh, wp_seguimientos s
 				WHERE sh.seguimiento_id = s.ID
 					and LOWER(s.user_agent) not like '%bot%'
 					and LOWER(s.user_agent) not like '%feed%'
-					and date(sh.created_at) = date(now())
+					and date(sh.created_at) = $cuandoQuery
 				GROUP BY hora
 				ORDER BY hora
 				LIMIT " . $cantidad;
@@ -264,17 +274,27 @@ class Analitica extends ModelBase {
 	 * Devuelve el número total de visitas únicas entre user/post en las últimas 24 horas
 	 *
 	 * @param number $cantidad
+	 *        Cantidad
+	 * @param string $cuando
+	 *        HOY o AYER. Default: HOY
 	 */
-	public static function getUnicasVisitasPorHora($cantidad = 24) {
+	public static function getUnicasVisitasPorHora($cantidad = 24, $cuando = Utils::HOY) {
+		if ($cuando == Utils::HOY) {
+			$cuandoQuery = 'date(now())';
+			$cuandoAlias = 'unicas_hora_hoy';
+		} elseif ($cuando == Utils::AYER) {
+			$cuandoQuery = 'date(now())-1';
+			$cuandoAlias = 'unicas_hora_ayer';
+		}
 		global $wpdb;
-		$query = "SELECT b.hora, COUNT( b.total ) total,  'unicas_hora' AS tipo
+		$query = "SELECT b.hora, COUNT( b.total ) total,  '$cuandoAlias' AS tipo
 				FROM (
 					SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total
 					FROM wp_seguimientos_horas sh, wp_seguimientos s
 					WHERE sh.seguimiento_id = s.ID
 						and LOWER(s.user_agent) not like '%bot%'
 						and LOWER(s.user_agent) not like '%feed%'
-						and date(sh.created_at) = date(now())
+						and date(sh.created_at) = $cuandoQuery
 					GROUP BY hora, s.post_id
 					ORDER BY hora
 				) b

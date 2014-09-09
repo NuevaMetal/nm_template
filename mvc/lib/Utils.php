@@ -16,6 +16,10 @@ class Utils {
 
 	const BORRADO = 1;
 
+	const HOY = 'hoy';
+
+	const AYER = 'ayer';
+
 	const TIPO_TAG = 'tag';
 
 	const TIPO_CATEGORY = 'category';
