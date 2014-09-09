@@ -278,16 +278,16 @@ $(document).on('mouseleave', '.redes-sociales a', function(e) {
 /**
  * Animar el avatar del menú gris<->rojo
  */
-$(document).on('mouseover', '.navbar-brand img', function(e) {
+$(document).on('mouseover', '.navbar-brand img, .navbar-collapse', function(e) {
 	e.preventDefault();
-	var imgUrl = $(this).attr('src').replace('_gris.jpg', '.jpg')
-	$(this).attr('src', imgUrl);
+	var imgUrl = $('.navbar-brand img').attr('src').replace('_gris.jpg', '.jpg')
+	$('.navbar-brand img').attr('src', imgUrl);
 });
 
-$(document).on('mouseleave', '.navbar-brand img', function(e) {
+$(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) {
 	e.preventDefault();
-	var imgUrl = $(this).attr('src').replace('.jpg', '_gris.jpg')
-	$(this).attr('src', imgUrl);
+	var imgUrl = $('.navbar-brand img').attr('src').replace('.jpg', '_gris.jpg')
+	$('.navbar-brand img').attr('src', imgUrl);
 });
 
 /**
