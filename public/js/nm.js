@@ -154,15 +154,16 @@ $(document).on('click', '.mostrar-menos', function(e) {
 	var cant = $(posts).children('.cant').text();
 	var size = $(seccion).children().size();
 	var que = $(this).attr('mostrar-menos');
+	// Hacer scroll hasta el header de su sección
+	$('html,body').animate({
+		scrollTop :  $('#'+que+'.seccion-posts').offset().top-30
+	}, 'slow');
 	// Sólo mostrar menos si hay menos de cant
 	if (size > cant) {
 		for(i=0; i<size-cant; i++) {
 			$(seccion).find('.post').last().remove();
 		}
 	}
-	$('html,body').animate({
-		scrollTop :  $('#'+que).offset().top-30
-	}, 'slow');
 });
 
 
@@ -193,6 +194,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		dataType : "json",
 		beforeSend: function() {
 			$(posts).find('.fa-spin').removeClass('hidden');
+			$(posts).find('.icono-mas').addClass('hidden');
 			$this.attr("disabled", true);
 		},
 		success : function(json) {
@@ -200,6 +202,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 				$(seccion).append(json.content);
 			}
 			$(posts).find('.fa-spin').addClass('hidden');
+			$(posts).find('.icono-mas').removeClass('hidden');
 			$this.attr("disabled", false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
