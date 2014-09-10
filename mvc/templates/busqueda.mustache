@@ -1,12 +1,10 @@
-<section id="busqueda" class="text-center">
-	{{#seccion}}
-		{{#url}}
-			<a href="{{url}}">
-				<div class="header-seccion">
-					<img src="{{template_url}}/public/img/{{seccion}}.jpg" alt="{{#transu}}{{seccion}}{{/transu}}"/>
-				</div>
-			</a>
-		{{/url}}
+{{#seccion}}
+	<div id="{{seccion}}" class="col-xs-12 seccion-posts ">
+		{{#url}}<a href="{{url}}">{{/url}}
+			<div class="header-seccion">
+				<img src="{{template_url}}/public/img/{{imagen}}.jpg"/> {{#header}}<span class="titular">{{header}} <span>{{/header}}
+			</div>
+		{{#url}}</a>{{/url}}
 		{{>home/_seccion}}
-	{{/seccion}}
-</section>
+	</div>
+{{/seccion}}

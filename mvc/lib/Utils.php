@@ -24,6 +24,8 @@ class Utils {
 
 	const TIPO_CATEGORY = 'category';
 
+	const TIPO_SEARCH = 'search';
+
 	const ME_GUSTA = "me-gusta";
 
 	const NOTIFICAR = "notificar";

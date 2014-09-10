@@ -82,13 +82,14 @@ class HomeController extends BaseController {
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getSeccion($seccion, $cant = 4, $args = [], $otherParams = []) {
-		$cat = get_cat_ID($seccion);
-		$args ['url'] = get_category_link($cat);
-		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
+		$args ['imagen'] = strtolower($seccion);
 		$args ['seccion'] = strtolower($seccion);
+		$args ['a_buscar'] = strtolower($seccion);
+		$args ['url'] = get_category_link(get_cat_ID($seccion));
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
+		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
 		return $args;
 	}
 
@@ -103,12 +104,41 @@ class HomeController extends BaseController {
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getTags($seccion, $cant = 4, $args = [], $otherParams = []) {
-		$args ['header'] = ucfirst($seccion);
-		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
-		$args ['seccion'] = $seccion;
+		$args ['imagen'] = 'noimage';
+		$args ['seccion'] = 'busqueda';
+		$args ['a_buscar'] = strtolower($seccion);
+		$args ['header'] = I18n::trans('resultado_tag', [
+			'que' => $seccion
+		]);
+		$args ['url'] = get_tag_link($cat);
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_TAG;
 		$args ['template_url'] = get_template_directory_uri();
+		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
+		return $args;
+	}
+
+	/**
+	 * Devuelve una sección en base a una categoría o etiqueta
+	 *
+	 * @param string $seccion
+	 *        Nombre de la categoría de la que sacar la sección
+	 * @param number $cant
+	 *        Cantidad de entradas a obtener
+	 * @param array $args
+	 *        Lista de parámetros opcionales para la vista de post
+	 */
+	public static function getBusqueda($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+		$args ['imagen'] = 'noimage';
+		$args ['seccion'] = 'busqueda';
+		$args ['a_buscar'] = $aBuscar;
+		$args ['header'] = I18n::trans('resultado_busqueda', [
+			'que' => $aBuscar
+		]);
+		$args ['cant'] = $cant;
+		$args ['tipo'] = Utils::TIPO_SEARCH;
+		$args ['template_url'] = get_template_directory_uri();
+		$args ['posts'] = self::getPostsBySearch($aBuscar, $cant, [], $otherParams);
 		return $args;
 	}
 
@@ -129,6 +159,10 @@ class HomeController extends BaseController {
 		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings, $otherParams);
 	}
 
+	public static function getPostsBySearch($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+		return self::getPostsBy(Utils::TIPO_SEARCH, $seccion, $max, $moreQuerySettings, $otherParams);
+	}
+
 	/**
 	 * Devuelve un número determinado de posts en base al ID de su categoría
 	 *
@@ -139,16 +173,15 @@ class HomeController extends BaseController {
 	 * @return multitype:
 	 */
 	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		if ($tipo == 'tag') {
-			$catId = Utils::getTagIdbyName($seccion);
-			$moreQuerySettings ['tag_id'] = "$catId";
-		} else {
+		if ($tipo == Utils::TIPO_TAG) {
+			$tagId = Utils::getTagIdbyName($seccion);
+			$moreQuerySettings ['tag_id'] = "$tagId";
+		} elseif ($tipo == Utils::TIPO_CATEGORY) {
 			$catId = get_cat_ID($seccion);
 			$moreQuerySettings ['cat'] = "$catId";
+		} elseif ($tipo == Utils::TIPO_SEARCH) {
+			$moreQuerySettings ['s'] = "$seccion";
 		}
-		/*
-		 * $otherParams = [ 'cant_title_corto' => 8, 'cant_excerpt' => 8 ];
-		 */
 		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings, $otherParams);
 	}
 

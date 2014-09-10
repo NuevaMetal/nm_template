@@ -36,7 +36,6 @@ class PageController extends BaseController {
 		$seccion = HomeController::getSeccion($current_category, 4);
 
 		$content = $this->render('busqueda', [
-			'header' => "Categoría '$current_category'",
 			'seccion' => $seccion
 		]);
 
@@ -100,13 +99,10 @@ class PageController extends BaseController {
 	 * search.php
 	 */
 	public function getSearch() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$search_query = get_search_query();
-
-		$content = $this->_renderBusqueda([
-			'header' => "Resultado de la búsqueda '$search_query'",
-			'posts' => $posts
-		]);
+		// Obtenemos los argumentos necesarios para pintarla y pintamos el content
+		$args = HomeController::getBusqueda($search_query, 4);
+		$content = $this->_renderBusqueda($args);
 		return $this->_renderPageBase([
 			'content' => $content
 		]);

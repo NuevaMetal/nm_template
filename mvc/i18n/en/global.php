@@ -59,6 +59,7 @@ return [
 	'me_gusta' => 'like',
 	'mostrar_mas' => 'show more',
 
+	'no_hay_resultados' => 'results not found',
 	'noticias' => 'news',
 	'nueva_entrada' => 'new post',
 
@@ -82,6 +83,8 @@ return [
 	'reportar' => 'report',
 	'reportar_entrada' => 'report this post: :titulo',
 	'reportar_info' => 'Report links or fallen videos for this post.',
+	'resultado_busqueda' => 'Search results by \':que\' ',
+	'resultado_tag' => 'Search by \':que\' tag',
 
 	'salir' => 'exit',
 	'secciones' => 'sections',

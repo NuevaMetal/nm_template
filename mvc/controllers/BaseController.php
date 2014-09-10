@@ -78,7 +78,6 @@ abstract class BaseController extends ChesterBaseController {
 		// 		$args ['menuPerfil'] = $menuPerfil;
 		// 		$args ['menuFooter'] = $menuFooter;
 
-
 		$args ['current_user'] = $current_user;
 		$args ['template_url'] = $template_url;
 		$args ['blog_name'] = get_bloginfo('name');
@@ -107,7 +106,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['next_posts_link'] = $next_posts_link;
 		$args ['previous_posts_link'] = $previous_posts_link;
 
-		return $this->render('busqueda_chester', $args);
+		return $this->render('busqueda', $args);
 	}
 
 }

@@ -211,6 +211,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			 + ",\n thrownError "+thrownError);
 			$this.addClass("hidden");
+			$(posts).find('.mostrar-menos').addClass('hidden');
 	     }
 	});
 });

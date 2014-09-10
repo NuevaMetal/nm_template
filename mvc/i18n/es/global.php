@@ -57,11 +57,11 @@ return [
 	'leer_menos' => 'leer menos',
 	'leer_menos_movil' => 'menos',
 
-
 	'mas' => 'más',
 	'me_gusta' => 'me gusta',
 	'mostrar_mas' => 'mostrar menos',
 
+	'no_hay_resultados' => 'no se encontraron resultados',
 	'noticias' => 'noticias',
 	'nueva_entrada' => 'escribir',
 
@@ -85,6 +85,8 @@ return [
 	'reportar' => 'reportar',
 	'reportar_entrada' => 'Reportar esta entrada :titulo',
 	'reportar_info' => 'Reportar enlaces o vídeos caídos para esta entrada.',
+	'resultado_busqueda' => 'Resultados de la búsqueda: \':que\' ',
+	'resultado_tag' => 'Resultados con la etiqueta \':que\' ',
 
 	'salir' => 'salir',
 	'secciones' => 'secciones',
