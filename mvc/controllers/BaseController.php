@@ -109,4 +109,8 @@ abstract class BaseController extends ChesterBaseController {
 		return $this->render('busqueda', $args);
 	}
 
+	protected function _renderAutor($args = []) {
+		return $this->render('autor', $args);
+	}
+
 }

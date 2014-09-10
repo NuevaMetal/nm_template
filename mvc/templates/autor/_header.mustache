@@ -1,0 +1,35 @@
+<div class="post-meta page-header col-xs-12">
+
+	<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+		<h2>
+		<div class="col-xs-12 col-sm-8" >
+			<span itemprop="image">{{{user_avatar}}}</span>
+			<a href="{{user_posts_url}}" itemprop="name">{{display_name}}</a>
+			<small itemprop="jobTitle">{{user_rol}}</small>
+		</div>
+		</h2>
+		{{#user_url}}
+		<div class="col-sm-4">
+			{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-default">
+				<i class="fa fa-edit"></i>{{#transu}}user.editar_perfil{{/transu}}</a>
+			{{/edit_user_link}}
+			{{#user_url}}<a class="btn btn-default btn-md" role="button" href="{{user_url}}" target="_blank">
+				<i class="fa fa-globe"></i>{{#transu}}web{{/transu}}</a>
+			{{/user_url}}
+		</div>
+		{{/user_url}}
+		<div class="col-xs-12">
+			<blockquote>
+				{{#description}}
+					<small>{{#transu}}biografia{{/transu}}</small>
+				{{/description}}
+				<p itemprop="description">
+					{{description}}
+					{{^description}}
+						{{#transu}}user.no_hay_info_perfil{{/transu}}
+					{{/description}}
+				</p>
+			</blockquote>
+		</div>
+	</div>
+</div>

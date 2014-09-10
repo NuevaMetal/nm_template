@@ -78,6 +78,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
 		} else if ($tipo == Utils::TIPO_SEARCH) {
 			$posts = $homeController->getPostsBySearch($que, $cant, $moreQuerySettings);
+		} else if ($tipo == Utils::TIPO_AUTHOR) {
+			$posts = $homeController->getPostsByAuthor($que, $cant, $moreQuerySettings);
 		}
 
 		foreach ($posts as &$p) {

@@ -26,6 +26,8 @@ class Utils {
 
 	const TIPO_SEARCH = 'search';
 
+	const TIPO_AUTHOR = 'author';
+
 	const ME_GUSTA = "me-gusta";
 
 	const NOTIFICAR = "notificar";

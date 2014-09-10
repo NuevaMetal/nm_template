@@ -142,6 +142,20 @@ class HomeController extends BaseController {
 		return $args;
 	}
 
+	public static function getAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+		$args ['imagen'] = 'noimage';
+		$args ['seccion'] = 'autor';
+		$args ['a_buscar'] = $aBuscar;
+		// 		$args ['header'] = I18n::trans('resultado_busqueda', [
+		// 			'que' => $aBuscar
+		// 		]);
+		$args ['cant'] = $cant;
+		$args ['tipo'] = Utils::TIPO_AUTHOR;
+		$args ['template_url'] = get_template_directory_uri();
+		$args ['posts'] = self::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
+		return $args;
+	}
+
 	/**
 	 * Devuelve un número determinado de posts en base al ID de su categoría
 	 *
@@ -159,8 +173,12 @@ class HomeController extends BaseController {
 		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings, $otherParams);
 	}
 
-	public static function getPostsBySearch($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		return self::getPostsBy(Utils::TIPO_SEARCH, $seccion, $max, $moreQuerySettings, $otherParams);
+	public static function getPostsBySearch($aBuscar, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings, $otherParams);
+	}
+
+	public static function getPostsByAuthor($autor_id, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+		return self::getPostsBy(Utils::TIPO_AUTHOR, $autor_id, $max, $moreQuerySettings, $otherParams);
 	}
 
 	/**
@@ -181,6 +199,8 @@ class HomeController extends BaseController {
 			$moreQuerySettings ['cat'] = "$catId";
 		} elseif ($tipo == Utils::TIPO_SEARCH) {
 			$moreQuerySettings ['s'] = "$seccion";
+		} elseif ($tipo == Utils::TIPO_AUTHOR){
+			$moreQuerySettings['author'] = $seccion;
 		}
 		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings, $otherParams);
 	}
