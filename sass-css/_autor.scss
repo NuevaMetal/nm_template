@@ -4,7 +4,6 @@
 		@extend %ul-inline;
 		.tags {
 			padding-left: 0;
-			//border: 1px solid red;
 			ul {
 				padding-left: 0;
 			}
@@ -23,12 +22,11 @@
 				@include col(lg) {
 					height: 170px;
 				}
+			}			
+			.caption {
+    			margin-top: 0;
+							
 			}
-			/*@include col(lg) {
-				overflow: hidden;
-    			white-space: nowrap;
-    			height: 215px;
-			}*/
 			.post-fav {
 				padding: 0px;
 				.titular {
