@@ -6,6 +6,10 @@ require_once 'ModelBase.php';
  *
  */
 class User extends ModelBase {
+
+	const NUM_FAV_PERFIL_DEFAULT = 4;
+
+	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 	public static $table = "users";
 
 	/**
@@ -20,7 +24,7 @@ class User extends ModelBase {
 	 *
 	 * @return array
 	 */
-	public function getArrayEtiquetasFavoritas() {
+	public function getArrayEtiquetasFavoritas($cant = false) {
 		$favoritos = $this->getFavoritos();
 		$tags = [];
 		foreach ($favoritos as $f) {
@@ -39,6 +43,10 @@ class User extends ModelBase {
 			return $a ['total'] < $b ['total'];
 		});
 
+		if ($cant) {
+			return array_slice($tags, 0, $cant);
+		}
+
 		return $tags;
 	}
 
@@ -49,7 +57,7 @@ class User extends ModelBase {
 	 *        Identificador del usuario
 	 * @return array<Favorito>
 	 */
-	public function getFavoritos() {
+	public function getFavoritos($cant = false) {
 		global $wpdb;
 		$status = Favorito::ACTIVO;
 		$tabla = $wpdb->prefix . Favorito::$table;
@@ -57,7 +65,10 @@ class User extends ModelBase {
 		$queryPostId = "SELECT post_id FROM $tabla
 						WHERE status = $status
 						AND user_id = $user_id
-						ORDER BY updated_at desc";
+						ORDER BY updated_at desc ";
+		if ($cant && is_numeric($cant)) {
+			$queryPostId .= ' LIMIT ' . $cant;
+		}
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
@@ -66,8 +77,14 @@ class User extends ModelBase {
 		return $posts;
 	}
 
-	public function getFavoritosAgrupados() {
-		$todosFavoritos = $this->getFavoritos();
+	/**
+	 * Devuelve
+	 *
+	 * @param string $cant
+	 * @return Ambigous <multitype:multitype: , unknown>
+	 */
+	public function getFavoritosAgrupados($cant = false) {
+		$todosFavoritos = $this->getFavoritos($cant);
 		$favoritos = [];
 		foreach ($todosFavoritos as $k => $f) {
 			$cat_name = strtolower(Post::getCategoryName($f ['post_id']));

@@ -22,7 +22,7 @@ class AutorController extends BaseController {
 			'nombre' => $user->display_name
 		]);
 
-		$tagFav = $user->getArrayEtiquetasFavoritas();
+		$tagFav = $user->getArrayEtiquetasFavoritas(User::NUM_ETI_FAV_PERFIL_DEFAULT);
 		$args = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = [
 			'user_avatar' => get_avatar($author_id),
@@ -36,8 +36,7 @@ class AutorController extends BaseController {
 			'total_fav_dados' => $user->getCountFavoritos(),
 			'total_fav_recibidos' => '?',
 			'the_tags' => $tagFav,
-			'has_tags' => count($tagFav),
-			'favoritos' => $user->getFavoritos()
+			'favoritos' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT)
 		];
 		$content = $this->_renderAutor($args);
 

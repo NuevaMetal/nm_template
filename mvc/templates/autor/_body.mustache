@@ -2,16 +2,14 @@
 	<h2 class="titular">Esdísticas varias</h2>
 	
 	<div class="col-xs-6">
-		<h4 class="titular">Favoritos dados: </h4>
-		{{total_fav_dados}}	
+		<h4 class="titular">Favoritos dados: {{total_fav_dados}}</h4>		
 	</div>
 	<div class="col-xs-6">
-		<h4 class="titular">Favoritos recibidos: </h4>
-		{{total_fav_recibidos}}	
+		<h4 class="titular">Favoritos recibidos: {{total_fav_recibidos}}</h4>		
 	</div>
-		
-	{{#has_tags}}
-	<div class="col-xs-12">
+	
+	{{#total_fav_dados}}
+	<div class="col-xs-12 col-sm-6">
 		<h4 class="titular">Etiquetas destacadas en base a sus favoritos: </h4>			
 		<ul class="tags">
 	        {{#the_tags}}
@@ -19,13 +17,14 @@
 	        {{/the_tags}}
 	    </ul>		
 	</div>
-	{{/has_tags}}
-	<div class="col-xs-12">
-		<h4 class="titular">Favoritos: </h4>
+	{{/total_fav_dados}}
+	
+	<div class="col-xs-12  col-sm-6">
+		<h4 class="titular">Últimos favoritos: </h4>
 		<ul>
 		{{#favoritos}}
-			<li class="col-xs-12 col-sm-6" ><a href="{{permalink}}">{{{title_corto}}}</a></li>
+			{{> autor/_post_fav }}
 		{{/favoritos}}
-		</ul>			
+		</ul>
 	</div>
 </div>
