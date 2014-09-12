@@ -1,28 +1,25 @@
 <div class="body col-xs-12">	
-	<div class="col-xs-12 col-sm-6 col-md-8">
+	<div class="col-xs-12 col-sm-6 col-md-4">
 		<h4 class="titular">Favoritos dados: {{total_fav_dados}}</h4>		
 	</div>
-	
-	<div class="col-xs-12 col-sm-6 col-md-4">
+	<div class="col-xs-12 col-sm-6 col-md-8">
 		<h4 class="titular">Favoritos recibidos: {{total_fav_recibidos}}</h4>		
 	</div>
-
-	<h4 class="titular col-xs-12 col-sm-6 col-md-8">Últimos favoritos dados: </h4>
-	<h4 class="titular col-sm-6 col-md-4 hidden-xs">Etiquetas destacadas: </h4>
-
-	<div class="ultimos-favoritos col-xs-12 col-sm-6 col-md-8 ">
-		{{> autor/_seccion_fav}}
-	</div>
-
+	
 	{{#total_fav_dados}}
-	<div class="col-xs-12 col-sm-6 col-md-4 etiquetas-favoritos">
-		<h4 class="titular visible-xs">Etiquetas destacadas: </h4>			
-		<ul class="tags">
+	<div class="col-xs-12 ">
+		<h4 class="titular">Etiquetas destacadas: </h4>			
+		<ul class="tags text-center">
 	        {{#the_tags}}
 	        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
 	        {{/the_tags}}
 	    </ul>		
 	</div>
 	{{/total_fav_dados}}
+		
+	<h4 class="ultimos-favoritos-dados titular col-xs-12 ">Últimos favoritos dados: </h4>
+	<div class="ultimos-favoritos ">
+		{{> autor/_seccion_fav}}
+	</div>
 	
 </div>

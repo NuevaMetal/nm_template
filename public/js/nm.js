@@ -158,9 +158,16 @@ $(document).on('click', '.mostrar-menos', function(e) {
 	var size = $(seccion).children().size();
 	var que = $(this).attr('mostrar-menos');
 	// Hacer scroll hasta el header de su sección
-	$('html,body').animate({
-		scrollTop :  $('#'+que+'.seccion-posts').offset().top-30
-	}, 'slow');
+	console.log('isnan: '+isNaN(que))
+	if(isNaN(que)) {
+		$('html,body').animate({
+			scrollTop: $('#'+que+'.seccion-posts').offset().top-30
+		}, 'slow');
+	} else {
+		$('html,body').animate({
+			scrollTop: $('.ultimos-favoritos-dados').offset().top-30
+		}, 'slow');
+	}
 	// Sólo mostrar menos si hay menos de cant
 	if (size > cant) {
 		for(i=0; i<size-cant; i++) {
