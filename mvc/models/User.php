@@ -11,7 +11,7 @@ class User extends ModelBase {
 	/**
 	 * Número de post favoritos a mostrar en su perfil
 	 */
-	const NUM_FAV_PERFIL_DEFAULT = 4;
+	const NUM_FAV_PERFIL_DEFAULT = 2;
 
 	/**
 	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
@@ -59,11 +59,11 @@ class User extends ModelBase {
 	/**
 	 * Devuelve la lista de todos los favoritos de un User
 	 *
-	 * @param integer $user_id
-	 *        Identificador del usuario
-	 * @return array<Favorito>
+	 * @param number $limit
+	 * @param number $offset
+	 * @return multitype:multitype:
 	 */
-	public function getFavoritos($cant = false) {
+	public function getFavoritos($limit = false, $offset = false) {
 		global $wpdb;
 		$status = Favorito::ACTIVO;
 		$tabla = $wpdb->prefix . Favorito::$table;
@@ -72,8 +72,11 @@ class User extends ModelBase {
 						WHERE status = $status
 						AND user_id = $user_id
 						ORDER BY updated_at desc ";
-		if ($cant && is_numeric($cant)) {
-			$queryPostId .= ' LIMIT ' . $cant;
+		if ($limit) {
+			$queryPostId .= ' LIMIT ' . $limit;
+		}
+		if ($offset) {
+			$queryPostId .= ' OFFSET ' . $offset;
 		}
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];

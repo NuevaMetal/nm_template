@@ -80,6 +80,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$posts = $homeController->getPostsBySearch($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_AUTHOR) {
 			$posts = $homeController->getPostsByAuthor($que, $cant, $moreQuerySettings);
+		} else if ($tipo == Utils::TIPO_AUTHOR_FAV) {
+			$user = User::find($que);
+			$posts = $user->getFavoritos($cant, $offset);
 		}
 
 		foreach ($posts as &$p) {
@@ -88,11 +91,17 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$p ['excerpt'] = sanearString($p ['excerpt']);
 		}
 
-		$content = $this->render('home/_posts', [
-			'posts' => $posts,
-			'reducido' => ($cant == 2) ? true : false
-		]);
-
+		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
+			$content = $this->render('autor/_favoritos', [
+				'posts' => $posts,
+				'reducido' => ($cant == 2) ? true : false
+			]);
+		} else {
+			$content = $this->render('home/_posts', [
+				'posts' => $posts,
+				'reducido' => ($cant == 2) ? true : false
+			]);
+		}
 		if (in_array($que, [
 			Utils::CATEGORIA_ENTREVISTAS,
 			Utils::CATEGORIA_NOTICIAS,

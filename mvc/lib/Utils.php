@@ -28,6 +28,8 @@ class Utils {
 
 	const TIPO_AUTHOR = 'author';
 
+	const TIPO_AUTHOR_FAV = 'author-fav';
+
 	const ME_GUSTA = "me-gusta";
 
 	const NOTIFICAR = "notificar";

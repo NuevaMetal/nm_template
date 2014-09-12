@@ -1,0 +1,15 @@
+<div class="post-fav col-xs-6 col-sm-12 col-md-6 " >
+	<div class="thumbnail">
+		<a href="{{permalink}}" title="{{{title}}}">
+			{{#featured_image_url_medium}}
+				<img class="img-responsive" src="{{featured_image_url_medium}}" />
+			{{/featured_image_url_medium}}
+			{{^featured_image_url_medium}}
+				<img class="img-responsive sin-thumbnail"/>
+			{{/featured_image_url_medium}}
+		</a>
+    </div>
+    <h2 class="post-title titular">
+		<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
+    </h2>
+</div>

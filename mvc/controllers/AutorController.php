@@ -22,7 +22,7 @@ class AutorController extends BaseController {
 			'nombre' => $user->display_name
 		]);
 
-		$args = self::_getArrayPostsAutor($author_id, 4);
+		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = [
 			'user_avatar' => get_avatar($author_id),
 			'user_url' => get_the_author_meta('user_url'),
@@ -35,7 +35,13 @@ class AutorController extends BaseController {
 			'total_fav_dados' => $user->getCountFavoritos(),
 			'total_fav_recibidos' => $user->getCountFavoritosRecibidos(),
 			'the_tags' => $user->getArrayEtiquetasFavoritas(User::NUM_ETI_FAV_PERFIL_DEFAULT),
-			'favoritos' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT)
+			'favoritos' => [
+				'a_buscar' => $user->ID,
+				'cant' => User::NUM_FAV_PERFIL_DEFAULT,
+				'tipo' => Utils::TIPO_AUTHOR_FAV,
+				'posts' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT),
+				'template_url' => get_template_directory_uri()
+			]
 		];
 		$content = $this->_renderAutor($args);
 
