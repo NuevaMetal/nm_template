@@ -1,5 +1,39 @@
-<div class="post-fav col-xs-6 col-sm-12 col-md-6 " >
+<article class="post-fav col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" 
+	itemscope itemType="http://schema.org/BlogPosting">
+
 	<div class="thumbnail">
+		<div class="info titular">
+	    	<span class="post-time">{{time}} </span>
+		    {{#trans}}por{{/trans}} <span class="post-author">{{{author}}} </span>
+		</div>
+        <div class="caption text-left">
+		{{# total_me_gustas }}
+			<span class="total-me-gustas titular">
+				<i class=" fa fa-star"></i> <span class="cant">{{ total_me_gustas }}</span>
+			</span>
+		{{/ total_me_gustas }}
+
+		{{# analitica }}
+		<a href="{{permalink}}" title="{{{title}}}">
+			<div class="analitica">
+				{{#visitas_totales}}
+				<span class=" total-visitas">
+					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
+					<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
+				</span>
+				{{/visitas_totales}}
+	
+				{{#visitas_user}}
+				<span class=" unicas-por-user">
+					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
+					<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
+				</span>
+				{{/visitas_user}}
+			</div>
+		</a>
+		{{/ analitica }}
+
+        </div>
 		<a href="{{permalink}}" title="{{{title}}}">
 			{{#featured_image_url_medium}}
 				<img class="img-responsive" src="{{featured_image_url_medium}}" />
@@ -11,5 +45,5 @@
     </div>
     <h2 class="post-title titular">
 		<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
-    </h2>
-</div>
+    </h2>	
+</article>

@@ -41,9 +41,12 @@ function seHaceScroll(){
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var flag = (documentHeight - windowHeight)-scroll;
 	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
-	if( $('.mostrar-mas').size() == 1 && noHayspin && flag <= 650) {
+	var sePuede = noHayspin && flag <= 650;
+	if( $('.mostrar-mas').size() == 1 && sePuede) {
 		$('.mostrar-mas').trigger('click');
-	}	
+	} else if($('#autor .mostrar-mas').size() == 1 && sePuede){
+		$('#autor .mostrar-mas').trigger('click');
+	}
 }
 /**
  * Cuando se hace scroll y se deja de ver el header
