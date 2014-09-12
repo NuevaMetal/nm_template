@@ -6,11 +6,17 @@ require_once 'ModelBase.php';
  *
  */
 class User extends ModelBase {
+	public static $table = "users";
 
+	/**
+	 * Número de post favoritos a mostrar en su perfil
+	 */
 	const NUM_FAV_PERFIL_DEFAULT = 4;
 
+	/**
+	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
+	 */
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
-	public static $table = "users";
 
 	/**
 	 * Devuelve el número total de posts publicados por el User
@@ -114,6 +120,25 @@ class User extends ModelBase {
 		return ( int ) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE user_id = $this->ID AND status = $activo;");
+	}
+
+	/**
+	 * Devuelve el número total de favoritos que han recibido sus entradas
+	 *
+	 * @return string
+	 */
+	public function getCountFavoritosRecibidos() {
+		global $wpdb;
+		$activo = Favorito::ACTIVO;
+		return ( int ) $wpdb->get_var("SELECT SUM( p.totales )
+			FROM (
+				SELECT COUNT(ids.ID) as totales FROM wp_favoritos f,
+					(SELECT ID FROM wp_posts
+					where post_author = $this->ID) ids
+				where f.post_id = ids.ID
+				AND f.status = $activo
+				GROUP BY f.user_id
+			) p");
 	}
 
 }
