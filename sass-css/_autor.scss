@@ -10,11 +10,15 @@
 			}
 		}
 		
+		.etiquetas-favoritos {
+			text-align: center;
+		}
+		
 		.ultimos-favoritos{
 			img {
-				height: 65px; //xs
+				height: 100px; //xs
 				@include col(sm) {
-					height: 85px;	
+					height: 90px;	
 				}
 				@include col(lg) {
 					height: 170px;
@@ -30,6 +34,7 @@
 				.titular {
 					font-size: 16px;
 					overflow: hidden;
+					text-align: center;
     				white-space: nowrap;
 				}
 			}
