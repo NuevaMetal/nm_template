@@ -1,6 +1,4 @@
-<div class="body col-xs-12">
-	<h2 class="titular">Esdísticas varias</h2>
-	
+<div class="body col-xs-12">	
 	<div class="col-xs-6">
 		<h4 class="titular">Favoritos dados: {{total_fav_dados}}</h4>		
 	</div>
@@ -9,7 +7,7 @@
 	</div>
 	
 	{{#total_fav_dados}}
-	<div class="col-xs-12 col-sm-6 etiquetas-favoritos">
+	<div class="col-xs-12 col-sm-6 col-md-4 etiquetas-favoritos">
 		<h4 class="titular">Etiquetas destacadas en base a sus favoritos: </h4>			
 		<ul class="tags">
 	        {{#the_tags}}
@@ -19,12 +17,26 @@
 	</div>
 	{{/total_fav_dados}}
 	
-	<div class="col-xs-12 col-sm-6 ultimos-favoritos">
+	<div class="col-xs-12 col-sm-6 ">
 		<h4 class="titular">Últimos favoritos: </h4>
-		<ul>
-		{{#favoritos}}
-			{{> autor/_post_fav }}
-		{{/favoritos}}
-		</ul>
+	</div>
+	<div class="ultimos-favoritos">
+	{{#favoritos}}
+		<div class="post-fav col-xs-6 col-md-4" >
+			<div class="thumbnail">
+				<a href="{{permalink}}" title="{{{title}}}">
+					{{#featured_image_url_medium}}
+						<img class="img-responsive" src="{{featured_image_url_medium}}" />
+					{{/featured_image_url_medium}}
+					{{^featured_image_url_medium}}
+						<img class="img-responsive sin-thumbnail"/>
+					{{/featured_image_url_medium}}
+				</a>
+		    </div>
+		    <h2 class="post-title titular">
+				<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
+		    </h2>
+		</div>
+	{{/favoritos}}		
 	</div>
 </div>
