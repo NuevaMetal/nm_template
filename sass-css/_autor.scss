@@ -1,21 +1,29 @@
 .autor {
 
 	.body {
-		//border: 1px solid yellow;
 		@extend %ul-inline;
 		.tags {
 			padding-left: 0;
 			//border: 1px solid red;
 			ul {
-				//border: 1px solid green;	
 				padding-left: 0;
 			}
 		}
 		
 		.ultimos-favoritos{
 			img {
-				//border: 1px solid green;
-				height: 62px;
+				height: 65px; //xs
+				@include col(sm) {
+					height: 85px;	
+				}
+				@include col(lg) {
+					height: 170px;
+				}
+			}
+			@include col(lg) {
+				overflow: hidden;
+    			white-space: nowrap;
+    			height: 215px;
 			}
 			margin: 0px;
 			.post-fav {
