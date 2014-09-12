@@ -61,8 +61,8 @@ abstract class ModelBase {
 		foreach ($object as $c => $val) {
 			$a->$c = $val;
 		}
-		$result [] = $a;
-		return $result;
+		//$result [] = $a;
+		return $a;
 	}
 
 	/**

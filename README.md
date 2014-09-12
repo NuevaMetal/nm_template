@@ -1,29 +1,29 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Qué es este repositorio ###
 
-### What is this repository for? ###
+* Tema oficial de la app web NuevaMetal
+* 1.1.0
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Preparar el entorno ###
 
-### How do I get set up? ###
+* Instalar ruby y compass
+	sudo apt-get install ruby
+	sudo gem update --system
+	sudo apt-get install ruby1.9.1-dev
+	sudo gem install compass
+	sudo gem install rake
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Una vez instalado compass ya podrías compilar el scss situándote dentro del d
+	/nm_template $> rake watch_scss
+	
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+### Modo de trabajo ###
 
-### Who do I talk to? ###
+* Rama en local
+Se trabaja sobre una rama en local, y cuando esté la tarea lista se debe hacer un
+merge --squash sobre la rama de desarrollo 'dev' para finalmente dejar un solo commmit.
+Una vez probado en dev y asegurándonos de que todo está bien entonces se podrá hacer un merge
+con master para subirlo a producción.
 
-* Repo owner or admin
-* Other community or team contact

@@ -62,38 +62,7 @@ class PageController extends BaseController {
 		]);
 	}
 
-	/**
-	 * tag.php
-	 */
-	public function getAuthor() {
-// 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-		$author_id = get_the_author_meta('ID');
-		$author_name = get_the_author($author_id);
-		$user_post_count = count_user_posts($author_id);
 
-		$header = I18n::transu('entradas_de', [
-			'nombre' => $author_name
-		]);
-
-		$entradas = I18n::trans('entradas');
-
-		$argsHeader = [
-			'user_avatar' => get_avatar($author_id, 36),
-			'user_url' => get_the_author_meta('user_url'),
-			'display_name' => get_the_author_meta('display_name'),
-			'description' => get_the_author_meta('description'),
-			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false,
-			'header' => "$header ($user_post_count $entradas)"
-		];
-
-		$args = HomeController::getAutor($author_id, 4);
-		$args['header'] = $argsHeader;
-		$content = $this->_renderAutor($args);
-
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
 
 	/**
 	 * search.php

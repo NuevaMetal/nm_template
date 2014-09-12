@@ -55,11 +55,12 @@ class FavoritosController extends BaseController {
 	 */
 	public function getIndex() {
 		$current_user = wp_get_current_user();
-		$favoritos = Favorito::getFavoritosByUserId($current_user->ID);
+		$user = User::find($current_user->ID);
+		$favoritos = $user->getFavoritosAgrupados();
 
 		$content = $this->render('plugin/favoritos', [
 			'current_user' => $current_user,
-			'total' => Utils::getTotalMeGustas($current_user->ID),
+			'total' => $user->getCountFavoritos(),
 			'favoritos' => $favoritos,
 			'favoritos_tab' => self::_parseaSecciones(array_keys($favoritos))
 		]);

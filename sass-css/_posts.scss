@@ -77,9 +77,6 @@
 			@include inline-block;
 		}
 	}
-	.tags {
-		@include sombreado-color(#ddd, #222);
-	}
 	
 	.total-me-gustas {
 		border: 0px;
@@ -87,4 +84,9 @@
 		padding: 5px;
 		text-align: center;
 	}
+}
+
+.tags {
+	@extend %ul-inline;
+	@include sombreado-color(#ddd, #222);
 }

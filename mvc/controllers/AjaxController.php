@@ -115,7 +115,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	public function crearMeGusta($post_id, $user_id) {
 		global $wpdb;
 		$nonce = $_POST ['nonce'];
-		$post = get_post($post_id);
+		$post = Post::find($post_id);
+
 		$post_title = $post->post_title;
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
@@ -155,7 +156,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
-		$json ['total_me_gustas'] = Utils::getTotalMeGustas(false, $post_id);
+		$json ['total_me_gustas'] = $post->getCountFavoritos();
 		return $json;
 	}
 
@@ -202,7 +203,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	public function quitarMeGusta($post_id, $user_id) {
 		global $wpdb;
 		$nonce = $_POST ['nonce'];
-		$post = get_post($post_id);
+		$post = Post::find($post_id);
 		$post_title = $post->post_title;
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
@@ -234,7 +235,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'nonce_me_gusta' => $nonce
 			]);
 		}
-		$json ['total_me_gustas'] = Utils::getTotalMeGustas(false, $post_id);
+		$json ['total_me_gustas'] = $post->getCountFavoritos();
 		return $json;
 	}
 

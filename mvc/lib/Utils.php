@@ -138,90 +138,6 @@ class Utils {
 	}
 
 	/**
-	 * Devuelve un array con posts similares basásndose en sus tags
-	 *
-	 * @param number $max
-	 *        Número máximo de posts similares que queremos
-	 * @return array<post>
-	 */
-	public static function getPostsSimilares($max = 4) {
-		$cont = 0;
-		$postsSimilares = array();
-		global $post;
-		$nextTagThumb = '-1';
-		$tags = wp_get_post_tags($post->ID);
-		foreach ($tags as $tag) {
-			if ($tags) {
-				$what_tag = $tags [($nextTagThumb + '1')]->term_id;
-				$args = array(
-					'tag__in' => array(
-						$what_tag
-					),
-					'post__not_in' => array(
-						$post->ID
-					),
-					'showposts' => 3,
-					'ignore_stickies' => 1
-				);
-
-				$posts = get_posts($args);
-
-				foreach ($posts as $k => $_p) {
-					$title = explode('-', $_p->post_title);
-					//$category = get_the_category($_p->ID);
-					$post = [
-						'post_id' => $_p->ID,
-						'permalink' => get_permalink($_p->ID),
-						'title' => $_p->post_title,
-						'title_corto' => $title [0],
-						'time' => $_p->post_modified,
-						'author' => get_user_by('id', $_p->post_author)->display_name,
-						'author_link' => get_author_posts_url($_p->post_author)
-					];
-					//'category' => $category [0]->name
-					$post = self::addThumbnailsToPost($post);
-
-					$postsSimilares [] = $post;
-					if (++$cont == $max) {
-						break 2;
-					}
-				}
-			}
-			wp_reset_query();
-			$nextTagThumb = ($nextTagThumb + 1);
-		}
-		return $postsSimilares;
-	}
-
-	/**
-	 * Devuelve la primera categoría que encuentra del post
-	 *
-	 * @param integer $post_id
-	 *        Identificador del Post
-	 * @return Categoria
-	 */
-	public static function getCategoryName($post_id) {
-		$cat = get_the_category($post_id);
-		return $cat [0]->name;
-	}
-
-	public static function addThumbnailsToPost($post) {
-		$sizes = array(
-			'thumbnail',
-			'medium',
-			'large',
-			'full'
-		);
-		foreach ($sizes as $size) {
-			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($post ['post_id']), $size);
-			if (!empty($imageObject)) {
-				$post ['featured_image_url_' . $size] = $imageObject [0];
-			}
-		}
-		return $post;
-	}
-
-	/**
 	 * Devuelve un array con los roles de un User apartir de su ID
 	 *
 	 * @param integer $uid
@@ -513,33 +429,6 @@ class Utils {
 			$titulo = str_ireplace($p, '', $titulo);
 		}
 		return $titulo;
-	}
-
-	/**
-	 * Devuelve el número de post que le gustan a un usuario o el número de usuarios que le gustan un post
-	 *
-	 * @param number $user_id
-	 *        Identificador del usuario
-	 * @param number $post_id
-	 *        Identificador del post
-	 * @return number Número total
-	 */
-	public static function getTotalMeGustas($user_id = false, $post_id = false) {
-		global $wpdb;
-		/*
-		 * if (!$user_id) { $current_user = wp_get_current_user(); $user_id = $current_user->ID; }
-		 */
-		$activo = self::ACTIVO;
-		$andUserId = ($user_id) ? ' AND user_id = ' . $user_id : ' ';
-		$andPostId = ($post_id) ? ' AND post_id = ' . $post_id : ' ';
-
-		$total = ( int ) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE 1 = 1
-				$andUserId
-				$andPostId
-				AND status = $activo;");
-		return $total;
 	}
 
 	/**
