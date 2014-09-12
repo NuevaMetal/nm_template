@@ -36,7 +36,8 @@ class AutorController extends BaseController {
 			'total_fav_dados' => $user->getCountFavoritos(),
 			'total_fav_recibidos' => '?',
 			'the_tags' => $tagFav,
-			'has_tags' => count($tagFav)
+			'has_tags' => count($tagFav),
+			'favoritos' => $user->getFavoritos()
 		];
 		$content = $this->_renderAutor($args);
 

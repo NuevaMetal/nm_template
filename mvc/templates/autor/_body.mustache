@@ -1,25 +1,31 @@
 <div class="body col-xs-12">
-	<h2>Esdísticas varias</h2>
-	<div class="col-xs-12 col-sm-5">
-		<dl class="dl-horizontal">
-			<dt>Favoritos dados</dt>
-			<dd>{{total_fav_dados}}</dd>
-			<dt>Favoritos recibidos</dt>
-			<dd>{{total_fav_recibidos}}</dd>
-		</dl>
+	<h2 class="titular">Esdísticas varias</h2>
+	
+	<div class="col-xs-6">
+		<h4 class="titular">Favoritos dados: </h4>
+		{{total_fav_dados}}	
 	</div>
+	<div class="col-xs-6">
+		<h4 class="titular">Favoritos recibidos: </h4>
+		{{total_fav_recibidos}}	
+	</div>
+		
 	{{#has_tags}}
-	<div class="col-xs-12 col-sm-7">
-		<dl>
-			<dt>Etiquetas destacadas en base a sus favoritos: </dt>
-			<dd>
-				<ul class="tags">
-			        {{#the_tags}}
-			        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
-			        {{/the_tags}}
-			    </ul>
-			</dd>
-		</dl>
+	<div class="col-xs-12">
+		<h4 class="titular">Etiquetas destacadas en base a sus favoritos: </h4>			
+		<ul class="tags">
+	        {{#the_tags}}
+	        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
+	        {{/the_tags}}
+	    </ul>		
 	</div>
 	{{/has_tags}}
+	<div class="col-xs-12">
+		<h4 class="titular">Favoritos: </h4>
+		<ul>
+		{{#favoritos}}
+			<li class="col-xs-12 col-sm-6" ><a href="{{permalink}}">{{{title_corto}}}</a></li>
+		{{/favoritos}}
+		</ul>			
+	</div>
 </div>
