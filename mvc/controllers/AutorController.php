@@ -33,8 +33,8 @@ class AutorController extends BaseController {
 			'header' => "$header ($autorCountPosts " . I18n::trans('entradas') . ')'
 		];
 		$args ['body'] = [
-			'total_fav_dados' => -1,
-			'total_fav_recibidos' => -1,
+			'total_fav_dados' => $user->getCountFavoritos(),
+			'total_fav_recibidos' => '?',
 			'the_tags' => $tagFav,
 			'has_tags' => count($tagFav)
 		];
