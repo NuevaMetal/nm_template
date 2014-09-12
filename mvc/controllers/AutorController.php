@@ -23,7 +23,7 @@ class AutorController extends BaseController {
 		]);
 
 		$tagFav = $user->getArrayEtiquetasFavoritas();
-		$args = self::getArrayPostsAutor($author_id, 4);
+		$args = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = [
 			'user_avatar' => get_avatar($author_id),
 			'user_url' => get_the_author_meta('user_url'),
@@ -45,7 +45,7 @@ class AutorController extends BaseController {
 		]);
 	}
 
-	public static function getArrayPostsAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+	private static function _getArrayPostsAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
 		$args ['a_buscar'] = $aBuscar;

@@ -41,7 +41,8 @@ class Post extends ModelBase {
 	public static function getArrayById($post_id, $conCategorias = false) {
 		$post = Post::find($post_id);
 		$title = get_the_title($post_id);
-
+		$tags = wp_get_post_tags($post_id);
+		$categories = wp_get_post_categories($post_id);
 		$title_corto = Utils::getPalabrasByStr($title, Utils::CANT_TITLE_CORTO_DEFAULT);
 		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
 		$post = array(

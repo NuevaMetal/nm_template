@@ -21,16 +21,25 @@ class User extends ModelBase {
 	 * @return array
 	 */
 	public function getArrayEtiquetasFavoritas() {
-		return [
-			[
-				'tag_link' => '#metalcore',
-				'name' => 'metalcore'
-			],
-			[
-				'tag_link' => '#hardcore',
-				'name' => 'hardcore'
-			]
-		];
+		$favoritos = $this->getFavoritos();
+		$tags = [];
+		foreach ($favoritos as $f) {
+			//dd($f);
+			foreach ($f ['the_tags'] as $t) {
+				if (isset($tags [$t ['name']])) {
+					$tags [$t ['name']] ['total']++;
+				} else {
+					$tags [$t ['name']] = $t;
+					$tags [$t ['name']] ['total'] = 1;
+				}
+			}
+		}
+		// Ordenamos el array de etiquetas por su cantidad total
+		usort($tags, function ($a, $b) {
+			return $a ['total'] < $b ['total'];
+		});
+
+		return $tags;
 	}
 
 	/**

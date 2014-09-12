@@ -1,0 +1,25 @@
+<div class="body col-xs-12">
+	<h2>Esdisticas varias</h2>
+	<div class="col-xs-12 col-sm-5">
+		<dl class="dl-horizontal">
+			<dt>Favoritos dados</dt>
+			<dd>{{total_fav_dados}}</dd>
+			<dt>Favoritos recibidos</dt>
+			<dd>{{total_fav_recibidos}}</dd>
+		</dl>
+	</div>
+	{{#has_tags}}
+	<div class="col-xs-12 col-sm-7">
+		<dl>
+			<dt>Etiquetas destacadas en base a sus favoritos: </dt>
+			<dd>
+				<ul class="tags">
+			        {{#the_tags}}
+			        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
+			        {{/the_tags}}
+			    </ul>
+			</dd>
+		</dl>
+	</div>
+	{{/has_tags}}
+</div>
