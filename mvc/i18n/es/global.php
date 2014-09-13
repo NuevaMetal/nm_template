@@ -39,6 +39,7 @@ return [
 	'hola' => 'hola',
 
 	'informar' => 'informar',
+	'introduce_tu' => 'introduce tu :que aquí',
 
 	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',

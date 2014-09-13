@@ -37,6 +37,7 @@ return [
 	'favoritos' => 'favorites',
 
 	'informar' => 'notify',
+	'introduce_tu' => 'Enter your :que here',
 
 	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
