@@ -60,6 +60,15 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Establecer un nuevo Twitter
+	 *
+	 * @param string $nuevo
+	 */
+	public function setTwitter($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_TWITTER, $nuevo);
+	}
+
+	/**
 	 * Devuelve el Twitter del User
 	 *
 	 * @return string
@@ -70,6 +79,15 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Establecer un nuevo Facebook
+	 *
+	 * @param string $nuevo
+	 */
+	public function setFacebook($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_FACEBOOK, $nuevo);
+	}
+
+	/**
 	 * Devuelve el Twitter del User
 	 *
 	 * @return string
@@ -77,6 +95,15 @@ class User extends ModelBase {
 	public function getGooglePlus() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_GOOGLE_PLUS);
 		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Establecer un nuevo Google+
+	 *
+	 * @param string $nuevo
+	 */
+	public function setGooglePlus($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_GOOGLE_PLUS, $nuevo);
 	}
 
 	/**

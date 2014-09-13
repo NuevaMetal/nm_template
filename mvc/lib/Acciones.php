@@ -88,8 +88,9 @@ add_action('show_user_profile', function () {
  */
 add_action('personal_options_update', function () {
 	global $user_ID;
-	update_user_meta($user_ID, User::KEY_USER_FACEBOOK, $_POST [User::KEY_USER_FACEBOOK]);
-	update_user_meta($user_ID, User::KEY_USER_TWITTER, $_POST [User::KEY_USER_TWITTER]);
-	update_user_meta($user_ID, User::KEY_USER_GOOGLE_PLUS, $_POST [User::KEY_USER_GOOGLE_PLUS]);
+	$user = User::find($user_ID);
+	$user->setFacebook($_POST [User::KEY_USER_FACEBOOK]);
+	$user->setTwitter($_POST [User::KEY_USER_TWITTER]);
+	$user->setGooglePlus($_POST [User::KEY_USER_GOOGLE_PLUS]);
 });
 

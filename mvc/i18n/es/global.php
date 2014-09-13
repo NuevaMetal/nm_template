@@ -82,6 +82,7 @@ return [
 	'registrarse' => 'registrarse',
 
 	'redes' => 'redes',
+	'redes_sociales' => 'redes sociales',
 	'reportar' => 'reportar',
 	'reportar_entrada' => 'Reportar esta entrada :titulo',
 	'reportar_info' => 'Reportar enlaces o vídeos caídos para esta entrada.',

@@ -80,6 +80,7 @@ return [
 	'registrarse' => 'Sign in',
 
 	'redes' => 'networks',
+	'redes_sociales' => 'social networks',
 	'reportar' => 'report',
 	'reportar_entrada' => 'report this post: :titulo',
 	'reportar_info' => 'Report links or fallen videos for this post.',
