@@ -335,6 +335,7 @@ class Analitica extends ModelBase {
 	 * @return array
 	 */
 	public static function formatearDias($totalPorDia) {
+
 		function _formatDia($dia) {
 			if ($dia < 10) {
 				return date('Y-m-0') . "$dia";
@@ -342,7 +343,8 @@ class Analitica extends ModelBase {
 			return date('Y-m-') . "$dia";
 		}
 		$result = [];
-		for ($i = 0; $i < 31; $i++) {
+		$numeroDeDias = intval(date("t", date('m')));
+		for ($i = 1; $i < $numeroDeDias; $i++) {
 			foreach ($totalPorDia as $t) {
 				$dia = _formatDia($i);
 				if ($dia == $t->dia) {
