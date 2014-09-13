@@ -43,7 +43,7 @@ abstract class BaseController extends ChesterBaseController {
 			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID),
 			'redirect_to' => $redirect,
-			//'template_url' => $template_url
+			'template_url' => $template_url
 		];
 		$menuPerfil = $this->render('menu/perfil', $menuArgs);
 
