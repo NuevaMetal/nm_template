@@ -208,16 +208,6 @@ class AnaliticaController extends BaseController {
 					'Únicas por hora ayer'
 				];
 				break;
-			case User::ENTRADAS_PUBLICADAS_AJAX :
-				$result = User::getTotalEntradasPublicadasPorDia($cant);
-				$xKey = 'dia';
-				$yKeys = [
-					'entradas_publicadas'
-				];
-				$labels = [
-					'Entradas publicadas'
-				];
-				break;
 		}
 		$json = [
 			'data' => $result,

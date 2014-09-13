@@ -290,12 +290,11 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
 			case Utils::ANALITICA :
-
 				$user_id = $_datos ['tabla'];
 				$cant = $_datos ['cant'];
 				$user = User::find($user_id);
-				$result = $user->getTotalEntradasPublicadasPorDia($cant);
-				$xKey = 'dia';
+				$result = $user->getTotalEntradasPublicadasPorMes($cant);
+				$xKey = 'mes';
 				$yKeys = [
 					'total'
 				];

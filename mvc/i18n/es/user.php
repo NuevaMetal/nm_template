@@ -3,7 +3,7 @@ return [
 	'actualizar_mi_perfil' => 'actualizar mi información de perfil',
 
 	'editar_perfil' => 'editar perfil',
-	'entradas_publicadas_mes' => 'Entradas publicadas este mes',
+	'entradas_publicadas_ano' => 'Entradas publicadas este año',
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
 
 	'login_necesario' => 'para ello es necesario estar logueado',

@@ -285,9 +285,10 @@ class User extends ModelBase {
 	}
 
 	/**
-	 * De
+	 * Devuelve una lista con la cantidad de entradas publicadas por días durante el último mes
 	 *
 	 * @param number $cantidad
+	 * @return array
 	 */
 	public function getTotalEntradasPublicadasPorDia($cantidad = 31) {
 		global $wpdb;
@@ -300,9 +301,30 @@ class User extends ModelBase {
 				GROUP BY dia
 				ORDER BY dia DESC
 	 			LIMIT ' . $cantidad;
-
 		$result = $wpdb->get_results($query);
 		$result = Analitica::formatearDias($result);
+		return $result;
+	}
+
+	/**
+	 * Devuelve una lista con la cantidad de entradas publicadas por mes durante el último año
+	 *
+	 * @param number $cantidad
+	 * @return array
+	 */
+	public function getTotalEntradasPublicadasPorMes($cantidad = 12) {
+		global $wpdb;
+		$query = 'SELECT MONTH( post_date ) mes, COUNT( * ) total
+				FROM wp_posts
+				WHERE post_author = ' . $this->ID . '
+					AND post_type =  "post"
+					AND post_status =  "publish"
+					AND YEAR( post_date ) = YEAR( NOW( ) )
+				GROUP BY mes, YEAR( post_date )
+				ORDER BY YEAR( post_date ) DESC , mes DESC
+				LIMIT ' . $cantidad;
+		$result = $wpdb->get_results($query);
+		$result = Analitica::formatearMeses($result);
 		return $result;
 	}
 

@@ -360,4 +360,21 @@ class Analitica extends ModelBase {
 		return $result;
 	}
 
+	public static function formatearMeses($totalPorMes) {
+		$result = [];
+		for ($i = 1; $i <= 12; $i++) {
+			foreach ($totalPorMes as $t) {
+				if ($i == $t->mes) {
+					$result [] = $t;
+					continue 2;
+				}
+			}
+			$obj = new stdClass();
+			$obj->mes = "$i";
+			$obj->total = "0";
+			$result [] = $obj;
+		}
+		return $result;
+	}
+
 }
