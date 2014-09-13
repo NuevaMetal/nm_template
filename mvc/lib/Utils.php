@@ -145,6 +145,8 @@ class Utils {
 	 * @param integer $uid
 	 *        ID del User
 	 * @return array<string> Roles del user
+	 * @deprecated Por nueva metodología
+	 * @see User::getRol()
 	 */
 	public static function getRoleByUserId($uid) {
 		global $wpdb;

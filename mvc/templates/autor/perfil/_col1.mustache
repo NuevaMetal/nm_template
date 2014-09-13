@@ -1,0 +1,57 @@
+<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+	<div class="row" >
+		<span class="col-xs-12" itemprop="image">{{{getAvatarPerfil}}}</span>
+		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
+		<h4 class="col-xs-12"> {{getNombreCompleto}} <small itemprop="jobTitle">{{getRol}}</small></h4>
+		
+	</div>
+	
+	<div class="row">
+		{{#getUrl}}
+		<div class="col-xs-3">			
+			{{#getUrl}}<a class="btn btn-default btn-md" role="button" href="{{getUrl}}" target="_blank">
+				<i class="fa fa-globe"></i></a>
+			{{/getUrl}}
+		</div>
+		{{/getUrl}}
+		
+		{{#getTwitter}}
+		<div class="col-xs-3">			
+			{{#getTwitter}}<a class="btn btn-default btn-md" role="button" href="https://twitter.com/{{getTwitter}}" target="_blank">
+				<i class="fa fa-twitter"></i></a>
+			{{/getTwitter}}
+		</div>
+		{{/getTwitter}}
+		
+		{{#getFacebook}}
+		<div class="col-xs-3">			
+			{{#getFacebook}}<a class="btn btn-default btn-md" role="button" href="https://facebook.com/{{getFacebook}}" target="_blank">
+				<i class="fa fa-facebook"></i></a>
+			{{/getFacebook}}
+		</div>
+		{{/getFacebook}}
+		
+		{{#getGooglePlus}}
+		<div class="col-xs-3">			
+			{{#getGooglePlus}}<a class="btn btn-default btn-md" role="button" href="https://plus.google.com/u/0/+{{getGooglePlus}}" target="_blank">
+				<i class="fa fa-google-plus"></i></a>
+			{{/getGooglePlus}}
+		</div>
+		{{/getGooglePlus}}
+	</div>
+	<br>
+	<table class="table table-condensed text-center titular">
+		<tr>
+			<th colspan="2"><i class="fa fa-heart"></i> Favoritos</th>
+		</tr>
+		<tr class="active">
+			<td>Dados</td>
+			<td>Recibidos</td>
+		</tr>
+		<tr>
+			<td>{{getCountFavoritos}}</td>
+			<td>{{getCountFavoritosRecibidos}}</td>
+		</tr>
+	</table>
+		
+</div>

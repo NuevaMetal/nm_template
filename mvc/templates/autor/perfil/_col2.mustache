@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-xs-12">
+		{{#getDescription}}
+			<h2 class="titular"><i class="fa fa-user"></i> {{#transu}}descripcion{{/transu}}</h2>
+		{{/getDescription}}
+		<blockquote>
+			<p itemprop="description">
+				{{getDescription}}
+				{{^getDescription}}
+					{{#transu}}user.no_hay_info_perfil{{/transu}}
+				{{/getDescription}}
+			</p>
+		</blockquote>
+	</div>
+</div>
+
+{{#favoritos}}
+	<div class="row">		
+		<div class="col-xs-12 titular">
+			<h3><i class="fa fa-area-chart"></i> {{#transu}}user.entradas_publicadas_mes{{/transu}}</h3>
+			<div id="entradas-publicadas" style="height:120px; margin-bottom:0px;"></div>
+		</div>
+		
+		{{#getCountFavoritos}}
+		<div class="col-xs-12 ">
+			<h4 class="titular">{{#transu}}user.etiquetas_destacadas_fav{{/transu}}</h4>			
+			<ul class="tags text-center">
+		        {{#user.getArrayEtiquetasFavoritas}}
+		        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
+		        {{/user.getArrayEtiquetasFavoritas}}
+		    </ul>
+		</div>
+		{{/getCountFavoritos}}
+		
+		{{#getCountFavoritos}}
+			<h4 class="ultimos-favoritos-dados titular col-xs-12 ">{{#transu}}user.ultimos_fav_dados{{/transu}}</h4>
+			<div class="ultimos-favoritos ">
+				{{> autor/_seccion_fav}}
+			</div>
+		{{/getCountFavoritos}}
+		
+	</div>
+{{/favoritos}}
+
+<script src="{{template_url}}/public/third/raphael/raphael.min.js"></script>
+<script src="{{template_url}}/public/third/morris/morris.js"></script>
+<script src="{{template_url}}/public/js/analitica.js"></script>
+
+<script>
+	$(document).ready(function() {
+		var url = "{{template_url}}/ajax.php?submit=analitica&tabla={{user.ID}}&cant=30";
+		pintarMorris("entradas-publicadas", url);
+	});
+</script>

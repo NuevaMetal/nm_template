@@ -1,41 +1,45 @@
 .autor {
-
-	.body {
-		@extend %ul-inline;
-		.tags {
+	
+	.col1, .col2 {
+		//border: 1px solid red;
+	}
+	
+	
+	@extend %ul-inline;
+	.tags {
+		padding-left: 0;
+		ul {
 			padding-left: 0;
-			ul {
-				padding-left: 0;
-			}
-		}
-				
-		.ultimos-favoritos{
-			img {
-				height: 170px;		
-			}			
-			.caption {
-    			margin-top: 0;
-							
-			}
-			.post{
-				height: 210px;
-				padding: 0px;
-				.titular {
-					font-size: 16px;
-					overflow: hidden;
-					text-align: center;
-    				white-space: nowrap;
-    				margin-bottom: 6px;
-				}
-				.total-me-gustas {
-					padding: 4px;
-				}
-			}
-			.thumbnail {
-				margin: 0px;
-			}
 		}
 	}
+			
+	.ultimos-favoritos{
+		img {
+			height: 170px;		
+		}			
+		.caption {
+			margin-top: 0;
+						
+		}
+		.post{
+			height: 210px;
+			padding: 0px;
+			.titular {
+				font-size: 16px;
+				overflow: hidden;
+				text-align: center;
+				white-space: nowrap;
+				margin-bottom: 6px;
+			}
+			.total-me-gustas {
+				padding: 4px;
+			}
+		}
+		.thumbnail {
+			margin: 0px;
+		}
+	}
+	
 	
 	.header {
 	

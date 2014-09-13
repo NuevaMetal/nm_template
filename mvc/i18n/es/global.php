@@ -29,6 +29,7 @@ return [
 	'cronicas' => 'crónicas',
 
 	'de' => 'de',
+	'descripcion' => 'descripción',
 	'diseñador' => 'diseñador',
 
 	'editor' => 'editor',

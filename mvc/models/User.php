@@ -14,10 +14,14 @@ class User extends ModelBase {
 
 	const KEY_USER_GOOGLE_PLUS = 'user_gp_txt';
 
+	const KEY_USER_NOMBRE = 'first_name';
+
+	const KEY_USER_APELLIDOS = 'last_name';
+
 	/**
 	 * Número de post favoritos a mostrar en su perfil
 	 */
-	const NUM_FAV_PERFIL_DEFAULT = 4;
+	const NUM_FAV_PERFIL_DEFAULT = 2;
 
 	/**
 	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
@@ -37,6 +41,10 @@ class User extends ModelBase {
 		return get_avatar($this->ID, $tamano, $default, $alt);
 	}
 
+	public function getAvatarPerfil() {
+		return get_avatar($this->ID, 160, '', "$this->display_name avatar");
+	}
+
 	public function getUrl() {
 		return get_the_author_meta('user_url', $this->ID);
 	}
@@ -47,6 +55,55 @@ class User extends ModelBase {
 
 	public function getEditUrl() {
 		return get_edit_user_link();
+	}
+
+	/**
+	 * Devuelve el nombre del User
+	 *
+	 * @return string
+	 */
+	public function getNombre() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_NOMBRE);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Devuelve os apellidos del User
+	 *
+	 * @return string
+	 */
+	public function getApellidos() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_APELLIDOS);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Devuelve el nombre y los apellidos del user
+	 *
+	 * @return string
+	 */
+	public function getNombreCompleto() {
+		return $this->getNombre() . ' ' . $this->getApellidos();
+	}
+
+	/**
+	 * Devuelve el nombre del rol del User
+	 *
+	 * @return string
+	 */
+	public function getRol() {
+		global $wpdb;
+		$role = $wpdb->get_var("SELECT meta_value
+				FROM $wpdb->usermeta
+				WHERE meta_key = 'wp_capabilities'
+				AND user_id = $this->ID");
+		if (!$role)
+			return 'non-user';
+		$rarr = unserialize($role);
+		$roles = is_array($rarr) ? array_keys($rarr) : array(
+			'non-user'
+		);
+		return I18n::transu($roles [0]);
 	}
 
 	/**

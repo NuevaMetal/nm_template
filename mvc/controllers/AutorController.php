@@ -21,7 +21,7 @@ class AutorController extends BaseController {
 		$header = I18n::transu('entradas_de', [
 			'nombre' => $user->display_name
 		]);
-
+//dd($user);
 		$args = [
 			'user' => $user
 		];
