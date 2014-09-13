@@ -50,4 +50,23 @@ class AutorController extends BaseController {
 		return $args;
 	}
 
+	/**
+	 * Devuelve el Html que pinta lo inputs para las redes sociales
+	 *
+	 * @param string $user_ID
+	 *        Identificador del User. Por defecto el User actual
+	 */
+	public function getPerfilRedesSociales($user_ID = false) {
+		if (!$user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+		return $this->render('autor/perfil/_redes_sociales', [
+			'user' => $user,
+			'KEY_USER_FACEBOOK' => User::KEY_USER_FACEBOOK,
+			'KEY_USER_TWITTER' => User::KEY_USER_TWITTER,
+			'KEY_USER_GOOGLE_PLUS' => User::KEY_USER_GOOGLE_PLUS
+		]);
+	}
+
 }

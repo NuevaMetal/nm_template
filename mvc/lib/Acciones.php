@@ -72,3 +72,24 @@ add_action('login_init', function () {
 		header('Location: /wp-login.php');
 	}
 });
+
+/**
+ * Añado las redes sociales al perfil del User
+ */
+add_action('show_user_profile', function () {
+	global $user_ID;
+	require_once 'mvc/controllers/AutorController.php';
+	$c = new AutorController();
+	echo $c->getPerfilRedesSociales($user_ID);
+});
+
+/**
+ * Actualizo las redes sociales del perfil del User
+ */
+add_action('personal_options_update', function () {
+	global $user_ID;
+	update_user_meta($user_ID, User::KEY_USER_FACEBOOK, $_POST [User::KEY_USER_FACEBOOK]);
+	update_user_meta($user_ID, User::KEY_USER_TWITTER, $_POST [User::KEY_USER_TWITTER]);
+	update_user_meta($user_ID, User::KEY_USER_GOOGLE_PLUS, $_POST [User::KEY_USER_GOOGLE_PLUS]);
+});
+

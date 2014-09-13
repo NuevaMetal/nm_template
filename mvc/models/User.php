@@ -8,6 +8,12 @@ require_once 'ModelBase.php';
 class User extends ModelBase {
 	public static $table = "users";
 
+	const KEY_USER_TWITTER = 'user_tw_txt';
+
+	const KEY_USER_FACEBOOK = 'user_fb_txt';
+
+	const KEY_USER_GOOGLE_PLUS = 'user_gp_txt';
+
 	/**
 	 * Número de post favoritos a mostrar en su perfil
 	 */
@@ -41,6 +47,36 @@ class User extends ModelBase {
 
 	public function getEditUrl() {
 		return get_edit_user_link();
+	}
+
+	/**
+	 * Devuelve el Twitter del User
+	 *
+	 * @return string
+	 */
+	public function getTwitter() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_TWITTER);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Devuelve el Twitter del User
+	 *
+	 * @return string
+	 */
+	public function getFacebook() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_FACEBOOK);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Devuelve el Twitter del User
+	 *
+	 * @return string
+	 */
+	public function getGooglePlus() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_GOOGLE_PLUS);
+		return (is_array($valor)) ? $valor [0] : $valor;
 	}
 
 	/**
