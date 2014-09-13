@@ -22,26 +22,16 @@ class AutorController extends BaseController {
 			'nombre' => $user->display_name
 		]);
 
-		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
-		$args ['header'] = [
-			'user_avatar' => get_avatar($author_id),
-			'user_url' => get_the_author_meta('user_url'),
-			'display_name' => get_the_author_meta('display_name'),
-			'description' => get_the_author_meta('description'),
-			'edit_user_link' => ($author_id == wp_get_current_user()->ID) ? get_edit_user_link() : false,
-			'header' => "$header ($autorCountPosts " . I18n::trans('entradas') . ')'
+		$args = [
+			'user' => $user
 		];
-		$args ['body'] = [
-			'total_fav_dados' => $user->getCountFavoritos(),
-			'total_fav_recibidos' => $user->getCountFavoritosRecibidos(),
-			'the_tags' => $user->getArrayEtiquetasFavoritas(User::NUM_ETI_FAV_PERFIL_DEFAULT),
-			'favoritos' => [
-				'a_buscar' => $user->ID,
-				'cant' => User::NUM_FAV_PERFIL_DEFAULT,
-				'tipo' => Utils::TIPO_AUTHOR_FAV,
-				'posts' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT),
-				'template_url' => get_template_directory_uri()
-			]
+		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
+		$args ['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';
+		$args ['favoritos'] = [
+			'a_buscar' => $user->ID,
+			'cant' => User::NUM_FAV_PERFIL_DEFAULT,
+			'tipo' => Utils::TIPO_AUTHOR_FAV,
+			'posts' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT)
 		];
 		$content = $this->_renderAutor($args);
 
@@ -56,7 +46,6 @@ class AutorController extends BaseController {
 		$args ['a_buscar'] = $aBuscar;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
-		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
 		return $args;
 	}

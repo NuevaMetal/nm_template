@@ -303,4 +303,59 @@ class Analitica extends ModelBase {
 		return $wpdb->get_results($query);
 	}
 
+	/**
+	 * Juntar valores de 2 arrays en base a que
+	 *
+	 * @param string $que
+	 * @param array<array> $listaArraysVisitas
+	 *        Lista de arrays a juntar por su misma que
+	 * @return array
+	 */
+	public static function juntarValoresPor($que, $listaArraysVisitas = []) {
+		$result = [];
+		foreach ($listaArraysVisitas as $lista) {
+			foreach ($lista as $l) {
+				if (!isset($result [$l->{$que}])) {
+					$obj = new stdClass();
+				} else {
+					$obj = $result [$l->{$que}];
+				}
+				$obj->{$que} = $l->{$que};
+				$obj->{$l->tipo} = $l->total;
+				$result [$l->{$que}] = $obj;
+			}
+		}
+		return array_values($result);
+	}
+
+	/**
+	 * Formatea la información añadiendo un 0 a los días que no tengan nada acumulado
+	 *
+	 * @param array $totalPorDia
+	 * @return array
+	 */
+	public static function formatearDias($totalPorDia) {
+		function _formatDia($dia) {
+			if ($dia < 10) {
+				return date('Y-m-0') . "$dia";
+			}
+			return date('Y-m-') . "$dia";
+		}
+		$result = [];
+		for ($i = 0; $i < 31; $i++) {
+			foreach ($totalPorDia as $t) {
+				$dia = _formatDia($i);
+				if ($dia == $t->dia) {
+					$result [] = $t;
+					continue 2;
+				}
+			}
+			$obj = new stdClass();
+			$obj->dia = $dia;
+			$obj->total = "0";
+			$result [] = $obj;
+		}
+		return $result;
+	}
+
 }

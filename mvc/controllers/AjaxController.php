@@ -289,6 +289,21 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$editor_id = wp_get_current_user()->ID;
 				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
+			case Utils::ANALITICA :
+
+				$user_id = $_datos ['tabla'];
+				$cant = $_datos ['cant'];
+				$user = User::find($user_id);
+				$result = $user->getTotalEntradasPublicadasPorDia($cant);
+				$xKey = 'dia';
+				$yKeys = [
+					'total'
+				];
+				$labels = [
+					'Publicadas'
+				];
+				$json = Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
+				break;
 			default :
 				$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -306,7 +321,7 @@ $json = [
 	'code' => 504 // Error default
 ];
 
-$submit = $_POST ['submit'];
+$submit = $_REQUEST ['submit'];
 $nonce = $_POST ['nonce'];
 $post_id = $_POST ['post'];
 
@@ -317,6 +332,6 @@ if (in_array($submit, [
 	die("An unexpected error has ocurred.");
 }
 
-$json = AjaxController::getJsonBySubmit($submit, $_POST);
+$json = AjaxController::getJsonBySubmit($submit, $_REQUEST);
 
 echo json_encode($json);

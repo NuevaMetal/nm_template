@@ -18,6 +18,8 @@ class User extends ModelBase {
 	 */
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
+	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 */
@@ -25,22 +27,39 @@ class User extends ModelBase {
 		return count_user_posts($this->ID);
 	}
 
+	public function getAvatar($tamano = 96, $default = "", $alt = false) {
+		return get_avatar($this->ID, $tamano, $default, $alt);
+	}
+
+	public function getUrl() {
+		return get_the_author_meta('user_url', $this->ID);
+	}
+
+	public function getDescription() {
+		return get_the_author_meta('description', $this->ID);
+	}
+
+	public function getEditUrl() {
+		return get_edit_user_link();
+	}
+
 	/**
 	 * Devuelve una lista de arrays con las etiquetas de las entradas a las que le dio favoritos
 	 *
 	 * @return array
 	 */
-	public function getArrayEtiquetasFavoritas($cant = false) {
-		$favoritos = $this->getFavoritos();
+	public function getArrayEtiquetasFavoritas($cant = User::NUM_ETI_FAV_PERFIL_DEFAULT) {
+		$favoritos = $this->getFavoritos($limit = false, $offset = false, $conCategorias = true);
 		$tags = [];
 		foreach ($favoritos as $f) {
-			//dd($f);
-			foreach ($f ['the_tags'] as $t) {
-				if (isset($tags [$t ['name']])) {
-					$tags [$t ['name']] ['total']++;
-				} else {
-					$tags [$t ['name']] = $t;
-					$tags [$t ['name']] ['total'] = 1;
+			if (isset($f ['the_tags'])) {
+				foreach ($f ['the_tags'] as $t) {
+					if (isset($tags [$t ['name']])) {
+						$tags [$t ['name']] ['total']++;
+					} else {
+						$tags [$t ['name']] = $t;
+						$tags [$t ['name']] ['total'] = 1;
+					}
 				}
 			}
 		}
@@ -61,9 +80,10 @@ class User extends ModelBase {
 	 *
 	 * @param number $limit
 	 * @param number $offset
-	 * @return multitype:multitype:
+	 * @param boolean $conCategorias
+	 * @return array
 	 */
-	public function getFavoritos($limit = false, $offset = false) {
+	public function getFavoritos($limit = false, $offset = false, $conCategorias = false) {
 		global $wpdb;
 		$status = Favorito::ACTIVO;
 		$tabla = $wpdb->prefix . Favorito::$table;
@@ -81,7 +101,7 @@ class User extends ModelBase {
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
-			$posts [] = ChesterWPCoreDataHelpers::getPost(false, [], $post_id);
+			$posts [] = Post::get($post_id, $dateFormat = false, $conCategorias);
 		}
 		return $posts;
 	}
@@ -142,6 +162,28 @@ class User extends ModelBase {
 				AND f.status = $activo
 				GROUP BY f.user_id
 			) p");
+	}
+
+	/**
+	 * De
+	 *
+	 * @param number $cantidad
+	 */
+	public function getTotalEntradasPublicadasPorDia($cantidad = 31) {
+		global $wpdb;
+		$query = 'SELECT DATE(post_date) dia, COUNT(*) total
+				FROM wp_posts
+				WHERE post_author = ' . $this->ID . '
+					AND post_type = "post"
+					AND post_status = "publish"
+					AND DATE( post_date ) >= DATE( NOW( ) ) -30
+				GROUP BY dia
+				ORDER BY dia DESC
+	 			LIMIT ' . $cantidad;
+
+		$result = $wpdb->get_results($query);
+		$result = Analitica::formatearDias($result);
+		return $result;
 	}
 
 }

@@ -154,7 +154,7 @@ class AnaliticaController extends BaseController {
 				$totalVisitas = Analitica::getTotalVisitas($cant);
 				$totalVisitasUnicas = Analitica::getTotalVisitasUnicasPorIP($cant);
 				$totalPostUnicosVistos = Analitica::getTotalPostUnicosVistos($cant);
-				$result = self::_juntarValoresPor('dia', [
+				$result = Analitica::juntarValoresPor('dia', [
 					$totalVisitasUnicas,
 					$totalVisitas,
 					$totalPostUnicosVistos
@@ -187,7 +187,7 @@ class AnaliticaController extends BaseController {
 				$unicasPorHoraHoy = Analitica::getUnicasVisitasPorHora($cant);
 				$totalPorHoraAyer = Analitica::getTotalVisitasPorHora($cant, Utils::AYER);
 				$unicasPorHoraAyer = Analitica::getUnicasVisitasPorHora($cant, Utils::AYER);
-				$result = self::_juntarValoresPor('hora', [
+				$result = Analitica::juntarValoresPor('hora', [
 					$totalPorHoraHoy,
 					$unicasPorHoraHoy,
 					$totalPorHoraAyer,
@@ -206,6 +206,16 @@ class AnaliticaController extends BaseController {
 					'Únicas por hora',
 					'Total por hora ayer',
 					'Únicas por hora ayer'
+				];
+				break;
+			case User::ENTRADAS_PUBLICADAS_AJAX :
+				$result = User::getTotalEntradasPublicadasPorDia($cant);
+				$xKey = 'dia';
+				$yKeys = [
+					'entradas_publicadas'
+				];
+				$labels = [
+					'Entradas publicadas'
 				];
 				break;
 		}
@@ -244,31 +254,6 @@ class AnaliticaController extends BaseController {
 			$result [] = $obj;
 		}
 		return $result;
-	}
-
-	/**
-	 * Juntar valores de 2 arrays en base a que
-	 *
-	 * @param string $que
-	 * @param array<array> $listaArraysVisitas
-	 *        Lista de arrays a juntar por su misma que
-	 * @return array
-	 */
-	private function _juntarValoresPor($que, $listaArraysVisitas = []) {
-		$result = [];
-		foreach ($listaArraysVisitas as $lista) {
-			foreach ($lista as $l) {
-				if (!isset($result [$l->{$que}])) {
-					$obj = new stdClass();
-				} else {
-					$obj = $result [$l->{$que}];
-				}
-				$obj->{$que} = $l->{$que};
-				$obj->{$l->tipo} = $l->total;
-				$result [$l->{$que}] = $obj;
-			}
-		}
-		return array_values($result);
 	}
 
 }

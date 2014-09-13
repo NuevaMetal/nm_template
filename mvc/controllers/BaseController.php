@@ -43,7 +43,7 @@ abstract class BaseController extends ChesterBaseController {
 			'home_url' => get_home_url(),
 			'user_avatar' => get_avatar($current_user->ID),
 			'redirect_to' => $redirect,
-			'template_url' => $template_url
+			//'template_url' => $template_url
 		];
 		$menuPerfil = $this->render('menu/perfil', $menuArgs);
 
@@ -58,7 +58,7 @@ abstract class BaseController extends ChesterBaseController {
 		$args ['menuFooter'] = $menuFooter;
 		$args ['template_url'] = $template_url;
 		$args ['blog_name'] = get_bloginfo('name');
-
+		$args ['template_url'] = get_template_directory_uri();
 		$args ['poner_analitica'] = ($_SERVER ["SERVER_NAME"] == URL_PRODUCCION);
 		return $this->renderPage('base', $args);
 	}
@@ -90,6 +90,7 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param array $args
 	 */
 	protected function _renderPage($args = []) {
+		$args ['template_url'] = get_template_directory_uri();
 		$next_posts_link = get_next_posts_link();
 		$previous_posts_link = get_previous_posts_link();
 
@@ -100,6 +101,7 @@ abstract class BaseController extends ChesterBaseController {
 	}
 
 	protected function _renderBusqueda($args = []) {
+		$args ['template_url'] = get_template_directory_uri();
 		$next_posts_link = get_next_posts_link();
 		$previous_posts_link = get_previous_posts_link();
 
@@ -110,6 +112,7 @@ abstract class BaseController extends ChesterBaseController {
 	}
 
 	protected function _renderAutor($args = []) {
+		$args ['template_url'] = get_template_directory_uri();
 		return $this->render('autor', $args);
 	}
 

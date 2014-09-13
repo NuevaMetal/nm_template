@@ -41,10 +41,9 @@ class Post extends ModelBase {
 	public static function getArrayById($post_id, $conCategorias = false) {
 		$post = Post::find($post_id);
 		$title = get_the_title($post_id);
-		$tags = wp_get_post_tags($post_id);
-		$categories = wp_get_post_categories($post_id);
 		$title_corto = Utils::getPalabrasByStr($title, Utils::CANT_TITLE_CORTO_DEFAULT);
 		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
+
 		$post = array(
 			'ID' => $post_id,
 			'post_id' => $post_id,
@@ -58,8 +57,6 @@ class Post extends ModelBase {
 			'genero' => Utils::getGeneroById($post_id),
 			'pais' => Utils::getPaisById($post_id),
 			'author_link' => get_the_author_link($post_id),
-			'the_tags' => self::getTagsAsArray($tags),
-			'the_categories' => self::getCategoriesAsArray($categories),
 			'total_me_gustas' => $post->getCountFavoritos()
 		);
 
@@ -183,7 +180,6 @@ class Post extends ModelBase {
 	 * @return array<post>
 	 */
 	public static function getPostsSimilares($max = 4, $post_id = false) {
-		Utils::debug("> getPostsSimilares($max)");
 		$cont = 0;
 		$postsSimilares = array();
 		if (!post_id) {
@@ -192,12 +188,9 @@ class Post extends ModelBase {
 		}
 		$nextTagThumb = '-1';
 		$tags = wp_get_post_tags($post_id);
-		Utils::debug("> a > post_id: $post_id");
 		foreach ($tags as $tag) {
-			Utils::debug("> b ");
 			if ($tags) {
 				$what_tag = $tags [($nextTagThumb + '1')]->term_id;
-				Utils::debug("> c ");
 				$args = array(
 					'tag__in' => array(
 						$what_tag
@@ -208,27 +201,12 @@ class Post extends ModelBase {
 					'showposts' => 3,
 					'ignore_stickies' => 1
 				);
-				Utils::debug("> d ");
 
 				$posts = get_posts($args);
-				Utils::debug("> coutn: $cont | count(posts):" . count($posts));
 
 				foreach ($posts as $k => $_p) {
-					Utils::debug(">> post_id : $_p->ID");
-					$title = explode('-', $_p->post_title);
-					$category = get_the_category($_p->ID);
-					$post = [
-						'post_id' => $_p->ID,
-						'permalink' => get_permalink($_p->ID),
-						'title' => $_p->post_title,
-						'title_corto' => $title [0],
-						'time' => $_p->post_modified,
-						'author' => get_user_by('id', $_p->post_author)->display_name,
-						'author_link' => get_author_posts_url($_p->post_author)
-					];
-					//'category' => $category [0]->name
-					$post = self::addThumbnailsToPost($post);
-					//$post = Post::get($_p->ID);
+					$post = Post::get($_p->ID);
+					$post['title_corto'] = explode('-', $_p->post_title)[0];
 					$postsSimilares [] = $post;
 					if (++$cont == $max) {
 						break 2;
