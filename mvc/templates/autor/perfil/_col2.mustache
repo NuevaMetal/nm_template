@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		{{#getDescription}}
-			<h4 class="titular"><i class="fa fa-user"></i> {{#transu}}descripcion{{/transu}}</h4>
+			<h4 class="titular"><i class="fa fa-file"></i> {{#transu}}descripcion{{/transu}}</h4>
 		{{/getDescription}}
 		<blockquote>
 			<p itemprop="description">
@@ -23,7 +23,7 @@
 
 		{{#getCountFavoritos}}
 		<div class="col-xs-12 ">
-			<h4 class="titular"><i class="fa fa-hand-o-up"></i> {{#transu}}user.etiquetas_destacadas_fav{{/transu}}</h4>			
+			<h4 class="titular"><i class="fa fa-tags"></i> {{#transu}}user.etiquetas_destacadas_fav{{/transu}}</h4>			
 			<ul class="tags text-center">
 		        {{#user.getArrayEtiquetasFavoritas}}
 		        <li><a href="{{tag_link}}" title="{{total}}">{{name}}</a></li>
@@ -33,8 +33,8 @@
 		{{/getCountFavoritos}}
 		
 		{{#getCountFavoritos}}
-			<h4 class="ultimos-favoritos-dados titular col-xs-12 ">{{#transu}}user.ultimos_fav_dados{{/transu}}</h4>
-			<div class="ultimos-favoritos ">
+			<h4 class="ultimos-favoritos-dados titular col-xs-12 "><i class="fa fa-hand-o-right"></i> {{#transu}}user.ultimos_fav_dados{{/transu}}</h4>
+			<div class="ultimos-favoritos col-xs-12">
 				{{> autor/_seccion_fav}}
 			</div>
 		{{/getCountFavoritos}}
