@@ -48,7 +48,7 @@
 
 <script>
 	$(document).ready(function() {
-		var url = "{{template_url}}/ajax.php?submit=analitica&tabla={{user.ID}}&cant=30";
+		var url = "{{template_url}}/ajax.php?submit={{ANALITICA_PERFIL_POST_PUBLICADOS_MES}}&user={{user.ID}}&cant=30";
 		pintarMorrisUser("entradas-publicadas", url);
 	});
 </script>

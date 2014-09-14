@@ -21,9 +21,9 @@ class AutorController extends BaseController {
 		$header = I18n::transu('entradas_de', [
 			'nombre' => $user->display_name
 		]);
-//dd($user);
 		$args = [
-			'user' => $user
+			'user' => $user,
+			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
 		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';

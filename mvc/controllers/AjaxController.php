@@ -289,8 +289,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$editor_id = wp_get_current_user()->ID;
 				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
-			case Utils::ANALITICA :
-				$user_id = $_datos ['tabla'];
+			case Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
+				$user_id = $_datos ['user'];
 				$cant = $_datos ['cant'];
 				$user = User::find($user_id);
 				$result = $user->getTotalEntradasPublicadasPorMes($cant);

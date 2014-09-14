@@ -42,6 +42,8 @@ class Utils {
 
 	const ANALITICA = "analitica";
 
+	const ANALITICA_PERFIL_POST_PUBLICADOS_MES = 'analitica-perfil-post-publicados-mes';
+
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
 
