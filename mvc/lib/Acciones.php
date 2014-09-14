@@ -76,12 +76,14 @@ add_action('login_init', function () {
 /**
  * Añado las redes sociales al perfil del User
  */
-add_action('show_user_profile', function () {
+function nm_perfil_add_redes_sociales() {
 	global $user_ID;
 	require_once 'mvc/controllers/AutorController.php';
 	$c = new AutorController();
 	echo $c->getPerfilRedesSociales($user_ID);
-});
+}
+add_action('show_user_profile', 'nm_perfil_add_redes_sociales');
+add_action('edit_user_profile', 'nm_perfil_add_redes_sociales');
 
 /**
  * Actualizo las redes sociales del perfil del User

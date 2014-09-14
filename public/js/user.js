@@ -13,7 +13,6 @@ function crearMorrisUser(elementId, json) {
 		xkey : json.xkey,
 		ykeys : json.ykeys,
 		labels : json.labels,
-		xLabels : "month",
 		postUnits : '',
 		dateFormat : function(data) {
 			var monthNames = [ "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -27,5 +26,6 @@ function crearMorrisUser(elementId, json) {
 					"Noviembre", "Diciembre" ];
 			return monthNames[data.getYear()]
 		},
+//		resize: true,		
 	});
 }
