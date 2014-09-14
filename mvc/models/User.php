@@ -58,6 +58,13 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve la URL del perfil del User
+	 */
+	public function getPefilUrl() {
+		return get_author_posts_url($this->ID);
+	}
+
+	/**
 	 * Devuelve el nombre del User
 	 *
 	 * @return string

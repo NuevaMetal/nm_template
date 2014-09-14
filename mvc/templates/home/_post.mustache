@@ -4,7 +4,7 @@
 	<div class="thumbnail">
 		<div class="info titular">
 	    	<span class="post-time">{{time}} </span>
-		    {{#trans}}por{{/trans}} <span class="post-author">{{{author}}} </span>
+		    {{#trans}}por{{/trans}} <span class="post-author"><a href="{{autor.getPefilUrl}}">{{autor.display_name}}</a></span>
 		</div>
         <div class="caption text-left">
 		{{# total_me_gustas }}

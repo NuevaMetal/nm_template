@@ -53,11 +53,10 @@ class Post extends ModelBase {
 			'date_published' => get_the_time('c'),
 			'content' => Utils::traducirPost(self::getTheFilteredContentFromLoop()),
 			'excerpt' => Utils::traducirPost(Utils::getExcerptById($post_id, Utils::CANT_EXCERPT_DEFAULT)),
-			'author' => get_the_author_meta('display_name', $post->post_author),
 			'genero' => Utils::getGeneroById($post_id),
 			'pais' => Utils::getPaisById($post_id),
-			'author_link' => get_the_author_link($post_id),
-			'total_me_gustas' => $post->getCountFavoritos()
+			'total_me_gustas' => $post->getCountFavoritos(),
+			'autor' => User::find($post->post_author)
 		);
 
 		if ($conCategorias) {
