@@ -76,11 +76,10 @@ add_action('login_init', function () {
 /**
  * Añado las redes sociales al perfil del User
  */
-function nm_perfil_add_redes_sociales() {
-	global $user_ID;
+function nm_perfil_add_redes_sociales($user) {
 	require_once 'mvc/controllers/AutorController.php';
 	$c = new AutorController();
-	echo $c->getPerfilRedesSociales($user_ID);
+	echo $c->getPerfilRedesSociales($user->ID);
 }
 add_action('show_user_profile', 'nm_perfil_add_redes_sociales');
 add_action('edit_user_profile', 'nm_perfil_add_redes_sociales');
@@ -88,11 +87,13 @@ add_action('edit_user_profile', 'nm_perfil_add_redes_sociales');
 /**
  * Actualizo las redes sociales del perfil del User
  */
-add_action('personal_options_update', function () {
-	global $user_ID;
+function nm_perfil_update_redes_sociales($user_ID) {
 	$user = User::find($user_ID);
 	$user->setFacebook($_POST [User::KEY_USER_FACEBOOK]);
 	$user->setTwitter($_POST [User::KEY_USER_TWITTER]);
 	$user->setGooglePlus($_POST [User::KEY_USER_GOOGLE_PLUS]);
-});
+}
+
+add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
+add_action('edit_user_profile_update', 'nm_perfil_update_redes_sociales');
 
