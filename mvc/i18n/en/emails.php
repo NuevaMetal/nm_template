@@ -1,5 +1,15 @@
 <?php
 return [
+	'aviso_admin_nuevo_user' => '
+		New user registered in :blogname <br>
+		<b>Username</b>: :user_login <br>
+		<b>E-mail</b>: :user_email <br>',
+
+	'aviso_admin_password_reset' => '¡Ey bro!,
+		User  en :blogname <br>
+		<b>Nombre de usuario</b>: :user_login <br>
+		<b>E-mail</b>: :user_email <br>',
+
 	'nuevo_user' => 'Hi bro,
 		<br>
 		Welcome to NuevaMetal! Heres how to
@@ -9,10 +19,7 @@ return [
 		<br>
 		If you have any problems, please contact me at :admin_email <br>
 		See you!',
-	'aviso_admin_nuevo_user' => '
-		New user registered in :blogname <br>
-		<b>Username</b>: :user_login <br>
-		<b>E-mail</b>: :user_email <br>',
+
 	'password_reset' => 'Hi man,
 		<br>
 			Here you have your new password. Don\'t forget that you can do login

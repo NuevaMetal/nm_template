@@ -13,7 +13,7 @@ add_action('user_register', function ($user_id) {
 
 	$emailAvisoAdminNuevoUser = I18n::trans('emails.aviso_admin_nuevo_user', [
 		'user_login' => $user_login,
-		'user_email' => $user_pass,
+		'user_email' => $user_email,
 		'blogname' => get_option('blogname')
 	]);
 
@@ -53,6 +53,20 @@ add_action('login_init', function () {
 		$user_login = stripslashes($user->user_login);
 		$user_pass = wp_generate_password(12, false);
 		wp_set_password($user_pass, $user->ID);
+
+		$emailAvisoAdminPasswordReset = I18n::trans('emails.aviso_admin_password_reset', [
+			'user_login' => $user_login,
+			'user_email' => $user_email,
+			'blogname' => get_option('blogname')
+		]);
+
+		$enviado = Correo::enviarCorreoGenerico([
+			get_option('admin_email')
+		], sprintf(__('[%s] New User Recovering Pass'), get_option('blogname')), $emailAvisoAdminPasswordReset);
+
+		if (!$enviado) {
+			Utils::info("Fallo al enviar el correo al User con ID: $user_id");
+		}
 
 		if (empty($user_pass) || !$user->ID)
 			return;
