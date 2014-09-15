@@ -1,7 +1,12 @@
 <div class="autor">
-	{{#user}}		
+	{{#user}}
 		<div class="row img-header">
-			<img src="{{{getImgHeader}}}" >
+			{{#getImgHeader}}
+				<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
+			{{/getImgHeader}}
+			{{^getImgHeader}}
+				<img alt="{{display_name}}" class="sin-thumbnail" >
+			{{/getImgHeader}}
 		</div>
 		<div class="row content">
 			<div class="col1 col-xs-12 col-sm-4">
