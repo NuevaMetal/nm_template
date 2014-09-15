@@ -1,7 +1,7 @@
 <section class="col-xs-12">
 	<h3>{{#transu}}informar{{/transu}}</h3>
 		<p><small> {{#transu}}reportar_info{{/transu}}</small></p>
-	{{#current_user}}
+	{{#current_user.ID}}
 		<div class="formulario">
 			<form action="{{template_url}}/ajax.php">
 				<input type="hidden" name="post" value="{{post.ID}}">
@@ -15,12 +15,12 @@
 				</button>
 			</form>
 		</div>
-	{{/current_user}}
-	{{^current_user}}
+	{{/current_user.ID}}
+	{{^current_user.ID}}
 		<a class="login-necesario form-control btn btn-default" 
 		href="/wp-login.php" target="_blank">
 		<i class='fa fa-flag-o'></i> 
 		{{#transu}}user.login_necesario{{/transu}}
 	</a>
-	{{/current_user}}
+	{{/current_user.ID}}
 </section>

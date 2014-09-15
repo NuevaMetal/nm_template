@@ -23,6 +23,7 @@ class AutorController extends BaseController {
 		]);
 		$args = [
 			'user' => $user,
+			'current_user' => Utils::getCurrentUser(),
 			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
 		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);

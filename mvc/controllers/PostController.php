@@ -16,18 +16,16 @@ class PostController extends BaseController {
 	 * single.php
 	 */
 	public function getPost() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop($dateFormat);
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 		$post = $posts [0];
 
 		if (!isset($post)) {
 			return $this->renderPage('404');
 		}
-		$currentUser = Utils::getCurrentUser();
-
 		$content = $this->render('post', [
 			'post' => $post,
-			'current_user' => $currentUser,
-			'template_url' => get_template_directory_uri()
+			'template_url' => get_template_directory_uri(),
+			'current_user' => Utils::getCurrentUser()
 		]);
 
 		return $this->_renderPageBase([
