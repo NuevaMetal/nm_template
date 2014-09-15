@@ -26,6 +26,7 @@ function crearMorrisUser(elementId, json) {
 					"Noviembre", "Diciembre" ];
 			return monthNames[data.getYear()]
 		},
-//		resize: true,		
+		hideHover : true,
+		resize : true,
 	});
 }
