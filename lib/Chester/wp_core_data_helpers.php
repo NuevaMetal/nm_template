@@ -88,7 +88,8 @@ class ChesterWPCoreDataHelpers {
 				$loop->the_post();
 
 				if (!($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && !($index % 2))) {
-					array_push($posts, self::getPost($dateFormat, $customFields));
+					// 	array_push($posts, self::getPost($dateFormat, $customFields));
+					$posts [] = Post::get(get_the_ID(), $dateFormat);
 				}
 			}
 		}
@@ -106,7 +107,7 @@ class ChesterWPCoreDataHelpers {
 	}
 
 	public static function getPost($dateFormat = false, $customFields = array(), $post_id = false) {
-		return Post::get($post_id, $dateFormat);
+		return Post::get(($post_id) ? $post_id : get_the_ID(), $dateFormat);
 	}
 
 	private static function getBlogTitle() {

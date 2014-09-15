@@ -90,7 +90,7 @@ a {
 }
 
 body {
-  	background-color: #fff;
+  	background-color: $body-background-color; 
 	background: url(../img/01.jpg);
 	background-repeat: repeat;
 	background-attachment: fixed;

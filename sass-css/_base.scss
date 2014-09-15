@@ -4,6 +4,8 @@ $screen-md-min: 992px;
 $screen-lg-min: 1200px;
 $screen-xl-min: 1400px;
 
+$body-background-color: #fff;
+
 @mixin col($media) {
 	@if $media == xs {
 		@media only screen and (max-width: $screen-xs-max) { @content; }

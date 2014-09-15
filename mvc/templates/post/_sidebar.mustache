@@ -1,0 +1,27 @@
+<h2 class="titular">
+	<i class="fa fa-child"></i> {{#trans}}sidebar.bienvenido{{/trans}}
+</h2>
+<hr>
+
+<div class="sidebar-item col-sm-12">
+	<p>{{#trans}}sidebar.te_gusta_lo_que_ves{{/trans}}</p>
+	<p>{{#trans}}sidebar.unete{{/trans}}</p>
+	<p><a href="/tutorial" class="btn btn-default btn-sm hidden-sm">
+		<i class="fa fa-check"></i>{{#trans}}sidebar.empieza_a_publicar_largo{{/trans}}</a>
+	</p>
+	<p><a href="/tutorial" class="btn btn-default btn-sm visible-sm">
+		<i class="fa fa-check"></i> {{#trans}}sidebar.empieza_a_publicar{{/trans}}</a>
+	</p>
+</div>
+
+{{#haySimilares}}
+<div class="sidebar-item col-sm-12 similares"> haySimilares
+	<h3 class="titular"><i class="fa fa-group"></i> {{#trans}}sidebar.entradas_similares{{/trans}}</h3>
+	<hr>
+	<section>
+	{{#getSimilares}}
+		{{> post/sidebar/_post_similar}}
+	{{/getSimilares}}
+	</section>
+</div>
+{{/haySimilares}}

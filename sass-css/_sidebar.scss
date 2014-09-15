@@ -1,5 +1,6 @@
 #sidebar{
 
+	background-color: $body-background-color;
 	//@include inline-block;
 	
 	.sidebar-item {
@@ -35,10 +36,12 @@
 			}
 			
 			.sidebar-post-similar-title{
+				//position: absolute;
+				//bottom: 0px;				
 				margin:5px;
-			}			
+			}
 		}
-		
+
 		@include col(xs) {
 			//height: 330px;
 			.sidebar-post-similar {

@@ -8,6 +8,54 @@ require_once 'ModelBase.php';
 class Post extends ModelBase {
 	public static $table = "posts";
 
+	const IMG_THUMBNAIL = 'thumbnail';
+
+	const IMG_MEDIUM = 'medium';
+
+	const IMG_LARGE = 'large';
+
+	const IMG_FULL = 'full';
+
+	const NUM_SIMILARES_DEFAULT = 4;
+
+	// Cantidad del extracto de una entrevista
+	const CANT_EXCERPT_DEFAULT = 12;
+	// Cantidad del título corto por defecto
+	const CANT_TITLE_CORTO_DEFAULT = 5;
+
+	// Cantidad del extracto de una entrevista
+	const CANT_EXCERPT_ENTREVISTA = 16;
+
+	public function getFormComentarios() {
+		ob_start();
+		$params = [
+			'comment_notes_after' => '',
+			'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Your Name') . '</label>
+					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
+			'comment_field' => '<div class="form-group comment-form-comment">
+			            <label for="comment">' . _x('Comment', 'noun') . '</label>
+			            <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+			        </div>'
+		];
+		comment_form($params, $this->ID);
+		$comment_form = ob_get_clean();
+		$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
+		$comment_form = str_replace('id="submit"', 'class="btn btn-primary"', $comment_form);
+		return $comment_form;
+	}
+
+	/**
+	 * Devuelve una lista de comentarios
+	 */
+	public function getComentarios() {
+		$args_comments = array(
+			'post_id' => $this->ID,
+			'orderby' => 'comment_date_gmt',
+			'status' => 'approve'
+		);
+		return get_comments($args_comments, $this->ID);
+	}
+
 	/**
 	 * Devuelve el array con la información del Post
 	 *
@@ -15,187 +63,194 @@ class Post extends ModelBase {
 	 *        Identificador del Post
 	 * @param string $dateFormat
 	 * @return array
+	 * @deprecated por usar find
+	 * @see Post::find
 	 */
 	public static function get($post_id = false, $dateFormat = false, $conCategorias = false) {
-		if (!$dateFormat) {
-			$dateFormat = get_option('date_format');
-		}
-		if (!$post_id) {
-			$conCategorias = true;
-			$post_id = get_the_ID();
-		}
+		return Post::find($post_id);
+	}
 
-		$post = self::getArrayById($post_id, $conCategorias);
-		$post ['time'] = get_the_time($dateFormat, $post_id);
+	public function getUrl() {
+		return get_permalink($this->ID);
+	}
 
-		return $post;
+	public function getUrlEditar() {
+		return get_edit_post_link($this->ID);
+	}
+
+	public function getTitulo($corto = false, $cantCorto = self::CANT_TITLE_CORTO_DEFAULT) {
+		$title = get_the_title($this->ID);
+		//($corto) ? explode('-', $title)[0] : $title;
+		return ($corto) ? Utils::getPalabrasByStr($title, $cantCorto) : $title;
+	}
+
+	public function getTituloCorto() {
+		return $this->getTitulo(true);
 	}
 
 	/**
-	 * Devuelve la información mínima de un post conociendo su ID
-	 *
-	 * @param integer $post_id
-	 *        Identificador del Post
-	 * @return array
+	 * Fecha ISO 8601.
+	 * 2004-02-12T15:19:21+00:00
 	 */
-	public static function getArrayById($post_id, $conCategorias = false) {
-		$post = Post::find($post_id);
-		$title = get_the_title($post_id);
-		$title_corto = Utils::getPalabrasByStr($title, Utils::CANT_TITLE_CORTO_DEFAULT);
-		$title_corto = Utils::quitarPalabrasInnecesariasDeSeccion($title_corto);
-
-		$post = array(
-			'ID' => $post_id,
-			'post_id' => $post_id,
-			'permalink' => get_permalink($post_id),
-			'title' => $title,
-			'title_corto' => $title_corto,
-			'date_published' => get_the_time('c'),
-			'content' => Utils::traducirPost(self::getTheFilteredContentFromLoop()),
-			'excerpt' => Utils::traducirPost(Utils::getExcerptById($post_id, Utils::CANT_EXCERPT_DEFAULT)),
-			'genero' => Utils::getGeneroById($post_id),
-			'pais' => Utils::getPaisById($post_id),
-			'total_me_gustas' => $post->getCountFavoritos(),
-			'autor' => User::find($post->post_author)
-		);
-
-		if ($conCategorias) {
-			$tags = get_the_tags($post_id);
-			$categories = get_the_category($post_id);
-			$post ['the_tags'] = self::getTagsAsArray($tags);
-			$post ['the_categories'] = self::getCategoriesAsArray($categories);
-			if (!$tags) {
-				$post ['has_tags'] = false;
-			} else {
-				$post ['has_tags'] = true;
-			}
-			if (!$categories) {
-				$post ['has_categories'] = false;
-			} else {
-				$post ['has_categories'] = true;
-			}
-		}
-
-		//Añadir la analítica sólo si es un editor o admin
-		if (current_user_can('edit_others_pages')) {
-			$post ['analitica'] = [
-				'visitas_totales' => Analitica::getTotalVisitasByPostId($post_id),
-				'visitas_user' => Analitica::getVisitasUnicasByPostId($post_id)
-			];
-		}
-
-		//$post = self::addCustomFieldsToPost($customFields, $post);
-		$post = self::addThumbnailsToPost($post);
-
-		return $post;
+	public function getTimeISO() {
+		return get_the_time('c', $this->ID);
 	}
 
-	private static function getTheFilteredContentFromLoop() {
-		$content = apply_filters('the_content', get_the_content());
+	public function getTime($dateFormat = false) {
+		if (!$dateFormat) {
+			$dateFormat = (is_home()) ? get_option('date_format') : 'l, d F Y';
+		}
+		return get_the_time($dateFormat, $this->ID);
+	}
+
+	public function getContent() {
+		return Utils::traducirPost(self::getTheFilteredContentFromLoop($this->post_content));
+	}
+
+	public function getExcerpt() {
+		// Quito las etiquetas e img
+		$the_excerpt = strip_tags(strip_shortcodes($this->post_content));
+		// Dejo el str en una única línea
+		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
+		// Sustituyo todos los espacios raros por espacios normales
+		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
+		$the_excerpt = Utils::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT_DEFAULT);
+		// Aplicamos negrita a ciertas palabras
+		$the_excerpt = preg_replace([
+			'/(Género)/i',
+			'/(País)/i',
+			'/(Álbumes)/i',
+			'/(Estado)/i',
+			'/(Miembros)/i'
+		], '<b>$1</b>', $the_excerpt);
+		return Utils::traducirPost($the_excerpt);
+	}
+
+	public function getGenero() {
+		$post_content = $this->post_content;
+		$post_content = strip_tags(strip_shortcodes($post_content));
+		$post_content = substr($post_content, 0, 60);
+		//preg_match('/(?m:\bg[é|e]?neros?\b\W*\b(\w+)\b\W*(.*)[\s]*$)/ui', $post_content, $out);
+		preg_match('/(?m:\bg[é|e]?neros?\b\W*(\w*)(.*)$)/ui', $post_content, $out);
+		array_shift($out); // Quito el primer del array
+		$out = implode('', $out);
+		$out = explode(',', $out);
+		$out = $out [0];
+		return $out;
+	}
+
+	public function getPais() {
+		$post_content = $this->post_content;
+		$post_content = strip_tags(strip_shortcodes($post_content));
+		$post_content = substr($post_content, 0, 100);
+		//preg_match('/(?m:\bpa[í|i]s[es]*\b\W*\b(\w*)\b\W*(\w*).*$)/ui', $post_content, $out);
+		preg_match('/(?m:\bpa[í|i]s[es]*\b\W*(\w*)(.*)$)/ui', $post_content, $out);
+		array_shift($out); // Quito el primer del array
+		$out = implode('', $out);
+		return $out;
+	}
+
+	public function getTotalMeGustas() {
+		return $this->getCountFavoritos();
+	}
+
+	public function getAutor() {
+		return User::find($this->post_author);
+	}
+
+	public function getEtiquetas() {
+		$tags = get_the_tags($this->ID);
+		return self::_getTags($tags);
+	}
+
+	public function tieneEtiquetas() {
+		return count($this->getEtiquetas());
+	}
+
+	public function getCategorias() {
+		$categories = get_the_category($this->ID);
+		return self::_getCategories($categories);
+	}
+
+	public function tieneCategorias() {
+		return count($this->getCategorias());
+	}
+
+	public function getAnalitica() {
+		return [
+			'visitas_totales' => Analitica::getTotalVisitasByPostId($this->ID),
+			'visitas_unicas' => Analitica::getVisitasUnicasByPostId($this->ID)
+		];
+	}
+
+	public function getThumbnails() {
+		$thumbnails = [];
+		$sizes = [
+			self::IMG_THUMBNAIL,
+			self::IMG_MEDIUM,
+			self::IMG_LARGE,
+			self::IMG_FULL
+		];
+		foreach ($sizes as $size) {
+			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
+			if (!empty($imageObject)) {
+				$thumbnails [$size] = $imageObject [0];
+			}
+		}
+		return $thumbnails;
+	}
+
+	private static function getTheFilteredContentFromLoop($_content) {
+		$content = apply_filters('the_content', $_content);
 		$content = str_replace(']]>', ']]&gt;', $content);
 		return $content;
 	}
 
-	private static function getTagsAsArray($theTags) {
+	private static function _getTags($theTags) {
 		if (!$theTags) {
 			return array();
 		}
 		$array = array();
-
 		foreach ($theTags as $tag) {
-			$tagAsArray = get_object_vars($tag);
-			$tagAsArray ['tag_link'] = get_tag_link($tag->term_id);
-			array_push($array, $tagAsArray);
+			$tag->tag_link = get_tag_link($tag->term_id);
+			$array [] = $tag;
 		}
-
 		return $array;
 	}
 
-	private static function getCategoriesAsArray($theCategories) {
+	private static function _getCategories($theCategories) {
 		if (!$theCategories) {
 			return array();
 		}
 		$array = array();
-
 		foreach ($theCategories as $category) {
-			$categoryAsArray = get_object_vars($category);
-			$categoryAsArray ['category_link'] = get_category_link($category->term_id);
-			array_push($array, $categoryAsArray);
+			$category->category_link = get_category_link($category->term_id);
+			$array [] = $category;
 		}
-
 		return $array;
 	}
 
-	private static function addCustomFieldsToPost($customFields = array(), $post = FALSE) {
-		if (empty($customFields) || empty($post)) {
-			return $post;
-		}
-
-		foreach ($customFields as $customField) {
-			if (empty($customField)) {
-				continue;
-			}
-			$post = self::setCustomFieldOnPost($post ['ID'], $customField, $post);
-		}
-
-		return $post;
-	}
-
-	private static function setCustomFieldOnPost($postId, $customField, $post) {
-		if (is_string($customField)) {
-			$post [$customField] = get_post_meta($postId, ChesterWPAlchemyHelpers::$metaKeyPrefix . $customField, true);
-		} else {
-			$name = $customField ['name'];
-			$post [$name] = get_post_meta($postId, ChesterWPAlchemyHelpers::$metaKeyPrefix . $name, true);
-			if ($customField ['fieldType'] == 'textarea') {
-				$post [$name] = wpautop($post [$name]);
-			}
-		}
-		return $post;
-	}
-
-	private static function addThumbnailsToPost($post) {
-		$sizes = array(
-			'thumbnail',
-			'medium',
-			'large',
-			'full'
-		);
-
-		foreach ($sizes as $size) {
-			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($post ['post_id']), $size);
-			if (!empty($imageObject)) {
-				$post ['featured_image_url_' . $size] = $imageObject [0];
-			}
-		}
-		return $post;
-	}
-
 	/**
-	 * Devuelve un array con posts similares basásndose en sus tags
+	 * Devuelve un array con posts similares basásndose en sus etiquetas
 	 *
 	 * @param number $max
 	 *        Número máximo de posts similares que queremos
-	 * @return array<post>
+	 * @return array<Post>
 	 */
-	public static function getPostsSimilares($max = 4, $post_id = false) {
+	public function getSimilares($max = self::NUM_SIMILARES_DEFAULT) {
 		$cont = 0;
 		$postsSimilares = array();
-		if (!post_id) {
-			global $post;
-			$post_id = $post->ID;
-		}
-		$nextTagThumb = '-1';
-		$tags = wp_get_post_tags($post_id);
+		$nextTagThumb = -1;
+		$tags = $this->getEtiquetas();
 		foreach ($tags as $tag) {
-			if ($tags) {
-				$what_tag = $tags [($nextTagThumb + '1')]->term_id;
+			if ($tag) {
+				$what_tag = $tags [($nextTagThumb + 1)]->term_id;
 				$args = array(
 					'tag__in' => array(
 						$what_tag
 					),
 					'post__not_in' => array(
-						$post->ID
+						$this->ID
 					),
 					'showposts' => 3,
 					'ignore_stickies' => 1
@@ -204,9 +259,7 @@ class Post extends ModelBase {
 				$posts = get_posts($args);
 
 				foreach ($posts as $k => $_p) {
-					$post = Post::get($_p->ID);
-					$post['title_corto'] = explode('-', $_p->post_title)[0];
-					$postsSimilares [] = $post;
+					$postsSimilares [] = Post::get($_p->ID);
 					if (++$cont == $max) {
 						break 2;
 					}
@@ -218,16 +271,18 @@ class Post extends ModelBase {
 		return $postsSimilares;
 	}
 
+	public function haySimilares() {
+		return count($this->getSimilares());
+	}
+
 	/**
 	 * Devuelve la primera categoría que encuentra del post
 	 *
-	 * @param integer $post_id
-	 *        Identificador del Post
-	 * @return Categoria
+	 * @return string
 	 */
-	public static function getCategoryName($post_id) {
-		$cat = get_the_category($post_id);
-		return $cat [0]->name;
+	public function getCategoriaNombre() {
+		$categorias = $this->getCategorias();
+		return ($categorias) ? $categorias [0]->name : '';
 	}
 
 	/**
@@ -241,6 +296,27 @@ class Post extends ModelBase {
 		return ( int ) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE post_id = $this->ID AND status = $activo;");
+	}
+
+	public function getNonceMeGusta() {
+		return Utils::crearNonce(Utils::ME_GUSTA, $this->ID);
+	}
+
+	public function getNonceNotificar() {
+		return Utils::crearNonce(Utils::NOTIFICAR, $this->ID);
+	}
+
+	public function isMeGusta($user_id = false) {
+		if (!$user_id) {
+			$user_id = wp_get_current_user()->ID;
+		}
+		global $wpdb;
+		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM ' . $wpdb->prefix . 'favoritos
+				WHERE user_id = %d
+				AND post_id = %d
+				AND status = 0;', $user_id, $this->ID));
+		return $leGusta > 0;
 	}
 
 }

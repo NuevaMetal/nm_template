@@ -72,7 +72,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$otherParams = [];
 			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
 				$otherParams = [
-					'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
+					'cant_excerpt' => Post::CANT_EXCERPT_ENTREVISTA
 				];
 			}
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
@@ -86,9 +86,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		}
 
 		foreach ($posts as &$p) {
-			$p ['title_corto'] = sanearString($p ['title_corto']);
-			$p ['content'] = sanearString($p ['content']);
-			$p ['excerpt'] = sanearString($p ['excerpt']);
+			$p->title_corto = sanearString($p->title_corto);
+			$p->content = sanearString($p->content);
+			$p->excerpt = sanearString($p->excerpt);
 		}
 
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
@@ -151,8 +151,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if (!empty($result)) {
 			$json ['code'] = 200;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => true,
+				'getNonceMeGusta' => $nonce
 			]);
 
 			$json ['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
@@ -160,8 +160,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => false,
+				'getNonceMeGusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -233,15 +233,15 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$json ['code'] = 200;
 			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => false,
+				'getNonceMeGusta' => $nonce
 			]);
 		} else {
 			$json ['code'] = 504;
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => true,
+				'getNonceMeGusta' => $nonce
 			]);
 		}
 		$json ['total_me_gustas'] = $post->getCountFavoritos();

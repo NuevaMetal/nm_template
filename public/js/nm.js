@@ -57,7 +57,6 @@ function scrollOn() {
 	$(".perfil-login").addClass("hidden");
 	
 	$("#content").addClass("aumentar-padding-top-content");
-	$("#sidebar").addClass("aumentar-padding-top-content");
 	
 	$(".navbar-principal-login").removeClass("hidden");
 	$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
@@ -73,7 +72,6 @@ function scrollOff() {
 	$(".navbar-principal-login-xs").parent('button').addClass("hidden");
 	$("#content").removeClass("aumentar-padding-top-content");
 	
-	$("#sidebar").removeClass("aumentar-padding-top-content");
 	$(".navbar-principal-login").addClass("hidden");
 }
 

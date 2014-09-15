@@ -45,14 +45,29 @@ class User extends ModelBase {
 		return get_avatar($this->ID, 160, '', "$this->display_name avatar");
 	}
 
+	/**
+	 * Devuelve la URL del User
+	 *
+	 * @return string
+	 */
 	public function getUrl() {
 		return get_the_author_meta('user_url', $this->ID);
 	}
 
+	/**
+	 * Devuelve la descripción del User
+	 *
+	 * @return string
+	 */
 	public function getDescription() {
 		return get_the_author_meta('description', $this->ID);
 	}
 
+	/**
+	 * Devuelve la URL de la pantalla de edición del perfil del User
+	 *
+	 * @return string
+	 */
 	public function getEditUrl() {
 		return get_edit_user_link();
 	}
@@ -60,7 +75,7 @@ class User extends ModelBase {
 	/**
 	 * Devuelve la URL del perfil del User
 	 */
-	public function getPefilUrl() {
+	public function getPerfilUrl() {
 		return get_author_posts_url($this->ID);
 	}
 
@@ -178,21 +193,21 @@ class User extends ModelBase {
 	public function getArrayEtiquetasFavoritas($cant = User::NUM_ETI_FAV_PERFIL_DEFAULT) {
 		$favoritos = $this->getFavoritos($limit = false, $offset = false, $conCategorias = true);
 		$tags = [];
-		foreach ($favoritos as $f) {
-			if (isset($f ['the_tags'])) {
-				foreach ($f ['the_tags'] as $t) {
-					if (isset($tags [$t ['name']])) {
-						$tags [$t ['name']] ['total']++;
+		foreach ($favoritos as $postFavorito) {
+			if ($postFavorito->tieneEtiquetas()) {
+				foreach ($postFavorito->getEtiquetas() as $t) {
+					if (isset($tags [$t->name])) {
+						$tags [$t->name]->total++;
 					} else {
-						$tags [$t ['name']] = $t;
-						$tags [$t ['name']] ['total'] = 1;
+						$tags [$t->name] = $t;
+						$tags [$t->name]->total = 1;
 					}
 				}
 			}
 		}
 		// Ordenamos el array de etiquetas por su cantidad total
 		usort($tags, function ($a, $b) {
-			return $a ['total'] < $b ['total'];
+			return $a->total < $b->total;
 		});
 
 		if ($cant) {
@@ -243,7 +258,7 @@ class User extends ModelBase {
 		$todosFavoritos = $this->getFavoritos($cant);
 		$favoritos = [];
 		foreach ($todosFavoritos as $k => $f) {
-			$cat_name = strtolower(Post::getCategoryName($f ['post_id']));
+			$cat_name = strtolower($f->getCategoriaNombre());
 			if (!isset($favoritos [$cat_name])) {
 				$favoritos [$cat_name] = [];
 				if ($k == 0 && !isset($favoritos [$cat_name] ['activo'])) {

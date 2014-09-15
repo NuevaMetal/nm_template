@@ -3,43 +3,48 @@
 
 	<div class="thumbnail">
         <div class="caption text-left">
-		{{# total_me_gustas }}
+		{{# getTotalMeGustas }}
 			<span class="total-me-gustas titular">
-				<i class=" fa fa-star"></i> <span class="cant">{{ total_me_gustas }}</span>
+				<i class=" fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
 			</span>
-		{{/ total_me_gustas }}
+		{{/ getTotalMeGustas }}
 
-		{{# analitica }}
-		<a href="{{permalink}}" title="{{{title}}}">
-			<div class="analitica">
-				{{#visitas_totales}}
-				<span class=" total-visitas">
-					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
-					<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
-				</span>
-				{{/visitas_totales}}
-	
-				{{#visitas_user}}
-				<span class=" unicas-por-user">
-					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
-					<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
-				</span>
-				{{/visitas_user}}
-			</div>
-		</a>
-		{{/ analitica }}
-
+		{{# getAnalitica }}
+			<a href="{{getUrl}}" title="{{{getTitulo}}}">
+				<div class="analitica">
+					{{#visitas_totales}}
+					<span class=" total-visitas">
+						<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
+						<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
+					</span>
+					{{/visitas_totales}}
+		
+					{{#visitas_user}}
+					<span class=" unicas-por-user">
+						<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
+						<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
+					</span>
+					{{/visitas_user}}
+				</div>
+			</a>
+		{{/ getAnalitica }}
         </div>
-		<a href="{{permalink}}" title="{{{title}}}">
-			{{#featured_image_url_medium}}
-				<img class="img-responsive" src="{{featured_image_url_medium}}" />
-			{{/featured_image_url_medium}}
-			{{^featured_image_url_medium}}
+        
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">			
+			{{#getThumbnails}}
+				{{#medium}}
+					<img class="img-responsive" src="{{medium}}" />
+				{{/medium}}
+				{{^medium}}
+					<img class="img-responsive sin-thumbnail"/>
+				{{/medium}}
+			{{/getThumbnails}}
+			{{^getThumbnails}}
 				<img class="img-responsive sin-thumbnail"/>
-			{{/featured_image_url_medium}}
+			{{/getThumbnails}}
 		</a>
     </div>
     <h2 class="post-title titular">
-		<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">{{{getTituloCorto}}}</a>
     </h2>	
 </article>

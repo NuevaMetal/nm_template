@@ -57,7 +57,6 @@ class FavoritosController extends BaseController {
 		$current_user = wp_get_current_user();
 		$user = User::find($current_user->ID);
 		$favoritos = $user->getFavoritosAgrupados();
-
 		$content = $this->render('plugin/favoritos', [
 			'current_user' => $current_user,
 			'total' => $user->getCountFavoritos(),

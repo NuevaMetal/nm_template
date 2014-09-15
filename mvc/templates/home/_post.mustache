@@ -3,18 +3,18 @@
 
 	<div class="thumbnail">
 		<div class="info titular">
-	    	<span class="post-time">{{time}} </span>
-		    {{#trans}}por{{/trans}} <span class="post-author"><a href="{{autor.getPefilUrl}}">{{autor.display_name}}</a></span>
+	    	<span class="post-time">{{getTime}} </span>
+		    {{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
 		</div>
         <div class="caption text-left">
-		{{# total_me_gustas }}
+		{{# getTotalMeGustas }}
 			<span class="total-me-gustas titular">
-				<i class=" fa fa-star"></i> <span class="cant">{{ total_me_gustas }}</span>
+				<i class=" fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
 			</span>
-		{{/ total_me_gustas }}
+		{{/ getTotalMeGustas }}
 
-		{{# analitica }}
-		<a href="{{permalink}}" title="{{{title}}}">
+		{{# getAnalitica }}
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">
 			<div class="analitica">
 				{{#visitas_totales}}
 				<span class=" total-visitas">
@@ -23,36 +23,41 @@
 				</span>
 				{{/visitas_totales}}
 	
-				{{#visitas_user}}
+				{{#visitas_unicas}}
 				<span class=" unicas-por-user">
 					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
 					<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
 				</span>
-				{{/visitas_user}}
+				{{/visitas_unicas}}
 			</div>
 		</a>
-		{{/ analitica }}
+		{{/ getAnalitica }}
 
         </div>
-		<a href="{{permalink}}" title="{{{title}}}">
-			{{#featured_image_url_medium}}
-				<img class="img-responsive" src="{{featured_image_url_medium}}" />
-			{{/featured_image_url_medium}}
-			{{^featured_image_url_medium}}
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">
+			{{#getThumbnails}}
+				{{#medium}}
+					<img class="img-responsive" src="{{medium}}" />
+				{{/medium}}
+				{{^medium}}
+					<img class="img-responsive sin-thumbnail"/>
+				{{/medium}}
+			{{/getThumbnails}}
+			{{^getThumbnails}}
 				<img class="img-responsive sin-thumbnail"/>
-			{{/featured_image_url_medium}}
+			{{/getThumbnails}}
 		</a>
     </div>
     <h2 class="post-title titular">
-		<a href="{{permalink}}" title="{{{title}}}">{{{title_corto}}}</a>
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">{{{getTituloCorto}}}</a>
     </h2>
-	{{#genero}}
-		<b class="titular">{{#transu}}genero{{/transu}}</b>: {{genero}} <br>
-	{{/genero}}
-	{{#pais}}
-		<b class="titular">{{#transu}}pais{{/transu}}</b>: {{pais}} <br>
-	{{/pais}}
-	{{^genero}}
-		{{{ excerpt }}
-	{{/genero}}
+	{{#getGenero}}
+		<b class="titular">{{#transu}}genero{{/transu}}</b>: {{getGenero}} <br>
+	{{/getGenero}}
+	{{#getPais}}
+		<b class="titular">{{#transu}}pais{{/transu}}</b>: {{getPais}} <br>
+	{{/getPais}}
+	{{^getGenero}}
+		{{{ getExcerpt }}
+	{{/getGenero}}
 </article>

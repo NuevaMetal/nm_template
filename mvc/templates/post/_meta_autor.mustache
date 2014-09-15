@@ -1,11 +1,11 @@
+{{#autor}}
 <div class="post-meta page-header col-xs-12">
-
 	<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 		<h2>
 		<div class="col-xs-12 col-sm-8" >
-			<span itemprop="image">{{{user_avatar}}}</span>
-			<a href="{{user_posts_url}}" itemprop="name">{{display_name}}</a>
-			<small itemprop="jobTitle">{{user_rol}}</small>
+			<span itemprop="image">{{{getAvatar}}}</span>
+			<a href="{{getPerfilUrl}}" itemprop="name">{{display_name}}</a>
+			<small itemprop="jobTitle">{{getRol}}</small>
 		</div>
 		</h2>
 		{{#user_url}}
@@ -20,16 +20,17 @@
 		{{/user_url}}
 		<div class="col-xs-12">
 			<blockquote>
-				{{#description}}
+				{{#getDescription}}
 					<small>{{#transu}}biografia{{/transu}}</small>
-				{{/description}}
+				{{/getDescription}}
 				<p itemprop="description">
-					{{description}}
-					{{^description}}
+					{{getDescription}}
+					{{^getDescription}}
 						{{#transu}}user.no_hay_info_perfil{{/transu}}
-					{{/description}}
+					{{/getDescription}}
 				</p>
 			</blockquote>
 		</div>
 	</div>
 </div>
+{{/autor}}
