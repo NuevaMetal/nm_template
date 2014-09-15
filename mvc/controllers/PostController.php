@@ -22,12 +22,10 @@ class PostController extends BaseController {
 		if (!isset($post)) {
 			return $this->renderPage('404');
 		}
-		$currentUser = Utils::getCurrentUser();
-
 		$content = $this->render('post', [
 			'post' => $post,
-			'current_user' => $currentUser,
-			'template_url' => get_template_directory_uri()
+			'template_url' => get_template_directory_uri(),
+			'current_user' => Utils::getCurrentUser()
 		]);
 
 		return $this->_renderPageBase([

@@ -68,8 +68,6 @@ class ChesterWPCoreDataHelpers {
 	}
 
 	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
-		global $post;
-
 		$posts = array();
 
 		$querySettings = array(
@@ -89,7 +87,8 @@ class ChesterWPCoreDataHelpers {
 
 				if (!($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && !($index % 2))) {
 					// 	array_push($posts, self::getPost($dateFormat, $customFields));
-					$posts [] = Post::get(get_the_ID(), $dateFormat);
+					// 	$posts [] = Post::get(get_the_ID(), $dateFormat);
+					$posts [] = Post::find(get_the_ID());
 				}
 			}
 		}

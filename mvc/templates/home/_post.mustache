@@ -13,26 +13,28 @@
 			</span>
 		{{/ getTotalMeGustas }}
 
-		{{# getAnalitica }}
-		<a href="{{getUrl}}" title="{{{getTitulo}}}">
-			<div class="analitica">
-				{{#visitas_totales}}
-				<span class=" total-visitas">
-					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
-					<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
-				</span>
-				{{/visitas_totales}}
-	
-				{{#visitas_unicas}}
-				<span class=" unicas-por-user">
-					<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
-					<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
-				</span>
-				{{/visitas_unicas}}
-			</div>
-		</a>
-		{{/ getAnalitica }}
-
+		{{#current_user.isAdmin}}
+			{{# getAnalitica }}
+			<a href="{{getUrl}}" title="{{{getTitulo}}}">
+				<div class="analitica">
+					{{#visitas_totales}}
+					<span class=" total-visitas">
+						<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}totales{{/transu}}: {{ totales }}</span>
+						<span class="col-xs-12 col-md-6 col-lg-12">T. {{#transu}}hoy{{/transu}}: {{ totales_hoy }}</span>
+					</span>
+					{{/visitas_totales}}
+		
+					{{#visitas_unicas}}
+					<span class=" unicas-por-user">
+						<span class="col-xs-12 col-md-6 col-lg-12">{{#transu}}unicas{{/transu}}: {{ unicas }}</span>
+						<span class="col-xs-12 col-md-6 col-lg-12">U. {{#transu}}hoy{{/transu}}: {{ unicas_hoy }}</span>
+					</span>
+					{{/visitas_unicas}}
+				</div>
+			</a>
+			{{/ getAnalitica }}
+		{{/current_user.isAdmin}}
+		
         </div>
 		<a href="{{getUrl}}" title="{{{getTitulo}}}">
 			{{#getThumbnails}}

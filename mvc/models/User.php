@@ -30,6 +30,18 @@ class User extends ModelBase {
 
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
+	const ROL_SUPER_ADMIN = 'super admin';
+
+	const ROL_ADMIN = 'administrator';
+
+	const ROL_EDITOR = 'editor';
+
+	const ROL_AUTOR = 'author';
+
+	const ROL_CONTRIBUIDOR = 'contributor';
+
+	const ROL_SUSCRIPTOR = 'subscriber';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 */
@@ -108,6 +120,19 @@ class User extends ModelBase {
 		return $this->getNombre() . ' ' . $this->getApellidos();
 	}
 
+	public function isAdmin() {
+		global $wpdb;
+		$qRoles = $wpdb->get_var("SELECT meta_value
+				FROM $wpdb->usermeta
+				WHERE meta_key = 'wp_capabilities'
+				AND user_id = $this->ID");
+		$qRolesArr = unserialize($qRoles);
+		$roles = is_array($qRolesArr) ? array_keys($qRolesArr) : array(
+			'non-user'
+		);
+		return in_array(self::ROL_ADMIN, $roles);
+	}
+
 	/**
 	 * Devuelve el nombre del rol del User
 	 *
@@ -115,14 +140,12 @@ class User extends ModelBase {
 	 */
 	public function getRol() {
 		global $wpdb;
-		$role = $wpdb->get_var("SELECT meta_value
+		$qRoles = $wpdb->get_var("SELECT meta_value
 				FROM $wpdb->usermeta
 				WHERE meta_key = 'wp_capabilities'
 				AND user_id = $this->ID");
-		if (!$role)
-			return 'non-user';
-		$rarr = unserialize($role);
-		$roles = is_array($rarr) ? array_keys($rarr) : array(
+		$qRolesArr = unserialize($qRoles);
+		$roles = is_array($qRolesArr) ? array_keys($qRolesArr) : array(
 			'non-user'
 		);
 		return I18n::transu($roles [0]);

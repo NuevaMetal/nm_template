@@ -98,7 +98,7 @@ class Post extends ModelBase {
 
 	public function getTime($dateFormat = false) {
 		if (!$dateFormat) {
-			$dateFormat = (is_home()) ? get_option('date_format') : 'l, d F Y';
+			$dateFormat = (is_single()) ? 'l, d F Y' : get_option('date_format');
 		}
 		return get_the_time($dateFormat, $this->ID);
 	}

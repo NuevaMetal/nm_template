@@ -243,6 +243,8 @@ class Utils {
 
 	/**
 	 * Devuelve la instancia del usuario actual.
+	 *
+	 * @return User
 	 */
 	public static function getCurrentUser() {
 		$user = wp_get_current_user();

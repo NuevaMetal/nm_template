@@ -64,7 +64,8 @@ class HomeController extends BaseController {
 			'noticias' => $noticias,
 			//'criticas' => $criticas,
 			//'cronicas' => $cronicas,
-			'conciertos' => $conciertos
+			'conciertos' => $conciertos,
+			'current_user' => Utils::getCurrentUser()
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -90,6 +91,7 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
+		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -115,6 +117,7 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_TAG;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
+		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -139,6 +142,8 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_SEARCH;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsBySearch($aBuscar, $cant, [], $otherParams);
+
+		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -146,13 +151,11 @@ class HomeController extends BaseController {
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
 		$args ['a_buscar'] = $aBuscar;
-		// 		$args ['header'] = I18n::trans('resultado_busqueda', [
-		// 			'que' => $aBuscar
-		// 		]);
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
+		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -199,8 +202,8 @@ class HomeController extends BaseController {
 			$moreQuerySettings ['cat'] = "$catId";
 		} elseif ($tipo == Utils::TIPO_SEARCH) {
 			$moreQuerySettings ['s'] = "$seccion";
-		} elseif ($tipo == Utils::TIPO_AUTHOR){
-			$moreQuerySettings['author'] = $seccion;
+		} elseif ($tipo == Utils::TIPO_AUTHOR) {
+			$moreQuerySettings ['author'] = $seccion;
 		}
 		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings, $otherParams);
 	}
