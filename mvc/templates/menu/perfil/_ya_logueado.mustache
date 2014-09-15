@@ -1,30 +1,30 @@
-<div class="row ">
+<div class="row">
+
+	{{#current_user}}
 	<div class="avatar col-xs-4 col-sm-2 col-md-2">
-		{{#current_user}}
-			{{#getPerfilUrl}}
-				<a href="{{getPerfilUrl}}" title="{{#transu}}entradas_de [nombre:{{display_name}}]{{/transu}}" 
-					alt="avatar de {{display_name}}">{{{getAvatar}}}</a>
-			{{/getPerfilUrl}}
-			{{^getPerfilUrl}}
-				{{{getAvatar}}}
-			{{/getPerfilUrl}}
-		{{/current_user}}
+		{{#getPerfilUrl}}
+			<a href="{{getPerfilUrl}}" alt="avatar de {{display_name}}">{{{getAvatar}}}</a>
+		{{/getPerfilUrl}}
+		{{^getPerfilUrl}}
+			{{{getAvatar}}}
+		{{/getPerfilUrl}}		
 	</div>
 
 	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
 		<h3>{{#transu}}bienvenido{{/transu}}
-		{{#current_user.url}}
-			<a href="{{current_user.url}}">{{current_user.display_name}}</a>
-		{{/current_user.url}}
-		{{^current_user.url}}
-			{{current_user.display_name}}
-		{{/current_user.url}}
+		{{#getPerfilUrl}}
+			<a href="{{getPerfilUrl}}">{{display_name}}</a>
+		{{/getPerfilUrl}}
+		{{^getPerfilUrl}}
+			{{display_name}}
+		{{/getPerfilUrl}}
 		</h3>
 	</div>
-
+	{{/current_user}}
+	
 	<div class="acciones text-center col-xs-12 col-sm-10 col-md-7">
 		<div class="list-group">
-		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/admin.php?page=favoritos" target="_blank">		  	
+		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/admin.php?page=favoritos" target="_blank">  	
 		  	<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
 			<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
 			</a>
@@ -45,5 +45,4 @@
 			</a>
 		</div>
 	</div>
-
 </div>
