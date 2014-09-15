@@ -1,12 +1,16 @@
 <div class="autor">
-	<h1 class="titular">{{#transu}}perfil{{/transu}}</h1>
-	{{#user}}
-		<div class="col1 col-xs-12 col-sm-4">
-			{{> autor/perfil/_col1}}
+	{{#user}}		
+		<div class="row img-header">
+			<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
 		</div>
-	
-		<div class="col2 col-xs-12 col-sm-8">
-			{{> autor/perfil/_col2}}
+		<div class="row content">
+			<div class="col1 col-xs-12 col-sm-4">
+				{{> autor/perfil/_col1}}
+			</div>
+		
+			<div class="col2 col-xs-12 col-sm-8">
+				{{> autor/perfil/_col2}}
+			</div>
 		</div>
 	{{/user}}
 

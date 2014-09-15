@@ -70,4 +70,15 @@ class AutorController extends BaseController {
 		]);
 	}
 
+	public function getPerfilImgHeader($user_ID = false) {
+		if (!$user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+		return $this->render('autor/perfil/_img_header', [
+			'user' => $user,
+			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
+		]);
+	}
+
 }

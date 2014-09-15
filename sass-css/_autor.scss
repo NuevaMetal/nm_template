@@ -4,6 +4,12 @@
 		//border: 1px solid red;
 	}
 	
+	.col2 {
+		@include col(sm) {
+			margin-top: 175px;
+	    }
+	}
+	
 	
 	@extend %ul-inline;
 	.tags {
@@ -12,7 +18,46 @@
 			padding-left: 0;
 		}
 	}
+	.img-header {
+		/*width: 90%; // or whatever is required 
+	    text-align: center; // ensures the image is always in the h-middle 
+	    overflow: hidden; // hide the cropped portion 
+	    img {
+		    position: relative; / allows repositioning 
+		    left: 100%; // move the whole width of the image to the right 
+		    margin-left: -200%; // magic! 
+		}*/
+		
+		img{
+			//border: 1px solid red;
+			position: absolute;
+			//position: relative;
+		    left: 50%;
+		    transform: translate(-50%,0);
 			
+			width: 100%;
+			height: 200px;
+			
+			opacity: 0.9;
+	    	filter: alpha(opacity=50);
+	    	&:hover {
+			   opacity: 1.0;
+			   filter: alpha(opacity=90);
+			}
+	    	
+	    	@include col(xs) {
+	    		height: 150;
+	    		//max-height: 250px;
+	    		//min-height: 50px;
+	    	}
+    	}
+	}
+	
+	.content {
+		//border: 1px solid green;
+		margin-top: 70px;
+	}
+	
 	.ultimos-favoritos{
 		img {
 			height: 170px;		

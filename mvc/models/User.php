@@ -18,6 +18,8 @@ class User extends ModelBase {
 
 	const KEY_USER_APELLIDOS = 'last_name';
 
+	const KEY_USER_IMG_HEADER = 'user_img_header';
+
 	/**
 	 * Número de post favoritos a mostrar en su perfil
 	 */
@@ -55,6 +57,87 @@ class User extends ModelBase {
 
 	public function getAvatarPerfil() {
 		return get_avatar($this->ID, 160, '', "$this->display_name avatar");
+	}
+
+	public function setImgHeader($imgHeader) {
+		$avatar = wp_handle_upload($_FILES [self::KEY_USER_IMG_HEADER], array(
+			'mimes' => array(
+				'jpg|jpeg|jpe' => 'image/jpeg',
+				'gif' => 'image/gif',
+				'png' => 'image/png'
+			),
+			'test_form' => false,
+			'unique_filename_callback' => array(
+				$this,
+				'unique_filename_callback'
+			)
+		));
+		// Quitamos el anterior meta
+		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
+		$meta_value = array();
+
+		$url_or_media_id = $avatar ['url'];
+		// Establecemos el nuevo meta
+		if (is_int($url_or_media_id)) {
+			$meta_value ['media_id'] = $url_or_media_id;
+			$url_or_media_id = wp_get_attachment_url($url_or_media_id);
+		}
+		$meta_value ['full'] = $url_or_media_id;
+		update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, $meta_value);
+	}
+
+	public function unique_filename_callback($dir, $name, $ext) {
+		$name = $base_name = sanitize_file_name($this->display_name . '_header_' . time());
+		$number = 1;
+		while (file_exists($dir . "/$name$ext")) {
+			$name = $base_name . '_' . $number;
+			$number++;
+		}
+		return $name . $ext;
+	}
+
+	public function getImgHeader($size = 600) {
+		$sizeHeight = 200;
+		$sizeWidth = 600;
+		// fetch local avatar from meta and make sure it's properly ste
+		$local_avatars = get_user_meta($this->ID, self::KEY_USER_IMG_HEADER, true);
+		if (empty($local_avatars ['full']))
+			return '';
+
+		$size = ( int ) $size;
+
+		// generate a new size
+		if (!array_key_exists($size, $local_avatars)) {
+			$local_avatars [$size] = $local_avatars ['full']; // just in case of failure elsewhere
+
+
+			$upload_path = wp_upload_dir();
+
+			// get path for image by converting URL, unless its already been set, thanks to using media library approach
+			if (!isset($avatar_full_path)) {
+				$avatar_full_path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $local_avatars ['full']);
+			}
+			// generate the new size
+			// You need to install the GD graphics library and/or Imagick on Ubuntu for the image editor to work.
+			// apt-get install php5-imagick php5-gd
+			$editor = wp_get_image_editor($avatar_full_path);
+			if (!is_wp_error($editor)) {
+				$resized = $editor->resize($sizeWidth, $sizeHeight, true);
+				if (!is_wp_error($resized)) {
+					$dest_file = $editor->generate_filename();
+					$saved = $editor->save($dest_file);
+					if (!is_wp_error($saved)) {
+						$local_avatars [$size] = str_replace($upload_path ['basedir'], $upload_path ['baseurl'], $dest_file);
+					}
+				}
+			}
+			// save updated avatar sizes
+			update_user_meta($user_id, self::KEY_USER_IMG_HEADER, $local_avatars);
+		}
+		if ('http' != substr($local_avatars [$size], 0, 4)) {
+			$local_avatars [$size] = home_url($local_avatars [$size]);
+		}
+		return esc_url($local_avatars [$size]);
 	}
 
 	/**

@@ -92,6 +92,30 @@ add_action('login_init', function () {
  *
  * @param WP_User $user
  */
+function nm_perfil_add_img_fondo($user) {
+	require_once 'mvc/controllers/AutorController.php';
+	$c = new AutorController();
+	echo $c->getPerfilImgHeader($user->ID);
+}
+add_action('show_user_profile', 'nm_perfil_add_img_fondo');
+add_action('edit_user_profile', 'nm_perfil_add_img_fondo');
+
+function nm_perfil_update_img_fondo($user_ID) {
+	if (current_user_can('edit_user', $user_ID)) {
+		if (!function_exists('wp_handle_upload'))
+			require_once (ABSPATH . 'wp-admin/includes/file.php');
+		$user = User::find($user_ID);
+		$user->setImgHeader($_FILES [User::KEY_USER_IMG_HEADER]);
+	}
+}
+add_action('personal_options_update', 'nm_perfil_update_img_fondo');
+add_action('edit_user_profile_update', 'nm_perfil_update_img_fondo');
+
+/**
+ * Añado las redes sociales al perfil del User
+ *
+ * @param WP_User $user
+ */
 function nm_perfil_add_redes_sociales($user) {
 	require_once 'mvc/controllers/AutorController.php';
 	$c = new AutorController();
