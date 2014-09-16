@@ -163,12 +163,14 @@ class Analitica extends ModelBase {
 		global $wpdb;
 		$andPostId = ($post_id) ? " and post_id = $post_id " : '';
 		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
+
+		$noBootSQL = self::_getNoBootSQL();
+
 		$query = "select sum(s.total) as total, s.dia, 'total_visitas' as tipo
 					from (
 					    select se.total total, date(se.created_at) dia
 					    from wp_seguimientos se
-						where LOWER(user_agent) not like '%bot%'
-						and LOWER(user_agent) not like '%feed%'
+						where $noBootSQL
 						$andPostId
 					   group by dia, post_id) s
 					$groupBy ";
@@ -210,12 +212,12 @@ class Analitica extends ModelBase {
 		global $wpdb;
 		$andPostId = ($post_id) ? " and post_id = $post_id " : '';
 		$groupBy = ($agrupadoPorDia) ? 'group by s.dia' : '';
+		$noBootSQL = self::_getNoBootSQL();
 		$query = "SELECT COUNT( s.ip ) AS total, s.dia, 'total_unicas' as tipo
 					FROM (
 						SELECT DISTINCT ip, DATE( created_at ) dia
 						FROM wp_seguimientos
-						where LOWER(user_agent) not like '%bot%'
-						and LOWER(user_agent) not like '%feed%'
+						where $noBootSQL
 						$andPostId
 					) s
 					$groupBy";
@@ -258,11 +260,11 @@ class Analitica extends ModelBase {
 			$cuandoAlias = 'totales_hora_ayer';
 		}
 		global $wpdb;
+		$noBootSQL = self::_getNoBootSQL();
 		$query = "SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total,  '$cuandoAlias' AS tipo
 				FROM wp_seguimientos_horas sh, wp_seguimientos s
 				WHERE sh.seguimiento_id = s.ID
-					and LOWER(s.user_agent) not like '%bot%'
-					and LOWER(s.user_agent) not like '%feed%'
+					and $noBootSQL
 					and date(sh.created_at) = $cuandoQuery
 				GROUP BY hora
 				ORDER BY hora
@@ -287,13 +289,13 @@ class Analitica extends ModelBase {
 			$cuandoAlias = 'unicas_hora_ayer';
 		}
 		global $wpdb;
+		$noBootSQL = self::_getNoBootSQL();
 		$query = "SELECT b.hora, COUNT( b.total ) total,  '$cuandoAlias' AS tipo
 				FROM (
 					SELECT CONCAT( TIME_FORMAT( sh.created_at,  '%H' ) ,  ':00' ) hora, COUNT( * ) total
 					FROM wp_seguimientos_horas sh, wp_seguimientos s
 					WHERE sh.seguimiento_id = s.ID
-						and LOWER(s.user_agent) not like '%bot%'
-						and LOWER(s.user_agent) not like '%feed%'
+						and $noBootSQL
 						and date(sh.created_at) = $cuandoQuery
 					GROUP BY hora, s.post_id
 					ORDER BY hora
@@ -375,6 +377,17 @@ class Analitica extends ModelBase {
 			$result [] = $obj;
 		}
 		return $result;
+	}
+
+	/**
+	 * Devuelve el SQL para filtrar los boot de las consultas SQL
+	 *
+	 * @return string
+	 */
+	private static function _getNoBootSQL() {
+		return '(LOWER(user_agent) not like "%bot%"
+				and LOWER(user_agent) not like "%feed%"
+				and LOWER(user_agent) not like "%compatible%")';
 	}
 
 }
