@@ -1,14 +1,14 @@
 <div class="autor">
 	{{#user}}
 		<div class="row img-header">
-				{{#getImgHeader}}
-					<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
-				{{/getImgHeader}}
-				{{^getImgHeader}}
-					<img alt="{{display_name}}" class="sin-thumbnail" >
-				{{/getImgHeader}}
+			{{#getImgHeader}}
+				<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
+			{{/getImgHeader}}
+			{{^getImgHeader}}
+				<img alt="{{display_name}}" class="sin-thumbnail" >
+			{{/getImgHeader}}
 		</div>
-		<div class="row content">
+		<div class="content">
 			<div class="col1 col-xs-12 col-sm-4">
 				{{> autor/perfil/_col1}}
 			</div>

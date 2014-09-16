@@ -60,7 +60,7 @@ class User extends ModelBase {
 	}
 
 	public function getAvatarPerfil() {
-		return get_avatar($this->ID, 160, '', "$this->display_name avatar");
+		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
 	}
 
 	public function setImgHeader($imgHeader) {
