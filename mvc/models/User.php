@@ -63,7 +63,19 @@ class User extends ModelBase {
 		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
 	}
 
+	/**
+	 * Establecer la img del header.
+	 * Si es false se borrará la actual
+	 *
+	 * @param array $imgHeader
+	 * @throws Exception
+	 */
 	public function setImgHeader($imgHeader) {
+		if (!$imgHeader) {
+			update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, null);
+			return;
+		}
+
 		if (strpos($imgHeader ['name'], '.php')) {
 			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
 		}
@@ -196,17 +208,27 @@ class User extends ModelBase {
 		return $this->getNombre() . ' ' . $this->getApellidos();
 	}
 
-	public function isAdmin() {
+	public function getRoles() {
 		global $wpdb;
 		$qRoles = $wpdb->get_var("SELECT meta_value
 				FROM $wpdb->usermeta
 				WHERE meta_key = 'wp_capabilities'
 				AND user_id = $this->ID");
 		$qRolesArr = unserialize($qRoles);
-		$roles = is_array($qRolesArr) ? array_keys($qRolesArr) : array(
+		return is_array($qRolesArr) ? array_keys($qRolesArr) : array(
 			'non-user'
 		);
-		return in_array(self::ROL_ADMIN, $roles);
+	}
+
+	public function isAdmin() {
+		return in_array(self::ROL_ADMIN, self::getRoles());
+	}
+
+	public function isEditor() {
+		return array_intersect([
+			self::ROL_ADMIN,
+			self::ROL_EDITOR
+		], self::getRoles());
 	}
 
 	/**
@@ -215,15 +237,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getRol() {
-		global $wpdb;
-		$qRoles = $wpdb->get_var("SELECT meta_value
-				FROM $wpdb->usermeta
-				WHERE meta_key = 'wp_capabilities'
-				AND user_id = $this->ID");
-		$qRolesArr = unserialize($qRoles);
-		$roles = is_array($qRolesArr) ? array_keys($qRolesArr) : array(
-			'non-user'
-		);
+		$roles = self::getRoles();
 		return I18n::transu($roles [0]);
 	}
 

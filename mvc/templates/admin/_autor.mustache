@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-xs-12 text-right panel-admin-user">		
+		<button class="btn btn-default quitar-avatar disabled" url="{{template_url}}/ajax.php"
+				que="quitar-avatar" user="{{user.ID}}">Quitar avatar</button>
+		<button class="btn btn-default quitar-header" url="{{template_url}}/ajax.php"
+				que="quitar-header" user="{{user.ID}}">Quitar header</button>
+		<button class="btn btn-danger bloquear disabled" url="{{template_url}}/ajax.php"
+				que="bloquear" user="{{user.ID}}">Bloquear</button>
+	</div>
+</div>
+<hr>
+
+<script src="{{template_url}}/public/js/admin.js"></script>

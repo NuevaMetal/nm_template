@@ -27,10 +27,7 @@ abstract class AlertaController extends BaseController {
 		$args ['tipo'] = $tipo;
 		$args ['mensaje'] = $mensaje;
 		$args ['strong'] = $strong;
-		return [
-			'code' => 200,
-			'content' => $this->render('ajax/alerta', $args)
-		];
+		return $this->render('ajax/alerta', $args);
 	}
 
 	/**

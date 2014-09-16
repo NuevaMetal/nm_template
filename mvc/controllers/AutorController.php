@@ -24,7 +24,7 @@ class AutorController extends BaseController {
 		$args = [
 			'user' => $user,
 			'current_user' => Utils::getCurrentUser(),
-			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES
+			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
 		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';
@@ -41,13 +41,14 @@ class AutorController extends BaseController {
 		]);
 	}
 
-	private static function _getArrayPostsAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+	private static function _getArrayPostsAutor($aBuscar, $cant = 4) {
+		$args = [];
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
 		$args ['a_buscar'] = $aBuscar;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
-		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
+		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, []);
 		return $args;
 	}
 
@@ -77,7 +78,7 @@ class AutorController extends BaseController {
 		$user = User::find($user_ID);
 		return $this->render('autor/perfil/_img_header', [
 			'user' => $user,
-			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
+			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER
 		]);
 	}
 

@@ -299,11 +299,11 @@ class Post extends ModelBase {
 	}
 
 	public function getNonceMeGusta() {
-		return Utils::crearNonce(Utils::ME_GUSTA, $this->ID);
+		return Ajax::crearNonce(Ajax::ME_GUSTA, $this->ID);
 	}
 
 	public function getNonceNotificar() {
-		return Utils::crearNonce(Utils::NOTIFICAR, $this->ID);
+		return Ajax::crearNonce(Ajax::NOTIFICAR, $this->ID);
 	}
 
 	public function isMeGusta($user_id = false) {
