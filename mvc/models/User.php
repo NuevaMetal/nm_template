@@ -20,6 +20,10 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_HEADER = 'user_img_header';
 
+	const IMG_HEADER_WIDTH_DEFAULT = 900;
+
+	const IMG_HEADER_HEIGHT_DEFAULT = 200;
+
 	/**
 	 * Número de post favoritos a mostrar en su perfil
 	 */
@@ -60,11 +64,9 @@ class User extends ModelBase {
 	}
 
 	public function setImgHeader($imgHeader) {
-		// check for uploaded files OR need to be more secure since low privelege users can upload
-		if (empty($imgHeader ['name']) || strpos($imgHeader ['name'], '.php')) {
-			throw new Exception("User($this->ID)->setImgHeader() FAIL. Intento subir .php");
+		if (strpos($imgHeader ['name'], '.php')) {
+			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
 		}
-
 		$avatar = wp_handle_upload($_FILES [self::KEY_USER_IMG_HEADER], array(
 			'mimes' => array(
 				'jpg|jpeg|jpe' => 'image/jpeg',
@@ -72,10 +74,15 @@ class User extends ModelBase {
 				'png' => 'image/png'
 			),
 			'test_form' => false,
-			'unique_filename_callback' => array(
-				$this,
-				'unique_filename_callback'
-			)
+			'unique_filename_callback' => function ($dir, $name, $ext) {
+				$name = $base_name = sanitize_file_name($this->user_login . '_header');
+				$number = 1;
+				while (file_exists($dir . "/$name$ext")) {
+					$name = $base_name . '_' . $number;
+					$number++;
+				}
+				return $name . $ext;
+			}
 		));
 		// Quitamos el anterior meta
 		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
@@ -91,17 +98,7 @@ class User extends ModelBase {
 		update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, $meta_value);
 	}
 
-	public function unique_filename_callback($dir, $name, $ext) {
-		$name = $base_name = sanitize_file_name($this->display_name . '_header_' . time());
-		$number = 1;
-		while (file_exists($dir . "/$name$ext")) {
-			$name = $base_name . '_' . $number;
-			$number++;
-		}
-		return $name . $ext;
-	}
-
-	public function getImgHeader($sizeW = 900, $sizeH = 200) {
+	public function getImgHeader($sizeW = self::IMG_HEADER_WIDTH_DEFAULT, $sizeH = self::IMG_HEADER_HEIGHT_DEFAULT) {
 		// fetch local avatar from meta and make sure it's properly ste
 		$local_avatars = get_user_meta($this->ID, self::KEY_USER_IMG_HEADER, true);
 		if (empty($local_avatars ['full'])) {
@@ -110,10 +107,7 @@ class User extends ModelBase {
 		// generate a new size
 		if (!array_key_exists($sizeW, $local_avatars)) {
 			$local_avatars [$sizeW] = $local_avatars ['full']; // just in case of failure elsewhere
-
-
 			$upload_path = wp_upload_dir();
-
 			// get path for image by converting URL, unless its already been set, thanks to using media library approach
 			if (!isset($avatar_full_path)) {
 				$avatar_full_path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $local_avatars ['full']);

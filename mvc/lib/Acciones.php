@@ -101,12 +101,20 @@ add_action('show_user_profile', 'nm_perfil_add_img_header');
 add_action('edit_user_profile', 'nm_perfil_add_img_header');
 
 function nm_perfil_update_img_fondo($user_ID) {
-	if (current_user_can('edit_user', $user_ID)) {
-		$user = User::find($user_ID);
-		try {
-			$user->setImgHeader($_FILES [User::KEY_USER_IMG_HEADER]);
-		} catch (Exception $e) {
-			Utils::exception($e->getMessage());
+	//Primero comprobamos que el user tenga permisos y exista la clave en los FILES
+	if (current_user_can('edit_user', $user_ID) && isset($_FILES [User::KEY_USER_IMG_HEADER])) {
+		//Después comprobamos que tenga un nombre definido
+		$imgHeader = $_FILES [User::KEY_USER_IMG_HEADER];
+		if ($imgHeader ['name']) {
+			$user = User::find($user_ID);
+			try {
+				$user->setImgHeader($imgHeader);
+			} catch (Exception $e) {
+				// Añadimos el mensaje de error en las notificaciones
+				add_action('user_profile_update_errors', function ($errors) use($e) {
+					$errors->add(User::KEY_USER_IMG_HEADER, $e->getMessage());
+				});
+			}
 		}
 	}
 }

@@ -3,6 +3,8 @@ return [
 	'acceder' => 'acceder',
 	'administrator' => 'administrador',
 	'anadir_favoritos' => 'añadir a mis favoritos',
+	'ancho' => 'ancho',
+	'alto' => 'alto',
 	'autor' => 'autor',
 	'autores' => 'autores',
 	'aviso' => 'aviso',

@@ -26,6 +26,18 @@
 .site-title-plugin {
 	background: url(../img/01.jpg);
 	@include col(xs) {
-		padding-top: 0 !important;		
+		padding-top: 0 !important;
+	}
+}
+
+.wrapper {
+	img {
+		max-height: 200px;
+		width: 100%;		
+		@include col(lg) {
+			margin-left: 10%;
+			max-height: 220px;
+			width: 80%;
+		}
 	}
 }

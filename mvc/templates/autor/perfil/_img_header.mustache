@@ -1,13 +1,16 @@
 {{#user}}
-<h3 id="redes-sociales">{{#transu}}img_header{{/transu}}</h3>
-<table class="form-table">
-	<tr>
-		<td colspan="2"><img alt="{{display_name}}" src="{{{getImgHeader}}}" class="img-header"></td>
-	</tr>
+<h3 id="redes-sociales">{{#transu}}user.img_header{{/transu}}</h3>
+<div class="wrapper">
+	<img alt="{{display_name}}" src="{{{getImgHeader}}}" class="img-header"></td>
+</div>
+<table class="form-table">	
 	<tr>
 		<th><label for="{{KEY_USER_IMG_HEADER}}">Header</label></th>
 		<td><input type="file" id="{{KEY_USER_IMG_HEADER}}" name="{{KEY_USER_IMG_HEADER}}"><br> 
-			<span class="description">{{#transu}}introduce_tu [que:img_header]{{/transu}}</span>
+			<span class="description">{{#transu}}introduce_tu [que:{{#trans}}user.img_header{{/trans}}]{{/transu}}.<br>
+				{{#transu}}user.medidas_aconsejadas_img_header{{/transu}} => 
+				{{#transu}}ancho{{/transu}}: 900px, {{#transu}}alto{{/transu}}: 200px
+			</span>
 		</td>
 	</tr>
 </table>

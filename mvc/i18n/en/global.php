@@ -3,6 +3,8 @@ return [
 	'acceder' => 'login',
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
+	'ancho' => 'width',
+	'alto' => 'height',
 	'autor' => 'author',
 	'autores' => 'authors',
 	'aviso' => 'notice',
