@@ -134,6 +134,16 @@ class Utils {
 	}
 
 	/**
+	 * Función para las Excepciones
+	 *
+	 * @param string $str
+	 *        Cadena a pintar
+	 */
+	public static function exception($str) {
+		error_log(" EXCEPTION - " . $str);
+	}
+
+	/**
 	 * Devuelve un array con los roles de un User apartir de su ID
 	 *
 	 * @param integer $uid

@@ -92,20 +92,22 @@ add_action('login_init', function () {
  *
  * @param WP_User $user
  */
-function nm_perfil_add_img_fondo($user) {
+function nm_perfil_add_img_header($user) {
 	require_once 'mvc/controllers/AutorController.php';
 	$c = new AutorController();
 	echo $c->getPerfilImgHeader($user->ID);
 }
-add_action('show_user_profile', 'nm_perfil_add_img_fondo');
-add_action('edit_user_profile', 'nm_perfil_add_img_fondo');
+add_action('show_user_profile', 'nm_perfil_add_img_header');
+add_action('edit_user_profile', 'nm_perfil_add_img_header');
 
 function nm_perfil_update_img_fondo($user_ID) {
 	if (current_user_can('edit_user', $user_ID)) {
-		if (!function_exists('wp_handle_upload'))
-			require_once (ABSPATH . 'wp-admin/includes/file.php');
 		$user = User::find($user_ID);
-		$user->setImgHeader($_FILES [User::KEY_USER_IMG_HEADER]);
+		try {
+			$user->setImgHeader($_FILES [User::KEY_USER_IMG_HEADER]);
+		} catch (Exception $e) {
+			Utils::exception($e->getMessage());
+		}
 	}
 }
 add_action('personal_options_update', 'nm_perfil_update_img_fondo');
