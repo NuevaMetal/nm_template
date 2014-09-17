@@ -18,6 +18,7 @@ return [
 	'biografia' => 'biography',
 	'buscar' => 'search',
 
+	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
 	'compartir_con' => 'share with',
 	'conciertos' => 'concerts',
