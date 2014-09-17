@@ -22,9 +22,9 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
-	const IMG_HEADER_WIDTH_DEFAULT = 900;
+	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
-	const IMG_HEADER_HEIGHT_DEFAULT = 200;
+	const IMG_HEADER_HEIGHT_DEFAULT = 270;
 
 	/**
 	 * Número de post favoritos a mostrar en su perfil
