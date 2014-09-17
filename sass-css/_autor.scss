@@ -1,14 +1,27 @@
 .autor {
-	
-	.avatar {
-		border: 5px solid $body-background-color;
-	}
-	
-	.user-avatar{
+	.img-avatar {
+		.avatar {
+			position: absolute;
+			border: 5px solid $body-background-color;
+		}
+		.btn-avatar {
+			position: relative;
+			top: 10px;
+			left: 20px;
+		}
+		margin-bottom: 150px;
+		
 		@include col(xs) {
 			text-align:center;
+			.user-avatar {				
+				left: -90px;
+			}
+			.btn-avatar {
+				left: -40px;
+			}
 	    }
 	}
+	
 	
 	.col2 {
 		@include col(sm) {
@@ -49,10 +62,8 @@
     	.btn-img-header{
 			position: relative;
 			top: 30px;
-		}
+		}			
 	}
-	
-	
 
 	.content {
 		margin-top: 50px;
