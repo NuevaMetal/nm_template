@@ -277,6 +277,15 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve true si el user es el usuario actual
+	 *
+	 * @return boolean
+	 */
+	public function isCurrentUser() {
+		return ($this->ID == wp_get_current_user()->ID);
+	}
+
+	/**
 	 * Devuelve el nombre del rol del User
 	 *
 	 * @return string

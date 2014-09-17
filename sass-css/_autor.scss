@@ -3,13 +3,11 @@
 	.avatar {
 		border: 5px solid $body-background-color;
 	}
+	
 	.user-avatar{
 		@include col(xs) {
 			text-align:center;
 	    }
-	}
-	.col1, .col2 {
-		//border: 1px solid red;
 	}
 	
 	.col2 {
@@ -48,7 +46,13 @@
 	    		height: 270px;
 	    	}
     	}
+    	.btn-img-header{
+			position: relative;
+			top: 30px;
+		}
 	}
+	
+	
 
 	.content {
 		margin-top: 50px;

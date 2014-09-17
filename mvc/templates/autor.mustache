@@ -3,6 +3,7 @@
 		{{#current_user.isEditor}}
 			{{> admin/_autor }}
 		{{/current_user.isEditor}}
+		
 		<div class="row img-header">
 			{{#getImgHeader}}
 				<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
@@ -10,6 +11,11 @@
 			{{^getImgHeader}}
 				<img alt="{{display_name}}" class="sin-thumbnail" >
 			{{/getImgHeader}}
+			{{#isCurrentUser}}
+				<div class="text-right col-xs-12 btn-img-header">
+					<a class="btn btn-default" href="/wp-admin/profile.php#img-header" target="_blank">Cambiar header</a>
+				</div>
+			{{/isCurrentUser}}
 		</div>
 		<div class="content">
 			<div class="col1 col-xs-12 col-sm-4">
