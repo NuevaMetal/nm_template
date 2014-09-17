@@ -71,8 +71,12 @@ class User extends ModelBase {
 	private function _quitarImgHeader() {
 		// Para eliminar el fichero lo guardamos en una var temporal
 		$imgHeader = $this->_getImgHeaderPath();
-		unlink($imgHeader ['base']);
-		unlink($imgHeader ['actual']);
+		if (isset($imgHeader ['base']) && !empty($imgHeader ['base'])) {
+			unlink($imgHeader ['base']);
+		}
+		if (isset($imgHeader ['actual']) && !empty($imgHeader ['actual'])) {
+			unlink($imgHeader ['actual']);
+		}
 		// Y lo quitamos de su meta
 		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
 	}
