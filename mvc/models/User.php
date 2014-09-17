@@ -8,17 +8,19 @@ require_once 'ModelBase.php';
 class User extends ModelBase {
 	public static $table = "users";
 
-	const KEY_USER_TWITTER = 'user_tw_txt';
+	const KEY_USER_TWITTER = 'tw_txt';
 
-	const KEY_USER_FACEBOOK = 'user_fb_txt';
+	const KEY_USER_FACEBOOK = 'fb_txt';
 
-	const KEY_USER_GOOGLE_PLUS = 'user_gp_txt';
+	const KEY_USER_GOOGLE_PLUS = 'gp_txt';
 
 	const KEY_USER_NOMBRE = 'first_name';
 
 	const KEY_USER_APELLIDOS = 'last_name';
 
-	const KEY_USER_IMG_HEADER = 'user_img_header';
+	const KEY_USER_IMG_HEADER = 'img_header';
+
+	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
 	const IMG_HEADER_WIDTH_DEFAULT = 900;
 
@@ -64,6 +66,18 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Quitar la ImgHeader y la elimina del server
+	 */
+	private function _quitarImgHeader() {
+		// Para eliminar el fichero lo guardamos en una var temporal
+		$imgHeader = $this->_getImgHeaderPath();
+		unlink($imgHeader ['base']);
+		unlink($imgHeader ['actual']);
+		// Y lo quitamos de su meta
+		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
+	}
+
+	/**
 	 * Establecer la img del header.
 	 * Si es false se borrará la actual
 	 *
@@ -71,12 +85,13 @@ class User extends ModelBase {
 	 * @throws Exception
 	 */
 	public function setImgHeader($imgHeader) {
+		// Si es false se la quita y además es null la borrará del servidor
 		if (!$imgHeader) {
-			update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, null);
+			$this->_quitarImgHeader();
 			return;
 		}
 
-		if (strpos($imgHeader ['name'], '.php')) {
+		if (strpos($imgHeader ['name'], '.php') !== false) {
 			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
 		}
 		$avatar = wp_handle_upload($_FILES [self::KEY_USER_IMG_HEADER], array(
@@ -96,8 +111,9 @@ class User extends ModelBase {
 				return $name . $ext;
 			}
 		));
-		// Quitamos el anterior meta
-		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
+		// Quitamos su anterior ImgHeader
+		$this->_quitarImgHeader();
+
 		$meta_value = array();
 
 		$url_or_media_id = $avatar ['url'];
@@ -143,6 +159,31 @@ class User extends ModelBase {
 			$local_avatars [$sizeW] = home_url($local_avatars [$sizeW]);
 		}
 		return esc_url($local_avatars [$sizeW]);
+	}
+
+	/**
+	 * Devuelvo el nombre de la img base del header y el nombre de la img actual del header.
+	 * Ejemplo [
+	 * 'base' => 'Chemaclass_header.png',
+	 * 'actual' => 'Chemaclass_header-353x200.png'
+	 * ];
+	 *
+	 * @return array<string> Lista con el nombre 'base' y 'actual'.
+	 */
+	private function _getImgHeaderPath() {
+		$upload_path = wp_upload_dir();
+		$imgHeader = $this->getImgHeader();
+		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $imgHeader);
+		$actual = $base = basename($path);
+		if (strpos($base, '-') !== false) {
+			preg_match('/\.[^\.]+$/i', $actual, $ext);
+			$base = substr($base, 0, strpos($base, "-")) . $ext [0];
+			$pathBase = str_replace($actual, $base, $path);
+		}
+		return [
+			'base' => $pathBase,
+			'actual' => $path
+		];
 	}
 
 	/**
