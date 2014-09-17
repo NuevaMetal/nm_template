@@ -30,14 +30,31 @@
 	}
 }
 
-.wrapper {
-	img {
-		max-height: 200px;
-		width: 100%;		
-		@include col(lg) {
-			margin-left: 10%;
-			max-height: 220px;
-			width: 80%;
+.wrap {	
+	.img-header {
+		
+		margin-bottom: 170px;
+		@include col(md) {
+	    	margin-bottom: 200px;	    		
+    	}
+    	@include col(lg) {
+    		margin-bottom: 240px;
+    	}
+		
+		img {
+			position: absolute;
+			height: 200px;
+			width: 100%;			
+	    	@include col(md) {
+	    		height: 230px;	    		
+	    	}
+	    	@include col(lg) {
+	    		height: 270px;
+	    	}
+		}
+		.btn-img-header {
+			position: relative;
+			top: 10px;
 		}
 	}
 }

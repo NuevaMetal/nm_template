@@ -76,9 +76,11 @@ class AutorController extends BaseController {
 			global $user_ID;
 		}
 		$user = User::find($user_ID);
+		$template_url = get_template_directory_uri();
 		return $this->render('autor/perfil/_img_header', [
 			'user' => $user,
-			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER
+			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
+			'template_url' => $template_url
 		]);
 	}
 

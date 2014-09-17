@@ -45,6 +45,7 @@ return [
 
 	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
+	'eliminar' => 'delete',
 	'en' => 'in',
 	'entrada' => 'post',
 	'entradas' => 'posts',

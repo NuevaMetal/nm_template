@@ -36,6 +36,7 @@ return [
 	'diseñador' => 'diseñador',
 
 	'editor' => 'editor',
+	'eliminar' => 'eliminar',
 
 	'favorito' => 'favorito',
 	'favoritos' => 'favoritos',

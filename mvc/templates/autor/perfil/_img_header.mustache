@@ -1,7 +1,18 @@
 {{#user}}
 <h3 id="img-header">{{#transu}}user.img_header{{/transu}}</h3>
-<div class="wrapper">
-	<img alt="{{display_name}}" src="{{{getImgHeader}}}" class="img-header"></td>
+<div class="img-header col-xs-12">
+
+	{{#getImgHeader}}
+		<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
+	{{/getImgHeader}}
+	{{^getImgHeader}}
+		<img class="sin-thumbnail" >
+	{{/getImgHeader}}
+	
+	<div class="text-right col-xs-12 btn-img-header">
+		<button class="btn btn-default quitar-header" url="{{template_url}}/ajax.php"
+				que="quitar-header" user="{{user.ID}}">{{#transu}}eliminar{{/transu}}</button>
+	</div>
 </div>
 <table class="form-table">	
 	<tr>
@@ -12,6 +23,6 @@
 				{{#transu}}ancho{{/transu}}: 900px, {{#transu}}alto{{/transu}}: 200px
 			</span>
 		</td>
-	</tr>
+	</tr>	
 </table>
 {{/user}}
