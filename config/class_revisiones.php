@@ -82,14 +82,14 @@ function class_revisiones_notify() {
 		if (!$numTotalPorRevisar)
 			return;
 		if ($numTotalPorRevisar == 1) {
-			$msg = 'Hay <span class="titular">' . $numTotalPorRevisar . '</span> nueva revisión pendiente';
+			$msg = 'Hay ' . $numTotalPorRevisar . '</span> nueva revisión pendiente';
 		} else {
-			$msg = 'Hay <span class="titular">' . $numTotalPorRevisar . '</span> nuevas revisiones pendientes';
+			$msg = 'Hay ' . $numTotalPorRevisar . '</span> nuevas revisiones pendientes';
 		}
+		$urlRevisiones = admin_url('admin.php?page=revisiones');
 		echo '<br>
 		<div class="error">
-		  <strong>¡Ey ' . $user->display_name . '!</strong> ' . $msg . ' en <a href="' . admin_url('admin.php?page=revisiones') . '"
-						class="alert-link">Revisiones</a>
+		  <strong>¡Ey ' . $user->display_name . '!</strong> ' . $msg . ' en <a href="' . $urlRevisiones . '">Revisiones</a>
 		</div>';
 	}
 }
