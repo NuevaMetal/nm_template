@@ -17,9 +17,33 @@
 		
 	}
 
-	.acciones {
-		@include col(md) {
-			margin-top: 28px;
+	.menu-acciones{
+		// border: 1px solid red;
+		.acciones {
+			@include col(md) {
+				margin-top: 28px;
+			}
+		}
+		.title {
+			//border: 1px solid green;
+			margin: 11px;
+			
+			.title-user-name{
+				font-size: 21px;
+			}
+			
+			a {
+				text-decoration: none;
+				color: #333;			
+			}
+			@include col(md) {
+				margin:0;
+				margin-top: 20px;
+			}
+			@include col(lg) {
+				margin:0;
+				margin-top: 10px;
+			}
 		}
 	}
 
@@ -29,18 +53,11 @@
 
 	.pequeno a {
 		width: 90%;
-	}
-
-	.title {
-		a {
-			text-decoration: none;
-			color: #333;			
-		}
-	}
+	}	
 
 	a:hover {
 		@extend %negrita;
-		.fa:hover {
+		&:hover {
 			color: $rojo-danger;
 		}
 	}
