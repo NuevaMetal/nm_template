@@ -58,3 +58,13 @@
 		}
 	}
 }
+
+// Para la pantalla de login
+body.login{
+	margin-top:0 !important;
+	padding-bottom: 35vh;
+	//height:100vh;	
+	div#login h1 a {
+    	background-image: url("../img/NM_avatar.jpg");    	  	
+    }	
+}

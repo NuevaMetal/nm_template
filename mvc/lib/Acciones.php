@@ -151,3 +151,10 @@ function nm_perfil_update_redes_sociales($user_ID) {
 add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
 add_action('edit_user_profile_update', 'nm_perfil_update_redes_sociales');
 
+/**
+ * Cargar estilos en la página de login
+ */
+add_action('login_enqueue_scripts', function () {
+	wp_enqueue_style('main', get_template_directory_uri() . '/public/css/main.css');
+	//wp_enqueue_script('custom-login', get_template_directory_uri() . '/style-login.js');
+});
