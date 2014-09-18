@@ -37,14 +37,6 @@
 				margin:0;
 				margin-top: 12px;
 			}
-			.btn-salir {
-				@include col(sm) {
-					padding-left: 20px;
-				}
-				@include col(md) {
-					padding-left: 0px;
-				}
-			}
 		}
 	}
 
