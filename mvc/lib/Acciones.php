@@ -170,6 +170,35 @@ class Acciones {
 	}
 
 	/**
+	 * Añado el tipo de user al perfil
+	 */
+	public static function perfilAddTipoUsuario() {
+
+		function nm_perfil_add_tipo_user($user) {
+			require_once 'mvc/controllers/AutorController.php';
+			$c = new AutorController();
+			echo $c->getPerfilTipoUser($user->ID);
+		}
+		add_action('show_user_profile', 'nm_perfil_add_tipo_user');
+		add_action('edit_user_profile', 'nm_perfil_add_tipo_user');
+	}
+
+	/**
+	 * Actualizo el tipo de user
+	 */
+	public static function perfilUpdateTipoUsuario() {
+
+		function nm_perfil_update_tipo_user($user_ID) {
+			if (current_user_can('edit_user', $user_ID)) {
+				$user = User::find($user_ID);
+				$user->setTipo($_POST [User::KEY_USER_TIPO]);
+			}
+		}
+		add_action('personal_options_update', 'nm_perfil_update_tipo_user');
+		add_action('edit_user_profile_update', 'nm_perfil_update_tipo_user');
+	}
+
+	/**
 	 * Cargar estilos en la página de login
 	 */
 	public static function cargarEstilosPaginaLogin() {
@@ -196,5 +225,8 @@ Acciones::perfilUpdateImgHeader();
 
 Acciones::perfilAddRedesSociales();
 Acciones::perfilUpdateRedesSociales();
+
+Acciones::perfilAddTipoUsuario();
+Acciones::perfilUpdateTipoUsuario();
 
 Acciones::cargarEstilosPaginaLogin();

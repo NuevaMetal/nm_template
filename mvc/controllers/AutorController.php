@@ -96,7 +96,7 @@ class AutorController extends BaseController {
 	 * Devuelve la vista del imgHeader para el perfil
 	 *
 	 * @param integer $user_ID
-	 *        identficiador del user
+	 *        Identficiador del user
 	 */
 	public function getPerfilImgHeader($user_ID = false) {
 		if (!$user_ID) {
@@ -107,6 +107,35 @@ class AutorController extends BaseController {
 		return $this->render('autor/perfil/_img_header', [
 			'user' => $user,
 			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
+			'template_url' => $template_url
+		]);
+	}
+
+	/**
+	 *
+	 * Devuelve la vista para establecer el tipo de User en el perfil
+	 *
+	 * @param string $user_ID
+	 *        Identficiador del user
+	 */
+	public function getPerfilTipoUser($user_ID = false) {
+		if (!$user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+		$template_url = get_template_directory_uri();
+		// Formateamos los tipos en un array sencillo para pintarlos fácilmente
+		foreach (User::getTiposDeUsuarioValidos() as $t) {
+			$tipos [] = [
+				'value' => $t,
+				'texto' => I18n::transu($t),
+				'selected' => ($user->getTipo() == $t)
+			];
+		}
+		return $this->render('autor/perfil/_tipo_usuario', [
+			'user' => $user,
+			'KEY_USER_TIPO' => User::KEY_USER_TIPO,
+			'tipos' => $tipos,
 			'template_url' => $template_url
 		]);
 	}

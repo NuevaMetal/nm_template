@@ -13,6 +13,7 @@ return [
 			If you continue browsing is that you accept
 		<a href="/legal/" target="_blank">our cookies policy.</a>',
 
+	'banda' => 'band',
 	'bandas' => 'bands',
 	'bienvenido' => 'welcome',
 	'biografia' => 'biography',

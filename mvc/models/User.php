@@ -22,9 +22,15 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
+	const KEY_USER_TIPO = 'tipo_user';
+
 	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
 	const IMG_HEADER_HEIGHT_DEFAULT = 270;
+
+	const TIPO_USUARIO = 'usuario';
+
+	const TIPO_BANDA = 'banda';
 
 	/**
 	 * Número de post favoritos a mostrar en su perfil
@@ -350,6 +356,60 @@ class User extends ModelBase {
 	 */
 	public function setGooglePlus($nuevo) {
 		update_user_meta($this->ID, User::KEY_USER_GOOGLE_PLUS, $nuevo);
+	}
+
+	/**
+	 * Devuelve el tipo del User
+	 *
+	 * @return string
+	 */
+	public function getTipo() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_TIPO);
+		$tipo = (is_array($valor)) ? $valor [0] : $valor;
+		//Si no hubiera tipo devolverá por defecto tipo User
+		return (!$tipo) ? self::TIPO_USUARIO : $tipo;
+	}
+
+	/**
+	 * Establecer un nuevo tipo
+	 *
+	 * @param string $nuevo
+	 */
+	public function setTipo($tipo) {
+		// Sólo establecer el tipo si es un tipo válido
+		if (in_array($tipo, self::getTiposDeUsuarioValidos())) {
+			update_user_meta($this->ID, User::KEY_USER_TIPO, $tipo);
+		}
+	}
+
+	/**
+	 * Devuelve true si el User es de tipo Usuario
+	 *
+	 * @return boolean
+	 */
+	public function isTipoUsuario() {
+		return ($this->getTipo() == self::TIPO_USUARIO);
+	}
+
+	/**
+	 * Devuelve true si el User es de tipo Banda
+	 *
+	 * @return boolean
+	 */
+	public function isTipoBanda() {
+		return ($this->getTipo() == self::TIPO_BANDA);
+	}
+
+	/**
+	 * Devuelve un array con los tipos de user válidos
+	 *
+	 * @return array<string>
+	 */
+	public static function getTiposDeUsuarioValidos() {
+		return [
+			self::TIPO_USUARIO,
+			self::TIPO_BANDA
+		];
 	}
 
 	/**
