@@ -44,14 +44,14 @@ function analitica_index() {
 }
 
 add_action('wp', function () {
-	try {
-		//Sólo guardar la analítica si no es de un bot o un feed
-		$user_agent = $_SERVER ['HTTP_USER_AGENT'];
-		if (!strpos($user_agent, 'bot') && !strpos($user_agent, 'feed')) {
-			$analitica = new Analitica();
-			$analitica->save();
-		}
-	} catch (Exception $e) {
-		Utils::debug('No se pudo guardar la Analitica ?');
-	}
+// 	try {
+// 		//Sólo guardar la analítica si no es de un bot o un feed
+// 		$user_agent = $_SERVER ['HTTP_USER_AGENT'];
+// 		if (!strpos($user_agent, 'bot') && !strpos($user_agent, 'feed')) {
+// 			$analitica = new Analitica();
+// 			$analitica->save();
+// 		}
+// 	} catch (Exception $e) {
+// 		Utils::debug('No se pudo guardar la Analitica ?');
+// 	}
 });
