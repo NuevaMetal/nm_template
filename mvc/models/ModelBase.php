@@ -46,9 +46,10 @@ abstract class ModelBase {
 	 * @param integer $ID
 	 * @return object
 	 */
-	public static function find($ID = null) {
+	public static function find($ID = false) {
 		if ($ID == null || !is_numeric($ID)) {
-			$ID = -1;
+			Utils::debug("> MB::find($ID)");
+			return null;
 		}
 		global $wpdb;
 		$modelo = get_called_class();

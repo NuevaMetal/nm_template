@@ -72,7 +72,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$otherParams = [];
 			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
 				$otherParams = [
-					'cant_excerpt' => Utils::CANT_EXCERPT_ENTREVISTA
+					'cant_excerpt' => Post::CANT_EXCERPT_ENTREVISTA
 				];
 			}
 			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
@@ -86,9 +86,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		}
 
 		foreach ($posts as &$p) {
-			$p ['title_corto'] = sanearString($p ['title_corto']);
-			$p ['content'] = sanearString($p ['content']);
-			$p ['excerpt'] = sanearString($p ['excerpt']);
+			$p->title_corto = sanearString($p->title_corto);
+			$p->content = sanearString($p->content);
+			$p->excerpt = sanearString($p->excerpt);
 		}
 
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
@@ -151,8 +151,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if (!empty($result)) {
 			$json ['code'] = 200;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => true,
+				'getNonceMeGusta' => $nonce
 			]);
 
 			$json ['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
@@ -160,8 +160,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
 			$json ['code'] = 504;
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => false,
+				'getNonceMeGusta' => $nonce
 			]);
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -233,15 +233,15 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$json ['code'] = 200;
 			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => false,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => false,
+				'getNonceMeGusta' => $nonce
 			]);
 		} else {
 			$json ['code'] = 504;
 			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 			$json ['btn'] = $this->render('post/_btn_me_gusta', [
-				'me_gusta' => true,
-				'nonce_me_gusta' => $nonce
+				'isMeGusta' => true,
+				'getNonceMeGusta' => $nonce
 			]);
 		}
 		$json ['total_me_gustas'] = $post->getCountFavoritos();
@@ -256,12 +256,12 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		$ajax = new AjaxController();
 
 		switch ($submit) {
-			case Utils::NOTIFICAR :
+			case Ajax::NOTIFICAR :
 				$post_id = $_datos ['post'];
 				$user_id = $_datos ['user'];
-				$json = $ajax->crearNotificacion($post_id, $user_id);
+				$json ['alerta'] = $ajax->crearNotificacion($post_id, $user_id);
 				break;
-			case Utils::ME_GUSTA :
+			case Ajax::ME_GUSTA :
 				$post_id = $_datos ['post'];
 				$user_id = $_datos ['user'];
 				$te_gusta = $_datos ['te_gusta'];
@@ -271,25 +271,25 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 					$json = $ajax->quitarMeGusta($post_id, $user_id);
 				}
 				break;
-			case Utils::MOSTRAR_MAS :
+			case Ajax::MOSTRAR_MAS :
 				$tipo = $_datos ['tipo'];
 				$que = $_datos ['que'];
 				$cant = $_datos ['cant'];
 				$offset = $_datos ['size'];
 				$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
 				break;
-			case Utils::REVISION :
+			case Ajax::REVISION :
 				$estado = $_datos ['estado'];
 				$post_id = $_datos ['que_id'];
 				$json = $ajax->editarRevision($estado, $post_id);
 				break;
-			case Utils::REVISION_BAN :
+			case Ajax::REVISION_BAN :
 				$estado = $_datos ['estado'];
 				$user_id = $_datos ['que_id'];
 				$editor_id = wp_get_current_user()->ID;
 				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
-			case Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
+			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
 				$user_id = $_datos ['user'];
 				$cant = $_datos ['cant'];
 				$user = User::find($user_id);
@@ -303,8 +303,26 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				];
 				$json = Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
 				break;
+			case Ajax::ADMIN_PANEL_USER :
+				Utils::debug("> ADMIN_PANEL_USER");
+				$que = $_datos ['que'];
+				$user_id = $_datos ['user'];
+				$user = User::find($user_id);
+				switch ($que) {
+					case Ajax::QUITAR_HEADER :
+						$user->setImgHeader(null);
+						$json = Ajax::QUITAR_HEADER;
+						break;
+					case Ajax::QUITAR_AVATAR :
+						$json = Ajax::QUITAR_AVATAR;
+						break;
+					case Ajax::BLOQUEAR :
+						$json = Ajax::BLOQUEAR;
+						break;
+				}
+				break;
 			default :
-				$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
+				$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
 		return $json;
 	}
@@ -325,9 +343,9 @@ $nonce = $_POST ['nonce'];
 $post_id = $_POST ['post'];
 
 if (in_array($submit, [
-	Utils::NOTIFICAR,
-	Utils::ME_GUSTA
-]) && !Utils::esNonce($nonce, $submit, $post_id)) {
+	Ajax::NOTIFICAR,
+	Ajax::ME_GUSTA
+]) && !Ajax::esNonce($nonce, $submit, $post_id)) {
 	die("An unexpected error has ocurred.");
 }
 

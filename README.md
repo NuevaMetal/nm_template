@@ -16,7 +16,10 @@
 
 * Una vez instalado compass ya podrías compilar el scss situándote dentro del d
 	/nm_template $> rake watch_scss
-	
+
+* Necesitas instalar una librería gráfica para poder utilizar el editor de imágenes
+	apt-get install php5-imagick php5-gd
+
 
 
 ### Modo de trabajo ###

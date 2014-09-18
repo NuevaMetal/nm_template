@@ -92,6 +92,40 @@ add_action('login_init', function () {
  *
  * @param WP_User $user
  */
+function nm_perfil_add_img_header($user) {
+	require_once 'mvc/controllers/AutorController.php';
+	$c = new AutorController();
+	echo $c->getPerfilImgHeader($user->ID);
+}
+add_action('show_user_profile', 'nm_perfil_add_img_header');
+add_action('edit_user_profile', 'nm_perfil_add_img_header');
+
+function nm_perfil_update_img_fondo($user_ID) {
+	//Primero comprobamos que el user tenga permisos y exista la clave en los FILES
+	if (current_user_can('edit_user', $user_ID) && isset($_FILES [User::KEY_USER_IMG_HEADER])) {
+		//Después comprobamos que tenga un nombre definido
+		$imgHeader = $_FILES [User::KEY_USER_IMG_HEADER];
+		if ($imgHeader ['name']) {
+			$user = User::find($user_ID);
+			try {
+				$user->setImgHeader($imgHeader);
+			} catch (Exception $e) {
+				// Añadimos el mensaje de error en las notificaciones
+				add_action('user_profile_update_errors', function ($errors) use($e) {
+					$errors->add(User::KEY_USER_IMG_HEADER, $e->getMessage());
+				});
+			}
+		}
+	}
+}
+add_action('personal_options_update', 'nm_perfil_update_img_fondo');
+add_action('edit_user_profile_update', 'nm_perfil_update_img_fondo');
+
+/**
+ * Añado las redes sociales al perfil del User
+ *
+ * @param WP_User $user
+ */
 function nm_perfil_add_redes_sociales($user) {
 	require_once 'mvc/controllers/AutorController.php';
 	$c = new AutorController();
@@ -117,3 +151,17 @@ function nm_perfil_update_redes_sociales($user_ID) {
 add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
 add_action('edit_user_profile_update', 'nm_perfil_update_redes_sociales');
 
+/**
+ * Cargar estilos en la página de login
+ */
+add_action('login_enqueue_scripts', function () {
+	wp_enqueue_style('main', get_template_directory_uri() . '/public/css/main.css');
+	//wp_enqueue_script('custom-login', get_template_directory_uri() . '/style-login.js');
+});
+
+add_filter('login_headerurl', function () {
+	return home_url();
+});
+add_filter('login_headertitle', function () {
+	return 'NuevaMetal.com';
+});

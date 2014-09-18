@@ -1,18 +1,18 @@
-{{#current_user}}
+{{#current_user.ID}}
 	<div class="formulario">
 		<form action="{{template_url}}/ajax.php">
-			<input type="hidden" name="post" value="{{post.post_id}}">
+			<input type="hidden" name="post" value="{{post.ID}}">
 			<input type="hidden" name="user" value="{{current_user.ID}}">
 			<span class="btn-me-gusta-ajax">
 			{{> post/_btn_me_gusta}}
 			</span>
 		</form>
 	</div>
-{{/current_user}}
-{{^current_user}}
+{{/current_user.ID}}
+{{^current_user.ID}}
 	<a class="login-necesario form-control btn btn-default" 
 		href="/wp-login.php" target="_blank">
 		<i class='fa fa-star-o'></i>
 		{{#transu}}anadir_favoritos{{/transu}}
 	</a>
-{{/current_user}}
+{{/current_user.ID}}

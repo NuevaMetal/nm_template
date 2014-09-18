@@ -23,7 +23,8 @@ class AutorController extends BaseController {
 		]);
 		$args = [
 			'user' => $user,
-			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Utils::ANALITICA_PERFIL_POST_PUBLICADOS_MES
+			'current_user' => Utils::getCurrentUser(),
+			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
 		$args ['posts'] = self::_getArrayPostsAutor($author_id, 4);
 		$args ['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';
@@ -40,13 +41,14 @@ class AutorController extends BaseController {
 		]);
 	}
 
-	private static function _getArrayPostsAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+	private static function _getArrayPostsAutor($aBuscar, $cant = 4) {
+		$args = [];
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
 		$args ['a_buscar'] = $aBuscar;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
-		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
+		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, []);
 		return $args;
 	}
 
@@ -66,6 +68,19 @@ class AutorController extends BaseController {
 			'KEY_USER_FACEBOOK' => User::KEY_USER_FACEBOOK,
 			'KEY_USER_TWITTER' => User::KEY_USER_TWITTER,
 			'KEY_USER_GOOGLE_PLUS' => User::KEY_USER_GOOGLE_PLUS
+		]);
+	}
+
+	public function getPerfilImgHeader($user_ID = false) {
+		if (!$user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+		$template_url = get_template_directory_uri();
+		return $this->render('autor/perfil/_img_header', [
+			'user' => $user,
+			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
+			'template_url' => $template_url
 		]);
 	}
 

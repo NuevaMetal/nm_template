@@ -27,19 +27,13 @@
 	</div>
 
 	{{#content}}
-    <div id="content" class="col-xs-12 {{#sidebar}}col-sm-9 col-md-9{{/sidebar}}">
+    <div id="content" class="col-xs-12">
         {{{content}}}
     </div>
 	{{/content}}
 	{{^content}}
 		¿No  hay contenido asociado?
 	{{/content}}
-	
-    {{#sidebar}}
-    <div id="sidebar" class="col-xs-12 col-sm-3 col-md-3 text-center">
-        {{{sidebar}}}
-    </div>
-    {{/sidebar}}
 	
 	{{{menuFooter}}}
 	
@@ -56,7 +50,7 @@
 
 {{>partials/cookies}}
 
-<a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i> 
+<a href="#" class="back-to-top titular"><i class="fa fa-angle-double-up"></i> 
 	{{#transu}}volver_arriba{{/transu}} 
 </a>
 

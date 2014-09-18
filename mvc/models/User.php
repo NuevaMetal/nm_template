@@ -8,15 +8,23 @@ require_once 'ModelBase.php';
 class User extends ModelBase {
 	public static $table = "users";
 
-	const KEY_USER_TWITTER = 'user_tw_txt';
+	const KEY_USER_TWITTER = 'tw_txt';
 
-	const KEY_USER_FACEBOOK = 'user_fb_txt';
+	const KEY_USER_FACEBOOK = 'fb_txt';
 
-	const KEY_USER_GOOGLE_PLUS = 'user_gp_txt';
+	const KEY_USER_GOOGLE_PLUS = 'gp_txt';
 
 	const KEY_USER_NOMBRE = 'first_name';
 
 	const KEY_USER_APELLIDOS = 'last_name';
+
+	const KEY_USER_IMG_HEADER = 'img_header';
+
+	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
+
+	const IMG_HEADER_WIDTH_DEFAULT = 1200;
+
+	const IMG_HEADER_HEIGHT_DEFAULT = 270;
 
 	/**
 	 * Número de post favoritos a mostrar en su perfil
@@ -30,6 +38,18 @@ class User extends ModelBase {
 
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
+	const ROL_SUPER_ADMIN = 'super admin';
+
+	const ROL_ADMIN = 'administrator';
+
+	const ROL_EDITOR = 'editor';
+
+	const ROL_AUTOR = 'author';
+
+	const ROL_CONTRIBUIDOR = 'contributor';
+
+	const ROL_SUSCRIPTOR = 'subscriber';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 */
@@ -42,17 +62,157 @@ class User extends ModelBase {
 	}
 
 	public function getAvatarPerfil() {
-		return get_avatar($this->ID, 160, '', "$this->display_name avatar");
+		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
 	}
 
+	/**
+	 * Quitar la ImgHeader y la elimina del server
+	 */
+	private function _quitarImgHeader() {
+		// Para eliminar el fichero lo guardamos en una var temporal
+		$imgHeader = $this->_getImgHeaderPath();
+		if (isset($imgHeader ['base']) && !empty($imgHeader ['base'])) {
+			unlink($imgHeader ['base']);
+		}
+		if (isset($imgHeader ['actual']) && !empty($imgHeader ['actual'])) {
+			unlink($imgHeader ['actual']);
+		}
+		// Y lo quitamos de su meta
+		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
+	}
+
+	/**
+	 * Establecer la img del header.
+	 * Si es false se borrará la actual
+	 *
+	 * @param array $imgHeader
+	 * @throws Exception
+	 */
+	public function setImgHeader($imgHeader) {
+		// Si es false se la quita y además es null la borrará del servidor
+		if (!$imgHeader) {
+			$this->_quitarImgHeader();
+			return;
+		}
+
+		if (strpos($imgHeader ['name'], '.php') !== false) {
+			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
+		}
+		$avatar = wp_handle_upload($_FILES [self::KEY_USER_IMG_HEADER], array(
+			'mimes' => array(
+				'jpg|jpeg|jpe' => 'image/jpeg',
+				'gif' => 'image/gif',
+				'png' => 'image/png'
+			),
+			'test_form' => false,
+			'unique_filename_callback' => function ($dir, $name, $ext) {
+				$name = $base_name = sanitize_file_name($this->user_login . '_header');
+				$number = 1;
+				while (file_exists($dir . "/$name$ext")) {
+					$name = $base_name . '_' . $number;
+					$number++;
+				}
+				return $name . $ext;
+			}
+		));
+		// Quitamos su anterior ImgHeader
+		$this->_quitarImgHeader();
+
+		$meta_value = array();
+
+		$url_or_media_id = $avatar ['url'];
+		// Establecemos el nuevo meta
+		if (is_int($url_or_media_id)) {
+			$meta_value ['media_id'] = $url_or_media_id;
+			$url_or_media_id = wp_get_attachment_url($url_or_media_id);
+		}
+		$meta_value ['full'] = $url_or_media_id;
+		update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, $meta_value);
+	}
+
+	public function getImgHeader($sizeW = self::IMG_HEADER_WIDTH_DEFAULT, $sizeH = self::IMG_HEADER_HEIGHT_DEFAULT) {
+		// fetch local avatar from meta and make sure it's properly ste
+		$local_avatars = get_user_meta($this->ID, self::KEY_USER_IMG_HEADER, true);
+		if (empty($local_avatars ['full'])) {
+			return '';
+		}
+		// generate a new size
+		if (!array_key_exists($sizeW, $local_avatars)) {
+			$local_avatars [$sizeW] = $local_avatars ['full']; // just in case of failure elsewhere
+			$upload_path = wp_upload_dir();
+			// get path for image by converting URL, unless its already been set, thanks to using media library approach
+			if (!isset($avatar_full_path)) {
+				$avatar_full_path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $local_avatars ['full']);
+			}
+			// generate the new size
+			$editor = wp_get_image_editor($avatar_full_path);
+			if (!is_wp_error($editor)) {
+				$resized = $editor->resize($sizeW, $sizeH, true);
+				if (!is_wp_error($resized)) {
+					$dest_file = $editor->generate_filename();
+					$saved = $editor->save($dest_file);
+					if (!is_wp_error($saved)) {
+						$local_avatars [$sizeW] = str_replace($upload_path ['basedir'], $upload_path ['baseurl'], $dest_file);
+					}
+				}
+			}
+			// save updated avatar sizes
+			update_user_meta($user_id, self::KEY_USER_IMG_HEADER, $local_avatars);
+		}
+		if ('http' != substr($local_avatars [$sizeW], 0, 4)) {
+			$local_avatars [$sizeW] = home_url($local_avatars [$sizeW]);
+		}
+		return esc_url($local_avatars [$sizeW]);
+	}
+
+	/**
+	 * Devuelvo el nombre de la img base del header y el nombre de la img actual del header.
+	 * Ejemplo [
+	 * 'base' => 'Chemaclass_header.png',
+	 * 'actual' => 'Chemaclass_header-353x200.png'
+	 * ];
+	 *
+	 * @return array<string> Lista con el nombre 'base' y 'actual'.
+	 */
+	private function _getImgHeaderPath() {
+		$upload_path = wp_upload_dir();
+		$imgHeader = $this->getImgHeader();
+		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $imgHeader);
+		$actual = $base = basename($path);
+		if (strpos($base, '-') !== false) {
+			preg_match('/\.[^\.]+$/i', $actual, $ext);
+			$base = substr($base, 0, strpos($base, "-")) . $ext [0];
+			$pathBase = str_replace($actual, $base, $path);
+		}
+		return [
+			'base' => $pathBase,
+			'actual' => $path
+		];
+	}
+
+	/**
+	 * Devuelve la URL del User
+	 *
+	 * @return string
+	 */
 	public function getUrl() {
 		return get_the_author_meta('user_url', $this->ID);
 	}
 
+	/**
+	 * Devuelve la descripción del User
+	 *
+	 * @return string
+	 */
 	public function getDescription() {
 		return get_the_author_meta('description', $this->ID);
 	}
 
+	/**
+	 * Devuelve la URL de la pantalla de edición del perfil del User
+	 *
+	 * @return string
+	 */
 	public function getEditUrl() {
 		return get_edit_user_link();
 	}
@@ -60,7 +220,7 @@ class User extends ModelBase {
 	/**
 	 * Devuelve la URL del perfil del User
 	 */
-	public function getPefilUrl() {
+	public function getPerfilUrl() {
 		return get_author_posts_url($this->ID);
 	}
 
@@ -93,23 +253,45 @@ class User extends ModelBase {
 		return $this->getNombre() . ' ' . $this->getApellidos();
 	}
 
+	public function getRoles() {
+		global $wpdb;
+		$qRoles = $wpdb->get_var("SELECT meta_value
+				FROM $wpdb->usermeta
+				WHERE meta_key = 'wp_capabilities'
+				AND user_id = $this->ID");
+		$qRolesArr = unserialize($qRoles);
+		return is_array($qRolesArr) ? array_keys($qRolesArr) : array(
+			'non-user'
+		);
+	}
+
+	public function isAdmin() {
+		return in_array(self::ROL_ADMIN, self::getRoles());
+	}
+
+	public function isEditor() {
+		return array_intersect([
+			self::ROL_ADMIN,
+			self::ROL_EDITOR
+		], self::getRoles());
+	}
+
+	/**
+	 * Devuelve true si el user es el usuario actual
+	 *
+	 * @return boolean
+	 */
+	public function isCurrentUser() {
+		return ($this->ID == wp_get_current_user()->ID);
+	}
+
 	/**
 	 * Devuelve el nombre del rol del User
 	 *
 	 * @return string
 	 */
 	public function getRol() {
-		global $wpdb;
-		$role = $wpdb->get_var("SELECT meta_value
-				FROM $wpdb->usermeta
-				WHERE meta_key = 'wp_capabilities'
-				AND user_id = $this->ID");
-		if (!$role)
-			return 'non-user';
-		$rarr = unserialize($role);
-		$roles = is_array($rarr) ? array_keys($rarr) : array(
-			'non-user'
-		);
+		$roles = self::getRoles();
 		return I18n::transu($roles [0]);
 	}
 
@@ -178,21 +360,21 @@ class User extends ModelBase {
 	public function getArrayEtiquetasFavoritas($cant = User::NUM_ETI_FAV_PERFIL_DEFAULT) {
 		$favoritos = $this->getFavoritos($limit = false, $offset = false, $conCategorias = true);
 		$tags = [];
-		foreach ($favoritos as $f) {
-			if (isset($f ['the_tags'])) {
-				foreach ($f ['the_tags'] as $t) {
-					if (isset($tags [$t ['name']])) {
-						$tags [$t ['name']] ['total']++;
+		foreach ($favoritos as $postFavorito) {
+			if ($postFavorito->tieneEtiquetas()) {
+				foreach ($postFavorito->getEtiquetas() as $t) {
+					if (isset($tags [$t->name])) {
+						$tags [$t->name]->total++;
 					} else {
-						$tags [$t ['name']] = $t;
-						$tags [$t ['name']] ['total'] = 1;
+						$tags [$t->name] = $t;
+						$tags [$t->name]->total = 1;
 					}
 				}
 			}
 		}
 		// Ordenamos el array de etiquetas por su cantidad total
 		usort($tags, function ($a, $b) {
-			return $a ['total'] < $b ['total'];
+			return $a->total < $b->total;
 		});
 
 		if ($cant) {
@@ -228,7 +410,7 @@ class User extends ModelBase {
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
-			$posts [] = Post::get($post_id, $dateFormat = false, $conCategorias);
+			$posts [] = Post::find($post_id);
 		}
 		return $posts;
 	}
@@ -243,7 +425,7 @@ class User extends ModelBase {
 		$todosFavoritos = $this->getFavoritos($cant);
 		$favoritos = [];
 		foreach ($todosFavoritos as $k => $f) {
-			$cat_name = strtolower(Post::getCategoryName($f ['post_id']));
+			$cat_name = strtolower($f->getCategoriaNombre());
 			if (!isset($favoritos [$cat_name])) {
 				$favoritos [$cat_name] = [];
 				if ($k == 0 && !isset($favoritos [$cat_name] ['activo'])) {

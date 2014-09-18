@@ -57,7 +57,6 @@ function scrollOn() {
 	$(".perfil-login").addClass("hidden");
 	
 	$("#content").addClass("aumentar-padding-top-content");
-	$("#sidebar").addClass("aumentar-padding-top-content");
 	
 	$(".navbar-principal-login").removeClass("hidden");
 	$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
@@ -73,7 +72,6 @@ function scrollOff() {
 	$(".navbar-principal-login-xs").parent('button').addClass("hidden");
 	$("#content").removeClass("aumentar-padding-top-content");
 	
-	$("#sidebar").removeClass("aumentar-padding-top-content");
 	$(".navbar-principal-login").addClass("hidden");
 }
 
@@ -117,7 +115,7 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 	var post_val = form.find('[name=post]').val();
 	var user_val = form.find('[name=user]').val();
 	var te_gusta = $this.attr('te-gusta'); 
-	var nonce = $(this).attr('nonce');  
+	var nonce = $(this).attr('nonce');
 	var url = form.attr('action');
 	var data = {
 		submit : 'me-gusta',
@@ -158,7 +156,6 @@ $(document).on('click', '.mostrar-menos', function(e) {
 	var size = $(seccion).children().size();
 	var que = $(this).attr('mostrar-menos');
 	// Hacer scroll hasta el header de su sección
-	console.log('isnan: '+isNaN(que))
 	if(isNaN(que)) {
 		$('html,body').animate({
 			scrollTop: $('#'+que+'.seccion-posts').offset().top-30
@@ -264,12 +261,8 @@ $(document).on('click', '.btn-notificar', function(e) {
 			formulario.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			$('#alertas').html(json.content);
-			$('#alertas').fadeIn();
-			formulario.find('.fa-spin').addClass('hidden');				
-			setTimeout(function(){
-				$('#alertas').fadeOut();
-			}, 5000);
+			mostrarAlerta(json.alerta, 5);
+			formulario.find('.fa-spin').addClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	        alert("Ocurrió un error inesperado.\n" 
@@ -279,6 +272,17 @@ $(document).on('click', '.btn-notificar', function(e) {
 	     }
 	});
 });
+
+/**
+ * Mostrar una alerta
+ */
+function mostrarAlerta(texto, segundos){
+	$('#alertas').html(texto);
+	$('#alertas').fadeIn();		
+	setTimeout(function(){
+		$('#alertas').fadeOut();
+	}, segundos*1000);
+}
 
 /**
  * Agrandar los iconos de las redes sociales

@@ -3,6 +3,8 @@ return [
 	'acceder' => 'acceder',
 	'administrator' => 'administrador',
 	'anadir_favoritos' => 'añadir a mis favoritos',
+	'ancho' => 'ancho',
+	'alto' => 'alto',
 	'autor' => 'autor',
 	'autores' => 'autores',
 	'aviso' => 'aviso',
@@ -16,6 +18,7 @@ return [
 	'biografia' => 'biografía',
 	'buscar' => 'buscar',
 
+	'cambiar' => 'cambiar',
 	'cerrar_sesion' => 'salir',
 	'compartir_con' => 'compartir con',
 	'conciertos' => 'conciertos',
@@ -33,6 +36,7 @@ return [
 	'diseñador' => 'diseñador',
 
 	'editor' => 'editor',
+	'eliminar' => 'eliminar',
 
 	'favorito' => 'favorito',
 	'favoritos' => 'favoritos',

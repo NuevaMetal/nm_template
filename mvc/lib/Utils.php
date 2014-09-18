@@ -30,19 +30,7 @@ class Utils {
 
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
-	const ME_GUSTA = "me-gusta";
-
-	const NOTIFICAR = "notificar";
-
-	const MOSTRAR_MAS = "mostrar-mas";
-
-	const REVISION = "revision";
-
-	const REVISION_BAN = "revision-ban";
-
 	const ANALITICA = "analitica";
-
-	const ANALITICA_PERFIL_POST_PUBLICADOS_MES = 'analitica-perfil-post-publicados-mes';
 
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
@@ -58,14 +46,6 @@ class Utils {
 	const CATEGORIA_NOTICIAS = "noticias";
 
 	const CATEGORIA_VIDEOS = "videos";
-
-	// Cantidad del extracto de una entrevista
-	const CANT_EXCERPT_DEFAULT = 12;
-	// Cantidad del título corto por defecto
-	const CANT_TITLE_CORTO_DEFAULT = 8;
-
-	// Cantidad del extracto de una entrevista
-	const CANT_EXCERPT_ENTREVISTA = 16;
 
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
@@ -139,6 +119,16 @@ class Utils {
 	 */
 	public static function debug($str) {
 		error_log(" DEBUG - " . $str);
+	}
+
+	/**
+	 * Función para las Excepciones
+	 *
+	 * @param string $str
+	 *        Cadena a pintar
+	 */
+	public static function exception($str) {
+		error_log(" EXCEPTION - " . $str);
 	}
 
 	/**
@@ -252,15 +242,14 @@ class Utils {
 	/**
 	 * Devuelve la instancia del usuario actual.
 	 *
-	 *
-	 * @return user o false en caso de no estar registrado
+	 * @return User
 	 */
 	public static function getCurrentUser() {
-		$current_user = wp_get_current_user();
-		if ($current_user->ID) {
-			$current_user->url = get_author_posts_url($current_user->ID);
+		$user = wp_get_current_user();
+		if ($user->ID) {
+			$user = User::find($user->ID);
 		}
-		return $current_user;
+		return $user;
 	}
 
 	/**
@@ -278,54 +267,6 @@ class Utils {
 		$content = str_ireplace(array_keys($lista), $lista, $content);
 		$lista = I18n::getFicheroIdioma('../post_format');
 		return str_ireplace(array_keys($lista), $lista, $content);
-	}
-
-	/**
-	 * Devuelve si a un user le gusta un post
-	 *
-	 * @param int $post_id
-	 *        Identificador del post
-	 * @param int $user_id
-	 *        Identificador del usuario
-	 */
-	public static function getSiUserGustaPost($post_id, $user_id) {
-		global $wpdb;
-		$leGusta = ( int ) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . 'favoritos
-				WHERE user_id = %d
-				AND post_id = %d
-				AND status = 0;', $user_id, $post_id));
-		return $leGusta > 0;
-	}
-
-	/**
-	 * Devuelve un fragmento del contenido de un post conociendo su ID
-	 *
-	 * @param integer $post_id
-	 *        Identificador del post
-	 * @param number $limit
-	 *        Limite de palabras a buscar
-	 * @return string Extracto obtenido
-	 */
-	public static function getExcerptById($post_id, $limit = 8) {
-		$the_post = get_post($post_id);
-		$the_excerpt = $the_post->post_content;
-		// Quito las etiquetas e img
-		$the_excerpt = strip_tags(strip_shortcodes($the_excerpt));
-		// Dejo el str en una única línea
-		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
-		// Sustituyo todos los espacios raros por espacios normales
-		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
-		$the_excerpt = self::getPalabrasByStr($the_excerpt, $limit);
-		// Aplicamos negrita a ciertas palabras
-		$the_excerpt = preg_replace([
-			'/(Género)/i',
-			'/(País)/i',
-			'/(Álbumes)/i',
-			'/(Estado)/i',
-			'/(Miembros)/i'
-		], '<b>$1</b>', $the_excerpt);
-		return $the_excerpt;
 	}
 
 	/**
@@ -366,42 +307,6 @@ class Utils {
 	}
 
 	/**
-	 * Obtener el género de un post
-	 *
-	 * @param integer $post_id
-	 */
-	public static function getGeneroById($post_id) {
-		$the_post = get_post($post_id);
-		$post_content = $the_post->post_content;
-		$post_content = strip_tags(strip_shortcodes($post_content));
-		$post_content = substr($post_content, 0, 60);
-		//preg_match('/(?m:\bg[é|e]?neros?\b\W*\b(\w+)\b\W*(.*)[\s]*$)/ui', $post_content, $out);
-		preg_match('/(?m:\bg[é|e]?neros?\b\W*(\w*)(.*)$)/ui', $post_content, $out);
-		array_shift($out); // Quito el primer del array
-		$out = implode('', $out);
-		$out = explode(',', $out);
-		$out = $out [0];
-		return $out;
-	}
-
-	/**
-	 * Obtener el pais de un post
-	 *
-	 * @param integer $post_id
-	 */
-	public static function getPaisById($post_id) {
-		$the_post = get_post($post_id);
-		$post_content = $the_post->post_content;
-		$post_content = strip_tags(strip_shortcodes($post_content));
-		$post_content = substr($post_content, 0, 100);
-		//preg_match('/(?m:\bpa[í|i]s[es]*\b\W*\b(\w*)\b\W*(\w*).*$)/ui', $post_content, $out);
-		preg_match('/(?m:\bpa[í|i]s[es]*\b\W*(\w*)(.*)$)/ui', $post_content, $out);
-		array_shift($out); // Quito el primer del array
-		$out = implode('', $out);
-		return $out;
-	}
-
-	/**
 	 * Devuelve true si el la cadena contiene algún valor del array
 	 *
 	 * @param string $str
@@ -435,41 +340,6 @@ class Utils {
 			$titulo = str_ireplace($p, '', $titulo);
 		}
 		return $titulo;
-	}
-
-	/**
-	 * Crear clave Nonce para las peticiones AJAX
-	 *
-	 * @param string $tipoNonceString
-	 *        Tipo de Nonce a crear
-	 * @param string $post_id
-	 *        Identificador del post
-	 * @return string Clave nonce apartir del tipoNonce + post_id
-	 */
-	public static function crearNonce($tipoNonceString, $post_id = false) {
-		if (!$post_id) {
-			global $post;
-			$post_id = $post->ID;
-		}
-		return wp_create_nonce($tipoNonceString . $post_id);
-	}
-
-	/**
-	 * Comprueba la clave Nonce para las peticiones AJAX
-	 *
-	 * @param string $nonce
-	 *        Clave a comparar
-	 * @param string $tipoNonceString
-	 *        Tipo de Nonce creado
-	 * @param string $post_id
-	 *        Identificador del post
-	 */
-	public static function esNonce($nonce, $tipoNonceString, $post_id = false) {
-		if (!$post_id) {
-			global $post;
-			$post_id = $post->ID;
-		}
-		return wp_verify_nonce($nonce, $tipoNonceString . $post_id);
 	}
 
 	/**
@@ -534,6 +404,19 @@ class Utils {
 			$result [] = I18n::transu($l);
 		}
 		return $result;
+	}
+
+	/**
+	 * Convierte un array en un object
+	 *
+	 * @param array $array
+	 */
+	public static function arrayToObject(array $array) {
+		$object = new stdClass();
+		foreach ($array as $key => $value) {
+			$object->{$key} = $value;
+		}
+		return $object;
 	}
 
 }

@@ -3,6 +3,8 @@ return [
 	'acceder' => 'login',
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
+	'ancho' => 'width',
+	'alto' => 'height',
 	'autor' => 'author',
 	'autores' => 'authors',
 	'aviso' => 'notice',
@@ -16,6 +18,7 @@ return [
 	'biografia' => 'biography',
 	'buscar' => 'search',
 
+	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
 	'compartir_con' => 'share with',
 	'conciertos' => 'concerts',
@@ -42,6 +45,7 @@ return [
 
 	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
+	'eliminar' => 'delete',
 	'en' => 'in',
 	'entrada' => 'post',
 	'entradas' => 'posts',

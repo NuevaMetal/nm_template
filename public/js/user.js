@@ -24,8 +24,9 @@ function crearMorrisUser(elementId, json) {
 			var monthNames = [ "Enero", "Febrero", "Marzo", "Abril", "Mayo",
 					"Junio", "Julio", "Agosto", "Septiembre", "Octubre",
 					"Noviembre", "Diciembre" ];
-			return monthNames[data.getYear()]
+			return monthNames[data.getYear() - 1]
 		},
-//		resize: true,		
+		hideHover : true,
+		resize : true,
 	});
 }

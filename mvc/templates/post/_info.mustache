@@ -1,9 +1,9 @@
 <div class="info row">
 	<div class="col-xs-9 titular">
-		<meta itemprop="datePublished" content="{{date_published}}"/>
-		<span class="post-time">{{time}}</span>
-		{{#trans}}por{{/trans}} <span class="post-author"><a href="{{user_posts_url}}">{{display_name}}</a></span>
-		{{#has_categories}} {{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>{{/has_categories}} 
+		<meta itemprop="datePublished" content="{{getTimeISO}}"/>
+		<span class="post-time">{{getTime}}</span>
+		{{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
+		{{#tieneCategorias}} {{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>{{/tieneCategorias}} 
 	</div>
 	<div class="col-xs-3 text-right">		
 		{{> post/_redes_sociales}}
@@ -11,20 +11,20 @@
 </div>
 
 <div class="btn-me-gusta-y-editar row titular">
-	{{#edit_post}}
+	{{#getUrlEditar}}
 	<p class="col-xs-4">
-		<a href="{{{edit_post}}}" class="btn btn-default btn-editar col-xs-12">
+		<a href="{{{getUrlEditar}}}" class="btn btn-default btn-editar col-xs-12">
 			<i class="fa fa-edit"></i> {{#transu}}editar{{/transu}}
 		</a>
 	</p>
-	{{/edit_post}}
+	{{/getUrlEditar}}
 	<div class="col-xs-2">
 		<span class="total-me-gustas col-xs-12">
-			<i class="fa fa-star"></i> <span class="cant">{{ total_me_gustas }}</span>
+			<i class="fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
 		</span>
 	</div>
-	{{#edit_post}}<div class="col-xs-6"> {{/edit_post}}
-	{{^edit_post}}<div class="col-xs-9"> {{/edit_post}}
+	{{#getUrlEditar}}<div class="col-xs-6"> {{/getUrlEditar}}
+	{{^getUrlEditar}}<div class="col-xs-9"> {{/getUrlEditar}}
 		{{> post/_me_gusta}}
 	</div>
 </div>

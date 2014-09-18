@@ -1,9 +1,16 @@
 <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-	<div class="row" >
-		<span class="col-xs-12" itemprop="image">{{{getAvatarPerfil}}}</span>
+	<div class="row img-avatar" >
+		<span class="col-xs-12 user-avatar" itemprop="image">{{{getAvatarPerfil}}}</span>
+		{{#isCurrentUser}}
+			<div class="col-xs-12 btn-avatar">
+				<a class="btn btn-default" href="/wp-admin/profile.php#avatar" target="_blank">{{#transu}}cambiar{{/transu}}</a>
+			</div>
+		{{/isCurrentUser}}
+	</div>
+	
+	<div class="row">
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
 		<h4 class="col-xs-12"> {{getNombreCompleto}} <small itemprop="jobTitle">{{getRol}}</small></h4>
-		
 	</div>
 	
 	<div class="row">

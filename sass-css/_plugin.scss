@@ -26,6 +26,62 @@
 .site-title-plugin {
 	background: url(../img/01.jpg);
 	@include col(xs) {
-		padding-top: 0 !important;		
+		padding-top: 0 !important;
 	}
+}
+
+.wrap {	
+	.img-header {
+		
+		margin-bottom: 170px;
+		@include col(md) {
+	    	margin-bottom: 200px;	    		
+    	}
+    	@include col(lg) {
+    		margin-bottom: 240px;
+    	}
+		
+		img {
+			position: absolute;
+			height: 200px;
+			width: 100%;			
+	    	@include col(md) {
+	    		height: 230px;	    		
+	    	}
+	    	@include col(lg) {
+	    		height: 270px;
+	    	}
+		}
+		.btn-img-header {
+			position: relative;
+			top: 10px;
+		}
+	}
+}
+
+// Para la pantalla de login
+body.login{
+	margin-top:0 !important;
+	padding-bottom: 50vh;
+	//height:100vh;	
+	div#login {
+		h1 a {
+    		background-image: url("../img/NM_avatar.jpg");   
+    	}
+    	p#nav a, p#backtoblog a {
+    		color: $rojo-danger;
+    		font-size: 14px;
+			&:hover,&:focus,&.focus,&.active{
+				color: $rojo-danger-hover;
+			}
+    	}
+    	#wp-submit{
+    		color: #fff;
+    		background-color: $rojo-danger;
+    		border: 0; 
+    		&:hover,&:focus,&.focus,&.active{
+				background-color: $rojo-danger-hover;
+			}
+    	}
+    }
 }

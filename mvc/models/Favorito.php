@@ -28,9 +28,9 @@ class Favorito extends ModelBase {
 		$result = $wpdb->get_results($query);
 		$posts = [];
 		foreach ($result as $k => $r) {
-			$postArray = ChesterWPCoreDataHelpers::getPost(false, [], $r->post_id);
-			$postArray ['total'] = $r->total;
-			$posts [] = $postArray;
+			$post = Post::find($r->post_id);
+			$post->total = $r->total;
+			$posts [] = $post;
 		}
 		return $posts;
 	}
