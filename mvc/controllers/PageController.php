@@ -62,8 +62,6 @@ class PageController extends BaseController {
 		]);
 	}
 
-
-
 	/**
 	 * search.php
 	 */
@@ -86,18 +84,6 @@ class PageController extends BaseController {
 		$content = $this->_renderPage([
 			'post' => $posts [0]
 		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * 404.php
-	 */
-	public function getError($num) {
-		$content = $this->render('error', array(
-			'num' => $num
-		));
 		return $this->_renderPageBase([
 			'content' => $content
 		]);

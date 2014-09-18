@@ -48,7 +48,6 @@ abstract class ModelBase {
 	 */
 	public static function find($ID = false) {
 		if ($ID == null || !is_numeric($ID)) {
-			Utils::debug("> MB::find($ID)");
 			return null;
 		}
 		global $wpdb;

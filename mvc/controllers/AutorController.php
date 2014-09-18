@@ -16,6 +16,9 @@ class AutorController extends BaseController {
 	public function getAuthor() {
 		$author_id = get_the_author_meta('ID');
 		$user = User::find($author_id);
+		if (!$user) {
+			return $this->_getAuthorSinPublicaciones();
+		}
 		$autorCountPosts = $user->getCountPosts();
 
 		$header = I18n::transu('entradas_de', [
@@ -41,14 +44,32 @@ class AutorController extends BaseController {
 		]);
 	}
 
-	private static function _getArrayPostsAutor($aBuscar, $cant = 4) {
+	/**
+	 * El autor aún no hizo ninguna publicación
+	 */
+	private function _getAuthorSinPublicaciones() {
+		return $this->_renderPageBase([
+			'content' => $this->render('autor/_sin_publicaciones')
+		]);
+	}
+
+	/**
+	 * Devuelve un aray con la info de los posts del autor
+	 *
+	 * @param integer $author_id
+	 *        Identificador del autor
+	 * @param number $cant
+	 *        Cantidad de posts a ir mostrando
+	 * @return array
+	 */
+	private static function _getArrayPostsAutor($author_id, $cant = 4) {
 		$args = [];
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
-		$args ['a_buscar'] = $aBuscar;
+		$args ['a_buscar'] = $author_id;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
-		$args ['posts'] = HomeController::getPostsByAuthor($aBuscar, $cant, []);
+		$args ['posts'] = HomeController::getPostsByAuthor($author_id, $cant, []);
 		return $args;
 	}
 
@@ -71,6 +92,12 @@ class AutorController extends BaseController {
 		]);
 	}
 
+	/**
+	 * Devuelve la vista del imgHeader para el perfil
+	 *
+	 * @param integer $user_ID
+	 *        identficiador del user
+	 */
 	public function getPerfilImgHeader($user_ID = false) {
 		if (!$user_ID) {
 			global $user_ID;
