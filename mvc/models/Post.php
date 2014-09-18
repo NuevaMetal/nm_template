@@ -40,7 +40,7 @@ class Post extends ModelBase {
 		comment_form($params, $this->ID);
 		$comment_form = ob_get_clean();
 		$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
-		$comment_form = str_replace('id="submit"', 'class="btn btn-primary"', $comment_form);
+		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
 		return $comment_form;
 	}
 
