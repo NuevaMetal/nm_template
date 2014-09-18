@@ -76,25 +76,20 @@ function class_revisiones_ban() {
  */
 function class_revisiones_notify() {
 	global $wpdb, $current_user;
-	$allowed_roles = array(
-		'editor',
-		'administrator'
-	);
-	if (array_intersect($allowed_roles, $current_user->roles)) {
-		$num = Revision::getTotalPorRevisar();
-		if (!$num)
+	$user = User::find($current_user->ID);
+	if ($user->isEditor()) {
+		$numTotalPorRevisar = Revision::getTotalPorRevisar();
+		if (!$numTotalPorRevisar)
 			return;
-		$admin_revisiones_url = admin_url('admin.php?page=revisiones');
-		if ($num == 1) {
-			$msg = 'Hay <span class="badge">' . $num . '</span> nueva revisión pendiente';
+		if ($numTotalPorRevisar == 1) {
+			$msg = 'Hay <span class="titular">' . $numTotalPorRevisar . '</span> nueva revisión pendiente';
 		} else {
-			$msg = 'Hay <span class="badge">' . $num . '</span> nuevas revisiones pendientes';
+			$msg = 'Hay <span class="titular">' . $numTotalPorRevisar . '</span> nuevas revisiones pendientes';
 		}
-		echo '
-		<br><div class="alert alert-danger alert-dismissible " role="alert">
-		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		  <strong>¡Ey bro!</strong> ' . $msg . ' en <a href="' . $admin_revisiones_url . '"
+		echo '<br>
+		<div class="error">
+		  <strong>¡Ey ' . $user->display_name . '!</strong> ' . $msg . ' en <a href="' . admin_url('admin.php?page=revisiones') . '"
 						class="alert-link">Revisiones</a>
-			</div>';
+		</div>';
 	}
 }
