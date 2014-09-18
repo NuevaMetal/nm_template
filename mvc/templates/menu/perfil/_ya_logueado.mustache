@@ -1,18 +1,18 @@
 {{#current_user}}
 <div class="row">
 
-	<div class="avatar col-xs-4 col-sm-2 col-md-2">
+	<div class="avatar col-xs-4 col-sm-2 col-md-1">
 		<a href="{{getPerfilUrl}}" alt="{{display_name}}">{{{getAvatar}}}</a>
 	</div>
 
-	<div class="menu-acciones col-xs-8 col-sm-10 col-md-10">
+	<div class="menu-acciones col-xs-8 col-sm-10 col-md-11">
 		<div class="title text-center col-xs-8 col-sm-12 col-md-3">
 			
-			<span class="col-xs-10 col-md-12 title-user-name">{{#transu}}bienvenido{{/transu}} <br class="visible-md visible-lg">
+			<span class="col-xs-9 col-md-12 text-center title-user-name">{{#transu}}bienvenido{{/transu}} <br class="visible-md visible-lg">
 				<a href="{{getPerfilUrl}}">{{display_name}}</a>
 			</span> <br class="visible-md visible-lg">
 			
-			<a class="col-xs-2 col-md-12" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
+			<a class="col-xs-3 col-md-12" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
 				<span class="hidden-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}}</span>
 				<span class="visible-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}}</span>
 			</a>
