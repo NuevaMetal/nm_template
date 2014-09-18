@@ -1,48 +1,40 @@
+{{#current_user}}
 <div class="row">
 
-	{{#current_user}}
 	<div class="avatar col-xs-4 col-sm-2 col-md-2">
-		{{#getPerfilUrl}}
-			<a href="{{getPerfilUrl}}" alt="avatar de {{display_name}}">{{{getAvatar}}}</a>
-		{{/getPerfilUrl}}
-		{{^getPerfilUrl}}
-			{{{getAvatar}}}
-		{{/getPerfilUrl}}		
+		<a href="{{getPerfilUrl}}" alt="{{display_name}}">{{{getAvatar}}}</a>
 	</div>
 
-	<div class="title text-center col-xs-8 col-sm-10 col-md-3">
-		<h3>{{#transu}}bienvenido{{/transu}}
-		{{#getPerfilUrl}}
-			<a href="{{getPerfilUrl}}">{{display_name}}</a>
-		{{/getPerfilUrl}}
-		{{^getPerfilUrl}}
-			{{display_name}}
-		{{/getPerfilUrl}}
-		</h3>
-	</div>
-	{{/current_user}}
+	<div class="col-xs-8 col-sm-10 col-md-10">
+		<div class="title text-center col-xs-8 col-sm-12 col-md-3">
+			<h3>{{#transu}}bienvenido{{/transu}}
+				<a href="{{getPerfilUrl}}">{{display_name}}</a>
+			</h3>
+		</div>
+
+		<div class="acciones text-center col-xs-12 col-sm-12 col-md-9">
+			<div class="list-group">
+			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/admin.php?page=favoritos" target="_blank">  	
+			  	<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
+				<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
+				</a>
 	
-	<div class="acciones text-center col-xs-12 col-sm-10 col-md-7">
-		<div class="list-group">
-		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/admin.php?page=favoritos" target="_blank">  	
-		  	<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
-			<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
-			</a>
-
-		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
-			<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
-			</a>
-
-		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/profile.php" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
-			<span class="visible-lg"><i class="fa fa-user"></i>{{#transu}}ver_perfil{{/transu}}</span>
-			</a>
-
-		  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
-			<span class="hidden-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}}</span>
-			<span class="visible-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}}</span>
-			</a>
+			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
+				<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
+				<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
+				</a>
+	
+			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/profile.php" target="_blank">
+				<span class="hidden-lg"><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
+				<span class="visible-lg"><i class="fa fa-user"></i>{{#transu}}ver_perfil{{/transu}}</span>
+				</a>
+	
+			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}" target="_blank">
+				<span class="hidden-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}}</span>
+				<span class="visible-lg"><i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}}</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
+{{/current_user}}

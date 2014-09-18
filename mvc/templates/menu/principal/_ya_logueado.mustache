@@ -1,19 +1,16 @@
+{{#current_user}}
 <div class="row principal-login text-center">
+
 	<div class="avatar col-sm-12">
-		{{{user_avatar}}}
+		<a href="{{getPerfilUrl}}" alt="{{display_name}}">{{{getAvatar}}}</a>
 	</div>
 	
 	<div class="title col-sm-12">
-		<h3>{{#transu}}bienvenido{{/transu}} 
-		{{#current_user.url}}
-			<a href="{{current_user.url}}"title="{{#transu}}entradas_de [nombre:{{current_user.display_name}}]{{/transu}}">{{current_user.display_name}}</a>
-		{{/current_user.url}}
-		{{^current_user.url}}
-			{{current_user.display_name}}
-		{{/current_user.url}}
+		<h3>{{#transu}}bienvenido{{/transu}}
+			<a href="{{getPerfilUrl}}">{{display_name}}</a>
 		</h3>
 	</div>
-	
+
 	<div class="title col-sm-12">
 		<div class="list-group">
 		  <a class="list-group-item" href="/wp-admin/admin.php?page=favoritos" target="_blank">		  	
@@ -26,5 +23,5 @@
 			<i class="fa fa-exclamation-circle"></i> {{#transu}}cerrar_sesion{{/transu}} </a>
 		</div>
 	</div>
-		
 </div>
+{{/current_user}}
