@@ -26,7 +26,7 @@ return [
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Contraseña?',
 	'contrasena_perdida_title' => '¿Has perdido tu contraseña?',
-	'contributor' => 'contribuidor',
+	'contributor' => 'usuario',
 	'creado_por' => 'creado por',
 	'criticas' => 'críticas',
 	'cronicas' => 'crónicas',
