@@ -104,7 +104,7 @@ class Post extends ModelBase {
 	}
 
 	public function getContent() {
-		return Utils::traducirPost(self::getTheFilteredContentFromLoop($this->post_content));
+		return self::getTheFilteredContentFromLoop($this->post_content);
 	}
 
 	public function getExcerpt() {
@@ -123,7 +123,25 @@ class Post extends ModelBase {
 			'/(Estado)/i',
 			'/(Miembros)/i'
 		], '<b>$1</b>', $the_excerpt);
-		return Utils::traducirPost($the_excerpt);
+		return $the_excerpt;
+	}
+
+	/**
+	 * Traducir todo el contenido que tengamos dentro de nuestro i18n
+	 * en el fichero post.php
+	 * Y aplicamos el filtro de idioma de forma genérica, aplicado a todos los idiomas,
+	 * que se encuentra en el fichero post_format
+	 *
+	 * @param string $content
+	 *        Contenido del post
+	 * @deprecated Por preferencia a no traducir sólo unas palaras
+	 */
+	private static function _traducirPost($content) {
+		$lista = I18n::getFicheroIdioma('post');
+		//Sustituimos todos los str del contenido que estén en la lista
+		$content = str_ireplace(array_keys($lista), $lista, $content);
+		$lista = I18n::getFicheroIdioma('../post_format');
+		return str_ireplace(array_keys($lista), $lista, $content);
 	}
 
 	public function getGenero() {

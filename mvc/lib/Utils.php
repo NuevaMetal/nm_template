@@ -253,23 +253,6 @@ class Utils {
 	}
 
 	/**
-	 * Traducir todo el contenido que tengamos dentro de nuestro i18n
-	 * en el fichero post.php
-	 * Y aplicamos el filtro de idioma de forma genérica, aplicado a todos los idiomas,
-	 * que se encuentra en el fichero post_format
-	 *
-	 * @param string $content
-	 *        Contenido del post
-	 */
-	public static function traducirPost($content) {
-		$lista = I18n::getFicheroIdioma('post');
-		//Sustituimos todos los str del contenido que estén en la lista
-		$content = str_ireplace(array_keys($lista), $lista, $content);
-		$lista = I18n::getFicheroIdioma('../post_format');
-		return str_ireplace(array_keys($lista), $lista, $content);
-	}
-
-	/**
 	 * Devuelve un número de palabras de un string
 	 *
 	 * @param string $str
