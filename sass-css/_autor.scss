@@ -5,11 +5,11 @@
 			border: 5px solid $body-background-color;
 		}
 		.btn-avatar {
-			position: relative;
+			position: absolute;
 			top: 10px;
 			left: 20px;
 		}
-		margin-bottom: 150px;
+		margin-bottom: 180px;
 		
 		@include col(xs) {
 			text-align:center;
@@ -25,7 +25,7 @@
 	
 	.col2 {
 		@include col(sm) {
-			margin-top: 175px;
+			margin-top: 195px;
 	    }
 	}
 
@@ -60,18 +60,19 @@
 	    	}
     	}
     	.btn-img-header {
-			position: relative;
+			position: absolute;
 			top: 10px;
+			right: 10px;
 		}
 	}
 
 	.content {
-		margin-top: 20px;
+		margin-top: 40px;
 		@include col(md) {
-			margin-top: 50px;
+			margin-top: 70px;
 		}
 		@include col(lg) {
-			margin-top: 100px;
+			margin-top: 120px;
 		}
 	}
 	
