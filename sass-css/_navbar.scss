@@ -34,12 +34,9 @@
 			}
 			@include col(md) {
 				margin:0;
-				margin-top: 20px;
+				margin-top: 12px;
 			}
-			@include col(lg) {
-				margin:0;
-				margin-top: 10px;
-			}
+			
 		}
 	}
 
