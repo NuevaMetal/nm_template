@@ -62,9 +62,26 @@
 // Para la pantalla de login
 body.login{
 	margin-top:0 !important;
-	padding-bottom: 35vh;
+	padding-bottom: 50vh;
 	//height:100vh;	
-	div#login h1 a {
-    	background-image: url("../img/NM_avatar.jpg");    	  	
-    }	
+	div#login {
+		h1 a {
+    		background-image: url("../img/NM_avatar.jpg");   
+    	}
+    	p#nav a, p#backtoblog a {
+    		color: $rojo-danger;
+    		font-size: 14px;
+			&:hover,&:focus,&.focus,&.active{
+				color: $rojo-danger-hover;
+			}
+    	}
+    	#wp-submit{
+    		color: #fff;
+    		background-color: $rojo-danger;
+    		border: 0; 
+    		&:hover,&:focus,&.focus,&.active{
+				background-color: $rojo-danger-hover;
+			}
+    	}
+    }
 }

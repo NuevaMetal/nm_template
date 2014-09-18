@@ -158,3 +158,10 @@ add_action('login_enqueue_scripts', function () {
 	wp_enqueue_style('main', get_template_directory_uri() . '/public/css/main.css');
 	//wp_enqueue_script('custom-login', get_template_directory_uri() . '/style-login.js');
 });
+
+add_filter('login_headerurl', function () {
+	return home_url();
+});
+add_filter('login_headertitle', function () {
+	return 'NuevaMetal.com';
+});
