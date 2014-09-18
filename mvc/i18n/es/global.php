@@ -34,6 +34,7 @@ return [
 
 	'de' => 'de',
 	'descripcion' => 'descripción',
+	'discografica' => 'discográfica',
 	'diseñador' => 'diseñador',
 
 	'editor' => 'editor',
@@ -80,6 +81,7 @@ return [
 	'panel' => 'panel',
 	'perfil' => 'perfil',
 	'por' => 'por',
+	'productor' => 'productor',
 	'programador' => 'programador',
 	'programadores' => 'programadores',
 

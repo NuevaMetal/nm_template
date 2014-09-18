@@ -34,6 +34,7 @@ return [
 
 	'de' => 'of',
 	'descripcion' => 'description',
+	'discografica' => 'record label',
 	'diseñador' => 'designer',
 
 	'hola' => 'hello',
@@ -78,6 +79,7 @@ return [
 	'panel' => 'panel',
 	'perfil' => 'profile',
 	'por' => 'by',
+	'productor' => 'producer',
 	'programador' => 'developer',
 	'programadores' => 'developers',
 

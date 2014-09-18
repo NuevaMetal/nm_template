@@ -22,7 +22,7 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
-	const KEY_USER_TIPO = 'tipo_user';
+	const KEY_USER_TIPO = 'tipo_usuario';
 
 	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
@@ -31,6 +31,12 @@ class User extends ModelBase {
 	const TIPO_USUARIO = 'usuario';
 
 	const TIPO_BANDA = 'banda';
+
+	const TIPO_PRODUCTOR = 'productor';
+
+	const TIPO_MANAGER = 'manager';
+
+	const TIPO_DISCOGRAFICA = 'discografica';
 
 	/**
 	 * Número de post favoritos a mostrar en su perfil
@@ -382,22 +388,24 @@ class User extends ModelBase {
 		}
 	}
 
-	/**
-	 * Devuelve true si el User es de tipo Usuario
-	 *
-	 * @return boolean
-	 */
 	public function isTipoUsuario() {
 		return ($this->getTipo() == self::TIPO_USUARIO);
 	}
 
-	/**
-	 * Devuelve true si el User es de tipo Banda
-	 *
-	 * @return boolean
-	 */
 	public function isTipoBanda() {
 		return ($this->getTipo() == self::TIPO_BANDA);
+	}
+
+	public function isTipoManager() {
+		return ($this->getTipo() == self::TIPO_MANAGER);
+	}
+
+	public function isTipoProductor() {
+		return ($this->getTipo() == self::TIPO_PRODUCTOR);
+	}
+
+	public function isTipoDiscografica() {
+		return ($this->getTipo() == self::TIPO_DISCOGRAFICA);
 	}
 
 	/**
@@ -408,7 +416,10 @@ class User extends ModelBase {
 	public static function getTiposDeUsuarioValidos() {
 		return [
 			self::TIPO_USUARIO,
-			self::TIPO_BANDA
+			self::TIPO_BANDA,
+			self::TIPO_PRODUCTOR,
+			self::TIPO_MANAGER,
+			self::TIPO_DISCOGRAFICA
 		];
 	}
 
