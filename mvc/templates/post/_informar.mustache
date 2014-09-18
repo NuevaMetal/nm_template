@@ -17,10 +17,9 @@
 		</div>
 	{{/current_user.ID}}
 	{{^current_user.ID}}
-		<a class="login-necesario form-control btn btn-default" 
-		href="/wp-login.php" target="_blank">
-		<i class='fa fa-flag-o'></i> 
-		{{#transu}}user.login_necesario{{/transu}}
-	</a>
+		<a class="login-necesario form-control btn btn-default" href="/wp-login.php" target="_blank">
+			<i class='fa fa-flag-o'></i> 
+			{{#transu}}user.login_necesario{{/transu}}
+		</a>
 	{{/current_user.ID}}
 </section>

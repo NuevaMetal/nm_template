@@ -89,7 +89,7 @@ return [
 	'redes_sociales' => 'social networks',
 	'reportar' => 'report',
 	'reportar_entrada' => 'report this post: :titulo',
-	'reportar_info' => 'Report links or fallen videos for this post.',
+	'reportar_info' => 'Click in the case that  this post includes wrong or obsolete information, fallen links or broken pictures.',
 	'resultado_busqueda' => 'Search results by \':que\' ',
 	'resultado_tag' => 'Search by \':que\' tag',
 

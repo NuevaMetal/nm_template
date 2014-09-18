@@ -91,7 +91,7 @@ return [
 	'redes_sociales' => 'redes sociales',
 	'reportar' => 'reportar',
 	'reportar_entrada' => 'Reportar esta entrada :titulo',
-	'reportar_info' => 'Reportar enlaces o vídeos caídos para esta entrada.',
+	'reportar_info' => 'Haz clic en caso de que esta entrada contenga información errónea u obsoleta, links caídos o imágenes rotas.',
 	'resultado_busqueda' => 'Resultados de la búsqueda: \':que\' ',
 	'resultado_tag' => 'Resultados con la etiqueta \':que\' ',
 
