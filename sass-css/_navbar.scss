@@ -18,23 +18,19 @@
 	}
 
 	.menu-acciones{
-		// border: 1px solid red;
 		.acciones {
 			@include col(md) {
 				margin-top: 28px;
 			}
 		}
 		.title {
-			//border: 1px solid green;
 			margin: 11px;
-			
 			.title-user-name{
 				font-size: 21px;
 			}
-			
 			a {
 				text-decoration: none;
-				color: #333;			
+				color: #333;
 			}
 			@include col(md) {
 				margin:0;
