@@ -58,10 +58,11 @@ abstract class ModelBase {
 		$result = [];
 		$object = $wpdb->get_row($query);
 		$a = new $modelo();
-		foreach ($object as $c => $val) {
-			$a->$c = $val;
+		if ($object) {
+			foreach ($object as $c => $val) {
+				$a->$c = $val;
+			}
 		}
-		//$result [] = $a;
 		return $a;
 	}
 
