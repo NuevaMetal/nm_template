@@ -232,10 +232,47 @@ class Acciones {
 		});
 	}
 
+	/**
+	 * Quitar información sobrante de los perfiles de los usuarios
+	 */
+	public static function perfilQuitarInfoSobrante() {
+		// Elimino el esquema de colores de las opciones del perfil que vienen por defecto
+		// en profile.php
+		remove_action('admin_color_scheme_picker', 'admin_color_scheme_picker');
+
+		/**
+		 * Elimino las opciones personales: editor visual,Atajos de teclado y Barra de herramientas
+		 */
+		function nm_remove_personal_options($subject) {
+			// Opciones personales
+			$subject = preg_replace('#<h3>Opciones personales</h3>.+?/table>#s', '', $subject, 1);
+
+			// Yahoo IM
+			$subject = preg_replace('#<th><label for="yim">.+?/th>#s', '', $subject, 1);
+			$subject = preg_replace('#<td><input type="text" name="yim".+?/td>#s', '', $subject, 1);
+			// AIM
+			$subject = preg_replace('#<th><label for="aim">.+?/th>#s', '', $subject, 1);
+			$subject = preg_replace('#<td><input type="text" name="aim".+?/td>#s', '', $subject, 1);
+			// Jabber / Google Talk
+			$subject = preg_replace('#<th><label for="jabber">.+?/th>#s', '', $subject, 1);
+			$subject = preg_replace('#<td><input type="text" name="jabber".+?/td>#s', '', $subject, 1);
+			return $subject;
+		}
+
+		add_action('admin_head-profile.php', function () {
+			ob_start('nm_remove_personal_options');
+		});
+		add_action('admin_footer-profile.php', function () {
+			ob_end_flush();
+		});
+	}
+
 }
 
 Acciones::userRegister();
 Acciones::loginInit();
+
+Acciones::perfilQuitarInfoSobrante();
 
 Acciones::perfilAddImgHeader();
 Acciones::perfilUpdateImgHeader();
