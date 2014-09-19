@@ -377,6 +377,13 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve el tipo de usuario traducido
+	 */
+	public function getTipoTrans() {
+		return I18n::transu($this->getTipo());
+	}
+
+	/**
 	 * Establecer un nuevo tipo
 	 *
 	 * @param string $nuevo

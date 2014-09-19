@@ -22,6 +22,7 @@ return [
 	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
 	'compartir_con' => 'share with',
+	'como' => 'like',
 	'conciertos' => 'concerts',
 	'contacto' => 'contact',
 	'contrasena' => 'password',
@@ -32,6 +33,7 @@ return [
 	'criticas' => 'reviews',
 	'cronicas' => 'chronics',
 
+	'dados' => 'given',
 	'de' => 'of',
 	'descripcion' => 'description',
 	'discografica' => 'record label',
@@ -54,6 +56,7 @@ return [
 	'entradas_de' => ':nombre\'s posts',
 	'entrevistas' => 'interviews',
 	'escritorio' => 'dashboard',
+	'es' => 'is',
 	'escribir' => 'write',
 
 	'genero' => 'genre',
@@ -85,9 +88,9 @@ return [
 
 	'que_es_nm' => 'NuevaMetal?',
 
+	'recibidos' => 'received',
 	'recuerdame' => 'remember me',
 	'registrarse' => 'Sign in',
-
 	'redes' => 'networks',
 	'redes_sociales' => 'social networks',
 	'reportar' => 'report',

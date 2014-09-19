@@ -10,9 +10,15 @@
 	
 	<div class="row">
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
-		<h4 class="col-xs-12"> {{getNombreCompleto}} <small itemprop="jobTitle">{{getRol}}</small></h4>
+		<h4 class="col-xs-12"> {{getNombreCompleto}} <small itemprop="rolTitle">{{getRol}}</small></h4>
 	</div>
-	
+
+	<div class="row titular">
+		<div class="col-xs-12">
+			{{#transu}}como{{/transu}}: <span class="tipo-usuario" itemprop="jobTitle">{{getTipoTrans}}</span>
+		</div>
+	</div>
+
 	<div class="row">
 		{{#getUrl}}
 		<div class="col-xs-3">			
@@ -49,11 +55,11 @@
 	<br>
 	<table class="table table-condensed text-center titular">
 		<tr>
-			<th colspan="2"><i class="fa fa-star"></i> Favoritos</th>
+			<th colspan="2"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</th>
 		</tr>
 		<tr class="active">
-			<td>Dados</td>
-			<td>Recibidos</td>
+			<td>{{#transu}}dados{{/transu}}</td>
+			<td>{{#transu}}recibidos{{/transu}}</td>
 		</tr>
 		<tr>
 			<td>{{getCountFavoritos}}</td>

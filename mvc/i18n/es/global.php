@@ -22,6 +22,7 @@ return [
 	'cambiar' => 'cambiar',
 	'cerrar_sesion' => 'salir',
 	'compartir_con' => 'compartir con',
+	'como' => 'como',
 	'conciertos' => 'conciertos',
 	'contacto' => 'contacto',
 	'contrasena' => 'contraseña',
@@ -32,6 +33,7 @@ return [
 	'criticas' => 'críticas',
 	'cronicas' => 'crónicas',
 
+	'dados' => 'dados',
 	'de' => 'de',
 	'descripcion' => 'descripción',
 	'discografica' => 'discográfica',
@@ -55,6 +57,7 @@ return [
 	'entradas' => 'entradas',
 	'entradas_de' => 'entradas de :nombre',
 	'entrevistas' => 'entrevistas',
+	'es' => 'es',
 	'escritorio' => 'escritorio',
 	'escribir' => 'escribir',
 
@@ -87,9 +90,9 @@ return [
 
 	'que_es_nm' => '¿NuevaMetal?',
 
+	'recibidos' => 'recibidos',
 	'recuerdame' => 'recuérdame',
 	'registrarse' => 'registrarse',
-
 	'redes' => 'redes',
 	'redes_sociales' => 'redes sociales',
 	'reportar' => 'reportar',
