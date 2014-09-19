@@ -218,6 +218,20 @@ class Acciones {
 		});
 	}
 
+	/**
+	 * Quitar items del menu para los usuarios
+	 */
+	public static function quitarItemsParaLosUsuarios() {
+		add_action('admin_menu', function () {
+
+			$user = User::find(wp_get_current_user()->ID); //Obtenemos los datos del usuario actual
+			if (!$user || !$user->isEditor()) { // Si es que el usuario no tiene rol de editor o admin
+				remove_menu_page('edit-comments.php'); // Removemos el ítem comentarios
+				remove_menu_page('upload.php'); // Removemos el ítem medios
+			}
+		});
+	}
+
 }
 
 Acciones::userRegister();
@@ -233,3 +247,5 @@ Acciones::perfilAddTipoUsuario();
 Acciones::perfilUpdateTipoUsuario();
 
 Acciones::cargarEstilosPaginaLogin();
+
+Acciones::quitarItemsParaLosUsuarios();
