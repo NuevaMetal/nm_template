@@ -44,7 +44,7 @@
 		img {
 			position: absolute;
 			height: 200px;
-			width: 100%;			
+			width: 96%;			
 	    	@include col(md) {
 	    		height: 230px;	    		
 	    	}
@@ -55,6 +55,7 @@
 		.btn-img-header {
 			position: relative;
 			top: 10px;
+			right: 20px;
 		}
 	}
 }
