@@ -259,12 +259,19 @@ class Acciones {
 			return $subject;
 		}
 
-		add_action('admin_head-profile.php', function () {
+		function nm_remove_personal_options_start() {
 			ob_start('nm_remove_personal_options');
-		});
-		add_action('admin_footer-profile.php', function () {
+		}
+
+		function nm_remove_personal_options_end() {
 			ob_end_flush();
-		});
+		}
+		// Para el perfil propio
+		add_action('admin_head-profile.php', 'nm_remove_personal_options_start');
+		add_action('admin_footer-profile.php', 'nm_remove_personal_options_end');
+		// Para el perfil de otro user
+		add_action('admin_head-user-edit.php', 'nm_remove_personal_options_start');
+		add_action('admin_footer-user-edit.php', 'nm_remove_personal_options_end');
 	}
 
 }
