@@ -274,6 +274,29 @@ class Acciones {
 		add_action('admin_footer-user-edit.php', 'nm_remove_personal_options_end');
 	}
 
+	/**
+	 * Eliminar el logo de WP de la barra de administración de Wordpress
+	 */
+	public static function adminBarQuitarLogoWP() {
+		add_action('wp_before_admin_bar_render', function () {
+			global $wp_admin_bar;
+			$wp_admin_bar->remove_menu('wp-logo');
+		});
+	}
+
+	/**
+	 * Remover la pestaña de "Ayuda" y "Opciones" en Wordpress
+	 */
+	public static function adminBarQuitarAyudaYOpciones() {
+
+		function hide_help() {
+			echo '<style type="text/css">
+            #contextual-help-link-wrap, #screen-options-link-wrap { display: none !important; }
+          </style>';
+		}
+		add_action('admin_head', 'hide_help');
+	}
+
 }
 
 Acciones::userRegister();
@@ -293,3 +316,6 @@ Acciones::perfilUpdateTipoUsuario();
 Acciones::cargarEstilosPaginaLogin();
 
 Acciones::quitarItemsParaLosUsuarios();
+
+Acciones::adminBarQuitarLogoWP();
+Acciones::adminBarQuitarAyudaYOpciones();
