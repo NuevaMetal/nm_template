@@ -154,6 +154,7 @@ class Acciones {
 
 	/**
 	 * Actualizo las redes sociales del perfil del User
+	 * Facebook, Twiter, Google+, Youtube, Soundcloud
 	 */
 	public static function perfilUpdateRedesSociales() {
 
