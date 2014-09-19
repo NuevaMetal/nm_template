@@ -14,6 +14,10 @@ class User extends ModelBase {
 
 	const KEY_USER_GOOGLE_PLUS = 'gp_txt';
 
+	const KEY_USER_YOUTUBE = 'yt_txt';
+
+	const KEY_USER_SOUNDCLOUD = 'sc_txt';
+
 	const KEY_USER_NOMBRE = 'first_name';
 
 	const KEY_USER_APELLIDOS = 'last_name';
@@ -362,6 +366,44 @@ class User extends ModelBase {
 	 */
 	public function setGooglePlus($nuevo) {
 		update_user_meta($this->ID, User::KEY_USER_GOOGLE_PLUS, $nuevo);
+	}
+
+	/**
+	 * Devuelve el Youtube del User
+	 *
+	 * @return string
+	 */
+	public function getYoutube() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_YOUTUBE);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Establecer un nuevo Youtube
+	 *
+	 * @param string $nuevo
+	 */
+	public function setYoutube($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_YOUTUBE, $nuevo);
+	}
+
+	/**
+	 * Devuelve el Soundcloud del User
+	 *
+	 * @return string
+	 */
+	public function getSoundcloud() {
+		$valor = get_user_meta($this->ID, self::KEY_USER_SOUNDCLOUD);
+		return (is_array($valor)) ? $valor [0] : $valor;
+	}
+
+	/**
+	 * Establecer un nuevo Soundcloud
+	 *
+	 * @param string $nuevo
+	 */
+	public function setSoundcloud($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_SOUNDCLOUD, $nuevo);
 	}
 
 	/**

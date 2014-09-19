@@ -88,7 +88,9 @@ class AutorController extends BaseController {
 			'user' => $user,
 			'KEY_USER_FACEBOOK' => User::KEY_USER_FACEBOOK,
 			'KEY_USER_TWITTER' => User::KEY_USER_TWITTER,
-			'KEY_USER_GOOGLE_PLUS' => User::KEY_USER_GOOGLE_PLUS
+			'KEY_USER_GOOGLE_PLUS' => User::KEY_USER_GOOGLE_PLUS,
+			'KEY_USER_YOUTUBE' => User::KEY_USER_YOUTUBE,
+			'KEY_USER_SOUNDCLOUD' => User::KEY_USER_SOUNDCLOUD
 		]);
 	}
 

@@ -19,38 +19,50 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row">	
+		
 		{{#getUrl}}
 		<div class="col-xs-3">			
-			{{#getUrl}}<a class="btn btn-default btn-md" role="button" href="{{getUrl}}" target="_blank">
+			<a class="btn btn-default btn-md" role="button" href="{{getUrl}}" target="_blank">
 				<i class="fa fa-globe"></i></a>
-			{{/getUrl}}
 		</div>
 		{{/getUrl}}
 		
 		{{#getTwitter}}
 		<div class="col-xs-3">			
-			{{#getTwitter}}<a class="btn btn-default btn-md" role="button" href="https://twitter.com/{{getTwitter}}" target="_blank">
-				<i class="fa fa-twitter"></i></a>
-			{{/getTwitter}}
+			<a class="btn btn-default btn-md" role="button" href="{{getTwitter}}" target="_blank">
+				<i class="fa fa-twitter"></i></a>			
 		</div>
 		{{/getTwitter}}
 		
 		{{#getFacebook}}
 		<div class="col-xs-3">			
-			{{#getFacebook}}<a class="btn btn-default btn-md" role="button" href="https://facebook.com/{{getFacebook}}" target="_blank">
+			<a class="btn btn-default btn-md" role="button" href="{{getFacebook}}" target="_blank">
 				<i class="fa fa-facebook"></i></a>
-			{{/getFacebook}}
 		</div>
 		{{/getFacebook}}
 		
 		{{#getGooglePlus}}
 		<div class="col-xs-3">			
-			{{#getGooglePlus}}<a class="btn btn-default btn-md" role="button" href="https://plus.google.com/u/0/{{getGooglePlus}}" target="_blank">
+			<a class="btn btn-default btn-md" role="button" href="{{getGooglePlus}}" target="_blank">
 				<i class="fa fa-google-plus"></i></a>
-			{{/getGooglePlus}}
 		</div>
 		{{/getGooglePlus}}
+		
+		{{#getYoutube}}
+		<div class="col-xs-3">			
+			<a class="btn btn-default btn-md" role="button" href="{{getYoutube}}" target="_blank">
+				<i class="fa fa-youtube"></i></a>
+		</div>
+		{{/getYoutube}}
+		
+		{{#getSoundcloud}}
+		<div class="col-xs-3">			
+			<a class="btn btn-default btn-md" role="button" href="{{getSoundcloud}}" target="_blank">
+				<i class="fa fa-soundcloud"></i></a>
+		</div>
+		{{/getSoundcloud}}
+		
 	</div>
 	<br>
 	<table class="table table-condensed text-center titular">

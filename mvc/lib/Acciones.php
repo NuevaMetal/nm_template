@@ -163,6 +163,8 @@ class Acciones {
 				$user->setFacebook($_POST [User::KEY_USER_FACEBOOK]);
 				$user->setTwitter($_POST [User::KEY_USER_TWITTER]);
 				$user->setGooglePlus($_POST [User::KEY_USER_GOOGLE_PLUS]);
+				$user->setYoutube($_POST [User::KEY_USER_YOUTUBE]);
+				$user->setSoundcloud($_POST [User::KEY_USER_SOUNDCLOUD]);
 			}
 		}
 		add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
