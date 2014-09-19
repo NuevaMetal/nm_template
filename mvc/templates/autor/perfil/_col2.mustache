@@ -1,8 +1,6 @@
 <div class="row">
-	<div class="col-xs-12">
-		{{#getDescription}}
-			<h4 class="titular"><i class="fa fa-file"></i> {{#transu}}descripcion{{/transu}}</h4>
-		{{/getDescription}}
+	<div class="col-xs-12">		
+		<h4 class="titular"><i class="fa fa-file"></i> {{#transu}}descripcion{{/transu}}</h4>		
 		<blockquote>
 			<p itemprop="description">
 				{{getDescription}}
@@ -10,12 +8,16 @@
 					{{#transu}}user.no_hay_info_perfil{{/transu}}
 				{{/getDescription}}
 			</p>
+			{{#isCurrentUser}}
+				<a class="btn btn-default btn-xs" href="/wp-admin/profile.php#acerca-de-ti" target="_blank">
+					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+			{{/isCurrentUser}}
 		</blockquote>
 	</div>
 </div>
 
 {{#favoritos}}
-	<div class="row">		
+	<div class="row">
 		<div class="col-xs-12 titular">
 			<h4><i class="fa fa-area-chart"></i> {{#transu}}user.entradas_publicadas_ano{{/transu}}</h4>
 			<div id="entradas-publicadas" style="height:120px; margin-bottom:0px;"></div>

@@ -256,6 +256,9 @@ class Acciones {
 			// Jabber / Google Talk
 			$subject = preg_replace('#<th><label for="jabber">.+?/th>#s', '', $subject, 1);
 			$subject = preg_replace('#<td><input type="text" name="jabber".+?/td>#s', '', $subject, 1);
+
+			//Añado un id a la sección de "Acerca de ti"
+			$subject = str_replace('<h3>Acerca de ti</h3>', '<h3 id="acerca-de-ti">Acerca de ti</h3>', $subject);
 			return $subject;
 		}
 
