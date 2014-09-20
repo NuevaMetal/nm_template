@@ -300,21 +300,31 @@ class Acciones {
 		add_action('admin_head', 'hide_help');
 	}
 
+	/**
+	 * Añadir la información extra al perfil del Usuario
+	 */
+	public static function perfilAddInfo() {
+		require_once 'mvc/models/User.php';
+		$current_user = User::find(wp_get_current_user()->ID);
+		if ($current_user->canColaborador()) {
+			Acciones::perfilAddImgHeader();
+			Acciones::perfilUpdateImgHeader();
+
+			Acciones::perfilAddRedesSociales();
+			Acciones::perfilUpdateRedesSociales();
+
+			Acciones::perfilAddTipoUsuario();
+			Acciones::perfilUpdateTipoUsuario();
+		}
+	}
+
 }
 
 Acciones::userRegister();
 Acciones::loginInit();
 
 Acciones::perfilQuitarInfoSobrante();
-
-Acciones::perfilAddImgHeader();
-Acciones::perfilUpdateImgHeader();
-
-Acciones::perfilAddRedesSociales();
-Acciones::perfilUpdateRedesSociales();
-
-Acciones::perfilAddTipoUsuario();
-Acciones::perfilUpdateTipoUsuario();
+Acciones::perfilAddInfo();
 
 Acciones::cargarEstilosPaginaLogin();
 
