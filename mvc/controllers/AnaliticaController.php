@@ -30,53 +30,6 @@ class AnaliticaController extends BaseController {
 			UNIQUE KEY (user_id, created_at)
 			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$wpdb->query($query);
-
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimientos (
-			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`analitica_id` bigint(20) UNSIGNED NOT NULL,
-			`post_id` bigint(20) UNSIGNED NOT NULL,
-			`total` integer(10) UNSIGNED NOT NULL DEFAULT 1,
-			`ip` varchar(45) NOT NULL,
-			`user_agent` varchar(200) NOT NULL,
-			`referer` varchar(2000) NOT NULL,
-			`request_time` varchar(50) NOT NULL,
-			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
-			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (`ID`),
-			FOREIGN KEY (`analitica_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE CASCADE,
-			FOREIGN KEY (`post_id`) REFERENCES `{$wpdb->prefix}posts`(`ID`) ON DELETE SET NULL,
-			UNIQUE KEY (analitica_id, post_id)
-			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-		$wpdb->query($query);
-
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}seguimientos_horas (
-			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`seguimiento_id` bigint(20) UNSIGNED NOT NULL,
-			`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (`ID`),
-			FOREIGN KEY (`seguimiento_id`) REFERENCES `{$wpdb->prefix}seguimientos`(`ID`) ON DELETE CASCADE
-			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-		$wpdb->query($query);
-
-		/**
-		 * Registro que cada día se borren los registros de seguimientos_horas de hace 2 días
-		 */
-		register_activation_hook(__FILE__, function () {
-			// Si no está definido lo ponemos
-			if (!wp_next_scheduled('eliminar_seguimientos_horas_2_dias')) {
-				wp_schedule_event(time(), 'daily', 'eliminar_seguimientos_horas_2_dias');
-			}
-		});
-
-		add_action('eliminar_seguimientos_horas_2_dias', function () {
-			// Borrar los registros de los seguimientos_horas de hace 2 días
-			global $wpdb;
-			$result = $wpdb->query('DELETE FROM `wp_seguimientos_horas`
-						WHERE date(created_at) < date(now())-1');
-			if (!$result) {
-				Utils::info("> No se borraron ningún registro en horas (?)");
-			}
-		});
 	}
 
 	/**
@@ -87,18 +40,7 @@ class AnaliticaController extends BaseController {
 	public static function uninstall() {
 		Utils::debug("> AnaliticaController->uninstall() ");
 		global $wpdb;
-		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos_horas ");
-		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}seguimientos ");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
-		/**
-		 * Elimino el cron que borraba los registros de seguimientos_horas de hacía 2 días
-		 */
-		register_deactivation_hook(__FILE__, function () {
-			// Si está definido lo quitamos
-			if (wp_next_scheduled('eliminar_seguimientos_horas_2_dias')) {
-				wp_clear_scheduled_hook('eliminar_seguimientos_horas_2_dias');
-			}
-		});
 	}
 
 	/**
@@ -150,27 +92,7 @@ class AnaliticaController extends BaseController {
 					'Total'
 				];
 				break;
-			case Analitica::TOTAL_VISITAS :
-				$totalVisitas = Analitica::getTotalVisitas($cant);
-				$totalVisitasUnicas = Analitica::getTotalVisitasUnicasPorIP($cant);
-				$totalPostUnicosVistos = Analitica::getTotalPostUnicosVistos($cant);
-				$result = Analitica::juntarValoresPor('dia', [
-					$totalVisitasUnicas,
-					$totalVisitas,
-					$totalPostUnicosVistos
-				]);
-				$xKey = 'dia';
-				$yKeys = [
-					'total_visitas',
-					'total_posts_unicos',
-					'total_unicas'
-				];
-				$labels = [
-					'Visitas totales',
-					'Entradas únicas vistas',
-					'Visitas únicas por IP'
-				];
-				break;
+
 			case Analitica::TOTAL_VISITAS_USERS :
 				$totalVisitasUsersLogueados = Analitica::getTotalVisitasUsersLogueados($cant);
 				$result = $totalVisitasUsersLogueados;
@@ -180,32 +102,6 @@ class AnaliticaController extends BaseController {
 				];
 				$labels = [
 					'Usuarios logueados'
-				];
-				break;
-			case Analitica::TOTAL_VISITAS_HORA :
-				$totalPorHoraHoy = Analitica::getTotalVisitasPorHora($cant);
-				$unicasPorHoraHoy = Analitica::getUnicasVisitasPorHora($cant);
-				$totalPorHoraAyer = Analitica::getTotalVisitasPorHora($cant, Utils::AYER);
-				$unicasPorHoraAyer = Analitica::getUnicasVisitasPorHora($cant, Utils::AYER);
-				$result = Analitica::juntarValoresPor('hora', [
-					$totalPorHoraHoy,
-					$unicasPorHoraHoy,
-					$totalPorHoraAyer,
-					$unicasPorHoraAyer
-				]);
-				$result = self::_formatearHoras($result);
-				$xKey = 'hora';
-				$yKeys = [
-					'totales_hora_hoy',
-					'unicas_hora_hoy',
-					'totales_hora_ayer',
-					'unicas_hora_ayer'
-				];
-				$labels = [
-					'Total por hora',
-					'Únicas por hora',
-					'Total por hora ayer',
-					'Únicas por hora ayer'
 				];
 				break;
 		}

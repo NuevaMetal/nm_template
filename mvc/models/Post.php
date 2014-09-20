@@ -194,13 +194,6 @@ class Post extends ModelBase {
 		return count($this->getCategorias());
 	}
 
-	public function getAnalitica() {
-		return [
-			'visitas_totales' => Analitica::getTotalVisitasByPostId($this->ID),
-			'visitas_unicas' => Analitica::getVisitasUnicasByPostId($this->ID)
-		];
-	}
-
 	public function getThumbnails() {
 		$thumbnails = [];
 		$sizes = [
