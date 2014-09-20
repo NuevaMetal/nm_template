@@ -22,7 +22,7 @@ return [
 	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
 	'compartir_con' => 'share with',
-	'como' => 'like',
+	'como' => 'as',
 	'conciertos' => 'concerts',
 	'contacto' => 'contact',
 	'contrasena' => 'password',
