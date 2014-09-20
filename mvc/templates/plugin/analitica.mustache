@@ -6,16 +6,6 @@
 		<div id="total-users" style="height: 250px; margin-bottom:50px;"></div>
 	</div>
 	
-	<div id="visitas-totales" class="col-xs-12">
-		<h3><i class="fa fa-line-chart"></i> Visitas totales / día</h3>
-		<div id="total-visitas" style="height: 250px; margin-bottom:90px;"></div>
-	</div>
-	
-	<div id="visitas-horas" class="col-xs-12">
-		<h3><i class="fa fa-area-chart"></i> Número de entradas vistas / hora </h3>
-		<div id="total-visitas-horas" style="height: 250px; margin-bottom:110px;"></div>
-	</div>
-
 	<div id="visitas-user" class="col-xs-12">
 		<h3><i class="fa fa-line-chart"></i> Visitas por usuario / día</h3>
 		<div id="total-visitas-users" style="height: 250px; margin-bottom:50px;"></div>
@@ -50,14 +40,8 @@
 		var url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-users&cant=50";
 		pintarMorris("total-users", url);
 
-		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas&cant=50";
-		pintarMorris("total-visitas", url);
-
 		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-users&cant=50";
 		pintarMorris("total-visitas-users", url);
-
-		url = "{{template_url}}/admin_ajax.php?submit=analitica&tabla=total-visitas-hora&cant=50";
-		pintarMorrisHoras("total-visitas-horas", url);
 
 	});
 </script>
