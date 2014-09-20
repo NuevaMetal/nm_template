@@ -1,8 +1,8 @@
 <div class="autor">
 	{{#user}}
-		{{#current_user.isEditor}}
+		{{#current_user.canEditor}}
 			{{> admin/_autor }}
-		{{/current_user.isEditor}}
+		{{/current_user.canEditor}}
 		
 		<div class="row img-header">
 			<div class="col-xs-12">

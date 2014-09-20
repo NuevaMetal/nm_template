@@ -281,15 +281,84 @@ class User extends ModelBase {
 		);
 	}
 
+	/**
+	 * Devuelve verdadero en caso de tener el rol de Admin
+	 *
+	 * @return boolean
+	 */
 	public function isAdmin() {
 		return in_array(self::ROL_ADMIN, self::getRoles());
 	}
 
+	/**
+	 * Devuelve verdadero en caso de tener el rol de Editor
+	 *
+	 * @return boolean
+	 */
 	public function isEditor() {
-		return array_intersect([
-			self::ROL_ADMIN,
-			self::ROL_EDITOR
-		], self::getRoles());
+		return in_array(self::ROL_EDITOR, self::getRoles());
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener el rol de Autor
+	 *
+	 * @return boolean
+	 */
+	public function isAutor() {
+		return in_array(self::ROL_AUTOR, self::getRoles());
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener el rol de suscriptor
+	 *
+	 * @return boolean
+	 */
+	public function isSuscriptor() {
+		return in_array(self::ROL_SUSCRIPTOR, self::getRoles());
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener privilegios de Admin
+	 *
+	 * @param array $args
+	 * @return boolean
+	 */
+	public function canAdmin($args = []) {
+		$args [] = self::ROL_ADMIN;
+		return $this->canEditor($args);
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener privilegios de Editor
+	 *
+	 * @param array $args
+	 * @return boolean
+	 */
+	public function canEditor($args = []) {
+		$args [] = self::ROL_EDITOR;
+		return $this->canAutor($args);
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener privilegios de Autor
+	 *
+	 * @param array $args
+	 * @return boolean
+	 */
+	public function canAutor($args = []) {
+		$args [] = self::ROL_AUTOR;
+		return $this->canSuscriptor($args);
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener privilegios de Suscriptor
+	 *
+	 * @param array $args
+	 * @return boolean
+	 */
+	public function canSuscriptor($args = []) {
+		$args [] = self::ROL_SUSCRIPTOR;
+		return array_intersect($args, self::getRoles());
 	}
 
 	/**
