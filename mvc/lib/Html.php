@@ -32,8 +32,7 @@ class Html {
 		$accion = ($aBorrar) ? '=' : '!';
 		$pattern = '~<(?' . $accion . '[' . $attrStr . '])([a-z][a-z0-9]*)[^>]*(/?)>~is';
 		// 	dd($pattern); // '~<(?![\bimg\b|\biframe\b])([a-z][a-z0-9]*)[^>]*(/?)>~is'
-		$html = preg_replace($pattern, '<$1$2>', $html);
-		return $html;
+		return preg_replace($pattern, '<$1$2>', $html);
 	}
 
 	/**
@@ -46,8 +45,7 @@ class Html {
 		$alto = (in_category('videos')) ? 360 : 300;
 		$pattern = '/<iframe width="[0-9]+%?" height="[0-9]+"/i';
 		$replacement = '<iframe width="100%" height="' . $alto . '"';
-		$content = preg_replace($pattern, $replacement, $content);
-		return $content;
+		return preg_replace($pattern, $replacement, $content);
 	}
 
 	/**
@@ -57,9 +55,7 @@ class Html {
 	 * @return string Content con los enlaces ajustados
 	 */
 	public static function quitarLinksNMAbsolutos($content) {
-		$alto = (in_category('videos', $content)) ? 360 : 300;
-		$content = preg_replace('/http:\/\/nuevametal.com/i', '', $content);
-		return $content;
+		return preg_replace('/http:\/\/nuevametal.com/i', '', $content);
 	}
 
 }
