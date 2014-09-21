@@ -330,4 +330,32 @@ class Post extends ModelBase {
 		return $leGusta > 0;
 	}
 
+	/**
+	 * Devuelve un array con los usuarios que le dieron a me gusta a el Post
+	 *
+	 * @return array<User>
+	 */
+	public function getUsersQueGustan() {
+		global $wpdb;
+		$result = $wpdb->get_results($wpdb->prepare('SELECT user_id
+				FROM ' . $wpdb->prefix . 'favoritos
+				WHERE post_id = %d
+				AND status = %d
+				order by updated_at desc', $this->ID, Favorito::ACTIVO));
+		$users = [];
+		foreach ($result as $r) {
+			$users [] = User::find($r->user_id);
+		}
+		return $users;
+	}
+
+	/**
+	 * Devuelve true si hay usuarios que le dieron a me gusta al Post
+	 *
+	 * @return boolean
+	 */
+	public function hayUsersQueGustan() {
+		return count($this->getUsersQueGustan()) > 0;
+	}
+
 }

@@ -10,10 +10,12 @@ return [
 
 	'estado' => 'Estado',
 
+	'guitar' => 'Guitarra',
+
 	'hasta' => 'hasta',
 	'hoy' => 'hoy',
 
-	'guitar' => 'Guitarra',
+	'le_gusto_a' => 'le gusta a',
 
 	'country' => 'País',
 
@@ -24,5 +26,5 @@ return [
 	'vocal' => 'Voz',
 	'vocalist' => 'Voz',
 
-	'keyboards' => 'Teclados',
+	'keyboards' => 'Teclados'
 ];

@@ -12,11 +12,13 @@ return [
 
 	'estado' => 'Status',
 
+	'género' => 'Genre',
+	'guitarra' => 'Guitar',
+
 	'hasta' => 'since',
 	'hoy' => 'today',
 
-	'género' => 'Genre',
-	'guitarra' => 'Guitar',
+	'le_gusto_a' => 'This post is liked by',
 
 	'país' => 'Country',
 
@@ -28,5 +30,5 @@ return [
 	'vocals' => 'Vocal',
 	'voz' => 'Vocal',
 
-	'teclados' => 'Keyboards',
+	'teclados' => 'Keyboards'
 ];

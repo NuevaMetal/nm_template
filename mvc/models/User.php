@@ -81,6 +81,10 @@ class User extends ModelBase {
 		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
 	}
 
+	public function getAvatarIco(){
+		return get_avatar($this->ID, 32, '', "$this->display_name avatar");
+	}
+
 	/**
 	 * Quitar la ImgHeader y la elimina del server
 	 */
