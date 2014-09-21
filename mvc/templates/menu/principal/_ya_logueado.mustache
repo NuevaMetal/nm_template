@@ -13,10 +13,19 @@
 
 	<div class="title col-sm-12">
 		<div class="list-group">
+			{{#isSuscriptor}}
+				{{^isSuscriptorRechazado}}
+				  <a class="list-group-item" href="/tutorial#publica">
+					<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
+				  </a>
+				{{/isSuscriptorRechazado}}
+			{{/isSuscriptor}}
+			{{#canColaborador}}
 			<a class="list-group-item" href="/wp-admin/edit.php" target="_blank">
 				<i class="fa fa-files-o"></i> posts </a>
 			<a class="list-group-item" href="/wp-admin/post-new.php" target="_blank">
 				<i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}} </a>
+			{{/canColaborador}}
 			<a class="list-group-item" href="/wp-admin/admin.php?page=favoritos" target="_blank">		  	
 				<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</a>
 			<a class="list-group-item" href="/wp-admin/profile.php" target="_blank">
