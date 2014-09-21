@@ -20,13 +20,13 @@
 
 		<div class="acciones text-center col-xs-12 col-sm-12 col-md-9">
 			<div class="list-group">
-			
-			{{^isSuscriptorRechazado}}
-			  <a class="list-group-item col-xs-12 col-sm-6" href="/tutorial#publica">
-				<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
-			  </a>
-			{{/isSuscriptorRechazado}}
-			
+			{{#isSuscriptor}}
+				{{^isSuscriptorRechazado}}
+				  <a class="list-group-item col-xs-12 col-sm-6" href="/tutorial#publica">
+					<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
+				  </a>
+				{{/isSuscriptorRechazado}}
+			{{/isSuscriptor}}
 			{{#canColaborador}}
 			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/edit.php" target="_blank">
 			  	<i class="fa fa-files-o"></i> posts

@@ -1,24 +1,28 @@
 <div class="pagina tutorial">
-
-	{{#user.isSuscriptorRechazado}}
+	{{#user.isSuscriptor}}
+		{{#user.isSuscriptorRechazado}}
+			<h1 class="col-xs-12 titular">Tutorial</h1>
+		{{/user.isSuscriptorRechazado}}	
+		{{^user.isSuscriptorRechazado}}	
+			<div id="publica"><br></div>
+			<div class="jumbotron">
+				<h1 class="col-xs-12 titular">Publica tus entradas</h1>
+				<p>Haz que tu banda aparezca en nuestras secciones</p>
+				<p>
+					<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
+							user={{user.ID}}>
+						Pulsa aquí para convertirte en colaborador</button>
+					<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
+							user={{user.ID}}>
+						Pulsa aquí para convertirte en colaborador</button>
+				</p>
+			</div>
+		{{/user.isSuscriptorRechazado}}
+	{{/user.isSuscriptor}}
+	{{^user.isSuscriptor}}
 		<h1 class="col-xs-12 titular">Tutorial</h1>
-	{{/user.isSuscriptorRechazado}}
-	{{^user.isSuscriptorRechazado}}	
-		<div id="publica"><br></div>
-		<div class="jumbotron">
-			<h1 class="col-xs-12 titular">Publica tus entradas</h1>
-			<p>Haz que tu banda aparezca en nuestras secciones</p>
-			<p>
-				<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
-						user={{user.ID}}>
-					Pulsa aquí para convertirte en colaborador</button>
-				<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
-						user={{user.ID}}>
-					Pulsa aquí para convertirte en colaborador</button>
-			</p>
-		</div>
-	{{/user.isSuscriptorRechazado}}
-	
+	{{/user.isSuscriptor}}
+
 	<div class="col-xs-12 ">
 		<h3 class="titular">FAQ:</h3>
 		<a href="#LO">LOGUEARNOS</a> 
