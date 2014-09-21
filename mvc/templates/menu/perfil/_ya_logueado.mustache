@@ -21,11 +21,11 @@
 		<div class="acciones text-center col-xs-12 col-sm-12 col-md-9">
 			<div class="list-group">
 			
-			{{#isSuscriptorNoRechazado}}
+			{{^isSuscriptorRechazado}}
 			  <a class="list-group-item col-xs-12 col-sm-6" href="/tutorial#publica">
 				<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
 			  </a>
-			{{/isSuscriptorNoRechazado}}
+			{{/isSuscriptorRechazado}}
 			
 			{{#canColaborador}}
 			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/edit.php" target="_blank">

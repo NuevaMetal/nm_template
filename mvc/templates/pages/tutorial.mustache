@@ -1,9 +1,9 @@
 <div class="pagina tutorial">
 
-	{{^user.isSuscriptorNoRechazado}}
+	{{#user.isSuscriptorRechazado}}
 		<h1 class="col-xs-12 titular">Tutorial</h1>
-	{{/user.isSuscriptorNoRechazado}}
-	{{#user.isSuscriptorNoRechazado}}	
+	{{/user.isSuscriptorRechazado}}
+	{{^user.isSuscriptorRechazado}}	
 		<div id="publica"><br></div>
 		<div class="jumbotron">
 			<h1 class="col-xs-12 titular">Publica tus entradas</h1>
@@ -17,7 +17,7 @@
 					Pulsa aquí para convertirte en colaborador</button>
 			</p>
 		</div>
-	{{/user.isSuscriptorNoRechazado}}
+	{{/user.isSuscriptorRechazado}}
 	
 	<div class="col-xs-12 ">
 		<h3 class="titular">FAQ:</h3>
