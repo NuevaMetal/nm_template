@@ -230,11 +230,11 @@ class Acciones {
 				remove_menu_page('edit-comments.php'); // Removemos el ítem comentarios
 				remove_menu_page('upload.php'); // Removemos el ítem medios
 			}
-			if (!$user || !$user->isAdmin()) {
-				remove_menu_page('edit.php?post_type=page');
-			}
+// 			if (!$user || !$user->isAdmin()) {
+// 				remove_menu_page('edit.php?post_type=page');
+// 			}
 			// Nadie quiere tools.php
-			remove_menu_page('tools.php'); // Removemos el ítem medios
+// 			remove_menu_page('tools.php'); // Removemos el ítem medios
 		});
 	}
 
