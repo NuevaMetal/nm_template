@@ -1,6 +1,13 @@
 /*
  Autor: Jose Maria Valera Reales <@Chemaclass>
  */
+$(document).ready(function(){
+	// Pongo esto porque si no no hace caso
+	setTimeout(function() {
+		seHaceScroll();
+	}, 10);
+});
+
 /**
  * Controlar el scroll
  */
