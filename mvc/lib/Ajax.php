@@ -17,6 +17,10 @@ class Ajax {
 
 	const RECHAZAR_COLABORADOR = 'rechazar-colaborador';
 
+	const HACER_PENDIENTE_COLABORADOR = 'hacer-pendiente';
+
+	const BORRAR_COLABORADOR_PENDIENTE = 'borrar';
+
 	const REVISION = "revision";
 
 	const REVISION_BAN = "revision-ban";

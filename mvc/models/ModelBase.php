@@ -66,6 +66,18 @@ abstract class ModelBase {
 		return $a;
 	}
 
+	public function delete() {
+		if ($this->ID !== false) {
+			global $wpdb;
+			$modelo = get_called_class();
+			$query = "DELETE
+					FROM {$wpdb->prefix}" . static::$table . "
+					WHERE ID = $this->ID";
+			return $wpdb->query($query);
+		}
+		return false;
+	}
+
 	/**
 	 * Devuelve el primer elemento resultante del where
 	 *

@@ -97,10 +97,12 @@ $(document).on('click','.hacer-colaborador', function(e) {
 	var url = $this.attr('url');
 	var user = $this.attr('user');
 	var editor = $this.attr('editor');
+	var que = $this.attr('que');
 	var data = {
 		submit : 'hacer-colaborador',
 		user : user,
-		editor: editor
+		editor: editor,
+		que: que
 	};
 	$.ajax({
 		url : url,

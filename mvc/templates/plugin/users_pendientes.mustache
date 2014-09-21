@@ -1,5 +1,11 @@
 <div id="page" class="container-fluid">
 	
+	<h1> Usuarios pendientes</h1>	
+	
+	{{^hay_pendientes}}
+		<p>Aún no hay usuarios pendientes para hacer colaboradores</p>
+	{{/hay_pendientes}}
+	
 	{{# hay_pendientes }}
 	<h2> Usuarios pendientes <small></small></h2>
 	<table class="table table-hover table-condensed table-responsive">
@@ -37,13 +43,16 @@
 	<hr>
 	
 	{{# hay_aceptados }}
-	<h2> Usuarios pendientes<small> Aceptados</small></h2>
+	<h2> Usuarios aceptados</h2>
 	<table class="table table-hover table-condensed table-responsive">
 		<thead>
 			<tr>
 				<th class="col-xs-4">Usuario</th>
 				<th class="col-xs-4">Fecha</th>
-				<th class="col-xs-4">Editor</th>
+				<th class="{{^isAdmin}}col-xs-4{{/isAdmin}}{{#isAdmin}}col-xs-2{{/isAdmin}}">Editor</th>
+				{{#user.isAdmin}}
+				<th class="col-xs-2">Acciones</th>
+				{{/user.isAdmin}}
 			</tr>
 		</thead>
 		<tbody>
@@ -53,7 +62,20 @@
 				target="_blank">{{ getUser.user_login }}</a></td>
 				<td>{{ updated_at }}</td>
 				<td><a href="{{ getEditor.getPerfilUrl }}"
-				target="_blank">{{ getEditor.user_login }}</a></td>				
+				target="_blank">{{ getEditor.user_login }}</a></td>	
+				{{#user.isAdmin}}
+				<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Pendiente
+					</button>
+					<button class="btn btn-danger btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="borrar"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Borrar
+					</button>
+				</td>
+				{{/user.isAdmin}}
 			</tr>
 	   	{{/ aceptados }}
 	   	</tbody>
@@ -61,13 +83,16 @@
 	{{/ hay_aceptados }}
 	
 	{{# hay_rechazados }}
-	<h2> Usuarios pendientes<small> RECHAZADOS</small></h2>
+	<h3> Usuarios rechazados</h3>
 	<table class="table table-hover table-condensed table-responsive">
 		<thead>
 			<tr>
 				<th class="col-xs-4">Usuario</th>
 				<th class="col-xs-4">Fecha</th>
-				<th class="col-xs-4">Editor</th>
+				<th class="{{^isAdmin}}col-xs-4{{/isAdmin}}{{#isAdmin}}col-xs-2{{/isAdmin}}">Editor</th>
+				{{#user.isAdmin}}
+				<th class="col-xs-2">Acciones</th>
+				{{/user.isAdmin}}
 			</tr>
 		</thead>
 		<tbody>
@@ -77,7 +102,20 @@
 				target="_blank">{{ getUser.user_login }}</a></td>
 				<td>{{ updated_at }}</td>
 				<td><a href="{{ getEditor.getPerfilUrl }}"
-				target="_blank">{{ getEditor.user_login }}</a></td>				
+				target="_blank">{{ getEditor.user_login }}</a></td>
+				{{#user.isAdmin}}
+				<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Pendiente
+					</button>
+					<button class="btn btn-danger btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="borrar"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Borrar
+					</button>
+				</td>
+				{{/user.isAdmin}}
 			</tr>
 	   	{{/ rechazados }}
 	   	</tbody>

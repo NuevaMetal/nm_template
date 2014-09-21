@@ -25,11 +25,17 @@ class AdminAjaxController extends AlertaController {
 				$user_id = $_datos ['user'];
 				$editor_id = $_datos ['editor'];
 				$que = $_datos ['que'];
+				$userPendiente = UserPendiente::first('user_id', '=', $user_id);
 				if ($que == Ajax::HACER_COLABORADOR) {
-					$json = $ajax->hacerColaborador($editor_id, $user_id);
-				} else { // if ($que == Ajax::RECHAZAR_COLABORADOR) {
-					$json = $ajax->rechazarColaborador($editor_id, $user_id);
+					$userPendiente->aceptarPor($editor_id);
+				} else if ($que == Ajax::RECHAZAR_COLABORADOR) {
+					$userPendiente->rechazarPor($editor_id);
+				} else if ($que == Ajax::HACER_PENDIENTE_COLABORADOR) {
+					$userPendiente->pendienterPor($editor_id);
+				} else if ($que == Ajax::BORRAR_COLABORADOR_PENDIENTE) {
+					$userPendiente->delete();
 				}
+				$json ['content'] = 'OK';
 				break;
 			default :
 				Utils::debug("> AdminAjax> getJsonBySubmit()> Ocurrió un error inesperado");
@@ -37,21 +43,6 @@ class AdminAjaxController extends AlertaController {
 		}
 		return $json;
 	}
-
-	public function hacerColaborador($editor_id, $user_id) {
-		$userPendiente = UserPendiente::first('user_id', '=', $user_id);
-		$userPendiente->aceptarPor($editor_id);
-		$json ['content'] = 'OK';
-		return $json;
-	}
-
-	public function rechazarColaborador($editor_id, $user_id) {
-		$userPendiente = UserPendiente::first('user_id', '=', $user_id);
-		$userPendiente->rechazarPor($editor_id);
-		$json ['content'] = 'OK';
-		return $json;
-	}
-
 }
 
 /**

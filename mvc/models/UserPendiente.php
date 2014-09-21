@@ -113,6 +113,24 @@ class UserPendiente extends ModelBase {
 				and status = $estadoPendiente");
 	}
 
+	public function pendienterPor($editor_id) {
+		if (!$editor_id || !is_numeric($editor_id)) {
+			return false;
+		}
+		global $wpdb;
+		$table = $wpdb->prefix . self::$table;
+		$estadoPendiente = self::PENDIENTE;
+		//Actualizamos su rol a Colaborador
+		$user = $this->getUser();
+		$user->setRol(User::ROL_SUSCRIPTOR);
+		// Cambiamos sus valores en la BBDD
+		$result = $wpdb->query("
+				UPDATE $table
+				SET editor_id = $editor_id, status = $estadoPendiente, updated_at = now()
+				where user_id = $this->user_id");
+		Utils::debug("r: $result");
+	}
+
 	public function save() {
 		global $wpdb;
 		$table = $wpdb->prefix . self::$table;
