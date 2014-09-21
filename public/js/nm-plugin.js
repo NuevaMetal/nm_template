@@ -91,7 +91,7 @@ $(document).on('click','.quitar-header', function(e) {
 $(document).on('click','.hacer-colaborador', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	if(!confirm('¿Estás seguro de querer hacer colaborador a este usuario?')){
+	if(!confirm('¿Estás seguro de querer realizar esta acción? '+  $this.text())){
 		return;
 	}
 	var url = $this.attr('url');
