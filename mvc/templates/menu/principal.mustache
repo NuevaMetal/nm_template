@@ -7,14 +7,18 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <button type="button" class="navbar-toggle hidden" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-	        <ul class=" nav navbar-right navbar-principal-login-xs">
-			    <li class="dropdown">
+	     
+	      <a class="navbar-brand" href="{{home_url}}"><img src="{{template_url}}/public/img/NM_avatar_navbar_35_gris.jpg"></a>
+	    </div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				 <li class="dropdown visible-xs">
 			      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 			      
-				      <i class="fa fa-user"> 
+				      <i class="fa fa-user"></i>
 				      {{#current_user}}{{current_user.user_login}}{{/current_user}}
 					  {{^current_user}}Login{{/current_user}}
-				      </i></a>
+				      <span class="caret"></span></a>
 			      <ul class="dropdown-menu" role="menu" id="foo">
 			        <li class="text-center">
 				        {{#current_user}}
@@ -26,13 +30,6 @@
 					 </li>
 				  </ul>
 			    </li>
-			</ul>
-	      </button>
-	      <a class="navbar-brand" href="{{home_url}}"><img src="{{template_url}}/public/img/NM_avatar_navbar_35_gris.jpg"></a>
-	    </div>
-		
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
 				<li class="visible-xs">
 					<form action="/" method="get" class="form-horizontal" role="search">
 					    <div class="input-group">
