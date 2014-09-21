@@ -128,7 +128,6 @@ class UserPendiente extends ModelBase {
 				UPDATE $table
 				SET editor_id = $editor_id, status = $estadoPendiente, updated_at = now()
 				where user_id = $this->user_id");
-		Utils::debug("r: $result");
 	}
 
 	public function save() {
