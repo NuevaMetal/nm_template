@@ -6,15 +6,15 @@
 		{{^user.isSuscriptorRechazado}}	
 			<div id="publica"><br></div>
 			<div class="jumbotron">
-				<h1 class="col-xs-12 titular">Publica tus entradas</h1>
-				<p>Haz que tu banda aparezca en nuestras secciones</p>
+				<h1 class="col-xs-12 titular">{{#trans}}tutorial.publica_tus_entradas{{/trans}}</h1>
+				<p>{{#trans}}tutorial.haz_que_tu_banda{{/trans}}</p>
 				<p>
 					<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
 							user={{user.ID}}>
-						Pulsa aquí para convertirte en colaborador</button>
+						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
 					<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
 							user={{user.ID}}>
-						Pulsa aquí para convertirte en colaborador</button>
+						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
 				</p>
 			</div>
 		{{/user.isSuscriptorRechazado}}

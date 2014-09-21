@@ -13,7 +13,8 @@ return [
 
 	'login_necesario' => 'para ello es necesario estar logueado',
 
-	'no_hay_info_perfil' => 'este usuario no ha compartido ninguna información de perfil',
+	'no_hay_info_perfil' => 'Este usuario no ha compartido ninguna información de perfil',
+	'no_hay_entradas_publicadas' => 'Este usuario todavía no tiene entradas publicadas',
 
 	'quieres_escribir' => '¿Quieres escribir?',
 
