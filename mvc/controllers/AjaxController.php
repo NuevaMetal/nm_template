@@ -56,6 +56,25 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	}
 
 	/**
+	 * Añadir un User que solicita ser colaborador
+	 *
+	 * @param integer $user_id
+	 *        Identificador del User
+	 */
+	public function solicitarColaborador($user_id) {
+		$user = User::find($user_id);
+		if ($user->isSuscriptor()) {
+			$userPendiente = new UserPendiente($user_id);
+			$userPendiente->save();
+			$json ['alerta'] = $this->renderAlertaInfo('Tu petición ha sido enviada.');
+		} else {
+			$json ['alerta'] = $this->renderAlertaInfo('¿No eres un suscriptor?');
+		}
+		$json ['code'] = 200;
+		return $json;
+	}
+
+	/**
 	 * Devuelve una lista de post para mostrar más
 	 *
 	 * @param string $que
@@ -260,6 +279,10 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$post_id = $_datos ['post'];
 				$user_id = $_datos ['user'];
 				$json ['alerta'] = $ajax->crearNotificacion($post_id, $user_id);
+				break;
+			case Ajax::SER_COLABORADOR :
+				$user_id = $_datos ['user'];
+				$json = $ajax->solicitarColaborador($user_id);
 				break;
 			case Ajax::ME_GUSTA :
 				$post_id = $_datos ['post'];

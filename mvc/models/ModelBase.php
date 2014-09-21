@@ -67,6 +67,21 @@ abstract class ModelBase {
 	}
 
 	/**
+	 * Devuelve el primer elemento resultante del where
+	 *
+	 * @param unknown $columna
+	 * @param unknown $que
+	 * @param unknown $valor
+	 */
+	public static function first($columna, $que, $valor) {
+		$w = self::where($columna, $que, $valor);
+		if ($w && is_array($w)) {
+			return $w [0];
+		}
+		return null;
+	}
+
+	/**
 	 * Devuelve el resultado del filtrado where a todos los elementos de su tabla
 	 *
 	 * @param string $columna

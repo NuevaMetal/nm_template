@@ -37,7 +37,8 @@ add_action('admin_menu', function () {
 	$capability = 'edit_others_posts';
 	$menu_slug = 'revisiones';
 	$function = 'revisiones_index';
-	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function);
+	$icon = 'dashicons-clipboard';
+	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon);
 	// Add submenu page with same slug as parent to ensure no duplicates
 	$sub_menu_title = 'Revisiones';
 	add_submenu_page($menu_slug, $page_title, $sub_menu_title, $capability, $menu_slug, $function);

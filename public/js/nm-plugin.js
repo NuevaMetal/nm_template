@@ -84,3 +84,36 @@ $(document).on('click','.quitar-header', function(e) {
 		}
 	});
 });
+
+/**
+ * Hacer colaborador a un suscriptor
+ */
+$(document).on('click','.hacer-colaborador', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	if(!confirm('¿Estás seguro de querer hacer colaborador a este usuario?')){
+		return;
+	}
+	var url = $this.attr('url');
+	var user = $this.attr('user');
+	var editor = $this.attr('editor');
+	var data = {
+		submit : 'hacer-colaborador',
+		user : user,
+		editor: editor
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		success : function(json) {
+			location.reload();
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+			console.log("status: " + xhr.status + ",\n responseText: "
+					+ xhr.responseText + ",\n thrownError "
+					+ thrownError);
+		}
+	});
+});

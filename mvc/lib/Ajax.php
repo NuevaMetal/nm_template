@@ -1,13 +1,21 @@
 <?php
 class Ajax {
 
+	const ANALITICA = "analitica";
+
 	const ANALITICA_PERFIL_POST_PUBLICADOS_MES = 'analitica-perfil-post-publicados-mes';
 
 	const ME_GUSTA = "me-gusta";
 
 	const NOTIFICAR = "notificar";
 
+	const SER_COLABORADOR = 'ser-colaborador';
+
 	const MOSTRAR_MAS = "mostrar-mas";
+
+	const HACER_COLABORADOR = 'hacer-colaborador';
+
+	const RECHAZAR_COLABORADOR = 'rechazar-colaborador';
 
 	const REVISION = "revision";
 

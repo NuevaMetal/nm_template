@@ -93,7 +93,7 @@ class PageController extends BaseController {
 	 * Paǵina de aviso legal
 	 */
 	public function getLegal() {
-		$content = $this->render('pages/legal');
+		$content = $this->_render('pages/legal');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -103,7 +103,7 @@ class PageController extends BaseController {
 	 * Paǵina de contacto
 	 */
 	public function getContacto() {
-		$content = $this->render('pages/contacto');
+		$content = $this->_render('pages/contacto');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -113,7 +113,7 @@ class PageController extends BaseController {
 	 * Paǵina de redes
 	 */
 	public function getRedes() {
-		$content = $this->render('pages/redes');
+		$content = $this->_render('pages/redes');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -123,7 +123,7 @@ class PageController extends BaseController {
 	 * Paǵina de sitios de interés
 	 */
 	public function getAmigas() {
-		$content = $this->render('pages/amigas');
+		$content = $this->_render('pages/amigas');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -133,7 +133,7 @@ class PageController extends BaseController {
 	 * Paǵina de tutorial
 	 */
 	public function getTutorial() {
-		$content = $this->render('pages/tutorial');
+		$content = $this->_render('pages/tutorial');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -143,7 +143,7 @@ class PageController extends BaseController {
 	 * Paǵina de nuevametal
 	 */
 	public function getNuevaMetal() {
-		$content = $this->render('pages/nuevametal');
+		$content = $this->_render('pages/nuevametal');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -153,7 +153,7 @@ class PageController extends BaseController {
 	 * Paǵina de nuevametal
 	 */
 	public function getMega() {
-		$content = $this->render('pages/mega');
+		$content = $this->_render('pages/mega');
 		return $this->_renderPageBase([
 			'content' => $content
 		]);

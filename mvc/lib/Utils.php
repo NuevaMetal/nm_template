@@ -30,8 +30,6 @@ class Utils {
 
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
-	const ANALITICA = "analitica";
-
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
 

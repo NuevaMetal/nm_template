@@ -15,6 +15,8 @@ return [
 
 	'no_hay_info_perfil' => 'este usuario no ha compartido ninguna información de perfil',
 
+	'quieres_escribir' => '¿Quieres escribir?',
+
 	'tipo_usuario' => 'Tipo de usuario',
 
 	'ultimos_fav_dados' => 'Últimos favoritos dados'

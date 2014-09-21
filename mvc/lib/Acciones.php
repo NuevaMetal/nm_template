@@ -218,7 +218,7 @@ class Acciones {
 		});
 	}
 
-	/**
+	/**<br
 	 * Quitar items del menu para los usuarios
 	 */
 	public static function quitarItemsParaLosUsuarios() {
@@ -306,7 +306,7 @@ class Acciones {
 	public static function perfilAddInfo() {
 		require_once 'mvc/models/User.php';
 		$current_user = User::find(wp_get_current_user()->ID);
-		if ($current_user->canColaborador()) {
+		if ($current_user && $current_user->canColaborador()) {
 			Acciones::perfilAddImgHeader();
 			Acciones::perfilUpdateImgHeader();
 

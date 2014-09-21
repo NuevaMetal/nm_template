@@ -62,7 +62,7 @@ class User extends ModelBase {
 
 	const ROL_AUTOR = 'author';
 
-	const ROL_CONTRIBUIDOR = 'contributor';
+	const ROL_COLABORADOR = 'contributor';
 
 	const ROL_SUSCRIPTOR = 'subscriber';
 
@@ -269,6 +269,25 @@ class User extends ModelBase {
 		return $this->getNombre() . ' ' . $this->getApellidos();
 	}
 
+	/**
+	 * Establecer un rol al User
+	 *
+	 * @param string $rol
+	 */
+	public function setRol($rol) {
+		if (in_array($rol, self::getRolesPermitidos())) {
+			$u = new WP_User($this->ID);
+			$u->set_role($rol);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Devuelve la lista de roles para el usuario
+	 *
+	 * @return array<string>
+	 */
 	public function getRoles() {
 		global $wpdb;
 		$qRoles = $wpdb->get_var("SELECT meta_value
@@ -279,6 +298,16 @@ class User extends ModelBase {
 		return is_array($qRolesArr) ? array_keys($qRolesArr) : array(
 			'non-user'
 		);
+	}
+
+	public static function getRolesPermitidos() {
+		return [
+			self::ROL_ADMIN,
+			self::ROL_EDITOR,
+			self::ROL_AUTOR,
+			self::ROL_COLABORADOR,
+			self::ROL_SUSCRIPTOR
+		];
 	}
 
 	/**
@@ -309,12 +338,36 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve verdadero en caso de tener el rol de colaborador
+	 *
+	 * @return boolean
+	 */
+	public function isColaborador() {
+		return in_array(self::ROL_COLABORADOR, self::getRoles());
+	}
+
+	/**
 	 * Devuelve verdadero en caso de tener el rol de suscriptor
 	 *
 	 * @return boolean
 	 */
 	public function isSuscriptor() {
 		return in_array(self::ROL_SUSCRIPTOR, self::getRoles());
+	}
+
+	/**
+	 * Devuelve true si es un suscriptor rechazado
+	 *
+	 * @return boolean
+	 */
+	public function isSuscriptorRechazado() {
+		global $wpdb;
+		$status = UserPendiente::RECHAZADO;
+		$count = ( int ) $wpdb->get_var("select count(*)
+				from wp_users_pendientes
+				where user_id =  $this->ID
+				and status = $status");
+		return $this->isSuscriptor() && ($count > 0);
 	}
 
 	/**
@@ -325,7 +378,7 @@ class User extends ModelBase {
 	 */
 	public function canAdmin($args = []) {
 		$args [] = self::ROL_ADMIN;
-		return $this->canEditor($args);
+		return array_intersect($args, self::getRoles());
 	}
 
 	/**
@@ -336,7 +389,7 @@ class User extends ModelBase {
 	 */
 	public function canEditor($args = []) {
 		$args [] = self::ROL_EDITOR;
-		return $this->canAutor($args);
+		return $this->canAdmin($args);
 	}
 
 	/**
@@ -347,7 +400,18 @@ class User extends ModelBase {
 	 */
 	public function canAutor($args = []) {
 		$args [] = self::ROL_AUTOR;
-		return $this->canSuscriptor($args);
+		return $this->canEditor($args);
+	}
+
+	/**
+	 * Devuelve verdadero en caso de tener privilegios de Autor
+	 *
+	 * @param array $args
+	 * @return boolean
+	 */
+	public function canColaborador($args = []) {
+		$args [] = self::ROL_COLABORADOR;
+		return $this->canAutor($args);
 	}
 
 	/**
@@ -358,7 +422,7 @@ class User extends ModelBase {
 	 */
 	public function canSuscriptor($args = []) {
 		$args [] = self::ROL_SUSCRIPTOR;
-		return array_intersect($args, self::getRoles());
+		return $this->canColaborador($args);
 	}
 
 	/**

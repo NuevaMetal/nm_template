@@ -236,6 +236,36 @@ $(document).on('click', '.navbar-header .navbar-brand', function(e) {
 });
 
 /**
+ * Botón para solicitar ser colaborador
+ */
+$(document).on('click', '.ser-colaborador', function(e) {
+	e.preventDefault();
+	console.log(".ser-colaborador.click()");
+	var $this = $(this);
+	var url = $this.attr('url');
+	var user = $this.attr('user');
+	var data = {
+		submit : 'ser-colaborador',
+		user : user
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$this.attr("disabled", true);
+		},
+		success : function(json) {
+			mostrarAlerta(json.alerta, 5);
+			$this.attr("disabled", false);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("ser-colaborador ERROR (?)");
+		}
+	});
+});
+/**
  * Botón notificar
  */
 $(document).on('click', '.btn-notificar', function(e) {

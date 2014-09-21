@@ -1,6 +1,23 @@
 <div class="pagina tutorial">
 
-	<h1 class="col-xs-12 titular">Tutorial</h1>
+	{{^user.isSuscriptorNoRechazado}}
+		<h1 class="col-xs-12 titular">Tutorial</h1>
+	{{/user.isSuscriptorNoRechazado}}
+	{{#user.isSuscriptorNoRechazado}}	
+		<div id="publica"><br></div>
+		<div class="jumbotron">
+			<h1 class="col-xs-12 titular">Publica tus entradas</h1>
+			<p>Haz que tu banda aparezca en nuestras secciones</p>
+			<p>
+				<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
+						user={{user.ID}}>
+					Pulsa aquí para convertirte en colaborador</button>
+				<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
+						user={{user.ID}}>
+					Pulsa aquí para convertirte en colaborador</button>
+			</p>
+		</div>
+	{{/user.isSuscriptorNoRechazado}}
 	
 	<div class="col-xs-12 ">
 		<h3 class="titular">FAQ:</h3>

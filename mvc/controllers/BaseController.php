@@ -64,6 +64,22 @@ abstract class BaseController extends ChesterBaseController {
 	}
 
 	/**
+	 * Devuelve la pintada con los datos básicos para cualquier plantilla como
+	 * el usuario actual y template_url
+	 *
+	 * @param string $template
+	 *        plantilla a pintar
+	 * @param array $args
+	 *        argumentos adicionales para esa plantilla
+	 */
+	protected function _render($template, $args = []) {
+		return $this->render($template, array_merge($args, [
+			'user' => User::find(wp_get_current_user()->ID),
+			'template_url' => get_template_directory_uri()
+		]));
+	}
+
+	/**
 	 * Pintar la plantilla base para los plugins
 	 *
 	 * @param array $args

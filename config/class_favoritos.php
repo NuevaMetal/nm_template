@@ -34,7 +34,8 @@ add_action('admin_menu', function () {
 	$capability = 'read';
 	$menu_slug = 'favoritos';
 	$function = 'favoritos_index';
-	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function);
+	$icon = 'dashicons-star-filled';
+	add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon);
 	// Add submenu page with same slug as parent to ensure no duplicates
 	$sub_menu_title = 'Favoritos';
 	add_submenu_page($menu_slug, $page_title, $sub_menu_title, $capability, $menu_slug, $function);
