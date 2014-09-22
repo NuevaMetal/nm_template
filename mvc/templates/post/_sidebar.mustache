@@ -1,18 +1,33 @@
-<h2 class="titular">
-	<i class="fa fa-child"></i> {{#trans}}sidebar.bienvenido{{/trans}}
-</h2>
-<hr>
-
-<div class="sidebar-item col-sm-12">
-	<p>{{#trans}}sidebar.te_gusta_lo_que_ves{{/trans}}</p>
-	<p>{{#trans}}sidebar.unete{{/trans}}</p>
-	<p><a href="/tutorial" class="hidden-sm">
-		<i class="fa fa-check"></i>{{#trans}}sidebar.empieza_a_publicar_largo{{/trans}}</a>
-	</p>
-	<p><a href="/tutorial" class="visible-sm">
-		<i class="fa fa-check"></i> {{#trans}}sidebar.empieza_a_publicar{{/trans}}</a>
-	</p>
+{{#hayUsersQueGustan}}
+<div class="sidebar-item col-xs-12 users-gustan">
+	<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
+	<hr>
+	<section>
+	{{#getUsersQueGustanLimitado}}
+		{{#lista}}
+			<div class="row">
+				<div class="col-xs-3">
+					{{{getAvatarIco}}}
+				</div>
+				<div class="col-xs-9">
+					{{#isSuscriptor}}
+						{{display_name}}
+					{{/isSuscriptor}}
+					{{^isSuscriptor}}
+						<a href="{{getPerfilUrl}}">{{display_name}}</a>
+					{{/isSuscriptor}}
+				</div>
+			</div>
+		{{/lista}}
+		{{#mas}}
+			<div class="col-xs-12">
+				{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
+			</div>
+		{{/mas}}		
+	{{/getUsersQueGustanLimitado}}
+	</section>
 </div>
+{{/hayUsersQueGustan}}
 
 {{#haySimilares}}
 <div class="sidebar-item col-sm-12 similares">
@@ -25,27 +40,3 @@
 	</section>
 </div>
 {{/haySimilares}}
-
-{{#hayUsersQueGustan}}
-<div class="sidebar-item col-sm-12 users-gustan">
-	<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
-	<hr>
-	<section>
-	{{#getUsersQueGustan}}
-		<div class="row">
-			<div class="col-xs-3">
-				{{{getAvatarIco}}}
-			</div>
-			<div class="col-xs-9">
-				{{#isSuscriptor}}
-					{{display_name}}
-				{{/isSuscriptor}}
-				{{^isSuscriptor}}
-					<a href="{{getPerfilUrl}}">{{display_name}}</a>
-				{{/isSuscriptor}}
-			</div>
-		</div>
-	{{/getUsersQueGustan}}
-	</section>
-</div>
-{{/hayUsersQueGustan}}

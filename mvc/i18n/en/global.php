@@ -111,5 +111,6 @@ return [
 	'videos' => 'videos',
 	'volver_arriba' => 'back to top',
 
+	'y' => 'and',
 	'ya_no_me_gusta' => 'don\'t like'
 ];

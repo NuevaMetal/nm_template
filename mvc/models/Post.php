@@ -16,7 +16,9 @@ class Post extends ModelBase {
 
 	const IMG_FULL = 'full';
 
-	const NUM_SIMILARES_DEFAULT = 4;
+	const NUM_SIMILARES_DEFAULT = 6;
+
+	const NUM_USER_QUE_GUSTAN_DEFAULT = 5;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_DEFAULT = 12;
@@ -367,6 +369,25 @@ class Post extends ModelBase {
 	 */
 	public function hayUsersQueGustan() {
 		return count($this->getUsersQueGustan()) > 0;
+	}
+
+	/**
+	 * Devuelve una lista limitada de usuarios y el número adicional de usuarios a los que le dieron un me gusta
+	 *
+	 * @return array<array<User>, integer>
+	 */
+	public function getUsersQueGustanLimitado($numUserQueGustan = self::NUM_USER_QUE_GUSTAN_DEFAULT) {
+		$users = $this->getUsersQueGustan();
+		$cantidad = 0;
+		$count = count($users);
+		if ($count > $numUserQueGustan) {
+			$users = array_slice($users, 0, $numUserQueGustan);
+			$cantidad = $count - $numUserQueGustan;
+		}
+		return [
+			'lista' => $users,
+			'mas' => $cantidad
+		];
 	}
 
 }

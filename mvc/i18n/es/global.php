@@ -113,5 +113,6 @@ return [
 	'videos' => 'vídeos',
 	'volver_arriba' => 'volver arriba',
 
+	'y' => 'y',
 	'ya_no_me_gusta' => 'ya no me gusta'
 ];
