@@ -46,6 +46,8 @@ class Post extends ModelBase {
 
 	/**
 	 * Devuelve una lista de comentarios
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/get_comments
 	 */
 	public function getComentarios() {
 		$args_comments = array(
@@ -54,6 +56,15 @@ class Post extends ModelBase {
 			'status' => 'approve'
 		);
 		return get_comments($args_comments, $this->ID);
+	}
+
+	/**
+	 * Devuelve el númeto total de comentarios que tiene un Post
+	 *
+	 * @return number
+	 */
+	public function getTotalComentarios() {
+		return count($this->getComentarios());
 	}
 
 	/**
