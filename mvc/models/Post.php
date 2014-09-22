@@ -269,13 +269,17 @@ class Post extends ModelBase {
 		foreach ($tags as $tag) {
 			if ($tag) {
 				$what_tag = $tags [($nextTagThumb + 1)]->term_id;
+				$post__not_in = [
+					$this->ID
+				];
+				foreach ($postsSimilares as $_p) {
+					$post__not_in [] = $_p->ID;
+				}
 				$args = array(
 					'tag__in' => array(
 						$what_tag
 					),
-					'post__not_in' => array(
-						$this->ID
-					),
+					'post__not_in' => $post__not_in,
 					'showposts' => 3,
 					'ignore_stickies' => 1
 				);
@@ -283,7 +287,7 @@ class Post extends ModelBase {
 				$posts = get_posts($args);
 
 				foreach ($posts as $k => $_p) {
-					$postsSimilares [] = Post::get($_p->ID);
+					$postsSimilares [] = Post::find($_p->ID);
 					if (++$cont == $max) {
 						break 2;
 					}
