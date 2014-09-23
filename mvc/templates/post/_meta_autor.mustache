@@ -2,20 +2,20 @@
 <div class="post-meta page-header col-xs-12">
 	<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 		<h2>
-		<div class="col-xs-12 col-sm-8" >
+		<div class="col-xs-12 col-sm-6" >
 			<a href="{{getPerfilUrl}}" itemprop="image">{{{getAvatar}}}</a>
 			<a href="{{getPerfilUrl}}" itemprop="name">{{display_name}}</a>
-			<small itemprop="jobTitle">{{getTipoTrans}}</small>
+			{{^isTipoUsuario}}
+				<small itemprop="jobTitle">{{getTipoTrans}}</small>
+			{{/isTipoUsuario}}
+			{{#canEditor}}
+				<small itemprop="jobTitle">{{getRol}}</small>
+			{{/canEditor}}
 		</div>
 		</h2>
 		{{#getUrl}}
-		<div class="col-sm-4">
-			{{#getEditUrl}}<a href="{{getEditUrl}}" class="btn btn-default">
-				<i class="fa fa-edit"></i>{{#transu}}user.editar_perfil{{/transu}}</a>
-			{{/getEditUrl}}
-			{{#getPerfilUrl}}<a class="btn btn-default btn-md" role="button" href="{{user_url}}" target="_blank">
-				<i class="fa fa-globe"></i>{{#transu}}web{{/transu}}</a>
-			{{/getPerfilUrl}}
+		<div class="col-sm-6">
+			{{> autor/perfil/_redes_sociales}}
 		</div>
 		{{/getUrl}}
 		<div class="col-xs-12">
@@ -24,7 +24,7 @@
 					<small>{{#transu}}biografia{{/transu}}</small>
 				{{/getDescription}}
 				<p itemprop="description">
-					{{getDescription}}
+					{{getDescriptionCorta}}
 					{{^getDescription}}
 						{{#transu}}user.no_hay_info_perfil{{/transu}}
 					{{/getDescription}}

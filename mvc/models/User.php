@@ -52,6 +52,8 @@ class User extends ModelBase {
 	 */
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
+	const NUM_DESCRIPTION_CORTA = 11;
+
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
 	const ROL_SUPER_ADMIN = 'super admin';
@@ -226,6 +228,10 @@ class User extends ModelBase {
 	 */
 	public function getDescription() {
 		return get_the_author_meta('description', $this->ID);
+	}
+
+	public function getDescriptionCorta(){
+		return Utils::cortarStr($this->getDescription(), self::NUM_DESCRIPTION_CORTA);
 	}
 
 	/**

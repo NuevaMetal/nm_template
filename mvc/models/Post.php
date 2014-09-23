@@ -94,7 +94,7 @@ class Post extends ModelBase {
 	public function getTitulo($corto = false, $cantCorto = self::CANT_TITLE_CORTO_DEFAULT) {
 		$title = get_the_title($this->ID);
 		//($corto) ? explode('-', $title)[0] : $title;
-		return ($corto) ? Utils::getPalabrasByStr($title, $cantCorto) : $title;
+		return ($corto) ? self::getPalabrasByStr($title, $cantCorto) : $title;
 	}
 
 	public function getTituloCorto() {
@@ -127,7 +127,7 @@ class Post extends ModelBase {
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
 		// Sustituyo todos los espacios raros por espacios normales
 		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
-		$the_excerpt = Utils::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT_DEFAULT);
+		$the_excerpt = self::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT_DEFAULT);
 		// Aplicamos negrita a ciertas palabras
 		$the_excerpt = preg_replace([
 			'/(Género)/i',
@@ -137,6 +137,43 @@ class Post extends ModelBase {
 			'/(Miembros)/i'
 		], '<b>$1</b>', $the_excerpt);
 		return $the_excerpt;
+	}
+
+	/**
+	 * Devuelve un número de palabras de un string
+	 *
+	 * @param string $str
+	 *        Cadena en la que buscar las palabras
+	 * @param number $cant
+	 *        Cantidad de palabras que queremos obtener
+	 * @return string Cadena 'limitada' al número de palabras especificadas
+	 */
+	private static function getPalabrasByStr($str, $cant = 8, $separador = ' ') {
+		// Genero un array a partir del content separando por espacios
+		$palabras = explode($separador, $str, $cant + 1);
+		$nPalabras = count($palabras);
+		// Aplicamos un filtro para quitar determinadas palabras
+		$palabras = array_filter($palabras, function ($item) {
+			return !Utils::strContieneAlgunValorArray($item, [
+					'youtube'
+					]) ? $item : '';
+		});
+		// Quitamos los valores vacíos
+		$palabrasFiltradas = array_filter($palabras, 'strlen');
+		$nPalabrasFiltradas = count($palabrasFiltradas);
+		// Si hay un distinto número de palabras, significará que se filtraron algunas
+		if ($nPalabrasFiltradas != $nPalabras) {
+			$cant -= ($nPalabras - $nPalabrasFiltradas);
+			$palabras = $palabrasFiltradas;
+		}
+		// Si el content fuese más largo que el extracto, concatenar '...'
+		if (count($palabras) > $cant) {
+			array_pop($palabras);
+			$permalink = get_permalink($post_id);
+			$palabras [] = '...';
+		}
+		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
+		return implode($separador, $palabras);
 	}
 
 	/**

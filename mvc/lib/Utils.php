@@ -259,16 +259,9 @@ class Utils {
 	 *        Cantidad de palabras que queremos obtener
 	 * @return string Cadena 'limitada' al número de palabras especificadas
 	 */
-	public static function getPalabrasByStr($str, $cant = 8, $separador = ' ') {
-		// Genero un array a partir del content separando por espacios
+	public static function cortarStr($str, $cant, $separador = ' ') {
 		$palabras = explode($separador, $str, $cant + 1);
 		$nPalabras = count($palabras);
-		// Aplicamos un filtro para quitar determinadas palabras
-		$palabras = array_filter($palabras, function ($item) {
-			return !self::strContieneAlgunValorArray($item, [
-				'youtube'
-			]) ? $item : '';
-		});
 		// Quitamos los valores vacíos
 		$palabrasFiltradas = array_filter($palabras, 'strlen');
 		$nPalabrasFiltradas = count($palabrasFiltradas);
@@ -280,7 +273,6 @@ class Utils {
 		// Si el content fuese más largo que el extracto, concatenar '...'
 		if (count($palabras) > $cant) {
 			array_pop($palabras);
-			$permalink = get_permalink($post_id);
 			$palabras [] = '...';
 		}
 		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
