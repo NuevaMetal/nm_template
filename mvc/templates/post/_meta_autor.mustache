@@ -5,19 +5,19 @@
 		<div class="col-xs-12 col-sm-8" >
 			<a href="{{getPerfilUrl}}" itemprop="image">{{{getAvatar}}}</a>
 			<a href="{{getPerfilUrl}}" itemprop="name">{{display_name}}</a>
-			<small itemprop="jobTitle">{{getRol}}</small>
+			<small itemprop="jobTitle">{{getTipoTrans}}</small>
 		</div>
 		</h2>
-		{{#user_url}}
+		{{#getUrl}}
 		<div class="col-sm-4">
-			{{#edit_user_link}}<a href="{{edit_user_link}}" class="btn btn-default">
+			{{#getEditUrl}}<a href="{{getEditUrl}}" class="btn btn-default">
 				<i class="fa fa-edit"></i>{{#transu}}user.editar_perfil{{/transu}}</a>
-			{{/edit_user_link}}
-			{{#user_url}}<a class="btn btn-default btn-md" role="button" href="{{user_url}}" target="_blank">
+			{{/getEditUrl}}
+			{{#getPerfilUrl}}<a class="btn btn-default btn-md" role="button" href="{{user_url}}" target="_blank">
 				<i class="fa fa-globe"></i>{{#transu}}web{{/transu}}</a>
-			{{/user_url}}
+			{{/getPerfilUrl}}
 		</div>
-		{{/user_url}}
+		{{/getUrl}}
 		<div class="col-xs-12">
 			<blockquote>
 				{{#getDescription}}

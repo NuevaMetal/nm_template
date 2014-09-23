@@ -81,7 +81,7 @@ class User extends ModelBase {
 		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
 	}
 
-	public function getAvatarIco(){
+	public function getAvatarIco() {
 		return get_avatar($this->ID, 32, '', "$this->display_name avatar");
 	}
 
@@ -234,7 +234,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getEditUrl() {
-		return get_edit_user_link();
+		return admin_url('user-edit.php?user_id=' . $this->ID, 'http');
 	}
 
 	/**
@@ -435,7 +435,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function isCurrentUser() {
-		return ($this->ID == wp_get_current_user()->ID);
+		return ($this->ID == wp_get_current_user()->ID) || (wp_get_current_user()->roles [0] == self::ROL_ADMIN);
 	}
 
 	/**
