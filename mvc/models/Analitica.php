@@ -93,7 +93,7 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalVisitasUsersLogueados($cantidad = 50) {
 		global $wpdb;
-		$query = 'SELECT DATE( created_at ) dia, count(*) total_users_logueados, user_id
+		$query = 'SELECT DATE( created_at ) dia, count(*) total, user_id
 				FROM wp_analiticas
 				where user_id != 0
 				GROUP BY dia

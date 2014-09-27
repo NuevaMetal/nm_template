@@ -82,23 +82,23 @@ class AnaliticaController extends BaseController {
 	public static function getByTabla($tabla, $cant = 30) {
 		switch ($tabla) {
 			case Analitica::TOTAL_USERS :
-				$totalRegistros = Analitica::getTotalRegistrosPorDia($cant);
-				$result = $totalRegistros;
+				$total = Analitica::getTotalRegistrosPorDia($cant);
+				$result = Analitica::formatearDias($total);
 				$xKey = 'dia';
 				$yKeys = [
 					'total'
 				];
 				$labels = [
-					'Total'
+					'Usuarios registrados'
 				];
 				break;
 
 			case Analitica::TOTAL_VISITAS_USERS :
-				$totalVisitasUsersLogueados = Analitica::getTotalVisitasUsersLogueados($cant);
-				$result = $totalVisitasUsersLogueados;
+				$total = Analitica::getTotalVisitasUsersLogueados($cant);
+				$result = Analitica::formatearDias($total);
 				$xKey = 'dia';
 				$yKeys = [
-					'total_users_logueados'
+					'total'
 				];
 				$labels = [
 					'Usuarios logueados'
