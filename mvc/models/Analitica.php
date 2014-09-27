@@ -76,12 +76,15 @@ class Analitica extends ModelBase {
 	 * @param number $cantidad
 	 * @return multitype:string multitype:string unknown
 	 */
-	public static function getTotalRegistrosPorDia($cantidad = 50) {
+	public static function getTotalRegistrosPorDia($cantidad = 31, $mes = 'MONTH(NOW())', $ano = 'YEAR(NOW())') {
 		global $wpdb;
-		$query = 'SELECT DATE( user_registered ) dia, COUNT( * ) total
+		$query = "SELECT DATE( user_registered ) dia, COUNT( * ) total
 				FROM wp_users
+				WHERE MONTH( user_registered ) = $mes
+				AND YEAR( user_registered ) = $ano
 				GROUP BY dia
-				ORDER BY dia DESC limit ' . $cantidad;
+				ORDER BY dia DESC
+				LIMIT $cantidad";
 		return $wpdb->get_results($query);
 	}
 
@@ -91,13 +94,15 @@ class Analitica extends ModelBase {
 	 * @param number $cantidad
 	 * @return multitype:string multitype:string unknown
 	 */
-	public static function getTotalVisitasUsersLogueados($cantidad = 50) {
+	public static function getTotalVisitasUsersLogueados($cantidad = 31, $mes = 'MONTH(NOW())', $ano = 'YEAR(NOW())') {
 		global $wpdb;
-		$query = 'SELECT DATE( created_at ) dia, count(*) total, user_id
+		$query = "SELECT DATE( created_at ) dia, count(*) total, user_id
 				FROM wp_analiticas
-				where user_id != 0
+				WHERE user_id != 0
+				AND MONTH( created_at ) = $mes
+				AND YEAR( created_at ) = $ano
 				GROUP BY dia
-				ORDER BY dia DESC limit ' . $cantidad;
+				ORDER BY dia DESC limit $cantidad";
 		return $wpdb->get_results($query);
 	}
 
@@ -201,17 +206,6 @@ class Analitica extends ModelBase {
 			$result [] = $obj;
 		}
 		return $result;
-	}
-
-	/**
-	 * Devuelve el SQL para filtrar los boot de las consultas SQL
-	 *
-	 * @return string
-	 */
-	private static function _getNoBootSQL() {
-		return '(LOWER(user_agent) not like "%bot%"
-				and LOWER(user_agent) not like "%feed%"
-				and LOWER(user_agent) not like "%compatible%")';
 	}
 
 }

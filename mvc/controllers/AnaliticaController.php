@@ -113,33 +113,4 @@ class AnaliticaController extends BaseController {
 		];
 		return $json;
 	}
-
-	/**
-	 * Añade un 0 a las horas que no tengan resultados.
-	 * Para que se devuelva siempre un valor para cada hora
-	 *
-	 * @param array $totalPorHora
-	 * @return array
-	 */
-	private function _formatearHoras($totalPorHora) {
-		$result = [];
-		// Las horas vacías ponemos un 0
-		for ($i = 0; $i < 24; $i++) {
-			foreach ($totalPorHora as $t) {
-				if ($i == $t->hora) {
-					$result [] = $t;
-					continue 2;
-				}
-			}
-			$obj = new stdClass();
-			$obj->hora = "$i";
-			$obj->totales_hora_hoy = "0";
-			$obj->unicas_hora_hoy = "0";
-			$obj->totales_hora_ayer = "0";
-			$obj->unicas_hora_ayer = "0";
-			$result [] = $obj;
-		}
-		return $result;
-	}
-
 }
