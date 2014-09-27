@@ -13,6 +13,7 @@ return [
 		Si continúas navegando es que aceptas nuestra
 		<a href="/legal/" target="_blank">política de cookies.</a>',
 
+	'band' => 'banda',
 	'banda' => 'banda',
 	'bandas' => 'bandas',
 	'bienvenido' => 'bienvenido',
@@ -84,6 +85,7 @@ return [
 	'panel' => 'panel',
 	'perfil' => 'perfil',
 	'por' => 'por',
+	'producer' => 'productor',
 	'productor' => 'productor',
 	'programador' => 'programador',
 	'programadores' => 'programadores',
@@ -91,6 +93,7 @@ return [
 	'que_es_nm' => '¿NuevaMetal?',
 
 	'recibidos' => 'recibidos',
+	'record-seal' => 'discográfica',
 	'recuerdame' => 'recuérdame',
 	'registrarse' => 'registrarse',
 	'redes' => 'redes',
@@ -106,6 +109,7 @@ return [
 	'sitios_de_interes' => 'sitios de interés',
 	'subscriber' => 'suscriptor',
 
+	'user' => 'usuario',
 	'usuario' => 'usuario',
 	'unete_y_colabora' => 'Únete y colabora',
 
