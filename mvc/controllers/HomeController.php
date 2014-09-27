@@ -31,41 +31,38 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-		$bandas = self::getSeccion('bandas', 4, []);
+		$bandas = self::getSeccion(Post::CATEGORY_BANDAS, 4);
 
-		$videos = self::getSeccion('videos', 4, []);
+		$videos = self::getSeccion(Post::CATEGORY_VIDEOS, 4);
 
-		$entrevistas = self::getSeccion('entrevistas', 2, [
+		$entrevistas = self::getSeccion(Post::CATEGORY_ENTREVISTAS, 2, [
 			'reducido' => true
 		]);
 
-		$noticias = self::getSeccion('noticias', 2, [
+		$noticias = self::getSeccion(Post::CATEGORY_NOTICIAS, 2, [
 			'reducido' => true
 		]);
 
-		$conciertos = self::getSeccion('conciertos', 2, [
+		$conciertos = self::getSeccion(Post::CATEGORY_CONCIERTOS, 2, [
 			'reducido' => true
 		]);
 
-		// 		$criticas = self::getSeccion('criticas', 2, [
-		// 			'reducido' => true
-		// 		]);
+		$criticas = self::getSeccion(Post::CATEGORY_CRITICAS, 2, [
+			'reducido' => true
+		]);
 
+		$cronicas = self::getSeccion(Post::CATEGORY_CRONICAS, 2, [
+			'reducido' => true
+		]);
 
-		// 		$cronicas = self::getSeccion('cronicas', 2, [
-		// 			'reducido' => true
-		// 		]);
-
-
-		$content = $this->render('home', [
-			'bandas' => $bandas,
-			'videos' => $videos,
-			'entrevistas' => $entrevistas,
-			'noticias' => $noticias,
-			//'criticas' => $criticas,
-			//'cronicas' => $cronicas,
-			'conciertos' => $conciertos,
-			'current_user' => Utils::getCurrentUser()
+		$content = $this->_render('home', [
+			Post::CATEGORY_BANDAS => $bandas,
+			Post::CATEGORY_VIDEOS => $videos,
+			Post::CATEGORY_CRITICAS => $criticas,
+			Post::CATEGORY_CRONICAS => $cronicas,
+			Post::CATEGORY_NOTICIAS => $noticias,
+			Post::CATEGORY_CONCIERTOS => $conciertos,
+			Post::CATEGORY_ENTREVISTAS => $entrevistas
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
@@ -86,12 +83,21 @@ class HomeController extends BaseController {
 		$args ['imagen'] = strtolower($seccion);
 		$args ['seccion'] = strtolower($seccion);
 		$args ['a_buscar'] = strtolower($seccion);
-		$args ['url'] = get_category_link(get_cat_ID($seccion));
+		$url = esc_url(get_category_link(get_cat_ID($seccion)));
+		// Quitamos la ruta absoluta http://nuevametal.com
+		$url = Utils::quitarUrlAbsoluta($url);
+		// Quitamos las posibles dobles barras que salen para algunas categorías
+		// como por ejemplo: /category//conciertos
+		$url = preg_replace([
+			'@/{1,}@i'
+		], [
+			'/'
+		], $url);
+		$args ['url'] = $url;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
-		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -117,7 +123,6 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_TAG;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
-		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -142,8 +147,6 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_SEARCH;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsBySearch($aBuscar, $cant, [], $otherParams);
-
-		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 
@@ -155,7 +158,6 @@ class HomeController extends BaseController {
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
 		$args ['template_url'] = get_template_directory_uri();
 		$args ['posts'] = self::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
-		$args ['current_user'] = Utils::getCurrentUser();
 		return $args;
 	}
 

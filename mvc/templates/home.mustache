@@ -26,16 +26,27 @@
 	</div>
 	{{/videos}}
 
-	{{#entrevistas}}
-	<div id="entrevistas" class="col-xs-12 seccion-posts">
+	{{#criticas}}
+	<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts" >
 		<a href="{{url}}">
 			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/entrevistas.jpg" alt="{{#transu}}entrevistas{{/transu}}"/>
+				<img src="{{template_url}}/public/img/criticas.jpg" alt="{{#transu}}criticas{{/transu}}"/>
 			</div>
 		</a>
 		{{>home/_seccion}}
 	</div>
-	{{/entrevistas}}
+	{{/criticas}}
+	
+	{{#cronicas}}
+	<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts" >
+		<a href="{{url}}">
+			<div class="col-xs-12 header-seccion">
+				<img src="{{template_url}}/public/img/cronicas.jpg" alt="{{#transu}}cronicas{{/transu}}"/>
+			</div>
+		</a>
+		{{>home/_seccion}}
+	</div>
+	{{/cronicas}}
 	
 	{{#noticias}}
 	<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts" >
@@ -58,5 +69,16 @@
 		{{>home/_seccion}}
 	</div>
 	{{/conciertos}}	
+	
+	{{#entrevistas}}
+	<div id="entrevistas" class="col-xs-12 seccion-posts">
+		<a href="{{url}}">
+			<div class="col-xs-12 header-seccion">
+				<img src="{{template_url}}/public/img/entrevistas.jpg" alt="{{#transu}}entrevistas{{/transu}}"/>
+			</div>
+		</a>
+		{{>home/_seccion}}
+	</div>
+	{{/entrevistas}}
 	
 </section>

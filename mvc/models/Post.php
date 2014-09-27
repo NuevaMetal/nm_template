@@ -28,6 +28,20 @@ class Post extends ModelBase {
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_ENTREVISTA = 16;
 
+	const CATEGORY_BANDAS = 'bandas';
+
+	const CATEGORY_VIDEOS = 'videos';
+
+	const CATEGORY_ENTREVISTAS = 'entrevistas';
+
+	const CATEGORY_NOTICIAS = 'noticias';
+
+	const CATEGORY_CONCIERTOS = 'conciertos';
+
+	const CATEGORY_CRITICAS = 'criticas';
+
+	const CATEGORY_CRONICAS = 'cronicas';
+
 	public function getFormComentarios() {
 		ob_start();
 		$params = [
@@ -155,8 +169,8 @@ class Post extends ModelBase {
 		// Aplicamos un filtro para quitar determinadas palabras
 		$palabras = array_filter($palabras, function ($item) {
 			return !Utils::strContieneAlgunValorArray($item, [
-					'youtube'
-					]) ? $item : '';
+				'youtube'
+			]) ? $item : '';
 		});
 		// Quitamos los valores vacíos
 		$palabrasFiltradas = array_filter($palabras, 'strlen');

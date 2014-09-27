@@ -392,4 +392,15 @@ class Utils {
 		return $object;
 	}
 
+	/**
+	 * Devuelve la URL pasada por parámetro
+	 *
+	 * @param string $url
+	 *        URL a quitar la ruta base: get_home_url()
+	 * @return string URL sin la ruta base
+	 */
+	public static function quitarUrlAbsoluta($url) {
+		return str_replace(get_home_url(), '', esc_url($url));
+	}
+
 }
