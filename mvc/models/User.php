@@ -32,15 +32,15 @@ class User extends ModelBase {
 
 	const IMG_HEADER_HEIGHT_DEFAULT = 270;
 
-	const TIPO_USUARIO = 'usuario';
+	const TIPO_USUARIO = 'user';
 
-	const TIPO_BANDA = 'banda';
+	const TIPO_BANDA = 'band';
 
-	const TIPO_PRODUCTOR = 'productor';
+	const TIPO_PRODUCTOR = 'producer';
 
 	const TIPO_MANAGER = 'manager';
 
-	const TIPO_DISCOGRAFICA = 'discografica';
+	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	/**
 	 * Número de post favoritos a mostrar en su perfil
@@ -230,7 +230,7 @@ class User extends ModelBase {
 		return get_the_author_meta('description', $this->ID);
 	}
 
-	public function getDescriptionCorta(){
+	public function getDescriptionCorta() {
 		return Utils::cortarStr($this->getDescription(), self::NUM_DESCRIPTION_CORTA);
 	}
 

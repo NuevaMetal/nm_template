@@ -324,6 +324,33 @@ class Acciones {
 		}
 	}
 
+	/**
+	 * Cambiar el 'author' estático del slug base del autor por el tipo de usuario que sea
+	 */
+	public static function cambiarSlugBaseDelAutorPorSuTipo() {
+		add_action('init', function () {
+			global $wp_rewrite;
+			$author_levels = User::getTiposDeUsuarioValidos();
+			// Define the tag and use it in the rewrite rule
+			add_rewrite_tag('%author_tipo%', '(' . implode('|', $author_levels) . ')');
+			$wp_rewrite->author_base = '%author_tipo%';
+		});
+
+		add_filter('author_rewrite_rules', function ($author_rewrite_rules) {
+			foreach ($author_rewrite_rules as $pattern => $substitution) {
+				if (false === strpos($substitution, 'author_name')) {
+					unset($author_rewrite_rules [$pattern]);
+				}
+			}
+			return $author_rewrite_rules;
+		});
+
+		add_filter('author_link', function ($link, $author_id) {
+			$user = User::find($author_id);
+			return str_replace('%author_tipo%', $user->getTipo(), $link);
+		}, 100, 2);
+	}
+
 }
 
 Acciones::userRegister();
@@ -338,3 +365,5 @@ Acciones::quitarItemsParaLosUsuarios();
 
 Acciones::adminBarQuitarLogoWP();
 Acciones::adminBarQuitarAyudaYOpciones();
+
+Acciones::cambiarSlugBaseDelAutorPorSuTipo();
