@@ -455,6 +455,21 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve true si tiene alguna red social o url
+	 *
+	 * @return boolean
+	 */
+	public function tieneRedes() {
+		$redes = $this->getUrl();
+		$redes .= $this->getTwitter();
+		$redes .= $this->getFacebook();
+		$redes .= $this->getGooglePlus();
+		$redes .= $this->getSoundcloud();
+		$redes .= $this->getYoutube();
+		return strlen($redes) > 0;
+	}
+
+	/**
 	 * Devuelve el Twitter del User
 	 *
 	 * @return string

@@ -25,12 +25,12 @@
 			{{/isCurrentUser}}
 		</div>
 	</div>
-	
 	<hr>
-	
+
+	{{# tieneRedes }}
 	<div class="row">
+		<div class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</div>
 		{{> autor/_redes_sociales}}
-		
 		{{#isCurrentUser}}
 			<div class="col-xs-4">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#redes-sociales" target="_blank">
@@ -39,6 +39,8 @@
 		{{/isCurrentUser}}
 	</div>
 	<hr>
+	{{/ tieneRedes }}
+
 	<table class="table table-condensed text-center titular">
 		<tr>
 			<th colspan="2"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</th>
