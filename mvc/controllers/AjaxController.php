@@ -39,11 +39,12 @@ class AjaxController extends AlertaController {
 INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
  VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
-			//Si ya existe, aumetamos su contador
+			//Si ya existe, aumentamos su contador
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}revisiones
 		 		SET count = count + 1
 		 		WHERE post_id = %d
-		 		AND status = 0;", $post_id));
+		 		AND user_id = %d
+		 		AND status = 0;", $post_id, $user_id));
 			// y notificamos que ya envió una notificación para este post
 			return $this->renderAlertaInfo('Ya notificaste esta entrada', $post_title);
 		}

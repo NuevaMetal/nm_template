@@ -17,25 +17,20 @@ class RevisionesController extends BaseController {
 	 * @return string
 	 */
 	public function getIndex() {
-		$current_user = wp_get_current_user();
 		$listaPendientes = Revision::where('status', '=', Revision::ESTADO_PENDIENTE);
 		$listaRevisadas = Revision::where('status', '=', Revision::ESTADO_CORREGIDO);
 
 		$pendientes = self::_parsearRevisiones($listaPendientes, $pendiente = true);
 		$revisadas = self::_parsearRevisiones($listaRevisadas, $pendiente = false);
-		$template_url = get_template_directory_uri();
 
-		$content = $this->render('plugin/revisiones', [
-			'current_user' => $current_user,
+		$content = $this->_render('plugin/revisiones', [
 			'pendientes' => [
 				'estado' => 'Pendientes',
-				'reportes' => $pendientes,
-				'url_accion' => "$template_url/ajax.php"
+				'reportes' => $pendientes
 			],
 			'revisadas' => [
 				'estado' => 'Revisadas',
-				'reportes' => $revisadas,
-				'url_accion' => "$template_url/ajax.php"
+				'reportes' => $revisadas
 			]
 		]);
 
@@ -46,34 +41,44 @@ class RevisionesController extends BaseController {
 
 	private function _parsearRevisiones($listaRevisiones, $pendiente) {
 		$revisiones = [];
-		foreach ($listaRevisiones as $num => $l) {
-			$post = get_post($l->post_id);
-			$revision = [];
-			$revision ['num'] = $num + 1;
-			$revision ['count'] = $l->count;
-			$revision ['permalink'] = get_permalink($post->ID);
-			$revision ['post_id'] = $post->ID;
-			$revision ['title'] = $post->post_title;
-			$revision ['pendiente'] = $pendiente;
-			$revision ['estado'] = ($pendiente) ? Revision::ESTADO_CORREGIDO : Revision::ESTADO_PENDIENTE;
-			$revision ['estado_borrar'] = Revision::ESTADO_BORRADO;
-			$revision ['usuarios'] = self::_parsearUsersByRevision($l);
-			//dd($revision);
-			$revisiones [] = $revision;
+		foreach ($listaRevisiones as $num => $revision) {
+			$post = Post::find($revision->post_id);
+			if (isset($revisiones [$post->ID])) {
+				continue;
+			}
+			$_revision = [
+				'num' => $num + 1,
+				'count' => $revision->count,
+				'permalink' => $post->getUrl(),
+				'post_id' => $post->ID,
+				'title' => $post->post_title,
+				'pendiente' => $pendiente,
+				'estado' => (!$pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO,
+				'estado_borrar' => Revision::ESTADO_BORRADO,
+				'usuarios' => self::_parsearUsersByRevision($revision, ($pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO)
+			];
+			$revisiones [$post->ID] = $_revision;
 		}
+		$revisiones = array_values($revisiones);
 		return $revisiones;
 	}
 
-	private function _parsearUsersByRevision($revision) {
-		$user = get_user_by('id', $revision->user_id);
-		//dd($user);
-		return [
-			'user_id' => $user->ID,
-			'user_login' => $user->user_login,
-			'user_posts_url' => get_author_posts_url($user->ID),
-			'updated_at' => $revision->updated_at,
-			'baneado' => Revision::isUserBan($user->ID)
-		];
+	private function _parsearUsersByRevision($revision, $estado = Revision::ESTADO_PENDIENTE) {
+		global $wpdb;
+		$user_ids = $wpdb->get_results("SELECT user_id, updated_at, count
+				FROM {$wpdb->prefix}revisiones
+				WHERE post_id = {$revision->post_id}
+				AND status = $estado");
+		$users = [];
+		foreach ($user_ids as $u) {
+			$user = User::find($u->user_id);
+			$users [] = [
+				'user' => $user,
+				'updated_at' => $u->updated_at,
+				'count' => $u->count
+			];
+		}
+		return $users;
 	}
 
 	/**
@@ -83,16 +88,13 @@ class RevisionesController extends BaseController {
 	 * @return string
 	 */
 	public function getBanIndex() {
-		$current_user = wp_get_current_user();
 		$listaBaneos = Revision::allBan();
 
 		$baneos = self::_parsearRevisionesBan($listaBaneos);
 		$template_url = get_template_directory_uri();
 
-		$content = $this->render('plugin/revisiones_ban', [
-			'current_user' => $current_user,
+		$content = $this->_render('plugin/revisiones_ban', [
 			'baneos' => $baneos,
-			'url_accion' => "$template_url/ajax.php",
 			'estado' => Revision::USER_DESBANEADO
 		]);
 
@@ -104,16 +106,12 @@ class RevisionesController extends BaseController {
 	private function _parsearRevisionesBan($listaBaneos) {
 		$revisiones = [];
 		foreach ($listaBaneos as $num => $l) {
-			$user = get_user_by('id', $l->user_id);
-			$editor = get_user_by('id', $l->editor_id);
+			$user = User::find($l->user_id);
+			$editor = User::find($l->editor_id);
 			$revision = [];
 			$revision ['num'] = $num + 1;
-			$revision ['user_id'] = $user->ID;
-			$revision ['user_login'] = $user->user_login;
-			$revision ['user_posts_url'] = get_author_posts_url($user->ID);
-			$revision ['editor_id'] = $editor->ID;
-			$revision ['editor_login'] = $editor->user_login;
-			$revision ['editor_posts_url'] = get_author_posts_url($editor->ID);
+			$revision ['user'] = $user;
+			$revision ['editor'] = $editor;
 			$revision ['updated_at'] = $l->updated_at;
 			$revisiones [] = $revision;
 		}

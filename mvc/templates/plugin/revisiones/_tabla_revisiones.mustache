@@ -17,17 +17,17 @@
 			<td>
 				{{# pendiente }}
 					<button class="btn btn-success btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado }}" url="{{ url_accion }}"> 
+							que_id="{{post_id}}" submit="revision" estado="{{ estado }}" url="{{ template_url }}/ajax.php"> 
 						{{#transu}}corregido{{/transu}}
 					</button>
 				{{/ pendiente }}
 				{{^ pendiente }}
 					<button class="btn btn-info btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado }}" url="{{ url_accion }}">
+							que_id="{{post_id}}" submit="revision" estado="{{ estado }}" url="{{ template_url }}/ajax.php">
 						{{#transu}}pendiente{{/transu}}
 					</button>
 					<button class="btn btn-warning btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado_borrar }}" url="{{ url_accion }}">
+							que_id="{{post_id}}" submit="revision" estado="{{ estado_borrar }}" url="{{ template_url }}/ajax.php">
 						{{#transu}}borrar{{/transu}}
 					</button>
 				{{/ pendiente }}

@@ -10,21 +10,23 @@
 	<tbody>	
 	{{# usuarios }}
 	<tr>
-		<td> <a href="{{ user_posts_url }}" target="_blank"> 
-			{{ user_login }}</a>
+		<td> <a href="{{ user.getPerfilUrl }}" target="_blank"> 
+			{{ user.user_login }}</a>
 		</td>
 		<td>{{ count }}</td>
 		<td>{{ updated_at }}</td>
 		<td>
-		{{# baneado  }}
-			<span class="label label-default label-block">Baneado</span>
-		{{/ baneado  }}
-		{{^ baneado  }}
-			<button class="btn btn-danger btn-xs btn-block dispara-revision"
-					que_id="{{user_id}}" submit="revision-ban" estado="{{ estado }}" url="{{ url_accion }}">
-				{{#transu}}banear{{/transu}}
-			</button>
-		{{/ baneado }}
+		{{^ user.isAdmin}}
+			{{# user.isRevisionBan }}
+				<span class="label label-default label-block">Baneado</span>
+			{{/ user.isRevisionBan }}
+			{{^ user.isRevisionBan }}
+				<button class="btn btn-danger btn-xs btn-block dispara-revision"
+						que_id="{{user.ID}}" submit="revision-ban" estado="{{ estado }}" url="{{ template_url }}/ajax.php">
+					{{#transu}}banear{{/transu}}
+				</button>
+			{{/ user.isRevisionBan }}
+		{{/ user.isAdmin}}
 		</td>
 	</tr>
 	{{/ usuarios }}

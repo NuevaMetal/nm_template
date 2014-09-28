@@ -105,19 +105,17 @@ class Revision extends ModelBase {
 	 * @return string
 	 */
 	public static function banear($editor_id, $user_id) {
+		Utils::debug("> banear( $editor_id, $user_id)");
 		global $wpdb;
-		$user = get_userdata($user_id);
+		$user = User::find($user_id);
 		// Primero comprobamos que no sea un admin
-		if (self::isUserRol($user_id, [
-			"administrator"
-		])) {
-			return "El usuario <strong>'{$user->user_login}'</strong> es un administrador. Relaja la raja.";
+		if ($user->isAdmin()) {
+			return "El usuario <strong>'{$user->user_login}'</strong> es un administrador.";
 		}
 		//Segundo comprobamos que si ya está baneado
 		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . "revisiones_ban
 					WHERE user_id = $user_id AND status = 1;");
-
 		if ($isBan) {
 			return "Usuario <strong>'{$user->user_login}'</strong> ya baneado.";
 		}
@@ -158,50 +156,6 @@ class Revision extends ModelBase {
 			SET status = 2 WHERE user_id = %d AND status = 1;", $user_id));
 
 		return "Quitado el baneo del Usuario <strong>'{$user->user_login}'</strong> con éxito.";
-	}
-
-	/**
-	 * Comprobar si un usuario está baneado
-	 *
-	 * @param integer $user_id
-	 *        ID del user
-	 * @return boolean
-	 */
-	public static function isUserBan($user_id) {
-		global $wpdb;
-		$statusBan = Revision::USER_BANEADO;
-		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . "revisiones_ban
-				WHERE user_id = $user_id AND status = $statusBan;");
-		return $isBan > 0;
-	}
-
-	public static function getRoleByUserId($uid) {
-		global $wpdb;
-		$role = $wpdb->get_var("SELECT meta_value
-				FROM {$wpdb->usermeta}
-				WHERE meta_key = 'wp_capabilities'
-				AND user_id = {$uid}");
-		if (!$role)
-			return 'non-user';
-		$rarr = unserialize($role);
-		$roles = is_array($rarr) ? array_keys($rarr) : array(
-			'non-user'
-		);
-		return $roles [0];
-	}
-
-	/**
-	 * Comprueba que un User tenga un rol
-	 *
-	 * @param integer $user_id
-	 *        ID del user
-	 * @param array<string> $roles
-	 *        Lista de roles a comprobar
-	 * @return boolean
-	 */
-	public static function isUserRol($user_id, $roles) {
-		return in_array(self::getRoleByUserId($user_id), $roles);
 	}
 
 	/**

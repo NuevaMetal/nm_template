@@ -780,4 +780,19 @@ class User extends ModelBase {
 		return $result;
 	}
 
+	/**
+	 * Devuelve true si el user está baneado en las revisiones y no puede reportar más post
+	 *
+	 * @return boolean
+	 */
+	public function isRevisionBan() {
+		global $wpdb;
+		$statusBan = Revision::USER_BANEADO;
+		$isBan = ( int ) $wpdb->get_var("SELECT COUNT(*)
+				FROM  {$wpdb->prefix}revisiones_ban
+				WHERE user_id = $this->ID
+				AND status = $statusBan;");
+		return $isBan > 0;
+	}
+
 }

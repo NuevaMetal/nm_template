@@ -14,14 +14,12 @@
 		{{# baneos }}
 		  	<tr>
 		  		<td>{{ num }}</td>
-				<td><a href="{{ user_posts_url }}"
-				target="_blank">{{ user_login }}</a></td>
+				<td><a href="{{ user.getPerfilUrl }}" target="_blank">{{ user.user_login }}</a></td>
 				<td>{{ updated_at }}</td>
-				<td><a href="{{ editor_posts_url }}"
-				target="_blank">{{ editor_login }}</a></td>
+				<td><a href="{{ editor.getPerfilUrl }}" target="_blank">{{ editor.user_login }}</a></td>
 				<td>
 					<button class="btn btn-danger btn-xs btn-block dispara-revision"
-							que_id="{{user_id}}" submit="revision-ban" estado="{{ estado }}" url="{{ url_accion }}">
+							que_id="{{user.ID}}" submit="revision-ban" estado="{{ estado }}" url="{{ template_url }}/ajax.php">
 						{{#transu}}desbanear{{/transu}}
 					</button>
 				</td>
