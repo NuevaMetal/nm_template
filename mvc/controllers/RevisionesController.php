@@ -41,13 +41,14 @@ class RevisionesController extends BaseController {
 
 	private function _parsearRevisiones($listaRevisiones, $pendiente) {
 		$revisiones = [];
-		foreach ($listaRevisiones as $num => $revision) {
+		$num = 0;
+		foreach ($listaRevisiones as $revision) {
 			$post = Post::find($revision->post_id);
 			if (isset($revisiones [$post->ID])) {
 				continue;
 			}
 			$_revision = [
-				'num' => $num + 1,
+				'num' => ++$num,
 				'count' => $revision->count,
 				'permalink' => $post->getUrl(),
 				'post_id' => $post->ID,
