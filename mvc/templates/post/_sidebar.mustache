@@ -6,24 +6,29 @@
 	{{#getUsersQueGustanLimitado}}
 		{{#lista}}
 			<div class="row">
-				<div class="col-xs-3">
-					{{{getAvatarIco}}}
-				</div>
-				<div class="col-xs-9">
-					{{#isSuscriptor}}
-						{{display_name}}
-					{{/isSuscriptor}}
-					{{^isSuscriptor}}
+				{{#isSuscriptor}}
+					<div class="col-xs-3">
+						{{{getAvatarIco}}}
+					</div>
+					<div class="col-xs-9">
+						{{display_name}}	
+					</div>
+				{{/isSuscriptor}}
+				{{^isSuscriptor}}
+					<div class="col-xs-3">
+						<a href="{{getPerfilUrl}}">{{{getAvatarIco}}}</a>
+					</div>
+					<div class="col-xs-9">
 						<a href="{{getPerfilUrl}}">{{display_name}}</a>
-					{{/isSuscriptor}}
-				</div>
+					</div>
+				{{/isSuscriptor}}
 			</div>
 		{{/lista}}
 		{{#mas}}
 			<div class="col-xs-12">
 				{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
 			</div>
-		{{/mas}}		
+		{{/mas}}
 	{{/getUsersQueGustanLimitado}}
 	</section>
 </div>
@@ -35,7 +40,22 @@
 	<hr>
 	<section>
 	{{#getSimilares}}
-		{{> post/sidebar/_post_similar}}
+		<article class="col-xs-6 col-sm-12 col-md-6 text-center sidebar-post-similar">
+		    <a href="{{getUrl}}" title="{{{getTitulo}}}"> 
+		    	{{#getThumbnails}}
+					{{#medium}}
+						<img class="img-responsive" src="{{medium}}" />
+					{{/medium}}
+					{{^medium}}
+						<img class="img-responsive sin-thumbnail"/>
+					{{/medium}}
+				{{/getThumbnails}}		
+				{{^getThumbnails}}
+					<img class="img-responsive sin-thumbnail"/>
+				{{/getThumbnails}}
+			</a>
+			<p class="sidebar-post-similar-title titular">{{{getTituloCorto}}}</p>
+		</article>
 	{{/getSimilares}}
 	</section>
 </div>
