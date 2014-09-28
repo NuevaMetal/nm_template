@@ -32,14 +32,23 @@
 		</div>
 		{{/videos}}
 
-		{{#entrevistas}}
-		<div class="tab-pane {{#activo}}active{{/activo}}" id="entrevistas">
+		{{#criticas}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="criticas">
 			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
 			{{#lista}}
 				{{> home/_post }}
 			{{/lista}}
 		</div>
-		{{/entrevistas}}
+		{{/criticas}}
+		
+		{{#cronicas}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="cronicas">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/cronicas}}
 
 		{{#noticias}}
 		<div class="tab-pane {{#activo}}active{{/activo}}" id="noticias">
@@ -58,6 +67,15 @@
 			{{/lista}}
 		</div>
 		{{/conciertos}}
+
+		{{#entrevistas}}
+		<div class="tab-pane {{#activo}}active{{/activo}}" id="entrevistas">
+			<h4 class="titular">{{#transu}}total{{/transu}}: {{total_lista}}</h4>
+			{{#lista}}
+				{{> home/_post }}
+			{{/lista}}
+		</div>
+		{{/entrevistas}}
 
 	{{/ favoritos }}
 	</div>
