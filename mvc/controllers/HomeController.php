@@ -35,9 +35,9 @@ class HomeController extends BaseController {
 
 		$videos = self::getSeccion(Post::CATEGORY_VIDEOS, 4);
 
-		$entrevistas = self::getSeccion(Post::CATEGORY_ENTREVISTAS, 2, [
-			'reducido' => true
-		]);
+// 		$entrevistas = self::getSeccion(Post::CATEGORY_ENTREVISTAS, 2, [
+// 			'reducido' => true
+// 		]);
 
 		$noticias = self::getSeccion(Post::CATEGORY_NOTICIAS, 2, [
 			'reducido' => true
@@ -62,7 +62,7 @@ class HomeController extends BaseController {
 			Post::CATEGORY_CRONICAS => $cronicas,
 			Post::CATEGORY_NOTICIAS => $noticias,
 			Post::CATEGORY_CONCIERTOS => $conciertos,
-			Post::CATEGORY_ENTREVISTAS => $entrevistas
+			//Post::CATEGORY_ENTREVISTAS => $entrevistas
 		]);
 		return $this->_renderPageBase([
 			'content' => $content
