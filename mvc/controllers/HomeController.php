@@ -43,25 +43,25 @@ class HomeController extends BaseController {
 			'reducido' => true
 		]);
 
-		$conciertos = self::getSeccion(Post::CATEGORY_CONCIERTOS, 2, [
-			'reducido' => true
-		]);
+// 		$conciertos = self::getSeccion(Post::CATEGORY_CONCIERTOS, 2, [
+// 			'reducido' => true
+// 		]);
 
 		$criticas = self::getSeccion(Post::CATEGORY_CRITICAS, 2, [
 			'reducido' => true
 		]);
 
-		$cronicas = self::getSeccion(Post::CATEGORY_CRONICAS, 2, [
-			'reducido' => true
-		]);
+// 		$cronicas = self::getSeccion(Post::CATEGORY_CRONICAS, 2, [
+// 			'reducido' => true
+// 		]);
 
 		$content = $this->_render('home', [
 			Post::CATEGORY_BANDAS => $bandas,
 			Post::CATEGORY_VIDEOS => $videos,
 			Post::CATEGORY_CRITICAS => $criticas,
-			Post::CATEGORY_CRONICAS => $cronicas,
+// 			Post::CATEGORY_CRONICAS => $cronicas,
 			Post::CATEGORY_NOTICIAS => $noticias,
-			Post::CATEGORY_CONCIERTOS => $conciertos,
+// 			Post::CATEGORY_CONCIERTOS => $conciertos,
 			//Post::CATEGORY_ENTREVISTAS => $entrevistas
 		]);
 		return $this->_renderPageBase([
