@@ -1,3 +1,6 @@
+// Remover la pestaña de "Ayuda" y "Opciones" en Wordpress
+#contextual-help-link-wrap, #screen-options-link-wrap { display: none !important; }
+
 #wpwrap {
 	background-color: #fff;
 	background: url(../img/01.jpg);

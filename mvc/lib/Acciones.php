@@ -294,19 +294,6 @@ class Acciones {
 	}
 
 	/**
-	 * Remover la pestaña de "Ayuda" y "Opciones" en Wordpress
-	 */
-	public static function adminBarQuitarAyudaYOpciones() {
-
-		function hide_help() {
-			echo '<style type="text/css">
-            #contextual-help-link-wrap, #screen-options-link-wrap { display: none !important; }
-          </style>';
-		}
-		add_action('admin_head', 'hide_help');
-	}
-
-	/**
 	 * Añadir la información extra al perfil del Usuario
 	 */
 	public static function perfilAddInfo() {
@@ -364,6 +351,5 @@ Acciones::cargarEstilosPaginaLogin();
 Acciones::quitarItemsParaLosUsuarios();
 
 Acciones::adminBarQuitarLogoWP();
-Acciones::adminBarQuitarAyudaYOpciones();
 
 Acciones::cambiarSlugBaseDelAutorPorSuTipo();
