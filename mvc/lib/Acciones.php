@@ -339,31 +339,29 @@ class Acciones {
 	}
 
 	public static function registerForm() {
-		//1. Add a new form element...
+		session_start();
+		//1. Añado nuevo input donde introducir el captcha
 		add_action('register_form', function () {
-			$first_name = (isset($_POST ['first_name'])) ? trim($_POST ['first_name']) : '';
+			$_SESSION ['captcha_action'] = 'captcha_nm_' . time();
+			// Creamos un "captcha" a partir de un nonce de WP que posteriormente comprobaremos en el filtro
+			$captcha = wp_create_nonce($_SESSION ['captcha_action']);
 			?>
 <p>
-	<label for="first_name"><?php _e( 'First Name', 'mydomain' ) ?><br /> <input
-		type="text" name="first_name" id="first_name" class="input"
-		value="<?php echo esc_attr( wp_unslash( $first_name ) ); ?>" size="25" /></label>
+	<label for="cap">Introduce el captcha: <strong><?php echo $captcha?></strong><br>
+		<input type="text" name="cap" id="cap" class="input" size="25"></label>
 </p>
 <?php
 		});
 
-		//2. Add validation. In this case, we make sure first_name is required.
-		add_filter('registration_errors', function ($errors, $sanitized_user_login, $user_email) {
-			if (!isset($_POST ['first_name']) || empty(trim($_POST ['first_name']))) {
-				$errors->add('first_name_error', __('<strong>ERROR</strong>: You must include a first name.', 'mydomain'));
+		//2. Añado validación. Comprobamos el input del captcha no esté vacío y que además coincida con su valor
+		// utilizando para ello el wp_verify_nonce que nos proporciona WP
+		add_filter('registration_errors', function ($errors) {
+			if (!isset($_POST ['cap']) || empty(trim($_POST ['cap']))) {
+				$errors->add('first_name_error', '<strong>ERROR:</strong> Por favor, introduce el captcha.');
+			} else if (!wp_verify_nonce($_POST ['cap'], $_SESSION ['captcha_action'])) {
+				$errors->add('first_name_error', '<strong>ERROR:</strong> Captcha incorrecto.');
 			}
 			return $errors;
-		}, 10, 3);
-
-		//3. Finally, save our extra registration user meta.
-		add_action('user_register', function ($user_id) {
-			if (isset($_POST ['first_name'])) {
-				update_user_meta($user_id, 'first_name', trim($_POST ['first_name']));
-			}
 		});
 	}
 
