@@ -56,7 +56,7 @@ class Acciones {
 	/**
 	 * Enviar una nueva contraseña al email.
 	 */
-	public static function loginInit() {
+	public static function generarNuevaPassword() {
 		add_action('login_init', function () {
 			if ($_REQUEST ['action'] == 'lostpassword' && $_REQUEST ['wp-submit'] == 'Obtener una contraseña nueva') {
 				$user_email = $_POST ['user_login'];
@@ -338,10 +338,39 @@ class Acciones {
 		}, 100, 2);
 	}
 
+	public static function registerForm() {
+		//1. Add a new form element...
+		add_action('register_form', function () {
+			$first_name = (isset($_POST ['first_name'])) ? trim($_POST ['first_name']) : '';
+			?>
+<p>
+	<label for="first_name"><?php _e( 'First Name', 'mydomain' ) ?><br /> <input
+		type="text" name="first_name" id="first_name" class="input"
+		value="<?php echo esc_attr( wp_unslash( $first_name ) ); ?>" size="25" /></label>
+</p>
+<?php
+		});
+
+		//2. Add validation. In this case, we make sure first_name is required.
+		add_filter('registration_errors', function ($errors, $sanitized_user_login, $user_email) {
+			if (!isset($_POST ['first_name']) || empty(trim($_POST ['first_name']))) {
+				$errors->add('first_name_error', __('<strong>ERROR</strong>: You must include a first name.', 'mydomain'));
+			}
+			return $errors;
+		}, 10, 3);
+
+		//3. Finally, save our extra registration user meta.
+		add_action('user_register', function ($user_id) {
+			if (isset($_POST ['first_name'])) {
+				update_user_meta($user_id, 'first_name', trim($_POST ['first_name']));
+			}
+		});
+	}
+
 }
 
 Acciones::userRegister();
-Acciones::loginInit();
+Acciones::generarNuevaPassword();
 
 Acciones::perfilQuitarInfoSobrante();
 Acciones::perfilAddInfo();
@@ -353,3 +382,5 @@ Acciones::quitarItemsParaLosUsuarios();
 Acciones::adminBarQuitarLogoWP();
 
 Acciones::cambiarSlugBaseDelAutorPorSuTipo();
+
+Acciones::registerForm();
