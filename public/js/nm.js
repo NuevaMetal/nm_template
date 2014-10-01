@@ -152,36 +152,6 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 });
 
 /**
- * Mostrar menos
- */
-$(document).on('click', '.mostrar-menos', function(e) {
-	e.preventDefault();
-	var $this = $(this);
-	var posts = $this.parents('.posts');
-	var seccion = $(posts).find('.seccion');
-	var cant = $(posts).children('.cant').text();
-	var size = $(seccion).children().size();
-	var que = $(this).attr('mostrar-menos');
-	// Hacer scroll hasta el header de su sección
-	if(isNaN(que)) {
-		$('html,body').animate({
-			scrollTop: $('#'+que+'.seccion-posts').offset().top-30
-		}, 'slow');
-	} else {
-		$('html,body').animate({
-			scrollTop: $('.ultimos-favoritos-dados').offset().top-30
-		}, 'slow');
-	}
-	// Sólo mostrar menos si hay menos de cant
-	if (size > cant) {
-		for(i=0; i<size-cant; i++) {
-			$(seccion).find('.post').last().remove();
-		}
-	}
-});
-
-
-/**
  * Mostrar más
  */
 $(document).on('click', '.mostrar-mas', function(e) {
@@ -225,7 +195,6 @@ $(document).on('click', '.mostrar-mas', function(e) {
 			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			 + ",\n thrownError "+thrownError);
 			$this.addClass("hidden");
-			$(posts).find('.mostrar-menos').addClass('hidden');
 	     }
 	});
 });
