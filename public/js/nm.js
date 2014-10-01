@@ -19,7 +19,7 @@ $(window).on("resize", function(){
 	seHaceScroll();
 });
 
-var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 1200;
+var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
 
 /**
  * Constantes de la anchura
