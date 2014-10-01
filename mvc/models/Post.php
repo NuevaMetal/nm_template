@@ -305,6 +305,11 @@ class Post extends ModelBase {
 		return $array;
 	}
 
+	public function getCategory() {
+		$categories = get_the_category($this->ID);
+		return $categories [0];
+	}
+
 	/**
 	 * Devuelve un array con posts similares basásndose en sus etiquetas
 	 *
@@ -317,12 +322,14 @@ class Post extends ModelBase {
 		$postsSimilares = array();
 		$nextTagThumb = -1;
 		$tags = $this->getEtiquetas();
+		$cat_id = ($cat = $this->getCategory()) ? $cat->term_id : 0;
 		foreach ($tags as $tag) {
 			if ($tag) {
 				$what_tag = $tags [($nextTagThumb + 1)]->term_id;
 				$post__not_in = [
 					$this->ID
 				];
+				// Omitimos los post que ya están añadidos a la lista de similares
 				foreach ($postsSimilares as $_p) {
 					$post__not_in [] = $_p->ID;
 				}
@@ -332,7 +339,11 @@ class Post extends ModelBase {
 					),
 					'post__not_in' => $post__not_in,
 					'showposts' => 3,
-					'ignore_stickies' => 1
+					'ignore_stickies' => 1,
+					'category__in' => [
+						$cat_id
+					],
+					'orderby' => 'rand'
 				);
 
 				$posts = get_posts($args);
