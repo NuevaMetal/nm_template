@@ -19,6 +19,13 @@ $(window).on("resize", function(){
 	seHaceScroll();
 });
 
+var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 1200;
+
+/**
+ * Constantes de la anchura
+ */
+var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
+
 function seHaceScroll(){
 	var scroll = $(window).scrollTop();
 	var windowHeight = $( window ).height();
@@ -44,11 +51,10 @@ function seHaceScroll(){
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
-
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
-	var flag = (documentHeight - windowHeight)-scroll;
+	var alturaMenosScroll = (documentHeight - windowHeight)-scroll;
 	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
-	var sePuede = noHayspin && flag <= 650;
+	var sePuede = noHayspin && alturaMenosScroll <= ALTURA_MINIMA_PARA_MOSTRAR_MAS;
 	if( $('.mostrar-mas').size() == 1 && sePuede) {
 		$('.mostrar-mas').trigger('click');
 	} else if($('#autor .mostrar-mas').size() == 1 && sePuede){
@@ -81,11 +87,6 @@ function scrollOff() {
 	
 	$(".navbar-principal-login").addClass("hidden");
 }
-
-/**
- * Constantes de la anchura
- */
-var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
 
 /**
  * Devuelve verdadero si el tamaño de la ventana se corresponde con el
