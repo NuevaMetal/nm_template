@@ -357,7 +357,7 @@ class Acciones {
 		// utilizando para ello el wp_verify_nonce que nos proporciona WP
 		add_filter('registration_errors', function ($errors) {
 			$captcha = $_POST ['cap'];
-			if (!isset($captcha) || empty(trim($captcha))) {
+			if (empty(trim($captcha))) {
 				$errors->add('first_name_error', '<strong>ERROR:</strong> Por favor, introduce el captcha.');
 			} else if (!wp_verify_nonce($captcha, $_SESSION ['captcha_action'])) {
 				$errors->add('first_name_error', '<strong>ERROR:</strong> Captcha incorrecto.');
