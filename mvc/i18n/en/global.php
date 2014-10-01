@@ -4,6 +4,7 @@ return [
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
 	'ancho' => 'width',
+	'aleatorio' => 'random',
 	'alto' => 'height',
 	'autor' => 'author',
 	'autores' => 'authors',
