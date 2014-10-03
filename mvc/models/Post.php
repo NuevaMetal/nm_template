@@ -18,6 +18,8 @@ class Post extends ModelBase {
 
 	const NUM_SIMILARES_DEFAULT = 6;
 
+	const NUM_REFERENCIAS_DEFAULT = 4;
+
 	const NUM_USER_QUE_GUSTAN_DEFAULT = 5;
 
 	// Cantidad del extracto de una entrevista
@@ -363,6 +365,38 @@ class Post extends ModelBase {
 
 	public function haySimilares() {
 		return count($this->getSimilares());
+	}
+
+	public function hayReferencias() {
+		return count($this->getReferencias());
+	}
+
+	/**
+	 * Devuelve un array con posts que hacen referecia basásndose en su título
+	 *
+	 * @param number $max
+	 *        Número máximo de posts 'refencia' que queremos
+	 * @return array<Post>
+	 */
+	public function getReferencias($max = self::NUM_REFERENCIAS_DEFAULT) {
+		global $wpdb;
+		$cont = 0;
+		$postsSimilares = array();
+		$posts = $wpdb->get_col("
+				SELECT ID FROM $wpdb->posts
+				WHERE post_type = 'post'
+				AND post_status = 'publish'
+				AND post_title LIKE '%$this->post_title%'
+				AND ID != $this->ID
+				ORDER BY RAND()");
+		foreach ($posts as $id) {
+			$postsSimilares [] = Post::find($id);
+			if (++$cont == $max) {
+				break;
+			}
+		}
+
+		return $postsSimilares;
 	}
 
 	/**
