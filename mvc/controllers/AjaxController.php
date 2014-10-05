@@ -274,6 +274,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public static function getJsonBySubmit($submit, $_datos) {
 		$ajax = new AjaxController();
+		$current_user = Utils::getCurrentUser();
+		$current_userCanEditor = $current_user && $current_user->canEditor();
 
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
@@ -303,11 +305,17 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
 				break;
 			case Ajax::REVISION :
+				if (!$current_userCanEditor) {
+					return 'No tienes permisos';
+				}
 				$estado = $_datos ['estado'];
 				$post_id = $_datos ['que_id'];
 				$json = $ajax->editarRevision($estado, $post_id);
 				break;
 			case Ajax::REVISION_BAN :
+				if (!$current_userCanEditor) {
+					return 'No tienes permisos';
+				}
 				$estado = $_datos ['estado'];
 				$user_id = $_datos ['que_id'];
 				$editor_id = wp_get_current_user()->ID;
@@ -331,30 +339,30 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$que = $_datos ['que'];
 				$user_id = $_datos ['user'];
 				$user = User::find($user_id);
-				$current_user = Utils::getCurrentUser();
 				// Comprobamos que el user actual sea un editor o admin y el user no sea un Admin
-				if ($current_user && $current_user->canEditor() && !$user->isAdmin()) {
-					switch ($que) {
-						case Ajax::QUITAR_HEADER :
-							$user->setImgHeader(null);
-							$json = Ajax::QUITAR_HEADER;
-							break;
-						case Ajax::QUITAR_AVATAR :
-							$user->setAvatar(null);
-							$json = Ajax::QUITAR_AVATAR;
-							break;
-						case Ajax::BLOQUEAR :
-							$userBloqueado = new UserBloqueado($user_id);
-							$userBloqueado->editor_id = wp_get_current_user()->ID;
-							$userBloqueado->save();
-							$json = Ajax::BLOQUEAR;
-							break;
-						case Ajax::DESBLOQUEAR :
-							$userBloqueado = new UserBloqueado($user_id);
-							$userBloqueado->borrar();
-							$json = Ajax::BLOQUEAR;
-							break;
-					}
+				if ($current_userCanEditor && !$user->isAdmin()) {
+					return 'No tienes permisos';
+				}
+				switch ($que) {
+					case Ajax::QUITAR_HEADER :
+						$user->setImgHeader(null);
+						$json = Ajax::QUITAR_HEADER;
+						break;
+					case Ajax::QUITAR_AVATAR :
+						$user->setAvatar(null);
+						$json = Ajax::QUITAR_AVATAR;
+						break;
+					case Ajax::BLOQUEAR :
+						$userBloqueado = new UserBloqueado($user_id);
+						$userBloqueado->editor_id = $current_user->ID;
+						$userBloqueado->save();
+						$json = Ajax::BLOQUEAR;
+						break;
+					case Ajax::DESBLOQUEAR :
+						$userBloqueado = new UserBloqueado($user_id);
+						$userBloqueado->borrar();
+						$json = Ajax::BLOQUEAR;
+						break;
 				}
 				break;
 			default :

@@ -43,6 +43,7 @@ class AdminAjaxController extends AlertaController {
 		}
 		return $json;
 	}
+
 }
 
 /**
@@ -54,6 +55,11 @@ $json = [
 	'code' => 504 // Error default
 ];
 $submit = $_REQUEST ['submit'];
+
+$user = Utils::getCurrentUser();
+if (!$user || !$user->canEditor()) {
+	wp_die('No tienes permisos');
+}
 
 $json = AdminAjaxController::getJsonBySubmit($submit, $_REQUEST);
 
