@@ -75,6 +75,11 @@ class User extends ModelBase {
 		return count_user_posts($this->ID);
 	}
 
+	public function setAvatar($newAvatar = false) {
+		// TODO:
+		Utils::info("TODO: Implementar el User->setAvatar(avatar);");
+	}
+
 	public function getAvatar($tamano = 96, $default = "", $alt = false) {
 		return get_avatar($this->ID, $tamano, $default, $alt);
 	}
@@ -807,6 +812,21 @@ class User extends ModelBase {
 				FROM  {$wpdb->prefix}revisiones_ban
 				WHERE user_id = $this->ID
 				AND status = $statusBan;");
+		return $isBan > 0;
+	}
+
+	/**
+	 * Comprobar si un User ha sido bloqueado
+	 *
+	 * @return boolean Devuelve true si ha sido bloqueado, false si no ha sido bloqueado
+	 */
+	public function isBloqueado() {
+		global $wpdb;
+		$estadoBloqueado = UserBloqueado::ESTADO_BLOQUEADO;
+		$isBan = ( int ) $wpdb->get_var("SELECT COUNT(*)
+				FROM  {$wpdb->prefix}users_bloqueados
+				WHERE user_id = $this->ID
+				AND status = $estadoBloqueado;");
 		return $isBan > 0;
 	}
 

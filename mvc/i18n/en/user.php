@@ -7,6 +7,8 @@ return [
 	'eres_una_banda' => 'Are you a band?',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
+	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
+
 	'img_header' => 'header image',
 
 	'medidas_aconsejadas_img_header' => 'recommended measures',

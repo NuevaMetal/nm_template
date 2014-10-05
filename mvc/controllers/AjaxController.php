@@ -328,7 +328,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$json = Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
 				break;
 			case Ajax::ADMIN_PANEL_USER :
-				Utils::debug("> ADMIN_PANEL_USER");
 				$que = $_datos ['que'];
 				$user_id = $_datos ['user'];
 				$user = User::find($user_id);
@@ -338,9 +337,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						$json = Ajax::QUITAR_HEADER;
 						break;
 					case Ajax::QUITAR_AVATAR :
+						$user->setAvatar(null);
 						$json = Ajax::QUITAR_AVATAR;
 						break;
 					case Ajax::BLOQUEAR :
+						$userBloqueado = new UserBloqueado($user_id);
+						$userBloqueado->editor_id = wp_get_current_user()->ID;
+						$userBloqueado->save();
+						$json = Ajax::BLOQUEAR;
+						break;
+					case Ajax::DESBLOQUEAR :
+						$userBloqueado = new UserBloqueado($user_id);
+						$userBloqueado->borrar();
 						$json = Ajax::BLOQUEAR;
 						break;
 				}

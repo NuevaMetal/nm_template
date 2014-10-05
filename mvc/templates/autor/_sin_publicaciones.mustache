@@ -1,3 +1,8 @@
 <div class="autor">
+	
+		{{#current_user.canEditor}}
+			{{> admin/_autor }}
+		{{/current_user.canEditor}}
+	
 	<h1>{{#trans}}user.no_hay_entradas_publicadas{{/trans}}.</h1>
 </div>

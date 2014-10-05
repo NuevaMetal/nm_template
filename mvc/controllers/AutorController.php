@@ -14,11 +14,20 @@ class AutorController extends BaseController {
 	 * author.php
 	 */
 	public function getAuthor() {
+		$current_user = Utils::getCurrentUser();
+
 		$author_id = get_the_author_meta('ID');
 		$user = User::find($author_id);
-		if (!$user) {
+
+		if (!$user) { //si el user no ha publicado nada aún
 			return $this->_getAuthorSinPublicaciones();
+		} else if ($user->isBloqueado() && (!$current_user || ($current_user && !$current_user->canEditor()))) {
+			// si el user ha sido bloqueado y el user actual no es editor.
+			// De ser editor podría ver su perfil para modificar ciertos datos
+			// y/o quitarle el bloqueo a dicho usuario
+			return $this->_getAuthorBloqueado($user);
 		}
+
 		$autorCountPosts = $user->getCountPosts();
 
 		$header = I18n::transu('entradas_de', [
@@ -49,7 +58,21 @@ class AutorController extends BaseController {
 	 */
 	private function _getAuthorSinPublicaciones() {
 		return $this->_renderPageBase([
-			'content' => $this->render('autor/_sin_publicaciones')
+			'content' => $this->_render('autor/_sin_publicaciones')
+		]);
+	}
+
+	/**
+	 * El autor ha sido bloqueado
+	 *
+	 * @param User $user
+	 *        Usuario bloqueado
+	 */
+	private function _getAuthorBloqueado($user) {
+		return $this->_renderPageBase([
+			'content' => $this->_render('autor/_bloqueado', [
+				'user' => $user
+			])
 		]);
 	}
 

@@ -1,0 +1,43 @@
+<div id="page" class="container-fluid">
+	
+	<h1> Usuarios bloqueados</h1>	
+	
+	{{^hay_pendientes}}
+		<p>Aún no hay usuarios pendientes para hacer colaboradores</p>
+	{{/hay_pendientes}}
+	
+	{{# hay_pendientes }}
+	<h2> Usuarios pendientes <small></small></h2>
+	<table class="table table-hover table-condensed table-responsive">
+		<thead>
+			<tr>
+				<th class="col-xs-4">Usuario</th>
+				<th class="col-xs-4">Fecha</th>
+				<th class="col-xs-4">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{# pendientes }}
+		  	<tr>
+				<td><a href="{{ getUser.getPerfilUrl }}"
+				target="_blank">{{ getUser.user_login }}</a></td>
+				<td>{{ updated_at }}</td>
+				<td>
+					<button class="btn btn-success btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="hacer-colaborador"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Aceptar
+					</button>
+					<button class="btn btn-warning btn-xs btn-block hacer-colaborador"
+					 		url="{{template_url}}/admin_ajax.php" que="rechazar-colaborador"
+							user="{{user_id}}" editor="{{user.ID}}">
+						Rechazar
+					</button>
+				</td>
+			</tr>
+	   	{{/ pendientes }}
+	   	</tbody>
+	</table>
+	{{/ hay_pendientes }}	
+	
+</div>

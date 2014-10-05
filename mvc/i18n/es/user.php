@@ -7,6 +7,8 @@ return [
 	'eres_una_banda' => '¿Eres una banda?',
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
 
+	'ha_sido_bloqueado' => 'El usuario :nombre ha sido bloqueado',
+
 	'img_header' => 'imagen de cabecera',
 
 	'medidas_aconsejadas_img_header' => 'medidas aconsejadas',

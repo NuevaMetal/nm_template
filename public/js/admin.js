@@ -1,7 +1,7 @@
 /**
  * 
  */
-$(document).on('click','.quitar-header, .quitar-avatar, .bloquear', function(e) {
+$(document).on('click','.quitar-header, .quitar-avatar, .bloquear, .desbloquear', function(e) {
 	e.preventDefault();
 	var $this = $(this);
 	if(!confirm('¿Estás seguro de querer '+$this.text().toUpperCase()+' a este usuario?')){
@@ -15,28 +15,18 @@ $(document).on('click','.quitar-header, .quitar-avatar, .bloquear', function(e) 
 		que : que,
 		user : user
 	};
+	if(que == 'bloquear' && !confirm('Bloquear a un usuario implica que este ya no podrá acceder a su cuenta'
+			+' además de que ya no se podrá visualizar su perfil de usuario público a menos que se desactive el bloqueo.'
+			+' ¿Estás seguro de continuar?')){
+		return;
+	}
 	$.ajax({
 		url : url,
 		type : "POST",
 		data : data,
 		dataType : "json",
 		success : function(json) {
-			switch (json) {
-			case 'quitar-header':
-				var header = $('.img-header img');
-				header.attr('src','');
-				header.addClass('sin-thumbnail');
-				break;
-			case 'quitar-avatar':
-//				var header = $('.avatar');
-//				header.attr('src','');
-//				header.addClass('sin-thumbnail');
-				alert("TODO");
-				break;
-			case 'bloquear':
-				alert("TODO");
-				break;
-			}
+			location.reload();
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 			console.log("status: " + xhr.status + ",\n responseText: "

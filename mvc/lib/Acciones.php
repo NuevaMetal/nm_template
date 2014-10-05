@@ -357,10 +357,24 @@ class Acciones {
 		// utilizando para ello el wp_verify_nonce que nos proporciona WP
 		add_filter('registration_errors', function ($errors) {
 			if (!wp_verify_nonce($_POST ['cap'], $_SESSION ['captcha_action'])) {
-				$errors->add('first_name_error', '<strong>ERROR:</strong> Captcha incorrecto.');
+				$errors->add('captcha_incorecto', '<strong>ERROR:</strong> Captcha incorrecto.');
 			}
 			return $errors;
 		});
+	}
+
+	/**
+	 * Action -> wp_login
+	 *
+	 * Comprobamos que el user no esté bloqueado
+	 */
+	public static function impedirLoginSiUserBloqueado() {
+		add_action('wp_login', function ($user_login, $user) {
+			$user = User::find($user->ID);
+			if ($user->isBloqueado()) {
+				wp_logout();
+			}
+		}, 10, 2);
 	}
 
 }
@@ -380,3 +394,5 @@ Acciones::adminBarQuitarLogoWP();
 Acciones::cambiarSlugBaseDelAutorPorSuTipo();
 
 Acciones::registerForm();
+
+Acciones::impedirLoginSiUserBloqueado();

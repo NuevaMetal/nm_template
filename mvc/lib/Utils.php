@@ -245,9 +245,9 @@ class Utils {
 	public static function getCurrentUser() {
 		$user = wp_get_current_user();
 		if ($user->ID) {
-			$user = User::find($user->ID);
+			return User::find($user->ID);
 		}
-		return $user;
+		return false;
 	}
 
 	/**

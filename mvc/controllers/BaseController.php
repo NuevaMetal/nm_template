@@ -74,7 +74,7 @@ abstract class BaseController extends ChesterBaseController {
 	 */
 	protected function _render($template, $args = []) {
 		return $this->render($template, array_merge($args, [
-			'user' => User::find(wp_get_current_user()->ID),
+			'current_user' => User::find(wp_get_current_user()->ID),
 			'template_url' => get_template_directory_uri()
 		]));
 	}

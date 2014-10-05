@@ -31,6 +31,8 @@ class Ajax {
 
 	const BLOQUEAR = 'bloquear';
 
+	const DESBLOQUEAR = 'desbloquear';
+
 	const ADMIN_PANEL_USER = 'admin-panel-user';
 
 	/**
