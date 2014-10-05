@@ -331,8 +331,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$que = $_datos ['que'];
 				$user_id = $_datos ['user'];
 				$user = User::find($user_id);
-				// Comprobamos que el user no sea un Admin
-				if (!$user->isAdmin()) {
+				$current_user = Utils::getCurrentUser();
+				// Comprobamos que el user actual sea un editor o admin y el user no sea un Admin
+				if ($current_user && $current_user->canEditor() && !$user->isAdmin()) {
 					switch ($que) {
 						case Ajax::QUITAR_HEADER :
 							$user->setImgHeader(null);
