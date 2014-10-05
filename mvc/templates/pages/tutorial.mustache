@@ -1,9 +1,9 @@
 <div class="pagina tutorial">
-	{{#user.isSuscriptor}}
-		{{#user.isSuscriptorRechazado}}
+	{{#current_user.isSuscriptor}}
+		{{#current_user.isSuscriptorRechazado}}
 			<h1 class="col-xs-12 titular">Tutorial</h1>
-		{{/user.isSuscriptorRechazado}}	
-		{{^user.isSuscriptorRechazado}}	
+		{{/current_user.isSuscriptorRechazado}}	
+		{{^current_user.isSuscriptorRechazado}}	
 			<div id="publica"><br></div>
 			<div class="jumbotron">
 				<h1 class="col-xs-12 titular">{{#trans}}tutorial.publica_tus_entradas{{/trans}}</h1>
@@ -11,21 +11,21 @@
 				<p>{{#trans}}tutorial.aceptas_terminos_condiciones{{/trans}}.</p>
 				<p>
 					<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
-							user={{user.ID}}>
+							user={{current_user.ID}}>
 						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
 					<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
-							user={{user.ID}}>
+							user={{current_user.ID}}>
 						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
 				</p>
 			</div>
-		{{/user.isSuscriptorRechazado}}
-	{{/user.isSuscriptor}}
-	{{^user.isSuscriptor}}
+		{{/current_user.isSuscriptorRechazado}}
+	{{/current_user.isSuscriptor}}
+	{{^current_user.isSuscriptor}}
 		<h1 class="col-xs-12 titular">Tutorial</h1>
-	{{/user.isSuscriptor}}
+	{{/current_user.isSuscriptor}}
 
 	<div class="col-xs-12 ">
-		{{> partials/_novedades_publica}}
+		
 		<h3 class="titular">FAQ:</h3>
 		<a href="#LO">LOGUEARNOS</a> 
 		/ <a href="#ET">ETIQUETAS Y CATEGORÍAS</a> 
