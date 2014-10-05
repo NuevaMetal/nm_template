@@ -100,7 +100,7 @@ class UserBloqueado extends ModelBase {
 		// Segundo, si no está
 		if (!$esta && $this->user_id && $this->editor_id) {
 			$result = $wpdb->query($wpdb->prepare("
-			INSERT $table (user_id, editor_id, status, created_at, updated_at)
+			INSERT INTO $table (user_id, editor_id, status, created_at, updated_at)
 			VALUES (%d, %d, %d, null, null);", $this->user_id, $this->editor_id, $estadoBloqueado));
 		}
 		return $this->ID;

@@ -340,7 +340,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$user_id = $_datos ['user'];
 				$user = User::find($user_id);
 				// Comprobamos que el user actual sea un editor o admin y el user no sea un Admin
-				if ($current_userCanEditor && !$user->isAdmin()) {
+				if (!$current_userCanEditor || $user->isAdmin()) {
 					return 'No tienes permisos';
 				}
 				switch ($que) {
@@ -353,9 +353,11 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						$json = Ajax::QUITAR_AVATAR;
 						break;
 					case Ajax::BLOQUEAR :
+						Utils::debug("BLOQUEAR > a");
 						$userBloqueado = new UserBloqueado($user_id);
 						$userBloqueado->editor_id = $current_user->ID;
 						$userBloqueado->save();
+						Utils::debug("BLOQUEAR > b");
 						$json = Ajax::BLOQUEAR;
 						break;
 					case Ajax::DESBLOQUEAR :
