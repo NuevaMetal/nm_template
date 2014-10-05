@@ -9,12 +9,12 @@ require_once 'BaseController.php';
 class UserBloqueadoController extends BaseController {
 
 	public function getIndex() {
-		$listaPendientes = UserBloqueado::getByStatus(UserBloqueado::PENDIENTE);
+		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
 
 		$content = $this->_render('plugin/users_bloqueados', [
-			'pendientes' => $listaPendientes,
-			'hay_pendientes' => count($listaPendientes) > 0,
-			'estado' => Revision::USER_DESBANEADO
+			'bloqueados' => $listaBloqueados,
+			'hay_bloqueados' => count($listaBloqueados) > 0,
+			'estado_borrado' => UserBloqueado::ESTADO_BORRADO
 		]);
 
 		return $this->_renderPageBasePlugin([

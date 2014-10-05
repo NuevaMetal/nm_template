@@ -331,26 +331,29 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$que = $_datos ['que'];
 				$user_id = $_datos ['user'];
 				$user = User::find($user_id);
-				switch ($que) {
-					case Ajax::QUITAR_HEADER :
-						$user->setImgHeader(null);
-						$json = Ajax::QUITAR_HEADER;
-						break;
-					case Ajax::QUITAR_AVATAR :
-						$user->setAvatar(null);
-						$json = Ajax::QUITAR_AVATAR;
-						break;
-					case Ajax::BLOQUEAR :
-						$userBloqueado = new UserBloqueado($user_id);
-						$userBloqueado->editor_id = wp_get_current_user()->ID;
-						$userBloqueado->save();
-						$json = Ajax::BLOQUEAR;
-						break;
-					case Ajax::DESBLOQUEAR :
-						$userBloqueado = new UserBloqueado($user_id);
-						$userBloqueado->borrar();
-						$json = Ajax::BLOQUEAR;
-						break;
+				// Comprobamos que el user no sea un Admin
+				if (!$user->isAdmin()) {
+					switch ($que) {
+						case Ajax::QUITAR_HEADER :
+							$user->setImgHeader(null);
+							$json = Ajax::QUITAR_HEADER;
+							break;
+						case Ajax::QUITAR_AVATAR :
+							$user->setAvatar(null);
+							$json = Ajax::QUITAR_AVATAR;
+							break;
+						case Ajax::BLOQUEAR :
+							$userBloqueado = new UserBloqueado($user_id);
+							$userBloqueado->editor_id = wp_get_current_user()->ID;
+							$userBloqueado->save();
+							$json = Ajax::BLOQUEAR;
+							break;
+						case Ajax::DESBLOQUEAR :
+							$userBloqueado = new UserBloqueado($user_id);
+							$userBloqueado->borrar();
+							$json = Ajax::BLOQUEAR;
+							break;
+					}
 				}
 				break;
 			default :
