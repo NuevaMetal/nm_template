@@ -353,11 +353,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						$json = Ajax::QUITAR_AVATAR;
 						break;
 					case Ajax::BLOQUEAR :
-						Utils::debug("BLOQUEAR > a");
 						$userBloqueado = new UserBloqueado($user_id);
 						$userBloqueado->editor_id = $current_user->ID;
 						$userBloqueado->save();
-						Utils::debug("BLOQUEAR > b");
 						$json = Ajax::BLOQUEAR;
 						break;
 					case Ajax::DESBLOQUEAR :
