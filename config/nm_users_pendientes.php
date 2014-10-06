@@ -7,16 +7,23 @@ require_once (dirname(__FILE__) . '/../mvc/controllers/UserPendienteController.p
  * Registramos las alertas
  */
 add_action('admin_notices', function () {
-	// 	global $wpdb, $current_user;
-	// 	$user = User::find($current_user->ID);
-	// 	if ($user->isEditor()) {
-	// 		$numTotalPorRevisar = UsersPendientes::getTotalPorRevisar();
-	// 		$urlRevisiones = admin_url('admin.php?page=users-pendientes');
-	// 		echo '<br>
-	// 		<div class="error">
-	// 		  <strong>¡Ey ' . $user->display_name . '!</strong> ' . $msg . ' en <a href="' . $urlRevisiones . '">Revisiones</a>
-	// 		</div>';
-	// 	}
+	global $wpdb, $current_user;
+	$user = User::find($current_user->ID);
+	if ($user->canEditor()) {
+		$numTotalPorRevisar = UserPendiente::getTotal();
+		if ($numTotalPorRevisar) {
+			if ($numTotalPorRevisar == 1) {
+				$msg = 'Hay ' . $numTotalPorRevisar . '</span> nuevo usuario pendiente';
+			} else {
+				$msg = 'Hay ' . $numTotalPorRevisar . '</span> nuevos usuarios pendientes';
+			}
+			$urlRevisiones = admin_url('admin.php?page=usuarios-pendientes');
+			echo '
+			<div class="update-nag">
+			  <strong>¡Ey ' . $user->display_name . '!</strong> ' . $msg . ' en <a href="' . $urlRevisiones . '">Pendientes</a>
+			</div>';
+		}
+	}
 });
 
 /**
