@@ -3,12 +3,16 @@ return [
 	'actualizar_mi_perfil' => 'updating my profile',
 
 	'editar_perfil' => 'edit profile',
+	'eliminar_avatar' => 'delete avatar',
+	'eliminar_cabecera' => 'delete header',
 	'entradas_publicadas_ano' => 'Posts published this year',
 	'eres_una_banda' => 'Are you a band?',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
 
+
+	'img_avatar' => 'avatar',
 	'img_header' => 'header image',
 
 	'medidas_aconsejadas_img_header' => 'recommended measures',
