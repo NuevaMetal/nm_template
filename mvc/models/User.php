@@ -100,8 +100,7 @@ class User extends ModelBase {
 	public function getAvatar($tamano = self::AVATAR_SIZE_DEFAULT) {
 		$avatar = $this->_getImg(self::KEY_USER_IMG_AVATAR, $tamano, $tamano);
 		if (empty($avatar)) {
-			$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
-			return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $tamano; // ad516503a11cd5ca435acc9bb6523536 == md5('unknown@gravatar.com')
+			return Utils::getUrlGravatarDefault($tamano);
 		}
 		return $avatar;
 	}

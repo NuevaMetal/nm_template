@@ -418,6 +418,9 @@ class Acciones {
 				$user_id = ( int ) $id_or_email->user_id;
 			}
 			$user = User::find($user_id);
+			if (!$user) {
+				return Utils::getUrlGravatarDefault($size);
+			}
 			if (!Utils::cadenaValida($alt)) {
 				$alt = $user->display_name . ' avatar';
 			}

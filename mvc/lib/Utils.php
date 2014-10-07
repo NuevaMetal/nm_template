@@ -416,4 +416,9 @@ class Utils {
 		return (isset($str) && is_string($str) && strlen($str) > 0);
 	}
 
+	public static function getUrlGravatarDefault($size = User::AVATAR_SIZE_DEFAULT) {
+		$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
+		return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $size;
+	}
+
 }
