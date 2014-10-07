@@ -105,35 +105,58 @@ class Acciones {
 		function nm_perfil_add_img_header($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
-			echo $c->getPerfilImgHeader($user->ID);
+			echo $c->getPerfilImg(User::KEY_USER_IMG_AVATAR, $user->ID);
+			echo $c->getPerfilImg(User::KEY_USER_IMG_HEADER, $user->ID);
 		}
 		add_action('show_user_profile', 'nm_perfil_add_img_header');
 		add_action('edit_user_profile', 'nm_perfil_add_img_header');
 	}
 
 	/**
-	 * Añado las redes sociales al perfil del User
+	 * Añado las imágenes de avatar y header al perfil del User
 	 */
 	public static function perfilUpdateImgHeader() {
+		// Añado el enctype para poder pasar las imágenes por el formulario
+		add_action('user_edit_form_tag', function () {
+			echo 'enctype="multipart/form-data"';
+		});
 
-		function nm_perfil_update_img_header($user_ID) {
+		function nm_perfil_update_img($user_ID, $keyUserImg) {
 			//Primero comprobamos que el user tenga permisos y exista la clave en los FILES
-			if (current_user_can('edit_user', $user_ID) && isset($_FILES [User::KEY_USER_IMG_HEADER])) {
+			if (current_user_can('edit_user', $user_ID) && isset($_FILES [$keyUserImg])) {
 				//Después comprobamos que tenga un nombre definido
-				$imgHeader = $_FILES [User::KEY_USER_IMG_HEADER];
-				if ($imgHeader ['name']) {
+				$img = $_FILES [$keyUserImg];
+				if ($img ['name']) {
 					$user = User::find($user_ID);
 					try {
-						$user->setImgHeader($imgHeader);
+						switch ($keyUserImg) {
+							case User::KEY_USER_IMG_HEADER :
+								$user->setImgHeader($img);
+								break;
+							case User::KEY_USER_IMG_AVATAR :
+								$user->setAvatar($img);
+								break;
+						}
 					} catch (Exception $e) {
 						// Añadimos el mensaje de error en las notificaciones
 						add_action('user_profile_update_errors', function ($errors) use($e) {
-							$errors->add(User::KEY_USER_IMG_HEADER, $e->getMessage());
+							$errors->add($keyUserImg, $e->getMessage());
 						});
 					}
 				}
 			}
 		}
+
+		function nm_perfil_update_img_avatar($user_ID) {
+			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_AVATAR);
+		}
+
+		function nm_perfil_update_img_header($user_ID) {
+			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_HEADER);
+		}
+
+		add_action('personal_options_update', 'nm_perfil_update_img_avatar');
+		add_action('edit_user_profile_update', 'nm_perfil_update_img_avatar');
 		add_action('personal_options_update', 'nm_perfil_update_img_header');
 		add_action('edit_user_profile_update', 'nm_perfil_update_img_header');
 	}

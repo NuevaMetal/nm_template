@@ -123,16 +123,23 @@ class AutorController extends BaseController {
 	 * @param integer $user_ID
 	 *        Identficiador del user
 	 */
-	public function getPerfilImgHeader($user_ID = false) {
+	public function getPerfilImg($keyUserImg = User::KEY_USER_IMG_HEADER, $user_ID = false) {
 		if (!$user_ID) {
 			global $user_ID;
 		}
 		$user = User::find($user_ID);
-		$template_url = get_template_directory_uri();
-		return $this->render('autor/perfil/_img_header', [
+		switch ($keyUserImg) {
+			case User::KEY_USER_IMG_HEADER :
+				$template = 'autor/perfil/_img_header';
+				break;
+			case User::KEY_USER_IMG_AVATAR :
+				$template = 'autor/perfil/_img_avatar';
+				break;
+		}
+		return $this->_render($template, [
 			'user' => $user,
 			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
-			'template_url' => $template_url
+			'KEY_USER_IMG_AVATAR' => User::KEY_USER_IMG_AVATAR
 		]);
 	}
 

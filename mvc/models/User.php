@@ -8,6 +8,12 @@ require_once 'ModelBase.php';
 class User extends ModelBase {
 	public static $table = "users";
 
+	const AVATAR_SIZE_DEFAULT = 96;
+
+	const AVATAR_SIZE_ICO = 32;
+
+	const AVATAR_SIZE_PERFIL = 190;
+
 	const KEY_USER_TWITTER = 'tw_txt';
 
 	const KEY_USER_FACEBOOK = 'fb_txt';
@@ -75,29 +81,52 @@ class User extends ModelBase {
 		return count_user_posts($this->ID);
 	}
 
-	public function setAvatar($newAvatar = false) {
-		// TODO:
-		Utils::info("TODO: Implementar el User->setAvatar(avatar);");
+	/**
+	 * Quita el avatar al User
+	 *
+	 * @deprecated Utilizar setAvatar(null)
+	 * @see User::setAvatar()
+	 */
+	public function quitarAvatar() {
+		if (!delete_user_meta($this->ID, 'simple_local_avatar')) {
+			Utils::debug("> No se pudo borrar el avatar");
+		}
 	}
 
-	public function getAvatar($tamano = 96, $default = "", $alt = false) {
-		return get_avatar($this->ID, $tamano, $default, $alt);
+	public function setAvatar($newAvatar = false) {
+		$this->_setImg(self::KEY_USER_IMG_AVATAR, $newAvatar);
+	}
+
+	/**
+	 * Devuelve la url del avatar del User, y si no tuviera devolvería una imagen de avatar vacío
+	 *
+	 * @param integer $tamano
+	 *        Tamaño de la imágen
+	 * @return string
+	 */
+	public function getAvatar($tamano = self::AVATAR_SIZE_DEFAULT) {
+		$avatar = $this->_getImg(self::KEY_USER_IMG_AVATAR, $tamano, $tamano);
+		if (empty($avatar)) {
+			$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
+			return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $tamano; // ad516503a11cd5ca435acc9bb6523536 == md5('unknown@gravatar.com')
+		}
+		return $avatar;
 	}
 
 	public function getAvatarPerfil() {
-		return get_avatar($this->ID, 190, '', "$this->display_name avatar");
+		return $this->getAvatar(self::AVATAR_SIZE_PERFIL);
 	}
 
 	public function getAvatarIco() {
-		return get_avatar($this->ID, 32, '', "$this->display_name avatar");
+		return $this->getAvatar(self::AVATAR_SIZE_ICO);
 	}
 
 	/**
 	 * Quitar la ImgHeader y la elimina del server
 	 */
-	private function _quitarImgHeader() {
+	private function _quitarImg($keyUserImg = self::KEY_USER_IMG_HEADER) {
 		// Para eliminar el fichero lo guardamos en una var temporal
-		$imgHeader = $this->_getImgHeaderPath();
+		$imgHeader = $this->_getImgPath($keyUserImg);
 		if (isset($imgHeader ['base']) && !empty($imgHeader ['base'])) {
 			unlink($imgHeader ['base']);
 		}
@@ -105,7 +134,26 @@ class User extends ModelBase {
 			unlink($imgHeader ['actual']);
 		}
 		// Y lo quitamos de su meta
-		delete_user_meta($this->ID, self::KEY_USER_IMG_HEADER);
+		delete_user_meta($this->ID, $keyUserImg);
+	}
+
+	/**
+	 * Devuelve la ruta de la imagen del header del user
+	 *
+	 * @return string
+	 */
+	public function getImgHeader() {
+		return $this->_getImg(self::KEY_USER_IMG_HEADER);
+	}
+
+	/**
+	 * Establecer el nuevo Header al User
+	 *
+	 * @param file $imgHeader
+	 */
+	public function setImgHeader($imgHeader) {
+		Utils::debug("> setImgHeader(img)");
+		$this->_setImg(self::KEY_USER_IMG_HEADER, $imgHeader);
 	}
 
 	/**
@@ -115,25 +163,25 @@ class User extends ModelBase {
 	 * @param array $imgHeader
 	 * @throws Exception
 	 */
-	public function setImgHeader($imgHeader) {
+	private function _setImg($keyUserImgHeader = self::KEY_USER_IMG_HEADER, $imgHeader) {
+
 		// Si es false se la quita y además es null la borrará del servidor
 		if (!$imgHeader) {
-			$this->_quitarImgHeader();
+			$this->_quitarImg($keyUserImgHeader);
 			return;
 		}
-
 		if (strpos($imgHeader ['name'], '.php') !== false) {
 			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
 		}
-		$avatar = wp_handle_upload($_FILES [self::KEY_USER_IMG_HEADER], array(
+		$avatar = wp_handle_upload($_FILES [$keyUserImgHeader], array(
 			'mimes' => array(
 				'jpg|jpeg|jpe' => 'image/jpeg',
 				'gif' => 'image/gif',
 				'png' => 'image/png'
 			),
 			'test_form' => false,
-			'unique_filename_callback' => function ($dir, $name, $ext) {
-				$name = $base_name = sanitize_file_name($this->user_login . '_header');
+			'unique_filename_callback' => function ($dir, $name, $ext) use($keyUserImgHeader) {
+				$name = $base_name = sanitize_file_name($this->user_login . '_' . $keyUserImgHeader);
 				$number = 1;
 				while (file_exists($dir . "/$name$ext")) {
 					$name = $base_name . '_' . $number;
@@ -143,7 +191,7 @@ class User extends ModelBase {
 			}
 		));
 		// Quitamos su anterior ImgHeader
-		$this->_quitarImgHeader();
+		$this->_quitarImg($keyUserImgHeader);
 
 		$meta_value = array();
 
@@ -154,12 +202,20 @@ class User extends ModelBase {
 			$url_or_media_id = wp_get_attachment_url($url_or_media_id);
 		}
 		$meta_value ['full'] = $url_or_media_id;
-		update_user_meta($this->ID, self::KEY_USER_IMG_HEADER, $meta_value);
+		update_user_meta($this->ID, $keyUserImgHeader, $meta_value);
 	}
 
-	public function getImgHeader($sizeW = self::IMG_HEADER_WIDTH_DEFAULT, $sizeH = self::IMG_HEADER_HEIGHT_DEFAULT) {
+	/**
+	 * Devuelve la img del avatar o header
+	 *
+	 * @param string $keyUserImg
+	 * @param int $sizeW
+	 * @param int $sizeH
+	 * @return string
+	 */
+	private function _getImg($keyUserImg = self::KEY_USER_IMG_HEADER, $sizeW = self::IMG_HEADER_WIDTH_DEFAULT, $sizeH = self::IMG_HEADER_HEIGHT_DEFAULT) {
 		// fetch local avatar from meta and make sure it's properly ste
-		$local_avatars = get_user_meta($this->ID, self::KEY_USER_IMG_HEADER, true);
+		$local_avatars = get_user_meta($this->ID, $keyUserImg, true);
 		if (empty($local_avatars ['full'])) {
 			return '';
 		}
@@ -184,7 +240,7 @@ class User extends ModelBase {
 				}
 			}
 			// save updated avatar sizes
-			update_user_meta($user_id, self::KEY_USER_IMG_HEADER, $local_avatars);
+			update_user_meta($user_id, $keyUserImg, $local_avatars);
 		}
 		if ('http' != substr($local_avatars [$sizeW], 0, 4)) {
 			$local_avatars [$sizeW] = home_url($local_avatars [$sizeW]);
@@ -201,10 +257,10 @@ class User extends ModelBase {
 	 *
 	 * @return array<string> Lista con el nombre 'base' y 'actual'.
 	 */
-	private function _getImgHeaderPath() {
+	private function _getImgPath($keyUserImg = self::KEY_USER_IMG_HEADER) {
 		$upload_path = wp_upload_dir();
-		$imgHeader = $this->getImgHeader();
-		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $imgHeader);
+		$img = $this->_getImg($keyUserImg);
+		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $img);
 		$actual = $base = basename($path);
 		if (strpos($base, '-') !== false) {
 			preg_match('/\.[^\.]+$/i', $actual, $ext);
