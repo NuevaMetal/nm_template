@@ -9,23 +9,25 @@ require_once 'ModelBase.php';
 class User extends ModelBase {
 	public static $table = "users";
 
-	/**
+	/*
 	 * Tamaños del avatar
 	 */
-	const AVATAR_SIZE_DEFAULT = 96;
+	const AVATAR_SIZE_ICO = 26;
 
-	const AVATAR_SIZE_ICO = 32;
+	const AVATAR_SIZE_PEQUENO = 64;
+
+	const AVATAR_SIZE_DEFAULT = 96;
 
 	const AVATAR_SIZE_PERFIL = 190;
 
-	/**
+	/*
 	 * Tamaño por defecto para el header
 	 */
 	const IMG_HEADER_HEIGHT_DEFAULT = 270;
 
 	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
-	/**
+	/*
 	 * Claves de los metadatos
 	 */
 	const KEY_USER_TWITTER = 'tw_txt';
@@ -48,7 +50,7 @@ class User extends ModelBase {
 
 	const KEY_USER_TIPO = 'tipo_usuario';
 
-	/**
+	/*
 	 * Tipos de Usuario
 	 */
 	const TIPO_USUARIO = 'user';
@@ -61,24 +63,24 @@ class User extends ModelBase {
 
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
-	/**
+	/*
 	 * Número de post favoritos a mostrar en su perfil
 	 */
 	const NUM_FAV_PERFIL_DEFAULT = 2;
 
-	/**
+	/*
 	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
 	 */
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
-	/**
+	/*
 	 * Número de palabras para la descripción corta
 	 */
 	const NUM_DESCRIPTION_CORTA = 11;
 
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
-	/**
+	/*
 	 * Roles posibles
 	 */
 	const ROL_SUPER_ADMIN = 'super admin';
@@ -95,6 +97,8 @@ class User extends ModelBase {
 
 	/**
 	 * Devuelve el número total de posts publicados por el User
+	 *
+	 * @return integer
 	 */
 	public function getCountPosts() {
 		return count_user_posts($this->ID);
@@ -143,19 +147,78 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve un array con todos los tamaños que puede tener un avatar
+	 *
+	 * @return array<integer>
+	 */
+	private function _getTamanosAvatar() {
+		return [
+			32, // Era el tamaño del antiguo ICO, ahora es 26. Dejo esto para que los futuros avatares
+			// Se borren cuando se cambien. Recordar eliminar este número en un tiempo
+			self::AVATAR_SIZE_ICO,
+			self::AVATAR_SIZE_PEQUENO,
+			self::AVATAR_SIZE_DEFAULT,
+			self::AVATAR_SIZE_PERFIL
+		];
+	}
+
+	/**
 	 * Quitar la ImgHeader y la elimina del server
 	 */
 	private function _quitarImg($keyUserImg = self::KEY_USER_IMG_HEADER) {
 		// Para eliminar el fichero lo guardamos en una var temporal
-		$imgHeader = $this->_getImgPath($keyUserImg);
-		if (isset($imgHeader ['base']) && !empty($imgHeader ['base'])) {
-			unlink($imgHeader ['base']);
+		$_getImgPath = $this->_getImgPath($keyUserImg);
+		$sizes = self::_getTamanosAvatar();
+		foreach ($sizes as $size) {
+			$imgPath = $_getImgPath ['virgen'] . "-{$size}x{$size}" . $_getImgPath ['ext'];
+			if (file_exists($imgPath)) {
+				unlink($imgPath);
+			}
 		}
-		if (isset($imgHeader ['actual']) && !empty($imgHeader ['actual'])) {
-			unlink($imgHeader ['actual']);
+
+		if (file_exists($_getImgPath ['base'])) {
+			unlink($_getImgPath ['base']);
 		}
+
+		if (file_exists($_getImgPath ['actual'])) {
+			unlink($_getImgPath ['actual']);
+		}
+
 		// Y lo quitamos de su meta
 		delete_user_meta($this->ID, $keyUserImg);
+	}
+
+	/**
+	 * Devuelvo el nombre de la img base del header y el nombre de la img actual del header.
+	 *
+	 * Ejemplo [
+	 * 'actual' => 'Chemaclass_header-353x200.png',
+	 * 'base' => 'Chemaclass_header.png',
+	 * 'virgen' => 'Chemaclass_img_header',
+	 * 'ext' => '.png',
+	 * ];
+	 *
+	 * @return array<string> Lista con el nombre 'base' y 'actual'.
+	 */
+	private function _getImgPath($keyUserImg = self::KEY_USER_IMG_HEADER) {
+		$upload_path = wp_upload_dir();
+		$img = $this->_getImg($keyUserImg);
+		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $img);
+		$actual = $base = basename($path);
+		if (strpos($base, '-') !== false) {
+			preg_match('/\.[^\.]+$/i', $actual, $ext);
+			$_base = substr($base, 0, strpos($base, "-")) . $ext [0];
+			$pathBase = str_replace($actual, $_base, $path);
+		}
+		// y la ruta virgen
+		$_base_virgen = substr($base, 0, strpos($base, "-"));
+		$virgen = str_replace($actual, $_base_virgen, $path);
+		return [
+			'actual' => $path,
+			'base' => $pathBase,
+			'virgen' => $virgen,
+			'ext' => $ext [0]
+		];
 	}
 
 	/**
@@ -185,7 +248,7 @@ class User extends ModelBase {
 	 */
 	private function _setImg($keyUserImgHeader = self::KEY_USER_IMG_HEADER, $imgHeader) {
 		// Si es false se la quita y además es null la borrará del servidor
-		if (!$imgHeader) {
+		if (!$imgHeader || is_null($imgHeader)) {
 			$this->_quitarImg($keyUserImgHeader);
 			return;
 		}
@@ -265,31 +328,6 @@ class User extends ModelBase {
 			$local_avatars [$sizeW] = home_url($local_avatars [$sizeW]);
 		}
 		return esc_url($local_avatars [$sizeW]);
-	}
-
-	/**
-	 * Devuelvo el nombre de la img base del header y el nombre de la img actual del header.
-	 * Ejemplo [
-	 * 'base' => 'Chemaclass_header.png',
-	 * 'actual' => 'Chemaclass_header-353x200.png'
-	 * ];
-	 *
-	 * @return array<string> Lista con el nombre 'base' y 'actual'.
-	 */
-	private function _getImgPath($keyUserImg = self::KEY_USER_IMG_HEADER) {
-		$upload_path = wp_upload_dir();
-		$img = $this->_getImg($keyUserImg);
-		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $img);
-		$actual = $base = basename($path);
-		if (strpos($base, '-') !== false) {
-			preg_match('/\.[^\.]+$/i', $actual, $ext);
-			$base = substr($base, 0, strpos($base, "-")) . $ext [0];
-			$pathBase = str_replace($actual, $base, $path);
-		}
-		return [
-			'base' => $pathBase,
-			'actual' => $path
-		];
 	}
 
 	/**

@@ -53,38 +53,6 @@ $(document).on('click', '.dispara-revision', function(e) {
 	});
 });
 
-$(document).on('click','.quitar-header', function(e) {
-	e.preventDefault();
-	var $this = $(this);
-	if(!confirm('¿Estás seguro de querer quitarte el header?')){
-		return;
-	}
-	var url = $this.attr('url');
-	var que = $this.attr('que');
-	var user = $this.attr('user');
-	var data = {
-		submit : 'admin-panel-user',
-		que : que,
-		user : user
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		success : function(json) {			
-			var header = $('.img-header img');
-			header.attr('src','');
-			header.addClass('sin-thumbnail');			
-		},
-		error : function(xhr, ajaxOptions, thrownError) {
-			console.log("status: " + xhr.status + ",\n responseText: "
-					+ xhr.responseText + ",\n thrownError "
-					+ thrownError);
-		}
-	});
-});
-
 /**
  * Hacer colaborador a un suscriptor
  */

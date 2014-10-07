@@ -409,7 +409,7 @@ class Acciones {
 	public static function sobrescribirGetAvatar() {
 		// Añadiendo este filtro de WP sobrescribo el comportamiento del get_avatar que tiene WP interno.
 		// De esta forma se obtendrán los avatares directamente del modelo
-		add_filter('get_avatar', function ($avatar = '', $id_or_email, $size = 96, $default = '', $alt = '') {
+		add_filter('get_avatar', function ($avatar = '', $id_or_email, $size = User::AVATAR_SIZE_DEFAULT, $default = '', $alt = '') {
 			if (is_numeric($id_or_email)) {
 				$user_id = ( int ) $id_or_email;
 			} elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) {
