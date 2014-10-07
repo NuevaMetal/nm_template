@@ -102,6 +102,11 @@ class Acciones {
 
 	public static function perfilAddImgHeader() {
 
+		// Añado el enctype para poder pasar las imágenes por el formulario
+		add_action('user_edit_form_tag', function () {
+			echo 'enctype="multipart/form-data"';
+		});
+
 		function nm_perfil_add_img_header($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
@@ -116,10 +121,6 @@ class Acciones {
 	 * Añado las imágenes de avatar y header al perfil del User
 	 */
 	public static function perfilUpdateImgHeader() {
-		// Añado el enctype para poder pasar las imágenes por el formulario
-		add_action('user_edit_form_tag', function () {
-			echo 'enctype="multipart/form-data"';
-		});
 
 		function nm_perfil_update_img($user_ID, $keyUserImg) {
 			//Primero comprobamos que el user tenga permisos y exista la clave en los FILES

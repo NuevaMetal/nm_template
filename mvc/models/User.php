@@ -82,17 +82,10 @@ class User extends ModelBase {
 	}
 
 	/**
-	 * Quita el avatar al User
+	 * Establecer un nuevo avatar al User
 	 *
-	 * @deprecated Utilizar setAvatar(null)
-	 * @see User::setAvatar()
+	 * @param FILE $newAvatar
 	 */
-	public function quitarAvatar() {
-		if (!delete_user_meta($this->ID, 'simple_local_avatar')) {
-			Utils::debug("> No se pudo borrar el avatar");
-		}
-	}
-
 	public function setAvatar($newAvatar = false) {
 		$this->_setImg(self::KEY_USER_IMG_AVATAR, $newAvatar);
 	}
