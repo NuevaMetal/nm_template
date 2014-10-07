@@ -403,4 +403,17 @@ class Utils {
 		return str_replace(get_home_url(), '', esc_url($url));
 	}
 
+	/**
+	 * Devuelve true si es una cadena válida
+	 *
+	 * isset(str) && is_string($str) && strlen($str) > 0);
+	 *
+	 * @param string $str
+	 *        Cadena a comprobar
+	 * @return boolean true si es válida, false en caso contrario
+	 */
+	public static function cadenaValida($str = '') {
+		return (isset($str) && is_string($str) && strlen($str) > 0);
+	}
+
 }

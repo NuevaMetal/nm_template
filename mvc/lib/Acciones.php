@@ -401,6 +401,32 @@ class Acciones {
 		}, 10, 2);
 	}
 
+	/**
+	 * Sobreescribo el get_avatar de WP
+	 *
+	 * @return string
+	 */
+	public static function sobrescribirGetAvatar() {
+		// Añadiendo este filtro de WP sobrescribo el comportamiento del get_avatar que tiene WP interno.
+		// De esta forma se obtendrán los avatares directamente del modelo
+		add_filter('get_avatar', function ($avatar = '', $id_or_email, $size = 96, $default = '', $alt = '') {
+			if (is_numeric($id_or_email)) {
+				$user_id = ( int ) $id_or_email;
+			} elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) {
+				$user_id = $user->ID;
+			} elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) {
+				$user_id = ( int ) $id_or_email->user_id;
+			}
+			$user = User::find($user_id);
+			if (!Utils::cadenaValida($alt)) {
+				$alt = $user->display_name . ' avatar';
+			}
+			$img = '<img alt="' . esc_attr($alt) . '" src="' . $user->getAvatar($size) . '" ';
+			$img .= 'class="avatar photo" height="' . $size . '" width="' . $size . '">';
+			return $img;
+		}, 10, 5);
+	}
+
 }
 
 Acciones::userRegister();
@@ -420,3 +446,5 @@ Acciones::cambiarSlugBaseDelAutorPorSuTipo();
 Acciones::registerForm();
 
 Acciones::impedirLoginSiUserBloqueado();
+
+Acciones::sobrescribirGetAvatar();
