@@ -1,19 +1,33 @@
 <?php
 require_once 'ModelBase.php';
 /**
+ * Modelo que representa un Usuario
  *
- * @author chema
+ * @author José María Valera Reales <@Chemaclass>
  *
  */
 class User extends ModelBase {
 	public static $table = "users";
 
+	/**
+	 * Tamaños del avatar
+	 */
 	const AVATAR_SIZE_DEFAULT = 96;
 
 	const AVATAR_SIZE_ICO = 32;
 
 	const AVATAR_SIZE_PERFIL = 190;
 
+	/**
+	 * Tamaño por defecto para el header
+	 */
+	const IMG_HEADER_HEIGHT_DEFAULT = 270;
+
+	const IMG_HEADER_WIDTH_DEFAULT = 1200;
+
+	/**
+	 * Claves de los metadatos
+	 */
 	const KEY_USER_TWITTER = 'tw_txt';
 
 	const KEY_USER_FACEBOOK = 'fb_txt';
@@ -34,10 +48,9 @@ class User extends ModelBase {
 
 	const KEY_USER_TIPO = 'tipo_usuario';
 
-	const IMG_HEADER_WIDTH_DEFAULT = 1200;
-
-	const IMG_HEADER_HEIGHT_DEFAULT = 270;
-
+	/**
+	 * Tipos de Usuario
+	 */
 	const TIPO_USUARIO = 'user';
 
 	const TIPO_BANDA = 'band';
@@ -58,10 +71,16 @@ class User extends ModelBase {
 	 */
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
+	/**
+	 * Número de palabras para la descripción corta
+	 */
 	const NUM_DESCRIPTION_CORTA = 11;
 
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
+	/**
+	 * Roles posibles
+	 */
 	const ROL_SUPER_ADMIN = 'super admin';
 
 	const ROL_ADMIN = 'administrator';
@@ -105,10 +124,20 @@ class User extends ModelBase {
 		return $avatar;
 	}
 
+	/**
+	 * Devuelve la url del avatar para el perfil
+	 *
+	 * @return string
+	 */
 	public function getAvatarPerfil() {
 		return $this->getAvatar(self::AVATAR_SIZE_PERFIL);
 	}
 
+	/**
+	 * Devuelve la url del avatar tipo icono
+	 *
+	 * @return string
+	 */
 	public function getAvatarIco() {
 		return $this->getAvatar(self::AVATAR_SIZE_ICO);
 	}
@@ -144,7 +173,6 @@ class User extends ModelBase {
 	 * @param file $imgHeader
 	 */
 	public function setImgHeader($imgHeader) {
-		Utils::debug("> setImgHeader(img)");
 		$this->_setImg(self::KEY_USER_IMG_HEADER, $imgHeader);
 	}
 
@@ -156,7 +184,6 @@ class User extends ModelBase {
 	 * @throws Exception
 	 */
 	private function _setImg($keyUserImgHeader = self::KEY_USER_IMG_HEADER, $imgHeader) {
-
 		// Si es false se la quita y además es null la borrará del servidor
 		if (!$imgHeader) {
 			$this->_quitarImg($keyUserImgHeader);
@@ -283,6 +310,11 @@ class User extends ModelBase {
 		return get_the_author_meta('description', $this->ID);
 	}
 
+	/**
+	 * Devuelve la descripción corta
+	 *
+	 * @return string
+	 */
 	public function getDescriptionCorta() {
 		return Utils::cortarStr($this->getDescription(), self::NUM_DESCRIPTION_CORTA);
 	}
@@ -363,6 +395,11 @@ class User extends ModelBase {
 		);
 	}
 
+	/**
+	 * Devuelve todos los roles permitidos
+	 *
+	 * @return array<string>
+	 */
 	public static function getRolesPermitidos() {
 		return [
 			self::ROL_ADMIN,
@@ -513,13 +550,25 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function tieneRedes() {
-		$redes = $this->getUrl();
-		$redes .= $this->getTwitter();
-		$redes .= $this->getFacebook();
-		$redes .= $this->getGooglePlus();
-		$redes .= $this->getSoundcloud();
-		$redes .= $this->getYoutube();
-		return strlen($redes) > 0;
+		if (strlen($this->getUrl())) {
+			return true;
+		}
+		if (strlen($this->getTwitter())) {
+			return true;
+		}
+		if (strlen($this->getFacebook())) {
+			return true;
+		}
+		if (strlen($this->getGooglePlus())) {
+			return true;
+		}
+		if (strlen($this->getSoundcloud())) {
+			return true;
+		}
+		if (strlen($this->getYoutube())) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
