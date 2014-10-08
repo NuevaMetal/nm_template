@@ -94,7 +94,7 @@ $(document).on('click','.hacer-colaborador', function(e) {
 $(document).on('click','.quitar-header, .quitar-avatar, .bloquear, .desbloquear', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	if(!confirm('¿Estás seguro de querer '+$this.text().toUpperCase()+' a este usuario?')){
+	if(!confirm('¿Estás seguro de que quieres '+$this.text().toUpperCase()+'?')){
 		return;
 	}
 	var url = $this.attr('url');
