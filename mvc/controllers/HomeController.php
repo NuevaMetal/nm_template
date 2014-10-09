@@ -31,41 +31,16 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHomePorSecciones() {
-		$bandas = self::getSeccion(Post::CATEGORY_BANDAS, 4);
-
-		$videos = self::getSeccion(Post::CATEGORY_VIDEOS, 4);
-
-// 		$entrevistas = self::getSeccion(Post::CATEGORY_ENTREVISTAS, 2, [
-// 			'reducido' => true
-// 		]);
-
-		$noticias = self::getSeccion(Post::CATEGORY_NOTICIAS, 2, [
-			'reducido' => true
-		]);
-
-// 		$conciertos = self::getSeccion(Post::CATEGORY_CONCIERTOS, 2, [
-// 			'reducido' => true
-// 		]);
-
-		$criticas = self::getSeccion(Post::CATEGORY_CRITICAS, 2, [
-			'reducido' => true
-		]);
-
-// 		$cronicas = self::getSeccion(Post::CATEGORY_CRONICAS, 2, [
-// 			'reducido' => true
-// 		]);
-
-		$content = $this->_render('home', [
-			Post::CATEGORY_BANDAS => $bandas,
-			Post::CATEGORY_VIDEOS => $videos,
-			Post::CATEGORY_CRITICAS => $criticas,
-// 			Post::CATEGORY_CRONICAS => $cronicas,
-			Post::CATEGORY_NOTICIAS => $noticias,
-// 			Post::CATEGORY_CONCIERTOS => $conciertos,
-			//Post::CATEGORY_ENTREVISTAS => $entrevistas
-		]);
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->_render('home', [
+				'bandas' => true,
+				'videos' => true,
+				'criticas' => true,
+				'noticias' => true,
+				'cronicas' => true,
+				'conciertos' => true,
+				'entrevistas' => true
+			])
 		]);
 	}
 
@@ -79,7 +54,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getSeccion($seccion, $cant = 4, $args = [], $otherParams = []) {
+	public static function getSeccion($seccion, $cant = 4, $args = []) {
 		$args ['imagen'] = strtolower($seccion);
 		$args ['seccion'] = strtolower($seccion);
 		$args ['a_buscar'] = strtolower($seccion);
@@ -97,7 +72,7 @@ class HomeController extends BaseController {
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_CATEGORY;
 		$args ['template_url'] = get_template_directory_uri();
-		$args ['posts'] = self::getPostsByCategory($seccion, $cant, [], $otherParams);
+		$args ['posts'] = self::getPostsByCategory($seccion, $cant, []);
 		return $args;
 	}
 
@@ -111,7 +86,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getTags($seccion, $cant = 4, $args = [], $otherParams = []) {
+	public static function getTags($seccion, $cant = 4, $args = []) {
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'busqueda';
 		$args ['a_buscar'] = strtolower($seccion);
@@ -122,7 +97,7 @@ class HomeController extends BaseController {
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_TAG;
 		$args ['template_url'] = get_template_directory_uri();
-		$args ['posts'] = self::getPostsByTag($seccion, $cant, [], $otherParams);
+		$args ['posts'] = self::getPostsByTag($seccion, $cant, []);
 		return $args;
 	}
 
@@ -136,7 +111,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getBusqueda($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+	public static function getBusqueda($aBuscar, $cant = 4, $args = []) {
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'busqueda';
 		$args ['a_buscar'] = $aBuscar;
@@ -146,18 +121,18 @@ class HomeController extends BaseController {
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_SEARCH;
 		$args ['template_url'] = get_template_directory_uri();
-		$args ['posts'] = self::getPostsBySearch($aBuscar, $cant, [], $otherParams);
+		$args ['posts'] = self::getPostsBySearch($aBuscar, $cant, []);
 		return $args;
 	}
 
-	public static function getAutor($aBuscar, $cant = 4, $args = [], $otherParams = []) {
+	public static function getAutor($aBuscar, $cant = 4, $args = []) {
 		$args ['imagen'] = 'noimage';
 		$args ['seccion'] = 'autor';
 		$args ['a_buscar'] = $aBuscar;
 		$args ['cant'] = $cant;
 		$args ['tipo'] = Utils::TIPO_AUTHOR;
 		$args ['template_url'] = get_template_directory_uri();
-		$args ['posts'] = self::getPostsByAuthor($aBuscar, $cant, [], $otherParams);
+		$args ['posts'] = self::getPostsByAuthor($aBuscar, $cant, []);
 		return $args;
 	}
 
@@ -170,20 +145,20 @@ class HomeController extends BaseController {
 	 *        número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings, $otherParams);
+	public static function getPostsByCategory($seccion, $max = 4, $moreQuerySettings = []) {
+		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings);
 	}
 
-	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings, $otherParams);
+	public static function getPostsByTag($seccion, $max = 4, $moreQuerySettings = []) {
+		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings);
 	}
 
-	public static function getPostsBySearch($aBuscar, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings, $otherParams);
+	public static function getPostsBySearch($aBuscar, $max = 4, $moreQuerySettings = []) {
+		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings);
 	}
 
-	public static function getPostsByAuthor($autor_id, $max = 4, $moreQuerySettings = [], $otherParams = []) {
-		return self::getPostsBy(Utils::TIPO_AUTHOR, $autor_id, $max, $moreQuerySettings, $otherParams);
+	public static function getPostsByAuthor($autor_id, $max = 4, $moreQuerySettings = []) {
+		return self::getPostsBy(Utils::TIPO_AUTHOR, $autor_id, $max, $moreQuerySettings);
 	}
 
 	/**
@@ -195,7 +170,7 @@ class HomeController extends BaseController {
 	 *        número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = [], $otherParams = []) {
+	private static function getPostsBy($tipo, $seccion, $max = 4, $moreQuerySettings = []) {
 		if ($tipo == Utils::TIPO_TAG) {
 			$tagId = Utils::getTagIdbyName($seccion);
 			$moreQuerySettings ['tag_id'] = "$tagId";
@@ -207,7 +182,7 @@ class HomeController extends BaseController {
 		} elseif ($tipo == Utils::TIPO_AUTHOR) {
 			$moreQuerySettings ['author'] = $seccion;
 		}
-		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings, $otherParams);
+		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
 	}
 
 }

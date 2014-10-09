@@ -51,6 +51,8 @@ function seHaceScroll(){
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
+	// Si estamos en la home no cargaremos el mostrar más de forma automática
+	if($('#home').length>0)return;
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var alturaMenosScroll = (documentHeight - windowHeight)-scroll;
 	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
@@ -61,6 +63,7 @@ function seHaceScroll(){
 		$('#autor .mostrar-mas').trigger('click');
 	}
 }
+
 /**
  * Cuando se hace scroll y se deja de ver el header
  */
@@ -327,4 +330,48 @@ $(document).ready(function() {
 		scrollOn()
 		scrollOff()
 	}
+	
+	if ($("#home").length > 0){
+		cargarSecciones();
+	}
 });
+
+/**
+ * Cargar las secciones
+ */
+function cargarSecciones() {
+	cargarSeccion('bandas', 4);
+	cargarSeccion('videos', 4);
+	cargarSeccion('criticas', 2);
+	cargarSeccion('noticias', 2);
+	cargarSeccion('conciertos', 2);
+	cargarSeccion('cronicas', 2);
+	cargarSeccion('entrevistas', 4);
+}
+
+function cargarSeccion(nombreSeccion, cant){
+	var seccion = $('#'+nombreSeccion);
+	if(seccion.length==0) return; // Si no existe el elemento no hacemos nada
+	var url = seccion.attr('url');
+	var data = {
+		submit : 'home',
+		seccion : nombreSeccion,
+		cant : cant
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			seccion.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			seccion.find('.seccion_contenido').html(json.seccion);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+}

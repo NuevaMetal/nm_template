@@ -365,6 +365,13 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						break;
 				}
 				break;
+			case Ajax::HOME :
+				$nombreSeccion = $_datos ['seccion'];
+				$cantidad = $_datos ['cant'];
+				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
+				$argsSeccion ['reducido'] = ($cantidad == 2) ? true : false;
+				$json ['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
+				break;
 			default :
 				$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}

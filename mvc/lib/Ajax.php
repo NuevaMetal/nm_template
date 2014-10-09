@@ -3,23 +3,29 @@ class Ajax {
 
 	const ANALITICA = "analitica";
 
+	const ADMIN_PANEL_USER = 'admin-panel-user';
+
 	const ANALITICA_PERFIL_POST_PUBLICADOS_MES = 'analitica-perfil-post-publicados-mes';
 
-	const ME_GUSTA = "me-gusta";
+	const BLOQUEAR = 'bloquear';
 
-	const NOTIFICAR = "notificar";
+	const BORRAR_COLABORADOR_PENDIENTE = 'borrar';
 
-	const SER_COLABORADOR = 'ser-colaborador';
-
-	const MOSTRAR_MAS = "mostrar-mas";
+	const DESBLOQUEAR = 'desbloquear';
 
 	const HACER_COLABORADOR = 'hacer-colaborador';
 
-	const RECHAZAR_COLABORADOR = 'rechazar-colaborador';
-
 	const HACER_PENDIENTE_COLABORADOR = 'hacer-pendiente';
 
-	const BORRAR_COLABORADOR_PENDIENTE = 'borrar';
+	const HOME = 'home';
+
+	const ME_GUSTA = "me-gusta";
+
+	const MOSTRAR_MAS = "mostrar-mas";
+
+	const NOTIFICAR = "notificar";
+
+	const RECHAZAR_COLABORADOR = 'rechazar-colaborador';
 
 	const REVISION = "revision";
 
@@ -29,11 +35,7 @@ class Ajax {
 
 	const QUITAR_HEADER = 'quitar-header';
 
-	const BLOQUEAR = 'bloquear';
-
-	const DESBLOQUEAR = 'desbloquear';
-
-	const ADMIN_PANEL_USER = 'admin-panel-user';
+	const SER_COLABORADOR = 'ser-colaborador';
 
 	/**
 	 * JSON para Morris
