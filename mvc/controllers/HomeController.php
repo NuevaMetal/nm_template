@@ -35,11 +35,11 @@ class HomeController extends BaseController {
 			'content' => $this->_render('home', [
 				'bandas' => true,
 				'videos' => true,
+				//'conciertos' => true,
+				//'cronicas' => true,
+				//'entrevistas' => true,
 				'criticas' => true,
-				'noticias' => true,
-				'cronicas' => true,
-				'conciertos' => true,
-				'entrevistas' => true
+				'noticias' => true
 			])
 		]);
 	}
