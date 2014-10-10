@@ -12,25 +12,8 @@ class HomeController extends BaseController {
 
 	/**
 	 * home.php
-	 *
-	 * @deprecated por nueva maquetación
-	 * @see HomeController::getHomePorSecciones()
 	 */
 	public function getHome() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		$content = $this->_renderBusqueda([
-			'posts' => $posts
-		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * home.php
-	 */
-	public function getHomePorSecciones() {
 		return $this->_renderPageBase([
 			'content' => $this->_render('home', [
 				'bandas' => true,
