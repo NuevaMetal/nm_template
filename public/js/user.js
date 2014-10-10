@@ -30,3 +30,16 @@ function crearMorrisUser(elementId, json) {
 		resize : true,
 	});
 }
+
+/**
+ * Animar los iconos para editar
+ */
+$(document).on('mouseover', '.autor .row', function(e) {
+	e.preventDefault();
+	$(this).find('.btn-xs').parent().removeClass('hidden');
+});
+
+$(document).on('mouseleave', '.autor .row', function(e) {
+	e.preventDefault();
+	$(this).find('.btn-xs').parent().addClass('hidden');
+});

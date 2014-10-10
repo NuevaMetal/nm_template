@@ -289,6 +289,8 @@ class Acciones {
 
 			//Añado un id a la sección de "Acerca de ti"
 			$subject = str_replace('<h3>Acerca de ti</h3>', '<h3 id="acerca-de-ti">Acerca de ti</h3>', $subject);
+			// Añado un id a la sección de "Nombre"
+			$subject = str_replace('<h3>Nombre</h3>', '<h3 id="nombre">Nombre</h3>', $subject);
 			return $subject;
 		}
 

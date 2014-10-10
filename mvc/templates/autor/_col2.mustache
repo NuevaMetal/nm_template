@@ -9,8 +9,10 @@
 				{{/getDescription}}
 			</p>
 			{{#isCurrentUser}}
+			<span class="hidden">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#acerca-de-ti" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+			</span>
 			{{/isCurrentUser}}
 		</blockquote>
 	</div>
@@ -49,8 +51,8 @@
 <script src="{{template_url}}/public/js/user.js"></script>
 
 <script>
-	$(document).ready(function() {
-		var url = "{{template_url}}/ajax.php?submit={{ANALITICA_PERFIL_POST_PUBLICADOS_MES}}&user={{user.ID}}&cant=30";
-		pintarMorrisUser("entradas-publicadas", url);
-	});
+$(document).ready(function() {
+	var url = "{{template_url}}/ajax.php?submit={{ANALITICA_PERFIL_POST_PUBLICADOS_MES}}&user={{user.ID}}&cant=30";
+	pintarMorrisUser("entradas-publicadas", url);
+});
 </script>
