@@ -19,6 +19,8 @@
 
 * Necesitas instalar una librería gráfica para poder utilizar el editor de imágenes
 	apt-get install php5-imagick php5-gd
+	service apache2 reload 
+
 
 
 
