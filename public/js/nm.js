@@ -347,9 +347,9 @@ $(window).load(function(){
  * Cargar las secciones
  */
 function cargarSecciones() {
-	setTimeout(function() {
-		cargarSeccion('bandas', 4);
-	}, 500);
+	
+	cargarSeccion('bandas', 4);
+	
 	setTimeout(function() {
 		cargarSeccion('videos', 4);		
 	}, 1000);
@@ -360,10 +360,10 @@ function cargarSecciones() {
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);
-	}, 3000);
+	}, 4000);
 	setTimeout(function() {
 		cargarSeccion('entrevistas', 4);
-	}, 4000);
+	}, 5500);
 }
 
 function cargarSeccion(nombreSeccion, cant){
