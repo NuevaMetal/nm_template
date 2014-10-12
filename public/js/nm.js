@@ -333,11 +333,14 @@ $(document).ready(function() {
 		seHaceScroll();
 	}, 10);
 
+});
+
+$(window).load(function(){
 	if ($("#home").length > 0){
 		setTimeout(function() {
 			cargarSecciones();
 		}, 1000);
-	}	
+	}
 });
 
 /**
@@ -346,21 +349,21 @@ $(document).ready(function() {
 function cargarSecciones() {
 	setTimeout(function() {
 		cargarSeccion('bandas', 4);
-	}, 1000);
+	}, 500);
 	setTimeout(function() {
 		cargarSeccion('videos', 4);		
-	}, 2500);
+	}, 1000);
 	setTimeout(function() {
 		cargarSeccion('criticas', 2);
 		cargarSeccion('cronicas', 2);
-	}, 4000);
+	}, 2500);
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);
-	}, 6000);
+	}, 3000);
 	setTimeout(function() {
 		cargarSeccion('entrevistas', 4);
-	}, 8000);
+	}, 4000);
 }
 
 function cargarSeccion(nombreSeccion, cant){
