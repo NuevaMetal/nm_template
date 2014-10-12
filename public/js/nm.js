@@ -346,19 +346,21 @@ $(document).ready(function() {
 function cargarSecciones() {
 	setTimeout(function() {
 		cargarSeccion('bandas', 4);
-		cargarSeccion('videos', 4);
 	}, 1000);
+	setTimeout(function() {
+		cargarSeccion('videos', 4);		
+	}, 2500);
 	setTimeout(function() {
 		cargarSeccion('criticas', 2);
 		cargarSeccion('cronicas', 2);
-	}, 3000);
+	}, 4000);
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);
-	}, 5000);
+	}, 6000);
 	setTimeout(function() {
 		cargarSeccion('entrevistas', 4);
-	}, 7000);
+	}, 8000);
 }
 
 function cargarSeccion(nombreSeccion, cant){
