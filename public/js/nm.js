@@ -327,16 +327,16 @@ $(document).ready(function() {
 		scrollOn()
 		scrollOff()
 	}
-	
+
 	// Pongo esto porque si no no hace caso
 	setTimeout(function() {
 		seHaceScroll();
 	}, 10);
-	
+
 	if ($("#home").length > 0){
 		setTimeout(function() {
 			cargarSecciones();
-		}, 500);
+		}, 1000);
 	}	
 });
 
