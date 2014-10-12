@@ -355,8 +355,10 @@ function cargarSecciones() {
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);
-		cargarSeccion('entrevistas', 4);
 	}, 5000);
+	setTimeout(function() {
+		cargarSeccion('entrevistas', 4);
+	}, 7000);
 }
 
 function cargarSeccion(nombreSeccion, cant){
