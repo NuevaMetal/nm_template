@@ -23,6 +23,8 @@ return [
 
 	'quieres_escribir' => '¿Quieres escribir?',
 
+	'se_unio_en' => 'Se unió en :mes de :ano',
+
 	'tipo_usuario' => 'Tipo de usuario',
 
 	'ultimos_fav_dados' => 'Últimos favoritos dados'

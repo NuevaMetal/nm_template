@@ -3,46 +3,27 @@
  * Clase con utilidades
  *
  * @author chemaclass
- *
- *
  */
 class Utils {
-
 	const SI = 'si';
-
 	const NO = 'no';
-
 	const ACTIVO = 0;
-
 	const BORRADO = 1;
-
 	const HOY = 'hoy';
-
 	const AYER = 'ayer';
-
 	const TIPO_TAG = 'tag';
-
 	const TIPO_CATEGORY = 'category';
-
 	const TIPO_SEARCH = 'search';
-
 	const TIPO_AUTHOR = 'author';
-
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
-
 	const CATEGORIA_CRITICAS = "criticas";
-
 	const CATEGORIA_CRONICAS = "cronicas";
-
 	const CATEGORIA_CONCIERTOS = "conciertos";
-
 	const CATEGORIA_ENTREVISTAS = "entrevistas";
-
 	const CATEGORIA_NOTICIAS = "noticias";
-
 	const CATEGORIA_VIDEOS = "videos";
 
 	/**
@@ -88,22 +69,22 @@ class Utils {
 	 * devuelve el contenido de un texto etiquetadoencontrado entre las etiquetas especificadas
 	 *
 	 * @param string $string
-	 *        contenido a buscar
+	 *        	contenido a buscar
 	 * @param string $tagname
-	 *        etiqueta a buscar
+	 *        	etiqueta a buscar
 	 * @return string contenido en dicha etiqueta
 	 */
 	public static function getTextBetweenTags($string, $tagname) {
 		$pattern = "/<$tagname ?.*>(.*)<\/$tagname>/";
 		preg_match($pattern, $string, $matches);
-		return $matches [1];
+		return $matches[1];
 	}
 
 	/**
 	 * Función para info
 	 *
 	 * @param string $str
-	 *        Cadena a pintar
+	 *        	Cadena a pintar
 	 */
 	public static function info($str) {
 		error_log(" INFO - " . $str);
@@ -113,7 +94,7 @@ class Utils {
 	 * Función para DEBUG
 	 *
 	 * @param string $str
-	 *        Cadena a pintar
+	 *        	Cadena a pintar
 	 */
 	public static function debug($str) {
 		error_log(" DEBUG - " . $str);
@@ -123,7 +104,7 @@ class Utils {
 	 * Función para las Excepciones
 	 *
 	 * @param string $str
-	 *        Cadena a pintar
+	 *        	Cadena a pintar
 	 */
 	public static function exception($str) {
 		error_log(" EXCEPTION - " . $str);
@@ -133,7 +114,7 @@ class Utils {
 	 * Devuelve un array con los roles de un User apartir de su ID
 	 *
 	 * @param integer $uid
-	 *        ID del User
+	 *        	ID del User
 	 * @return array<string> Roles del user
 	 * @deprecated Por nueva metodología
 	 * @see User::getRol()
@@ -144,22 +125,22 @@ class Utils {
 				FROM {$wpdb->usermeta}
 		WHERE meta_key = 'wp_capabilities'
 		AND user_id = {$uid}");
-		if (!$role)
+		if (! $role)
 			return 'non-user';
 		$rarr = unserialize($role);
 		$roles = is_array($rarr) ? array_keys($rarr) : array(
 			'non-user'
 		);
-		return $roles [0];
+		return $roles[0];
 	}
 
 	/**
 	 * Comprueba que un User tenga un rol
 	 *
 	 * @param integer $user_id
-	 *        ID del user
+	 *        	ID del user
 	 * @param array<string> $roles
-	 *        Lista de roles a comprobar
+	 *        	Lista de roles a comprobar
 	 * @return boolean
 	 */
 	public static function isUserRol($user_id, $roles) {
@@ -220,17 +201,15 @@ class Utils {
 	 * Devuelve el idioma actual del navegador.
 	 *
 	 * @return string Los dos primeros chars. Ej: es, en, fr
-	 *
 	 */
 	public static function getLangBrowser() {
-		return substr($_SERVER ['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+		return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 	}
 
 	/**
 	 * Devuelve el idioma actual del navegador en su forma convencional.
 	 *
 	 * @return string Los 5 primeros chars. Ej: es_ES, en_EN, fr_FR
-	 *
 	 */
 	public static function getLangBrowserFull() {
 		$l = static::getLangBrowser();
@@ -254,9 +233,9 @@ class Utils {
 	 * Devuelve un número de palabras de un string
 	 *
 	 * @param string $str
-	 *        Cadena en la que buscar las palabras
+	 *        	Cadena en la que buscar las palabras
 	 * @param number $cant
-	 *        Cantidad de palabras que queremos obtener
+	 *        	Cantidad de palabras que queremos obtener
 	 * @return string Cadena 'limitada' al número de palabras especificadas
 	 */
 	public static function cortarStr($str, $cant, $separador = ' ') {
@@ -273,7 +252,7 @@ class Utils {
 		// Si el content fuese más largo que el extracto, concatenar '...'
 		if (count($palabras) > $cant) {
 			array_pop($palabras);
-			$palabras [] = '...';
+			$palabras[] = '...';
 		}
 		// Obtengo el extracto del contenido juntando todas las palabras unidas por un espacio
 		return implode($separador, $palabras);
@@ -328,7 +307,7 @@ class Utils {
 				if ($entry != "." && $entry != ".." && is_file("$DIR_MODELS/$entry")) {
 					$class = self::generaNombreModelo($entry);
 					if (strlen($class) > 0) {
-						$models [] = $class;
+						$models[] = $class;
 					}
 				}
 			}
@@ -341,7 +320,7 @@ class Utils {
 	 * Obtener el nombre del fichero del modelo.
 	 *
 	 * @param string $entry
-	 *        Nombre del fichero con su extensión
+	 *        	Nombre del fichero con su extensión
 	 * @return string nombre de la clase del fichero.
 	 */
 	private static function generaNombreModelo($entry) {
@@ -353,13 +332,13 @@ class Utils {
 	 * Traduce una lista de valores con su correspondiente I18n
 	 *
 	 * @param array $lista
-	 *        Lista a traducir
+	 *        	Lista a traducir
 	 * @return array Lista traducida
 	 */
 	public static function traducirLista($lista) {
 		$result = [];
 		foreach ($lista as $l) {
-			$result [] = I18n::trans($l);
+			$result[] = I18n::trans($l);
 		}
 		return $result;
 	}
@@ -368,13 +347,13 @@ class Utils {
 	 * Traduce una lista de valores con su correspondiente I18n con ucfirst
 	 *
 	 * @param array $lista
-	 *        Lista a traducir
+	 *        	Lista a traducir
 	 * @return array Lista traducida
 	 */
 	public static function traducirListaU($lista) {
 		$result = [];
 		foreach ($lista as $l) {
-			$result [] = I18n::transu($l);
+			$result[] = I18n::transu($l);
 		}
 		return $result;
 	}
@@ -396,7 +375,7 @@ class Utils {
 	 * Devuelve la URL pasada por parámetro
 	 *
 	 * @param string $url
-	 *        URL a quitar la ruta base: get_home_url()
+	 *        	URL a quitar la ruta base: get_home_url()
 	 * @return string URL sin la ruta base
 	 */
 	public static function quitarUrlAbsoluta($url) {
@@ -405,20 +384,55 @@ class Utils {
 
 	/**
 	 * Devuelve true si es una cadena válida
-	 *
 	 * isset(str) && is_string($str) && strlen($str) > 0);
 	 *
 	 * @param string $str
-	 *        Cadena a comprobar
+	 *        	Cadena a comprobar
 	 * @return boolean true si es válida, false en caso contrario
 	 */
 	public static function cadenaValida($str = '') {
 		return (isset($str) && is_string($str) && strlen($str) > 0);
 	}
-
 	public static function getUrlGravatarDefault($size = User::AVATAR_SIZE_DEFAULT) {
 		$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
 		return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $size;
 	}
 
+	/**
+	 * Devuelve el mes traducido a partir del número pasado como parámetro
+	 *
+	 * @param integer $num
+	 * @return string Mes traducido
+	 */
+	public static function getMesTransByNum($num) {
+		switch ($num) {
+			case 0 :
+			case 1 :
+				return I18n::transu('enero');
+			case 2 :
+				return I18n::transu('febrero');
+			case 3 :
+				return I18n::transu('marzo');
+			case 4 :
+				return I18n::transu('abril');
+			case 5 :
+				return I18n::transu('mayo');
+			case 6 :
+				return I18n::transu('junio');
+			case 7 :
+				return I18n::transu('julio');
+			case 8 :
+				return I18n::transu('agosto');
+			case 9 :
+				return I18n::transu('septiembre');
+			case 10 :
+				return I18n::transu('octubre');
+			case 11 :
+				return I18n::transu('noviembre');
+			case 12 :
+				return I18n::transu('diciembre');
+			default :
+				return '?';
+		}
+	}
 }

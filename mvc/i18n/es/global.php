@@ -119,5 +119,21 @@ return [
 	'volver_arriba' => 'volver arriba',
 
 	'y' => 'y',
-	'ya_no_me_gusta' => 'ya no me gusta'
+	'ya_no_me_gusta' => 'ya no me gusta',
+
+	/*
+	 * Meses del año
+	 */
+	'enero' => 'Enero',
+	'febrero' => 'Febrero',
+	'marzo' => 'Marzo',
+	'abril' => 'Abril',
+	'mayo' => 'Mayo',
+	'junio' => 'Junio',
+	'julio' => 'Julio',
+	'agosto' => 'Agosto',
+	'septiembre' => 'Septiembre',
+	'octubre' => 'Octubre',
+	'noviembre' => 'Noviembre',
+	'diciembre' => 'Diciembre'
 ];

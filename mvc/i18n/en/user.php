@@ -11,7 +11,6 @@ return [
 
 	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
 
-
 	'img_avatar' => 'avatar',
 	'img_header' => 'header image',
 
@@ -23,6 +22,8 @@ return [
 	'no_hay_entradas_publicadas' => 'This user has no published entries yet',
 
 	'quieres_escribir' => 'Do you want to write?',
+
+	'se_unio_en' => 'He joined in :mes :ano',
 
 	'tipo_usuario' => 'Type of user',
 

@@ -4,7 +4,6 @@ require_once 'ModelBase.php';
  * Modelo que representa un Usuario
  *
  * @author José María Valera Reales <@Chemaclass>
- *
  */
 class User extends ModelBase {
 	public static $table = "users";
@@ -13,54 +12,37 @@ class User extends ModelBase {
 	 * Tamaños del avatar
 	 */
 	const AVATAR_SIZE_ICO = 26;
-
 	const AVATAR_SIZE_PEQUENO = 64;
-
 	const AVATAR_SIZE_DEFAULT = 96;
-
 	const AVATAR_SIZE_PERFIL = 190;
 
 	/*
 	 * Tamaño por defecto para el header
 	 */
 	const IMG_HEADER_HEIGHT_DEFAULT = 270;
-
 	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
 	/*
 	 * Claves de los metadatos
 	 */
 	const KEY_USER_TWITTER = 'tw_txt';
-
 	const KEY_USER_FACEBOOK = 'fb_txt';
-
 	const KEY_USER_GOOGLE_PLUS = 'gp_txt';
-
 	const KEY_USER_YOUTUBE = 'yt_txt';
-
 	const KEY_USER_SOUNDCLOUD = 'sc_txt';
-
 	const KEY_USER_NOMBRE = 'first_name';
-
 	const KEY_USER_APELLIDOS = 'last_name';
-
 	const KEY_USER_IMG_HEADER = 'img_header';
-
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
-
 	const KEY_USER_TIPO = 'tipo_usuario';
 
 	/*
 	 * Tipos de Usuario
 	 */
 	const TIPO_USUARIO = 'user';
-
 	const TIPO_BANDA = 'band';
-
 	const TIPO_PRODUCTOR = 'producer';
-
 	const TIPO_MANAGER = 'manager';
-
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	/*
@@ -77,22 +59,16 @@ class User extends ModelBase {
 	 * Número de palabras para la descripción corta
 	 */
 	const NUM_DESCRIPTION_CORTA = 11;
-
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
 	/*
 	 * Roles posibles
 	 */
 	const ROL_SUPER_ADMIN = 'super admin';
-
 	const ROL_ADMIN = 'administrator';
-
 	const ROL_EDITOR = 'editor';
-
 	const ROL_AUTOR = 'author';
-
 	const ROL_COLABORADOR = 'contributor';
-
 	const ROL_SUSCRIPTOR = 'subscriber';
 
 	/**
@@ -117,7 +93,7 @@ class User extends ModelBase {
 	 * Devuelve la url del avatar del User, y si no tuviera devolvería una imagen de avatar vacío
 	 *
 	 * @param integer $tamano
-	 *        Tamaño de la imágen
+	 *        	Tamaño de la imágen
 	 * @return string
 	 */
 	public function getAvatar($tamano = self::AVATAR_SIZE_DEFAULT) {
@@ -154,7 +130,7 @@ class User extends ModelBase {
 	private function _getTamanosAvatar() {
 		return [
 			32, // Era el tamaño del antiguo ICO, ahora es 26. Dejo esto para que los futuros avatares
-			// Se borren cuando se cambien. Recordar eliminar este número en un tiempo
+			    // Se borren cuando se cambien. Recordar eliminar este número en un tiempo
 			self::AVATAR_SIZE_ICO,
 			self::AVATAR_SIZE_PEQUENO,
 			self::AVATAR_SIZE_DEFAULT,
@@ -170,18 +146,18 @@ class User extends ModelBase {
 		$_getImgPath = $this->_getImgPath($keyUserImg);
 		$sizes = self::_getTamanosAvatar();
 		foreach ($sizes as $size) {
-			$imgPath = $_getImgPath ['virgen'] . "-{$size}x{$size}" . $_getImgPath ['ext'];
+			$imgPath = $_getImgPath['virgen'] . "-{$size}x{$size}" . $_getImgPath['ext'];
 			if (file_exists($imgPath)) {
 				unlink($imgPath);
 			}
 		}
 
-		if (file_exists($_getImgPath ['base'])) {
-			unlink($_getImgPath ['base']);
+		if (file_exists($_getImgPath['base'])) {
+			unlink($_getImgPath['base']);
 		}
 
-		if (file_exists($_getImgPath ['actual'])) {
-			unlink($_getImgPath ['actual']);
+		if (file_exists($_getImgPath['actual'])) {
+			unlink($_getImgPath['actual']);
 		}
 
 		// Y lo quitamos de su meta
@@ -190,7 +166,6 @@ class User extends ModelBase {
 
 	/**
 	 * Devuelvo el nombre de la img base del header y el nombre de la img actual del header.
-	 *
 	 * Ejemplo [
 	 * 'actual' => 'Chemaclass_header-353x200.png',
 	 * 'base' => 'Chemaclass_header.png',
@@ -203,11 +178,11 @@ class User extends ModelBase {
 	private function _getImgPath($keyUserImg = self::KEY_USER_IMG_HEADER) {
 		$upload_path = wp_upload_dir();
 		$img = $this->_getImg($keyUserImg);
-		$path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $img);
+		$path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $img);
 		$actual = $base = basename($path);
 		if (strpos($base, '-') !== false) {
 			preg_match('/\.[^\.]+$/i', $actual, $ext);
-			$_base = substr($base, 0, strpos($base, "-")) . $ext [0];
+			$_base = substr($base, 0, strpos($base, "-")) . $ext[0];
 			$pathBase = str_replace($actual, $_base, $path);
 		}
 		// y la ruta virgen
@@ -217,7 +192,7 @@ class User extends ModelBase {
 			'actual' => $path,
 			'base' => $pathBase,
 			'virgen' => $virgen,
-			'ext' => $ext [0]
+			'ext' => $ext[0]
 		];
 	}
 
@@ -248,14 +223,14 @@ class User extends ModelBase {
 	 */
 	private function _setImg($keyUserImgHeader = self::KEY_USER_IMG_HEADER, $imgHeader) {
 		// Si es false se la quita y además es null la borrará del servidor
-		if (!$imgHeader || is_null($imgHeader)) {
+		if (! $imgHeader || is_null($imgHeader)) {
 			$this->_quitarImg($keyUserImgHeader);
 			return;
 		}
-		if (strpos($imgHeader ['name'], '.php') !== false) {
+		if (strpos($imgHeader['name'], '.php') !== false) {
 			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
 		}
-		$avatar = wp_handle_upload($_FILES [$keyUserImgHeader], array(
+		$avatar = wp_handle_upload($_FILES[$keyUserImgHeader], array(
 			'mimes' => array(
 				'jpg|jpeg|jpe' => 'image/jpeg',
 				'gif' => 'image/gif',
@@ -267,7 +242,7 @@ class User extends ModelBase {
 				$number = 1;
 				while (file_exists($dir . "/$name$ext")) {
 					$name = $base_name . '_' . $number;
-					$number++;
+					$number ++;
 				}
 				return $name . $ext;
 			}
@@ -277,13 +252,13 @@ class User extends ModelBase {
 
 		$meta_value = array();
 
-		$url_or_media_id = $avatar ['url'];
+		$url_or_media_id = $avatar['url'];
 		// Establecemos el nuevo meta
 		if (is_int($url_or_media_id)) {
-			$meta_value ['media_id'] = $url_or_media_id;
+			$meta_value['media_id'] = $url_or_media_id;
 			$url_or_media_id = wp_get_attachment_url($url_or_media_id);
 		}
-		$meta_value ['full'] = $url_or_media_id;
+		$meta_value['full'] = $url_or_media_id;
 		update_user_meta($this->ID, $keyUserImgHeader, $meta_value);
 	}
 
@@ -298,36 +273,36 @@ class User extends ModelBase {
 	private function _getImg($keyUserImg = self::KEY_USER_IMG_HEADER, $sizeW = self::IMG_HEADER_WIDTH_DEFAULT, $sizeH = self::IMG_HEADER_HEIGHT_DEFAULT) {
 		// fetch local avatar from meta and make sure it's properly ste
 		$local_avatars = get_user_meta($this->ID, $keyUserImg, true);
-		if (empty($local_avatars ['full'])) {
+		if (empty($local_avatars['full'])) {
 			return '';
 		}
 		// generate a new size
-		if (!array_key_exists($sizeW, $local_avatars)) {
-			$local_avatars [$sizeW] = $local_avatars ['full']; // just in case of failure elsewhere
+		if (! array_key_exists($sizeW, $local_avatars)) {
+			$local_avatars[$sizeW] = $local_avatars['full']; // just in case of failure elsewhere
 			$upload_path = wp_upload_dir();
 			// get path for image by converting URL, unless its already been set, thanks to using media library approach
-			if (!isset($avatar_full_path)) {
-				$avatar_full_path = str_replace($upload_path ['baseurl'], $upload_path ['basedir'], $local_avatars ['full']);
+			if (! isset($avatar_full_path)) {
+				$avatar_full_path = str_replace($upload_path['baseurl'], $upload_path['basedir'], $local_avatars['full']);
 			}
 			// generate the new size
 			$editor = wp_get_image_editor($avatar_full_path);
-			if (!is_wp_error($editor)) {
+			if (! is_wp_error($editor)) {
 				$resized = $editor->resize($sizeW, $sizeH, true);
-				if (!is_wp_error($resized)) {
+				if (! is_wp_error($resized)) {
 					$dest_file = $editor->generate_filename();
 					$saved = $editor->save($dest_file);
-					if (!is_wp_error($saved)) {
-						$local_avatars [$sizeW] = str_replace($upload_path ['basedir'], $upload_path ['baseurl'], $dest_file);
+					if (! is_wp_error($saved)) {
+						$local_avatars[$sizeW] = str_replace($upload_path['basedir'], $upload_path['baseurl'], $dest_file);
 					}
 				}
 			}
 			// save updated avatar sizes
 			update_user_meta($user_id, $keyUserImg, $local_avatars);
 		}
-		if ('http' != substr($local_avatars [$sizeW], 0, 4)) {
-			$local_avatars [$sizeW] = home_url($local_avatars [$sizeW]);
+		if ('http' != substr($local_avatars[$sizeW], 0, 4)) {
+			$local_avatars[$sizeW] = home_url($local_avatars[$sizeW]);
 		}
-		return esc_url($local_avatars [$sizeW]);
+		return esc_url($local_avatars[$sizeW]);
 	}
 
 	/**
@@ -379,8 +354,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getNombre() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_NOMBRE);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_NOMBRE, true);
 	}
 
 	/**
@@ -389,8 +363,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getApellidos() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_APELLIDOS);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_APELLIDOS, true);
 	}
 
 	/**
@@ -400,6 +373,27 @@ class User extends ModelBase {
 	 */
 	public function getNombreCompleto() {
 		return $this->getNombre() . ' ' . $this->getApellidos();
+	}
+	/**
+	 * Devuelve la fecha del registro
+	 */
+	public function getFechaRegistro() {
+		return $this->user_registered;
+	}
+	/**
+	 * Devuelve la fecha del registro formateada
+	 */
+	public function getMesYAnoRegistro() {
+		$fechaParseada = date_parse($this->getFechaRegistro());
+		$dateObj = DateTime::createFromFormat('!m', $fechaParseada['month']);
+		$numMes = $dateObj->format('n');
+
+		$mesTrans = Utils::getMesTransByNum($numMes);
+
+		return [
+			'mes' => $mesTrans,
+			'ano' => $fechaParseada['year']
+		];
 	}
 
 	/**
@@ -501,7 +495,7 @@ class User extends ModelBase {
 	public function isSuscriptorRechazado() {
 		global $wpdb;
 		$status = UserPendiente::RECHAZADO;
-		$count = ( int ) $wpdb->get_var("select count(*)
+		$count = (int) $wpdb->get_var("select count(*)
 				from wp_users_pendientes
 				where user_id =  $this->ID
 				and status = $status");
@@ -515,7 +509,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function canAdmin($args = []) {
-		$args [] = self::ROL_ADMIN;
+		$args[] = self::ROL_ADMIN;
 		return array_intersect($args, self::getRoles());
 	}
 
@@ -526,7 +520,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function canEditor($args = []) {
-		$args [] = self::ROL_EDITOR;
+		$args[] = self::ROL_EDITOR;
 		return $this->canAdmin($args);
 	}
 
@@ -537,7 +531,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function canAutor($args = []) {
-		$args [] = self::ROL_AUTOR;
+		$args[] = self::ROL_AUTOR;
 		return $this->canEditor($args);
 	}
 
@@ -548,7 +542,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function canColaborador($args = []) {
-		$args [] = self::ROL_COLABORADOR;
+		$args[] = self::ROL_COLABORADOR;
 		return $this->canAutor($args);
 	}
 
@@ -559,7 +553,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function canSuscriptor($args = []) {
-		$args [] = self::ROL_SUSCRIPTOR;
+		$args[] = self::ROL_SUSCRIPTOR;
 		return $this->canColaborador($args);
 	}
 
@@ -569,7 +563,7 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function isCurrentUser() {
-		return ($this->ID == wp_get_current_user()->ID) || (wp_get_current_user()->roles [0] == self::ROL_ADMIN);
+		return ($this->ID == wp_get_current_user()->ID) || (wp_get_current_user()->roles[0] == self::ROL_ADMIN);
 	}
 
 	/**
@@ -579,7 +573,7 @@ class User extends ModelBase {
 	 */
 	public function getRol() {
 		$roles = self::getRoles();
-		return I18n::transu($roles [0]);
+		return I18n::transu($roles[0]);
 	}
 
 	/**
@@ -616,7 +610,7 @@ class User extends ModelBase {
 	 */
 	public function getTwitter() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_TWITTER);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return (is_array($valor)) ? $valor[0] : $valor;
 	}
 
 	/**
@@ -635,7 +629,7 @@ class User extends ModelBase {
 	 */
 	public function getFacebook() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_FACEBOOK);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return (is_array($valor)) ? $valor[0] : $valor;
 	}
 
 	/**
@@ -654,7 +648,7 @@ class User extends ModelBase {
 	 */
 	public function getGooglePlus() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_GOOGLE_PLUS);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return (is_array($valor)) ? $valor[0] : $valor;
 	}
 
 	/**
@@ -673,7 +667,7 @@ class User extends ModelBase {
 	 */
 	public function getYoutube() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_YOUTUBE);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return (is_array($valor)) ? $valor[0] : $valor;
 	}
 
 	/**
@@ -692,7 +686,7 @@ class User extends ModelBase {
 	 */
 	public function getSoundcloud() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_SOUNDCLOUD);
-		return (is_array($valor)) ? $valor [0] : $valor;
+		return (is_array($valor)) ? $valor[0] : $valor;
 	}
 
 	/**
@@ -711,9 +705,9 @@ class User extends ModelBase {
 	 */
 	public function getTipo() {
 		$valor = get_user_meta($this->ID, self::KEY_USER_TIPO);
-		$tipo = (is_array($valor)) ? $valor [0] : $valor;
-		//Si no hubiera tipo devolverá por defecto tipo User
-		return (!$tipo) ? self::TIPO_USUARIO : $tipo;
+		$tipo = (is_array($valor)) ? $valor[0] : $valor;
+		// Si no hubiera tipo devolverá por defecto tipo User
+		return (! $tipo) ? self::TIPO_USUARIO : $tipo;
 	}
 
 	/**
@@ -734,23 +728,18 @@ class User extends ModelBase {
 			update_user_meta($this->ID, User::KEY_USER_TIPO, $tipo);
 		}
 	}
-
 	public function isTipoUsuario() {
 		return ($this->getTipo() == self::TIPO_USUARIO);
 	}
-
 	public function isTipoBanda() {
 		return ($this->getTipo() == self::TIPO_BANDA);
 	}
-
 	public function isTipoManager() {
 		return ($this->getTipo() == self::TIPO_MANAGER);
 	}
-
 	public function isTipoProductor() {
 		return ($this->getTipo() == self::TIPO_PRODUCTOR);
 	}
-
 	public function isTipoDiscografica() {
 		return ($this->getTipo() == self::TIPO_DISCOGRAFICA);
 	}
@@ -781,11 +770,11 @@ class User extends ModelBase {
 		foreach ($favoritos as $postFavorito) {
 			if ($postFavorito->tieneEtiquetas()) {
 				foreach ($postFavorito->getEtiquetas() as $t) {
-					if (isset($tags [$t->name])) {
-						$tags [$t->name]->total++;
+					if (isset($tags[$t->name])) {
+						$tags[$t->name]->total ++;
 					} else {
-						$tags [$t->name] = $t;
-						$tags [$t->name]->total = 1;
+						$tags[$t->name] = $t;
+						$tags[$t->name]->total = 1;
 					}
 				}
 			}
@@ -828,7 +817,7 @@ class User extends ModelBase {
 		$posts_id = $wpdb->get_col($queryPostId);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
-			$posts [] = Post::find($post_id);
+			$posts[] = Post::find($post_id);
 		}
 		return $posts;
 	}
@@ -844,17 +833,17 @@ class User extends ModelBase {
 		$favoritos = [];
 		foreach ($todosFavoritos as $k => $f) {
 			$cat_name = strtolower($f->getCategoriaNombre());
-			if (!isset($favoritos [$cat_name])) {
-				$favoritos [$cat_name] = [];
-				if ($k == 0 && !isset($favoritos [$cat_name] ['activo'])) {
-					$favoritos [$cat_name] ['activo'] = true;
+			if (! isset($favoritos[$cat_name])) {
+				$favoritos[$cat_name] = [];
+				if ($k == 0 && ! isset($favoritos[$cat_name]['activo'])) {
+					$favoritos[$cat_name]['activo'] = true;
 				}
 			}
-			$favoritos [$cat_name] ['lista'] [] = $f;
+			$favoritos[$cat_name]['lista'][] = $f;
 		}
 		// Añadimos el total
 		foreach ($favoritos as &$f) {
-			$f ['total_lista'] = count($f ['lista']);
+			$f['total_lista'] = count($f['lista']);
 		}
 		return $favoritos;
 	}
@@ -867,7 +856,7 @@ class User extends ModelBase {
 	public function getCountFavoritos() {
 		global $wpdb;
 		$activo = Favorito::ACTIVO;
-		return ( int ) $wpdb->get_var('SELECT COUNT(*)
+		return (int) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE user_id = $this->ID AND status = $activo;");
 	}
@@ -880,7 +869,7 @@ class User extends ModelBase {
 	public function getCountFavoritosRecibidos() {
 		global $wpdb;
 		$activo = Favorito::ACTIVO;
-		return ( int ) $wpdb->get_var("SELECT SUM( p.totales )
+		return (int) $wpdb->get_var("SELECT SUM( p.totales )
 			FROM (
 				SELECT COUNT(ids.ID) as totales FROM wp_favoritos f,
 					(SELECT ID FROM wp_posts
@@ -943,7 +932,7 @@ class User extends ModelBase {
 	public function isRevisionBan() {
 		global $wpdb;
 		$statusBan = Revision::USER_BANEADO;
-		$isBan = ( int ) $wpdb->get_var("SELECT COUNT(*)
+		$isBan = (int) $wpdb->get_var("SELECT COUNT(*)
 				FROM  {$wpdb->prefix}revisiones_ban
 				WHERE user_id = $this->ID
 				AND status = $statusBan;");
@@ -958,11 +947,10 @@ class User extends ModelBase {
 	public function isBloqueado() {
 		global $wpdb;
 		$estadoBloqueado = UserBloqueado::ESTADO_BLOQUEADO;
-		$isBan = ( int ) $wpdb->get_var("SELECT COUNT(*)
+		$isBan = (int) $wpdb->get_var("SELECT COUNT(*)
 				FROM  {$wpdb->prefix}users_bloqueados
 				WHERE user_id = $this->ID
 				AND status = $estadoBloqueado;");
 		return $isBan > 0;
 	}
-
 }
