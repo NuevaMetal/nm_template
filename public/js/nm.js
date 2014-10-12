@@ -344,13 +344,19 @@ $(document).ready(function() {
  * Cargar las secciones
  */
 function cargarSecciones() {
-	cargarSeccion('bandas', 4);
-	cargarSeccion('videos', 4);
-	cargarSeccion('criticas', 2);
-	cargarSeccion('noticias', 2);
-	cargarSeccion('conciertos', 2);
-	cargarSeccion('cronicas', 2);
-	cargarSeccion('entrevistas', 4);
+	setTimeout(function() {
+		cargarSeccion('bandas', 4);
+		cargarSeccion('videos', 4);
+	}, 1000);
+	setTimeout(function() {
+		cargarSeccion('criticas', 2);
+		cargarSeccion('cronicas', 2);
+	}, 3000);
+	setTimeout(function() {
+		cargarSeccion('noticias', 2);
+		cargarSeccion('conciertos', 2);
+		cargarSeccion('entrevistas', 4);
+	}, 5000);
 }
 
 function cargarSeccion(nombreSeccion, cant){
