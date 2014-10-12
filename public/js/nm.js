@@ -2,10 +2,7 @@
  Autor: Jose Maria Valera Reales <@Chemaclass>
  */
 $(document).ready(function(){
-	// Pongo esto porque si no no hace caso
-	setTimeout(function() {
-		seHaceScroll();
-	}, 10);
+	
 });
 
 /**
@@ -331,9 +328,16 @@ $(document).ready(function() {
 		scrollOff()
 	}
 	
+	// Pongo esto porque si no no hace caso
+	setTimeout(function() {
+		seHaceScroll();
+	}, 10);
+	
 	if ($("#home").length > 0){
-		cargarSecciones();
-	}
+		setTimeout(function() {
+			cargarSecciones();
+		}, 500);
+	}	
 });
 
 /**
