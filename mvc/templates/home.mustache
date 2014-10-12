@@ -1,9 +1,9 @@
 <div class="banner banner-header col-xs-12">	
 	{{> partials/_banner_submenu}}
 </div>	
-<div id="home" class="text-center">
+<div id="home" class="text-center" url="{{template_url}}/ajax.php">
 	{{# bandas}}
-	<section id="bandas" class="col-xs-12 seccion-posts" url="{{template_url}}/ajax.php">
+	<section id="bandas" class="col-xs-12 seccion-posts">
 		<a href="{{home_url}}/category/bandas">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/bandas.jpg" alt="{{#transu}}bandas{{/transu}}"/>
@@ -14,7 +14,7 @@
 	{{/ bandas}}
 
 	{{# videos}}
-	<div id="videos" class="col-xs-12 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="videos" class="col-xs-12 seccion-posts">
 		<a href="{{home_url}}/category/videos">
 			<div class="header-seccion">
 				<img src="{{template_url}}/public/img/videos.jpg" alt="{{#transu}}videos{{/transu}}"/>
@@ -25,7 +25,7 @@
 	{{/ videos}}
 
 	{{#criticas}}
-	<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts">
 		<a href="{{home_url}}/category/criticas">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/criticas.jpg" alt="{{#transu}}criticas{{/transu}}"/>
@@ -36,7 +36,7 @@
 	{{/criticas}}
 
 	{{#cronicas}}
-	<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts">
 		<a href="{{home_url}}/category/cronicas">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/cronicas.jpg" alt="{{#transu}}cronicas{{/transu}}"/>
@@ -47,7 +47,7 @@
 	{{/cronicas}}
 
 	{{#noticias}}
-	<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts">
 		<a href="{{home_url}}/category/noticias">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/noticias.jpg" alt="{{#transu}}noticias{{/transu}}"/>
@@ -58,7 +58,7 @@
 	{{/noticias}}
 
 	{{#conciertos}}
-	<div id="conciertos" class="col-xs-12 col-lg-6 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="conciertos" class="col-xs-12 col-lg-6 seccion-posts">
 		<a href="{{home_url}}/category/conciertos">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/conciertos.jpg" alt="{{#transu}}conciertos{{/transu}}"/>
@@ -69,7 +69,7 @@
 	{{/conciertos}}
 
 	{{#entrevistas}}
-	<div id="entrevistas" class="col-xs-12 seccion-posts" url="{{template_url}}/ajax.php">
+	<div id="entrevistas" class="col-xs-12 seccion-posts">
 		<a href="{{home_url}}/category/entrevistas">
 			<div class="col-xs-12 header-seccion">
 				<img src="{{template_url}}/public/img/entrevistas.jpg" alt="{{#transu}}entrevistas{{/transu}}"/>

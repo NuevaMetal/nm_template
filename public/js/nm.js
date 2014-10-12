@@ -356,7 +356,7 @@ function cargarSecciones() {
 function cargarSeccion(nombreSeccion, cant){
 	var seccion = $('#'+nombreSeccion);
 	if(seccion.length==0) return; // Si no existe el elemento no hacemos nada
-	var url = seccion.attr('url');
+	var url = seccion.parent().attr('url');
 	var data = {
 		submit : 'home',
 		seccion : nombreSeccion,
