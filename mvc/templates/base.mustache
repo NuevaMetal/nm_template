@@ -22,15 +22,15 @@
 	<div id="alertas"></div>
 	
 	<div class="col-xs-12">
-		<div id="menu-principal"><i class="fa fa-spinner fa-spin fa-1x "></i></div>
-		<div id="menu-perfil"><i class="fa fa-spinner fa-spin fa-1x "></i></div>
+		<div id="menu-principal"></div>
+		<div id="menu-perfil"></div>
 	</div>
 
     <div id="content" class="col-xs-12">
         {{{content}}}
     </div>
 	
-	<div id="menu-footer"><i class="fa fa-spinner fa-spin fa-1x "></i></div>	
+	<div id="menu-footer"></div>	
 </div>
 
 <div class="container">
@@ -42,7 +42,9 @@
 	</div>
 </div>
 
-{{>partials/cookies}}
+{{^current_user}}
+	{{>partials/cookies}}
+{{/current_user}}
 
 <a href="#" class="back-to-top titular"><i class="fa fa-angle-double-up"></i> 
 	{{#transu}}volver_arriba{{/transu}} 
