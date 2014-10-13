@@ -5,25 +5,42 @@
  * @author chemaclass
  */
 class Utils {
+
 	const SI = 'si';
+
 	const NO = 'no';
+
 	const ACTIVO = 0;
+
 	const BORRADO = 1;
+
 	const HOY = 'hoy';
+
 	const AYER = 'ayer';
+
 	const TIPO_TAG = 'tag';
+
 	const TIPO_CATEGORY = 'category';
+
 	const TIPO_SEARCH = 'search';
+
 	const TIPO_AUTHOR = 'author';
+
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
+
 	const CATEGORIA_CRITICAS = "criticas";
+
 	const CATEGORIA_CRONICAS = "cronicas";
+
 	const CATEGORIA_CONCIERTOS = "conciertos";
+
 	const CATEGORIA_ENTREVISTAS = "entrevistas";
+
 	const CATEGORIA_NOTICIAS = "noticias";
+
 	const CATEGORIA_VIDEOS = "videos";
 
 	/**
@@ -434,5 +451,14 @@ class Utils {
 			default :
 				return '?';
 		}
+	}
+
+	/**
+	 * Devuelve $_SERVER[ REQUEST_URI ]
+	 *
+	 * @return string
+	 */
+	public function getRequestUri() {
+		return $_SERVER[REQUEST_URI];
 	}
 }

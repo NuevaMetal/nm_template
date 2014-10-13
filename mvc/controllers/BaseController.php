@@ -31,11 +31,6 @@ abstract class BaseController extends ChesterBaseController {
 	 *        	Lista de parámetros a pasar a la plantilla base
 	 */
 	protected function _renderPageBase($args = []) {
-		$redirect = $_SERVER[REQUEST_URI];
-		$menuArgs = [
-			'login_url' => wp_login_url($redirect),
-			'redirect_to' => $redirect
-		];
 		$args['current_user'] = User::find(wp_get_current_user()->ID);
 		$args['template_url'] = get_template_directory_uri();
 		$args['blog_name'] = get_bloginfo('name');

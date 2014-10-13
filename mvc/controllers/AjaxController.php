@@ -371,10 +371,9 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				break;
 			case Ajax::MENU :
 				$tipoMenu = $_datos['tipo'];
-				$redirect = $_SERVER[REQUEST_URI];
 				$menuArgs = [
-					'login_url' => wp_login_url($redirect),
-					'redirect_to' => $redirect
+					'login_url' => wp_login_url('/'),
+					'redirect_to' => '/'
 				];
 				if ($tipoMenu == Ajax::MENU_PRINCIPAL) {
 					$json['menu'] = $ajax->_render('menu/principal', $menuArgs);
