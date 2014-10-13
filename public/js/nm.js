@@ -431,7 +431,14 @@ function cargarMenu(tipoMenu){
 			console.log('#'+tipoMenu);
 		},
 		success : function(json) {
-			menu.html(json.menu);
+			menu.addClass('hidden'); //Oculto el menú
+			menu.html(json.menu);	// Añado el html
+			menu.fadeTo( "fast", 0, function(){ // Le pongo 0 a opacidad
+				// Muestro de nuevo el elemento 
+				menu.removeClass('hidden')
+				// Aumento hasta 100% su opacidad para conseguir el efecto
+				menu.fadeTo( "slow", 1);
+			});
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
