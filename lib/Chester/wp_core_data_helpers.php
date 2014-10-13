@@ -14,6 +14,10 @@ require_once (path('app') . '/lib/Utils.php');
  */
 class ChesterWPCoreDataHelpers {
 
+	/**
+	 *
+	 * @return multitype:string NULL
+	 */
 	public static function getBlogInfoData() {
 		return array(
 			'blog_title' => self::getBlogTitle(),
@@ -49,10 +53,17 @@ class ChesterWPCoreDataHelpers {
 		);
 	}
 
+	/**
+	 *
+	 * @param string $dateFormat
+	 * @param unknown $customFields
+	 * @param string $fetchAllPosts
+	 * @return multitype:
+	 */
 	public static function getWordpressPostsFromLoop($dateFormat = false, $customFields = array(), $fetchAllPosts = false) {
 		$posts = array();
 
-		if (!empty($fetchAllPosts)) {
+		if (! empty($fetchAllPosts)) {
 			global $query_string;
 			query_posts($query_string . '&posts_per_page=-1&orderby=menu_order');
 		}
@@ -67,32 +78,89 @@ class ChesterWPCoreDataHelpers {
 		return $posts;
 	}
 
+	/**
+	 *
+	 * @param string $dateFormat
+	 * @param string $postType
+	 * @param unknown $numberPostsToFetch
+	 * @param unknown $customFields
+	 * @param string $oddOrEven
+	 * @param unknown $moreQuerySettings
+	 * @return Ambigous <multitype:Ambigous , object, NULL, unknown>
+	 */
 	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
-		$posts = array();
+		// Obtengo los post fijados
+		$posts = self::_getStickyPosts($dateFormat, $postType, $numberPostsToFetch, $customFields, $oddOrEven, $moreQuerySettings);
 
-		$querySettings = array(
-			'post_type' => array(
+		$postsStickyIds = [];
+		foreach (get_option('sticky_posts') as $post_id) {
+			$postsStickyIds[] = $post_id;
+		}
+		// Comparamos la cantidad de post fijados totales con la cantidad de post fijados que hemos obtenido
+		$countSticky = count($postsStickyIds);
+		// De ser igual quiere decir que tenemos que restarle a la cantidad pedida el número de post fijados totales, de lo contrario
+		// la cantidad pedida seguirá siendo la misma.
+		$numberPostsToFetch = (count($posts) == $countSticky) ? $numberPostsToFetch - $countSticky : $numberPostsToFetch;
+
+		$querySettings = [
+			'post_type' => [
 				$postType
-			),
+			],
+			'post__not_in' => $postsStickyIds,
 			'posts_per_page' => $numberPostsToFetch
-		);
+		];
 		$querySettings = array_merge($querySettings, $moreQuerySettings);
 		$loop = new WP_Query($querySettings);
 
-		$index = 0;
-		if ($loop->have_posts()) {
-			while ($loop->have_posts()) {
-				$index++;
-				$loop->the_post();
+		return array_merge($posts, self::_loop($loop));
+	}
 
-				if (!($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && !($index % 2))) {
-					$posts [] = Post::find(get_the_ID());
-				}
+	/**
+	 * Devuelve los post fijados
+	 *
+	 * @return array<Post>
+	 */
+	private static function _getStickyPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
+		$querySettings = [
+			'post_type' => [
+				$postType
+			],
+			'post__in' => get_option('sticky_posts'),
+			'posts_per_page' => $numberPostsToFetch
+		];
+		$querySettings = array_merge($querySettings, $moreQuerySettings);
+		$loop = new WP_Query($querySettings);
+
+		return self::_loop($loop);
+	}
+
+	/**
+	 *
+	 * @param unknown $loop
+	 * @return Ambigous <object, NULL, unknown>
+	 */
+	private static function _loop($loop, $oddOrEven = false) {
+		$posts = array();
+		$index = 0;
+
+		while ($loop->have_posts()) {
+			$index ++;
+			$loop->the_post();
+
+			if (! ($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && ! ($index % 2))) {
+				$posts[] = Post::find(get_the_ID());
 			}
 		}
+
 		return $posts;
 	}
 
+	/**
+	 *
+	 * @param unknown $id
+	 * @param unknown $customFields
+	 * @return multitype:
+	 */
 	public static function getPageCustomFields($id, $customFields) {
 		$post = array();
 
@@ -103,10 +171,21 @@ class ChesterWPCoreDataHelpers {
 		return $post;
 	}
 
+	/**
+	 *
+	 * @param string $dateFormat
+	 * @param unknown $customFields
+	 * @param string $post_id
+	 * @return Ambigous <multitype:, object, NULL, unknown>
+	 */
 	public static function getPost($dateFormat = false, $customFields = array(), $post_id = false) {
 		return Post::get(($post_id) ? $post_id : get_the_ID(), $dateFormat);
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	private static function getBlogTitle() {
 		if (is_home()) {
 			return get_bloginfo('name');
@@ -114,5 +193,4 @@ class ChesterWPCoreDataHelpers {
 			return wp_title("-", false, "right") . " " . get_bloginfo('name');
 		}
 	}
-
 }
