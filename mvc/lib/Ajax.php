@@ -21,6 +21,10 @@ class Ajax {
 
 	const ME_GUSTA = "me-gusta";
 
+	const MENU = 'menu';
+
+	const MENU_FOOTER = "menu-footer";
+
 	const MENU_PRINCIPAL = "menu-principal";
 
 	const MENU_PERFIL = "menu-perfil";

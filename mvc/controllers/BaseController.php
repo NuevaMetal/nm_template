@@ -36,8 +36,8 @@ abstract class BaseController extends ChesterBaseController {
 			'login_url' => wp_login_url($redirect),
 			'redirect_to' => $redirect
 		];
-		$args['menuPrincipal'] = $this->_render('menu/principal', $menuArgs);
-		$args['menuPerfil'] = $this->_render('menu/perfil', $menuArgs);
+		//$args['menuPrincipal'] = $this->_render('menu/principal', $menuArgs);
+		//$args['menuPerfil'] = $this->_render('menu/perfil', $menuArgs);
 		$args['menuFooter'] = $this->_render('menu/footer');
 		$args['template_url'] = get_template_directory_uri();
 		$args['blog_name'] = get_bloginfo('name');

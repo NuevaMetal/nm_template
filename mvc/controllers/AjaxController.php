@@ -369,6 +369,23 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$argsSeccion['reducido'] = ($cantidad == 2) ? true : false;
 				$json['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
 				break;
+			case Ajax::MENU :
+				$tipoMenu = $_datos['tipo'];
+				$redirect = $_SERVER[REQUEST_URI];
+				$menuArgs = [
+					'login_url' => wp_login_url($redirect),
+					'redirect_to' => $redirect
+				];
+				if ($tipoMenu == Ajax::MENU_PRINCIPAL) {
+					$json['menu'] = $ajax->_render('menu/principal', $menuArgs);
+				} else if ($tipoMenu == Ajax::MENU_PERFIL) {
+					$json['menu'] = $ajax->_render('menu/perfil', $menuArgs);
+				} else if ($tipoMenu == Ajax::MENU_FOOTER) {
+					$json['menu'] = $ajax->_render('menu/footer');
+				} else {
+					$json['menu'] = '?';
+				}
+				break;
 			default :
 				$json['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
@@ -384,7 +401,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 $json = [
 	'code' => 504
 ]; // Error default
-
 
 $submit = $_REQUEST['submit'];
 $nonce = $_POST['nonce'];

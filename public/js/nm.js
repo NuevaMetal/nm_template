@@ -333,6 +333,10 @@ $(document).ready(function() {
 		seHaceScroll();
 	}, 10);
 
+	// Cargamos los menus por ajax
+	cargarMenu('menu-principal');
+	cargarMenu('menu-perfil');
+	cargarMenu('menu-footer');
 });
 
 /**
@@ -369,6 +373,12 @@ function cargarSecciones() {
 	}, 5500);
 }
 
+/**
+ * Cargar una sección apartir de su nombre
+ * 
+ * @param nombreSeccion Nombre de la sección a cargar
+ * @param cant cantidad de elementos a cargar
+ */
 function cargarSeccion(nombreSeccion, cant){
 	var seccion = $('#'+nombreSeccion);
 	if(seccion.length==0) return; // Si no existe el elemento no hacemos nada
@@ -388,6 +398,40 @@ function cargarSeccion(nombreSeccion, cant){
 		},
 		success : function(json) {
 			seccion.find('.seccion_contenido').html(json.seccion);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+}
+
+/**
+ * Cargar el menú por Ajax
+ * 
+ * @param tipoMenu El menu a cargar
+ */
+function cargarMenu(tipoMenu){
+	var menu = $('#'+tipoMenu);
+	if(menu.length==0) return; // Si no existe el elemento no hacemos nada
+	
+	var url = menu.parents('#page').attr('url');
+	var data = {
+		submit : 'menu',
+		tipo : tipoMenu
+	};
+	console.log(data);
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			menu.find('.fa-spin').removeClass('hidden');
+			console.log('#'+tipoMenu);
+		},
+		success : function(json) {
+			menu.html(json.menu);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 

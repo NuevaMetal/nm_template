@@ -17,21 +17,20 @@
 		</a><br>
 	</div>
 </header>
-<div id="page" class="container">
+<div id="page" class="container" url="{{template_url}}/ajax.php">
 	
 	<div id="alertas"></div>
 	
 	<div class="col-xs-12">
-		{{{ menuPrincipal }}}
-		{{{ menuPerfil }}}
+		<div id="menu-principal"><i class="fa fa-spinner fa-spin fa-1x "></i></div>
+		<div id="menu-perfil"><i class="fa fa-spinner fa-spin fa-1x "></i></div>
 	</div>
 
     <div id="content" class="col-xs-12">
         {{{content}}}
     </div>
-
-	{{{menuFooter}}}
-
+	
+	<div id="menu-footer"><i class="fa fa-spinner fa-spin fa-1x "></i></div>	
 </div>
 
 <div class="container">
