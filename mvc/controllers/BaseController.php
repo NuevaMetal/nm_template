@@ -1,13 +1,11 @@
 <?php
-//namespace Controllers\BaseController;
+// namespace Controllers\BaseController;
 require_once dirname(__FILE__) . '/../i18n/I18n.php';
 /**
  *
  * @author chema
- *
  */
 abstract class BaseController extends ChesterBaseController {
-
 	public function __construct() {
 		parent::__construct();
 		$this->template->setHelpers(array(
@@ -30,36 +28,20 @@ abstract class BaseController extends ChesterBaseController {
 	 * Pintar la plantilla base con los menus
 	 *
 	 * @param array $args
-	 *        Lista de parámetros a pasar a la plantilla base
+	 *        	Lista de parámetros a pasar a la plantilla base
 	 */
 	protected function _renderPageBase($args = []) {
-		$current_user = Utils::getCurrentUser();
-
-		$redirect = $_SERVER [REQUEST_URI];
-		$template_url = get_template_directory_uri();
+		$redirect = $_SERVER[REQUEST_URI];
 		$menuArgs = [
-			'current_user' => $current_user->ID != 0 ? $current_user : false,
 			'login_url' => wp_login_url($redirect),
-			'home_url' => get_home_url(),
-			'user_avatar' => get_avatar($current_user->ID),
-			'redirect_to' => $redirect,
-			'template_url' => $template_url
+			'redirect_to' => $redirect
 		];
-		$menuPerfil = $this->render('menu/perfil', $menuArgs);
-
-		$menuPrincipal = $this->render('menu/principal', $menuArgs);
-
-		$menuFooter = $this->render('menu/footer', [
-			'home_url' => get_home_url()
-		]);
-
-		$args ['menuPrincipal'] = $menuPrincipal;
-		$args ['menuPerfil'] = $menuPerfil;
-		$args ['menuFooter'] = $menuFooter;
-		$args ['template_url'] = $template_url;
-		$args ['blog_name'] = get_bloginfo('name');
-		$args ['template_url'] = get_template_directory_uri();
-		$args ['poner_analitica'] = ($_SERVER ["SERVER_NAME"] == URL_PRODUCCION);
+		$args['menuPrincipal'] = $this->_render('menu/principal', $menuArgs);
+		$args['menuPerfil'] = $this->_render('menu/perfil', $menuArgs);
+		$args['menuFooter'] = $this->_render('menu/footer');
+		$args['template_url'] = get_template_directory_uri();
+		$args['blog_name'] = get_bloginfo('name');
+		$args['poner_analitica'] = ($_SERVER["SERVER_NAME"] == URL_PRODUCCION);
 		return $this->renderPage('base', $args);
 	}
 
@@ -68,14 +50,15 @@ abstract class BaseController extends ChesterBaseController {
 	 * el usuario actual y template_url
 	 *
 	 * @param string $template
-	 *        plantilla a pintar
+	 *        	plantilla a pintar
 	 * @param array $args
-	 *        argumentos adicionales para esa plantilla
+	 *        	argumentos adicionales para esa plantilla
 	 */
 	protected function _render($template, $args = []) {
 		return $this->render($template, array_merge($args, [
 			'current_user' => User::find(wp_get_current_user()->ID),
-			'template_url' => get_template_directory_uri()
+			'template_url' => get_template_directory_uri(),
+			'home_url' => get_home_url()
 		]));
 	}
 
@@ -83,54 +66,47 @@ abstract class BaseController extends ChesterBaseController {
 	 * Pintar la plantilla base para los plugins
 	 *
 	 * @param array $args
-	 *        Lista de parámetros a pasar a la plantilla base de plugins
+	 *        	Lista de parámetros a pasar a la plantilla base de plugins
 	 */
 	protected function _renderPageBasePlugin($args = []) {
-		$current_user = Utils::getCurrentUser();
-
 		$template_url = get_template_directory_uri();
-
-		// 		$args ['menuPrincipal'] = $menuPrincipal;
-		// 		$args ['menuPerfil'] = $menuPerfil;
-		// 		$args ['menuFooter'] = $menuFooter;
-
-
-		$args ['current_user'] = $current_user;
-		$args ['template_url'] = $template_url;
-		$args ['blog_name'] = get_bloginfo('name');
-		echo $this->render('base_plugin', $args);
+		$args['blog_name'] = get_bloginfo('name');
+		echo $this->_render('base_plugin', $args);
 	}
 
 	/**
-	 * Renderizar la home con
-	 *
-	 * @param array $args
+	 * page-*.php
 	 */
 	protected function _renderPage($args = []) {
-		$args ['template_url'] = get_template_directory_uri();
 		$next_posts_link = get_next_posts_link();
 		$previous_posts_link = get_previous_posts_link();
 
-		$args ['next_posts_link'] = $next_posts_link;
-		$args ['previous_posts_link'] = $previous_posts_link;
+		$args['next_posts_link'] = $next_posts_link;
+		$args['previous_posts_link'] = $previous_posts_link;
 
-		return $this->render('page', $args);
+		return $this->_render('page', $args);
 	}
-
+	/**
+	 * search.php
+	 *
+	 * @param unknown $args
+	 */
 	protected function _renderBusqueda($args = []) {
-		$args ['template_url'] = get_template_directory_uri();
 		$next_posts_link = get_next_posts_link();
 		$previous_posts_link = get_previous_posts_link();
 
-		$args ['next_posts_link'] = $next_posts_link;
-		$args ['previous_posts_link'] = $previous_posts_link;
+		$args['next_posts_link'] = $next_posts_link;
+		$args['previous_posts_link'] = $previous_posts_link;
 
-		return $this->render('busqueda', $args);
+		return $this->_render('busqueda', $args);
 	}
-
+	/**
+	 * author.php
+	 *
+	 * @param unknown $args
+	 */
 	protected function _renderAutor($args = []) {
-		$args ['template_url'] = get_template_directory_uri();
-		return $this->render('autor', $args);
+		return $this->_render('autor', $args);
 	}
 
 	/**
@@ -144,5 +120,4 @@ abstract class BaseController extends ChesterBaseController {
 			'content' => $content
 		]);
 	}
-
 }
