@@ -91,10 +91,13 @@ class ChesterWPCoreDataHelpers {
 	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
 		// Obtengo los post fijados
 		$posts = self::_getStickyPosts($dateFormat, $postType, $numberPostsToFetch, $customFields, $oddOrEven, $moreQuerySettings);
-
+		$isCat = isset($moreQuerySettings['cat']);
 		$postsStickyIds = [];
+		// Recorro los post fijados totales y compruebo que su categoría se corresponda con la categoría que se está buscando
 		foreach (get_option('sticky_posts') as $post_id) {
-			$postsStickyIds[] = $post_id;
+			if ($isCat && ($post = Post::find($post_id)) && $post->getCategory()->term_id == $moreQuerySettings['cat']) {
+				$postsStickyIds[] = $post_id;
+			}
 		}
 		// Comparamos la cantidad de post fijados totales con la cantidad de post fijados que hemos obtenido
 		$countSticky = count($postsStickyIds);
