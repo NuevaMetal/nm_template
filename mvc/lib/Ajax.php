@@ -21,6 +21,10 @@ class Ajax {
 
 	const ME_GUSTA = "me-gusta";
 
+	const MENU_PRINCIPAL = "menu-principal";
+
+	const MENU_PERFIL = "menu-perfil";
+
 	const MOSTRAR_MAS = "mostrar-mas";
 
 	const NOTIFICAR = "notificar";
@@ -54,13 +58,13 @@ class Ajax {
 	 * Crear clave Nonce para las peticiones AJAX
 	 *
 	 * @param string $tipoNonceString
-	 *        Tipo de Nonce a crear
+	 *        	Tipo de Nonce a crear
 	 * @param string $post_id
-	 *        Identificador del post
+	 *        	Identificador del post
 	 * @return string Clave nonce apartir del tipoNonce + post_id
 	 */
 	public static function crearNonce($tipoNonceString, $post_id = false) {
-		if (!$post_id) {
+		if (! $post_id) {
 			global $post;
 			$post_id = $post->ID;
 		}
@@ -71,18 +75,17 @@ class Ajax {
 	 * Comprueba la clave Nonce para las peticiones AJAX
 	 *
 	 * @param string $nonce
-	 *        Clave a comparar
+	 *        	Clave a comparar
 	 * @param string $tipoNonceString
-	 *        Tipo de Nonce creado
+	 *        	Tipo de Nonce creado
 	 * @param string $post_id
-	 *        Identificador del post
+	 *        	Identificador del post
 	 */
 	public static function esNonce($nonce, $tipoNonceString, $post_id = false) {
-		if (!$post_id) {
+		if (! $post_id) {
 			global $post;
 			$post_id = $post->ID;
 		}
 		return wp_verify_nonce($nonce, $tipoNonceString . $post_id);
 	}
-
 }

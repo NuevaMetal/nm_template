@@ -5,7 +5,6 @@ require_once 'AlertaController.php';
  * Controlador del AJAX
  *
  * @author Chemaclass
- *
  */
 class AjaxController extends AlertaController {
 
@@ -20,7 +19,7 @@ class AjaxController extends AlertaController {
 		$post_title = $post->post_title;
 
 		// Primero comprobamos que el user no esté baneado
-		$isBan = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		$isBan = (int) $wpdb->get_var('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . "revisiones_ban
 				WHERE user_id = $user_id AND status = 1;");
 		if ($isBan) {
@@ -29,17 +28,17 @@ class AjaxController extends AlertaController {
 					quieres volver a enviar revisiones');
 		}
 		// Segundo comprobamos si dicho usuario ya notificó sobre dicho post
-		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		$num = (int) $wpdb->get_var('SELECT COUNT(*)
 		 	FROM ' . $wpdb->prefix . "revisiones WHERE `status` = 0
 			AND post_id = $post_id AND user_id = $user_id;");
 
 		// Si no existe, lo creamos
-		if (!$num) {
+		if (! $num) {
 			$result = $wpdb->query($wpdb->prepare("
 INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
  VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
-			//Si ya existe, aumentamos su contador
+			// Si ya existe, aumentamos su contador
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}revisiones
 		 		SET count = count + 1
 		 		WHERE post_id = %d
@@ -49,7 +48,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			return $this->renderAlertaInfo('Ya notificaste esta entrada', $post_title);
 		}
 
-		if (!empty($result)) {
+		if (! empty($result)) {
 			return $this->renderAlertaSuccess("Notificación enviada con éxito", $post_title);
 		}
 
@@ -60,18 +59,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 * Añadir un User que solicita ser colaborador
 	 *
 	 * @param integer $user_id
-	 *        Identificador del User
+	 *        	Identificador del User
 	 */
 	public function solicitarColaborador($user_id) {
 		$user = User::find($user_id);
 		if ($user->isSuscriptor()) {
 			$userPendiente = new UserPendiente($user_id);
 			$userPendiente->save();
-			$json ['alerta'] = $this->renderAlertaInfo('Tu petición ha sido enviada.');
+			$json['alerta'] = $this->renderAlertaInfo('Tu petición ha sido enviada.');
 		} else {
-			$json ['alerta'] = $this->renderAlertaInfo('¿No eres un suscriptor?');
+			$json['alerta'] = $this->renderAlertaInfo('¿No eres un suscriptor?');
 		}
-		$json ['code'] = 200;
+		$json['code'] = 200;
 		return $json;
 	}
 
@@ -85,7 +84,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function mostrarMas($tipo, $que, $cant, $offset) {
 		$homeController = new HomeController();
-		$moreQuerySettings ['offset'] = $offset;
+		$moreQuerySettings['offset'] = $offset;
 		if ($tipo == Utils::TIPO_TAG) {
 			$posts = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
@@ -132,8 +131,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$content = utf8_encode($content);
 		}
 
-		$json ['content'] = $content;
-		$json ['code'] = 200;
+		$json['content'] = $content;
+		$json['code'] = 200;
 
 		return $json;
 	}
@@ -143,24 +142,24 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function crearMeGusta($post_id, $user_id) {
 		global $wpdb;
-		$nonce = $_POST ['nonce'];
+		$nonce = $_POST['nonce'];
 		$post = Post::find($post_id);
 
 		$post_title = $post->post_title;
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
-		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		$num = (int) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE post_id = $post_id
 				AND user_id = $user_id;");
 
 		// Si no existe, lo creamos
-		if (!$num) {
+		if (! $num) {
 			$result = $wpdb->query($wpdb->prepare("
 					INSERT INTO {$wpdb->prefix}favoritos (post_id,user_id,created_at,updated_at)
 					VALUES (%d, %d, null, null );", $post_id, $user_id));
 		} else {
-			//Si ya existe, aumetamos su contador y modificamos su estado para decir que te gusta
+			// Si ya existe, aumetamos su contador y modificamos su estado para decir que te gusta
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET status =  0, count = count + 1
 			WHERE post_id = %d
@@ -168,30 +167,29 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			AND status = 1;", $post_id, $user_id));
 		}
 
-		if (!empty($result)) {
-			$json ['code'] = 200;
-			$json ['btn'] = $this->render('post/_btn_me_gusta', [
+		if (! empty($result)) {
+			$json['code'] = 200;
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => true,
 				'getNonceMeGusta' => $nonce
 			]);
 
-			$json ['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
+			$json['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
 		} else {
 			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
-			$json ['code'] = 504;
-			$json ['btn'] = $this->render('post/_btn_me_gusta', [
+			$json['code'] = 504;
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => false,
 				'getNonceMeGusta' => $nonce
 			]);
-			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
+			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 		}
-		$json ['total_me_gustas'] = $post->getCountFavoritos();
+		$json['total_me_gustas'] = $post->getCountFavoritos();
 		return $json;
 	}
-
 	public function editarRevisionBan($estado, $editor_id, $user_id) {
 		global $wpdb;
-		$nonce = $_POST ['nonce'];
+		$nonce = $_POST['nonce'];
 		$mensaje = '?';
 		switch ($estado) {
 			case Revision::USER_BANEADO :
@@ -201,14 +199,13 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$mensaje = Revision::desbanear($editor_id, $user_id);
 				break;
 		}
-		$json ['code'] = 200;
-		$json ['alert'] = $this->renderAlertaSuccess($mensaje);
+		$json['code'] = 200;
+		$json['alert'] = $this->renderAlertaSuccess($mensaje);
 		return $json;
 	}
-
 	public function editarRevision($estado, $post_id) {
 		global $wpdb;
-		$nonce = $_POST ['nonce'];
+		$nonce = $_POST['nonce'];
 		$mensaje = '?';
 		switch ($estado) {
 			case Revision::ESTADO_PENDIENTE :
@@ -221,8 +218,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$mensaje = Revision::borrar($post_id);
 				break;
 		}
-		$json ['code'] = 200;
-		$json ['alert'] = $this->renderAlertaSuccess($mensaje);
+		$json['code'] = 200;
+		$json['alert'] = $this->renderAlertaSuccess($mensaje);
 		return $json;
 	}
 
@@ -231,40 +228,40 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	 */
 	public function quitarMeGusta($post_id, $user_id) {
 		global $wpdb;
-		$nonce = $_POST ['nonce'];
+		$nonce = $_POST['nonce'];
 		$post = Post::find($post_id);
 		$post_title = $post->post_title;
 
 		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
-		$num = ( int ) $wpdb->get_var('SELECT COUNT(*)
+		$num = (int) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE status = 0
 				AND post_id = $post_id
 				AND user_id = $user_id;");
 		if ($num) {
-			//Si ya existe, aumetamos su contador y modificamos su estado para decir que ya no te gusta
+			// Si ya existe, aumetamos su contador y modificamos su estado para decir que ya no te gusta
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
 			SET status =  1, count = count + 1
 			WHERE post_id = %d
 			AND user_id = %d
 			AND status = 0;", $post_id, $user_id));
 		}
-		if (!empty($result)) {
-			$json ['code'] = 200;
-			$json ['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
-			$json ['btn'] = $this->render('post/_btn_me_gusta', [
+		if (! empty($result)) {
+			$json['code'] = 200;
+			$json['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => false,
 				'getNonceMeGusta' => $nonce
 			]);
 		} else {
-			$json ['code'] = 504;
-			$json ['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
-			$json ['btn'] = $this->render('post/_btn_me_gusta', [
+			$json['code'] = 504;
+			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => true,
 				'getNonceMeGusta' => $nonce
 			]);
 		}
-		$json ['total_me_gustas'] = $post->getCountFavoritos();
+		$json['total_me_gustas'] = $post->getCountFavoritos();
 		return $json;
 	}
 
@@ -279,18 +276,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
-				$post_id = $_datos ['post'];
-				$user_id = $_datos ['user'];
-				$json ['alerta'] = $ajax->crearNotificacion($post_id, $user_id);
+				$post_id = $_datos['post'];
+				$user_id = $_datos['user'];
+				$json['alerta'] = $ajax->crearNotificacion($post_id, $user_id);
 				break;
 			case Ajax::SER_COLABORADOR :
-				$user_id = $_datos ['user'];
+				$user_id = $_datos['user'];
 				$json = $ajax->solicitarColaborador($user_id);
 				break;
 			case Ajax::ME_GUSTA :
-				$post_id = $_datos ['post'];
-				$user_id = $_datos ['user'];
-				$te_gusta = $_datos ['te_gusta'];
+				$post_id = $_datos['post'];
+				$user_id = $_datos['user'];
+				$te_gusta = $_datos['te_gusta'];
 				if ($te_gusta == Utils::SI) {
 					$json = $ajax->crearMeGusta($post_id, $user_id);
 				} else {
@@ -298,32 +295,32 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				}
 				break;
 			case Ajax::MOSTRAR_MAS :
-				$tipo = $_datos ['tipo'];
-				$que = $_datos ['que'];
-				$cant = $_datos ['cant'];
-				$offset = $_datos ['size'];
+				$tipo = $_datos['tipo'];
+				$que = $_datos['que'];
+				$cant = $_datos['cant'];
+				$offset = $_datos['size'];
 				$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
 				break;
 			case Ajax::REVISION :
-				if (!$current_userCanEditor) {
+				if (! $current_userCanEditor) {
 					return 'No tienes permisos';
 				}
-				$estado = $_datos ['estado'];
-				$post_id = $_datos ['que_id'];
+				$estado = $_datos['estado'];
+				$post_id = $_datos['que_id'];
 				$json = $ajax->editarRevision($estado, $post_id);
 				break;
 			case Ajax::REVISION_BAN :
-				if (!$current_userCanEditor) {
+				if (! $current_userCanEditor) {
 					return 'No tienes permisos';
 				}
-				$estado = $_datos ['estado'];
-				$user_id = $_datos ['que_id'];
+				$estado = $_datos['estado'];
+				$user_id = $_datos['que_id'];
 				$editor_id = wp_get_current_user()->ID;
 				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
 				break;
 			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
-				$user_id = $_datos ['user'];
-				$cant = $_datos ['cant'];
+				$user_id = $_datos['user'];
+				$cant = $_datos['cant'];
 				$user = User::find($user_id);
 				$result = $user->getTotalEntradasPublicadasPorMes($cant);
 				$xKey = 'mes';
@@ -336,11 +333,11 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$json = Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
 				break;
 			case Ajax::ADMIN_PANEL_USER :
-				$que = $_datos ['que'];
-				$user_id = $_datos ['user'];
+				$que = $_datos['que'];
+				$user_id = $_datos['user'];
 				$user = User::find($user_id);
 				// Comprobamos que el user actual sea un editor o admin
-				if (!$current_userCanEditor || ($user->isAdmin() && !$current_user->isAdmin())) {
+				if (! $current_userCanEditor || ($user->isAdmin() && ! $current_user->isAdmin())) {
 					return 'No tienes permisos';
 				}
 				switch ($que) {
@@ -366,18 +363,17 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				}
 				break;
 			case Ajax::HOME :
-				$nombreSeccion = $_datos ['seccion'];
-				$cantidad = $_datos ['cant'];
+				$nombreSeccion = $_datos['seccion'];
+				$cantidad = $_datos['cant'];
 				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-				$argsSeccion ['reducido'] = ($cantidad == 2) ? true : false;
-				$json ['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
+				$argsSeccion['reducido'] = ($cantidad == 2) ? true : false;
+				$json['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
 				break;
 			default :
-				$json ['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
+				$json['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
 		return $json;
 	}
-
 }
 
 /**
@@ -386,17 +382,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
  * -------------------------------------
  */
 $json = [
-	'code' => 504 // Error default
-];
+	'code' => 504
+]; // Error default
 
-$submit = $_REQUEST ['submit'];
-$nonce = $_POST ['nonce'];
-$post_id = $_POST ['post'];
+
+$submit = $_REQUEST['submit'];
+$nonce = $_POST['nonce'];
+$post_id = $_POST['post'];
 
 if (in_array($submit, [
 	Ajax::NOTIFICAR,
 	Ajax::ME_GUSTA
-]) && !Ajax::esNonce($nonce, $submit, $post_id)) {
+]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
 	die("An unexpected error has ocurred.");
 }
 
