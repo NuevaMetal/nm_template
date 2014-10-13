@@ -335,6 +335,9 @@ $(document).ready(function() {
 
 });
 
+/**
+ * Cuando todos los elementos básicos estén cargados (ej:imágenes)
+ */
 $(window).load(function(){
 	if ($("#home").length > 0){
 		setTimeout(function() {
