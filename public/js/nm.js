@@ -344,9 +344,7 @@ $(document).ready(function() {
  */
 $(window).load(function(){
 	if ($("#home").length > 0){
-		setTimeout(function() {
-			cargarSecciones();
-		}, 1000);
+		cargarSecciones();
 	}
 });
 
