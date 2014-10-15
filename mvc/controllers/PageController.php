@@ -35,7 +35,7 @@ class PageController extends BaseController {
 
 		$seccion = HomeController::getSeccion($current_category, 4);
 
-		$content = $this->render('busqueda', [
+		$content = $this->_render('busqueda', [
 			'seccion' => $seccion
 		]);
 
@@ -52,7 +52,7 @@ class PageController extends BaseController {
 
 		$seccion = HomeController::getTags($current_tag, 4);
 
-		$content = $this->render('busqueda', [
+		$content = $this->_render('busqueda', [
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
 			'seccion' => $seccion
 		]);

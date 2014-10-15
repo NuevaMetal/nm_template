@@ -88,7 +88,7 @@ class ChesterWPCoreDataHelpers {
 	 * @param unknown $moreQuerySettings
 	 * @return Ambigous <multitype:Ambigous , object, NULL, unknown>
 	 */
-	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
+	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = [], $oddOrEven = false, $moreQuerySettings = []) {
 		// Obtengo los post fijados
 		$posts = self::_getStickyPosts($dateFormat, $postType, $numberPostsToFetch, $customFields, $oddOrEven, $moreQuerySettings);
 		$isCat = isset($moreQuerySettings['cat']);
