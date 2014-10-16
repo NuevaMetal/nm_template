@@ -123,6 +123,15 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve la url del avatar tipo pequeño
+	 *
+	 * @return string
+	 */
+	public function getAvatarPequeno() {
+		return $this->getAvatar(self::AVATAR_SIZE_PEQUENO);
+	}
+
+	/**
 	 * Devuelve un array con todos los tamaños que puede tener un avatar
 	 *
 	 * @return array<integer>

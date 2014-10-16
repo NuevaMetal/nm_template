@@ -34,7 +34,7 @@
 			
 			.sidebar-post-similar-title{
 				//position: absolute;
-				//bottom: 0px;				
+				//bottom: 0px;
 				margin:5px;
 			}
 		}
@@ -53,9 +53,24 @@
 	}
 
 	.users-gustan{
-		.avatar {
-			height: 26px;
-			width: 26px;
+		.row {
+		
+			margin: 5px 0;
+			padding: 2px 0;
+			
+			&:hover {
+				//border: 1px solid $rojo-danger;
+				border-radius: 5px;
+				@extend %negrita;
+				.avatar {
+					box-shadow: 3px 3px 10px #888;
+				}
+			}
+					
+			.avatar {
+				height: 35px;
+				width: 35px;
+			}
 		}
 	}
 	
