@@ -118,6 +118,7 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 	e.preventDefault();
 	var $this = $(this);
 	var post = $this.parents('.post');
+	var sidebar = $this.parents('.post-content').find('#sidebar');
 	var formulario = $this.parents('.formulario');
 	var form = formulario.find('form');
 	var post_val = form.find('[name=post]').val();
@@ -144,6 +145,13 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 			post.find('.total-me-gustas .cant').html(json.total_me_gustas);
 			formulario.find('.fa-spin').addClass('hidden');
 			$this.replaceWith(json.btn);
+			// Al sidebar
+			if (json.user_que_gusta['quitar']) {
+				sidebar.find('.users-que-gustan').find('.user-'+json.user_que_gusta['user']).remove();
+			} else {
+				sidebar.find('.users-que-gustan').prepend(json.user_que_gusta);
+			}
+			mostrarAlerta(json.alert, 2);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
@@ -217,7 +225,6 @@ $(document).on('click', '.navbar-header .navbar-brand', function(e) {
  */
 $(document).on('click', '.ser-colaborador', function(e) {
 	e.preventDefault();
-	console.log(".ser-colaborador.click()");
 	var $this = $(this);
 	var url = $this.attr('url');
 	var user = $this.attr('user');
@@ -418,7 +425,6 @@ function cargarMenu(tipoMenu){
 		submit : 'menu',
 		tipo : tipoMenu
 	};
-	console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -426,7 +432,6 @@ function cargarMenu(tipoMenu){
 		dataType : "json",
 		beforeSend: function() {
 			menu.find('.fa-spin').removeClass('hidden');
-			console.log('#'+tipoMenu);
 		},
 		success : function(json) {
 			menu.addClass('hidden'); //Oculto el menú

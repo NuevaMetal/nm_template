@@ -1,30 +1,11 @@
-{{#hayUsersQueGustan}}
+
 <div class="sidebar-item col-xs-12 users-gustan">
 	<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
 	<hr>
-	<section>
+	<section class="users-que-gustan">
 	{{#getUsersQueGustanLimitado}}
 		{{#lista}}
-			<div class="row">
-				{{#isSuscriptor}}
-					<div class="col-xs-3">
-						<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
-					</div>
-					<div class="col-xs-9">
-						{{display_name}}	
-					</div>
-				{{/isSuscriptor}}
-				{{^isSuscriptor}}
-					<div class="col-xs-3">
-						<a href="{{getPerfilUrl}}">
-							<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
-						</a>
-					</div>
-					<div class="col-xs-9">
-						<a href="{{getPerfilUrl}}">{{display_name}}</a>
-					</div>
-				{{/isSuscriptor}}
-			</div>
+			{{> post/sidebar/_user_que_gusta}}
 		{{/lista}}
 		{{#mas}}
 			<div class="col-xs-12">
@@ -34,7 +15,6 @@
 	{{/getUsersQueGustanLimitado}}
 	</section>
 </div>
-{{/hayUsersQueGustan}}
 
 {{#haySimilares}}
 <div class="sidebar-item col-sm-12 similares">

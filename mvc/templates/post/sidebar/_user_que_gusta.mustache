@@ -1,0 +1,22 @@
+{{#user}}
+<div class="row user-{{user_login}}">
+	{{#isSuscriptor}}
+		<div class="col-xs-3">
+			<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
+		</div>
+		<div class="col-xs-9">
+			{{display_name}}	
+		</div>
+	{{/isSuscriptor}}
+	{{^isSuscriptor}}
+		<div class="col-xs-3">
+			<a href="{{getPerfilUrl}}">
+				<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
+			</a>
+		</div>
+		<div class="col-xs-9">
+			<a href="{{getPerfilUrl}}">{{display_name}}</a>
+		</div>
+	{{/isSuscriptor}}
+</div>
+{{/user}}

@@ -136,57 +136,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 
 		return $json;
 	}
-
-	/**
-	 * Crear me gusta
-	 */
-	public function crearMeGusta($post_id, $user_id) {
-		global $wpdb;
-		$nonce = $_POST['nonce'];
-		$post = Post::find($post_id);
-
-		$post_title = $post->post_title;
-
-		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
-		$num = (int) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE post_id = $post_id
-				AND user_id = $user_id;");
-
-		// Si no existe, lo creamos
-		if (! $num) {
-			$result = $wpdb->query($wpdb->prepare("
-					INSERT INTO {$wpdb->prefix}favoritos (post_id,user_id,created_at,updated_at)
-					VALUES (%d, %d, null, null );", $post_id, $user_id));
-		} else {
-			// Si ya existe, aumetamos su contador y modificamos su estado para decir que te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET status =  0, count = count + 1
-			WHERE post_id = %d
-			AND user_id = %d
-			AND status = 1;", $post_id, $user_id));
-		}
-
-		if (! empty($result)) {
-			$json['code'] = 200;
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => true,
-				'getNonceMeGusta' => $nonce
-			]);
-
-			$json['alert'] = $this->renderAlertaInfo('Te gusta', $post_title);
-		} else {
-			Utils::debug("crearMeGusta()>Ocurrió un error inesperado");
-			$json['code'] = 504;
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => false,
-				'getNonceMeGusta' => $nonce
-			]);
-			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
-		}
-		$json['total_me_gustas'] = $post->getCountFavoritos();
-		return $json;
-	}
 	public function editarRevisionBan($estado, $editor_id, $user_id) {
 		global $wpdb;
 		$nonce = $_POST['nonce'];
@@ -224,35 +173,63 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 	}
 
 	/**
-	 * Crear me gusta
+	 * Crear me gusta de un Post a un User
+	 *
+	 * @param Post $post
+	 *        	Post que es gustado
+	 * @param User $user
+	 *        	User al que le gusta el Post
+	 * @return Json para el ajax
 	 */
-	public function quitarMeGusta($post_id, $user_id) {
-		global $wpdb;
-		$nonce = $_POST['nonce'];
-		$post = Post::find($post_id);
-		$post_title = $post->post_title;
+	private function _crearMeGusta($post, $user) {
+		$result = $post->crearMeGusta($user);
 
-		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
-		$num = (int) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE status = 0
-				AND post_id = $post_id
-				AND user_id = $user_id;");
-		if ($num) {
-			// Si ya existe, aumetamos su contador y modificamos su estado para decir que ya no te gusta
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}favoritos
-			SET status =  1, count = count + 1
-			WHERE post_id = %d
-			AND user_id = %d
-			AND status = 0;", $post_id, $user_id));
-		}
+		$nonce = $_POST['nonce'];
+
 		if (! empty($result)) {
 			$json['code'] = 200;
-			$json['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post_title);
+			$json['alert'] = $this->renderAlertaInfo('Te gusta', $post->post_title);
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
+				'isMeGusta' => true,
+				'getNonceMeGusta' => $nonce
+			]);
+			$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta', [
+				'user' => $user
+			]);
+		} else {
+			$json['code'] = 504;
+			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => false,
 				'getNonceMeGusta' => $nonce
 			]);
+		}
+		$json['total_me_gustas'] = $post->getCountFavoritos();
+		return $json;
+	}
+
+	/**
+	 * Quitar me gusta
+	 *
+	 * @param Post $post
+	 * @param User $user
+	 * @return Json
+	 */
+	private function _quitarMeGusta($post, $user) {
+		$result = $post->quitarMeGusta($user);
+		$nonce = $_POST['nonce'];
+
+		if (! empty($result)) {
+			$json['code'] = 200;
+			$json['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post->post_title);
+			$json['btn'] = $this->render('post/_btn_me_gusta', [
+				'isMeGusta' => false,
+				'getNonceMeGusta' => $nonce
+			]);
+			$json['user_que_gusta'] = [
+				'quitar' => true,
+				'user' => $user->user_login
+			];
 		} else {
 			$json['code'] = 504;
 			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
@@ -285,13 +262,13 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$json = $ajax->solicitarColaborador($user_id);
 				break;
 			case Ajax::ME_GUSTA :
-				$post_id = $_datos['post'];
-				$user_id = $_datos['user'];
+				$post = Post::find($_datos['post']);
+				$user = User::find($_datos['user']);
 				$te_gusta = $_datos['te_gusta'];
 				if ($te_gusta == Utils::SI) {
-					$json = $ajax->crearMeGusta($post_id, $user_id);
+					$json = $ajax->_crearMeGusta($post, $user);
 				} else {
-					$json = $ajax->quitarMeGusta($post_id, $user_id);
+					$json = $ajax->_quitarMeGusta($post, $user);
 				}
 				break;
 			case Ajax::MOSTRAR_MAS :

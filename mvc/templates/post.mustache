@@ -1,7 +1,6 @@
 {{#post}}
-
-<div class="col-xs-12 col-sm-9">
-	<div class="post" itemscope itemType="http://schema.org/BlogPosting">
+<div class="post-content">
+	<div class="col-xs-12 col-sm-9 post" itemscope itemType="http://schema.org/BlogPosting">
 	
 		<h1 class="page-header titular" itemprop="headline">{{{getTitulo}}}</h1>
 	
@@ -27,10 +26,9 @@
 			{{/getComentarios}}
 		</div>
 	</div>
-</div>
 
-<div id="sidebar" class="col-xs-12 col-sm-3 text-center"> 
-    {{> post/_sidebar }}
+	<div id="sidebar" class="col-xs-12 col-sm-3 text-center"> 
+	    {{> post/_sidebar }}
+	</div>
 </div>
-
 {{/post}}

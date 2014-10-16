@@ -8,6 +8,7 @@ require_once 'ModelBase.php';
 class Favorito extends ModelBase {
 
 	const ACTIVO = 0;
+	const BORRADO = 1;
 	public static $table = "favoritos";
 	public $user_id;
 	public $post_id;
