@@ -339,18 +339,28 @@ $(document).ready(function() {
 	setTimeout(function() {
 		seHaceScroll();
 	}, 10);
+	
+	//Si no está la home
+	if ($("#home").length == 0){
+		cargarMenus();
+	}
+	// Y si estámos en la home entonces se cargará en el window.load, cuando todos los elementos 
+	// estén cargados
+});
 
+function cargarMenus(){
 	// Cargamos los menus por ajax
 	cargarMenu('menu-principal');
 	cargarMenu('menu-perfil');
-	cargarMenu('menu-footer');
-});
+	cargarMenu('menu-footer');	
+}
 
 /**
  * Cuando todos los elementos básicos estén cargados (ej:imágenes)
  */
 $(window).load(function(){
 	if ($("#home").length > 0){
+		cargarMenus();
 		cargarSecciones();
 	}
 });
