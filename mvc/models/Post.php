@@ -528,7 +528,6 @@ class Post extends ModelBase {
 							AND user_id = %d
 							AND status = $statusActivo;", $this->ID, $user->ID));
 		}
-		Utils::debug(">> result: $result");
 		return $result;
 	}
 }
