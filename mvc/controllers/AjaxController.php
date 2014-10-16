@@ -228,7 +228,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			]);
 			$json['user_que_gusta'] = [
 				'quitar' => true,
-				'user' => $user->user_login
+				'user' => $user->user_nicename
 			];
 		} else {
 			$json['code'] = 504;
