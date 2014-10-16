@@ -1,22 +1,14 @@
 {{#user}}
 <div class="row user-{{user_nicename}}">
 	{{#isSuscriptor}}
-		<div class="col-xs-3">
-			<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
-		</div>
-		<div class="col-xs-9">
-			{{display_name}}	
-		</div>
+		<span class="col-xs-3"><img alt="{{display_name}} avatar" src="{{getAvatarIco}}" class="avatar"></span>
+		<span class="col-xs-9">{{display_name}}</span>
 	{{/isSuscriptor}}
 	{{^isSuscriptor}}
-		<div class="col-xs-3">
-			<a href="{{getPerfilUrl}}">
-				<img alt="{{display_name}}" src="{{getAvatarIco}}" class="avatar">
-			</a>
-		</div>
-		<div class="col-xs-9">
-			<a href="{{getPerfilUrl}}">{{display_name}}</a>
-		</div>
+		<a href="{{getPerfilUrl}}">
+			<span class="col-xs-3"><img alt="{{display_name}} avatar" src="{{getAvatarIco}}" class="avatar"></span>
+			<span class="col-xs-9">{{display_name}}</span>
+		</a>
 	{{/isSuscriptor}}
 </div>
 {{/user}}
