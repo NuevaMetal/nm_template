@@ -43,6 +43,7 @@ return [
 
 	'editor' => 'editor',
 	'eliminar' => 'eliminar',
+	'error' => 'Ocurrió un error inesperado',
 
 	'favorito' => 'favorito',
 	'favoritos' => 'favoritos',

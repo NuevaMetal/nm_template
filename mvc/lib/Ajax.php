@@ -45,6 +45,8 @@ class Ajax {
 
 	const QUITAR_HEADER = 'quitar-header';
 
+	const USER = 'user';
+
 	const SER_COLABORADOR = 'ser-colaborador';
 
 	/**

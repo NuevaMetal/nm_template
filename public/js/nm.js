@@ -500,3 +500,45 @@ $(document).on('click', '.borrar-comentario', function(e) {
 	     }
 	});
 });
+
+
+/**
+ * Botón seguir
+ */
+$(document).on('click', '.seguir', function(e) {
+	e.preventDefault();
+	var $this =  $(this);
+	var url = $this.attr('url');
+	var id = $this.attr('id');
+	var tipo = $this.attr('tipo');
+	var data = {
+		submit : 'user',
+		tipo: 'seguir',
+		id : id,
+		tipo : tipo
+	};
+	console.log(data);
+	
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			//$this.attr('editable', false);
+		},
+		success : function(json) {
+			if(json.code == 200){
+				$this.replaceWith(json.btn);
+				//$this.attr('editable', true);
+				mostrarAlerta(json.alert, 2);
+			} else {
+				mostrarAlerta(json.err, 2);
+			}
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});

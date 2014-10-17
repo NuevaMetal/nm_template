@@ -1,11 +1,12 @@
 <?php
 require_once 'ModelBase.php';
+require_once 'Seguidor.php';
 /**
  * Modelo que representa un Usuario
  *
  * @author José María Valera Reales <@Chemaclass>
  */
-class User extends ModelBase {
+class User extends ModelBase implements Seguidor {
 	public static $table = "users";
 
 	/*
@@ -983,5 +984,56 @@ class User extends ModelBase {
 				WHERE user_id = $this->ID
 				AND status = $estadoBloqueado;");
 		return $isBan > 0;
+	}
+
+	/**
+	 * Devuelve los usuarios seguidores
+	 *
+	 * @return array<User>
+	 */
+	public function getSeguidores() {
+		// TODO: Falta implementar
+		$seguidores = [];
+		return $seguidores;
+	}
+
+	/**
+	 * Devuelve los usuarios a los que sigue el user
+	 *
+	 * @return array<User>
+	 */
+	public function getSiguiendo() {
+		// TODO: Falta implementar
+		$siguiendo = [];
+		return $siguiendo;
+	}
+
+	/**
+	 * Devuelve el número total de usuarios que le siguen
+	 *
+	 * @return array<User>
+	 */
+	public function getTotalSeguidores() {
+		return count($this->getSeguidores());
+	}
+
+	/**
+	 * Devuelve el número total de usuarios a los que está siguiendo
+	 *
+	 * @return integer
+	 */
+	public function getTotalSiguiendo() {
+		return count($this->getSiguiendo());
+	}
+
+	/**
+	 * Seguidor::sigue()
+	 *
+	 * @param integer $que_id
+	 * @param integer $tipo_que
+	 */
+	public function sigue($que_id, $tipo_que) {
+		$seguimiento = new Seguimiento($this->ID, $que_id, $tipo_que);
+		return $seguimiento->save();
 	}
 }
