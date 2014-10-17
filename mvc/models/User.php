@@ -12,37 +12,54 @@ class User extends ModelBase {
 	 * Tamaños del avatar
 	 */
 	const AVATAR_SIZE_ICO = 26;
+
 	const AVATAR_SIZE_PEQUENO = 64;
+
 	const AVATAR_SIZE_DEFAULT = 96;
+
 	const AVATAR_SIZE_PERFIL = 190;
 
 	/*
 	 * Tamaño por defecto para el header
 	 */
 	const IMG_HEADER_HEIGHT_DEFAULT = 270;
+
 	const IMG_HEADER_WIDTH_DEFAULT = 1200;
 
 	/*
 	 * Claves de los metadatos
 	 */
 	const KEY_USER_TWITTER = 'tw_txt';
+
 	const KEY_USER_FACEBOOK = 'fb_txt';
+
 	const KEY_USER_GOOGLE_PLUS = 'gp_txt';
+
 	const KEY_USER_YOUTUBE = 'yt_txt';
+
 	const KEY_USER_SOUNDCLOUD = 'sc_txt';
+
 	const KEY_USER_NOMBRE = 'first_name';
+
 	const KEY_USER_APELLIDOS = 'last_name';
+
 	const KEY_USER_IMG_HEADER = 'img_header';
+
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
+
 	const KEY_USER_TIPO = 'tipo_usuario';
 
 	/*
 	 * Tipos de Usuario
 	 */
 	const TIPO_USUARIO = 'user';
+
 	const TIPO_BANDA = 'band';
+
 	const TIPO_PRODUCTOR = 'producer';
+
 	const TIPO_MANAGER = 'manager';
+
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	/*
@@ -59,16 +76,22 @@ class User extends ModelBase {
 	 * Número de palabras para la descripción corta
 	 */
 	const NUM_DESCRIPTION_CORTA = 11;
+
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
 	/*
 	 * Roles posibles
 	 */
 	const ROL_SUPER_ADMIN = 'super admin';
+
 	const ROL_ADMIN = 'administrator';
+
 	const ROL_EDITOR = 'editor';
+
 	const ROL_AUTOR = 'author';
+
 	const ROL_COLABORADOR = 'contributor';
+
 	const ROL_SUSCRIPTOR = 'subscriber';
 
 	/**
@@ -425,12 +448,11 @@ class User extends ModelBase {
 	 * @return array<string>
 	 */
 	public function getRoles() {
-		global $wpdb;
-		$qRoles = $wpdb->get_var("SELECT meta_value
-				FROM $wpdb->usermeta
-				WHERE meta_key = 'wp_capabilities'
-				AND user_id = $this->ID");
-		$qRolesArr = unserialize($qRoles);
+		// global $wpdb;
+		// $qRoles = $wpdb->get_var("SELECT meta_value FROM $wpdb->usermeta
+		// WHERE meta_key = 'wp_capabilities' AND user_id = $this->ID");
+		// $qRolesArr = unserialize($qRoles);
+		$qRolesArr = get_user_meta($this->ID, 'wp_capabilities', true);
 		return is_array($qRolesArr) ? array_keys($qRolesArr) : array(
 			'non-user'
 		);

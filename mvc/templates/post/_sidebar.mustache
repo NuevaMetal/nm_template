@@ -1,21 +1,42 @@
-
-<div class="sidebar-item col-xs-12 users-gustan">
-	<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
-	<hr>
-	<section class="users-que-gustan">
-	{{#getUsersQueGustanLimitado}}
-		{{#lista}}
-			{{> post/sidebar/_user_que_gusta}}
-		{{/lista}}
-		{{#mas}}
-			<div class="col-xs-12">
-				{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
-			</div>
-		{{/mas}}
-	{{/getUsersQueGustanLimitado}}
-	</section>
-</div>
-
+{{#current_user.canSuscriptor}}
+	<div class="sidebar-item col-xs-12 users-gustan">
+		<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
+		<hr>
+		<section class="users-que-gustan">
+		{{#getUsersQueGustanLimitado}}
+			{{#lista}}
+				{{> post/sidebar/_user_que_gusta}}
+			{{/lista}}
+			{{#mas}}
+				<div class="col-xs-12">
+					{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
+				</div>
+			{{/mas}}
+		{{/getUsersQueGustanLimitado}}
+		</section>
+	</div>
+{{/current_user.canSuscriptor}}
+{{^current_user.canSuscriptor}}
+	{{#hayUsersQueGustan}}
+		<div class="sidebar-item col-xs-12 users-gustan">
+			<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
+			<hr>
+			<section class="users-que-gustan">
+			{{#getUsersQueGustanLimitado}}
+				{{#lista}}
+					{{> post/sidebar/_user_que_gusta}}
+				{{/lista}}
+				{{#mas}}
+					<div class="col-xs-12">
+						{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
+					</div>
+				{{/mas}}
+			{{/getUsersQueGustanLimitado}}
+			</section>
+		</div>
+	{{/hayUsersQueGustan}}
+{{/current_user.canSuscriptor}}
+			
 {{#haySimilares}}
 <div class="sidebar-item col-sm-12 similares">
 	<h3 class="titular"><i class="fa fa-group"></i> {{#trans}}sidebar.entradas_similares{{/trans}}</h3>

@@ -348,13 +348,6 @@ $(document).ready(function() {
 	// estén cargados
 });
 
-function cargarMenus(){
-	// Cargamos los menus por ajax
-	cargarMenu('menu-principal');
-	cargarMenu('menu-perfil');
-	cargarMenu('menu-footer');	
-}
-
 /**
  * Cuando todos los elementos básicos estén cargados (ej:imágenes)
  */
@@ -364,6 +357,16 @@ $(window).load(function(){
 		cargarSecciones();
 	}
 });
+
+/**
+ * Cargar los Menus
+ */
+function cargarMenus(){
+	// Cargamos los menus por ajax
+	cargarMenu('menu-principal');
+	cargarMenu('menu-perfil');
+	cargarMenu('menu-footer');	
+}
 
 /**
  * Cargar las secciones
