@@ -6,22 +6,22 @@
 		    {{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
 		</div>
         <div class="caption">
-			{{# getTotalMeGustas }}
-				<div class="col-xs-6 text-left">
+			<div class="col-xs-6 text-left">
+				{{# getTotalMeGustas }}
 					<span class="total-me-gustas titular">
 						<i class=" fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
 					</span>
-				</div>
-			{{/ getTotalMeGustas }}
-			{{# getTotalComentarios }}
-				<div class="col-xs-6 text-right">
+				{{/ getTotalMeGustas }}
+			</div>
+			<div class="col-xs-6 text-right">
+				{{# getTotalComentarios }}
 					<a href="{{getUrl}}#comments">
 						<span class="total-comentarios titular">
 							<i class=" fa fa-comment"></i> <span class="cant">{{ getTotalComentarios }}</span>
 						</span>
 					</a>
-				</div>
-			{{/ getTotalComentarios }}
+				{{/ getTotalComentarios }}
+			</div>
         </div>
 		<a href="{{getUrl}}" title="{{{getTitulo}}}">
 			{{#getThumbnails}}

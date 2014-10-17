@@ -127,7 +127,7 @@ h3.header {
     margin-top: 35px;
     color:#fff !important;
     z-index:2;
-    .total-comentarios {    
+    .total-comentarios {
     	.titular {
 	    	cursor:pointer; 
 	    	cursor: hand;
@@ -136,7 +136,8 @@ h3.header {
 			color: white !important;
 		}
 	}
-    .total-comentarios, .total-me-gustas{
+    .total-comentarios, .total-me-gustas {
+    	padding: 5px;
     	border-radius: 10px;
 		background:rgba(0, 0, 0, 0.7);
 		font-size: 21px;
