@@ -1,5 +1,4 @@
-<article class="post col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" 
-	itemscope itemType="http://schema.org/BlogPosting">
+<article class="post col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" itemscope itemType="http://schema.org/BlogPosting">
 
 	<div class="thumbnail">
 		<div class="info titular">
@@ -16,9 +15,11 @@
 			{{/ getTotalMeGustas }}
 			{{# getTotalComentarios }}
 				<div class="col-xs-6 text-right">
-					<span class="total-me-gustas titular">
-						<i class=" fa fa-comment"></i> <span class="cant">{{ getTotalComentarios }}</span>
-					</span>
+					<a href="{{getUrl}}#comments">
+						<span class="total-comentarios titular">
+							<i class=" fa fa-comment"></i> <span class="cant">{{ getTotalComentarios }}</span>
+						</span>
+					</a>
 				</div>
 			{{/ getTotalComentarios }}
         </div>

@@ -127,14 +127,22 @@ h3.header {
     margin-top: 35px;
     color:#fff !important;
     z-index:2;
-    .total-me-gustas{
+    .total-comentarios {    
+    	.titular {
+	    	cursor:pointer; 
+	    	cursor: hand;
+	    }
+		.cant {
+			color: white !important;
+		}
+	}
+    .total-comentarios, .total-me-gustas{
     	border-radius: 10px;
 		background:rgba(0, 0, 0, 0.7);
 		font-size: 21px;
 		i {
 			color: $rojo-danger-hover;
 		}
-		
     }
 }
 
