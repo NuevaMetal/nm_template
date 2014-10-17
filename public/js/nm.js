@@ -462,3 +462,41 @@ function cargarMenu(tipoMenu){
 	     }
 	});
 }
+
+/**
+ * Botón borrar comentario
+ */
+$(document).on('click', '.borrar-comentario', function(e) {
+	e.preventDefault();
+	var $this =  $(this);
+	var url = $this.parents('.post-content').attr('url');
+	var comment = $this.parents('.row');
+	var id = comment.attr('id').split('-')[1];
+	var data = {
+		submit : 'post',
+		tipo: 'borrar-comentario',
+		id : id
+	};
+	var txt = comment.find('p').text();
+	txt = (txt.length > 30) ? txt.substr(0,30) + "..." : txt;
+	if(!confirm('Estás seguro de querer eliminar el comentario?\n' + txt)) {
+		return;
+	}
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$this.addClass('hidden');
+			comment.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			comment.remove();
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});

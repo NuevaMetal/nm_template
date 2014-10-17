@@ -250,7 +250,6 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		$ajax = new AjaxController();
 		$current_user = Utils::getCurrentUser();
 		$current_userCanEditor = $current_user && $current_user->canEditor();
-
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
 				$post_id = $_datos['post'];
@@ -320,22 +319,18 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				switch ($que) {
 					case Ajax::QUITAR_HEADER :
 						$user->setImgHeader(null);
-						$json = Ajax::QUITAR_HEADER;
 						break;
 					case Ajax::QUITAR_AVATAR :
 						$user->setAvatar(null);
-						$json = Ajax::QUITAR_AVATAR;
 						break;
 					case Ajax::BLOQUEAR :
 						$userBloqueado = new UserBloqueado($user_id);
 						$userBloqueado->editor_id = $current_user->ID;
 						$userBloqueado->save();
-						$json = Ajax::BLOQUEAR;
 						break;
 					case Ajax::DESBLOQUEAR :
 						$userBloqueado = new UserBloqueado($user_id);
 						$userBloqueado->borrar();
-						$json = Ajax::BLOQUEAR;
 						break;
 				}
 				break;
@@ -343,7 +338,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				$nombreSeccion = $_datos['seccion'];
 				$cantidad = $_datos['cant'];
 				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-				$argsSeccion['reducido'] = ($cantidad == 2) ? true : false;
+				$argsSeccion['reducido'] = ($cantidad == 2);
 				$json['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
 				break;
 			case Ajax::MENU :
@@ -352,16 +347,29 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 					'login_url' => wp_login_url('/'),
 					'redirect_to' => '/'
 				];
-				if ($tipoMenu == Ajax::MENU_PRINCIPAL) {
-					$json['menu'] = $ajax->_render('menu/principal', $menuArgs);
-				} else if ($tipoMenu == Ajax::MENU_PERFIL) {
-					$json['menu'] = $ajax->_render('menu/perfil', $menuArgs);
-				} else if ($tipoMenu == Ajax::MENU_FOOTER) {
-					$json['menu'] = $ajax->_render('menu/footer');
-				} else {
-					$json['menu'] = '?';
+				switch ($tipoMenu) {
+					case Ajax::MENU_PRINCIPAL :
+						$json['menu'] = $ajax->_render('menu/principal', $menuArgs);
+						break;
+					case Ajax::MENU_PERFIL :
+						$json['menu'] = $ajax->_render('menu/perfil', $menuArgs);
+						break;
+					case Ajax::MENU_FOOTER :
+						$json['menu'] = $ajax->_render('menu/footer');
+						break;
 				}
 				break;
+			case Ajax::POST :
+				if (! $current_userCanEditor) {
+					return 'No tienes permisos';
+				}
+				$tipo = $_datos['tipo'];
+				switch ($tipo) {
+					case Comment::BORRAR_COMENTARIO :
+						$comment = new Comment($_datos['id']);
+						$comment->borrar();
+						break;
+				}
 			default :
 				$json['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}

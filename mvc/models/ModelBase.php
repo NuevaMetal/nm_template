@@ -13,8 +13,8 @@ abstract class ModelBase {
 	public $created_at;
 	public $updated_at;
 
-	public function __construct() {
-		$this->ID = -1;
+	public function __construct($_id = -1) {
+		$this->ID = $_id;
 		global $wpdb;
 		static::$columnas = $wpdb->get_col_info();
 	}

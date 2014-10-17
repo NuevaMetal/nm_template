@@ -1,8 +1,12 @@
-<div id="comment-{{comment_ID}}" class="comment">
-	<div class="author" id="user-{{user_id}}">
+<div id="comment-{{comment_ID}}" class="row comment">
+	<span class="col-xs-10 author" id="user-{{user_id}}">
 		<span class="name"><a href="{{comment_author_url}}">{{comment_author}}</a></span>
 		<span class="date">{{comment_date_gmt}}</span>
-	</div>
-	<p>{{comment_content}}</p>
+	</span>
+	<span class="col-xs-2">
+		<button class="btn btn-danger borrar-comentario">{{#transu}}borrar{{/transu}}</button>
+		<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+	</span>
+	<p class="col-xs-12">{{comment_content}}</p>
+	<hr>
 </div>
-<hr>

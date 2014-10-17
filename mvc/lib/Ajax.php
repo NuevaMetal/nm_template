@@ -33,6 +33,8 @@ class Ajax {
 
 	const NOTIFICAR = "notificar";
 
+	const POST = "post";
+
 	const RECHAZAR_COLABORADOR = 'rechazar-colaborador';
 
 	const REVISION = "revision";
