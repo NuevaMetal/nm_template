@@ -510,15 +510,11 @@ $(document).on('click', '.seguir', function(e) {
 	var $this =  $(this);
 	var url = $this.attr('url');
 	var id = $this.attr('id');
-	var tipo = $this.attr('tipo');
 	var data = {
 		submit : 'user',
 		tipo: 'seguir',
-		id : id,
-		tipo : tipo
-	};
-	console.log(data);
-	
+		id : id
+	};	
 	$.ajax({
 		url : url,
 		type : "POST",

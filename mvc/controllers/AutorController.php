@@ -35,8 +35,7 @@ class AutorController extends BaseController {
 		$args = [
 			'user' => $user,
 			'current_user' => Utils::getCurrentUser(),
-			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES,
-			'TIPO' => Seguimiento::TIPO_USER
+			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
 		$args['posts'] = self::_getArrayPostsAutor($author_id, 4);
 		$args['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';

@@ -27,5 +27,7 @@ return [
 
 	'tipo_usuario' => 'Tipo de usuario',
 
-	'ultimos_fav_dados' => 'Últimos favoritos dados'
+	'ultimos_fav_dados' => 'Últimos favoritos dados',
+
+	'ya_seguido' => 'Ya sigues a este usuario',
 ];

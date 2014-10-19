@@ -1,14 +1,12 @@
 <?php
 require_once 'ModelBase.php';
-require_once 'Seguidor.php';
 /**
  * Modelo que representa un Usuario
  *
  * @author José María Valera Reales <@Chemaclass>
  */
-class User extends ModelBase implements Seguidor {
+class User extends ModelBase {
 	public static $table = "users";
-
 	/*
 	 * Tamaños del avatar
 	 */
@@ -1027,13 +1025,18 @@ class User extends ModelBase implements Seguidor {
 	}
 
 	/**
-	 * Seguidor::sigue()
+	 * Seguir a otro User
 	 *
-	 * @param integer $que_id
-	 * @param integer $tipo_que
+	 * @param integer $a_quien_id
+	 *        	Identificador del User a seguir
+	 * @throws Exception Si no se pudo seguir
 	 */
-	public function sigue($que_id, $tipo_que) {
-		$seguimiento = new Seguimiento($this->ID, $que_id, $tipo_que);
-		return $seguimiento->save();
+	public function seguir($aQuienId) {
+		$seguimiento = new Seguimiento($this->ID, $aQuienId);
+		try {
+			$seguimiento->save();
+		} catch ( Exception $e ) {
+			throw $e;
+		}
 	}
 }

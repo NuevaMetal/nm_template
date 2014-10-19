@@ -375,40 +375,23 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				if (! $current_user) {
 					return 'No tienes permisos';
 				}
-				$queId = $_datos['id'];
-				$tipoQue = $_datos['tipo'];
-
-				if ($current_user->sigue($queId, $tipoQue)) {
-					// Si no hubo ningún problema
-					$json = $ajax->_sigue($queId, $tipoQue);
-				} else {
-					$json['code'] = 500;
-					$json['err'] = I18n::transu('error');
+				$aQuienId = $_datos['id'];
+				try {
+					$current_user->seguir($aQuienId);
+					$aQuien = User::find($aQuienId);
+					$json['code'] = 200;
+					$json['alert'] = $ajax->renderAlertaInfo('Ahora sigues a ' . $aQuien->display_name);
+					$json['btn'] = $ajax->_render('autor/_btn_seguir', [
+						'user' => $aQuien
+					]);
+				} catch ( Exception $e ) {
+					$json['code'] = $e->getCode();
+					$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
 				}
 				break;
 			default :
 				$json['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
-		return $json;
-	}
-
-	/**
-	 *
-	 * @param unknown $queId
-	 * @param unknown $tipoQue
-	 */
-	private function _sigue($queId, $tipoQue) {
-		$current_user = Utils::getCurrentUser();
-		$seguimiento = new Seguimiento($current_user->ID, $queId, $tipoQue);
-		$modelQue = $seguimiento->getQue();
-		$user = $modelQue;
-		$json = [];
-		$json['code'] = 200;
-		$json['alert'] = $this->renderAlertaInfo('Ahora sigues a ' . $user->display_name);
-		$json['btn'] = $this->_render('autor/_btn_seguir', [
-			'user' => $user,
-			'TIPO' => Seguimiento::TIPO_USER
-		]);
 		return $json;
 	}
 }

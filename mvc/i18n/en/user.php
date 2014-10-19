@@ -27,5 +27,7 @@ return [
 
 	'tipo_usuario' => 'Type of user',
 
-	'ultimos_fav_dados' => 'Latest favorites'
+	'ultimos_fav_dados' => 'Latest favorites',
+
+	'ya_seguido' => 'You follow this user'
 ];
