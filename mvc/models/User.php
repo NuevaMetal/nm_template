@@ -1039,4 +1039,24 @@ class User extends ModelBase {
 			throw $e;
 		}
 	}
+
+	/**
+	 * Devuelve la lista de actividades que le pertenecen a través de la vista
+	 */
+	public function getActividades($offset = 0, $limit = 10) {
+		// $actividades = VActividad::where('user_id', '=', $this->ID);
+		global $wpdb;
+		$actividades = $wpdb->get_results($wpdb->prepare('
+				SELECT *
+				FROM wp_v_actividades
+				WHERE user_id = %d
+				ORDER BY updated_at DESC
+				LIMIT %d OFFSET %d
+				', $this->ID, $limit, $offset));
+		// Parseo los objetos genéricos (StdClass) a VActividad
+		array_walk($actividades, function (&$item) {
+			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);
+		});
+		return $actividades;
+	}
 }

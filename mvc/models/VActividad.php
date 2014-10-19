@@ -17,6 +17,8 @@ class VActividad extends ModelBase {
 
 	const TIPO_NUEVA_ENTRADA = 'tipo_nueva_entrada';
 
+	const TIPO_NUEVO_COMENTARIO = 'tipo_nuevo_comentario';
+
 	/*
 	 * Miembros
 	 */
@@ -35,7 +37,7 @@ class VActividad extends ModelBase {
 	 * @param string $que_id
 	 *        	Identificador de aquello a seguir
 	 */
-	public function __construct($tipo_que = false, $user_id = false, $que_id = false) {
+	public function __construct($tipo_que = false, $user_id = false, $que_id = false, $updated_at = false) {
 		parent::__construct();
 		if ($tipo_que) {
 			$this->tipo_que = $tipo_que;
@@ -45,6 +47,9 @@ class VActividad extends ModelBase {
 		}
 		if ($que_id) {
 			$this->que_id = $que_id;
+		}
+		if ($updated_at) {
+			$this->updated_at = $updated_at;
 		}
 	}
 
@@ -63,6 +68,14 @@ class VActividad extends ModelBase {
 	 * @return object
 	 */
 	public function getQue() {
+		// La ID de la tabla comentarios es distinta a ID, es comment_ID (por convención de WP)
+		// Por este motivo trato primero este caso, y el resto después
+		if ($this->tipo_que == self::TIPO_NUEVO_COMENTARIO) {
+			$c = Comment::first('comment_ID', '=', $this->que_id);
+			$c->getPost();
+			return $c;
+		}
+
 		$model = $this->getModelQue();
 		if ($model) {
 			return $model::find($this->que_id);
@@ -88,9 +101,11 @@ class VActividad extends ModelBase {
 			case self::TIPO_SEGUIMIENTO_USER :
 				return 'User';
 			case self::TIPO_ME_GUSTA :
-				return 'Favorito';
+				return 'Post';
 			case self::TIPO_NUEVA_ENTRADA :
 				return 'Post';
+			case self::TIPO_NUEVO_COMENTARIO :
+				return 'Comment';
 		}
 		return null;
 	}
@@ -111,15 +126,53 @@ class VActividad extends ModelBase {
 		return [
 			self::TIPO_SEGUIMIENTO_USER,
 			self::TIPO_ME_GUSTA,
-			self::TIPO_NUEVA_ENTRADA
+			self::TIPO_NUEVA_ENTRADA,
+			self::TIPO_NUEVO_COMENTARIO
 		];
+	}
+
+	/**
+	 * Devuelve true si el tipo es de un seguimiento a un User
+	 *
+	 * @return boolean
+	 */
+	public function isTipoSeguimientoUser() {
+		return $this->tipo_que == self::TIPO_SEGUIMIENTO_USER;
+	}
+
+	/**
+	 * Devuelve true si el tipo es de un me gusta
+	 *
+	 * @return boolean
+	 */
+	public function isTipoMeGusta() {
+		return $this->tipo_que == self::TIPO_ME_GUSTA;
+	}
+
+	/**
+	 * Devuelve true si el tipo es de una entrada publicada
+	 *
+	 * @return boolean
+	 */
+	public function isTipoNuevaEntrada() {
+		return $this->tipo_que == self::TIPO_NUEVA_ENTRADA;
+	}
+
+	/**
+	 * Devuelve true si el tipo es de un comentario
+	 *
+	 * @return boolean
+	 */
+	public function isTipoNuevoComentario() {
+		return $this->tipo_que == self::TIPO_NUEVO_COMENTARIO;
 	}
 
 	/**
 	 * Crear vista en la bbdd
 	 */
 	private static function _crearVista() {
-		$sql = "CREATE OR REPLACE VIEW wp_v_actividades AS (
+		$sql = "CREATE OR REPLACE VIEW wp_v_actividades AS
+		(
 			select user_id AS user_id, a_quien_id AS que_id, 'tipo_seguimiento_user' AS 'tipo_que', updated_at AS 'updated_at'
 			from wp_users_seguimientos
 			order by updated_at desc
@@ -134,6 +187,11 @@ class VActividad extends ModelBase {
 			where post_type = 'post'
 				and post_status = 'publish'
 			order by updated_at desc
-		);";
+		) union (
+			select user_id AS user_id, comment_ID AS que_id, 'tipo_nuevo_comentario' AS 'tipo_que', comment_date AS 'updated_at'
+			from wp_comments
+			where comment_approved = 1
+			order by updated_at desc
+		)";
 	}
 }

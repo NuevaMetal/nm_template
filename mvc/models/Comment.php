@@ -15,4 +15,20 @@ class Comment extends ModelBase {
 	public function borrar($force_delete = false) {
 		wp_delete_comment($this->ID, $force_delete);
 	}
+
+	/**
+	 *
+	 * @return Post
+	 */
+	public function getPost() {
+		return Post::find($this->comment_post_ID);
+	}
+
+	/**
+	 *
+	 * @return User
+	 */
+	public function getUser() {
+		return User::find($this->user_id);
+	}
 }

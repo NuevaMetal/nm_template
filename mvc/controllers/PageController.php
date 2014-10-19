@@ -7,7 +7,6 @@ require_once 'BaseController.php';
  * Controlador principal de la web
  *
  * @author chemaclass
- *
  */
 class PageController extends BaseController {
 
@@ -27,6 +26,39 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 * Ver la actividad de un User
+	 */
+	public function getActividad() {
+		$current_user = Utils::getCurrentUser();
+
+		return $this->_renderPageBase([
+			'content' => $this->_render('actividad', [
+				'conSidebar' => true,
+				'user' => $current_user
+			])
+		]);
+	}
+
+	/**
+	 * Paǵina de sitios de interés
+	 */
+	public function getAmigas() {
+		$content = $this->_render('pages/amigas');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de contacto
+	 */
+	public function getContacto() {
+		$content = $this->_render('pages/contacto');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+	/**
 	 * category.php
 	 */
 	public function getCategory() {
@@ -39,6 +71,73 @@ class PageController extends BaseController {
 			'seccion' => $seccion
 		]);
 
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de aviso legal
+	 */
+	public function getLegal() {
+		$content = $this->_render('pages/legal');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * page.php
+	 */
+	public function getPage() {
+		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
+
+		$content = $this->_renderPage([
+			'post' => $posts[0]
+		]);
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de redes
+	 */
+	public function getRedes() {
+		$content = $this->_render('pages/redes');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de nuevametal
+	 */
+	public function getMega() {
+		$content = $this->_render('pages/mega');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * Paǵina de nuevametal
+	 */
+	public function getNuevaMetal() {
+		$content = $this->_render('pages/nuevametal');
+		return $this->_renderPageBase([
+			'content' => $content
+		]);
+	}
+
+	/**
+	 * search.php
+	 */
+	public function getSearch() {
+		$search_query = get_search_query();
+		// Obtenemos los argumentos necesarios para pintarla y pintamos el content
+		$args = HomeController::getBusqueda($search_query, 4);
+		$content = $this->_renderBusqueda($args);
 		return $this->_renderPageBase([
 			'content' => $content
 		]);
@@ -63,73 +162,6 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * search.php
-	 */
-	public function getSearch() {
-		$search_query = get_search_query();
-		// Obtenemos los argumentos necesarios para pintarla y pintamos el content
-		$args = HomeController::getBusqueda($search_query, 4);
-		$content = $this->_renderBusqueda($args);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * page.php
-	 */
-	public function getPage() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		$content = $this->_renderPage([
-			'post' => $posts [0]
-		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Paǵina de aviso legal
-	 */
-	public function getLegal() {
-		$content = $this->_render('pages/legal');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Paǵina de contacto
-	 */
-	public function getContacto() {
-		$content = $this->_render('pages/contacto');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Paǵina de redes
-	 */
-	public function getRedes() {
-		$content = $this->_render('pages/redes');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Paǵina de sitios de interés
-	 */
-	public function getAmigas() {
-		$content = $this->_render('pages/amigas');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
 	 * Paǵina de tutorial
 	 */
 	public function getTutorial() {
@@ -138,25 +170,4 @@ class PageController extends BaseController {
 			'content' => $content
 		]);
 	}
-
-	/**
-	 * Paǵina de nuevametal
-	 */
-	public function getNuevaMetal() {
-		$content = $this->_render('pages/nuevametal');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * Paǵina de nuevametal
-	 */
-	public function getMega() {
-		$content = $this->_render('pages/mega');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
 }

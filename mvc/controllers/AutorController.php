@@ -10,20 +10,24 @@ require_once 'BaseController.php';
 class AutorController extends BaseController {
 
 	/**
+	 * Comprobar si el user no tiene perfil
+	 *
+	 * @param User $user
+	 */
+	private function _estaBloqueado($user) {
+		$current_user = Utils::getCurrentUser();
+		return $user->isBloqueado() && (! $current_user || ($current_user && ! $current_user->canEditor()));
+	}
+	/**
 	 * author.php
 	 */
 	public function getAuthor() {
-		$current_user = Utils::getCurrentUser();
-
 		$author_id = get_the_author_meta('ID');
 		$user = User::find($author_id);
-
-		if (! $user) { // si el user no ha publicado nada aún
+		// Comprobar si tiene publicaciones o ha sido bloqueado
+		if (! $user) {
 			return $this->_getAuthorSinPublicaciones();
-		} else if ($user->isBloqueado() && (! $current_user || ($current_user && ! $current_user->canEditor()))) {
-			// si el user ha sido bloqueado y el user actual no es editor.
-			// De ser editor podría ver su perfil para modificar ciertos datos
-			// y/o quitarle el bloqueo a dicho usuario
+		} else if ($this->_estaBloqueado($user)) {
 			return $this->_getAuthorBloqueado($user);
 		}
 
@@ -45,10 +49,9 @@ class AutorController extends BaseController {
 			'tipo' => Utils::TIPO_AUTHOR_FAV,
 			'posts' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT)
 		];
-		$content = $this->_renderAutor($args);
 
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->_renderAutor($args)
 		]);
 	}
 
