@@ -242,6 +242,28 @@ class Post extends ModelBase {
 	public function tieneCategorias() {
 		return count($this->getCategorias());
 	}
+
+	/**
+	 * Devuelve el thumbnail con clave thumbnail
+	 */
+	public function getThumbnail() {
+		$img = $this->getThumbnails();
+		return $img[self::IMG_THUMBNAIL];
+	}
+
+	/**
+	 * Devuelve el thumbnail con clave medium
+	 */
+	public function getThumbnailMedium() {
+		$img = $this->getThumbnails();
+		return $img[self::IMG_MEDIUM];
+	}
+
+	/**
+	 * Devuelve todos los tamaños del thumbnail posible
+	 *
+	 * @return multitype:unknown
+	 */
 	public function getThumbnails() {
 		$thumbnails = [];
 		$sizes = [

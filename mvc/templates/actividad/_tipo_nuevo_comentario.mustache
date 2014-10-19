@@ -1,1 +1,16 @@
-{{getUser.display_name}} ha comentado({{que_id}}) la entrada: {{getQue.getPost.post_title}}
+<div class="fila tipo-nuevo-comentario">
+	{{> actividad/_user}}
+	<span class="texto">	
+		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> ha comentado la entrada <a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>
+	</span>
+	<span class="post-thumbnail">
+		 <a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">
+			{{#getQue.getPost.getThumbnail}}
+				<img src="{{.}}"/>
+			{{/getQue.getPost.getThumbnail}}
+			{{^getQue.getPost.getThumbnail}}
+				<img class="sin-thumbnail"/>
+			{{/getQue.getPost.getThumbnail}}
+		</a>
+	</span>
+</div>

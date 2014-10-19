@@ -1,0 +1,46 @@
+#actividad {
+	.actividades {
+		.avatar, .avatar2, .post-thumbnail {
+			//border: 5px solid $body-background-color;
+			position: relative;
+			img {
+				height: 55px;
+				width: 55px;
+			}			
+			top: 0px;
+		}
+		.avatar {
+			//left: 15px;
+			float: left;
+			margin-right: 20px;
+		}
+		.post-thumbnail, .avatar2 {
+			float: right;
+  			right: 0px;
+		}
+		.fila {
+			border: 5px solid black;
+			//border-radius: 10px;
+			box-shadow: 10px 10px 5px #888888;
+			margin: 5px 0;
+			padding: 15px;
+			height: 95px;
+		}
+		.tipo-me-gusta {
+			
+		}
+		.tipo-nueva-entrada {
+			
+		}
+		.tipo-nuevo-comentario {
+			
+		}
+		.tipo-seguimiento-user {
+			
+		}
+	}
+	
+	.sidebar {
+		
+	}
+}

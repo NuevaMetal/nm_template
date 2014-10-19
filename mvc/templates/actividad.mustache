@@ -4,13 +4,13 @@
 		
 		<p>Aquí podrás ver la actividad reciente de aquellos usuarios que sigues y la tuya.</p>
 		<div class="row">
-			<div class="col-xs-12 {{#conSidebar}}col-md-9 col-lg-10{{/conSidebar}}">
+			<div class="actividades col-xs-12 {{#conSidebar}}col-md-9 col-lg-10{{/conSidebar}}">
 				{{# getActividades }}
 					{{> actividad/_fila }}
 				{{/ getActividades }}		
 			</div>
 			{{#conSidebar}}
-			<div class="col-xs-12 col-md-3 col-lg-2">
+			<div class="sidebar col-xs-12 col-md-3 col-lg-2">
 				{{> actividad/_sidebar}}
 			</div>
 			{{/conSidebar}}

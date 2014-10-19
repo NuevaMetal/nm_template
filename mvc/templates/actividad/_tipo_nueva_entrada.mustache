@@ -1,1 +1,16 @@
-{{getUser.display_name}} ha publicado una nueva entrada: {{getQue.post_title}}
+<div class="fila tipo-nueva-entrada">
+	{{> actividad/_user}}
+	<span class="texto">
+		{{getUser.display_name}} ha publicado una nueva entrada: {{getQue.post_title}}
+	</span>
+	<span class="post-thumbnail">
+		<a href="{{getQue.getUrl}}">
+			{{#getQue.getThumbnail}}
+				<img src="{{.}}"/>
+			{{/getQue.getThumbnail}}
+			{{^getQue.getThumbnail}}
+				<img class="sin-thumbnail"/>
+			{{/getQue.getThumbnail}}
+		</a>
+	</span>
+</div>

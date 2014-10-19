@@ -1044,10 +1044,9 @@ class User extends ModelBase {
 	 * Devuelve la lista de actividades que le pertenecen a través de la vista
 	 */
 	public function getActividades($offset = 0, $limit = 10) {
-		// $actividades = VActividad::where('user_id', '=', $this->ID);
 		global $wpdb;
 		$actividades = $wpdb->get_results($wpdb->prepare('
-				SELECT *
+				SELECT tipo_que, user_id, que_id, updated_at
 				FROM wp_v_actividades
 				WHERE user_id = %d
 				ORDER BY updated_at DESC
