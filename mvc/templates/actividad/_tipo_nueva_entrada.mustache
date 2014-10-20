@@ -2,11 +2,11 @@
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
 		{{#isCurrentUser}}
-			Has publicado una nueva entrada: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+			{{#trans}}user.has_publicado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/isCurrentUser}}
 		{{^isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			ha publicado una nueva entrada: 
+			{{#trans}}user.ha_publicado_una_entrada{{/trans}}
 			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/isCurrentUser}}
 	</span>

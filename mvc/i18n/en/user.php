@@ -2,6 +2,7 @@
 return [
 	'actualizar_mi_perfil' => 'updating my profile',
 	'ahora_sigues_a' => 'Following :nombre',
+	'aqui_ver_actividad' => 'Here you can see your activity and the activities of the users you follow.',
 
 	'dejaste_de_seguir_a' => 'Unfollowing :nombre',
 
@@ -13,6 +14,14 @@ return [
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
+	'ha_comentado_una_entrada' => 'commented on a post',
+	'has_comentado_una_entrada' => 'You have commented on a post',
+	'ha_empezado_a_seguir_a' => 'has begun to follow',
+	'has_empezado_a_seguir_a' => 'You have begun to follow',
+	'ha_publicado_una_entrada' => 'has publish a post',
+	'has_publicado_una_entrada' => 'You have publish a post',
+	'te_ha_gustado' => 'You like',
+	'le_ha_gustado' => 'liked it',
 
 	'img_avatar' => 'avatar',
 	'img_header' => 'header image',

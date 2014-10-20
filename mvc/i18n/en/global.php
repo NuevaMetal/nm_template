@@ -1,6 +1,7 @@
 <?php
 return [
 	'acceder' => 'login',
+	'actividad' => 'activity',
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
 	'ancho' => 'width',
@@ -104,7 +105,9 @@ return [
 
 	'salir' => 'exit',
 	'secciones' => 'sections',
+	'seguidores' => 'followers',
 	'seguir' => 'follow',
+	'siguiendo' => 'following',
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 

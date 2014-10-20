@@ -2,6 +2,7 @@
 return [
 	'actualizar_mi_perfil' => 'actualizar mi información de perfil',
 	'ahora_sigues_a' => 'Ahora sigues a :nombre',
+	'aqui_ver_actividad' => 'Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.',
 
 	'dejaste_de_seguir_a' => 'Dejaste de seguir a :nombre',
 
@@ -13,6 +14,14 @@ return [
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
 
 	'ha_sido_bloqueado' => 'El usuario :nombre ha sido bloqueado',
+	'ha_comentado_una_entrada' => 'ha comentado una entrada',
+	'has_comentado_una_entrada' => 'Has comentado una entrada',
+	'ha_empezado_a_seguir_a' => 'ha empezado a seguir a',
+	'has_empezado_a_seguir_a' => 'Has empezado a seguir a',
+	'ha_publicado_una_entrada' => 'ha publicado una entrada',
+	'has_publicado_una_entrada' => 'Has publicado una entrada',
+	'te_ha_gustado' => 'Te ha gustado',
+	'le_ha_gustado' => 'le ha gustado',
 
 	'img_avatar' => 'imagen de avatar',
 	'img_header' => 'imagen de cabecera',
@@ -32,5 +41,5 @@ return [
 
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
 
-	'ya_seguido' => 'Ya sigues a este usuario',
+	'ya_seguido' => 'Ya sigues a este usuario'
 ];

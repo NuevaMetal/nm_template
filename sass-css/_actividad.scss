@@ -1,7 +1,6 @@
 #actividad {
-	.actividades {
-		
-		//* { border: 1px solid red; }
+	//* { border: 1px solid red; }
+	.actividades {		
 		
 		.avatar, .avatar2, .post-thumbnail {
 			padding: 0px;
@@ -17,7 +16,7 @@
 			margin-right: 10px;
 		}
 		.texto *{
-			@include col(md) {
+			@include col(lg) {
 				 vertical-align: middle;
 				 line-height: 55px;
 			}
@@ -49,6 +48,23 @@
 	}
 	
 	.sidebar {
-		
+		.seguidores, .siguiendo{
+			.row {			
+				//margin: 1px 0;
+				padding: 2px 0;				
+				&:hover {
+					//border: 1px solid $rojo-danger;
+					border-radius: 5px;
+					@extend %negrita;
+					.avatar {
+						box-shadow: 1px 1px 5px #888;
+					}
+				}						
+				.avatar {
+					height: 26px;
+					width: 26px;
+				}
+			}
+		}
 	}
 }

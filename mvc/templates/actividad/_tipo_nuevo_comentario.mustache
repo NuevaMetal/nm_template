@@ -2,12 +2,12 @@
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
 		{{#isCurrentUser}}
-			Has comentado en una entrada
+			{{#trans}}user.has_comentado_una_entrada{{/trans}}
 			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
 		{{/isCurrentUser}}
 		{{^isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			ha comentado la entrada 
+			{{#trans}}user.ha_comentado_una_entrada{{/trans}}
 			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
 		{{/isCurrentUser}}
 	</span>

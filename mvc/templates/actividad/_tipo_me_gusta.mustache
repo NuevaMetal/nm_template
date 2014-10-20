@@ -2,11 +2,11 @@
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
 		{{#isCurrentUser}}
-			Te ha gustado <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+			{{#trans}}user.te_ha_gustado{{/trans}} <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/isCurrentUser}}
 		{{^isCurrentUser}}
 			A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			le ha gustado 
+			{{#trans}}user.le_ha_gustado{{/trans}} 
 			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/isCurrentUser}}
 	</span>

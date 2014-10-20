@@ -2,17 +2,17 @@
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
 		{{#isCurrentUser}}
-			Has empezado a seguir a <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
+			{{#trans}}user.has_empezado_a_seguir_a{{/trans}} <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 		{{/isCurrentUser}}
 		{{^isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			ha empezado a seguir a 
+			{{#trans}}user.ha_empezado_a_seguir_a{{/trans}}
 			<a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 		{{/isCurrentUser}}
 	</span>
 	<span class="avatar2 col-xs-2">
 		<a href="{{getQue.getPerfilUrl}}">
-			<img src="{{getQue.getAvatar}}" alt="{{getQue.display_name}} avatar">
+			<img src="{{getQue.getAvatar}}">
 		</a>
 	</span>
 </div>
