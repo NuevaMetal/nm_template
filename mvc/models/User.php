@@ -93,6 +93,11 @@ class User extends ModelBase {
 
 	const ROL_SUSCRIPTOR = 'subscriber';
 
+	/*
+	 * Seguir a un User
+	 */
+	const SEGUIR = 'seguir';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
@@ -1030,14 +1035,38 @@ class User extends ModelBase {
 	 * @param integer $a_quien_id
 	 *        	Identificador del User a seguir
 	 * @throws Exception Si no se pudo seguir
+	 * @return boolean true si se crea el seguimiento y false si se borra
 	 */
-	public function seguir($aQuienId) {
+	public function seguir($aQuienId, $seguir = Utils::SI) {
 		$seguimiento = new Seguimiento($this->ID, $aQuienId);
 		try {
-			$seguimiento->save();
+			if ($seguir == Utils::SI) {
+				$seguimiento->save();
+				return true;
+			} else {
+				$seguimiento->delete();
+				return false;
+			}
 		} catch ( Exception $e ) {
 			throw $e;
 		}
+	}
+
+	/**
+	 *
+	 * @param integer $user_id
+	 * @return boolean
+	 */
+	public function yaLoSigues($user_id = false) {
+		if (! $user_id) {
+			$user_id = wp_get_current_user()->ID;
+		}
+		global $wpdb;
+		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM ' . $wpdb->prefix . 'users_seguimientos
+				WHERE user_id = %d
+				AND a_quien_id = %d;', $user_id, $this->ID));
+		return $leGusta > 0;
 	}
 
 	/**

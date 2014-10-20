@@ -375,18 +375,32 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				if (! $current_user) {
 					return 'No tienes permisos';
 				}
-				$aQuienId = $_datos['id'];
-				try {
-					$current_user->seguir($aQuienId);
-					$aQuien = User::find($aQuienId);
-					$json['code'] = 200;
-					$json['alert'] = $ajax->renderAlertaInfo('Ahora sigues a ' . $aQuien->display_name);
-					$json['btn'] = $ajax->_render('autor/_btn_seguir', [
-						'user' => $aQuien
-					]);
-				} catch ( Exception $e ) {
-					$json['code'] = $e->getCode();
-					$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
+				switch ($_datos['tipo']) {
+					case User::SEGUIR :
+						$aQuienId = $_datos['id'];
+						try {
+							$flag = $current_user->seguir($aQuienId, $_datos['seguir']);
+							$aQuien = User::find($aQuienId);
+
+							$json['code'] = 200;
+							if ($flag) {
+								$alert = $ajax->renderAlertaInfo(I18n::transu('user.ahora_sigues_a', [
+									'nombre' => $aQuien->display_name
+								]));
+							} else {
+								$alert = $ajax->renderAlertaInfo(I18n::transu('user.dejaste_de_seguir_a', [
+									'nombre' => $aQuien->display_name
+								]));
+							}
+							$json['alert'] = $alert;
+							$json['btn'] = $ajax->_render('autor/_btn_seguir', [
+								'user' => $aQuien
+							]);
+						} catch ( Exception $e ) {
+							$json['code'] = $e->getCode();
+							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
+						}
+						break;
 				}
 				break;
 			default :

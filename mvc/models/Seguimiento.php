@@ -29,6 +29,13 @@ class Seguimiento extends ModelBase {
 		if ($a_quien_id) {
 			$this->a_quien_id = $a_quien_id;
 		}
+		if ($this->user_id && $this->a_quien_id) {
+			global $wpdb;
+			$this->ID = $wpdb->get_var("SELECT ID
+					FROM {$wpdb->prefix}" . static::$table . "
+					WHERE user_id = $this->user_id
+						AND a_quien_id = $this->a_quien_id");
+		}
 	}
 
 	/**

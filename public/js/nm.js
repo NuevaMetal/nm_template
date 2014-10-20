@@ -291,6 +291,7 @@ $(document).on('click', '.btn-notificar', function(e) {
  * Mostrar una alerta
  */
 function mostrarAlerta(texto, segundos){
+	$('#alertas').hide();
 	$('#alertas').html(texto);
 	$('#alertas').fadeIn();		
 	setTimeout(function(){
@@ -510,10 +511,12 @@ $(document).on('click', '.seguir', function(e) {
 	var $this =  $(this);
 	var url = $this.attr('url');
 	var id = $this.attr('id');
+	var seguir = $this.attr('seguir');
 	var data = {
 		submit : 'user',
 		tipo: 'seguir',
-		id : id
+		id : id,
+		seguir: seguir
 	};	
 	$.ajax({
 		url : url,

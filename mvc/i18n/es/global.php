@@ -37,6 +37,7 @@ return [
 
 	'dados' => 'dados',
 	'de' => 'de',
+	'dejar_de_seguir' => 'dejar de seguir',
 	'descripcion' => 'descripción',
 	'discografica' => 'discográfica',
 	'diseñador' => 'diseñador',
@@ -108,6 +109,7 @@ return [
 
 	'salir' => 'salir',
 	'secciones' => 'secciones',
+	'seguir' => 'seguir',
 	'sitios_de_interes' => 'sitios de interés',
 	'subscriber' => 'suscriptor',
 

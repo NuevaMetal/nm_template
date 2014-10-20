@@ -1,6 +1,9 @@
 <?php
 return [
 	'actualizar_mi_perfil' => 'actualizar mi información de perfil',
+	'ahora_sigues_a' => 'Ahora sigues a :nombre',
+
+	'dejaste_de_seguir_a' => 'Dejaste de seguir a :nombre',
 
 	'editar_perfil' => 'editar perfil',
 	'eliminar_avatar' => 'eliminar avatar',

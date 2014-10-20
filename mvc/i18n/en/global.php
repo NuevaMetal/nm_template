@@ -36,6 +36,7 @@ return [
 
 	'dados' => 'given',
 	'de' => 'of',
+	'dejar_de_seguir' => 'unfollow',
 	'descripcion' => 'description',
 	'discografica' => 'record label',
 	'diseñador' => 'designer',
@@ -103,6 +104,7 @@ return [
 
 	'salir' => 'exit',
 	'secciones' => 'sections',
+	'seguir' => 'follow',
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 
