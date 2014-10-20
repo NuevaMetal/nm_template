@@ -64,7 +64,7 @@ class User extends ModelBase {
 	/*
 	 * Número de post favoritos a mostrar en su perfil
 	 */
-	const NUM_FAV_PERFIL_DEFAULT = 2;
+	const NUM_FAV_PERFIL_DEFAULT = 6;
 
 	/*
 	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
