@@ -1,11 +1,13 @@
 <div class="fila tipo-seguimiento-user">
 	{{> actividad/_user}}
-	<span class="texto">
-		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> ha empezado a seguir a <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>
+	<span class="texto col-xs-8">
+		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+		ha empezado a seguir a 
+		<a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 	</span>
-	<span class="avatar2">
+	<span class="avatar2 col-xs-2">
 		<a href="{{getQue.getPerfilUrl}}">
-			<img src="{{getQue.getAvatar}}">
+			<img src="{{getQue.getAvatar}}" alt="{{getQue.display_name}} avatar">
 		</a>
 	</span>
 </div>

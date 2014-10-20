@@ -1,16 +1,20 @@
 <div class="fila tipo-nuevo-comentario">
 	{{> actividad/_user}}
-	<span class="texto">	
-		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> ha comentado la entrada <a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>
+	<span class="texto col-xs-8">
+		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+		ha comentado la entrada 
+		<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
 	</span>
-	<span class="post-thumbnail">
+	<span class="post-thumbnail col-xs-2">
 		 <a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">
-			{{#getQue.getPost.getThumbnail}}
-				<img src="{{.}}"/>
-			{{/getQue.getPost.getThumbnail}}
-			{{^getQue.getPost.getThumbnail}}
-				<img class="sin-thumbnail"/>
-			{{/getQue.getPost.getThumbnail}}
+		 	{{#getQue.getPost}}
+				{{#getThumbnail}}
+					<img src="{{.}}" alt="{{post_title}} thumbnail"/>
+				{{/getThumbnail}}
+				{{^getThumbnail}}
+					<img class="sin-thumbnail" alt="{{post_title}} thumbnail"/>
+				{{/getThumbnail}}
+			{{/getQue.getPost}}
 		</a>
 	</span>
 </div>

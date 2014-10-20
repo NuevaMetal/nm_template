@@ -1,30 +1,38 @@
 #actividad {
 	.actividades {
+		
+		//* { border: 1px solid red; }
+		
 		.avatar, .avatar2, .post-thumbnail {
-			//border: 5px solid $body-background-color;
-			position: relative;
+			padding: 0px;
 			img {
 				height: 55px;
 				width: 55px;
-			}			
-			top: 0px;
+			}
+			height: auto;
+			width: auto;
 		}
 		.avatar {
-			//left: 15px;
 			float: left;
-			margin-right: 20px;
+			margin-right: 10px;
+		}
+		.texto *{
+			@include col(md) {
+				 vertical-align: middle;
+				 line-height: 55px;
+			}
 		}
 		.post-thumbnail, .avatar2 {
 			float: right;
-  			right: 0px;
 		}
 		.fila {
-			border: 5px solid black;
+			border: 4px solid black;
 			//border-radius: 10px;
 			box-shadow: 10px 10px 5px #888888;
 			margin: 5px 0;
-			padding: 15px;
-			height: 95px;
+			padding: 10px;
+			height: auto;
+			overflow: hidden;
 		}
 		.tipo-me-gusta {
 			

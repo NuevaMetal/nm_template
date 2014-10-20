@@ -1,15 +1,17 @@
 <div class="fila tipo-me-gusta">
 	{{> actividad/_user}}
-	<span class="texto">
-		A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> le ha gustado <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>
+	<span class="texto col-xs-8">
+		A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+		le ha gustado 
+		<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 	</span>
-	<span class="post-thumbnail">
+	<span class="post-thumbnail col-xs-2">
 		<a href="{{getQue.getUrl}}">
 			{{#getQue.getThumbnail}}
-				<img src="{{.}}"/>
+				<img src="{{.}}" alt="{{getQue.post_title}} thumbnail"/>
 			{{/getQue.getThumbnail}}
 			{{^getQue.getThumbnail}}
-				<img class="sin-thumbnail"/>
+				<img class="sin-thumbnail" alt="{{getQue.post_title}} thumbnail"/>
 			{{/getQue.getThumbnail}}
 		</a>
 	</span>
