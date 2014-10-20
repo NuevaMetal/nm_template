@@ -1,9 +1,15 @@
 <div class="fila tipo-nuevo-comentario">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-		ha comentado la entrada 
-		<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
+		{{#isCurrentUser}}
+			Has comentado en una entrada
+			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
+		{{/isCurrentUser}}
+		{{^isCurrentUser}}
+			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+			ha comentado la entrada 
+			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
+		{{/isCurrentUser}}
 	</span>
 	<span class="post-thumbnail col-xs-2">
 		 <a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">

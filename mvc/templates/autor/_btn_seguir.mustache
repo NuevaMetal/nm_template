@@ -1,4 +1,7 @@
 {{#user}}
+	{{#isCurrentUser}}
+		{{user.display_name}}  isCurrentUser
+	{{/isCurrentUser}}
 	{{^isCurrentUser}}
 		{{^yaLoSigues}}
 			<button class="btn btn-danger seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="si">

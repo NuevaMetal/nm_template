@@ -71,9 +71,7 @@ class VActividad extends ModelBase {
 		// La ID de la tabla comentarios es distinta a ID, es comment_ID (por convención de WP)
 		// Por este motivo trato primero este caso, y el resto después
 		if ($this->tipo_que == self::TIPO_NUEVO_COMENTARIO) {
-			$c = Comment::first('comment_ID', '=', $this->que_id);
-			$c->getPost();
-			return $c;
+			return Comment::first('comment_ID', '=', $this->que_id);
 		}
 
 		$model = $this->getModelQue();

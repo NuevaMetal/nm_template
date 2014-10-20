@@ -598,7 +598,16 @@ class User extends ModelBase {
 	 * @return boolean
 	 */
 	public function isCurrentUser() {
-		return ($this->ID == wp_get_current_user()->ID) || (wp_get_current_user()->roles[0] == self::ROL_ADMIN);
+		return ($this->ID == wp_get_current_user()->ID);
+	}
+
+	/**
+	 * Devuelve true si el user es el usuario actual o el usuario actual es un admin
+	 *
+	 * @return boolean
+	 */
+	public function isCurrentUserOrAdmin() {
+		return $this->isCurrentUser() || (wp_get_current_user()->roles[0] == self::ROL_ADMIN);
 	}
 
 	/**
@@ -992,11 +1001,20 @@ class User extends ModelBase {
 	/**
 	 * Devuelve los usuarios seguidores
 	 *
+	 * @param boolean $soloIds
+	 *        	Para que devuelva sólo las IDs o los Objetos completos.
+	 *        	Por defecto false, es decir devolverá los objetos completos
 	 * @return array<User>
 	 */
-	public function getSeguidores() {
-		// TODO: Falta implementar
+	public function getSeguidores($soloIds = false) {
+		global $wpdb;
 		$seguidores = [];
+		foreach ($this->_getSeguidoresIds() as $seguidorId) {
+			$user = User::find($seguidorId);
+			if ($user) {
+				$seguidores[] = $user;
+			}
+		}
 		return $seguidores;
 	}
 
@@ -1006,9 +1024,42 @@ class User extends ModelBase {
 	 * @return array<User>
 	 */
 	public function getSiguiendo() {
-		// TODO: Falta implementar
+		global $wpdb;
 		$siguiendo = [];
+		foreach ($this->_getSiguiendoIds() as $siguiendoId) {
+			$siguiendo[] = User::find($siguiendoId);
+			// Comprobamos que el user exista teniendo una ID > 0
+			if ($user && $user->ID > 0) {
+				$siguiendo[] = $user;
+			}
+		}
 		return $siguiendo;
+	}
+
+	/**
+	 * Devuelve las Ids de los usuarios que estás siguiendo
+	 *
+	 * @return array<integer>
+	 */
+	private function _getSiguiendoIds() {
+		global $wpdb;
+		return $wpdb->get_col("
+				SELECT distinct a_quien_id
+				FROM  wp_users_seguimientos
+				WHERE user_id = $this->ID");
+	}
+
+	/**
+	 * Devuelve las Ids de los usuarios que te están siguiendo
+	 *
+	 * @return array<integer>
+	 */
+	private function _getSeguidoresIds() {
+		global $wpdb;
+		return $wpdb->get_col("
+				SELECT distinct user_id
+				FROM  wp_users_seguimientos
+				WHERE a_quien_id = $this->ID");
 	}
 
 	/**
@@ -1017,7 +1068,7 @@ class User extends ModelBase {
 	 * @return array<User>
 	 */
 	public function getTotalSeguidores() {
-		return count($this->getSeguidores());
+		return count($this->_getSeguidoresIds());
 	}
 
 	/**
@@ -1026,7 +1077,7 @@ class User extends ModelBase {
 	 * @return integer
 	 */
 	public function getTotalSiguiendo() {
-		return count($this->getSiguiendo());
+		return count($this->_getSiguiendoIds());
 	}
 
 	/**
@@ -1053,6 +1104,7 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve true en caso de que el User actual ya siga al user que está viendo
 	 *
 	 * @param integer $user_id
 	 * @return boolean

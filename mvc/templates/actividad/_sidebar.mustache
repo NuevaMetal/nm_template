@@ -1,2 +1,17 @@
+{{# getTotalSiguiendo }}
+	<div class="col-xs-12">
+		<h4 class="titular">Siguiendo ({{getTotalSiguiendo}})</h4>
+		{{# getSiguiendo }}
+			<span class="col-xs-12">{{display_name}}</span>
+		{{/ getSiguiendo }}
+	</div>
+{{/ getTotalSiguiendo }}
 
-Sidebar para la vista de actividades del usuario con nombre: {{display_name}} 
+{{# getTotalSeguidores }}
+	<div class="col-xs-12">
+		<h4 class="titular">Seguidores({{getTotalSeguidores}})</h4>
+		{{# getSeguidores }}
+			<span class="col-xs-12">{{display_name}}</span>
+		{{/ getSeguidores }}
+	</div>
+{{/ getTotalSeguidores }}

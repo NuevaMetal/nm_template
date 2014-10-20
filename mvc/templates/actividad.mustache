@@ -1,16 +1,16 @@
 {{#user}}
 	<div id="actividad">
-		<h1>Actividad</h1>
+		<h1 class="titular">Actividad</h1>
 		
-		<p>Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.</p>
+		<p class="titular">Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.</p>
 		<div class="row">
-			<div class="actividades col-xs-12 {{#conSidebar}}col-md-9 col-lg-10{{/conSidebar}}">
+			<div class="actividades col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">
 				{{# getActividades }}
 					{{> actividad/_fila }}
 				{{/ getActividades }}		
 			</div>
 			{{#conSidebar}}
-			<div class="sidebar col-xs-12 col-md-3 col-lg-2">
+			<div class="sidebar col-xs-12 col-md-3">
 				{{> actividad/_sidebar}}
 			</div>
 			{{/conSidebar}}

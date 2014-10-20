@@ -1,9 +1,14 @@
 <div class="fila tipo-me-gusta">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-		le ha gustado 
-		<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{#isCurrentUser}}
+			Te ha gustado <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/isCurrentUser}}
+		{{^isCurrentUser}}
+			A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+			le ha gustado 
+			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/isCurrentUser}}
 	</span>
 	<span class="post-thumbnail col-xs-2">
 		<a href="{{getQue.getUrl}}">

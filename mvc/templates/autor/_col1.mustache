@@ -4,27 +4,29 @@
 			<img alt="{{display_name}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
 		</span>
 
-		{{#isCurrentUser}}
+		{{#isCurrentUserOrAdmin}}
 			<div class="col-xs-12 btn-avatar hidden">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#avatar" target="_blank">
 					<i class="fa fa-image"></i> {{#transu}}cambiar{{/transu}}</a>
 			</div>
-		{{/isCurrentUser}}
+		{{/isCurrentUserOrAdmin}}
 	</div>
 
 	<div class="row">
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
+		
 		<span class="col-xs-12 col-md-9 col-lg-8">
 			{{> autor/_btn_seguir }}
 		</span>
+		
 		<h4 class="col-xs-12"> {{getNombreCompleto}}
 			<small itemprop="rolTitle">{{getRol}}</small>
-			{{#isCurrentUser}}
+			{{#isCurrentUserOrAdmin}}
 			<span class="hidden">
 				<a class="btn btn-default btn-xs " href="{{getEditUrl}}#nombre" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
 			</span>
-			{{/isCurrentUser}}
+			{{/isCurrentUserOrAdmin}}
 		</h4>
 	</div>
 		{{# getMesYAnoRegistro}}
@@ -35,12 +37,12 @@
 	<div class="row">
 		<div class="col-xs-12">
 			{{#transu}}como{{/transu}}: <span class="tipo-usuario titular" itemprop="jobTitle">{{getTipoTrans}}</span>
-			{{#isCurrentUser}}
+			{{#isCurrentUserOrAdmin}}
 			<span class="hidden">
 				<a class="btn btn-xs btn-default btn-xs" href="{{getEditUrl}}#tipo-usuario" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
 			</span>
-			{{/isCurrentUser}}
+			{{/isCurrentUserOrAdmin}}
 		</div>
 	</div>
 	<hr>
@@ -49,12 +51,12 @@
 	<div class="row">
 		<div class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</div>
 		{{> autor/_redes_sociales}}
-		{{#isCurrentUser}}
+		{{#isCurrentUserOrAdmin}}
 			<span class="col-xs-4 hidden">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#redes-sociales" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
 			</span>
-		{{/isCurrentUser}}
+		{{/isCurrentUserOrAdmin}}
 	</div>
 	<hr>
 	{{/ tieneRedes }}

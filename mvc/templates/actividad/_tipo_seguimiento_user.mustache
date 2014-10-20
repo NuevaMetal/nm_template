@@ -1,9 +1,14 @@
 <div class="fila tipo-seguimiento-user">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-		ha empezado a seguir a 
-		<a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
+		{{#isCurrentUser}}
+			Has empezado a seguir a <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
+		{{/isCurrentUser}}
+		{{^isCurrentUser}}
+			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+			ha empezado a seguir a 
+			<a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
+		{{/isCurrentUser}}
 	</span>
 	<span class="avatar2 col-xs-2">
 		<a href="{{getQue.getPerfilUrl}}">

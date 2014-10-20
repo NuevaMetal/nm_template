@@ -1,9 +1,14 @@
 <div class="fila tipo-nueva-entrada">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-		ha publicado una nueva entrada: 
-		<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{#isCurrentUser}}
+			Has publicado una nueva entrada: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/isCurrentUser}}
+		{{^isCurrentUser}}
+			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+			ha publicado una nueva entrada: 
+			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/isCurrentUser}}
 	</span>
 	<span class="post-thumbnail col-xs-2">
 		<a href="{{getQue.getUrl}}">
