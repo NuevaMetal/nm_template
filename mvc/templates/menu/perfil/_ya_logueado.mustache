@@ -34,24 +34,22 @@
 			  	<i class="fa fa-files-o"></i> posts
 				</a>	
 				
-			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
-				<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
-				<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
-			  </a>
-			{{/canColaborador}}
-			
-			  <a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
-			  		{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/wp-admin/admin.php?page=favoritos" target="_blank">  	
-			  	<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
-				<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
+				<a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
+					<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
+					<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
 				</a>
-	
-			  <a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
-			  		{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/wp-admin/profile.php" target="_blank">
-				<span class="hidden-lg"><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
-				<span class="visible-lg"><i class="fa fa-user"></i>{{#transu}}ver_perfil{{/transu}}</span>
+			{{/canColaborador}}
+
+				<a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
+			  		{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/wp-admin/admin.php?page=favoritos">  	
+			  		<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
+					<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
 				</a>
 
+				<a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
+			  			{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/activity">
+					<span><i class="fa fa-bell"></i> {{#transu}}actividad{{/transu}}</span>
+				</a>
 			</div>
 		</div>
 	</div>
