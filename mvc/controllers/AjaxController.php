@@ -204,7 +204,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'getNonceMeGusta' => $nonce
 			]);
 		}
-		$json['total_me_gustas'] = $post->getCountFavoritos();
+		$json['total_me_gustas'] = $post->getTotalMeGustas();
 		return $json;
 	}
 
@@ -238,7 +238,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 				'getNonceMeGusta' => $nonce
 			]);
 		}
-		$json['total_me_gustas'] = $post->getCountFavoritos();
+		$json['total_me_gustas'] = $post->getTotalMeGustas();
 		return $json;
 	}
 

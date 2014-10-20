@@ -102,8 +102,19 @@ class User extends ModelBase {
 	 * Devuelve el número total de posts publicados por el User
 	 *
 	 * @return integer
+	 * @deprecated por nuevo nombre
+	 * @see User::getTotalPosts()
 	 */
 	public function getCountPosts() {
+		return $this->getTotalPosts();
+	}
+
+	/**
+	 * Devuelve el número total de posts publicados por el User
+	 *
+	 * @return integer
+	 */
+	public function getTotalPosts() {
 		return count_user_posts($this->ID);
 	}
 
@@ -897,7 +908,7 @@ class User extends ModelBase {
 	 *
 	 * @return number Total de favoritos que tiene el User
 	 */
-	public function getCountFavoritos() {
+	public function getTotalFavoritos() {
 		global $wpdb;
 		$activo = Favorito::ACTIVO;
 		return (int) $wpdb->get_var('SELECT COUNT(*)
@@ -910,7 +921,7 @@ class User extends ModelBase {
 	 *
 	 * @return string
 	 */
-	public function getCountFavoritosRecibidos() {
+	public function getTotalFavoritosRecibidos() {
 		global $wpdb;
 		$activo = Favorito::ACTIVO;
 		return (int) $wpdb->get_var("SELECT SUM( p.totales )

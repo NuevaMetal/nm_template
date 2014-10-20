@@ -1,3 +1,23 @@
+<div class="row estadisticas titular">
+	<span class="col-xs-12 col-sm-4 col-md-2">{{#transu}}posts{{/transu}}<br>	
+	<i class="fa fa-files-o"></i> <a href="#posts"><span class="rojo">{{getTotalPosts}}</span></span></a>
+	
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}seguidores{{/transu}}<br>
+	<i class="fa fa-users"></i> <span class="rojo">{{getTotalSeguidores}}</span></span>
+	
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}siguiendo{{/transu}}<br>
+	<i class="fa fa-users"></i> <span class="rojo">{{getTotalSiguiendo}}</span></span>
+	
+	<span class="visible-md visible-lg col-md-2"></span>
+	
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}dados{{/transu}}<br>
+	<i class="fa fa-star"></i> <span class="rojo">{{getTotalFavoritos}}</span></span>
+	
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}recibidos{{/transu}}<br>
+	<i class="fa fa-star"></i> <span class="rojo">{{getTotalFavoritosRecibidos}}</span></span>
+	
+</div>
+
 <div class="row">
 	<div class="col-xs-12">		
 		<h4 class="titular"><i class="fa fa-file"></i> {{#transu}}descripcion{{/transu}}</h4>		
@@ -25,7 +45,7 @@
 			<div id="entradas-publicadas" style="height:120px; margin-bottom:0px;"></div>
 		</div>
 
-		{{#getCountFavoritos}}
+		{{#getTotalFavoritos}}
 		<div class="col-xs-12 ">
 			<h4 class="titular"><i class="fa fa-tags"></i> {{#transu}}user.etiquetas_destacadas_fav{{/transu}}</h4>			
 			<ul class="tags text-center">
@@ -34,14 +54,14 @@
 		        {{/user.getArrayEtiquetasFavoritas}}
 		    </ul>
 		</div>
-		{{/getCountFavoritos}}
+		{{/getTotalFavoritos}}
 		
-		{{#getCountFavoritos}}
+		{{#getTotalFavoritos}}
 			<h4 class="ultimos-favoritos-dados titular col-xs-12 "><i class="fa fa-hand-o-right"></i> {{#transu}}user.ultimos_fav_dados{{/transu}}</h4>
 			<div class="ultimos-favoritos col-xs-12">
 				{{> autor/_seccion_fav}}
 			</div>
-		{{/getCountFavoritos}}
+		{{/getTotalFavoritos}}
 		
 	</div>
 {{/favoritos}}

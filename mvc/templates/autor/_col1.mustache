@@ -15,7 +15,7 @@
 	<div class="row">
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
 		
-		<span class="col-xs-12 col-md-9 col-lg-8">
+		<span class="col-xs-12 col-lg-10">
 			{{> autor/_btn_seguir }}
 		</span>
 		
@@ -61,18 +61,4 @@
 	<hr>
 	{{/ tieneRedes }}
 
-	<table class="table table-condensed text-center titular">
-		<tr>
-			<th colspan="2"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</th>
-		</tr>
-		<tr class="active">
-			<td>{{#transu}}dados{{/transu}}</td>
-			<td>{{#transu}}recibidos{{/transu}}</td>
-		</tr>
-		<tr>
-			<td>{{getCountFavoritos}}</td>
-			<td>{{getCountFavoritosRecibidos}}</td>
-		</tr>
-	</table>
-		
 </div>

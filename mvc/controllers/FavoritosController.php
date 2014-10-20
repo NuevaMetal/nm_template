@@ -59,7 +59,7 @@ class FavoritosController extends BaseController {
 		$favoritos = $user->getFavoritosAgrupados();
 		$content = $this->render('plugin/favoritos', [
 			'current_user' => $current_user,
-			'total' => $user->getCountFavoritos(),
+			'total' => $user->getTotalFavoritos(),
 			'favoritos' => $favoritos,
 			'favoritos_tab' => self::_parseaSecciones(array_keys($favoritos))
 		]);

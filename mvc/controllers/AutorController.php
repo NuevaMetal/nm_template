@@ -31,7 +31,7 @@ class AutorController extends BaseController {
 			return $this->_getAuthorBloqueado($user);
 		}
 
-		$autorCountPosts = $user->getCountPosts();
+		$autorCountPosts = $user->getTotalPosts();
 
 		$header = I18n::transu('entradas_de', [
 			'nombre' => $user->display_name

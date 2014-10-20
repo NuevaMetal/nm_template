@@ -1,4 +1,9 @@
 {{#user}}	
+	{{#isCurrentUser}}
+		<a class="btn btn-default col-xs-12" href="{{user.getEditUrl}}">
+			<i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}
+		</a>
+	{{/isCurrentUser}}
 	{{^isCurrentUser}}
 		{{^yaLoSigues}}
 			<button class="btn btn-danger seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="si">

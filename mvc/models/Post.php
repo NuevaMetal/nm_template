@@ -222,9 +222,6 @@ class Post extends ModelBase {
 		$out = implode('', $out);
 		return $out;
 	}
-	public function getTotalMeGustas() {
-		return $this->getCountFavoritos();
-	}
 	public function getAutor() {
 		return User::find($this->post_author);
 	}
@@ -412,19 +409,35 @@ class Post extends ModelBase {
 	 *
 	 * @return number Total de favoritos que tiene el Post
 	 */
-	public function getCountFavoritos() {
+	public function getTotalMeGustas() {
 		global $wpdb;
 		$activo = Favorito::ACTIVO;
 		return (int) $wpdb->get_var('SELECT COUNT(*)
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE post_id = $this->ID AND status = $activo;");
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function getNonceMeGusta() {
 		return Ajax::crearNonce(Ajax::ME_GUSTA, $this->ID);
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function getNonceNotificar() {
 		return Ajax::crearNonce(Ajax::NOTIFICAR, $this->ID);
 	}
+
+	/**
+	 *
+	 * @param string $user_id
+	 * @return boolean
+	 */
 	public function isMeGusta($user_id = false) {
 		if (! $user_id) {
 			$user_id = wp_get_current_user()->ID;
