@@ -88,13 +88,7 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 		if ($tipo == Utils::TIPO_TAG) {
 			$posts = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
-			$otherParams = [];
-			if ($que == Utils::CATEGORIA_ENTREVISTAS) {
-				$otherParams = [
-					'cant_excerpt' => Post::CANT_EXCERPT_ENTREVISTA
-				];
-			}
-			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings, $otherParams);
+			$posts = $homeController->getPostsByCategory($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_SEARCH) {
 			$posts = $homeController->getPostsBySearch($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_AUTHOR) {
@@ -104,38 +98,33 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 			$posts = $user->getFavoritos($cant, $offset);
 		}
 
-		foreach ($posts as &$p) {
-			$p->title_corto = sanearString($p->title_corto);
-			$p->content = sanearString($p->content);
-			$p->excerpt = sanearString($p->excerpt);
-		}
-
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
 			$content = $this->render('autor/_favoritos', [
 				'posts' => $posts,
-				'reducido' => ($cant == 2) ? true : false
+				'reducido' => ($cant == 2)
 			]);
 		} else {
 			$content = $this->render('home/_posts', [
 				'posts' => $posts,
-				'reducido' => ($cant == 2) ? true : false
+				'reducido' => ($cant == 2)
 			]);
 		}
-		if (in_array($que, [
-			Utils::CATEGORIA_ENTREVISTAS,
-			Utils::CATEGORIA_NOTICIAS,
-			Utils::CATEGORIA_CONCIERTOS,
-			Utils::CATEGORIA_CRITICAS,
-			Utils::CATEGORIA_CRONICAS
-		])) {
-			$content = utf8_encode($content);
-		}
+		// Convierte la codificación a UTF-8
+		$content = mb_convert_encoding($content, "UTF-8");
 
 		$json['content'] = $content;
 		$json['code'] = 200;
 
 		return $json;
 	}
+
+	/**
+	 *
+	 * @param unknown $estado
+	 * @param unknown $editor_id
+	 * @param unknown $user_id
+	 * @return number
+	 */
 	public function editarRevisionBan($estado, $editor_id, $user_id) {
 		global $wpdb;
 		$nonce = $_POST['nonce'];
