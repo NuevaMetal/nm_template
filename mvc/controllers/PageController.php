@@ -29,10 +29,11 @@ class PageController extends BaseController {
 	 * Ver la actividad de un User
 	 */
 	public function getActividad() {
+		$user = Utils::getCurrentUser();
 		return $this->_renderPageBase([
 			'content' => $this->_render('actividad', [
 				'conSidebar' => true,
-				'user' => Utils::getCurrentUser()
+				'user' => $user
 			])
 		]);
 	}
@@ -41,11 +42,11 @@ class PageController extends BaseController {
 	 * Ver los favoritos de un User
 	 */
 	public function getFavoritos() {
-		$content = $this->_render('favoritos', [
-			'user' => Utils::getCurrentUser()
-		]);
+		$user = Utils::getCurrentUser();
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->_render('favoritos', [
+				'user' => $user
+			])
 		]);
 	}
 

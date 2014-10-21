@@ -234,7 +234,7 @@ class Utils {
 	}
 
 	/**
-	 * Devuelve la instancia del usuario actual.
+	 * Devuelve la instancia del usuario actual o null en caso de no estar logueado.
 	 *
 	 * @return User
 	 */
@@ -243,7 +243,7 @@ class Utils {
 		if ($user->ID) {
 			return User::find($user->ID);
 		}
-		return false;
+		return null;
 	}
 
 	/**
@@ -454,6 +454,34 @@ class Utils {
 	}
 
 	/**
+	 * Devuelve el día de la semana traducido a partir del número pasado como parámetro
+	 *
+	 * @param integer $num
+	 * @return string Nombre del día traducido
+	 */
+	public static function getDiaTransByNum($num) {
+		switch ($num) {
+			case 0 :
+			case 1 :
+				return I18n::transu('lunes');
+			case 2 :
+				return I18n::transu('martes');
+			case 3 :
+				return I18n::transu('miercoles');
+			case 4 :
+				return I18n::transu('jueves');
+			case 5 :
+				return I18n::transu('viernes');
+			case 6 :
+				return I18n::transu('sabado');
+			case 7 :
+				return I18n::transu('domingo');
+			default :
+				return '?';
+		}
+	}
+
+	/**
 	 * Devuelve $_SERVER[ REQUEST_URI ]
 	 *
 	 * @return string
@@ -487,7 +515,7 @@ class Utils {
 			if ($time < $unit)
 				continue;
 			$numberOfUnits = floor($time / $unit);
-			return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '').' ago';
+			return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '') . ' ago';
 		}
 	}
 }

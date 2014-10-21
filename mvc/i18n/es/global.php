@@ -144,6 +144,17 @@ return [
 	'diciembre' => 'Diciembre',
 
 	/*
+	 * Días de la semana
+	 */
+	'lunes' => 'Lunes',
+	'martes' => 'Martes',
+	'miercoles' => 'Miércoles',
+	'jueves' => 'Jueves',
+	'viernes' => 'Viernes',
+	'sabado' => 'Sábado',
+	'domingo' => 'Domingo',
+
+	/*
 	 * Tiempo
 	 */
 	'ano' => 'año',

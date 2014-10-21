@@ -138,6 +138,17 @@ return [
 	'diciembre' => 'December',
 
 	/*
+	 * Días de la semana
+	 */
+	'lunes' => 'Monday',
+	'martes' => 'Tuesday',
+	'miercoles' => 'Wednesday',
+	'jueves' => 'Thursday',
+	'viernes' => 'Friday',
+	'sabado' => 'Saturday',
+	'domingo' => 'Sunday',
+
+	/*
 	 * Tiempo
 	 */
 	'ano' => 'year',
