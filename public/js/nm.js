@@ -1,9 +1,6 @@
 /*
  Autor: Jose Maria Valera Reales <@Chemaclass>
  */
-$(document).ready(function(){
-	
-});
 
 /**
  * Controlar el scroll
@@ -12,8 +9,21 @@ $(window).scroll(function() {
 	seHaceScroll();
 });
 
+/**
+ * Controlar la redimensión de la ventana
+ */
 $(window).on("resize", function() {
 	seHaceScroll();	
+});
+
+/**
+ * Cuando todos los elementos básicos estén cargados (ej:imágenes)
+ */
+$(window).load(function(){
+	if ($("#home").length > 0){
+		cargarMenus();
+		cargarSecciones();
+	}
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
@@ -351,16 +361,7 @@ $(document).ready(function() {
 	}
 	// Y si estámos en la home entonces se cargará en el window.load, cuando todos los elementos 
 	// estén cargados
-});
-
-/**
- * Cuando todos los elementos básicos estén cargados (ej:imágenes)
- */
-$(window).load(function(){
-	if ($("#home").length > 0){
-		cargarMenus();
-		cargarSecciones();
-	}
+	
 });
 
 /**
@@ -460,6 +461,8 @@ function cargarMenu(tipoMenu){
 				// Aumento hasta 100% su opacidad para conseguir el efecto
 				menu.fadeTo( "slow", 1);
 			});
+			// Para ajustar los menús a las pantallas pequeñas
+			seHaceScroll();
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
