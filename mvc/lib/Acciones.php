@@ -98,12 +98,37 @@ class Acciones {
 			}
 		});
 	}
-	public static function perfilAddImgHeader() {
 
-		// Añado el enctype para poder pasar las imágenes por el formulario
-		add_action('user_edit_form_tag', function () {
-			echo 'enctype="multipart/form-data"';
-		});
+	/**
+	 * Añadir la vista para más información
+	 */
+	public static function perfilAddAdicionalInfo() {
+		function nm_perfil_add_adicional_info($user) {
+			require_once 'mvc/controllers/AutorController.php';
+			$c = new AutorController();
+			echo $c->getPerfilAdicionalInfo($user->ID);
+		}
+		add_action('show_user_profile', 'nm_perfil_add_adicional_info');
+		add_action('edit_user_profile', 'nm_perfil_add_adicional_info');
+	}
+
+	/**
+	 * Actualizo la información adicional del perfil del user
+	 */
+	public static function perfilUpdateAdicionalnfo() {
+		function nm_perfil_update_adicional_info($user_ID) {
+			if (current_user_can('edit_user', $user_ID)) {
+				$user = User::find($user_ID);
+				$user->setUbicacion($_POST[User::KEY_USER_UBICACION]);
+			}
+		}
+		add_action('personal_options_update', 'nm_perfil_update_adicional_info');
+		add_action('edit_user_profile_update', 'nm_perfil_update_adicional_info');
+	}
+
+	/**
+	 */
+	public static function perfilAddImgAvatarYHeader() {
 		function nm_perfil_add_img_header($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
@@ -117,7 +142,7 @@ class Acciones {
 	/**
 	 * Añado las imágenes de avatar y header al perfil del User
 	 */
-	public static function perfilUpdateImgHeader() {
+	public static function perfilUpdateImgAvatarYHeader() {
 		function nm_perfil_update_img($user_ID, $keyUserImg) {
 			// Primero comprobamos que el user tenga permisos y exista la clave en los FILES
 			if (current_user_can('edit_user', $user_ID) && isset($_FILES[$keyUserImg])) {
@@ -314,8 +339,15 @@ class Acciones {
 		require_once 'mvc/models/User.php';
 		$current_user = User::find(wp_get_current_user()->ID);
 		// if ($current_user && $current_user->canColaborador()) {
-		Acciones::perfilAddImgHeader();
-		Acciones::perfilUpdateImgHeader();
+		// Añado el enctype para poder pasar las imágenes por el formulario
+		add_action('user_edit_form_tag', function () {
+			echo 'enctype="multipart/form-data"';
+		});
+		Acciones::perfilAddAdicionalInfo();
+		Acciones::perfilUpdateAdicionalnfo();
+
+		Acciones::perfilAddImgAvatarYHeader();
+		Acciones::perfilUpdateImgAvatarYHeader();
 
 		Acciones::perfilAddRedesSociales();
 		Acciones::perfilUpdateRedesSociales();

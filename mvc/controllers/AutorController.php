@@ -172,4 +172,22 @@ class AutorController extends BaseController {
 			'template_url' => $template_url
 		]);
 	}
+
+	/**
+	 * Devuelve la vista para establecer el tipo de User en el perfil
+	 *
+	 * @param string $user_ID
+	 *        	Identficiador del user
+	 */
+	public function getPerfilAdicionalInfo($user_ID = false) {
+		if (! $user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+
+		return $this->_render('autor/perfil/_adicional_info', [
+			'user' => $user,
+			'KEY_USER_UBICACION' => User::KEY_USER_UBICACION,
+		]);
+	}
 }

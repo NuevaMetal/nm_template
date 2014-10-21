@@ -46,6 +46,8 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
+	const KEY_USER_UBICACION = 'ubicacion';
+
 	const KEY_USER_TIPO = 'tipo_usuario';
 
 	/*
@@ -671,8 +673,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getTwitter() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_TWITTER);
-		return (is_array($valor)) ? $valor[0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_TWITTER, true);
 	}
 
 	/**
@@ -690,8 +691,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getFacebook() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_FACEBOOK);
-		return (is_array($valor)) ? $valor[0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_FACEBOOK, true);
 	}
 
 	/**
@@ -709,8 +709,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getGooglePlus() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_GOOGLE_PLUS);
-		return (is_array($valor)) ? $valor[0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_GOOGLE_PLUS, true);
 	}
 
 	/**
@@ -728,8 +727,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getYoutube() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_YOUTUBE);
-		return (is_array($valor)) ? $valor[0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_YOUTUBE, true);
 	}
 
 	/**
@@ -747,8 +745,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getSoundcloud() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_SOUNDCLOUD);
-		return (is_array($valor)) ? $valor[0] : $valor;
+		return get_user_meta($this->ID, self::KEY_USER_SOUNDCLOUD, true);
 	}
 
 	/**
@@ -758,6 +755,24 @@ class User extends ModelBase {
 	 */
 	public function setSoundcloud($nuevo) {
 		update_user_meta($this->ID, User::KEY_USER_SOUNDCLOUD, $nuevo);
+	}
+
+	/**
+	 * Devuelve la ubicación del User
+	 *
+	 * @return string
+	 */
+	public function getUbicacion() {
+		return get_user_meta($this->ID, self::KEY_USER_UBICACION, true);
+	}
+
+	/**
+	 * Establecer la nueva ubicación
+	 *
+	 * @param string $nuevo
+	 */
+	public function setUbicacion($nuevo) {
+		update_user_meta($this->ID, User::KEY_USER_UBICACION, $nuevo);
 	}
 
 	/**
