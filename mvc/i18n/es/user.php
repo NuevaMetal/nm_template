@@ -14,6 +14,8 @@ return [
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
 
 	'ha_sido_bloqueado' => 'El usuario :nombre ha sido bloqueado',
+	'has_editado_una_entrada' => 'Has editado una entrada',
+	'ha_editado_una_entrada' => 'ha editado una entrada',
 	'ha_comentado_una_entrada' => 'ha comentado una entrada',
 	'has_comentado_una_entrada' => 'Has comentado una entrada',
 	'ha_empezado_a_seguir_a' => 'ha empezado a seguir a',

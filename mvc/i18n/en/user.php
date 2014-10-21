@@ -14,12 +14,14 @@ return [
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
+	'has_editado_una_entrada' => 'You have edited a post',
+	'ha_editado_una_entrada' => 'has edited a post',
 	'ha_comentado_una_entrada' => 'commented on a post',
 	'has_comentado_una_entrada' => 'You have commented on a post',
 	'ha_empezado_a_seguir_a' => 'has begun to follow',
 	'has_empezado_a_seguir_a' => 'You have begun to follow',
-	'ha_publicado_una_entrada' => 'has publish a post',
-	'has_publicado_una_entrada' => 'You have publish a post',
+	'ha_publicado_una_entrada' => 'has published a post',
+	'has_publicado_una_entrada' => 'You have published a post',
 	'te_ha_gustado' => 'You like',
 	'le_ha_gustado' => 'liked it',
 

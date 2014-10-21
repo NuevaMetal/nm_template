@@ -19,6 +19,8 @@ class VActividad extends ModelBase {
 
 	const TIPO_NUEVA_ENTRADA = 'tipo_nueva_entrada';
 
+	const TIPO_ENTRADA_EDITADA = 'tipo_entrada_editada';
+
 	const TIPO_NUEVO_COMENTARIO = 'tipo_nuevo_comentario';
 
 	/*
@@ -126,14 +128,14 @@ class VActividad extends ModelBase {
 	 */
 	private static function _getModelByTipo($tipoQue = false) {
 		switch ($tipoQue) {
-			case self::TIPO_SEGUIMIENTO_USER :
-				return 'User';
 			case self::TIPO_ME_GUSTA :
-				return 'Post';
 			case self::TIPO_NUEVA_ENTRADA :
+			case self::TIPO_ENTRADA_EDITADA :
 				return 'Post';
 			case self::TIPO_NUEVO_COMENTARIO :
 				return 'Comment';
+			case self::TIPO_SEGUIMIENTO_USER :
+				return 'User';
 		}
 		return null;
 	}
@@ -152,10 +154,11 @@ class VActividad extends ModelBase {
 	 */
 	private static function _getTiposPermitidos() {
 		return [
-			self::TIPO_SEGUIMIENTO_USER,
+			self::TIPO_ENTRADA_EDITADA,
 			self::TIPO_ME_GUSTA,
 			self::TIPO_NUEVA_ENTRADA,
-			self::TIPO_NUEVO_COMENTARIO
+			self::TIPO_NUEVO_COMENTARIO,
+			self::TIPO_SEGUIMIENTO_USER
 		];
 	}
 
@@ -187,6 +190,15 @@ class VActividad extends ModelBase {
 	}
 
 	/**
+	 * Devuelve true si el tipo es de una entrada publicada
+	 *
+	 * @return boolean
+	 */
+	public function isTipoEntradaEditada() {
+		return $this->tipo_que == self::TIPO_ENTRADA_EDITADA;
+	}
+
+	/**
 	 * Devuelve true si el tipo es de un comentario
 	 *
 	 * @return boolean
@@ -200,26 +212,33 @@ class VActividad extends ModelBase {
 	 */
 	private static function _crearVista() {
 		$sql = "CREATE OR REPLACE VIEW wp_v_actividades AS
-		(
-			select user_id AS user_id, a_quien_id AS que_id, 'tipo_seguimiento_user' AS 'tipo_que', updated_at AS 'updated_at'
-			from wp_users_seguimientos
-			order by updated_at desc
-		) union (
-			select user_id AS user_id, post_id AS que_id, 'tipo_me_gusta' AS 'tipo_que', updated_at AS 'updated_at'
-			from wp_favoritos
-			where status = 0
-			order by updated_at desc
-		) union (
-			select post_author AS user_id, ID AS que_id, 'tipo_nueva_entrada' AS 'tipo_que', post_modified AS 'updated_at'
-			from wp_posts
-			where post_type = 'post'
-				and post_status = 'publish'
-			order by updated_at desc
-		) union (
-			select user_id AS user_id, comment_ID AS que_id, 'tipo_nuevo_comentario' AS 'tipo_que', comment_date AS 'updated_at'
-			from wp_comments
-			where comment_approved = 1
-			order by updated_at desc
-		)";
+(
+	select user_id AS user_id, a_quien_id AS que_id, 'tipo_seguimiento_user' AS 'tipo_que', updated_at AS 'updated_at'
+	from wp_users_seguimientos
+	order by updated_at desc
+) union (
+	select user_id AS user_id, post_id AS que_id, 'tipo_me_gusta' AS 'tipo_que', updated_at AS 'updated_at'
+	from wp_favoritos
+	where status = 0
+	order by updated_at desc
+) union (
+	select post_author AS user_id, ID AS que_id, 'tipo_entrada_editada' AS 'tipo_que', post_modified AS 'updated_at'
+	from wp_posts
+	where post_type = 'post'
+		and post_status = 'publish'
+		and post_date != post_modified
+	order by updated_at desc
+) union (
+	select post_author AS user_id, ID AS que_id, 'tipo_nueva_entrada' AS 'tipo_que', post_date AS 'updated_at'
+	from wp_posts
+	where post_type = 'post'
+		and post_status = 'publish'
+	order by updated_at desc
+) union (
+	select user_id AS user_id, comment_ID AS que_id, 'tipo_nuevo_comentario' AS 'tipo_que', comment_date AS 'updated_at'
+	from wp_comments
+	where comment_approved = 1
+	order by updated_at desc
+)";
 	}
 }
