@@ -529,7 +529,7 @@ $(document).on('click', '.seguir', function(e) {
 		dataType : "json",
 		beforeSend: function() {
 			$this.find('.fa-spin').removeClass('hidden');
-			$this.find('.fa-more').addClass('hidden');
+			$this.find('.fa-plus').addClass('hidden');
 			$this.find('.fa-remove').addClass('hidden');
 			$this.attr('editable', false);
 		},
