@@ -531,11 +531,11 @@ $(document).on('click', '.seguir', function(e) {
 			$this.find('.fa-spin').removeClass('hidden');
 			$this.find('.fa-plus').addClass('hidden');
 			$this.find('.fa-remove').addClass('hidden');
-			$this.attr('editable', false);
+			$this.attr('disabled', true);
 		},
 		success : function(json) {
 			if(json.code == 200){
-				$this.attr('editable', true);
+				$this.attr('disabled', false);
 				$this.replaceWith(json.btn);
 				$this.find('.fa-spin').addClass('hidden');
 				$this.find('.fa-plus').removeClass('hidden');
