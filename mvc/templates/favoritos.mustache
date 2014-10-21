@@ -1,7 +1,9 @@
 {{# user }}	
-	<h1 class="titular">Tus favoritos {{ current_user.display_name }}</h1>
+	<h1 class="titular">{{#transu}}favoritos{{/transu}} 
+		<small>{{#transu}}total{{/transu}}: {{getTotalFavoritos}}</small>
+	</h1>
 	{{#getTotalFavoritos}}
-	<div class="col-xs-12 titular">Estas son las entradas que te gustan. En total: {{getTotalFavoritos}}</div>
+	
 	
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs titular" role="tablist">
