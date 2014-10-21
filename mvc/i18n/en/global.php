@@ -111,8 +111,9 @@ return [
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 
-	'usuario' => 'user',
+	'ubicacion' => 'location',
 	'unete_y_colabora' => 'join and collaborate',
+	'usuario' => 'user',
 
 	'ver_perfil' => 'see profile',
 	'videos' => 'videos',
@@ -120,6 +121,8 @@ return [
 
 	'y' => 'and',
 	'ya_no_me_gusta' => 'don\'t like',
+
+
 
 	/*
 	 * Meses del año

@@ -188,6 +188,8 @@ class AutorController extends BaseController {
 		return $this->_render('autor/perfil/_adicional_info', [
 			'user' => $user,
 			'KEY_USER_UBICACION' => User::KEY_USER_UBICACION,
+			'KEY_USER_BANDAS_DESTACADAS' => User::KEY_USER_BANDAS_DESTACADAS,
+			'KEY_USER_GENEROS_DESTACADOS' => User::KEY_USER_GENEROS_DESTACADOS,
 		]);
 	}
 }

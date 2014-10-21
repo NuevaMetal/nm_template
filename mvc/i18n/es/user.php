@@ -4,6 +4,8 @@ return [
 	'ahora_sigues_a' => 'Ahora sigues a :nombre',
 	'aqui_ver_actividad' => 'Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.',
 
+	'bandas_destacadas' => 'Bandas destacadas',
+
 	'dejaste_de_seguir_a' => 'Dejaste de seguir a :nombre',
 
 	'editar_perfil' => 'editar perfil',
@@ -12,6 +14,8 @@ return [
 	'entradas_publicadas_ano' => 'Entradas publicadas este año',
 	'eres_una_banda' => '¿Eres una banda?',
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
+
+	'generos_destacados' => 'Géneros destacados',
 
 	'ha_sido_bloqueado' => 'El usuario :nombre ha sido bloqueado',
 	'has_editado_una_entrada' => 'Has editado una entrada',
@@ -38,10 +42,12 @@ return [
 	'quieres_escribir' => '¿Quieres escribir?',
 
 	'se_unio_en' => 'Se unió en :mes de :ano',
+	'separa_por_comas' => 'Separadas por comas',
 	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 
 	'tipo_usuario' => 'Tipo de usuario',
 
+	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
 
 	'ya_seguido' => 'Ya sigues a este usuario'

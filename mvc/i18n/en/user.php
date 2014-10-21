@@ -4,6 +4,8 @@ return [
 	'ahora_sigues_a' => 'Following :nombre',
 	'aqui_ver_actividad' => 'Here you can see your activity and the activities of the users you follow.',
 
+	'bandas_destacadas' => 'Featured Bands',
+
 	'dejaste_de_seguir_a' => 'Unfollowing :nombre',
 
 	'editar_perfil' => 'edit profile',
@@ -12,6 +14,8 @@ return [
 	'entradas_publicadas_ano' => 'Posts published this year',
 	'eres_una_banda' => 'Are you a band?',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
+
+	'generos_destacados' => 'Featured Genres',
 
 	'ha_sido_bloqueado' => 'The user :nombre has been blocked',
 	'has_editado_una_entrada' => 'You have edited a post',
@@ -38,10 +42,12 @@ return [
 	'quieres_escribir' => 'Do you want to write?',
 
 	'se_unio_en' => 'He joined in :mes :ano',
+	'separa_por_comas' => 'Separated by commas',
 	'sin_actividad' => 'You haven\'t activity to show yet',
 
 	'tipo_usuario' => 'Type of user',
 
+	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',
 
 	'ya_seguido' => 'You follow this user'

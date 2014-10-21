@@ -120,6 +120,8 @@ class Acciones {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
 				$user->setUbicacion($_POST[User::KEY_USER_UBICACION]);
+				$user->setBandasDestacadas($_POST[User::KEY_USER_BANDAS_DESTACADAS]);
+				$user->setGenerosDestacados($_POST[User::KEY_USER_GENEROS_DESTACADOS]);
 			}
 		}
 		add_action('personal_options_update', 'nm_perfil_update_adicional_info');

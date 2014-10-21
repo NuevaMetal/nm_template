@@ -31,6 +31,18 @@
 	</div>
 	
 	<div class="row">
+		<div class="col-xs-12">
+			{{#transu}}como{{/transu}}: <span class="tipo-usuario titular" itemprop="jobTitle">{{getTipoTrans}}</span>
+			{{#isCurrentUserOrAdmin}}
+			<span class="hidden">
+				<a class="btn btn-xs btn-default btn-xs" href="{{getEditUrl}}#tipo-usuario" target="_blank">
+					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+			</span>
+			{{/isCurrentUserOrAdmin}}
+		</div>
+	</div>
+	
+	<div class="row">
 		{{# getMesYAnoRegistro }}
 			<h4 class="col-xs-12">
 				<i class="fa fa-clock-o"></i> <small>{{#trans}}user.se_unio_en [mes:{{mes}},ano:{{ano}}]{{/trans}}</small>
@@ -46,25 +58,11 @@
 					{{/isCurrentUserOrAdmin}}
 			</h4>
 		{{/ getUbicacion }}
-	</div>
-	<hr>
-
-	<div class="row">
-		<div class="col-xs-12">
-			{{#transu}}como{{/transu}}: <span class="tipo-usuario titular" itemprop="jobTitle">{{getTipoTrans}}</span>
-			{{#isCurrentUserOrAdmin}}
-			<span class="hidden">
-				<a class="btn btn-xs btn-default btn-xs" href="{{getEditUrl}}#tipo-usuario" target="_blank">
-					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
-			</span>
-			{{/isCurrentUserOrAdmin}}
-		</div>
-	</div>
-	<hr>
+	</div>	
 
 	{{# tieneRedes }}
 	<div class="row">
-		<div class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</div>
+		<h4 class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</h4>
 		{{> autor/_redes_sociales}}
 		{{#isCurrentUserOrAdmin}}
 			<span class="col-xs-4 hidden">
@@ -73,7 +71,31 @@
 			</span>
 		{{/isCurrentUserOrAdmin}}
 	</div>
-	<hr>
 	{{/ tieneRedes }}
-
+	
+	{{# getTotalGenerosDestacados }}
+	<div class="row">
+		<div class="col-xs-12">
+			<h4 class="titular">{{#trans}}user.generos_destacados{{/trans}}</h4>
+			<ul class="tags text-center">
+			{{# getArrayGenerosDestacados }}
+	       		<li><a >{{.}}</a></li>
+			{{/ getArrayGenerosDestacados }}
+   			</ul>
+		</div>
+	</div>
+	{{/ getTotalGenerosDestacados }}
+	
+	{{# getTotalBandasDestacadas }}
+	<div class="row">
+		<div class="col-xs-12">
+			<h4 class="titular">{{#trans}}user.bandas_destacadas{{/trans}}</h4>
+			<ul class="tags text-center">
+			{{# getArrayBandasDestacadas }}
+	       		<li><a >{{.}}</a></li>
+			{{/ getArrayBandasDestacadas }}
+   			</ul>
+		</div>
+	</div>
+	{{/ getTotalBandasDestacadas }}
 </div>

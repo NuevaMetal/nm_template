@@ -48,6 +48,10 @@ class User extends ModelBase {
 
 	const KEY_USER_UBICACION = 'ubicacion';
 
+	const KEY_USER_GENEROS_DESTACADOS = 'generos_destacados';
+
+	const KEY_USER_BANDAS_DESTACADAS = 'bandas_destacadas';
+
 	const KEY_USER_TIPO = 'tipo_usuario';
 
 	/*
@@ -773,6 +777,82 @@ class User extends ModelBase {
 	 */
 	public function setUbicacion($nuevo) {
 		update_user_meta($this->ID, User::KEY_USER_UBICACION, $nuevo);
+	}
+
+	/**
+	 * Devuelve las nuevas bandas destacadas
+	 *
+	 * @return string
+	 */
+	public function getBandasDestacadas() {
+		return get_user_meta($this->ID, self::KEY_USER_BANDAS_DESTACADAS, true);
+	}
+
+	/**
+	 * Devuelve la lista de las bandas destacadas separados por una coma
+	 *
+	 * @return array<string>
+	 */
+	public function getArrayBandasDestacadas() {
+		$lista = explode(',', $this->getBandasDestacadas());
+		return array_values(array_unique($lista));
+	}
+
+	/**
+	 * Devuelve el total de bandas destacadas
+	 *
+	 * @return number
+	 */
+	public function getTotalBandasDestacadas() {
+		return count($this->getArrayBandasDestacadas());
+	}
+
+	/**
+	 * Establecer las nuevas bandas destacadas
+	 *
+	 * @param string $nuevo
+	 */
+	public function setBandasDestacadas($nuevo) {
+		$nuevo = ucwords($nuevo);
+		update_user_meta($this->ID, User::KEY_USER_BANDAS_DESTACADAS, $nuevo);
+	}
+
+	/**
+	 * Devuelve los géneros destacados
+	 *
+	 * @return string
+	 */
+	public function getGenerosDestacados() {
+		return get_user_meta($this->ID, self::KEY_USER_GENEROS_DESTACADOS, true);
+	}
+
+	/**
+	 * Devuelve la lista de los géneros destacados separados por una coma
+	 *
+	 * @return array<string>
+	 */
+	public function getArrayGenerosDestacados() {
+		$lista = explode(',', $this->getGenerosDestacados());
+		return array_values(array_unique($lista));
+	}
+
+	/**
+	 * Devuelve el total de géneros destacados
+	 *
+	 * @return number
+	 */
+	public function getTotalGenerosDestacados() {
+		return count($this->getArrayGenerosDestacados());
+	}
+
+	/**
+	 * Establecer los géneros destacados
+	 *
+	 * @param string $nuevo
+	 */
+	public function setGenerosDestacados($nuevo) {
+		$nuevo = ucwords($nuevo);
+		update_user_meta($this->ID, User::KEY_USER_GENEROS_DESTACADOS, $nuevo);
 	}
 
 	/**

@@ -116,9 +116,10 @@ return [
 	'sitios_de_interes' => 'sitios de interés',
 	'subscriber' => 'suscriptor',
 
+	'ubicacion' => 'ubicación',
+	'unete_y_colabora' => 'Únete y colabora',
 	'user' => 'usuario',
 	'usuario' => 'usuario',
-	'unete_y_colabora' => 'Únete y colabora',
 
 	'ver_perfil' => 'ver perfil',
 	'videos' => 'vídeos',
@@ -126,6 +127,7 @@ return [
 
 	'y' => 'y',
 	'ya_no_me_gusta' => 'ya no me gusta',
+
 
 	/*
 	 * Meses del año
