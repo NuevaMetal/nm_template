@@ -56,10 +56,9 @@ class VActividad extends ModelBase {
 	}
 
 	/**
-	 *
-	 * @param string $dateFormat
+	 * Devuelve la fecha de la actividad
 	 */
-	public function getTime($dateFormat = self::DATE_FORMAT) {
+	public function getDate() {
 		// date($dateFormat, strtotime($this->updated_at));
 		$strToTime = strtotime($this->updated_at);
 		// 1 (para lunes) hasta 7 (para domingo)
@@ -70,9 +69,18 @@ class VActividad extends ModelBase {
 		$nombremes = Utils::getMesTransByNum($numMes);
 		$numDia = date('d', $strToTime); // Número del día
 		$ano = date('Y', $strToTime); // Año
+		return "$nombreDia, $numDia $nombremes $ano";
+	}
+
+	/**
+	 * Devuelve la hora en la que se produjo la actividad
+	 */
+	public function getTime() {
+		// date($dateFormat, strtotime($this->updated_at));
+		$strToTime = strtotime($this->updated_at);
 		$hora = date('H', $strToTime);
 		$minutos = date('m', $strToTime);
-		return "$nombreDia, $numDia $nombremes $ano ($hora:$minutos)";
+		return "$hora:$minutos";
 	}
 
 	/**
