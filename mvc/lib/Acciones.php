@@ -3,7 +3,6 @@
  * Acciones de Wordpress
  *
  * @author chema
- *
  */
 class Acciones {
 
@@ -30,7 +29,7 @@ class Acciones {
 				get_option('admin_email')
 			], sprintf(__('[%s] New User Registration'), get_option('blogname')), $emailAvisoAdminNuevoUser);
 
-			if (!$enviado) {
+			if (! $enviado) {
 				Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 			}
 
@@ -46,7 +45,7 @@ class Acciones {
 			$enviado = Correo::enviarCorreoGenerico([
 				$user_email
 			], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
-			if (!$enviado) {
+			if (! $enviado) {
 				Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 			}
 			header('Location: /wp-login.php');
@@ -58,8 +57,8 @@ class Acciones {
 	 */
 	public static function generarNuevaPassword() {
 		add_action('login_init', function () {
-			if ($_REQUEST ['action'] == 'lostpassword' && $_REQUEST ['wp-submit'] == 'Obtener una contraseña nueva') {
-				$user_email = $_POST ['user_login'];
+			if ($_REQUEST['action'] == 'lostpassword' && $_REQUEST['wp-submit'] == 'Obtener una contraseña nueva') {
+				$user_email = $_POST['user_login'];
 				$user = get_user_by('email', $user_email);
 
 				$user_login = stripslashes($user->user_login);
@@ -76,11 +75,11 @@ class Acciones {
 					get_option('admin_email')
 				], sprintf(__('[%s] New User Recovering Pass'), get_option('blogname')), $emailAvisoAdminPasswordReset);
 
-				if (!$enviado) {
+				if (! $enviado) {
 					Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 				}
 
-				if (empty($user_pass) || !$user->ID)
+				if (empty($user_pass) || ! $user->ID)
 					return;
 
 				$emailNuevoUser = I18n::trans('emails.password_reset', [
@@ -92,21 +91,19 @@ class Acciones {
 				$enviado = Correo::enviarCorreoGenerico([
 					$user_email
 				], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
-				if (!$enviado) {
+				if (! $enviado) {
 					Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 				}
 				header('Location: /wp-login.php');
 			}
 		});
 	}
-
 	public static function perfilAddImgHeader() {
 
 		// Añado el enctype para poder pasar las imágenes por el formulario
 		add_action('user_edit_form_tag', function () {
 			echo 'enctype="multipart/form-data"';
 		});
-
 		function nm_perfil_add_img_header($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
@@ -121,13 +118,12 @@ class Acciones {
 	 * Añado las imágenes de avatar y header al perfil del User
 	 */
 	public static function perfilUpdateImgHeader() {
-
 		function nm_perfil_update_img($user_ID, $keyUserImg) {
-			//Primero comprobamos que el user tenga permisos y exista la clave en los FILES
-			if (current_user_can('edit_user', $user_ID) && isset($_FILES [$keyUserImg])) {
-				//Después comprobamos que tenga un nombre definido
-				$img = $_FILES [$keyUserImg];
-				if ($img ['name']) {
+			// Primero comprobamos que el user tenga permisos y exista la clave en los FILES
+			if (current_user_can('edit_user', $user_ID) && isset($_FILES[$keyUserImg])) {
+				// Después comprobamos que tenga un nombre definido
+				$img = $_FILES[$keyUserImg];
+				if ($img['name']) {
 					$user = User::find($user_ID);
 					try {
 						switch ($keyUserImg) {
@@ -138,7 +134,7 @@ class Acciones {
 								$user->setAvatar($img);
 								break;
 						}
-					} catch (Exception $e) {
+					} catch ( Exception $e ) {
 						// Añadimos el mensaje de error en las notificaciones
 						add_action('user_profile_update_errors', function ($errors) use($e) {
 							$errors->add($keyUserImg, $e->getMessage());
@@ -147,11 +143,9 @@ class Acciones {
 				}
 			}
 		}
-
 		function nm_perfil_update_img_avatar($user_ID) {
 			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_AVATAR);
 		}
-
 		function nm_perfil_update_img_header($user_ID) {
 			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_HEADER);
 		}
@@ -166,7 +160,6 @@ class Acciones {
 	 * Añado las redes sociales al perfil del User
 	 */
 	public static function perfilAddRedesSociales() {
-
 		function nm_perfil_add_redes_sociales($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
@@ -181,15 +174,14 @@ class Acciones {
 	 * Facebook, Twiter, Google+, Youtube, Soundcloud
 	 */
 	public static function perfilUpdateRedesSociales() {
-
 		function nm_perfil_update_redes_sociales($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
-				$user->setFacebook($_POST [User::KEY_USER_FACEBOOK]);
-				$user->setTwitter($_POST [User::KEY_USER_TWITTER]);
-				$user->setGooglePlus($_POST [User::KEY_USER_GOOGLE_PLUS]);
-				$user->setYoutube($_POST [User::KEY_USER_YOUTUBE]);
-				$user->setSoundcloud($_POST [User::KEY_USER_SOUNDCLOUD]);
+				$user->setFacebook($_POST[User::KEY_USER_FACEBOOK]);
+				$user->setTwitter($_POST[User::KEY_USER_TWITTER]);
+				$user->setGooglePlus($_POST[User::KEY_USER_GOOGLE_PLUS]);
+				$user->setYoutube($_POST[User::KEY_USER_YOUTUBE]);
+				$user->setSoundcloud($_POST[User::KEY_USER_SOUNDCLOUD]);
 			}
 		}
 		add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
@@ -200,7 +192,6 @@ class Acciones {
 	 * Añado el tipo de user al perfil
 	 */
 	public static function perfilAddTipoUsuario() {
-
 		function nm_perfil_add_tipo_user($user) {
 			require_once 'mvc/controllers/AutorController.php';
 			$c = new AutorController();
@@ -214,11 +205,10 @@ class Acciones {
 	 * Actualizo el tipo de user
 	 */
 	public static function perfilUpdateTipoUsuario() {
-
 		function nm_perfil_update_tipo_user($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
-				$user->setTipo($_POST [User::KEY_USER_TIPO]);
+				$user->setTipo($_POST[User::KEY_USER_TIPO]);
 			}
 		}
 		add_action('personal_options_update', 'nm_perfil_update_tipo_user');
@@ -231,7 +221,7 @@ class Acciones {
 	public static function cargarEstilosPaginaLogin() {
 		add_action('login_enqueue_scripts', function () {
 			wp_enqueue_style('main', get_template_directory_uri() . '/public/css/main.css');
-			//wp_enqueue_script('custom-login', get_template_directory_uri() . '/style-login.js');
+			// wp_enqueue_script('custom-login', get_template_directory_uri() . '/style-login.js');
 		});
 
 		add_filter('login_headerurl', function () {
@@ -247,14 +237,14 @@ class Acciones {
 	 */
 	public static function quitarItemsParaLosUsuarios() {
 		add_action('admin_menu', function () {
-			//Obtenemos los datos del usuario actual
+			// Obtenemos los datos del usuario actual
 			$user = User::find(wp_get_current_user()->ID);
 			// Si es que el usuario no tiene rol de editor o admin
-			if (!$user || !$user->isEditor()) {
+			if (! $user || ! $user->isEditor()) {
 				remove_menu_page('edit-comments.php'); // Removemos el ítem comentarios
 				remove_menu_page('upload.php'); // Removemos el ítem medios
 			}
-			if (!$user || !$user->isAdmin()) {
+			if (! $user || ! $user->isAdmin()) {
 				remove_menu_page('edit.php?post_type=page');
 			}
 			// Nadie quiere tools.php
@@ -287,17 +277,15 @@ class Acciones {
 			$subject = preg_replace('#<th><label for="jabber">.+?/th>#s', '', $subject, 1);
 			$subject = preg_replace('#<td><input type="text" name="jabber".+?/td>#s', '', $subject, 1);
 
-			//Añado un id a la sección de "Acerca de ti"
+			// Añado un id a la sección de "Acerca de ti"
 			$subject = str_replace('<h3>Acerca de ti</h3>', '<h3 id="acerca-de-ti">Acerca de ti</h3>', $subject);
 			// Añado un id a la sección de "Nombre"
 			$subject = str_replace('<h3>Nombre</h3>', '<h3 id="nombre">Nombre</h3>', $subject);
 			return $subject;
 		}
-
 		function nm_remove_personal_options_start() {
 			ob_start('nm_remove_personal_options');
 		}
-
 		function nm_remove_personal_options_end() {
 			ob_end_flush();
 		}
@@ -325,16 +313,16 @@ class Acciones {
 	public static function perfilAddInfo() {
 		require_once 'mvc/models/User.php';
 		$current_user = User::find(wp_get_current_user()->ID);
-		if ($current_user && $current_user->canColaborador()) {
-			Acciones::perfilAddImgHeader();
-			Acciones::perfilUpdateImgHeader();
+		// if ($current_user && $current_user->canColaborador()) {
+		Acciones::perfilAddImgHeader();
+		Acciones::perfilUpdateImgHeader();
 
-			Acciones::perfilAddRedesSociales();
-			Acciones::perfilUpdateRedesSociales();
+		Acciones::perfilAddRedesSociales();
+		Acciones::perfilUpdateRedesSociales();
 
-			Acciones::perfilAddTipoUsuario();
-			Acciones::perfilUpdateTipoUsuario();
-		}
+		Acciones::perfilAddTipoUsuario();
+		Acciones::perfilUpdateTipoUsuario();
+		// }
 	}
 
 	/**
@@ -352,7 +340,7 @@ class Acciones {
 		add_filter('author_rewrite_rules', function ($author_rewrite_rules) {
 			foreach ($author_rewrite_rules as $pattern => $substitution) {
 				if (false === strpos($substitution, 'author_name')) {
-					unset($author_rewrite_rules [$pattern]);
+					unset($author_rewrite_rules[$pattern]);
 				}
 			}
 			return $author_rewrite_rules;
@@ -363,14 +351,13 @@ class Acciones {
 			return str_replace('%author_tipo%', $user->getTipo(), $link);
 		}, 100, 2);
 	}
-
 	public static function registerForm() {
 		session_start();
-		//1. Añado nuevo input donde introducir el captcha
+		// 1. Añado nuevo input donde introducir el captcha
 		add_action('register_form', function () {
-			$_SESSION ['captcha_action'] = 'captcha_nm_' . time();
+			$_SESSION['captcha_action'] = 'captcha_nm_' . time();
 			// Creamos un "captcha" a partir de un nonce de WP que posteriormente comprobaremos en el filtro
-			$captcha = wp_create_nonce($_SESSION ['captcha_action']);
+			$captcha = wp_create_nonce($_SESSION['captcha_action']);
 			?>
 <p>
 	<label for="cap">Introduce el captcha: <strong><?php echo $captcha?></strong><br>
@@ -379,10 +366,10 @@ class Acciones {
 <?php
 		});
 
-		//2. Añado validación. Comprobamos el input del captcha no esté vacío y que además coincida con su valor
+		// 2. Añado validación. Comprobamos el input del captcha no esté vacío y que además coincida con su valor
 		// utilizando para ello el wp_verify_nonce que nos proporciona WP
 		add_filter('registration_errors', function ($errors) {
-			if (!wp_verify_nonce($_POST ['cap'], $_SESSION ['captcha_action'])) {
+			if (! wp_verify_nonce($_POST['cap'], $_SESSION['captcha_action'])) {
 				$errors->add('captcha_incorecto', '<strong>ERROR:</strong> Captcha incorrecto.');
 			}
 			return $errors;
@@ -391,7 +378,6 @@ class Acciones {
 
 	/**
 	 * Action -> wp_login
-	 *
 	 * Comprobamos que el user no esté bloqueado
 	 */
 	public static function impedirLoginSiUserBloqueado() {
@@ -413,17 +399,17 @@ class Acciones {
 		// De esta forma se obtendrán los avatares directamente del modelo
 		add_filter('get_avatar', function ($avatar = '', $id_or_email, $size = User::AVATAR_SIZE_DEFAULT, $default = '', $alt = '') {
 			if (is_numeric($id_or_email)) {
-				$user_id = ( int ) $id_or_email;
+				$user_id = (int) $id_or_email;
 			} elseif (is_string($id_or_email) && ($user = get_user_by('email', $id_or_email))) {
 				$user_id = $user->ID;
-			} elseif (is_object($id_or_email) && !empty($id_or_email->user_id)) {
-				$user_id = ( int ) $id_or_email->user_id;
+			} elseif (is_object($id_or_email) && ! empty($id_or_email->user_id)) {
+				$user_id = (int) $id_or_email->user_id;
 			}
 			$user = User::find($user_id);
-			if (!$user) {
+			if (! $user) {
 				return Utils::getUrlGravatarDefault($size);
 			}
-			if (!Utils::cadenaValida($alt)) {
+			if (! Utils::cadenaValida($alt)) {
 				$alt = $user->display_name . ' avatar';
 			}
 			$img = '<img alt="' . esc_attr($alt) . '" src="' . $user->getAvatar($size) . '" ';
@@ -431,7 +417,6 @@ class Acciones {
 			return $img;
 		}, 10, 5);
 	}
-
 }
 
 Acciones::userRegister();

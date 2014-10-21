@@ -40,11 +40,13 @@
 
 {{#favoritos}}
 	<div class="row">
-		<div class="col-xs-12 titular">
-			<h4><i class="fa fa-area-chart"></i> {{#transu}}user.entradas_publicadas_ano{{/transu}}</h4>
-			<div id="entradas-publicadas" style="height:120px; margin-bottom:0px;"></div>
-		</div>
-
+		{{# getTotalPosts }}
+			<div class="col-xs-12 titular">
+				<h4><i class="fa fa-area-chart"></i> {{#transu}}user.entradas_publicadas_ano{{/transu}}</h4>
+				<div id="entradas-publicadas" style="height:120px; margin-bottom:0px;"></div>
+			</div>
+		{{/ getTotalPosts }}
+		
 		{{#getTotalFavoritos}}
 		<div class="col-xs-12 ">
 			<h4 class="titular"><i class="fa fa-tags"></i> {{#transu}}user.etiquetas_destacadas_fav{{/transu}}</h4>			

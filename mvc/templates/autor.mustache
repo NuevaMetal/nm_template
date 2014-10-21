@@ -29,7 +29,9 @@
 			</div>
 		</div>
 	{{/user}}
-	{{#posts}}
-		{{> busqueda}}
-	{{/posts}}
+	{{# getTotalPosts }}
+		{{#posts}}
+			{{> busqueda}}
+		{{/posts}}
+	{{/ getTotalPosts }}
 </div>

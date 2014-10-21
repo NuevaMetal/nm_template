@@ -22,7 +22,8 @@ class AutorController extends BaseController {
 	 * author.php
 	 */
 	public function getAuthor() {
-		$author_id = get_the_author_meta('ID');
+		$author = get_queried_object();
+		$author_id = $author->ID;
 		$user = User::find($author_id);
 		// Comprobar si tiene publicaciones o ha sido bloqueado
 		if (! $user) {
@@ -40,7 +41,7 @@ class AutorController extends BaseController {
 			'user' => $user,
 			'ANALITICA_PERFIL_POST_PUBLICADOS_MES' => Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES
 		];
-		$args['posts'] = self::_getArrayPostsAutor($author_id, 4);
+		$args['posts'] = self::_getArrayPostsAutor($user->ID, 4);
 		$args['header'] = "$header ($autorCountPosts " . I18n::trans('entradas') . ')';
 		$args['favoritos'] = [
 			'a_buscar' => $user->ID,
