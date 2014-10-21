@@ -135,5 +135,16 @@ return [
 	'septiembre' => 'September',
 	'octubre' => 'October',
 	'noviembre' => 'November',
-	'diciembre' => 'December'
+	'diciembre' => 'December',
+
+	/*
+	 * Tiempo
+	 */
+	'ano' => 'year',
+	'mes' => 'month',
+	'semana' => 'week',
+	'dia' => 'day',
+	'hora' => 'hour',
+	'minuto' => 'minute',
+	'segundo' => 'second'
 ];

@@ -1,14 +1,15 @@
 <div class="fila tipo-nueva-entrada">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		{{#isCurrentUser}}
+		{{> actividad/_time }}
+		{{#getUser.isCurrentUser}}
 			{{#trans}}user.has_publicado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
-		{{/isCurrentUser}}
-		{{^isCurrentUser}}
+		{{/getUser.isCurrentUser}}
+		{{^getUser.isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
 			{{#trans}}user.ha_publicado_una_entrada{{/trans}}
 			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
-		{{/isCurrentUser}}
+		{{/getUser.isCurrentUser}}
 	</span>
 	<span class="post-thumbnail col-xs-2">
 		<a href="{{getQue.getUrl}}">

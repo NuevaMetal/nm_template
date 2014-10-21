@@ -62,6 +62,11 @@ class User extends ModelBase {
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	/*
+	 * Número de actividades a mostrar
+	 */
+	const NUM_ACTIVIDADES = 30;
+
+	/*
 	 * Número de post favoritos a mostrar en su perfil
 	 */
 	const NUM_FAV_PERFIL_DEFAULT = 6;
@@ -1133,9 +1138,11 @@ class User extends ModelBase {
 	}
 
 	/**
-	 * Devuelve la lista de actividades que le pertenecen a través de la vista
+	 * Devuelve la lista de actividades que le pertenecen únicamente al User
+	 *
+	 * @return array<VActividad>
 	 */
-	public function getActividades($offset = 0, $limit = 10) {
+	public function getActividadesPropias($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
 		$actividades = $wpdb->get_results($wpdb->prepare('
 				SELECT tipo_que, user_id, que_id, updated_at
@@ -1144,6 +1151,29 @@ class User extends ModelBase {
 				ORDER BY updated_at DESC
 				LIMIT %d OFFSET %d
 				', $this->ID, $limit, $offset));
+		// Parseo los objetos genéricos (StdClass) a VActividad
+		array_walk($actividades, function (&$item) {
+			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);
+		});
+		return $actividades;
+	}
+
+	/**
+	 * Devuelve la lista de actividades que le pertenecen al User y a las personas que sigue
+	 *
+	 * @return array<VActividad>
+	 */
+	public function getActividades($offset = 0, $limit = self::NUM_ACTIVIDADES) {
+		global $wpdb;
+		$siguientoIds = $this->_getSiguiendoIds();
+		$siguientoIds = implode(',', $siguientoIds) . ",$this->ID";
+		$actividades = $wpdb->get_results($wpdb->prepare('
+				SELECT tipo_que, user_id, que_id, updated_at
+				FROM wp_v_actividades
+				WHERE user_id IN (' . $siguientoIds . ')
+				ORDER BY updated_at DESC
+				LIMIT %d OFFSET %d
+				', $limit, $offset));
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
 			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);

@@ -8,6 +8,8 @@ require_once 'ModelBase.php';
 class VActividad extends ModelBase {
 	public static $table = "v_actividades";
 
+	const DATE_FORMAT = 'l, d F Y';
+
 	/*
 	 * Tipos de Actividad
 	 */
@@ -51,6 +53,14 @@ class VActividad extends ModelBase {
 		if ($updated_at) {
 			$this->updated_at = $updated_at;
 		}
+	}
+
+	/**
+	 *
+	 * @param string $dateFormat
+	 */
+	public function getTime($dateFormat = self::DATE_FORMAT) {
+		return date($dateFormat, strtotime($this->updated_at));
 	}
 
 	/**

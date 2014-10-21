@@ -141,5 +141,16 @@ return [
 	'septiembre' => 'Septiembre',
 	'octubre' => 'Octubre',
 	'noviembre' => 'Noviembre',
-	'diciembre' => 'Diciembre'
+	'diciembre' => 'Diciembre',
+
+	/*
+	 * Tiempo
+	 */
+	'ano' => 'año',
+	'mes' => 'mes',
+	'semana' => 'semana',
+	'dia' => 'día',
+	'hora' => 'hora',
+	'minuto' => 'minuto',
+	'segundo' => 'segundo'
 ];

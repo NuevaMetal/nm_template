@@ -15,11 +15,11 @@
 			float: left;
 			margin-right: 10px;
 		}
-		.texto *{
-			@include col(lg) {
+		.texto {
+			/*@include col(lg) {
 				 vertical-align: middle;
 				 line-height: 55px;
-			}
+			}*/
 		}
 		.post-thumbnail, .avatar2 {
 			float: right;
@@ -44,6 +44,10 @@
 		}
 		.tipo-seguimiento-user {
 			
+		}
+		
+		.time {
+			font-size: 14px;
 		}
 	}
 	
