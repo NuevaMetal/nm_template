@@ -1184,7 +1184,7 @@ class User extends ModelBase {
 		global $wpdb;
 		$siguientoIds = $this->_getSiguiendoIds();
 		$siguientoIds = implode(',', $siguientoIds);
-		$siguientoIds = (count($siguientoIds) > 1) ? ",$this->ID" : $this->ID;
+		$siguientoIds .= (strlen($siguientoIds) > 1) ? ",$this->ID" : $this->ID;
 		$actividades = $wpdb->get_results($wpdb->prepare('
 				SELECT tipo_que, user_id, que_id, updated_at
 				FROM wp_v_actividades
