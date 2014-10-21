@@ -528,12 +528,12 @@ $(document).on('click', '.seguir', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			//$this.attr('editable', false);
+			$this.attr('editable', false);
 		},
 		success : function(json) {
 			if(json.code == 200){
 				$this.replaceWith(json.btn);
-				//$this.attr('editable', true);
+				$this.attr('editable', true);
 				mostrarAlerta(json.alert, 2);
 			} else {
 				mostrarAlerta(json.err, 2);
