@@ -8,12 +8,12 @@
 		{{^isCurrentUser}}
 			{{^yaLoSigues}}
 				<button class="btn btn-danger seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="si">
-					<i class="fa fa-plus"></i> {{#transu}}seguir{{/transu}}
+					<i class="fa fa-plus"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}seguir{{/transu}}
 				</button>
 			{{/yaLoSigues}}
 			{{#yaLoSigues}}
 				<button class="btn btn-default seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="no">
-					<i class="fa fa-remove"></i> {{#transu}}dejar_de_seguir{{/transu}}
+					<i class="fa fa-remove"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}dejar_de_seguir{{/transu}}
 				</button>
 			{{/yaLoSigues}}
 		{{/isCurrentUser}}

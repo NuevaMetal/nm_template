@@ -528,12 +528,16 @@ $(document).on('click', '.seguir', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
+			$this.find('.fa-spin').removeClass('hidden');
+			$this.find('.fa-more').addClass('hidden');
 			$this.attr('editable', false);
 		},
 		success : function(json) {
 			if(json.code == 200){
-				$this.replaceWith(json.btn);
 				$this.attr('editable', true);
+				$this.replaceWith(json.btn);
+				$this.find('.fa-spin').addClass('hidden');
+				$this.find('.fa-more').removeClass('hidden');
 				mostrarAlerta(json.alert, 2);
 			} else {
 				mostrarAlerta(json.err, 2);

@@ -3,7 +3,6 @@
  * Base abstract para los modelos
  *
  * @author José María Valera Reales <@Chemaclass>
- *
  */
 abstract class ModelBase {
 
@@ -12,7 +11,6 @@ abstract class ModelBase {
 	public $ID;
 	public $created_at;
 	public $updated_at;
-
 	public function __construct($_id = -1) {
 		$this->ID = $_id;
 		global $wpdb;
@@ -35,7 +33,7 @@ abstract class ModelBase {
 			foreach (self::$columnas as $c) {
 				$a->$c = $qr->$c;
 			}
-			$result [] = $a;
+			$result[] = $a;
 		}
 		return $result;
 	}
@@ -47,7 +45,7 @@ abstract class ModelBase {
 	 * @return object
 	 */
 	public static function find($ID = false) {
-		if ($ID == null || !is_numeric($ID)) {
+		if ($ID == null || ! is_numeric($ID)) {
 			return null;
 		}
 		global $wpdb;
@@ -65,7 +63,6 @@ abstract class ModelBase {
 		}
 		return $a;
 	}
-
 	public function delete() {
 		if ($this->ID !== false) {
 			global $wpdb;
@@ -73,7 +70,11 @@ abstract class ModelBase {
 			$query = "DELETE
 					FROM {$wpdb->prefix}" . static::$table . "
 					WHERE ID = $this->ID";
-			return $wpdb->query($query);
+			try {
+				return $wpdb->query($query);
+			} catch ( Exception $e ) {
+				return $e;
+			}
 		}
 		return false;
 	}
@@ -88,7 +89,7 @@ abstract class ModelBase {
 	public static function first($columna, $que, $valor) {
 		$w = self::where($columna, $que, $valor);
 		if ($w && is_array($w)) {
-			return $w [0];
+			return $w[0];
 		}
 		return null;
 	}
@@ -108,13 +109,12 @@ abstract class ModelBase {
 		foreach ($all as $item) {
 			if (isset($item->$columna)) {
 				if (self::_getComparacion($item->$columna, $que, $valor)) {
-					$result [] = $item;
+					$result[] = $item;
 				}
 			}
 		}
 		return $result;
 	}
-
 	private static function _getComparacion($columna, $que, $valor) {
 		switch ($que) {
 			case "=" :
@@ -145,9 +145,7 @@ abstract class ModelBase {
 		}
 		return false;
 	}
-
 	public function __toArray() {
 		return call_user_func('get_object_vars', $this);
 	}
-
 }
