@@ -61,15 +61,18 @@ class VActividad extends ModelBase {
 	 */
 	public function getTime($dateFormat = self::DATE_FORMAT) {
 		// date($dateFormat, strtotime($this->updated_at));
+		$strToTime = strtotime($this->updated_at);
 		// 1 (para lunes) hasta 7 (para domingo)
-		$numDiaSemana = date('N', strtotime($this->updated_at));
+		$numDiaSemana = date('N', $strToTime);
 		$nombreDia = Utils::getDiaTransByNum($numDiaSemana);
 		// Representación numérica de un mes, sin ceros iniciales. 1 hasta 12
-		$numMes = date('n', strtotime($this->updated_at));
+		$numMes = date('n', $strToTime);
 		$nombremes = Utils::getMesTransByNum($numMes);
-		$numDia = date('d', strtotime($this->updated_at)); // Número del día
-		$ano = date('Y', strtotime($this->updated_at)); // Año
-		return "$nombreDia, $numDia $nombremes $ano";
+		$numDia = date('d', $strToTime); // Número del día
+		$ano = date('Y', $strToTime); // Año
+		$hora = date('H', $strToTime);
+		$minutos = date('m', $strToTime);
+		return "$nombreDia, $numDia $nombremes $ano ($hora:$minutos)";
 	}
 
 	/**
