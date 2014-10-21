@@ -74,4 +74,22 @@ class Seguimiento extends ModelBase {
 	public function getAQuien() {
 		return User::find($this->a_quien_id);
 	}
+
+	/**
+	 * Crear las tablas de los seguimientos entre los usuarios
+	 */
+	private static function _install() {
+		global $wpdb;
+		$query = "CREATE TABLE IF NOT EXISTS wp_users_seguimientos (
+				ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				user_id bigint(20) UNSIGNED NOT NULL,
+				a_quien_id bigint(20) UNSIGNED NOT NULL,
+				created_at TIMESTAMP NOT NULL DEFAULT 0,
+				updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+				FOREIGN KEY (user_id) REFERENCES wp_users(ID) ON DELETE SET NULL,
+				FOREIGN KEY (a_quien_id) REFERENCES wp_users(ID) ON DELETE SET NULL,
+				UNIQUE KEY (user_id, created_at)
+			)ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+		$wpdb->query($query);
+	}
 }
