@@ -28,10 +28,10 @@
 				{{> autor/_col2}}
 			</div>
 		</div>
+		{{# getTotalPosts }}
+			{{#posts}}
+				{{> busqueda}}
+			{{/posts}}
+		{{/ getTotalPosts }}
 	{{/user}}
-	{{# getTotalPosts }}
-		{{#posts}}
-			{{> busqueda}}
-		{{/posts}}
-	{{/ getTotalPosts }}
 </div>
