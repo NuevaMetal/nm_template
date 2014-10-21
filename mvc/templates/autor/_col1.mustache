@@ -79,7 +79,7 @@
 			<h4 class="titular">{{#trans}}user.generos_destacados{{/trans}}</h4>
 			<ul class="tags text-center">
 			{{# getArrayGenerosDestacados }}
-	       		<li><a >{{.}}</a></li>
+	       		<li><a href="/?s={{.}}">{{.}}</a></li>
 			{{/ getArrayGenerosDestacados }}
    			</ul>
 		</div>
@@ -92,7 +92,7 @@
 			<h4 class="titular">{{#trans}}user.bandas_destacadas{{/trans}}</h4>
 			<ul class="tags text-center">
 			{{# getArrayBandasDestacadas }}
-	       		<li><a >{{.}}</a></li>
+	       		<li><a href="/?s={{.}}">{{.}}</a></li>
 			{{/ getArrayBandasDestacadas }}
    			</ul>
 		</div>

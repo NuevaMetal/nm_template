@@ -794,8 +794,8 @@ class User extends ModelBase {
 	 * @return array<string>
 	 */
 	public function getArrayBandasDestacadas() {
-		$lista = explode(',', $this->getBandasDestacadas());
-		return array_values(array_unique($lista));
+		$destacadas = $this->getBandasDestacadas();
+		return $this->_getArrayConValoresUnicosByStr($destacadas);
 	}
 
 	/**
@@ -832,8 +832,31 @@ class User extends ModelBase {
 	 * @return array<string>
 	 */
 	public function getArrayGenerosDestacados() {
-		$lista = explode(',', $this->getGenerosDestacados());
-		return array_values(array_unique($lista));
+		$destacados = $this->getGenerosDestacados();
+		return $this->_getArrayConValoresUnicosByStr($destacados);
+	}
+
+	/**
+	 * Devuelve una lista con los valores separados por el delimitador (por defecto ',')
+	 * del string pasado como 1er param.
+	 * Además de hacerle un trim a cada item del array generado
+	 *
+	 * @param string $str
+	 *        	Cadena a cortar
+	 * @param string $delimitador
+	 *        	Delimitador para la cadena (para el explode)
+	 * @return array Lista cortada por el delimitador
+	 */
+	private function _getArrayConValoresUnicosByStr($str, $delimitador = ',') {
+		if (! strlen($str)) {
+			return [];
+		}
+		$lista = explode($delimitador, $str);
+		$lista = array_values(array_unique($lista));
+		array_walk($lista, function (&$item) {
+			$item = trim($item);
+		});
+		return $lista;
 	}
 
 	/**
