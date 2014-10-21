@@ -530,6 +530,7 @@ $(document).on('click', '.seguir', function(e) {
 		beforeSend: function() {
 			$this.find('.fa-spin').removeClass('hidden');
 			$this.find('.fa-more').addClass('hidden');
+			$this.find('.fa-remove').addClass('hidden');
 			$this.attr('editable', false);
 		},
 		success : function(json) {
@@ -537,7 +538,8 @@ $(document).on('click', '.seguir', function(e) {
 				$this.attr('editable', true);
 				$this.replaceWith(json.btn);
 				$this.find('.fa-spin').addClass('hidden');
-				$this.find('.fa-more').removeClass('hidden');
+				$this.find('.fa-plus').removeClass('hidden');
+				$this.find('.fa-remove').removeClass('hidden');
 				mostrarAlerta(json.alert, 2);
 			} else {
 				mostrarAlerta(json.err, 2);
