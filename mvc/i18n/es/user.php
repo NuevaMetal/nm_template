@@ -36,6 +36,7 @@ return [
 	'quieres_escribir' => '¿Quieres escribir?',
 
 	'se_unio_en' => 'Se unió en :mes de :ano',
+	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 
 	'tipo_usuario' => 'Tipo de usuario',
 

@@ -36,6 +36,7 @@ return [
 	'quieres_escribir' => 'Do you want to write?',
 
 	'se_unio_en' => 'He joined in :mes :ano',
+	'sin_actividad' => 'You haven\'t activity to show yet',
 
 	'tipo_usuario' => 'Type of user',
 
