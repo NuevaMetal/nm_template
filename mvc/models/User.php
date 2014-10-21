@@ -922,6 +922,21 @@ class User extends ModelBase {
 		 		FROM ' . $wpdb->prefix . "favoritos
 				WHERE user_id = $this->ID AND status = $activo;");
 	}
+	public function getFavoritosTab() {
+		$_parseaSecciones = function ($seccionesFavoritos) {
+			$result = [];
+			// sort($seccionesFavoritos);
+			foreach ($seccionesFavoritos as $k => $v) {
+				$result[] = [
+					'activo' => ($k == 0),
+					'clave' => $v,
+					'valor' => I18n::transu($v)
+				];
+			}
+			return $result;
+		};
+		return $_parseaSecciones(array_keys($this->getFavoritosAgrupados()));
+	}
 
 	/**
 	 * Devuelve el número total de favoritos que han recibido sus entradas

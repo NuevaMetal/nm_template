@@ -53,4 +53,39 @@ class Favorito extends ModelBase {
 	public function getUser() {
 		return User::find($this->user_id);
 	}
+
+	/**
+	 * Creamos las tablas
+	 *
+	 * @return void
+	 */
+	private static function _install() {
+		global $wpdb;
+		// Create table
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}favoritos (
+		`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`post_id` bigint(20) UNSIGNED NOT NULL,
+		`user_id` bigint(20) UNSIGNED NOT NULL,
+		`status` tinyint(1) NOT NULL DEFAULT '0',
+		`count` int(10) NOT NULL DEFAULT '1',
+		`created_at` TIMESTAMP NOT NULL DEFAULT 0,
+		`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY (`ID`),
+		FOREIGN KEY (`post_id`) REFERENCES `wp_posts`(`ID`),
+		FOREIGN KEY (`user_id`) REFERENCES `wp_users`(`ID`)
+		)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+
+		// status: 0-activo, 1-inactivo
+		$wpdb->query($query);
+	}
+
+	/**
+	 * Drop tables
+	 *
+	 * @return void
+	 */
+	private static function _uninstall() {
+		global $wpdb;
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}favoritos ");
+	}
 }
