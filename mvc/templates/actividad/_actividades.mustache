@@ -1,0 +1,6 @@
+{{# getActividades }}
+	{{> actividad/_fila }}
+{{/ getActividades }}
+{{^ getActividades }}
+	{{#trans}}user.sin_actividad{{/trans}}.
+{{/ getActividades }}

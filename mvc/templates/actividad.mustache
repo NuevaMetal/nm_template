@@ -2,14 +2,14 @@
 	<div id="actividad">
 		<h1 class="titular">{{#transu}}actividad{{/transu}}</h1>
 		
-		<div class="actividades col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">		
+		<div class="col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">		
 			<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
-			{{# getActividades }}
-				{{> actividad/_fila }}
-			{{/ getActividades }}
-			{{^ getActividades }}
-				{{#trans}}user.sin_actividad{{/trans}}.
-			{{/ getActividades }}
+			<div class="actividades"> 
+				{{> actividad/_actividades }}
+			</div>
+			<button class="btn btn-default text-center titular col-xs-12 mostrar-mas">
+					<i class="fa fa-refresh fa-spin fa-2x hidden"></i>
+			</button>
 		</div>
 		
 		{{#conSidebar}}

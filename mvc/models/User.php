@@ -103,6 +103,8 @@ class User extends ModelBase {
 	 */
 	const SEGUIR = 'seguir';
 
+	const ACTIVIDAD = 'actividad';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *

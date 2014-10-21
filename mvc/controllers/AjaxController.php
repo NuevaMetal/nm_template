@@ -390,6 +390,14 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
 						}
 						break;
+					case User::ACTIVIDAD :
+						$offset = $_datos['size'];
+						$actividades = $current_user->getActividades($offset);
+						$json['code'] = 200;
+						$json['content'] = $ajax->_render('actividad/_actividades', [
+							'getActividades' => $actividades
+						]);
+						break;
 				}
 				break;
 			default :

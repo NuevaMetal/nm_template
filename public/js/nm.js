@@ -12,8 +12,8 @@ $(window).scroll(function() {
 	seHaceScroll();
 });
 
-$(window).on("resize", function(){	
-	seHaceScroll();
+$(window).on("resize", function() {
+	seHaceScroll();	
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
@@ -23,7 +23,7 @@ var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
  */
 var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
 
-function seHaceScroll(){
+function seHaceScroll() {
 	var scroll = $(window).scrollTop();
 	var windowHeight = $( window ).height();
 	var documentHeight = $(document).height();
@@ -58,6 +58,10 @@ function seHaceScroll(){
 		$('.mostrar-mas').trigger('click');
 	} else if($('#autor .mostrar-mas').size() == 1 && sePuede){
 		$('#autor .mostrar-mas').trigger('click');
+	}
+	// scroll en la pantalla de actividad
+	if($('#actividad').length > 0 && sePuede){
+		seHaceScrollEnActividad();
 	}
 }
 
@@ -541,3 +545,39 @@ $(document).on('click', '.seguir', function(e) {
 	     }
 	});
 });
+
+/**
+ * Se hace scroll en la pantalla de actividad
+ */
+function seHaceScrollEnActividad() {	
+	var actividad = $('#actividad');
+	var actividades = $('.actividades');	
+	var url = $('#page').attr('url');
+	var size = $(actividades).children().size();
+	var data = {
+		submit : 'user',
+		tipo: 'actividad',
+		size: size,
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$(actividad).find('.fa-spin').removeClass('hidden');		
+		},
+		success : function(json) {
+			if(json.code == 200 ) {
+				$(actividades).append(json.content);
+			}
+			$(actividad).find('.fa-spin').addClass('hidden');
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+//	         alert("Ocurrió un error inesperado.\n" 
+//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			 + ",\n thrownError "+thrownError);
+	     }
+	});
+}
