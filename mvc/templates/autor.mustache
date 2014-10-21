@@ -12,12 +12,12 @@
 				{{^getImgHeader}}
 					<img class="sin-thumbnail">
 				{{/getImgHeader}}
-				{{#isCurrentUser}}
+				{{#isCurrentUserOrAdmin}}
 					<div class="text-right btn-img-header">
 						<a class="btn btn-default btn-xs" href="/wp-admin/profile.php#img-header" target="_blank">
 							<i class="fa fa-image"></i> {{#transu}}cambiar{{/transu}}</a>
 					</div>
-				{{/isCurrentUser}}
+				{{/isCurrentUserOrAdmin}}
 			</div>
 		</div>
 		<div class="content">

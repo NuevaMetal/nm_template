@@ -28,12 +28,12 @@
 					{{#transu}}user.no_hay_info_perfil{{/transu}}
 				{{/getDescription}}
 			</p>
-			{{#isCurrentUser}}
+			{{#isCurrentUserOrAdmin}}
 			<span class="hidden">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#acerca-de-ti" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
 			</span>
-			{{/isCurrentUser}}
+			{{/isCurrentUserOrAdmin}}
 		</blockquote>
 	</div>
 </div>
