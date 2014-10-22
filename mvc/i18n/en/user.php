@@ -33,6 +33,7 @@ return [
 
 	'idioma' => 'Language',
 	'idioma_actual' => 'Current language',
+	'idiomas_explicacion' => 'Select your current language',
 	'img_avatar' => 'avatar',
 	'img_header' => 'header image',
 
@@ -50,6 +51,7 @@ return [
 	'sin_actividad' => 'You haven\'t activity to show yet',
 
 	'tipo_usuario' => 'Type of user',
+	'tipo_usuario_explicacion' => 'Select your type of user for we can offer you the best experience',
 
 	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',
