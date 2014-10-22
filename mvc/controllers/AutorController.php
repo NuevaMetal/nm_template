@@ -179,6 +179,32 @@ class AutorController extends BaseController {
 	 * @param string $user_ID
 	 *        	Identficiador del user
 	 */
+	public function getPerfilIdioma($user_ID = false) {
+		if (! $user_ID) {
+			global $user_ID;
+		}
+		$user = User::find($user_ID);
+		// Formateamos los tipos en un array sencillo para pintarlos fácilmente
+		foreach (I18n::getTodosIdiomasDisponibles() as $t) {
+			$idiomas[] = [
+				'value' => $t,
+				'texto' => I18n::transu('user.' . $t),
+				'selected' => (($idioma = $user->getIdioma()) && $idioma == $t)
+			];
+		}
+		return $this->_render('autor/perfil/_idioma', [
+			'user' => $user,
+			'KEY_USER_IDIOMA' => User::KEY_USER_IDIOMA,
+			'idiomas' => $idiomas
+		]);
+	}
+
+	/**
+	 * Devuelve la vista para establecer el tipo de User en el perfil
+	 *
+	 * @param string $user_ID
+	 *        	Identficiador del user
+	 */
 	public function getPerfilAdicionalInfo($user_ID = false) {
 		if (! $user_ID) {
 			global $user_ID;
@@ -189,7 +215,7 @@ class AutorController extends BaseController {
 			'user' => $user,
 			'KEY_USER_UBICACION' => User::KEY_USER_UBICACION,
 			'KEY_USER_BANDAS_DESTACADAS' => User::KEY_USER_BANDAS_DESTACADAS,
-			'KEY_USER_GENEROS_DESTACADOS' => User::KEY_USER_GENEROS_DESTACADOS,
+			'KEY_USER_GENEROS_DESTACADOS' => User::KEY_USER_GENEROS_DESTACADOS
 		]);
 	}
 }

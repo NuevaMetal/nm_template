@@ -11,8 +11,10 @@ return [
 	'editar_perfil' => 'editar perfil',
 	'eliminar_avatar' => 'eliminar avatar',
 	'eliminar_cabecera' => 'eliminar cabecera',
+	'en' => 'Inglés',
 	'entradas_publicadas_ano' => 'Entradas publicadas este año',
 	'eres_una_banda' => '¿Eres una banda?',
+	'es' => 'Español',
 	'etiquetas_destacadas_fav' => 'Etiquetas destacadas según sus favoritos',
 
 	'generos_destacados' => 'Géneros destacados',
@@ -29,6 +31,7 @@ return [
 	'te_ha_gustado' => 'Te ha gustado',
 	'le_ha_gustado' => 'le ha gustado',
 
+	'idioma_actual' => 'Idioma actual',
 	'img_avatar' => 'imagen de avatar',
 	'img_header' => 'imagen de cabecera',
 

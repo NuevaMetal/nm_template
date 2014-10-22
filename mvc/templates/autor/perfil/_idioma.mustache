@@ -1,0 +1,16 @@
+{{#user}}
+<h3 id="tipo-usuario">{{#transu}}user.idioma{{/transu}}</h3>
+<table class="form-table">
+	<tr>
+		<th><label for="{{KEY_USER_IDIOMA}}">{{#transu}}user.idioma{{/transu}}</label></th>
+		<td>
+			<select id="{{KEY_USER_IDIOMA}}" name="{{KEY_USER_IDIOMA}}">
+				{{# idiomas }}
+					<option value="{{value}}" {{#selected}}selected{{/selected}}>{{texto}}</option>
+				{{/ idiomas }}
+			</select>
+		</td>
+		<td>{{#transu}}user.idioma_actual{{/transu}}: {{getIdiomaTrans}}</td>
+	</tr>	
+</table>
+{{/user}}

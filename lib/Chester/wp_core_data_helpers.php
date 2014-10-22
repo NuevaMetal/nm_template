@@ -142,23 +142,20 @@ class ChesterWPCoreDataHelpers {
 	}
 
 	/**
+	 * Recorrer la query y monta los objetos Post
 	 *
-	 * @param unknown $loop
-	 * @return Ambigous <object, NULL, unknown>
+	 * @param WP_Query $loop
+	 * @param boolean $oddOrEven
+	 * @return array<Post>
 	 */
 	private static function _loop($loop, $oddOrEven = false) {
-		$posts = array();
-		$index = 0;
-
-		while ($loop->have_posts()) {
-			$index ++;
+		$posts = [];
+		for($index = 0; $loop->have_posts(); $index ++) {
 			$loop->the_post();
-
 			if (! ($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && ! ($index % 2))) {
 				$posts[] = Post::find(get_the_ID());
 			}
 		}
-
 		return $posts;
 	}
 

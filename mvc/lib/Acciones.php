@@ -243,6 +243,33 @@ class Acciones {
 	}
 
 	/**
+	 * Añado el tipo de user al perfil
+	 */
+	public static function perfilAddIdioma() {
+		function nm_perfil_add_idioma($user) {
+			require_once 'mvc/controllers/AutorController.php';
+			$c = new AutorController();
+			echo $c->getPerfilIdioma($user->ID);
+		}
+		add_action('show_user_profile', 'nm_perfil_add_idioma');
+		add_action('edit_user_profile', 'nm_perfil_add_idioma');
+	}
+
+	/**
+	 * Actualizo el tipo de user
+	 */
+	public static function perfilUpdateIdioma() {
+		function nm_perfil_update_idioma($user_ID) {
+			if (current_user_can('edit_user', $user_ID)) {
+				$user = User::find($user_ID);
+				$user->setIdioma($_POST[User::KEY_USER_IDIOMA]);
+			}
+		}
+		add_action('personal_options_update', 'nm_perfil_update_idioma');
+		add_action('edit_user_profile_update', 'nm_perfil_update_idioma');
+	}
+
+	/**
 	 * Cargar estilos en la página de login
 	 */
 	public static function cargarEstilosPaginaLogin() {
@@ -356,6 +383,9 @@ class Acciones {
 
 		Acciones::perfilAddTipoUsuario();
 		Acciones::perfilUpdateTipoUsuario();
+
+		Acciones::perfilAddIdioma();
+		Acciones::perfilUpdateIdioma();
 		// }
 	}
 

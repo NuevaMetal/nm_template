@@ -15,7 +15,7 @@ class I18n {
 	 *
 	 * @return array<string> Nombre de los ficheros de los idiomas disponibles
 	 */
-	private static function _getTodosIdiomasDisponibles() {
+	public static function getTodosIdiomasDisponibles() {
 		return [
 			self::LANG_ES,
 			self::LANG_EN
@@ -30,10 +30,16 @@ class I18n {
 	 * @return string valor del idioma al que le corresponde dicha clave
 	 */
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
+		if (! $idiomaForzado) {
+			$currentUser = Utils::getCurrentUser();
+			if (($idioma = $currentUser->getIdioma())) {
+				$idiomaForzado = $idioma;
+			}
+		}
 		$traducir = strtolower($traducir);
 		// Utils::debug("trad: $traducir");
 		static::_getParams($traducir, $params);
-		if ($idiomaForzado && in_array($idiomaForzado, static::_getTodosIdiomasDisponibles())) {
+		if ($idiomaForzado && in_array($idiomaForzado, self::getTodosIdiomasDisponibles())) {
 			$dir = $idiomaForzado;
 		} else {
 			$dir = Utils::getLang();

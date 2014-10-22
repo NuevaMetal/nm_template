@@ -46,6 +46,8 @@ class User extends ModelBase {
 
 	const KEY_USER_IMG_AVATAR = 'simple_local_avatar';
 
+	const KEY_USER_IDIOMA = 'idioma';
+
 	const KEY_USER_UBICACION = 'ubicacion';
 
 	const KEY_USER_GENEROS_DESTACADOS = 'generos_destacados';
@@ -879,14 +881,13 @@ class User extends ModelBase {
 	}
 
 	/**
-	 * Devuelve el tipo del User
+	 * Devuelve el tipo del User.
+	 * Si no hubiera tipo devolverá por defecto tipo User
 	 *
 	 * @return string
 	 */
 	public function getTipo() {
-		$valor = get_user_meta($this->ID, self::KEY_USER_TIPO);
-		$tipo = (is_array($valor)) ? $valor[0] : $valor;
-		// Si no hubiera tipo devolverá por defecto tipo User
+		$tipo = get_user_meta($this->ID, self::KEY_USER_TIPO, true);
 		return (! $tipo) ? self::TIPO_USUARIO : $tipo;
 	}
 
@@ -908,6 +909,42 @@ class User extends ModelBase {
 			update_user_meta($this->ID, User::KEY_USER_TIPO, $tipo);
 		}
 	}
+
+	/**
+	 * Devuelve el idioma
+	 *
+	 * @return string
+	 */
+	public function getIdioma() {
+		$idioma = get_user_meta($this->ID, self::KEY_USER_IDIOMA, true);
+		return (! $idioma) ? Utils::getLangBrowser() : $idioma;
+	}
+
+	/**
+	 * Devuelve el idioma traducido
+	 *
+	 * @return string
+	 */
+	public function getIdiomaTrans() {
+		return I18n::transu('user.' . $this->getIdioma());
+	}
+
+	/**
+	 * Establecer el idioma del user
+	 *
+	 * @param string $nuevo
+	 */
+	public function setIdioma($idioma) {
+		// Sólo establecer el tipo si es un tipo válido
+		if (in_array($idioma, I18n::getTodosIdiomasDisponibles())) {
+			update_user_meta($this->ID, User::KEY_USER_IDIOMA, $idioma);
+		}
+	}
+
+	/**
+	 *
+	 * @return boolean
+	 */
 	public function isTipoUsuario() {
 		return ($this->getTipo() == self::TIPO_USUARIO);
 	}
