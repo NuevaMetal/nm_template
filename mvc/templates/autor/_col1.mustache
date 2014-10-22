@@ -48,6 +48,9 @@
 				<i class="fa fa-clock-o"></i> <small>{{#trans}}user.se_unio_en [mes:{{mes}},ano:{{ano}}]{{/trans}}</small>
 			</h4>
 		{{/ getMesYAnoRegistro }}
+	</div>
+	
+	<div class="row">		
 		{{# getUbicacion }}
 			<h4 class="col-xs-12"><i class="fa fa-globe"></i> <small>{{.}}</small>
 				{{#isCurrentUserOrAdmin}}
@@ -58,8 +61,23 @@
 					{{/isCurrentUserOrAdmin}}
 			</h4>
 		{{/ getUbicacion }}
+	</div>
+	
+	{{# isCurrentUserOrAdmin }}
+	<div class="row">
+		{{# getIdiomaTrans }}
+			<h4 class="col-xs-12"><i class="fa fa-language"></i> <small>{{.}}</small>
+				{{#isCurrentUserOrAdmin}}
+					<span class="hidden">
+						<a class="btn btn-default btn-xs " href="{{getEditUrl}}#ubicacion" target="_blank">
+							<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+					</span>
+					{{/isCurrentUserOrAdmin}}
+			</h4>
+		{{/ getIdiomaTrans }}
 	</div>	
-
+	{{/ isCurrentUserOrAdmin }}
+	
 	{{# tieneRedes }}
 	<div class="row">
 		<h4 class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</h4>

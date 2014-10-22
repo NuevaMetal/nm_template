@@ -32,7 +32,8 @@ class I18n {
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
 		if (! $idiomaForzado) {
 			$currentUser = Utils::getCurrentUser();
-			if (($idioma = $currentUser->getIdioma())) {
+			// Si el usuario está logueado y tiene establecido el idioma, pondremos su idioma
+			if ($currentUser && ($idioma = $currentUser->getIdioma())) {
 				$idiomaForzado = $idioma;
 			}
 		}

@@ -916,8 +916,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getIdioma() {
-		$idioma = get_user_meta($this->ID, self::KEY_USER_IDIOMA, true);
-		return (! $idioma) ? Utils::getLangBrowser() : $idioma;
+		return get_user_meta($this->ID, self::KEY_USER_IDIOMA, true);
 	}
 
 	/**
@@ -926,6 +925,7 @@ class User extends ModelBase {
 	 * @return string
 	 */
 	public function getIdiomaTrans() {
+		$idioma = ($_idioma = $this->getIdioma()) ? $_idioma : Utils::getLangBrowser();
 		return I18n::transu('user.' . $this->getIdioma());
 	}
 

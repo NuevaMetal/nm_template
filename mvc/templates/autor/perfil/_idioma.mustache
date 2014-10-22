@@ -1,5 +1,5 @@
 {{#user}}
-<h3 id="tipo-usuario">{{#transu}}user.idioma{{/transu}}</h3>
+<h3 id="idioma">{{#transu}}user.idioma{{/transu}}</h3>
 <table class="form-table">
 	<tr>
 		<th><label for="{{KEY_USER_IDIOMA}}">{{#transu}}user.idioma{{/transu}}</label></th>
@@ -10,7 +10,9 @@
 				{{/ idiomas }}
 			</select>
 		</td>
+		{{# getIdiomaTrans }}
 		<td>{{#transu}}user.idioma_actual{{/transu}}: {{getIdiomaTrans}}</td>
+		{{/ getIdiomaTrans }}
 	</tr>	
 </table>
 {{/user}}
