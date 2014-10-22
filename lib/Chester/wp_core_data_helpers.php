@@ -124,11 +124,15 @@ class ChesterWPCoreDataHelpers {
 	 * @return array<Post>
 	 */
 	private static function _getStickyPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
+		$sticky_posts = get_option('sticky_posts');
+		if (! $sticky_posts) {
+			return [];
+		}
 		$querySettings = [
 			'post_type' => [
 				$postType
 			],
-			'post__in' => get_option('sticky_posts'),
+			'post__in' => $sticky_posts,
 			'posts_per_page' => $numberPostsToFetch
 		];
 		$querySettings = array_merge($querySettings, $moreQuerySettings);
