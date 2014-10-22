@@ -95,11 +95,17 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h4 class="titular">{{#trans}}user.generos_destacados{{/trans}}</h4>
-			<ul class="tags text-center">
-			{{# getArrayGenerosDestacados }}
+			<ul class="row tags text-center">
+				{{# getArrayGenerosDestacados }}
 	       		<li><a href="/?s={{.}}">{{.}}</a></li>
-			{{/ getArrayGenerosDestacados }}
-   			</ul>
+				{{/ getArrayGenerosDestacados }}
+			</ul>
+	   		{{#isCurrentUserOrAdmin}}
+				<span class="hidden">
+					<a class="btn btn-default btn-xs" href="{{getEditUrl}}#generos" target="_blank">
+						<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+				</span>
+			{{/isCurrentUserOrAdmin}}
 		</div>
 	</div>
 	{{/ getTotalGenerosDestacados }}
@@ -108,11 +114,17 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h4 class="titular">{{#trans}}user.bandas_destacadas{{/trans}}</h4>
-			<ul class="tags text-center">
-			{{# getArrayBandasDestacadas }}
+			<ul class="row tags text-center">
+				{{# getArrayBandasDestacadas }}
 	       		<li><a href="/?s={{.}}">{{.}}</a></li>
-			{{/ getArrayBandasDestacadas }}
-   			</ul>
+				{{/ getArrayBandasDestacadas }}
+			</ul>
+			{{#isCurrentUserOrAdmin}}
+				<span class="hidden">
+					<a class="btn btn-default btn-xs" href="{{getEditUrl}}#bandas" target="_blank">
+						<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
+				</span>
+			{{/isCurrentUserOrAdmin}}
 		</div>
 	</div>
 	{{/ getTotalBandasDestacadas }}
