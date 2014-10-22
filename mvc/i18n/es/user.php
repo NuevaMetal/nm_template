@@ -31,6 +31,7 @@ return [
 	'te_ha_gustado' => 'Te ha gustado',
 	'le_ha_gustado' => 'le ha gustado',
 
+	'idioma' => 'Idioma',
 	'idioma_actual' => 'Idioma actual',
 	'img_avatar' => 'imagen de avatar',
 	'img_header' => 'imagen de cabecera',
