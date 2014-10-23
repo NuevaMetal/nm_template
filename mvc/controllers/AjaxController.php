@@ -403,14 +403,30 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						try {
 							$current_user->enviarMensaje($aQuienId, $_datos['mensaje']);
 							$aQuien = User::find($aQuienId);
-							$json['alert'] = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
+							$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
 								'nombre' => $aQuien->display_name
 							]));
 							$json['code'] = 200;
 						} catch ( Exception $e ) {
 							$json['code'] = $e->getCode();
-							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
+							$alert = $ajax->renderAlertaDanger($e->getMessage());
 						}
+						$json['alert'] = $alert;
+						break;
+
+					case User::BORRAR_MENSAJE :
+						$mensajeId = $_datos['id'];
+						try {
+							$mensaje = new Mensaje();
+							$mensaje->ID = $mensajeId;
+							$mensaje->borrar();
+							$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_borrado'));
+							$json['code'] = 200;
+						} catch ( Exception $e ) {
+							$json['code'] = $e->getCode();
+							$alert = $ajax->renderAlertaDanger($e->getMessage());
+						}
+						$json['alert'] = $alert;
 						break;
 				}
 				break;
@@ -452,7 +468,8 @@ if ($submit == Ajax::USER && isset($_POST['tipo'])) {
 	$current_user = Utils::getCurrentUser();
 	if (in_array($tipo, [
 		User::ENVIAR_MENSAJE,
-		User::SEGUIR
+		User::SEGUIR,
+		User::BORRAR_MENSAJE
 	]) && ! Ajax::esNonce($nonce, $tipo, $current_user->ID)) {
 		die("An unexpected error has ocurred.");
 	}

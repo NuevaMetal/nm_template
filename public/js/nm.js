@@ -631,7 +631,7 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 		mensaje: mensaje,
 		nonce: nonce
 	};
-	console.log(data);
+
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -647,10 +647,56 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 				form.find('#mensaje').val('');
 				btnEscribir = parent.find('.escribir-mensaje');
 				btnEscribir.removeClass('hidden');
-				mostrarAlerta(json.alert, 2);
-			} else {
-				mostrarAlerta(json.err, 2);
 			}
+			mostrarAlerta(json.alert, 2);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
+/**
+ * Botón borrar un mensaje
+ */
+$(document).on('click', '.borrar-mensaje', function(e) {
+	e.preventDefault();
+	var $this =  $(this);
+	var page = $this.parents('#page');
+	var url = page.attr('url');
+	var mensaje = $this.parents('.mensaje');
+	var nonce = $this.attr('nonce');
+	var id = $this.attr('id');
+	
+	if(!confirm("¿Estás seguro de querer borrar el mensaje?")){
+		return;
+	}
+
+	var data = {
+		submit : 'user',
+		tipo: 'borrar-mensaje',
+		id : id,
+		nonce: nonce
+	};
+
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$this.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			if(json.code == 200){
+				cant = $this.parents('#mensajes').find('.cant');
+				cant.text(parseInt(cant.text(), 10)-1);
+
+				$this.find('.fa-spin').addClass('hidden');
+				mensaje.addClass('hidden');				
+			}
+			mostrarAlerta(json.alert, 2);			
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
