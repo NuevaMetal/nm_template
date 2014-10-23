@@ -1,7 +1,9 @@
 <div class="fila bs-callout bs-callout-primary tipo-nuevo-comentario">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		{{> actividad/_time }}
+		<span class="time col-xs-12 text-left">
+			<i class="fa fa-comment-o"></i> {{> actividad/_time }}
+		</span>
 		{{#getUser.isCurrentUser}}
 			{{#trans}}user.has_comentado_una_entrada{{/trans}}
 			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.

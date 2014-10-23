@@ -1,7 +1,9 @@
 <div class="fila bs-callout bs-callout-warning tipo-seguimiento-user">
 	{{> actividad/_user}}
 	<span class="texto col-xs-8">
-		{{> actividad/_time }}
+		<span class="time col-xs-12 text-left">
+			<i class="fa fa-users"></i> {{> actividad/_time }}
+		</span>
 		{{#getUser.isCurrentUser}}
 			{{#trans}}user.has_empezado_a_seguir_a{{/trans}} <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 		{{/getUser.isCurrentUser}}
