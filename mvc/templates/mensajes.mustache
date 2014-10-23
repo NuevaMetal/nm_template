@@ -1,26 +1,52 @@
 {{# user }}
 <div id="mensajes">
-	<h1 class="titular">{{#transu}}mensajes{{/transu}}
-		<small>{{#transu}}total{{/transu}}: <span class="cant">{{getTotalMensajesRecibidos}}</span></small>
-	</h1>
+	<h1 class="titular">{{#transu}}mensajes{{/transu}}</h1>
 	<p>Puedes enviar mensajes privados desde el perfil de aquel usuario al que quieras escribir.</p>
-	{{# getTotalMensajesRecibidos }}
-	<div class="row">
-		<div class="col-xs-12">
-		<h3>Mensajes recibidos.</h3>
-		{{# getMensajesRecibidos }}
-			<p class="row mensaje">
-				<span class="col-xs-6 autor">De	{{getUser.display_name}}.</span>
-				<span class="col-xs-6 fecha">El {{getDate}} ({{getTime}})</span>
-				<span class="col-xs-10 texto">
-					<i class="fa fa-quote-left fa-xs"></i> {{mensaje}} <i class="fa fa-quote-right fa-xs"></i>
-				</span>
-				<button class="col-xs-2 btn btn-sm btn-default borrar-mensaje" id="{{ID}}" 
-					nonce="{{getNonceBorrarMensaje}}">{{#transu}}borrar{{/transu}}</button>
-			</p>
-		{{/ getMensajesRecibidos }}
+	
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs titular" role="tablist">
+		<li class="active"><a href="#recibidos" role="tab" data-toggle="tab">
+			Recibidos (<span class="cant">{{getTotalMensajesRecibidos}}</span>)</a>
+		</li>
+		<li><a href="#enviados" role="tab" data-toggle="tab">
+			Enviados (<span class="cant">{{getTotalMensajesEnviados}}</span>)</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+	
+		<div class="tab-pane active col-xs-12" id="recibidos">
+			{{# getMensajesRecibidos }}
+			<div class="row mensaje">		
+				{{> autor/mensajes/_mensaje_fila }}
+				<button class="col-xs-6 col-sm-2 btn btn-default escribir-mensaje">
+					<i class="fa fa-reply fa-xs"></i> {{#transu}}user.responder{{/transu}}</button>
+				<button class="col-xs-6 col-sm-2 btn btn-default borrar-mensaje" mensaje_id="{{ID}}" 
+					nonce="{{getNonceBorrarMensaje}}">
+					<i class="fa fa-trash fa-xs"></i> {{#transu}}borrar{{/transu}}</button>
+				<div class="row"></div>
+				<form class="form hidden" nonce="{{current_user.getNonceEnviarMensaje}}">
+					<textarea class="form-control" id="mensaje" maxlength="200"></textarea> 
+					<button class="btn btn-danger enviar-mensaje col-xs-10" user_id="{{getUser.ID}}" respuesta_id="{{ID}}"
+						nonce="{{getNonceResponderMensaje}}">
+						<i class="fa fa-file-text-o"></i> {{#transu}}user.enviar_mensaje{{/transu}}
+					</button>
+					<button class="btn btn-default cancelar-enviar-mensaje col-xs-2">{{#transu}}cancelar{{/transu}}</button>
+				</form>
+			</div>
+			{{/ getMensajesRecibidos }}
 		</div>
+		
+		<div class="tab-pane col-xs-12" id="enviados">
+			{{# getMensajesEnviados }}
+			<div class="row mensaje">
+				{{> autor/mensajes/_mensaje_fila }}
+			</div>
+			{{/ getMensajesEnviados }}
+		</div>
+			
 	</div>
-	{{/ getTotalMensajesRecibidos }}
+	
+	
 </div>
 {{/ user }}

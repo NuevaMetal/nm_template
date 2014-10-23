@@ -12,15 +12,26 @@ class Mensaje extends ModelBase {
 
 	const ESTADO_BORRADO = 0;
 
-	const TAMANO_MAXIMO = 10000;
+	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 10000;
+
+	const TAMANO_MAXIMO_ESTADO = 150;
+
+	/*
+	 * Tipos de mensajes
+	 */
+	const TIPO_MENSAJE_PRIVADO = 1;
+
+	const TIPO_ESTADO = 2;
 
 	/*
 	 * Miembros
 	 */
 	public $user_id;
 	public $a_quien_id;
+	public $respuesta_id;
 	public $mensaje;
 	public $estado;
+	public $tipo;
 	public $updated_at;
 
 	/**
@@ -31,27 +42,18 @@ class Mensaje extends ModelBase {
 	 * @param string $a_quien_id
 	 *        	Identificador de aquello a seguir
 	 */
-	public function __construct($user_id = false, $a_quien_id = false, $mensaje = false, $updated_at = false, $ID = false) {
+	public function __construct($user_id = false, $a_quien_id = false, $mensaje = false, $updated_at = false, $ID = false, $tipo = false) {
 		parent::__construct();
-		if ($user_id) {
-			$this->user_id = $user_id;
-		}
-		if ($a_quien_id) {
-			$this->a_quien_id = $a_quien_id;
-		}
-		if ($mensaje) {
-			$this->mensaje = $mensaje;
-		}
-		if ($updated_at) {
-			$this->updated_at = $updated_at;
-		}
-		if ($ID) {
-			$this->ID = $ID;
-		}
+		$this->user_id = $user_id;
+		$this->a_quien_id = $a_quien_id;
+		$this->mensaje = $mensaje;
+		$this->updated_at = $updated_at;
+		$this->ID = $ID;
+		$this->tipo = $tipo;
 	}
 
 	/**
-	 * Devuelve la fecha de la actividad
+	 * Devuelve la fecha en la que se envió el mensaje
 	 */
 	public function getDate() {
 		// date($dateFormat, strtotime($this->updated_at));
@@ -68,10 +70,9 @@ class Mensaje extends ModelBase {
 	}
 
 	/**
-	 * Devuelve la hora en la que se produjo la actividad
+	 * Devuelve la hora en la que se envió el mensaje
 	 */
 	public function getTime() {
-		// date($dateFormat, strtotime($this->updated_at));
 		$strToTime = strtotime($this->updated_at);
 		$hora = date('H', $strToTime);
 		$minutos = date('m', $strToTime);
@@ -82,19 +83,47 @@ class Mensaje extends ModelBase {
 	 * Guardar un nuevo mensaje
 	 */
 	public function save() {
-		$strlen = strlen( $this->mensaje);
-		if (! $strlen) {
+		if (! strlen($this->mensaje)) {
 			throw new Exception(I18n::transu('user.mensaje_demasiado_corto'), 500);
-		}elseif( $strlen > self::TAMANO_MAXIMO){
+		} elseif (! in_array($this->tipo, self::_getTiposPermitidos())) {
+			throw new Exception(I18n::transu('user.tipo_mensaje_no_permitido'), 500);
+		} elseif ($this->_superaTamanoMaximo()) {
 			throw new Exception(I18n::transu('user.mensaje_demasiado_grande'), 500);
 		}
 
 		global $wpdb;
 		$result = $wpdb->query($wpdb->prepare("
-			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, mensaje, created_at, updated_at)
-			VALUES (%d, %d, %s, null, null);", $this->user_id, $this->a_quien_id, $this->mensaje));
+			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, tipo, respuesta_id, mensaje, created_at, updated_at)
+			VALUES (%d, %d, %d, %d, %s, null, null);", $this->user_id, $this->a_quien_id, $this->tipo, $this->respuesta_id, $this->mensaje));
 		$this->ID = $wpdb->insert_id;
 		return $this;
+	}
+
+	/**
+	 * Devuelve true si supera el tamaño máximo, y por tanto debería saltar una excepción
+	 *
+	 * @return boolean
+	 */
+	private function _superaTamanoMaximo() {
+		switch ($this->tipo) {
+			case self::TIPO_MENSAJE_PRIVADO :
+				return strlen($this->mensaje) > self::TAMANO_MAXIMO_MENSAJE_PRIVADO;
+			case self::TIPO_ESTADO :
+				return strlen($this->mensaje) > self::TAMANO_MAXIMO_ESTADO;
+		}
+		return true;
+	}
+
+	/**
+	 * Devuelve la lista de tipos de mensajes permitidos
+	 *
+	 * @return array<integer>
+	 */
+	private function _getTiposPermitidos() {
+		return [
+			self::TIPO_ESTADO,
+			self::TIPO_MENSAJE_PRIVADO
+		];
 	}
 
 	/**
@@ -141,15 +170,18 @@ class Mensaje extends ModelBase {
 	private static function _install() {
 		global $wpdb;
 		$query = 'CREATE TABLE IF NOT EXISTS wp_mensajes(
-ID bigint( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-user_id bigint( 20 ) UNSIGNED NOT NULL ,
-a_quien_id bigint( 20 ) UNSIGNED NOT NULL ,
-mensaje MEDIUMTEXT NOT NULL ,
+ID bigint( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+user_id bigint( 20 ) UNSIGNED NOT NULL,
+a_quien_id bigint( 20 ) UNSIGNED,
+respuesta_id bigint( 20 ) UNSIGNED,
+mensaje MEDIUMTEXT NOT NULL,
 estado tinyint NOT NULL default 1,
+tipo tinyint NOT NULL,
 created_at TIMESTAMP NOT NULL DEFAULT 0,
-updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-FOREIGN KEY ( user_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL ,
-FOREIGN KEY ( a_quien_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL ,
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY ( user_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL,
+FOREIGN KEY ( a_quien_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL,
+FOREIGN KEY ( respuesta_id ) REFERENCES wp_mensajes( ID ) ON DELETE SET NULL,
 UNIQUE KEY ( user_id, created_at )
 ) ENGINE = MYISAM DEFAULT CHARSET = utf8';
 		$wpdb->query($query);

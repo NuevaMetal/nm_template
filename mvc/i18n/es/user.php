@@ -42,6 +42,7 @@ return [
 	'medidas_aconsejadas_img_header' => 'medidas aconsejadas',
 	'mensaje_borrado' => 'Mensaje borrado con éxito',
 	'mensaje_enviado_exito' => 'Mensaje enviado con éxito para :nombre',
+	'mensaje_respondido_exito' => 'Mensaje respondido con éxito para :nombre',
 	'mensaje_demasiado_corto' => 'Mensaje demasiado corto',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado grande',
 	'mensaje_no_existe' => 'El mensaje no existe',

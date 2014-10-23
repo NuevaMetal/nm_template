@@ -42,6 +42,7 @@ return [
 	'medidas_aconsejadas_img_header' => 'recommended measures',
 	'mensaje_borrado' => 'Message deleted succesfully',
 	'mensaje_enviado_exito' => 'Message sent successfully for :nombre',
+	'mensaje_respondido_exito' => 'Sent message answer successfully for :nombre',
 	'mensaje_demasiado_corto' => 'Message too short',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado large',
 	'mensaje_no_existe' => 'This message don\'t exists',

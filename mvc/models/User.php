@@ -1356,18 +1356,44 @@ class User extends ModelBase {
 	 * Enviar un mensaje a un user
 	 *
 	 * @param Integer $aQuienId
+	 *        	Idenficiador del usuario al que
 	 * @param string $mensaje
 	 *        	Mensaje a enviar
 	 * @throws Exception
 	 */
-	public function enviarMensaje($aQuienId, $mensajeTexto) {
-		$mensaje = new Mensaje($this->ID, $aQuienId);
+	private function _enviarMensaje($tipo, $mensajeTexto, $aQuienId = null, $respuestaId = null) {
+		$mensaje = new Mensaje($this->ID);
 		try {
+			$mensaje->tipo = $tipo;
 			$mensaje->mensaje = $mensajeTexto;
+			$mensaje->a_quien_id = $aQuienId;
+			$mensaje->respuesta_id = $respuestaId;
 			$mensaje->save();
 		} catch ( Exception $e ) {
 			throw $e;
 		}
+	}
+
+	/**
+	 * Escribir un mensaje privado
+	 *
+	 * @param string $mensajeTexto
+	 * @param integer $aQuienId
+	 * @param integer $respuestaId
+	 */
+	public function enviarMensajePrivado($mensajeTexto, $aQuienId = null, $respuestaId = null) {
+		$this->_enviarMensaje(Mensaje::TIPO_MENSAJE_PRIVADO, $mensajeTexto, $aQuienId, $respuestaId);
+	}
+
+	/**
+	 * Escribir un estado
+	 *
+	 * @param unknown $mensajeTexto
+	 * @param string $aQuienId
+	 * @param string $respuestaId
+	 */
+	public function enviarMensajeEstado($mensajeTexto, $aQuienId = null, $respuestaId = null) {
+		$this->_enviarMensaje(Mensaje::TIPO_ESTADO, $mensajeTexto, $aQuienId, $respuestaId);
 	}
 
 	/**
@@ -1404,18 +1430,47 @@ class User extends ModelBase {
 	 */
 	public function getMensajesRecibidos($limit = self::LIMIT_MENSAJES_RECIBIDOS, $offset = 0) {
 		global $wpdb;
-		$mensajes = $wpdb->get_results($wpdb->prepare('
-				SELECT *
+		$mensajesIds = $wpdb->get_col($wpdb->prepare('
+				SELECT ID
 				FROM wp_mensajes
 				WHERE a_quien_id = %d AND estado = %d
 				ORDER BY updated_at DESC
 				LIMIT %d OFFSET %d
 				', $this->ID, Mensaje::ESTADO_ACTIVO, $limit, $offset));
-
-		// Parseo los objetos genéricos (StdClass) a Mensaje
-		array_walk($mensajes, function (&$item) {
-			$item = new Mensaje($item->user_id, $item->que_id, $item->mensaje, $item->updated_at, $item->ID);
-		});
+		$mensajes = [];
+		foreach ($mensajesIds as $id) {
+			$mensajes[] = Mensaje::find($id);
+		}
 		return $mensajes;
+	}
+
+	/**
+	 * Devuelve todos los mensajes recibidos del usuario
+	 *
+	 * @return unknown
+	 */
+	public function getMensajesEnviados($limit = self::LIMIT_MENSAJES_RECIBIDOS, $offset = 0) {
+		global $wpdb;
+		$mensajesIds = $wpdb->get_col($wpdb->prepare('
+				SELECT ID
+				FROM wp_mensajes
+				WHERE user_id = %d AND estado = %d
+				ORDER BY updated_at DESC
+				LIMIT %d OFFSET %d
+				', $this->ID, Mensaje::ESTADO_ACTIVO, $limit, $offset));
+		$mensajes = [];
+		foreach ($mensajesIds as $id) {
+			$mensajes[] = Mensaje::find($id);
+		}
+		return $mensajes;
+	}
+
+	/**
+	 * Devuelve el número total de mensajes enviados
+	 *
+	 * @return number
+	 */
+	public function getTotalMensajesEnviados() {
+		return count($this->getMensajesEnviados());
 	}
 }

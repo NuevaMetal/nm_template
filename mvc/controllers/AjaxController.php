@@ -399,13 +399,20 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						]);
 						break;
 					case User::ENVIAR_MENSAJE :
-						$aQuienId = $_datos['id'];
+						$aQuienId = $_datos['user_id'];
+						$respuestaId = $_datos['respuesta_id'];
 						try {
-							$current_user->enviarMensaje($aQuienId, $_datos['mensaje']);
+							$current_user->enviarMensajePrivado($_datos['mensaje'], $aQuienId, $_datos['respuesta_id']);
 							$aQuien = User::find($aQuienId);
-							$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
-								'nombre' => $aQuien->display_name
-							]));
+							if ($respuestaId) {
+								$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_respondido_exito', [
+									'nombre' => $aQuien->display_name
+								]));
+							} else {
+								$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
+									'nombre' => $aQuien->display_name
+								]));
+							}
 							$json['code'] = 200;
 						} catch ( Exception $e ) {
 							$json['code'] = $e->getCode();
@@ -413,9 +420,8 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						}
 						$json['alert'] = $alert;
 						break;
-
 					case User::BORRAR_MENSAJE :
-						$mensajeId = $_datos['id'];
+						$mensajeId = $_datos['mensaje_id'];
 						try {
 							$mensaje = new Mensaje();
 							$mensaje->ID = $mensajeId;

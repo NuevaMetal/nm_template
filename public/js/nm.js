@@ -601,11 +601,25 @@ $(document).on('click', '.escribir-mensaje', function(e) {
 	e.preventDefault();
 	$this = $(this);
 	$this.addClass('hidden');
-	p = $this.parent('.nuevo-mensaje');
+	p = $this.parent('.mensaje');
 	f = p.find('form');
 	f.removeClass('hidden');
 });
-	
+
+$(document).on('click', '.cancelar-enviar-mensaje', function(e) {
+	e.preventDefault();
+	cerrarEscribirMensaje($(this));
+});
+
+function cerrarEscribirMensaje($this){
+	$this.find('.fa-spin').addClass('hidden');
+	parent = $this.parents('.mensaje');
+	form = $this.parents('.mensaje').find('form');
+	form.addClass('hidden');
+	form.find('#mensaje').val('');
+	btnEscribir = parent.find('.escribir-mensaje');
+	btnEscribir.removeClass('hidden');
+}
 /**
  * Botón enviar un mensaje
  */
@@ -614,24 +628,27 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 	var $this =  $(this);
 	var page = $this.parents('#page');
 	var url = page.attr('url');
-	var parent = $this.parents('.nuevo-mensaje');
+	var parent = $this.parents('.mensaje');
 	var form = parent.find('form');
-	var nonce = form.attr('nonce');
-	var id = $this.attr('id');
 	var mensaje = form.find('#mensaje').val();
-	
-	if(mensaje.length==0){
+	var nonce = form.attr('nonce');
+	var mensaje_id = $this.attr('mensaje_id');
+	var user_id = $this.attr('user_id');
+	var respuesta_id = $this.attr('respuesta_id');
+
+	if(mensaje.length == 0){
 		alert("Texto demasiado corto");
 		return;
 	}
 	var data = {
 		submit : 'user',
 		tipo: 'enviar-mensaje',
-		id : id,
+		nonce: nonce,
 		mensaje: mensaje,
-		nonce: nonce
+		mensaje_id: mensaje_id,
+		user_id : user_id,
+		respuesta_id: respuesta_id,
 	};
-
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -642,11 +659,9 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 		},
 		success : function(json) {
 			if(json.code == 200){
-				$this.find('.fa-spin').addClass('hidden');
-				form.addClass('hidden');
-				form.find('#mensaje').val('');
-				btnEscribir = parent.find('.escribir-mensaje');
-				btnEscribir.removeClass('hidden');
+				cerrarEscribirMensaje($this);
+				//cant = $this.parents('#mensajes').find('.nav a[href="#enviados"] .cant');
+				//cant.text(parseInt(cant.text(), 10)+1);
 			}
 			mostrarAlerta(json.alert, 2);
 		},
@@ -667,19 +682,18 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 	var url = page.attr('url');
 	var mensaje = $this.parents('.mensaje');
 	var nonce = $this.attr('nonce');
-	var id = $this.attr('id');
+	var mensaje_id  = $this.attr('mensaje_id');
 	
 	if(!confirm("¿Estás seguro de querer borrar el mensaje?")){
 		return;
 	}
-
+	
 	var data = {
 		submit : 'user',
 		tipo: 'borrar-mensaje',
-		id : id,
-		nonce: nonce
+		nonce: nonce,
+		mensaje_id : mensaje_id,
 	};
-
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -689,8 +703,8 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 			$this.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			if(json.code == 200){
-				cant = $this.parents('#mensajes').find('.cant');
+			if(json.code == 200) {
+				cant = $this.parents('#mensajes').find('.nav li[class="active"] .cant');
 				cant.text(parseInt(cant.text(), 10)-1);
 
 				$this.find('.fa-spin').addClass('hidden');
