@@ -7,12 +7,18 @@ require_once 'ModelBase.php';
  */
 class Mensaje extends ModelBase {
 	public static $table = "mensajes";
+
+	const ESTADO_ACTIVO = 1;
+
+	const ESTADO_BORRADO = 0;
+
 	/*
 	 * Miembros
 	 */
 	public $user_id;
 	public $a_quien_id;
 	public $mensaje;
+	public $estado;
 
 	/**
 	 * Constructor
@@ -32,8 +38,6 @@ class Mensaje extends ModelBase {
 		}
 		if ($mensaje) {
 			$this->mensaje = $mensaje;
-		} else {
-			$this->mensaje = '';
 		}
 	}
 
@@ -50,6 +54,27 @@ class Mensaje extends ModelBase {
 			VALUES (%d, %d, %s, null, null);", $this->user_id, $this->a_quien_id, $this->mensaje));
 		$this->ID = $wpdb->insert_id;
 		return $this;
+	}
+
+	/**
+	 * Establecer el estado del mensaje a borrado
+	 *
+	 * @throws Exception
+	 * @return Mensaje
+	 */
+	public function borrar() {
+		$existe = $wpdb->get_var("SELECT count(*)
+				FROM {$wpdb->prefix}" . static::$table . "
+				WHERE ID = $this->ID");
+		if ($existe) {
+			throw new Exception(I18n::transu('mensaje.no_existe'), 504);
+		}
+		global $wpdb;
+		$estadoBorrado = self::ESTADO_BORRADO;
+		$result = $wpdb->query($wpdb->prepare("
+				UPDATE {$wpdb->prefix}" . static::$table . " SET estado = $estadoBorrado
+			WHERE ID = %d;", $this->ID));
+		return $result;
 	}
 
 	/**
@@ -75,17 +100,18 @@ class Mensaje extends ModelBase {
 	 */
 	private static function _install() {
 		global $wpdb;
-		$query = 'CREATE TABLE IF NOT EXISTS wp_mensajes (
-ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-user_id bigint(20) UNSIGNED NOT NULL,
-a_quien_id bigint(20) UNSIGNED NOT NULL,
-mensaje MEDIUMTEXT NOT NULL,
+		$query = 'CREATE TABLE IF NOT EXISTS wp_mensajes(
+ID bigint( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+user_id bigint( 20 ) UNSIGNED NOT NULL ,
+a_quien_id bigint( 20 ) UNSIGNED NOT NULL ,
+mensaje MEDIUMTEXT NOT NULL ,
+estado tinyint NOT NULL default 1,
 created_at TIMESTAMP NOT NULL DEFAULT 0,
-updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES wp_users(ID) ON DELETE SET NULL,
-FOREIGN KEY (a_quien_id) REFERENCES wp_users(ID) ON DELETE SET NULL,
-UNIQUE KEY (user_id, created_at)
-)ENGINE=MyISAM DEFAULT CHARSET=utf8';
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+FOREIGN KEY ( user_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL ,
+FOREIGN KEY ( a_quien_id ) REFERENCES wp_users( ID ) ON DELETE SET NULL ,
+UNIQUE KEY ( user_id, created_at )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8';
 		$wpdb->query($query);
 	}
 }
