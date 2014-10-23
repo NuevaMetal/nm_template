@@ -1382,4 +1382,13 @@ class User extends ModelBase {
 	public function getNonceEnviarMensaje() {
 		return $this->crearNonce(User::ENVIAR_MENSAJE);
 	}
+
+	/**
+	 * Devuelve el nonce para un nuevo mensaje
+	 *
+	 * @return string
+	 */
+	public function getNonceSeguir() {
+		return $this->crearNonce(User::SEGUIR);
+	}
 }

@@ -305,11 +305,12 @@ $(document).on('click', '.btn-notificar', function(e) {
  * Mostrar una alerta
  */
 function mostrarAlerta(texto, segundos){
-	$('#alertas').hide();
-	$('#alertas').html(texto);
-	$('#alertas').fadeIn();		
+	alterta = $('#alertas');
+	alterta.hide();
+	alterta.html(texto);
+	alterta.fadeIn();		
 	setTimeout(function(){
-		$('#alertas').fadeOut();
+		alterta.fadeOut();
 	}, segundos*1000);
 }
 
@@ -517,13 +518,15 @@ $(document).on('click', '.seguir', function(e) {
 	e.preventDefault();
 	var $this =  $(this);
 	var url = $this.attr('url');
+	var nonce = $this.attr('nonce');
 	var id = $this.attr('id');
 	var seguir = $this.attr('seguir');
 	var data = {
 		submit : 'user',
 		tipo: 'seguir',
 		id : id,
-		seguir: seguir
+		seguir: seguir,
+		nonce: nonce
 	};	
 	$.ajax({
 		url : url,
@@ -613,17 +616,20 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 	var url = page.attr('url');
 	var parent = $this.parents('.nuevo-mensaje');
 	var form = parent.find('form');
-	var nonce = $this.attr('nonce');
+	var nonce = form.attr('nonce');
 	var id = $this.attr('id');
 	var mensaje = form.find('#mensaje').val();
 	
+	if(mensaje.length==0){
+		alert("Texto demasiado corto");
+		return;
+	}
 	var data = {
 		submit : 'user',
 		tipo: 'enviar-mensaje',
 		id : id,
 		mensaje: mensaje,
-		nonce: nonce,
-		post: id
+		nonce: nonce
 	};
 	console.log(data);
 	$.ajax({
@@ -638,6 +644,7 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 			if(json.code == 200){
 				$this.find('.fa-spin').addClass('hidden');
 				form.addClass('hidden');
+				form.find('#mensaje').val('');
 				btnEscribir = parent.find('.escribir-mensaje');
 				btnEscribir.removeClass('hidden');
 				mostrarAlerta(json.alert, 2);

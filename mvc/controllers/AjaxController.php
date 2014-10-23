@@ -434,15 +434,28 @@ $submit = $_REQUEST['submit'];
 $nonce = $_POST['nonce'];
 $post_id = $_POST['post'];
 
+/**
+ * Comprobar el noncepara peticiones que tengan relacción con un Post
+ */
 if (in_array($submit, [
 	Ajax::NOTIFICAR,
 	Ajax::ME_GUSTA
 ]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
 	die("An unexpected error has ocurred.");
-} else if (in_array($submit, [
-	User::ENVIAR_MENSAJE
-]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
-	die("An unexpected error has ocurred.");
+}
+
+/**
+ * Comprobar el noncepara peticiones que tengan relacción con un User
+ */
+if ($submit == Ajax::USER && isset($_POST['tipo'])) {
+	$tipo = $_POST['tipo'];
+	$current_user = Utils::getCurrentUser();
+	if (in_array($tipo, [
+		User::ENVIAR_MENSAJE,
+		User::SEGUIR
+	]) && ! Ajax::esNonce($nonce, $tipo, $current_user->ID)) {
+		die("An unexpected error has ocurred.");
+	}
 }
 
 $json = AjaxController::getJsonBySubmit($submit, $_REQUEST);
