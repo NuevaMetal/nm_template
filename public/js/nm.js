@@ -705,8 +705,8 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 		success : function(json) {
 			if(json.code == 200){
 				cerrarEscribirMensaje($this);
-				//cant = $this.parents('#mensajes').find('.nav a[href="#enviados"] .cant');
-				//cant.text(parseInt(cant.text(), 10)+1);
+				cant = $this.parents('#mensajes').find('.nav a[href="#enviados"] .cant');
+				cant.text(parseInt(cant.text(), 10)+1);
 			}
 			mostrarAlerta(json.alert, 2);
 		},
