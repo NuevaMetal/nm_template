@@ -590,3 +590,64 @@ function seHaceScrollEnActividad() {
 	     }
 	});
 }
+
+/**
+ * Mostrar el campo para escribir un mensaje a un Usuario
+ */
+$(document).on('click', '.escribir-mensaje', function(e) {
+	e.preventDefault();
+	$this = $(this);
+	$this.addClass('hidden');
+	p = $this.parent('.nuevo-mensaje');
+	f = p.find('form');
+	f.removeClass('hidden');
+});
+	
+/**
+ * Botón enviar un mensaje
+ */
+$(document).on('click', '.enviar-mensaje', function(e) {
+	e.preventDefault();
+	var $this =  $(this);
+	var page = $this.parents('#page');
+	var url = page.attr('url');
+	var parent = $this.parents('.nuevo-mensaje');
+	var form = parent.find('form');
+	var nonce = $this.attr('nonce');
+	var id = $this.attr('id');
+	var mensaje = form.find('#mensaje').val();
+	
+	var data = {
+		submit : 'user',
+		tipo: 'enviar-mensaje',
+		id : id,
+		mensaje: mensaje,
+		nonce: nonce,
+		post: id
+	};
+	console.log(data);
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$this.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			if(json.code == 200){
+				$this.find('.fa-spin').addClass('hidden');
+				form.addClass('hidden');
+				btnEscribir = parent.find('.escribir-mensaje');
+				btnEscribir.removeClass('hidden');
+				mostrarAlerta(json.alert, 2);
+			} else {
+				mostrarAlerta(json.err, 2);
+			}
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});

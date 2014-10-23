@@ -145,7 +145,24 @@ abstract class ModelBase {
 		}
 		return false;
 	}
+
+	/**
+	 * __toArray
+	 *
+	 * @return array
+	 */
 	public function __toArray() {
 		return call_user_func('get_object_vars', $this);
+	}
+
+	/**
+	 * Crear clave Nonce para las peticiones AJAX
+	 *
+	 * @param string $tipoNonceString
+	 *        	Tipo de Nonce a crear
+	 * @return string Clave nonce apartir del tipoNonce
+	 */
+	protected function crearNonce($tipoNonceString) {
+		return wp_create_nonce($tipoNonceString . $this->ID);
 	}
 }

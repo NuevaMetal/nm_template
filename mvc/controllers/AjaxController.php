@@ -398,6 +398,20 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 							'getActividades' => $actividades
 						]);
 						break;
+					case User::ENVIAR_MENSAJE :
+						$aQuienId = $_datos['id'];
+						try {
+							$current_user->enviarMensaje($aQuienId, $_datos['mensaje']);
+							$aQuien = User::find($aQuienId);
+							$json['alert'] = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
+								'nombre' => $aQuien->display_name
+							]));
+							$json['code'] = 200;
+						} catch ( Exception $e ) {
+							$json['code'] = $e->getCode();
+							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
+						}
+						break;
 				}
 				break;
 			default :
@@ -423,6 +437,10 @@ $post_id = $_POST['post'];
 if (in_array($submit, [
 	Ajax::NOTIFICAR,
 	Ajax::ME_GUSTA
+]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
+	die("An unexpected error has ocurred.");
+} else if (in_array($submit, [
+	User::ENVIAR_MENSAJE
 ]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
 	die("An unexpected error has ocurred.");
 }

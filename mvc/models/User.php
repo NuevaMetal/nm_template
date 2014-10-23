@@ -113,6 +113,8 @@ class User extends ModelBase {
 
 	const ACTIVIDAD = 'actividad';
 
+	const ENVIAR_MENSAJE = 'enviar-mensaje';
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
@@ -1352,5 +1354,32 @@ class User extends ModelBase {
 			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);
 		});
 		return $actividades;
+	}
+
+	/**
+	 * Enviar un mensaje a un user
+	 *
+	 * @param Integer $aQuienId
+	 * @param string $mensaje
+	 *        	Mensaje a enviar
+	 * @throws Exception
+	 */
+	public function enviarMensaje($aQuienId, $mensajeTexto) {
+		$mensaje = new Mensaje($this->ID, $aQuienId);
+		try {
+			$mensaje->mensaje = $mensajeTexto;
+			$mensaje->save();
+		} catch ( Exception $e ) {
+			throw $e;
+		}
+	}
+
+	/**
+	 * Devuelve el nonce para un nuevo mensaje
+	 *
+	 * @return string
+	 */
+	public function getNonceEnviarMensaje() {
+		return $this->crearNonce(User::ENVIAR_MENSAJE);
 	}
 }

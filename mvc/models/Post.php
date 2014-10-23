@@ -42,6 +42,11 @@ class Post extends ModelBase {
 	const CATEGORY_CRITICAS = 'criticas';
 
 	const CATEGORY_CRONICAS = 'cronicas';
+
+	/**
+	 *
+	 * @return mixed
+	 */
 	public function getFormComentarios() {
 		ob_start();
 		$params = [
@@ -422,7 +427,7 @@ class Post extends ModelBase {
 	 * @return string
 	 */
 	public function getNonceMeGusta() {
-		return Ajax::crearNonce(Ajax::ME_GUSTA, $this->ID);
+		return $this->crearNonce(Ajax::ME_GUSTA, $this->ID);
 	}
 
 	/**
@@ -430,7 +435,7 @@ class Post extends ModelBase {
 	 * @return string
 	 */
 	public function getNonceNotificar() {
-		return Ajax::crearNonce(Ajax::NOTIFICAR, $this->ID);
+		return $this->crearNonce(Ajax::NOTIFICAR, $this->ID);
 	}
 
 	/**

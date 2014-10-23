@@ -12,9 +12,11 @@ return [
 	'eliminar_avatar' => 'delete avatar',
 	'eliminar_cabecera' => 'delete header',
 	'en' => 'English',
+	'enviar_mensaje' => 'Send mensaje',
 	'entradas_publicadas_ano' => 'Posts published this year',
 	'eres_una_banda' => 'Are you a band?',
 	'es' => 'Spanish',
+	'escribir_mensaje' => 'Write mesaje',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'generos_destacados' => 'Featured Genres',
@@ -38,6 +40,8 @@ return [
 	'img_header' => 'header image',
 
 	'medidas_aconsejadas_img_header' => 'recommended measures',
+	'mensaje_enviado_exito' => 'Message sent successfully for :nombre',
+	'mensaje_demasiado_corto'=> 'Message too short',
 
 	'login_necesario' => 'for this you need be logged',
 
