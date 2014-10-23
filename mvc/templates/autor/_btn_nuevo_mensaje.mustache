@@ -1,11 +1,11 @@
 {{#current_user}}
 	{{#user}}
-		{{# isCurrentUser }}
+		{{#isCurrentUser}}
 			<a class="btn btn-danger col-xs-12" href="/messages">
 				<i class="fa fa-file-text-o"></i> {{#transu}}Mensajes{{/transu}}
 			</a>
-		{{/ isCurrentUser }}
-		{{^ isCurrentUser }}
+		{{/isCurrentUser}}
+		{{^isCurrentUser}}
 			<span class="nuevo-mensaje">
 				<button class="btn btn-default escribir-mensaje col-xs-12">
 					<i class="fa fa-file-text-o"></i> {{#transu}}user.escribir_mensaje{{/transu}}
@@ -17,7 +17,7 @@
 					</button>
 				</form>
 			</span>
-		{{/ isCurrentUser }}
+		{{/isCurrentUser}}
 	{{/user}}
 {{/current_user}}
 {{^current_user}}
