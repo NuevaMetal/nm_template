@@ -9,13 +9,19 @@
 		}
 		
 		.fila {
-			border: 4px solid black;
+			//border: 4px solid black;
 			//border-radius: 10px;
 			box-shadow: 5px 5px 10px #888;
 			margin: 5px 0;
 			padding: 10px;
 			height: auto;
 			overflow: hidden;
+			.autor {
+				
+			}
+			.texto {
+				@extend %negrita;
+			}
 		}
 	}
 }

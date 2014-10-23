@@ -12,6 +12,10 @@ class Mensaje extends ModelBase {
 
 	const ESTADO_BORRADO = 0;
 
+	const LEIDO_SI = 1;
+
+	const LEIDO_NO = 0;
+
 	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 10000;
 
 	const TAMANO_MAXIMO_ESTADO = 150;
@@ -31,6 +35,7 @@ class Mensaje extends ModelBase {
 	public $respuesta_id;
 	public $mensaje;
 	public $estado;
+	public $leido;
 	public $tipo;
 	public $updated_at;
 
@@ -147,6 +152,25 @@ class Mensaje extends ModelBase {
 	}
 
 	/**
+	 * Sobrescribo el find para actualizar el campo leido del mensaje obtenido
+	 *
+	 * @param integer $id
+	 *        	Identificador del Mensaje
+	 * @return return Mensaje
+	 */
+	public static function find($ID) {
+		$current_user = Utils::getCurrentUser();
+		global $wpdb;
+		$wpdb->query($wpdb->prepare("
+				UPDATE {$wpdb->prefix}" . static::$table . "
+				SET leido = %d
+				WHERE ID = %d
+				AND leido = %d
+				AND a_quien_id = %d", self::LEIDO_SI, $ID, self::LEIDO_NO, $current_user->ID));
+		return parent::find($ID);
+	}
+
+	/**
 	 * Devuelve el User que sigue
 	 *
 	 * @return User Usuario que sigue
@@ -165,6 +189,18 @@ class Mensaje extends ModelBase {
 	}
 
 	/**
+	 * Devuelve el Mensaje de respuesta
+	 *
+	 * @return Mensaje Mensaje de respuesta
+	 */
+	public function getRespuesta() {
+		if ($this->respuesta_id) {
+			return Mensaje::find($this->respuesta_id);
+		}
+		return null;
+	}
+
+	/**
 	 * Crear las tablas de los mensajes entre los usuarios
 	 */
 	private static function _install() {
@@ -174,8 +210,9 @@ ID bigint( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 user_id bigint( 20 ) UNSIGNED NOT NULL,
 a_quien_id bigint( 20 ) UNSIGNED,
 respuesta_id bigint( 20 ) UNSIGNED,
-mensaje MEDIUMTEXT NOT NULL,
+mensaje TEXT NOT NULL,
 estado tinyint NOT NULL default 1,
+leido tinyint NOT NULL default 0,
 tipo tinyint NOT NULL,
 created_at TIMESTAMP NOT NULL DEFAULT 0,
 updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
