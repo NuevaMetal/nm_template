@@ -111,6 +111,12 @@ class User extends ModelBase {
 	const ENVIAR_MENSAJE = 'enviar-mensaje';
 
 	const BORRAR_MENSAJE = 'borrar-mensaje';
+
+	const MENSAJES = 'mensajes';
+
+	const MENSAJES_ENVIADOS = 'mensajes-enviados';
+
+	const MENSAJES_RECIBIDOS = 'mensajes-recibidos';
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
@@ -1420,7 +1426,36 @@ class User extends ModelBase {
 	/**
 	 */
 	public function getTotalMensajesRecibidos() {
-		return count($this->getMensajesRecibidos());
+		return count($this->_getMensajesIds(self::MENSAJES_RECIBIDOS));
+	}
+
+	/**
+	 * Devuelve una lista
+	 */
+	private function _getMensajesIds($tipo) {
+		global $wpdb;
+		switch ($tipo) {
+			case self::MENSAJES_ENVIADOS :
+				$columna = 'user_id';
+				break;
+			case self::MENSAJES_RECIBIDOS :
+				$columna = 'a_quien_id';
+				break;
+		}
+		return $wpdb->get_col('
+				SELECT ID
+				FROM wp_mensajes
+				WHERE ' . $columna . ' = ' . $this->ID . ' AND estado = ' . Mensaje::ESTADO_ACTIVO . '
+				ORDER BY updated_at DESC ');
+	}
+
+	/**
+	 * Devuelve el número total de mensajes enviados
+	 *
+	 * @return number
+	 */
+	public function getTotalMensajesEnviados() {
+		return count($this->_getMensajesIds(self::MENSAJES_ENVIADOS));
 	}
 
 	/**
@@ -1428,7 +1463,7 @@ class User extends ModelBase {
 	 *
 	 * @return unknown
 	 */
-	public function getMensajesRecibidos($limit = self::LIMIT_MENSAJES_RECIBIDOS, $offset = 0) {
+	public function getMensajesRecibidos($offset = 0, $limit = self::LIMIT_MENSAJES_RECIBIDOS) {
 		global $wpdb;
 		$mensajesIds = $wpdb->get_col($wpdb->prepare('
 				SELECT ID
@@ -1449,7 +1484,7 @@ class User extends ModelBase {
 	 *
 	 * @return unknown
 	 */
-	public function getMensajesEnviados($limit = self::LIMIT_MENSAJES_RECIBIDOS, $offset = 0) {
+	public function getMensajesEnviados($offset = 0, $limit = self::LIMIT_MENSAJES_RECIBIDOS) {
 		global $wpdb;
 		$mensajesIds = $wpdb->get_col($wpdb->prepare('
 				SELECT ID
@@ -1463,14 +1498,5 @@ class User extends ModelBase {
 			$mensajes[] = Mensaje::find($id);
 		}
 		return $mensajes;
-	}
-
-	/**
-	 * Devuelve el número total de mensajes enviados
-	 *
-	 * @return number
-	 */
-	public function getTotalMensajesEnviados() {
-		return count($this->getMensajesEnviados());
 	}
 }

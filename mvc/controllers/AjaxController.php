@@ -434,6 +434,23 @@ INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
 						}
 						$json['alert'] = $alert;
 						break;
+					case User::MENSAJES :
+						$tipoMensajes = $_datos['tipo_mensajes'];
+						$offset = $_datos['size'];
+						if ($tipoMensajes == '#recibidos') {
+							$mensajes = $current_user->getMensajesRecibidos($offset);
+							$json['code'] = 200;
+							$json['content'] = $ajax->_render('autor/mensajes/_mensajes_recibidos', [
+								'getMensajesRecibidos' => $mensajes
+							]);
+						} elseif ($tipoMensajes == '#enviados') {
+							$mensajes = $current_user->getMensajesEnviados($offset);
+							$json['code'] = 200;
+							$json['content'] = $ajax->_render('autor/mensajes/_mensajes_enviados', [
+								'getMensajesEnviados' => $mensajes
+							]);
+						}
+						break;
 				}
 				break;
 			default :

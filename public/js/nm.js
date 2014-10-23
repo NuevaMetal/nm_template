@@ -73,6 +73,10 @@ function seHaceScroll() {
 	if($('#actividad').length > 0 && sePuede){
 		seHaceScrollEnActividad();
 	}
+	// scroll en la pantalla de mensajes
+	if($('#mensajes').length > 0 && sePuede){
+		seHaceScrollEnMensajes();
+	}
 }
 
 /**
@@ -124,6 +128,82 @@ function getWindowWidth(tam) {
 	return true;
 }
 
+
+/**
+ * Se hace scroll en la pantalla de actividad
+ */
+function seHaceScrollEnActividad() {	
+	var actividad = $('#actividad');
+	var actividades = $('.actividades');	
+	var url = $('#page').attr('url');
+	var size = $(actividades).children().size();
+	var data = {
+		submit : 'user',
+		tipo: 'actividad',
+		size: size,
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$(actividad).find('.fa-spin').removeClass('hidden');		
+		},
+		success : function(json) {
+			if(json.code == 200 ) {
+				$(actividades).append(json.content);
+			}
+			$(actividad).find('.fa-spin').addClass('hidden');
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+//	         alert("Ocurrió un error inesperado.\n" 
+//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			 + ",\n thrownError "+thrownError);
+	     }
+	});
+}
+
+/**
+ * Se hace scroll en la pantalla de mensajes
+ */
+function seHaceScrollEnMensajes() {	
+	var mensajes = $('#mensajes');
+	var url = $('#page').attr('url');
+	var tipo_mensajes = mensajes.find('.nav li[class="active"] a').attr('href');
+	var size = $(tipo_mensajes).children().size();
+	
+	var data = {
+		submit : 'user',
+		tipo: 'mensajes',
+		tipo_mensajes: tipo_mensajes,
+		size: size-1,
+	};
+
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$(mensajes).find('.fa-spin').removeClass('hidden');		
+		},
+		success : function(json) {
+			if(json.code == 200 ) {
+				// tipo_mensajes: #recibidos | #enviados
+				$(tipo_mensajes).append(json.content);
+			}
+			$(mensajes).find('.fa-spin').addClass('hidden');
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+//	         alert("Ocurrió un error inesperado.\n" 
+//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			 + ",\n thrownError "+thrownError);
+	     }
+	});
+}
 
 /**
  * Botón me gusta
@@ -263,6 +343,7 @@ $(document).on('click', '.ser-colaborador', function(e) {
 		}
 	});
 });
+
 /**
  * Botón notificar
  */
@@ -502,215 +583,6 @@ $(document).on('click', '.borrar-comentario', function(e) {
 		},
 		success : function(json) {
 			comment.remove();
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			+ ",\n thrownError "+thrownError);
-	     }
-	});
-});
-
-
-/**
- * Botón seguir
- */
-$(document).on('click', '.seguir', function(e) {
-	e.preventDefault();
-	var $this =  $(this);
-	var url = $this.attr('url');
-	var nonce = $this.attr('nonce');
-	var id = $this.attr('id');
-	var seguir = $this.attr('seguir');
-	var data = {
-		submit : 'user',
-		tipo: 'seguir',
-		id : id,
-		seguir: seguir,
-		nonce: nonce
-	};	
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$this.find('.fa-spin').removeClass('hidden');
-			$this.find('.fa-plus').addClass('hidden');
-			$this.find('.fa-remove').addClass('hidden');
-			$this.attr('disabled', true);
-		},
-		success : function(json) {
-			if(json.code == 200){
-				$this.attr('disabled', false);
-				$this.replaceWith(json.btn);
-				$this.find('.fa-spin').addClass('hidden');
-				$this.find('.fa-plus').removeClass('hidden');
-				$this.find('.fa-remove').removeClass('hidden');
-				mostrarAlerta(json.alert, 2);
-			} else {
-				mostrarAlerta(json.err, 2);
-			}
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			+ ",\n thrownError "+thrownError);
-	     }
-	});
-});
-
-/**
- * Se hace scroll en la pantalla de actividad
- */
-function seHaceScrollEnActividad() {	
-	var actividad = $('#actividad');
-	var actividades = $('.actividades');	
-	var url = $('#page').attr('url');
-	var size = $(actividades).children().size();
-	var data = {
-		submit : 'user',
-		tipo: 'actividad',
-		size: size,
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$(actividad).find('.fa-spin').removeClass('hidden');		
-		},
-		success : function(json) {
-			if(json.code == 200 ) {
-				$(actividades).append(json.content);
-			}
-			$(actividad).find('.fa-spin').addClass('hidden');
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-//	         alert("Ocurrió un error inesperado.\n" 
-//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			 + ",\n thrownError "+thrownError);
-	     }
-	});
-}
-
-/**
- * Mostrar el campo para escribir un mensaje a un Usuario
- */
-$(document).on('click', '.escribir-mensaje', function(e) {
-	e.preventDefault();
-	$this = $(this);
-	$this.addClass('hidden');
-	p = $this.parent('.mensaje');
-	f = p.find('form');
-	f.removeClass('hidden');
-});
-
-$(document).on('click', '.cancelar-enviar-mensaje', function(e) {
-	e.preventDefault();
-	cerrarEscribirMensaje($(this));
-});
-
-function cerrarEscribirMensaje($this){
-	$this.find('.fa-spin').addClass('hidden');
-	parent = $this.parents('.mensaje');
-	form = $this.parents('.mensaje').find('form');
-	form.addClass('hidden');
-	form.find('#mensaje').val('');
-	btnEscribir = parent.find('.escribir-mensaje');
-	btnEscribir.removeClass('hidden');
-}
-/**
- * Botón enviar un mensaje
- */
-$(document).on('click', '.enviar-mensaje', function(e) {
-	e.preventDefault();
-	var $this =  $(this);
-	var page = $this.parents('#page');
-	var url = page.attr('url');
-	var parent = $this.parents('.mensaje');
-	var form = parent.find('form');
-	var mensaje = form.find('#mensaje').val();
-	var nonce = form.attr('nonce');
-	var mensaje_id = $this.attr('mensaje_id');
-	var user_id = $this.attr('user_id');
-	var respuesta_id = $this.attr('respuesta_id');
-
-	if(mensaje.length == 0){
-		alert("Texto demasiado corto");
-		return;
-	}
-	var data = {
-		submit : 'user',
-		tipo: 'enviar-mensaje',
-		nonce: nonce,
-		mensaje: mensaje,
-		mensaje_id: mensaje_id,
-		user_id : user_id,
-		respuesta_id: respuesta_id,
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$this.find('.fa-spin').removeClass('hidden');
-		},
-		success : function(json) {
-			if(json.code == 200){
-				cerrarEscribirMensaje($this);
-				//cant = $this.parents('#mensajes').find('.nav a[href="#enviados"] .cant');
-				//cant.text(parseInt(cant.text(), 10)+1);
-			}
-			mostrarAlerta(json.alert, 2);
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			+ ",\n thrownError "+thrownError);
-	     }
-	});
-});
-
-/**
- * Botón borrar un mensaje
- */
-$(document).on('click', '.borrar-mensaje', function(e) {
-	e.preventDefault();
-	var $this =  $(this);
-	var page = $this.parents('#page');
-	var url = page.attr('url');
-	var mensaje = $this.parents('.mensaje');
-	var nonce = $this.attr('nonce');
-	var mensaje_id  = $this.attr('mensaje_id');
-	
-	if(!confirm("¿Estás seguro de querer borrar el mensaje?")){
-		return;
-	}
-	
-	var data = {
-		submit : 'user',
-		tipo: 'borrar-mensaje',
-		nonce: nonce,
-		mensaje_id : mensaje_id,
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$this.find('.fa-spin').removeClass('hidden');
-		},
-		success : function(json) {
-			if(json.code == 200) {
-				cant = $this.parents('#mensajes').find('.nav li[class="active"] .cant');
-				cant.text(parseInt(cant.text(), 10)-1);
-
-				$this.find('.fa-spin').addClass('hidden');
-				mensaje.addClass('hidden');				
-			}
-			mostrarAlerta(json.alert, 2);			
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
