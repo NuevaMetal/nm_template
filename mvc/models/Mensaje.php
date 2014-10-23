@@ -12,6 +12,8 @@ class Mensaje extends ModelBase {
 
 	const ESTADO_BORRADO = 0;
 
+	const TAMANO_MAXIMO = 10000;
+
 	/*
 	 * Miembros
 	 */
@@ -19,6 +21,7 @@ class Mensaje extends ModelBase {
 	public $a_quien_id;
 	public $mensaje;
 	public $estado;
+	public $updated_at;
 
 	/**
 	 * Constructor
@@ -28,7 +31,7 @@ class Mensaje extends ModelBase {
 	 * @param string $a_quien_id
 	 *        	Identificador de aquello a seguir
 	 */
-	public function __construct($user_id = false, $a_quien_id = false, $mensaje = false) {
+	public function __construct($user_id = false, $a_quien_id = false, $mensaje = false, $updated_at = false, $ID = false) {
 		parent::__construct();
 		if ($user_id) {
 			$this->user_id = $user_id;
@@ -39,15 +42,53 @@ class Mensaje extends ModelBase {
 		if ($mensaje) {
 			$this->mensaje = $mensaje;
 		}
+		if ($updated_at) {
+			$this->updated_at = $updated_at;
+		}
+		if ($ID) {
+			$this->ID = $ID;
+		}
+	}
+
+	/**
+	 * Devuelve la fecha de la actividad
+	 */
+	public function getDate() {
+		// date($dateFormat, strtotime($this->updated_at));
+		$strToTime = strtotime($this->updated_at);
+		// 1 (para lunes) hasta 7 (para domingo)
+		$numDiaSemana = date('N', $strToTime);
+		$nombreDia = Utils::getDiaTransByNum($numDiaSemana);
+		// Representación numérica de un mes, sin ceros iniciales. 1 hasta 12
+		$numMes = date('n', $strToTime);
+		$nombremes = Utils::getMesTransByNum($numMes);
+		$numDia = date('d', $strToTime); // Número del día
+		$ano = date('Y', $strToTime); // Año
+		return "$nombreDia, $numDia $nombremes $ano";
+	}
+
+	/**
+	 * Devuelve la hora en la que se produjo la actividad
+	 */
+	public function getTime() {
+		// date($dateFormat, strtotime($this->updated_at));
+		$strToTime = strtotime($this->updated_at);
+		$hora = date('H', $strToTime);
+		$minutos = date('m', $strToTime);
+		return "$hora:$minutos";
 	}
 
 	/**
 	 * Guardar un nuevo mensaje
 	 */
 	public function save() {
-		if (! strlen((string) $this->mensaje)) {
+		$strlen = strlen( $this->mensaje);
+		if (! $strlen) {
 			throw new Exception(I18n::transu('user.mensaje_demasiado_corto'), 500);
+		}elseif( $strlen > self::TAMANO_MAXIMO){
+			throw new Exception(I18n::transu('user.mensaje_demasiado_grande'), 500);
 		}
+
 		global $wpdb;
 		$result = $wpdb->query($wpdb->prepare("
 			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, mensaje, created_at, updated_at)
@@ -63,17 +104,16 @@ class Mensaje extends ModelBase {
 	 * @return Mensaje
 	 */
 	public function borrar() {
+		global $wpdb;
 		$existe = $wpdb->get_var("SELECT count(*)
 				FROM {$wpdb->prefix}" . static::$table . "
 				WHERE ID = $this->ID");
-		if ($existe) {
-			throw new Exception(I18n::transu('mensaje.no_existe'), 504);
+		if (! $existe) {
+			throw new Exception(I18n::transu('user.mensaje_no_existe'), 504);
 		}
-		global $wpdb;
-		$estadoBorrado = self::ESTADO_BORRADO;
 		$result = $wpdb->query($wpdb->prepare("
-				UPDATE {$wpdb->prefix}" . static::$table . " SET estado = $estadoBorrado
-			WHERE ID = %d;", $this->ID));
+				UPDATE {$wpdb->prefix}" . static::$table . " SET estado = %d
+			WHERE ID = %d;", self::ESTADO_BORRADO, $this->ID));
 		return $result;
 	}
 

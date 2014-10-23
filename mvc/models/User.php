@@ -69,25 +69,20 @@ class User extends ModelBase {
 
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
-	/*
-	 * Número de actividades a mostrar
-	 */
+	// Número de actividades a mostrar
 	const NUM_ACTIVIDADES = 30;
 
-	/*
-	 * Número de post favoritos a mostrar en su perfil
-	 */
+	// Número de post favoritos a mostrar en su perfil
 	const NUM_FAV_PERFIL_DEFAULT = 6;
 
-	/*
-	 * Número de etiquetas de los posts favoritos a mostrar en su perfil
-	 */
+	// Número de etiquetas de los posts favoritos a mostrar en su perfil
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
-	/*
-	 * Número de palabras para la descripción corta
-	 */
+	// Número de palabras para la descripción corta
 	const NUM_DESCRIPTION_CORTA = 11;
+
+	// Número límite de mensajes recibidos por petición
+	const LIMIT_MENSAJES_RECIBIDOS = 10;
 
 	const ENTRADAS_PUBLICADAS_AJAX = 'entradas-publicadas';
 
@@ -115,6 +110,7 @@ class User extends ModelBase {
 
 	const ENVIAR_MENSAJE = 'enviar-mensaje';
 
+	const BORRAR_MENSAJE = 'borrar-mensaje';
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
@@ -1382,6 +1378,9 @@ class User extends ModelBase {
 	public function getNonceEnviarMensaje() {
 		return $this->crearNonce(User::ENVIAR_MENSAJE);
 	}
+	public function getNonceBorrarMensaje() {
+		return $this->crearNonce(User::BORRAR_MENSAJE);
+	}
 
 	/**
 	 * Devuelve el nonce para un nuevo mensaje
@@ -1390,5 +1389,33 @@ class User extends ModelBase {
 	 */
 	public function getNonceSeguir() {
 		return $this->crearNonce(User::SEGUIR);
+	}
+
+	/**
+	 */
+	public function getTotalMensajesRecibidos() {
+		return count($this->getMensajesRecibidos());
+	}
+
+	/**
+	 * Devuelve todos los mensajes recibidos del usuario
+	 *
+	 * @return unknown
+	 */
+	public function getMensajesRecibidos($limit = self::LIMIT_MENSAJES_RECIBIDOS, $offset = 0) {
+		global $wpdb;
+		$mensajes = $wpdb->get_results($wpdb->prepare('
+				SELECT *
+				FROM wp_mensajes
+				WHERE a_quien_id = %d AND estado = %d
+				ORDER BY updated_at DESC
+				LIMIT %d OFFSET %d
+				', $this->ID, Mensaje::ESTADO_ACTIVO, $limit, $offset));
+
+		// Parseo los objetos genéricos (StdClass) a Mensaje
+		array_walk($mensajes, function (&$item) {
+			$item = new Mensaje($item->user_id, $item->que_id, $item->mensaje, $item->updated_at, $item->ID);
+		});
+		return $mensajes;
 	}
 }
