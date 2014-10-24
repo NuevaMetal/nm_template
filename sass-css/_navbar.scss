@@ -9,23 +9,23 @@
 .perfil-login, .principal-login {
 
 	margin-top: 6px;
-	margin-bottom: 4px;
+	margin-bottom: 4px;	
 
-	/*img{
-		width: 100px;
-		height: 100px;		
-	}*/
-	
 	.avatar {
-		width: 100px;
-		height: 100px;
+		@include col(md) {
+			width: 100px;
+			height: 100px;
+		}
+		width: 120px;
+		height: 120px;
 	}
 
 	.menu-acciones{
 		.acciones {}
 
 		.title {
-			margin: 11px;
+			margin-left: 15px;
+			//margin: 11px;
 			.title-user-name{
 				font-size: 21px;
 			}
