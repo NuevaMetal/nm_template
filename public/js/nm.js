@@ -42,9 +42,9 @@ function seHaceScroll() {
 	// Ajuste del menú Para pantallas no xs
 	if (!getWindowWidth('xs')) {
 		if (scroll >= 260 || winWidth < COL.SM-15) {		
-			scrollOn();
+			//scrollOn();
 		} else {
-			scrollOff();
+			//scrollOff();
 		}
 	} else {
 		// Ajuste del menú Para pantallas xs
@@ -386,7 +386,7 @@ $(document).on('click', '.btn-notificar', function(e) {
  * Mostrar una alerta
  */
 function mostrarAlerta(texto, segundos){
-	alterta = $('#alertas');
+	alterta = $('#alertas-popup');
 	alterta.hide();
 	alterta.html(texto);
 	alterta.fadeIn();		

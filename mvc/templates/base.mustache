@@ -19,11 +19,16 @@
 </header>
 <div id="page" class="container" url="{{template_url}}/ajax.php">
 	
-	<div id="alertas"></div>
-
+	<div id="alertas-popup"></div>
 	<div class="col-xs-12">
 		<div id="menu-principal"></div>
 		<div id="menu-perfil"></div>
+	</div>
+
+	<div id="alertas" class="col-xs-12">
+		{{# alertas }}
+			{{{.}}}
+		{{/ alertas }}
 	</div>
 
     <div id="content" class="col-xs-12">

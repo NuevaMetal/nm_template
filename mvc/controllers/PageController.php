@@ -8,7 +8,7 @@ require_once 'BaseController.php';
  *
  * @author chemaclass
  */
-class PageController extends BaseController {
+class PageController extends AlertaController {
 
 	/**
 	 * index.php
@@ -16,12 +16,10 @@ class PageController extends BaseController {
 	public function getIndex() {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
-		$content = $this->render('busqueda', [
-			'posts' => $posts
-		]);
-
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->render('busqueda', [
+				'posts' => $posts
+			])
 		]);
 	}
 

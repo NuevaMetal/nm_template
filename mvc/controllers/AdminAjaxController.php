@@ -1,13 +1,15 @@
 <?php
-require_once 'AlertaController.php';
+// Cargamos WP.
+// Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
+require_once dirname(__FILE__) . '/../../../../../wp-load.php';
+require_once 'BaseController.php';
 
 /**
  * Controlador del AJAX
  *
  * @author Chemaclass
- *
  */
-class AdminAjaxController extends AlertaController {
+class AdminAjaxController extends BaseController {
 
 	/**
 	 *
@@ -17,14 +19,14 @@ class AdminAjaxController extends AlertaController {
 		$ajax = new AdminAjaxController();
 		switch ($submit) {
 			case Ajax::ANALITICA :
-				$tabla = $_datos ['tabla'];
-				$cant = $_datos ['cant'];
+				$tabla = $_datos['tabla'];
+				$cant = $_datos['cant'];
 				$json = AnaliticaController::getByTabla($tabla, $cant);
 				break;
 			case Ajax::HACER_COLABORADOR :
-				$user_id = $_datos ['user'];
-				$editor_id = $_datos ['editor'];
-				$que = $_datos ['que'];
+				$user_id = $_datos['user'];
+				$editor_id = $_datos['editor'];
+				$que = $_datos['que'];
 				$userPendiente = UserPendiente::first('user_id', '=', $user_id);
 				if ($que == Ajax::HACER_COLABORADOR) {
 					$userPendiente->aceptarPor($editor_id);
@@ -35,7 +37,7 @@ class AdminAjaxController extends AlertaController {
 				} else if ($que == Ajax::BORRAR_COLABORADOR_PENDIENTE) {
 					$userPendiente->delete();
 				}
-				$json ['content'] = 'OK';
+				$json['content'] = 'OK';
 				break;
 			default :
 				Utils::debug("> AdminAjax> getJsonBySubmit()> Ocurrió un error inesperado");
@@ -43,7 +45,6 @@ class AdminAjaxController extends AlertaController {
 		}
 		return $json;
 	}
-
 }
 
 /**
@@ -52,12 +53,13 @@ class AdminAjaxController extends AlertaController {
  * -------------------------------------
  */
 $json = [
-	'code' => 504 // Error default
-];
-$submit = $_REQUEST ['submit'];
+	'code' => 504
+]; // Error default
+
+$submit = $_REQUEST['submit'];
 
 $user = Utils::getCurrentUser();
-if (!$user || !$user->canEditor()) {
+if (! $user || ! $user->canEditor()) {
 	wp_die('No tienes permisos');
 }
 

@@ -1164,12 +1164,26 @@ class User extends ModelBase {
 	 */
 	public function isRevisionBan() {
 		global $wpdb;
-		$statusBan = Revision::USER_BANEADO;
-		$isBan = (int) $wpdb->get_var("SELECT COUNT(*)
-				FROM  {$wpdb->prefix}revisiones_ban
-				WHERE user_id = $this->ID
-				AND status = $statusBan;");
+		$isBan = (int) $wpdb->get_var('SELECT COUNT(*)
+				FROM  ' . $wpdb->prefix . 'revisiones_ban
+				WHERE user_id = ' . $this->ID . '
+				AND status = ' . Revision::USER_BANEADO);
 		return $isBan > 0;
+	}
+
+	/**
+	 * Devuelve true si el user ya envió una notificación del post
+	 *
+	 * @param integer $post_id
+	 *        	Identificador del Post
+	 */
+	public function yaNotificoPost($post_id) {
+		global $wpdb;
+		return $wpdb->get_var('SELECT COUNT(*)
+		 	FROM ' . $wpdb->prefix . 'revisiones
+			WHERE status = ' . Revision::ESTADO_PENDIENTE . '
+				AND post_id =' . $post_id . '
+				AND user_id =' . $this->ID);
 	}
 
 	/**

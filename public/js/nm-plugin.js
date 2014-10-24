@@ -33,11 +33,11 @@ $(document).on('click', '.dispara-revision', function(e) {
 		success : function(json) {
 			console.log(json);
 			if(json.code == 200 ) {
-				$('#alertas').html(json.content);
-				$('#alertas').fadeIn();
+				$('#alertas-popup').html(json.content);
+				$('#alertas-popup').fadeIn();
 				$this.find('.fa-spin').addClass('hidden');				
 				setTimeout(function(){
-					$('#alertas').fadeOut();
+					$('#alertas-popup').fadeOut();
 				}, 3000);
 			}
 			$this.find('.fa-spin').addClass('hidden');
