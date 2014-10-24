@@ -1421,6 +1421,12 @@ class User extends ModelBase {
 	public function getNonceEnviarMensaje() {
 		return $this->crearNonce(User::ENVIAR_MENSAJE);
 	}
+
+	/**
+	 * Devuelve el nonce para un borrar un mensaje
+	 *
+	 * @return string
+	 */
 	public function getNonceBorrarMensaje() {
 		return $this->crearNonce(User::BORRAR_MENSAJE);
 	}
@@ -1435,15 +1441,28 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve el número de mensajes recibidos sin leer
+	 *
+	 * @return number
+	 */
+	public function getTotalMensajesRecibidosSinLeer() {
+		return count($this->_getMensajesIds(self::MENSAJES_RECIBIDOS, true));
+	}
+
+	/**
 	 */
 	public function getTotalMensajesRecibidos() {
 		return count($this->_getMensajesIds(self::MENSAJES_RECIBIDOS));
 	}
 
 	/**
-	 * Devuelve una lista
+	 * Devuelve una lista con los IDs de los mensajes según el tipo
+	 *
+	 * @param string $tipo
+	 * @param boolean $noLeidos
+	 *        	Por defecto todos (no leidos y leidos)
 	 */
-	private function _getMensajesIds($tipo) {
+	private function _getMensajesIds($tipo, $noLeidos = false) {
 		global $wpdb;
 		switch ($tipo) {
 			case self::MENSAJES_ENVIADOS :
@@ -1453,11 +1472,15 @@ class User extends ModelBase {
 				$columna = 'a_quien_id';
 				break;
 		}
-		return $wpdb->get_col('
-				SELECT ID
+		$sql = 'SELECT ID
 				FROM wp_mensajes
-				WHERE ' . $columna . ' = ' . $this->ID . ' AND estado = ' . Mensaje::ESTADO_ACTIVO . '
-				ORDER BY updated_at DESC ');
+				WHERE ' . $columna . ' = ' . $this->ID;
+		$sql .= ' AND estado = ' . Mensaje::ESTADO_ACTIVO;
+		if ($noLeidos) {
+			$sql .= ' AND leido = ' . Mensaje::LEIDO_NO;
+		}
+		$sql .= ' ORDER BY updated_at DESC ';
+		return $wpdb->get_col($sql);
 	}
 
 	/**

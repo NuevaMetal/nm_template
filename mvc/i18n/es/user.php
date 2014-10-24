@@ -58,6 +58,7 @@ return [
 	'separa_por_comas' => 'Separadas por comas',
 	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 
+	'tienes_mensajes_nuevos' => 'Tienes :total mensaje/s nuevo/s.',
 	'tipo_usuario' => 'Tipo de usuario',
 	'tipo_usuario_explicacion' => 'Seleccione el tipo de usuario para que podamos ofrecerle una mejor experiencia',
 

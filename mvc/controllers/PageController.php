@@ -8,7 +8,7 @@ require_once 'BaseController.php';
  *
  * @author chemaclass
  */
-class PageController extends AlertaController {
+class PageController extends BaseController {
 
 	/**
 	 * index.php

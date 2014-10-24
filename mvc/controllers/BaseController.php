@@ -35,7 +35,28 @@ abstract class BaseController extends ChesterBaseController {
 		$args['template_url'] = get_template_directory_uri();
 		$args['blog_name'] = get_bloginfo('name');
 		$args['poner_analitica'] = ($_SERVER["SERVER_NAME"] == URL_PRODUCCION);
+
+		$args['alertas'] = $this->_getAlertas();
+
 		return $this->renderPage('base', $args);
+	}
+
+	/**
+	 * Devuelve las alertas que tenga el usuario actual pendientes
+	 *
+	 * @return array>View> Alertas
+	 */
+	private function _getAlertas() {
+		$alertas = [];
+		$user = Utils::getCurrentUser();
+
+		if (($total = $user->getTotalMensajesRecibidosSinLeer())) {
+			$msg = I18n::trans('user.tienes_mensajes_nuevos', [
+				'total' => $total
+			]);
+			$alertas[] = $this->renderAlertaDanger($msg, I18n::transu('mensajes'), 'messages');
+		}
+		return $alertas;
 	}
 
 	/**
@@ -128,10 +149,11 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param unknown $args
 	 * @return View
 	 */
-	protected function renderAlerta($tipo, $mensaje, $strong = false, $args = []) {
+	private function _renderAlerta($tipo, $mensaje, $strong = false, $href = false, $args = []) {
 		$args['tipo'] = $tipo;
 		$args['mensaje'] = $mensaje;
 		$args['strong'] = $strong;
+		$args['href'] = $href;
 		return $this->render('ajax/alerta', $args);
 	}
 
@@ -142,8 +164,8 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param string $strong
 	 * @return View
 	 */
-	protected function renderAlertaSuccess($mensaje, $strong = false) {
-		return $this->renderAlerta('success', $mensaje, $strong);
+	protected function renderAlertaSuccess($mensaje, $strong = false, $href = false) {
+		return $this->_renderAlerta('success', $mensaje, $strong, $href);
 	}
 
 	/**
@@ -153,8 +175,8 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param string $strong
 	 * @return View
 	 */
-	public function renderAlertaDanger($mensaje, $strong = false) {
-		return $this->renderAlerta('danger', $mensaje, $strong);
+	public function renderAlertaDanger($mensaje, $strong = false, $href = false) {
+		return $this->_renderAlerta('danger', $mensaje, $strong, $href);
 	}
 
 	/**
@@ -164,8 +186,8 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param string $strong
 	 * @return View
 	 */
-	protected function renderAlertaInfo($mensaje, $strong = false) {
-		return $this->renderAlerta('info', $mensaje, $strong);
+	protected function renderAlertaInfo($mensaje, $strong = false, $href = false) {
+		return $this->_renderAlerta('info', $mensaje, $strong, $href);
 	}
 
 	/**
@@ -175,7 +197,7 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param string $strong
 	 * @return View
 	 */
-	protected function renderAlertaWarning($mensaje, $strong = false) {
-		return $this->renderAlerta('warning', $mensaje, $strong);
+	protected function renderAlertaWarning($mensaje, $strong = false, $href = false) {
+		return $this->_renderAlerta('warning', $mensaje, $strong, $href);
 	}
 }
