@@ -481,6 +481,18 @@ class Acciones {
 			return $img;
 		}, 10, 5);
 	}
+
+	/**
+	 * Set the Attachment Display Settings "Link To" default to "none"
+	 * This function is attached to the 'after_setup_theme' action hook.
+	 */
+	public static function establecerDefectoOpcionesParaAdjuntos() {
+		add_action('after_setup_theme', function () {
+			update_option('image_default_align', 'none');
+			update_option('image_default_link_type', 'none');
+			update_option('image_default_size', 'full');
+		});
+	}
 }
 
 Acciones::userRegister();
@@ -502,3 +514,5 @@ Acciones::registerForm();
 Acciones::impedirLoginSiUserBloqueado();
 
 Acciones::sobrescribirGetAvatar();
+
+Acciones::establecerDefectoOpcionesParaAdjuntos();
