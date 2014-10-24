@@ -51,9 +51,13 @@ abstract class BaseController extends ChesterBaseController {
 		$user = Utils::getCurrentUser();
 
 		if ($user && ($total = $user->getTotalMensajesRecibidosSinLeer())) {
-			$msg = I18n::trans('user.tienes_mensajes_nuevos', [
-				'total' => $total
-			]);
+			if ($total == 1) {
+				$msg = I18n::trans('user.tienes_un_mensaje_nuevo');
+			} else {
+				$msg = I18n::trans('user.tienes_mensajes_nuevos', [
+					'total' => $total
+				]);
+			}
 			$alertas[] = $this->renderAlertaDanger($msg, I18n::transu('mensajes'), 'messages');
 		}
 		return $alertas;

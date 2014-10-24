@@ -55,10 +55,11 @@ return [
 	'quieres_escribir' => 'Do you want to write?',
 
 	'se_unio_en' => 'He joined in :mes :ano',
-	'separa_por_comas' => 'Separated by commas',
+	'separa_potienes_un_mensaje_nuevor_comas' => 'Separated by commas',
 	'sin_actividad' => 'You haven\'t activity to show yet',
 
 	'tienes_mensajes_nuevos' => 'You have :total new messages.',
+	'tienes_un_mensaje_nuevo' => 'You have a new message.',
 	'tipo_usuario' => 'Type of user',
 	'tipo_usuario_explicacion' => 'Select your type of user for we can offer you the best experience',
 

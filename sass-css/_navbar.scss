@@ -22,12 +22,8 @@
 	}
 
 	.menu-acciones{
-		.acciones {
-			@include col(md) {
-				margin-top: 28px;
-			}
-		}
-		
+		.acciones {}
+
 		.title {
 			margin: 11px;
 			.title-user-name{

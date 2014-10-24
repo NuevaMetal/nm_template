@@ -22,33 +22,32 @@
 
 		<div class="acciones text-center col-xs-12 col-sm-12 col-md-9">
 			<div class="list-group">
-			{{#isSuscriptor}}
-				{{^isSuscriptorRechazado}}
-				  <a class="list-group-item col-xs-12 col-sm-6" href="/tutorial#publica">
-					<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
-				  </a>
-				{{/isSuscriptorRechazado}}
-			{{/isSuscriptor}}
-			{{#canColaborador}}
-			  <a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/edit.php" target="_blank">
-			  	<i class="fa fa-files-o"></i> posts
-				</a>	
-				
-				<a class="list-group-item col-xs-12 col-sm-3" href="/wp-admin/post-new.php" target="_blank">
-					<span class="hidden-lg"><i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}</span>
-					<span class="visible-lg"><i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}}</span>
+				{{#isSuscriptor}}
+					{{^isSuscriptorRechazado}}
+					  <a class="list-group-item col-xs-12 col-sm-8" href="/tutorial#publica">
+						<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
+					  </a>
+					{{/isSuscriptorRechazado}}
+				{{/isSuscriptor}}
+			   {{#canColaborador}}
+			    <a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/edit.php" target="_blank">
+			  		<i class="fa fa-files-o"></i> posts
+				</a>				
+				<a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/post-new.php" target="_blank">
+					<i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}
 				</a>
-			{{/canColaborador}}
-
-				<a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
-			  		{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/favorites">  	
-			  		<span class="hidden-md hidden-sm"><i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}</span>
-					<span class="visible-md visible-sm"><i class="fa fa-star"></i> {{#transu}}favs{{/transu}}</span>
+				{{/canColaborador}}
+				<a class="list-group-item col-xs-12 col-sm-4" href="/favorites">  	
+			  		<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
 				</a>
-
-				<a class="list-group-item col-xs-12 {{^isSuscriptorRechazado}}col-sm-3{{/isSuscriptorRechazado}}
-			  			{{#isSuscriptorRechazado}}col-sm-6{{/isSuscriptorRechazado}}" href="/activity">
+				<a class="list-group-item col-xs-12 col-sm-4" href="/activity">
 					<span><i class="fa fa-bell"></i> {{#transu}}actividad{{/transu}}</span>
+				</a>
+				<a class="list-group-item col-xs-12 col-sm-4" href="/messages">  	
+			  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
+				</a>
+				<a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/profile.php">
+					<span><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
 				</a>
 			</div>
 		</div>
