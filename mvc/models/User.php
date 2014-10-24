@@ -845,7 +845,9 @@ class User extends ModelBase {
 	/**
 	 * Devuelve una lista con los valores separados por el delimitador (por defecto ',')
 	 * del string pasado como 1er param.
-	 * Además de hacerle un trim a cada item del array generado
+	 * Además de hacerle un trim a cada item del array generado, utilizamos también
+	 * array_values(array_unique(lista)) para sacar los valores únicos obtenidos
+	 * y así evitar duplicados.
 	 *
 	 * @param string $str
 	 *        	Cadena a cortar
@@ -857,12 +859,7 @@ class User extends ModelBase {
 		if (! strlen($str)) {
 			return [];
 		}
-		$lista = explode($delimitador, $str);
-		$lista = array_values(array_unique($lista));
-		array_walk($lista, function (&$item) {
-			$item = trim($item);
-		});
-		return $lista;
+		return array_values(array_unique(array_map('trim', explode($delimitador, $str))));
 	}
 
 	/**
