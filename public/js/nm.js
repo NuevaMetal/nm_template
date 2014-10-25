@@ -135,7 +135,7 @@ function seHaceScrollEnActividad() {
 	var actividad = $('#actividad');
 	var url = $('#page').attr('url');
 	var tipo_actividad = actividad.find('.nav li[class="active"] a').attr('href');
-	var size = $(tipo_actividad).children().size();
+	var size = $(tipo_actividad).find('.actividades-content').children().size();
 
 	if(!$(tipo_actividad).find('.fa-spin').hasClass('hidden')){
 		return;
@@ -145,8 +145,10 @@ function seHaceScrollEnActividad() {
 		submit : 'user',
 		tipo: 'actividad',
 		tipo_actividad: tipo_actividad,
-		size: size-2,// por el btn mostrar-mas y el título
+		size: size,
 	};
+	
+	console.log(data);
 	
 	$.ajax({
 		url : url,
@@ -181,13 +183,13 @@ function seHaceScrollEnMensajes() {
 	var mensajes = $('#mensajes');
 	var url = $('#page').attr('url');
 	var tipo_mensajes = mensajes.find('.nav li[class="active"] a').attr('href');
-	var size = $(tipo_mensajes).children().size();
+	var size = $(tipo_mensajes).find('.mensajes-content').children().size();
 	
 	var data = {
 		submit : 'user',
 		tipo: 'mensajes',
 		tipo_mensajes: tipo_mensajes,
-		size: size-2, // por el btn mostrar-mas y el título
+		size: size,
 	};
 
 	$.ajax({
