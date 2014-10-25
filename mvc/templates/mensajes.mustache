@@ -17,8 +17,10 @@
 	
 		<div class="tab-pane active col-xs-12" id="recibidos">
 			<h4 class="titular">{{#trans}}user.mensajes_recibidos{{/trans}}</h4>
-		
-			{{> autor/mensajes/_mensajes_recibidos }}
+			
+			<div class="mensajes-content">
+				{{> autor/mensajes/_mensajes_recibidos }}
+			</div>
 			
 			<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 					<i class="fa fa-refresh fa-spin fa-2x hidden"></i>
@@ -28,7 +30,9 @@
 		<div class="tab-pane col-xs-12" id="enviados">
 			<h4 class="titular">{{#trans}}user.mensajes_enviados{{/trans}}</h4>
 		
-			{{> autor/mensajes/_mensajes_enviados }}
+			<div class="mensajes-content">
+				{{> autor/mensajes/_mensajes_enviados }}
+			</div>
 			
 			<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 					<i class="fa fa-refresh fa-spin fa-2x hidden"></i>

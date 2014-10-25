@@ -24,7 +24,9 @@
 				<div class="tab-pane active col-xs-12" id="actividades">
 					<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
 					
-					{{> actividad/_actividades }}
+					<div class="actividades-content">
+						{{> actividad/_actividades }}
+					</div>
 					
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
@@ -34,7 +36,9 @@
 				<div class="tab-pane col-xs-12" id="actividades-propias">
 					<h4 class="titular">{{#trans}}user.actividades_propias{{/trans}}</h4>
 					
-					{{> actividad/_actividades_propias }}
+					<div class="actividades-content">
+						{{> actividad/_actividades }}
+					</div>
 				
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
@@ -44,7 +48,9 @@
 				<div class="tab-pane col-xs-12 seguidores" id="seguidores">
 					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}Usuarios que te están siguiendo</h4>
 					
-					{{> actividad/seguidores/_seguidores }}
+					<div class="actividades-content">
+						{{> actividad/seguidores/_seguidores }}
+					</div>
 							
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
@@ -54,7 +60,9 @@
 				<div class="tab-pane col-xs-12" id="siguiendo">
 					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}Usuarios que estás siguiendo</h4>
 					
-					{{> actividad/seguidores/_siguiendo }}
+					<div class="actividades-content">
+						{{> actividad/seguidores/_siguiendo }}
+					</div>
 					
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}

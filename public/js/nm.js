@@ -160,7 +160,7 @@ function seHaceScrollEnActividad() {
 		success : function(json) {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #actividades | #actividades-propias | #seguidores | #siguiendo
-				$(tipo_actividad+' div:last').append(json.content);
+				$(tipo_actividad).find('.actividades-content').append(json.content);
 			}
 			$(tipo_actividad).find('.fa-spin').addClass('hidden');
 			$(tipo_actividad).find('.fa-plus').removeClass('hidden');
@@ -201,7 +201,7 @@ function seHaceScrollEnMensajes() {
 		success : function(json) {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #recibidos | #enviados
-				$(tipo_mensajes+' div:last').append(json.content);
+				$(tipo_mensajes).find('.mensajes-content').append(json.content);
 			}
 			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
 		},
