@@ -1,5 +1,6 @@
 <?php
 return [
+	'actividades_propias' => 'Actividades propias',
 	'actualizar_mi_perfil' => 'actualizar mi información de perfil',
 	'ahora_sigues_a' => 'Ahora sigues a :nombre',
 	'aqui_ver_actividad' => 'Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.',
@@ -65,6 +66,9 @@ return [
 
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
+	'usuarios_que_te_estan_siguiendo' => 'Usuarios que te están siguiendo',
+	'usuarios_que_estas_siguiendo' => 'Usuarios que estás siguiendo',
+
 
 	'ya_seguido' => 'Ya sigues a este usuario'
 ];

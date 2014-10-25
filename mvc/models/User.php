@@ -70,7 +70,7 @@ class User extends ModelBase {
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	// Número de actividades a mostrar
-	const NUM_ACTIVIDADES = 30;
+	const NUM_ACTIVIDADES = 25;
 
 	// Número de post favoritos a mostrar en su perfil
 	const NUM_FAV_PERFIL_DEFAULT = 6;
@@ -1180,7 +1180,7 @@ class User extends ModelBase {
 	public function yaNotificoPost($post_id) {
 		global $wpdb;
 		return $wpdb->get_var('SELECT COUNT(*)
-		 	FROM ' . $wpdb->prefix . 'revisiones
+		 	FROM wp_revisiones
 			WHERE status = ' . Revision::ESTADO_PENDIENTE . '
 				AND post_id =' . $post_id . '
 				AND user_id =' . $this->ID);
@@ -1195,7 +1195,7 @@ class User extends ModelBase {
 		global $wpdb;
 		$estadoBloqueado = UserBloqueado::ESTADO_BLOQUEADO;
 		$isBan = (int) $wpdb->get_var("SELECT COUNT(*)
-				FROM  {$wpdb->prefix}users_bloqueados
+				FROM  wp_users_bloqueados
 				WHERE user_id = $this->ID
 				AND status = $estadoBloqueado;");
 		return $isBan > 0;
@@ -1204,19 +1204,15 @@ class User extends ModelBase {
 	/**
 	 * Devuelve los usuarios seguidores
 	 *
-	 * @param boolean $soloIds
-	 *        	Para que devuelva sólo las IDs o los Objetos completos.
-	 *        	Por defecto false, es decir devolverá los objetos completos
+	 * @param integer $offset
+	 * @param integer $limit
 	 * @return array<User>
 	 */
-	public function getSeguidores($soloIds = false) {
+	public function getSeguidores($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
 		$seguidores = [];
-		foreach ($this->_getSeguidoresIds() as $seguidorId) {
-			$user = User::find($seguidorId);
-			if ($user) {
-				$seguidores[] = $user;
-			}
+		foreach ($this->_getSeguidoresIds($offset, $limit) as $seguidorId) {
+			$seguidores[] = User::find($seguidorId);
 		}
 		return $seguidores;
 	}
@@ -1224,17 +1220,15 @@ class User extends ModelBase {
 	/**
 	 * Devuelve los usuarios a los que sigue el user
 	 *
+	 * @param integer $offset
+	 * @param integer $limit
 	 * @return array<User>
 	 */
-	public function getSiguiendo() {
+	public function getSiguiendo($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
 		$siguiendo = [];
-		foreach ($this->_getSiguiendoIds() as $siguiendoId) {
+		foreach ($this->_getSiguiendoIds($offset, $limit) as $siguiendoId) {
 			$siguiendo[] = User::find($siguiendoId);
-			// Comprobamos que el user exista teniendo una ID > 0
-			if ($user && $user->ID > 0) {
-				$siguiendo[] = $user;
-			}
 		}
 		return $siguiendo;
 	}
@@ -1244,12 +1238,16 @@ class User extends ModelBase {
 	 *
 	 * @return array<integer>
 	 */
-	private function _getSiguiendoIds() {
+	public function _getSiguiendoIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		return $wpdb->get_col("
-				SELECT distinct a_quien_id
+		$sql = 'SELECT a_quien_id
 				FROM  wp_users_seguimientos
-				WHERE user_id = $this->ID");
+				WHERE user_id = %d';
+		if ($limit) {
+			$sql .= ' LIMIT %d OFFSET %d';
+			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
+		}
+		return $wpdb->get_col($wpdb->prepare($sql, $this->ID));
 	}
 
 	/**
@@ -1257,12 +1255,16 @@ class User extends ModelBase {
 	 *
 	 * @return array<integer>
 	 */
-	private function _getSeguidoresIds() {
+	private function _getSeguidoresIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		return $wpdb->get_col("
-				SELECT distinct user_id
+		$sql = 'SELECT distinct user_id
 				FROM  wp_users_seguimientos
-				WHERE a_quien_id = $this->ID");
+				WHERE a_quien_id = %d';
+		if ($limit) {
+			$sql .= ' LIMIT %d OFFSET %d';
+			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
+		}
+		return $wpdb->get_col($wpdb->prepare($sql, $this->ID));
 	}
 
 	/**
@@ -1271,7 +1273,7 @@ class User extends ModelBase {
 	 * @return array<User>
 	 */
 	public function getTotalSeguidores() {
-		return count($this->_getSeguidoresIds());
+		return count($this->_getSeguidoresIds(false, false));
 	}
 
 	/**
@@ -1280,7 +1282,7 @@ class User extends ModelBase {
 	 * @return integer
 	 */
 	public function getTotalSiguiendo() {
-		return count($this->_getSiguiendoIds());
+		return count($this->_getSiguiendoIds(false, false));
 	}
 
 	/**
@@ -1331,13 +1333,18 @@ class User extends ModelBase {
 	 */
 	public function getActividadesPropias($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		$actividades = $wpdb->get_results($wpdb->prepare('
-				SELECT tipo_que, user_id, que_id, updated_at
+		$sql = 'SELECT tipo_que, user_id, que_id, updated_at
 				FROM wp_v_actividades
 				WHERE user_id = %d
-				ORDER BY updated_at DESC
-				LIMIT %d OFFSET %d
-				', $this->ID, $limit, $offset));
+				ORDER BY updated_at DESC ';
+
+		if ($limit) {
+			$sql .= ' LIMIT %d OFFSET %d';
+			$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID, $limit, $offset));
+		} else {
+			$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID));
+		}
+
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
 			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);
@@ -1355,18 +1362,40 @@ class User extends ModelBase {
 		$siguientoIds = $this->_getSiguiendoIds();
 		$siguientoIds = implode(',', $siguientoIds);
 		$siguientoIds .= (strlen($siguientoIds) > 1) ? ",$this->ID" : $this->ID;
-		$actividades = $wpdb->get_results($wpdb->prepare('
-				SELECT tipo_que, user_id, que_id, updated_at
+		$sql = 'SELECT tipo_que, user_id, que_id, updated_at
 				FROM wp_v_actividades
 				WHERE user_id IN (' . $siguientoIds . ')
-				ORDER BY updated_at DESC
-				LIMIT %d OFFSET %d
-				', $limit, $offset));
+				ORDER BY updated_at DESC ';
+
+		if ($limit) {
+			$sql .= ' LIMIT %d OFFSET %d';
+			$actividades = $wpdb->get_results($wpdb->prepare($sql, $limit, $offset));
+		} else {
+			$actividades = $wpdb->get_results($sql);
+		}
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
 			$item = new VActividad($item->tipo_que, $item->user_id, $item->que_id, $item->updated_at);
 		});
 		return $actividades;
+	}
+
+	/**
+	 * Devuelve el número total de actividades propias
+	 *
+	 * @return number
+	 */
+	public function getTotalActividadesPropias() {
+		return count($this->getActividadesPropias(false, false));
+	}
+
+	/**
+	 * Devuelve el número total de actividades
+	 *
+	 * @return number
+	 */
+	public function getTotalActividades() {
+		return count($this->getActividades(false, false));
 	}
 
 	/**

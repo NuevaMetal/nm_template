@@ -1,5 +1,6 @@
 <?php
 return [
+	'actividades_propias' => 'Own Activities',
 	'actualizar_mi_perfil' => 'updating my profile',
 	'ahora_sigues_a' => 'Following :nombre',
 	'aqui_ver_actividad' => 'Here you can see your activity and the activities of the users you follow.',
@@ -65,6 +66,8 @@ return [
 
 	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',
+	'usuarios_que_te_estan_siguiendo' => 'Users who are following you',
+	'usuarios_que_estas_siguiendo' => 'People you are following',
 
 	'ya_seguido' => 'You follow this user'
 ];

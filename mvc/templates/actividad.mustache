@@ -1,16 +1,68 @@
 {{#user}}
 	<div id="actividad">
 		<h1 class="titular">{{#transu}}actividad{{/transu}}</h1>
-		
-		<div class="col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">		
-			<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
-			<div class="actividades"> 
-				{{> actividad/_actividades }}
+	
+		<div class="col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">	
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs titular" role="tablist">
+				<li class="active"><a href="#actividades" role="tab" data-toggle="tab">
+					Actividades (<span class="cant">{{getTotalActividades}}</span>)</a>
+				</li>
+				<li><a href="#actividades-propias" role="tab" data-toggle="tab">
+					Tu Actividad (<span class="cant">{{getTotalActividadesPropias}}</span>)</a>
+				</li>
+				<li><a href="#seguidores" role="tab" data-toggle="tab">
+					Seguidores (<span class="cant">{{getTotalSeguidores}}</span>)</a>
+				</li>
+				<li><a href="#siguiendo" role="tab" data-toggle="tab">
+					Siguiendo (<span class="cant">{{getTotalSiguiendo}}</span>)</a>
+				</li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane active col-xs-12" id="actividades">
+					<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
+					
+					{{> actividad/_actividades }}
+					
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
+					</button>
+				</div>
+
+				<div class="tab-pane col-xs-12" id="actividades-propias">
+					<h4 class="titular">{{#trans}}user.actividades_propias{{/trans}}</h4>
+					
+					{{> actividad/_actividades_propias }}
+				
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
+					</button>
+				</div>
+				
+				<div class="tab-pane col-xs-12 seguidores" id="seguidores">
+					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}Usuarios que te están siguiendo</h4>
+					
+					{{> actividad/seguidores/_seguidores }}
+							
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
+					</button>
+				</div>
+					
+				<div class="tab-pane col-xs-12" id="siguiendo">
+					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}Usuarios que estás siguiendo</h4>
+					
+					{{> actividad/seguidores/_siguiendo }}
+					
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
+					</button>
+				</div>
+				
 			</div>
-			<button class="btn btn-default text-center titular col-xs-12 mostrar-mas">
-					<i class="fa fa-refresh fa-spin fa-2x hidden"></i>
-			</button>
-		</div>
+		</div>		
 		
 		{{#conSidebar}}
 		<div class="sidebar col-xs-12 col-md-3">

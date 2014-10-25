@@ -73,6 +73,7 @@ return [
 	'mas' => 'more',
 	'me_gusta' => 'like',
 	'mostrar_mas' => 'show more',
+	'mostrar_menos' => 'show less',
 
 	'no_hay_resultados' => 'results not found',
 	'noticias' => 'news',

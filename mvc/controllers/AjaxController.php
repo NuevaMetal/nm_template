@@ -386,14 +386,6 @@ class AjaxController extends BaseController {
 							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
 						}
 						break;
-					case User::ACTIVIDAD :
-						$offset = $_datos['size'];
-						$actividades = $current_user->getActividades($offset);
-						$json['code'] = 200;
-						$json['content'] = $ajax->_render('actividad/_actividades', [
-							'getActividades' => $actividades
-						]);
-						break;
 					case User::ENVIAR_MENSAJE :
 						$aQuienId = $_datos['user_id'];
 						$respuestaId = $_datos['respuesta_id'];
@@ -430,21 +422,59 @@ class AjaxController extends BaseController {
 						}
 						$json['alert'] = $alert;
 						break;
+					case User::ACTIVIDAD :
+						$tipoActividad = $_datos['tipo_actividad'];
+						$offset = $_datos['size'];
+						$json['code'] = 200;
+						switch ($tipoActividad) {
+							case '#actividades' :
+								$actividades = $current_user->getActividades($offset);
+								$content = $ajax->_render('actividad/_actividades', [
+									'getActividades' => $actividades
+								]);
+								break;
+							case '#actividades-propias' :
+								$actividades = $current_user->getActividadesPropias($offset);
+								$content = $ajax->_render('actividad/_actividades', [
+									'getActividades' => $actividades
+								]);
+								break;
+							case '#seguidores' :
+								$seguidores = $current_user->getSeguidores($offset);
+								$content = $ajax->_render('actividad/seguidores/_seguidores', [
+									'getSeguidores' => $seguidores
+								]);
+								break;
+							case '#siguiendo' :
+								$siguiendo = $current_user->getSiguiendo($offset);
+								$content = $ajax->_render('actividad/seguidores/_siguiendo', [
+									'getSiguiendo' => $siguiendo
+								]);
+								break;
+							default :
+								$json['code'] = 500;
+						}
+						$json['content'] = $content;
+						break;
 					case User::MENSAJES :
 						$tipoMensajes = $_datos['tipo_mensajes'];
 						$offset = $_datos['size'];
-						if ($tipoMensajes == '#recibidos') {
-							$mensajes = $current_user->getMensajesRecibidos($offset);
-							$json['code'] = 200;
-							$json['content'] = $ajax->_render('autor/mensajes/_mensajes_recibidos', [
-								'getMensajesRecibidos' => $mensajes
-							]);
-						} elseif ($tipoMensajes == '#enviados') {
-							$mensajes = $current_user->getMensajesEnviados($offset);
-							$json['code'] = 200;
-							$json['content'] = $ajax->_render('autor/mensajes/_mensajes_enviados', [
-								'getMensajesEnviados' => $mensajes
-							]);
+						$json['code'] = 200;
+						switch ($tipoActividad) {
+							case '#recibidos' :
+								$mensajes = $current_user->getMensajesRecibidos($offset);
+								$json['content'] = $ajax->_render('autor/mensajes/_mensajes_recibidos', [
+									'getMensajesRecibidos' => $mensajes
+								]);
+								break;
+							case '#enviados' :
+								$mensajes = $current_user->getMensajesEnviados($offset);
+								$json['content'] = $ajax->_render('autor/mensajes/_mensajes_enviados', [
+									'getMensajesEnviados' => $mensajes
+								]);
+								break;
+							default :
+								$json['code'] = 500;
 						}
 						break;
 				}

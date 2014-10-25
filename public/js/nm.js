@@ -27,6 +27,7 @@ $(window).load(function(){
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
+var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDADES_Y_MENSAJES = 700;
 
 /**
  * Constantes de la anchura
@@ -70,11 +71,13 @@ function seHaceScroll() {
 		$('#autor .mostrar-mas').trigger('click');
 	}
 	// scroll en la pantalla de actividad
-	if($('#actividad').length > 0 && sePuede){
-		seHaceScrollEnActividad();
+	var sePuedeActividadesYMensajes = noHayspin 
+		&& alturaMenosScroll <= ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDADES_Y_MENSAJES;
+	if($('#actividad').length > 0 && sePuedeActividadesYMensajes){
+		seHaceScrollEnActividad();		
 	}
 	// scroll en la pantalla de mensajes
-	if($('#mensajes').length > 0 && sePuede){
+	if($('#mensajes').length > 0 && sePuedeActividadesYMensajes){		
 		seHaceScrollEnMensajes();
 	}
 }
@@ -128,33 +131,42 @@ function getWindowWidth(tam) {
 	return true;
 }
 
-
 /**
  * Se hace scroll en la pantalla de actividad
  */
-function seHaceScrollEnActividad() {	
+function seHaceScrollEnActividad() {
 	var actividad = $('#actividad');
-	var actividades = $('.actividades');	
 	var url = $('#page').attr('url');
-	var size = $(actividades).children().size();
+	var tipo_actividad = actividad.find('.nav li[class="active"] a').attr('href');
+	var size = $(tipo_actividad).children().size();
+
+	if(!$(tipo_actividad).find('.fa-spin').hasClass('hidden')){
+		return;
+	}
+	
 	var data = {
 		submit : 'user',
 		tipo: 'actividad',
-		size: size,
+		tipo_actividad: tipo_actividad,
+		size: size-2,// por el btn mostrar-mas y el título
 	};
+	
 	$.ajax({
 		url : url,
 		type : "POST",
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(actividad).find('.fa-spin').removeClass('hidden');		
+			$(tipo_actividad).find('.fa-spin').removeClass('hidden');
+			$(tipo_actividad).find('.fa-plus').addClass('hidden');
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
-				$(actividades).append(json.content);
+				// tipo_mensajes: #actividades | #actividades-propias | #seguidores | #siguiendo
+				$(tipo_actividad+' div:last').before(json.content);
 			}
-			$(actividad).find('.fa-spin').addClass('hidden');
+			$(tipo_actividad).find('.fa-spin').addClass('hidden');
+			$(tipo_actividad).find('.fa-plus').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
@@ -178,7 +190,7 @@ function seHaceScrollEnMensajes() {
 		submit : 'user',
 		tipo: 'mensajes',
 		tipo_mensajes: tipo_mensajes,
-		size: size-1,
+		size: size-2, // por el btn mostrar-mas y el título
 	};
 
 	$.ajax({
@@ -187,14 +199,14 @@ function seHaceScrollEnMensajes() {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(mensajes).find('.fa-spin').removeClass('hidden');		
+			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');		
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #recibidos | #enviados
-				$(tipo_mensajes).append(json.content);
+				$(tipo_mensajes+' div:last').before(json.content);
 			}
-			$(mensajes).find('.fa-spin').addClass('hidden');
+			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 

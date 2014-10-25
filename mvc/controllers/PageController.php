@@ -30,7 +30,7 @@ class PageController extends BaseController {
 		$user = Utils::getCurrentUser();
 		return $this->_renderPageBase([
 			'content' => $this->_render('actividad', [
-				'conSidebar' => true,
+				'conSidebar' => false,
 				'user' => $user
 			])
 		]);

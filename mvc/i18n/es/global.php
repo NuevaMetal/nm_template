@@ -75,7 +75,8 @@ return [
 
 	'mas' => 'más',
 	'me_gusta' => 'me gusta',
-	'mostrar_mas' => 'mostrar menos',
+	'mostrar_mas' => 'mostrar más',
+	'mostrar_menos' => 'mostrar menos',
 
 	'no_hay_resultados' => 'no se encontraron resultados',
 	'noticias' => 'noticias',
