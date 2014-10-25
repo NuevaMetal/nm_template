@@ -27,7 +27,6 @@ $(window).load(function(){
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
-var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDADES_Y_MENSAJES = 700;
 
 /**
  * Constantes de la anchura
@@ -70,14 +69,12 @@ function seHaceScroll() {
 	} else if($('#autor .mostrar-mas').size() == 1 && sePuede){
 		$('#autor .mostrar-mas').trigger('click');
 	}
-	// scroll en la pantalla de actividad
-	var sePuedeActividadesYMensajes = noHayspin 
-		&& alturaMenosScroll <= ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDADES_Y_MENSAJES;
-	if($('#actividad').length > 0 && sePuedeActividadesYMensajes){
+	// scroll en la pantalla de actividad	
+	if($('#actividad').length > 0 && sePuede){
 		seHaceScrollEnActividad();		
 	}
 	// scroll en la pantalla de mensajes
-	if($('#mensajes').length > 0 && sePuedeActividadesYMensajes){		
+	if($('#mensajes').length > 0 && sePuede){		
 		seHaceScrollEnMensajes();
 	}
 }
@@ -163,7 +160,7 @@ function seHaceScrollEnActividad() {
 		success : function(json) {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #actividades | #actividades-propias | #seguidores | #siguiendo
-				$(tipo_actividad+' div:last').before(json.content);
+				$(tipo_actividad+' div:last').append(json.content);
 			}
 			$(tipo_actividad).find('.fa-spin').addClass('hidden');
 			$(tipo_actividad).find('.fa-plus').removeClass('hidden');
@@ -204,7 +201,7 @@ function seHaceScrollEnMensajes() {
 		success : function(json) {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #recibidos | #enviados
-				$(tipo_mensajes+' div:last').before(json.content);
+				$(tipo_mensajes+' div:last').append(json.content);
 			}
 			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
 		},

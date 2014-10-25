@@ -3,6 +3,10 @@
 		<span class="avatar col-xs-2">
 			<img src="{{getAvatar}}" alt="{{display_name}} avatar">
 		</span>
-		<span class="col-xs-10">{{display_name}}</span>
 	</a>
+	<div class="row col-xs-10">
+		<a href="{{getPerfilUrl}}"><span class="col-xs-10">{{display_name}}</span></a>
+		<span class="col-xs-2">{{#transu}}entradas{{/transu}}: {{getTotalPosts}}</span>
+		<span class="col-xs-12">{{getDescriptionCorta}}</span>
+	</div>
 </div>
