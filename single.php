@@ -1,5 +1,5 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/PostController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
 
-$controller = new PostController();
+$controller = new PageController();
 $controller->getPost();

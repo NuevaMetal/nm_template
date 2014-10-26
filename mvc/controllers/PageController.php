@@ -152,6 +152,26 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 * single.php
+	 */
+	public function getPost() {
+		if (have_posts()) {
+			the_post();
+			$post = Post::find(get_the_ID());
+		}
+
+		if (! isset($post)) {
+			return $this->renderPage('404');
+		}
+
+		return $this->_renderPageBase([
+			'content' => $this->_render('post', [
+				'post' => $post
+			])
+		]);
+	}
+
+	/**
 	 * search.php
 	 */
 	public function getSearch() {
