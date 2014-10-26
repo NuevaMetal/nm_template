@@ -27,7 +27,7 @@ $(window).load(function(){
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
-var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD = 1000;
+var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD = 1500;
 
 /**
  * Constantes de la anchura

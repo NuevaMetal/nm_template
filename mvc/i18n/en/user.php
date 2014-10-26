@@ -69,9 +69,9 @@ return [
 	'tipo_usuario_explicacion' => 'Select your type of user for we can offer you the best experience',
 	'tipo_seguimiento_user' => 'Following',
 	'tipo_me_gusta' => 'Likes',
-	'tipo_nueva_entrada' => 'Posts',
+	'tipo_nueva_entrada' => 'Posts published',
 	'tipo_nuevo_comentario' => 'Coments',
-	'tipo_entrada_editada' => 'Edits',
+	'tipo_entrada_editada' => 'Posts edited',
 
 	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',

@@ -69,9 +69,9 @@ return [
 	'tipo_usuario_explicacion' => 'Seleccione el tipo de usuario para que podamos ofrecerle una mejor experiencia',
 	'tipo_seguimiento_user' => 'Seguir',
 	'tipo_me_gusta' => 'Favoritos',
-	'tipo_nueva_entrada' => 'Entradas',
+	'tipo_nueva_entrada' => 'Entradas publicadas',
 	'tipo_nuevo_comentario' => 'Comentarios',
-	'tipo_entrada_editada' => 'Editadas',
+	'tipo_entrada_editada' => 'Entradas editadas',
 
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
