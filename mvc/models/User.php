@@ -1242,7 +1242,8 @@ class User extends ModelBase {
 		global $wpdb;
 		$sql = 'SELECT a_quien_id
 				FROM  wp_users_seguimientos
-				WHERE user_id = %d';
+				WHERE user_id = %d
+				ORDER BY updated_at DESC ';
 		if ($limit) {
 			$sql .= ' LIMIT %d OFFSET %d';
 			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
@@ -1259,7 +1260,8 @@ class User extends ModelBase {
 		global $wpdb;
 		$sql = 'SELECT distinct user_id
 				FROM  wp_users_seguimientos
-				WHERE a_quien_id = %d';
+				WHERE a_quien_id = %d
+				ORDER BY updated_at DESC ';
 		if ($limit) {
 			$sql .= ' LIMIT %d OFFSET %d';
 			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
