@@ -24,6 +24,19 @@ class VActividad extends ModelBase {
 	const TIPO_NUEVO_COMENTARIO = 'tipo_nuevo_comentario';
 
 	/*
+	 * Puntos por tipos de actividad
+	 */
+	const PUNTOS_TIPO_SEGUIMIENTO_USER = 1;
+
+	const PUNTOS_TIPO_ME_GUSTA = 1;
+
+	const PUNTOS_TIPO_NUEVA_ENTRADA = 4;
+
+	const PUNTOS_TIPO_ENTRADA_EDITADA = 1;
+
+	const PUNTOS_TIPO_NUEVO_COMENTARIO = 2;
+
+	/*
 	 * Miembros
 	 */
 	public $user_id;
@@ -205,6 +218,50 @@ class VActividad extends ModelBase {
 	 */
 	public function isTipoNuevoComentario() {
 		return $this->tipo_que == self::TIPO_NUEVO_COMENTARIO;
+	}
+
+	/**
+	 * Devuelve el nombre del icono de FA según su tipo
+	 *
+	 * @return string
+	 */
+	public function getIcoByTipo() {
+		switch ($this->tipo_que) {
+			case VActividad::TIPO_SEGUIMIENTO_USER :
+				return 'fa-users';
+			case VActividad::TIPO_ME_GUSTA :
+				return 'fa-thumbs-o-up';
+			case VActividad::TIPO_NUEVA_ENTRADA :
+				return 'fa-file-text-o';
+			case VActividad::TIPO_NUEVO_COMENTARIO :
+				return 'fa-comment-o';
+			case VActividad::TIPO_ENTRADA_EDITADA :
+				return 'fa-pencil-square-o';
+			default :
+				return null;
+		}
+	}
+
+	/**
+	 * Devuelve el tipo traducido
+	 *
+	 * @return string
+	 */
+	public function getTipoTrans() {
+		switch ($this->tipo_que) {
+			case VActividad::TIPO_SEGUIMIENTO_USER :
+				return I18n::transu('user.tipo_seguimiento_user');
+			case VActividad::TIPO_ME_GUSTA :
+				return I18n::transu('user.tipo_me_gusta');
+			case VActividad::TIPO_NUEVA_ENTRADA :
+				return I18n::transu('user.tipo_nueva_entrada');
+			case VActividad::TIPO_NUEVO_COMENTARIO :
+				return I18n::transu('user.tipo_nuevo_comentario');
+			case VActividad::TIPO_ENTRADA_EDITADA :
+				return I18n::transu('user.tipo_entrada_editada');
+			default :
+				return null;
+		}
 	}
 
 	/**

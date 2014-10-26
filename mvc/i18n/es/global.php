@@ -94,6 +94,8 @@ return [
 	'productor' => 'productor',
 	'programador' => 'programador',
 	'programadores' => 'programadores',
+	'punto' => 'punto',
+	'puntos' => 'puntos',
 
 	'que_es_nm' => '¿NuevaMetal?',
 

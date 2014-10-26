@@ -4,6 +4,7 @@ return [
 	'actualizar_mi_perfil' => 'actualizar mi información de perfil',
 	'ahora_sigues_a' => 'Ahora sigues a :nombre',
 	'aqui_ver_actividad' => 'Aquí puedes ver tu actividad y la de aquellos usuarios a los que sigues.',
+	'aqui_ver_puntos' => 'Aquí puedes ver tus puntos según el tipo de acción que hayas realizado',
 
 	'bandas_destacadas' => 'Bandas destacadas',
 
@@ -66,6 +67,11 @@ return [
 	'tienes_un_mensaje_nuevo' => 'Tienes 1 mensaje nuevo.',
 	'tipo_usuario' => 'Tipo de usuario',
 	'tipo_usuario_explicacion' => 'Seleccione el tipo de usuario para que podamos ofrecerle una mejor experiencia',
+	'tipo_seguimiento_user' => 'Seguir',
+	'tipo_me_gusta' => 'Favoritos',
+	'tipo_nueva_entrada' => 'Entradas',
+	'tipo_nuevo_comentario' => 'Comentarios',
+	'tipo_entrada_editada' => 'Editadas',
 
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',

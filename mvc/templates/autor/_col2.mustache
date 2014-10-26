@@ -1,5 +1,9 @@
 <div class="row estadisticas titular">
-	<span class="col-xs-12 col-sm-4 col-md-2">{{#transu}}posts{{/transu}}<br>	
+
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}puntos{{/transu}}<br>	
+	<i class="fa fa-check"></i> <span class="rojo">{{getTotalPuntos}}</span></span>
+
+	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}posts{{/transu}}<br>	
 	<i class="fa fa-files-o"></i> <a href="#posts"><span class="rojo">{{getTotalPosts}}</span></span></a>
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}seguidores{{/transu}}<br>
@@ -7,8 +11,6 @@
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}siguiendo{{/transu}}<br>
 	<i class="fa fa-users"></i> <span class="rojo">{{getTotalSiguiendo}}</span></span>
-	
-	<span class="visible-md visible-lg col-md-2"></span>
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}dados{{/transu}}<br>
 	<i class="fa fa-star"></i> <span class="rojo">{{getTotalFavoritos}}</span></span>

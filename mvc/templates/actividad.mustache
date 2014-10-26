@@ -17,6 +17,9 @@
 				<li><a href="#siguiendo" role="tab" data-toggle="tab">
 					Siguiendo (<span class="cant">{{getTotalSiguiendo}}</span>)</a>
 				</li>
+				<li><a href="#puntos" role="tab" data-toggle="tab">
+					Puntos (<span class="cant">{{getTotalPuntos}}</span>)</a>
+				</li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -33,9 +36,7 @@
 						{{/ getActividades }}
 					</div>
 					
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
-						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
-					</button>
+					{{> actividad/_btn_mostrar_mas }}
 				</div>
 
 				<div class="tab-pane col-xs-12" id="actividades-propias">
@@ -50,9 +51,7 @@
 						{{/ getActividadesPropias }}
 					</div>
 				
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
-						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
-					</button>
+					{{> actividad/_btn_mostrar_mas }}
 				</div>
 				
 				<div class="tab-pane col-xs-12 seguidores" id="seguidores">
@@ -64,9 +63,7 @@
 						{{/ getSeguidores }}
 					</div>
 							
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
-						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
-					</button>
+					{{> actividad/_btn_mostrar_mas }}
 				</div>
 					
 				<div class="tab-pane col-xs-12" id="siguiendo">
@@ -78,11 +75,34 @@
 						{{/ getSiguiendo }}
 					</div>
 					
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
-						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
-					</button>
+					{{> actividad/_btn_mostrar_mas }}
 				</div>
 				
+				<div class="tab-pane col-xs-12" id="puntos">
+					<h4 class="titular">{{#trans}}user.aqui_ver_puntos{{/trans}}.</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th>{{#transu}}tipo{{/transu}}</th>
+							<th>{{#transu}}valor{{/transu}}</th>
+							<th>{{#transu}}cantidad{{/transu}}</th>
+							<th>{{#transu}}total{{/transu}}</th>
+						<tr>
+						{{# getPuntos }}
+							<tr>
+								<td><i class="fa fa-2x {{getIcoByTipo}} col-xs-2"></i> <span class="col-xs-10">{{ getTipoTrans }}</span></td>
+								<td>{{ getPuntosByTipo }}</td>
+								<td>{{ total }}</td>
+								<td>{{ getTotalPuntosByTipo }}</td>
+							</tr>
+						{{/ getPuntos }}
+						{{^ getPuntos }}
+							<tr>{{#trans}}user.sin_puntos{{/trans}}.</tr>
+						{{/ getPuntos }}
+					</table>
+
+				</div>
+
 			</div>
 		</div>		
 		

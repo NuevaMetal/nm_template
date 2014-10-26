@@ -4,6 +4,7 @@ return [
 	'actualizar_mi_perfil' => 'updating my profile',
 	'ahora_sigues_a' => 'Following :nombre',
 	'aqui_ver_actividad' => 'Here you can see your activity and the activities of the users you follow.',
+	'aqui_ver_puntos' => 'Here you can see your points',
 
 	'bandas_destacadas' => 'Featured Bands',
 
@@ -66,6 +67,11 @@ return [
 	'tienes_un_mensaje_nuevo' => 'You have a new message.',
 	'tipo_usuario' => 'Type of user',
 	'tipo_usuario_explicacion' => 'Select your type of user for we can offer you the best experience',
+	'tipo_seguimiento_user' => 'Following',
+	'tipo_me_gusta' => 'Likes',
+	'tipo_nueva_entrada' => 'Posts',
+	'tipo_nuevo_comentario' => 'Coments',
+	'tipo_entrada_editada' => 'Edits',
 
 	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',

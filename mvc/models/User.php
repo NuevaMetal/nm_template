@@ -1288,6 +1288,44 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve el total de puntos
+	 *
+	 * @return integer
+	 */
+	public function getTotalPuntos() {
+		$total = 0;
+		foreach ($this->getPuntos() as $tipo => $p) {
+			$total += $p->getTotalPuntosByTipo();
+		}
+		return $total;
+	}
+
+	/**
+	 * Devuelve una lista con los puntos teniendo por clave el tipo de actividad/puntuable y como valor el total
+	 *
+	 * @return array<string,integer>
+	 */
+	public function getPuntos() {
+		global $wpdb;
+		$sql = 'SELECT tipo_que, count(*) as total
+				FROM wp_v_actividades
+				WHERE user_id = %d
+				GROUP BY tipo_que
+				ORDER BY updated_at DESC ';
+		$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID));
+		// dd($actividades);
+		// Parseo los objetos genéricos (StdClass) a VActividad
+		array_walk($actividades, function (&$item) {
+			$_p = new VPuntos();
+			$_p->tipo_que = $item->tipo_que;
+			$_p->total = $item->total;
+			$item = $_p;
+		});
+
+		return $actividades;
+	}
+
+	/**
 	 * Seguir a otro User
 	 *
 	 * @param integer $a_quien_id
