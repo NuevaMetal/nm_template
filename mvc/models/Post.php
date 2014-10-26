@@ -55,7 +55,7 @@ class Post extends ModelBase {
 					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
 			'comment_field' => '<div class="form-group comment-form-comment">
 			            <label for="comment">' . _x('Comment', 'noun') . '</label>
-			            <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+			            <textarea class="form-control" id="comment" name="comment" cols="45" rows="2" maxlength="1000" aria-required="true"></textarea>
 			        </div>'
 		];
 		comment_form($params, $this->ID);
