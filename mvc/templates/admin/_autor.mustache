@@ -1,4 +1,4 @@
-{{^ user.isAdmin }}
+{{^ user.canEditor }}
 	<div class="row">
 		<div class="col-xs-12 text-right panel-admin-user">		
 			<button class="btn btn-default quitar-avatar" url="{{template_url}}/ajax.php"
@@ -17,4 +17,4 @@
 	</div>
 	<hr>
 	<script src="{{template_url}}/public/js/nm-plugin.js"></script>
-{{/ user.isAdmin }}
+{{/ user.canEditor }}
