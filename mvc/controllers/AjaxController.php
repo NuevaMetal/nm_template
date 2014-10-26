@@ -95,7 +95,7 @@ class AjaxController extends BaseController {
 		}
 
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
-			$content = $this->render('autor/_favoritos', [
+			$content = $this->render('user/favoritos/_posts', [
 				'posts' => $posts,
 				'reducido' => ($cant == 2)
 			]);
@@ -378,7 +378,7 @@ class AjaxController extends BaseController {
 								]));
 							}
 							$json['alert'] = $alert;
-							$json['btn'] = $ajax->_render('autor/_btn_seguir', [
+							$json['btn'] = $ajax->_render('user/_btn_seguir', [
 								'user' => $aQuien
 							]);
 						} catch ( Exception $e ) {
@@ -429,23 +429,23 @@ class AjaxController extends BaseController {
 						switch ($tipoActividad) {
 							case '#actividades' :
 								$actividades = $current_user->getActividades($offset);
-								$content = $ajax->_render('actividad/_actividades', [
+								$content = $ajax->_render('user/actividad/_actividades', [
 									'actividades' => $actividades
 								]);
 								break;
 							case '#actividades-propias' :
 								$actividades = $current_user->getActividadesPropias($offset);
-								$content = $ajax->_render('actividad/_actividades', [
+								$content = $ajax->_render('user/actividad/_actividades', [
 									'actividades' => $actividades
 								]);
 								break;
 							case '#seguidores' :
-								$content = $ajax->_render('actividad/_usuarios', [
+								$content = $ajax->_render('user/actividad/_usuarios', [
 									'usuarios' => $current_user->getSeguidores($offset)
 								]);
 								break;
 							case '#siguiendo' :
-								$content = $ajax->_render('actividad/_usuarios', [
+								$content = $ajax->_render('user/actividad/_usuarios', [
 									'usuarios' => $current_user->getSiguiendo($offset)
 								]);
 								break;
@@ -461,13 +461,13 @@ class AjaxController extends BaseController {
 						switch ($tipoActividad) {
 							case '#recibidos' :
 								$mensajes = $current_user->getMensajesRecibidos($offset);
-								$json['content'] = $ajax->_render('autor/mensajes/_mensajes_recibidos', [
+								$json['content'] = $ajax->_render('user/mensajes/_mensajes_recibidos', [
 									'getMensajesRecibidos' => $mensajes
 								]);
 								break;
 							case '#enviados' :
 								$mensajes = $current_user->getMensajesEnviados($offset);
-								$json['content'] = $ajax->_render('autor/mensajes/_mensajes_enviados', [
+								$json['content'] = $ajax->_render('user/mensajes/_mensajes_enviados', [
 									'getMensajesEnviados' => $mensajes
 								]);
 								break;

@@ -1,6 +1,6 @@
 #actividad {
 	//* { border: 1px solid red; }
-
+	#actividades, #actividades-propias, #seguidores, #siguiendo {
 		.avatar, .avatar2, .post-thumbnail {
 			padding: 0px;
 			img {
@@ -13,7 +13,7 @@
 		.avatar {
 			float: left;
 			margin-right: 10px;
-		}		
+		}
 		.post-thumbnail, .avatar2 {
 			float: right;
 		}
@@ -46,11 +46,19 @@
 		.texto {
 			margin-left: 10px;
 		}
+	}
 	
+	#puntos {
+		box-shadow: 10px 10px 5px #888888;
+		margin: 16px 0;
+		padding: 10px;
+		height: auto;
+		overflow: hidden;
+	}
 	
-	/*.sidebar {
+	#sidebar {
 		.seguidores, .siguiendo{
-			.row {			
+			.row {
 				//margin: 1px 0;
 				padding: 2px 0;				
 				&:hover {
@@ -67,5 +75,5 @@
 				}
 			}
 		}
-	}*/
+	}
 }

@@ -124,7 +124,7 @@ abstract class BaseController extends ChesterBaseController {
 	 * @param unknown $args
 	 */
 	protected function _renderAutor($args = []) {
-		return $this->_render('autor', $args);
+		return $this->_render('user', $args);
 	}
 
 	/**

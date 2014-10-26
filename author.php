@@ -1,7 +1,7 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/AutorController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/UserController.php');
 
-$pageController = new AutorController();
-$pageController->getAuthor();
+$controller = new UserController();
+$controller->getAuthor();
 
 ?>

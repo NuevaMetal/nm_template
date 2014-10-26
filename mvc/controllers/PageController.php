@@ -29,7 +29,7 @@ class PageController extends BaseController {
 	public function getActividad() {
 		$user = Utils::getCurrentUser();
 		return $this->_renderPageBase([
-			'content' => $this->_render('actividad', [
+			'content' => $this->_render('user/_actividad', [
 				'conSidebar' => false,
 				'user' => $user
 			])
@@ -42,7 +42,7 @@ class PageController extends BaseController {
 	public function getFavoritos() {
 		$user = Utils::getCurrentUser();
 		return $this->_renderPageBase([
-			'content' => $this->_render('favoritos', [
+			'content' => $this->_render('user/_favoritos', [
 				'user' => $user
 			])
 		]);

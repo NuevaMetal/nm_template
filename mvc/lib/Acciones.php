@@ -104,8 +104,8 @@ class Acciones {
 	 */
 	public static function perfilAddAdicionalInfo() {
 		function nm_perfil_add_adicional_info($user) {
-			require_once 'mvc/controllers/AutorController.php';
-			$c = new AutorController();
+			require_once 'mvc/controllers/UserController.php';
+			$c = new UserController();
 			echo $c->getPerfilAdicionalInfo($user->ID);
 		}
 		add_action('show_user_profile', 'nm_perfil_add_adicional_info');
@@ -132,8 +132,8 @@ class Acciones {
 	 */
 	public static function perfilAddImgAvatarYHeader() {
 		function nm_perfil_add_img_header($user) {
-			require_once 'mvc/controllers/AutorController.php';
-			$c = new AutorController();
+			require_once 'mvc/controllers/UserController.php';
+			$c = new UserController();
 			echo $c->getPerfilImg(User::KEY_USER_IMG_AVATAR, $user->ID);
 			echo $c->getPerfilImg(User::KEY_USER_IMG_HEADER, $user->ID);
 		}
@@ -188,8 +188,8 @@ class Acciones {
 	 */
 	public static function perfilAddRedesSociales() {
 		function nm_perfil_add_redes_sociales($user) {
-			require_once 'mvc/controllers/AutorController.php';
-			$c = new AutorController();
+			require_once 'mvc/controllers/UserController.php';
+			$c = new UserController();
 			echo $c->getPerfilRedesSociales($user->ID);
 		}
 		add_action('show_user_profile', 'nm_perfil_add_redes_sociales');
@@ -220,8 +220,8 @@ class Acciones {
 	 */
 	public static function perfilAddTipoUsuario() {
 		function nm_perfil_add_tipo_user($user) {
-			require_once 'mvc/controllers/AutorController.php';
-			$c = new AutorController();
+			require_once 'mvc/controllers/UserController.php';
+			$c = new UserController();
 			echo $c->getPerfilTipoUser($user->ID);
 		}
 		add_action('show_user_profile', 'nm_perfil_add_tipo_user');
@@ -247,8 +247,8 @@ class Acciones {
 	 */
 	public static function perfilAddIdioma() {
 		function nm_perfil_add_idioma($user) {
-			require_once 'mvc/controllers/AutorController.php';
-			$c = new AutorController();
+			require_once 'mvc/controllers/UserController.php';
+			$c = new UserController();
 			echo $c->getPerfilIdioma($user->ID);
 		}
 		add_action('show_user_profile', 'nm_perfil_add_idioma');
