@@ -1,0 +1,31 @@
+<div class="fila bs-callout bs-callout-danger tipo-nueva-entrada">
+	{{#getUser}}
+		{{> user/actividad/_user}}
+	{{/getUser}}
+	<span class="texto col-xs-1">
+		<i class="fa fa-file-text-o fa-3x"></i>
+	</span>
+	<span class="texto col-xs-7">
+		<span class="time col-xs-12 text-left">
+			{{> user/actividad/_time }}
+		</span>
+		{{#getUser.isCurrentUser}}
+			{{#trans}}actividad.has_publicado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/getUser.isCurrentUser}}
+		{{^getUser.isCurrentUser}}
+			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
+			{{#trans}}actividad.ha_publicado_una_entrada{{/trans}}
+			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+		{{/getUser.isCurrentUser}}
+	</span>
+	<span class="post-thumbnail col-xs-2">
+		<a href="{{getQue.getUrl}}">
+			{{#getQue.getThumbnail}}
+				<img src="{{.}}" alt="{{getQue.post_title}} thumbnail"/>
+			{{/getQue.getThumbnail}}
+			{{^getQue.getThumbnail}}
+				<img class="sin-thumbnail" alt="{{getQue.post_title}} thumbnail"/>
+			{{/getQue.getThumbnail}}
+		</a>
+	</span>
+</div>

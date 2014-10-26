@@ -1,0 +1,28 @@
+{{#user}}
+<h3 id="img-header">{{#transu}}user.img_header{{/transu}}</h3>
+<div class="img-header col-xs-12">
+
+	{{#getImgHeader}}
+		<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
+	{{/getImgHeader}}
+	{{^getImgHeader}}
+		<img class="sin-thumbnail" >
+	{{/getImgHeader}}
+	
+	<div class="text-right btn-img-header">
+		<button class="btn btn-default quitar-header" url="{{template_url}}/ajax.php"
+				que="quitar-header" user="{{user.ID}}">{{#transu}}user.eliminar_cabecera{{/transu}}</button>
+	</div>
+</div>
+<table class="form-table">	
+	<tr>
+		<th><label for="{{KEY_USER_IMG_HEADER}}">Header</label></th>
+		<td><input type="file" id="{{KEY_USER_IMG_HEADER}}" name="{{KEY_USER_IMG_HEADER}}"><br> 
+			<span class="description">{{#transu}}introduce_tu [que:{{#trans}}user.img_header{{/trans}}]{{/transu}}.<br>
+				{{#transu}}user.medidas_aconsejadas_img_header{{/transu}} => 
+				{{#transu}}ancho{{/transu}}: 1200px, {{#transu}}alto{{/transu}}: 270px
+			</span>
+		</td>
+	</tr>	
+</table>
+{{/user}}

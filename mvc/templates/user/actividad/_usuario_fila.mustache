@@ -1,0 +1,11 @@
+<div class="fila bs-callout">
+	{{> user/actividad/_user}}
+	<div class="col-xs-8">
+		<a href="{{getPerfilUrl}}"><span class="col-xs-10">{{display_name}}</span></a>
+		<span class="col-xs-12">{{getDescriptionCorta}}</span>
+	</div>
+	<div class="col-xs-2">
+		{{#transu}}entradas{{/transu}}: {{getTotalPosts}}<br>
+		{{#transu}}puntos{{/transu}}: {{getTotalPuntos}}
+	</div>
+</div>
