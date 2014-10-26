@@ -70,7 +70,7 @@ class User extends ModelBase {
 	const TIPO_DISCOGRAFICA = 'record-seal';
 
 	// Número de actividades a mostrar
-	const NUM_ACTIVIDADES = 25;
+	const NUM_ACTIVIDADES = 20;
 
 	// Número de post favoritos a mostrar en su perfil
 	const NUM_FAV_PERFIL_DEFAULT = 6;

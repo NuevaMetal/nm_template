@@ -27,16 +27,31 @@ $(window).load(function(){
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
+var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD = 1000;
 
 /**
  * Constantes de la anchura
  */
-var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600, };
+var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600 };
 
-function seHaceScroll() {
+/** 
+ * Indica si se puede hacer Scroll con una altura mínima parada por parámetro
+ * @param int alturaMinima 
+ */
+function siSePuede(alturaMinima) {
 	var scroll = $(window).scrollTop();
 	var windowHeight = $( window ).height();
 	var documentHeight = $(document).height();
+	// Si estamos en la home no cargaremos el mostrar más de forma automática
+	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
+	var alturaMenosScroll = (documentHeight - windowHeight)-scroll;
+	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
+	return noHayspin && alturaMenosScroll <= alturaMinima;
+}
+
+function seHaceScroll() {
+	var scroll = $(window).scrollTop();
+	
 	var winWidth = $(window).width();
 
 	// Ajuste del menú Para pantallas no xs
@@ -58,23 +73,22 @@ function seHaceScroll() {
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
-	// Si estamos en la home no cargaremos el mostrar más de forma automática
-	if($('#home').length>0)return;
-	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
-	var alturaMenosScroll = (documentHeight - windowHeight)-scroll;
-	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
-	var sePuede = noHayspin && alturaMenosScroll <= ALTURA_MINIMA_PARA_MOSTRAR_MAS;
+	if($('#home').length > 0) return;
+	
+	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS);
 	if( $('.mostrar-mas').size() == 1 && sePuede) {
 		$('.mostrar-mas').trigger('click');
-	} else if($('#autor .mostrar-mas').size() == 1 && sePuede){
+	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {
 		$('#autor .mostrar-mas').trigger('click');
 	}
+	
 	// scroll en la pantalla de actividad	
-	if($('#actividad').length > 0 && sePuede){
-		seHaceScrollEnActividad();		
+	sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD);
+	if($('#actividad').length > 0 && sePuede) {
+		seHaceScrollEnActividad();
 	}
 	// scroll en la pantalla de mensajes
-	if($('#mensajes').length > 0 && sePuede){		
+	if($('#mensajes').length > 0 && sePuede) {
 		seHaceScrollEnMensajes();
 	}
 }
@@ -128,6 +142,14 @@ function getWindowWidth(tam) {
 	return true;
 }
 
+$(document).on('click', '#actividad ul li', function(e) {
+	e.preventDefault();
+	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD);
+	if($('#actividad').length > 0 && sePuede) {
+		seHaceScrollEnActividad();
+	}
+});
+
 /**
  * Se hace scroll en la pantalla de actividad
  */
@@ -147,9 +169,7 @@ function seHaceScrollEnActividad() {
 		tipo_actividad: tipo_actividad,
 		size: size,
 	};
-	
-	console.log(data);
-	
+
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -163,6 +183,9 @@ function seHaceScrollEnActividad() {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #actividades | #actividades-propias | #seguidores | #siguiendo
 				$(tipo_actividad).find('.actividades-content').append(json.content);
+				if(json.content.length == 0){
+					$(tipo_actividad).find('button').remove();
+				}
 			}
 			$(tipo_actividad).find('.fa-spin').addClass('hidden');
 			$(tipo_actividad).find('.fa-plus').removeClass('hidden');

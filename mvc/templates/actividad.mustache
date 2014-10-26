@@ -33,7 +33,7 @@
 						{{/ getActividades }}
 					</div>
 					
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
 					</button>
 				</div>
@@ -50,13 +50,13 @@
 						{{/ getActividadesPropias }}
 					</div>
 				
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
 					</button>
 				</div>
 				
 				<div class="tab-pane col-xs-12 seguidores" id="seguidores">
-					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}Usuarios que te están siguiendo</h4>
+					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getSeguidores }}
@@ -64,13 +64,13 @@
 						{{/ getSeguidores }}
 					</div>
 							
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
 					</button>
 				</div>
 					
 				<div class="tab-pane col-xs-12" id="siguiendo">
-					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}Usuarios que estás siguiendo</h4>
+					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getSiguiendo }}
@@ -78,7 +78,7 @@
 						{{/ getSiguiendo }}
 					</div>
 					
-					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
+					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas disabled">
 						<i class="fa fa-refresh fa-spin fa-2x hidden"></i><i class="fa fa-plus fa-2x"></i> {{#transu}}mostrar_mas{{/transu}}
 					</button>
 				</div>
