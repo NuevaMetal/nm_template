@@ -44,17 +44,17 @@ abstract class ModelBase {
 	 * @param integer $ID
 	 * @return object
 	 */
-	public static function find($ID = false) {
+	public static function find($ID = false, $pk = 'ID') {
 		if ($ID == null || ! is_numeric($ID)) {
 			return null;
 		}
 		global $wpdb;
 		$modelo = get_called_class();
-		$query = "SELECT *
-				FROM {$wpdb->prefix}" . static::$table . "
-				WHERE ID = $ID";
+		$query = 'SELECT *
+				FROM wp_' . static::$table . '
+				WHERE ' . $pk . '= %d';
 		$result = [];
-		$object = $wpdb->get_row($query);
+		$object = $wpdb->get_row($wpdb->prepare($query, $ID));
 		$a = new $modelo();
 		if ($object) {
 			foreach ($object as $c => $val) {

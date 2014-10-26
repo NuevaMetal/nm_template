@@ -55,13 +55,13 @@
 	
 	.comments{
 		.comment {
-			.author{
-				.name{}
-				.date{text-align:right}
-			}
 			p {
 				margin-top: 10px;
 			}
+			.author{
+				.name{}
+				.date{text-align:right}
+			}			
 		}
 	}
 	.info {

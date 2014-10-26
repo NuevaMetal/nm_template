@@ -24,6 +24,8 @@ return [
 
 	'cambiar' => 'cambiar',
 	'cerrar_sesion' => 'salir',
+	'comentario' => 'comentario',
+	'comentarios' => 'comentarios',
 	'compartir_con' => 'compartir con',
 	'como' => 'como',
 	'conciertos' => 'conciertos',

@@ -76,7 +76,11 @@ class Post extends ModelBase {
 			'orderby' => 'comment_date_gmt',
 			'status' => 'approve'
 		);
-		return get_comments($args_comments, $this->ID);
+		$comentarios = [];
+		foreach (get_comments($args_comments, $this->ID) as $c) {
+			$comentarios[] = Comment::find($c->comment_ID, 'comment_ID');
+		}
+		return $comentarios;
 	}
 
 	/**

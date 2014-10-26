@@ -1,6 +1,6 @@
-<div id="comment-{{comment_ID}}" class="row comment">
+<div id="comment-{{comment_ID}}" class="row comment bs-callout bs-callout-danger">
 	<span class="col-xs-10 author" id="user-{{user_id}}">
-		<span class="name"><a href="{{comment_author_url}}">{{comment_author}}</a></span>
+		<span class="name"><a href="{{ getUser.getPerfilUrl }}">{{comment_author}}</a></span>
 		<span class="date">{{comment_date_gmt}}</span>
 	</span>
 	{{#current_user.canEditor}}

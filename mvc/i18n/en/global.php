@@ -23,6 +23,8 @@ return [
 
 	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
+	'comentario' => 'comment',
+	'comentarios' => 'comments',
 	'compartir_con' => 'share with',
 	'como' => 'as',
 	'conciertos' => 'concerts',
