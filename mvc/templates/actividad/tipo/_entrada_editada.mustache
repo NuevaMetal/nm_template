@@ -8,11 +8,11 @@
 			 {{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
-			{{#trans}}user.has_editado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+			{{#trans}}actividad.has_editado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/getUser.isCurrentUser}}
 		{{^getUser.isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			{{#trans}}user.ha_editado_una_entrada{{/trans}}
+			{{#trans}}actividad.ha_editado_una_entrada{{/trans}}
 			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/getUser.isCurrentUser}}
 	</span>

@@ -25,14 +25,14 @@
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane active col-xs-12" id="actividades">
-					<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
+					<h4 class="titular">{{#trans}}actividad.aqui_ver_actividad{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getActividades }}
 							{{> actividad/_fila }}
 						{{/ getActividades }}
 						{{^ getActividades }}
-							{{#trans}}user.sin_actividad{{/trans}}.
+							{{#trans}}actividad.sin_actividad{{/trans}}.
 						{{/ getActividades }}
 					</div>
 					
@@ -40,14 +40,14 @@
 				</div>
 
 				<div class="tab-pane col-xs-12" id="actividades-propias">
-					<h4 class="titular">{{#trans}}user.actividades_propias{{/trans}}</h4>
+					<h4 class="titular">{{#trans}}actividad.actividades_propias{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getActividadesPropias }}
 							{{> actividad/_fila }}
 						{{/ getActividadesPropias }}
 						{{^ getActividadesPropias }}
-							{{#trans}}user.sin_actividad{{/trans}}.
+							{{#trans}}actividad.sin_actividad{{/trans}}.
 						{{/ getActividadesPropias }}
 					</div>
 				
@@ -55,7 +55,7 @@
 				</div>
 				
 				<div class="tab-pane col-xs-12 seguidores" id="seguidores">
-					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}</h4>
+					<h4 class="titular">{{#trans}}actividad.usuarios_que_te_estan_siguiendo{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getSeguidores }}
@@ -67,7 +67,7 @@
 				</div>
 					
 				<div class="tab-pane col-xs-12" id="siguiendo">
-					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}</h4>
+					<h4 class="titular">{{#trans}}actividad.usuarios_que_estas_siguiendo{{/trans}}</h4>
 					
 					<div class="actividades-content">
 						{{# getSiguiendo }}
@@ -79,7 +79,7 @@
 				</div>
 				
 				<div class="tab-pane col-xs-12" id="puntos">
-					<h4 class="titular">{{#trans}}user.aqui_ver_puntos{{/trans}}.</h4>
+					<h4 class="titular">{{#trans}}actividad.aqui_ver_puntos{{/trans}}.</h4>
 					
 					<table class="table table-striped">
 						<tr>
@@ -97,7 +97,7 @@
 							</tr>
 						{{/ getPuntos }}
 						{{^ getPuntos }}
-							<tr>{{#trans}}user.sin_puntos{{/trans}}.</tr>
+							<tr>{{#trans}}actividad.sin_puntos{{/trans}}.</tr>
 						{{/ getPuntos }}
 					</table>
 

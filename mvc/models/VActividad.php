@@ -250,15 +250,15 @@ class VActividad extends ModelBase {
 	public function getTipoTrans() {
 		switch ($this->tipo_que) {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
-				return I18n::transu('user.tipo_seguimiento_user');
+				return I18n::transu('actividad.tipo_seguimiento_user');
 			case VActividad::TIPO_ME_GUSTA :
-				return I18n::transu('user.tipo_me_gusta');
+				return I18n::transu('actividad.tipo_me_gusta');
 			case VActividad::TIPO_NUEVA_ENTRADA :
-				return I18n::transu('user.tipo_nueva_entrada');
+				return I18n::transu('actividad.tipo_nueva_entrada');
 			case VActividad::TIPO_NUEVO_COMENTARIO :
-				return I18n::transu('user.tipo_nuevo_comentario');
+				return I18n::transu('actividad.tipo_nuevo_comentario');
 			case VActividad::TIPO_ENTRADA_EDITADA :
-				return I18n::transu('user.tipo_entrada_editada');
+				return I18n::transu('actividad.tipo_entrada_editada');
 			default :
 				return null;
 		}

@@ -8,12 +8,12 @@
 			{{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
-			{{#trans}}user.has_comentado_una_entrada{{/trans}}
+			{{#trans}}actividad.has_comentado_una_entrada{{/trans}}
 			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
 		{{/getUser.isCurrentUser}}
 		{{^getUser.isCurrentUser}}
 			<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			{{#trans}}user.ha_comentado_una_entrada{{/trans}}
+			{{#trans}}actividad.ha_comentado_una_entrada{{/trans}}
 			<a href="{{getQue.getPost.getUrl}}#comment-{{que_id}}">{{getQue.getPost.post_title}}</a>.
 		{{/getUser.isCurrentUser}}
 	</span>

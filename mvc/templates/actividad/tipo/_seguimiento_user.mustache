@@ -8,16 +8,16 @@
 			{{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
-			{{#trans}}user.has_empezado_a_seguir_a{{/trans}} <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
+			{{#trans}}actividad.has_empezado_a_seguir_a{{/trans}} <a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 		{{/getUser.isCurrentUser}}
 		{{^getUser.isCurrentUser}}
 			{{#getQue.isCurrentUser}}
 				<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a>
-				{{#trans}}user.ha_empezado_a_seguirte{{/trans}}.
+				{{#trans}}actividad.ha_empezado_a_seguirte{{/trans}}.
 			{{/getQue.isCurrentUser}}
 			{{^getQue.isCurrentUser}}
 				<a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a>
-				{{#trans}}user.ha_empezado_a_seguir_a{{/trans}}
+				{{#trans}}actividad.ha_empezado_a_seguir_a{{/trans}}
 				<a href="{{getQue.getPerfilUrl}}">{{getQue.display_name}}</a>.
 			{{/getQue.isCurrentUser}}
 		{{/getUser.isCurrentUser}}

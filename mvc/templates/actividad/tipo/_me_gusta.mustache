@@ -8,11 +8,11 @@
 			{{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
-			{{#trans}}user.te_ha_gustado{{/trans}} <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
+			{{#trans}}actividad.te_ha_gustado{{/trans}} <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/getUser.isCurrentUser}}
 		{{^getUser.isCurrentUser}}
 			A <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a> 
-			{{#trans}}user.le_ha_gustado{{/trans}} 
+			{{#trans}}actividad.le_ha_gustado{{/trans}} 
 			<a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.
 		{{/getUser.isCurrentUser}}		
 	</span>
