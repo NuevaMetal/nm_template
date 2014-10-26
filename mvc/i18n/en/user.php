@@ -29,6 +29,7 @@ return [
 	'has_comentado_una_entrada' => 'You have commented on a post',
 	'ha_empezado_a_seguir_a' => 'has begun to follow',
 	'has_empezado_a_seguir_a' => 'You have begun to follow',
+	'ha_empezado_a_seguirte' => 'has begun to follow you',
 	'ha_publicado_una_entrada' => 'has published a post',
 	'has_publicado_una_entrada' => 'You have published a post',
 	'te_ha_gustado' => 'You like',
