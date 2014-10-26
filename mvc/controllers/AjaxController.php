@@ -430,25 +430,23 @@ class AjaxController extends BaseController {
 							case '#actividades' :
 								$actividades = $current_user->getActividades($offset);
 								$content = $ajax->_render('actividad/_actividades', [
-									'getActividades' => $actividades
+									'actividades' => $actividades
 								]);
 								break;
 							case '#actividades-propias' :
 								$actividades = $current_user->getActividadesPropias($offset);
 								$content = $ajax->_render('actividad/_actividades', [
-									'getActividades' => $actividades
+									'actividades' => $actividades
 								]);
 								break;
 							case '#seguidores' :
-								$seguidores = $current_user->getSeguidores($offset);
-								$content = $ajax->_render('actividad/seguidores/_seguidores', [
-									'getSeguidores' => $seguidores
+								$content = $ajax->_render('actividad/_usuarios', [
+									'usuarios' => $current_user->getSeguidores($offset)
 								]);
 								break;
 							case '#siguiendo' :
-								$siguiendo = $current_user->getSiguiendo($offset);
-								$content = $ajax->_render('actividad/seguidores/_siguiendo', [
-									'getSiguiendo' => $siguiendo
+								$content = $ajax->_render('actividad/_usuarios', [
+									'usuarios' => $current_user->getSiguiendo($offset)
 								]);
 								break;
 							default :

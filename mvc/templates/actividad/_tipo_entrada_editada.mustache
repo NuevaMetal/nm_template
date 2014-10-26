@@ -1,8 +1,11 @@
 <div class="fila bs-callout bs-callout-info tipo-nueva-entrada">
 	{{> actividad/_user}}
-	<span class="texto col-xs-8">
-		<span class="time col-xs-12 text-left">
-			<i class="fa fa-pencil-square-o"></i> {{> actividad/_time }}
+	<span class="texto col-xs-1">
+		<i class="fa fa-pencil-square-o fa-3x"></i>
+	</span>
+	<span class="texto col-xs-7">
+		<span class="time col-xs-12">
+			 {{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
 			{{#trans}}user.has_editado_una_entrada{{/trans}}: <a href="{{getQue.getUrl}}">{{getQue.post_title}}</a>.

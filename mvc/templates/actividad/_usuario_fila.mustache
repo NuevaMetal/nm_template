@@ -4,9 +4,11 @@
 			<img src="{{getAvatar}}" alt="{{display_name}} avatar">
 		</span>
 	</a>
-	<div class="row col-xs-10">
+	<div class="col-xs-8">
 		<a href="{{getPerfilUrl}}"><span class="col-xs-10">{{display_name}}</span></a>
-		<span class="col-xs-2">{{#transu}}entradas{{/transu}}: {{getTotalPosts}}</span>
 		<span class="col-xs-12">{{getDescriptionCorta}}</span>
+	</div>
+	<div class="col-xs-2">
+		{{#transu}}entradas{{/transu}}: {{getTotalPosts}}
 	</div>
 </div>

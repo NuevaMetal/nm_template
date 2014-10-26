@@ -25,7 +25,12 @@
 					<h4 class="titular">{{#trans}}user.aqui_ver_actividad{{/trans}}</h4>
 					
 					<div class="actividades-content">
-						{{> actividad/_actividades }}
+						{{# getActividades }}
+							{{> actividad/_fila }}
+						{{/ getActividades }}
+						{{^ getActividades }}
+							{{#trans}}user.sin_actividad{{/trans}}.
+						{{/ getActividades }}
 					</div>
 					
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
@@ -37,7 +42,12 @@
 					<h4 class="titular">{{#trans}}user.actividades_propias{{/trans}}</h4>
 					
 					<div class="actividades-content">
-						{{> actividad/_actividades }}
+						{{# getActividadesPropias }}
+							{{> actividad/_fila }}
+						{{/ getActividadesPropias }}
+						{{^ getActividadesPropias }}
+							{{#trans}}user.sin_actividad{{/trans}}.
+						{{/ getActividadesPropias }}
 					</div>
 				
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
@@ -49,7 +59,9 @@
 					<h4 class="titular">{{#trans}}user.usuarios_que_te_estan_siguiendo{{/trans}}Usuarios que te están siguiendo</h4>
 					
 					<div class="actividades-content">
-						{{> actividad/seguidores/_seguidores }}
+						{{# getSeguidores }}
+							{{> actividad/_usuario_fila }}
+						{{/ getSeguidores }}
 					</div>
 							
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">
@@ -61,7 +73,9 @@
 					<h4 class="titular">{{#trans}}user.usuarios_que_estas_siguiendo{{/trans}}Usuarios que estás siguiendo</h4>
 					
 					<div class="actividades-content">
-						{{> actividad/seguidores/_siguiendo }}
+						{{# getSiguiendo }}
+							{{> actividad/_usuario_fila }}
+						{{/ getSiguiendo }}
 					</div>
 					
 					<button class="btn btn-default text-center titular col-xs-12 mostrar-mas hidden">

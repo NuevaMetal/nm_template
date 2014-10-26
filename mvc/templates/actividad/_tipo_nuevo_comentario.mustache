@@ -1,8 +1,11 @@
 <div class="fila bs-callout bs-callout-primary tipo-nuevo-comentario">
 	{{> actividad/_user}}
-	<span class="texto col-xs-8">
+	<span class="texto col-xs-1">
+		<i class="fa fa-comment-o fa-3x"></i>
+	</span>
+	<span class="texto col-xs-7">
 		<span class="time col-xs-12 text-left">
-			<i class="fa fa-comment-o"></i> {{> actividad/_time }}
+			{{> actividad/_time }}
 		</span>
 		{{#getUser.isCurrentUser}}
 			{{#trans}}user.has_comentado_una_entrada{{/trans}}
