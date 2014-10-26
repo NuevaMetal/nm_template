@@ -58,7 +58,7 @@ abstract class BaseController extends ChesterBaseController {
 					'total' => $total
 				]);
 			}
-			$alertas[] = $this->renderAlertaDanger($msg, I18n::transu('mensajes'), 'messages');
+			$alertas[] = $this->renderAlertaDanger($msg, I18n::transu('mensajes'), home_url().'/messages');
 		}
 		return $alertas;
 	}
