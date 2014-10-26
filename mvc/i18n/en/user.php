@@ -47,6 +47,8 @@ return [
 	'mensaje_demasiado_corto' => 'Message too short',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado large',
 	'mensaje_no_existe' => 'This message don\'t exists',
+	'mensajes_enviados' => 'Messages sent',
+	'mensajes_recibidos' => 'Inbox',
 
 	'login_necesario' => 'for this you need be logged',
 

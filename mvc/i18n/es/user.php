@@ -47,6 +47,8 @@ return [
 	'mensaje_demasiado_corto' => 'Mensaje demasiado corto',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado grande',
 	'mensaje_no_existe' => 'El mensaje no existe',
+	'mensajes_enviados' => 'Mensajes enviados',
+	'mensajes_recibidos' => 'Mensajes recibidos',
 
 	'login_necesario' => 'para ello es necesario estar logueado',
 
