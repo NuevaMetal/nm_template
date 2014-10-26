@@ -22,21 +22,19 @@
 
 <div class="row">
 	<div class="col-xs-12">		
-		<h4 class="titular"><i class="fa fa-file"></i> {{#transu}}descripcion{{/transu}}</h4>		
-		<blockquote>
-			<p itemprop="description">
+		<h4 class="titular"><i class="fa fa-file-o"></i> {{#transu}}descripcion{{/transu}}</h4>		
+		<div class="bs-callout bs-callout-danger" itemprop="description">		
 				{{getDescription}}
 				{{^getDescription}}
 					{{#transu}}user.no_hay_info_perfil{{/transu}}
-				{{/getDescription}}
-			</p>
+				{{/getDescription}}			
 			{{#isCurrentUserOrAdmin}}
 			<span class="hidden">
 				<a class="btn btn-default btn-xs" href="{{getEditUrl}}#acerca-de-ti" target="_blank">
 					<i class="fa fa-edit"></i> {{#transu}}cambiar{{/transu}}</a>
 			</span>
 			{{/isCurrentUserOrAdmin}}
-		</blockquote>
+		</div>
 	</div>
 </div>
 
