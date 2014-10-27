@@ -393,11 +393,11 @@ class AjaxController extends BaseController {
 							$current_user->enviarMensajePrivado($_datos['mensaje'], $aQuienId, $_datos['respuesta_id']);
 							$aQuien = User::find($aQuienId);
 							if ($respuestaId) {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_respondido_exito', [
+								$alert = $ajax->renderAlertaInfo(I18n::transu('actividad.mensaje_respondido_exito', [
 									'nombre' => $aQuien->display_name
 								]));
 							} else {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_enviado_exito', [
+								$alert = $ajax->renderAlertaInfo(I18n::transu('actividad.mensaje_enviado_exito', [
 									'nombre' => $aQuien->display_name
 								]));
 							}
@@ -478,7 +478,7 @@ class AjaxController extends BaseController {
 				}
 				break;
 			default :
-				$json['alerta'] = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
+				$json['alerta'] = $ajax->renderAlertaDanger(I18n::transu('error'));
 		}
 		return $json;
 	}
@@ -508,7 +508,7 @@ if (in_array($submit, [
 }
 
 /**
- * Comprobar el noncepara peticiones que tengan relacción con un User
+ * Comprobar el nonce para peticiones que tengan relacción con un User
  */
 if ($submit == Ajax::USER && isset($_POST['tipo'])) {
 	$tipo = $_POST['tipo'];

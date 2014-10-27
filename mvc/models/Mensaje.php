@@ -16,7 +16,9 @@ class Mensaje extends ModelBase {
 
 	const LEIDO_NO = 0;
 
-	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 10000;
+	const TAMANO_MAXIMO_TITULO = 64;
+
+	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 200;
 
 	const TAMANO_MAXIMO_ESTADO = 150;
 
@@ -98,8 +100,9 @@ class Mensaje extends ModelBase {
 
 		global $wpdb;
 		$result = $wpdb->query($wpdb->prepare("
-			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, tipo, respuesta_id, mensaje, created_at, updated_at)
-			VALUES (%d, %d, %d, %d, %s, null, null);", $this->user_id, $this->a_quien_id, $this->tipo, $this->respuesta_id, $this->mensaje));
+			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, tipo, respuesta_id, titulo, mensaje, created_at, updated_at)
+			VALUES (%d, %d, %d, %d, %s, %s, null, null);",
+				$this->user_id, $this->a_quien_id, $this->tipo, $this->respuesta_id, $this->titulo, $this->mensaje));
 		$this->ID = $wpdb->insert_id;
 		return $this;
 	}
@@ -210,7 +213,8 @@ ID bigint( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 user_id bigint( 20 ) UNSIGNED NOT NULL,
 a_quien_id bigint( 20 ) UNSIGNED,
 respuesta_id bigint( 20 ) UNSIGNED,
-mensaje TEXT NOT NULL,
+titulo VARCHAR(100),
+mensaje VARCHAR(1000) NOT NULL,
 estado tinyint NOT NULL default 1,
 leido tinyint NOT NULL default 0,
 tipo tinyint NOT NULL,
