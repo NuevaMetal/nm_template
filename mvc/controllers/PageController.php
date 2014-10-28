@@ -176,7 +176,6 @@ class PageController extends BaseController {
 	 */
 	public function getSearch() {
 		$search_query = get_search_query();
-		// $_SESSION['search_query'] = $search_query;
 		// Obtenemos los argumentos necesarios para pintarla
 		$args = HomeController::getBusqueda($search_query, 4);
 		$users = User::getUsersBySearch($search_query, $offset = 0, $limit = 4);

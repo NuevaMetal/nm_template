@@ -112,6 +112,7 @@ return [
 	'reportar_info' => 'Haz clic en caso de que esta entrada contenga información errónea u obsoleta, links caídos o imágenes rotas.',
 	'resultado_busqueda' => 'Resultados de la búsqueda: \':que\' ',
 	'resultado_busqueda_usuarios' => 'Usuarios encontrados con: \':que\' ',
+	'resultado_busqueda_vacio' => 'No se encontraron posts con nombre: \':que\' ',
 	'resultado_tag' => 'Resultados con la etiqueta \':que\' ',
 
 	'salir' => 'salir',

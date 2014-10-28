@@ -109,6 +109,7 @@ class HomeController extends BaseController {
 		$args['tipo'] = Utils::TIPO_SEARCH;
 		$args['template_url'] = get_template_directory_uri();
 		$args['posts'] = self::getPostsBySearch($aBuscar, $cant, []);
+		$args['total_posts'] = count($args['posts']);
 		return $args;
 	}
 

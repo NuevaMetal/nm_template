@@ -1,6 +1,15 @@
 <div id="busqueda">
-	{{#users}}
+	{{# users }}
 		{{> busqueda/_seccion_users }}
-	{{/users}}
-	{{> busqueda/_seccion }}
+	{{/ users }}
+	{{# total_posts }}
+		{{> busqueda/_seccion }}
+	{{/ total_posts }}
+	{{^ total_posts }}
+		<div class="row"><hr></div>
+		<div class="row"><hr></div>
+		<div class="col-xs-12">
+			{{#transu}}resultado_busqueda_vacio [que:{{a_buscar}}]{{/transu}}
+		</div>
+	{{/ total_posts }}
 </div>
