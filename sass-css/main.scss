@@ -189,8 +189,7 @@ body {
 }
 
 .titular {
-	font-family: 'ralewayextrabold';
-	text-transform:uppercase;
+	@extend %titular;
 }
 
 .rojo {

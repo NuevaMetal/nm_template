@@ -81,6 +81,10 @@ class AjaxController extends BaseController {
 	public function mostrarMas($tipo, $que, $cant, $offset) {
 		$homeController = new HomeController();
 		$moreQuerySettings['offset'] = $offset;
+
+		/*
+		 * Obtenemos los datos
+		 */
 		if ($tipo == Utils::TIPO_TAG) {
 			$posts = $homeController->getPostsByTag($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_CATEGORY) {
@@ -92,23 +96,37 @@ class AjaxController extends BaseController {
 		} else if ($tipo == Utils::TIPO_AUTHOR_FAV) {
 			$user = User::find($que);
 			$posts = $user->getFavoritos($cant, $offset);
+		} else if ($tipo == 'buscar-usuarios') {
+			$users = User::getUsersBySearch($que, $offset, $cant);
 		}
 
+		/*
+		 * Pintamos
+		 */
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
+			$cant = count($posts);
 			$content = $this->render('user/favoritos/_posts', [
 				'posts' => $posts,
 				'reducido' => ($cant == 2)
 			]);
+		} elseif ($tipo == Utils::TIPO_BUSCAR_USUARIOS) {
+			$cant = count($users);
+			$content = $this->render('busqueda/_users', [
+				'lista_usuarios' => $users
+			]);
 		} else {
+			$cant = count($posts);
 			$content = $this->render('home/_posts', [
 				'posts' => $posts,
 				'reducido' => ($cant == 2)
 			]);
 		}
+
 		// Convierte la codificación a UTF-8
 		$content = mb_convert_encoding($content, "UTF-8");
 
 		$json['content'] = $content;
+		$json['cant'] = $cant;
 		$json['code'] = 200;
 
 		return $json;

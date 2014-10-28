@@ -1,10 +1,6 @@
-{{#seccion}}
-	<div id="{{seccion}}" class="col-xs-12 seccion-posts ">
-		{{#url}}<a href="{{url}}">{{/url}}
-			<div class="header-seccion">
-				<img src="{{template_url}}/public/img/{{imagen}}.jpg"/> {{#header}}<span class="titular">{{header}} <span>{{/header}}
-			</div>
-		{{#url}}</a>{{/url}}
-		{{>home/_seccion_contenido}}
-	</div>
-{{/seccion}}
+<div id="busqueda">
+	{{#users}}
+		{{> busqueda/_seccion_users }}
+	{{/users}}
+	{{> busqueda/_seccion }}
+</div>

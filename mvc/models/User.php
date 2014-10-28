@@ -189,6 +189,15 @@ class User extends ModelBase {
 	}
 
 	/**
+	 * Devuelve la url del avatar tipo pequeño
+	 *
+	 * @return string
+	 */
+	public function getImgHeaderPequena() {
+		return $this->_getImg(self::KEY_USER_IMG_HEADER, 540, 250);
+	}
+
+	/**
 	 * Devuelve un array con todos los tamaños que puede tener un avatar
 	 *
 	 * @return array<integer>
@@ -1583,7 +1592,7 @@ class User extends ModelBase {
 	}
 
 	/**
-	 * Devuelve todos los mensajes recibidos del usuario
+	 * Devuelve todos los mensajes recibidos del usuarios
 	 *
 	 * @return unknown
 	 */
@@ -1601,5 +1610,76 @@ class User extends ModelBase {
 			$mensajes[] = Mensaje::find($id);
 		}
 		return $mensajes;
+	}
+
+	/**
+	 * Devuelve una lista de usuarios apartir de un nombre para buscar
+	 *
+	 * @param string $search_query
+	 *        	Nombre a buscar del usuario
+	 * @param number $offset
+	 * @param number $limit
+	 */
+	public static function getUsersBySearch($search_query, $offset = 0, $limit = 4) {
+		global $wpdb;
+		$aBuscar = "%$search_query%";
+		$sql = 'SELECT DISTINCT ID
+				FROM wp_users u
+				LEFT JOIN wp_usermeta m ON ( u.ID = m.user_id )
+				LEFT OUTER JOIN (
+					SELECT ac.user_id, sum( ac.total ) suma
+					FROM (
+						SELECT user_id,
+						CASE WHEN tipo_que = "' . VActividad::TIPO_SEGUIMIENTO_USER . '" THEN
+                    			count(*) * ' . VActividad::PUNTOS_TIPO_SEGUIMIENTO_USER . '
+                   			WHEN tipo_que = "' . VActividad::TIPO_NUEVO_COMENTARIO . '" THEN
+                    			count(*) * ' . VActividad::PUNTOS_TIPO_NUEVO_COMENTARIO . '
+                    		WHEN tipo_que = "' . VActividad::TIPO_ENTRADA_EDITADA . '" THEN
+                    			count(*) * ' . VActividad::PUNTOS_TIPO_ENTRADA_EDITADA . '
+                    		WHEN tipo_que = "' . VActividad::TIPO_ME_GUSTA . '" THEN
+                    			count(*) * ' . VActividad::PUNTOS_TIPO_ME_GUSTA . '
+                    		WHEN tipo_que = "' . VActividad::TIPO_NUEVA_ENTRADA . '" THEN
+                    			count(*) * ' . VActividad::PUNTOS_TIPO_NUEVA_ENTRADA . '
+                    		ELSE count(*) END AS total
+						FROM wp_v_actividades
+						GROUP BY user_id, tipo_que
+					) ac
+					GROUP BY ac.user_id
+					ORDER BY suma DESC ) actividad
+				ON (actividad.user_id = u.ID)
+				WHERE (
+					display_name LIKE %s
+					OR (
+						meta_key = "first_name"
+						AND meta_value LIKE %s
+					) OR (
+						meta_key = "last_name"
+						AND meta_value LIKE %s
+					)
+				)
+				GROUP BY ID, actividad.suma
+				ORDER BY actividad.suma DESC ';
+		if ($limit) {
+			$users_ids = $wpdb->get_col($wpdb->prepare($sql . '
+				LIMIT %d OFFSET %d
+				', $aBuscar, $aBuscar, $aBuscar, $limit, $offset));
+		} else {
+			$users_ids = $wpdb->get_col($wpdb->prepare($sql, $aBuscar, $aBuscar, $aBuscar));
+		}
+		$users = [];
+		foreach ($users_ids as $user_id) {
+			$users[] = User::find($user_id);
+		}
+		/*
+		 * Ordenamos por puntos.
+		 * No es necesario, ya hacemos el ordenamiento mediante la consulta SQL. Más óptimo.
+		 */
+		// uasort($users, function ($a, $b) {
+		// $aPuntos = $a->getTotalPuntos();
+		// $bPuntos = $b->getTotalPuntos();
+		// if ($aPuntos == $bPuntos) { return 0; }
+		// return $aPuntos > $bPuntos ? 1 : - 1;
+		// });
+		return $users;
 	}
 }

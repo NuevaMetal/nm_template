@@ -94,9 +94,13 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getBusqueda($aBuscar, $cant = 4, $args = []) {
+	public static function getBusqueda($aBuscar = false, $cant = 4, $args = []) {
+		if (! $aBuscar) {
+			$aBuscar = get_search_query();
+			Utils::debug("HC> getBusqueda() > aBuscar : $aBuscar ");
+		}
 		$args['imagen'] = 'noimage';
-		$args['seccion'] = 'busqueda';
+		$args['seccion'] = 'busqueda-posts';
 		$args['a_buscar'] = $aBuscar;
 		$args['header'] = I18n::trans('resultado_busqueda', [
 			'que' => $aBuscar
@@ -107,6 +111,14 @@ class HomeController extends BaseController {
 		$args['posts'] = self::getPostsBySearch($aBuscar, $cant, []);
 		return $args;
 	}
+
+	/**
+	 *
+	 * @param unknown $aBuscar
+	 * @param number $cant
+	 * @param unknown $args
+	 * @return unknown
+	 */
 	public static function getAutor($aBuscar, $cant = 4, $args = []) {
 		$args['imagen'] = 'noimage';
 		$args['seccion'] = 'autor';

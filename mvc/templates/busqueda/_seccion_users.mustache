@@ -1,0 +1,15 @@
+{{# total_usuarios }}
+	<div id="{{seccion}}" class="col-xs-12 seccion-users ">
+		{{#url}}<a href="{{url}}">{{/url}}
+			<div class="header-seccion">
+				<img src="{{template_url}}/public/img/{{imagen}}.jpg"/> {{#header}}<span class="titular">Usuarios con '{{a_buscar}}' <span>{{/header}}
+			</div>
+		{{#url}}</a>{{/url}}
+		<article id="users" class="posts">
+			<div class="seccion {{a_buscar}}">				
+				{{> busqueda/_users }}
+			</div>
+			{{> home/_btn_mostrar_mas }}
+		</article>
+	</div>
+{{/ total_usuarios }}

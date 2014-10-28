@@ -17,7 +17,7 @@ class PageController extends BaseController {
 		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
 
 		return $this->_renderPageBase([
-			'content' => $this->render('busqueda', [
+			'content' => $this->render('busqueda/_seccion', [
 				'posts' => $posts
 			])
 		]);
@@ -88,7 +88,7 @@ class PageController extends BaseController {
 
 		$seccion = HomeController::getSeccion($current_category, 4);
 
-		$content = $this->_render('busqueda', [
+		$content = $this->_render('busqueda/_seccion', [
 			'seccion' => $seccion
 		]);
 
@@ -176,11 +176,20 @@ class PageController extends BaseController {
 	 */
 	public function getSearch() {
 		$search_query = get_search_query();
-		// Obtenemos los argumentos necesarios para pintarla y pintamos el content
+		// $_SESSION['search_query'] = $search_query;
+		// Obtenemos los argumentos necesarios para pintarla
 		$args = HomeController::getBusqueda($search_query, 4);
-		$content = $this->_renderBusqueda($args);
+		$users = User::getUsersBySearch($search_query, $offset = 0, $limit = 4);
+		$args['users'] = [
+			'seccion' => 'busqueda-users',
+			'a_buscar' => $search_query,
+			'tipo' => Utils::TIPO_BUSCAR_USUARIOS,
+			'cant' => 4,
+			'total_usuarios' => count($users),
+			'lista_usuarios' => $users
+		];
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->_renderBusqueda($args)
 		]);
 	}
 
@@ -192,7 +201,7 @@ class PageController extends BaseController {
 
 		$seccion = HomeController::getTags($current_tag, 4);
 
-		$content = $this->_render('busqueda', [
+		$content = $this->_render('busqueda/_seccion', [
 			'header' => "Búsqueda por la etiqueta '$current_tag'",
 			'seccion' => $seccion
 		]);

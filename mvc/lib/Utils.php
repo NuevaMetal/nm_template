@@ -28,6 +28,7 @@ class Utils {
 
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
+	const TIPO_BUSCAR_USUARIOS = 'buscar-usuarios';
 	// CATEGORÍAS
 	const CATEGORIA_BANDAS = "bandas";
 

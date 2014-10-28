@@ -1,0 +1,14 @@
+<article class="user text-center col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}">	
+	<a href="{{getPerfilUrl}}">
+		<div class="nombre">
+			{{display_name}}
+		</div>
+		<div class="row imagenes">
+			<span class="header"><img src="{{getImgHeaderPequena}}"></span>
+			<span class="avatar"><img src="{{getAvatar}}"></span>
+		</div>
+	</a>
+    <div class="descripcion">
+		{{getDescriptionCorta}}
+	</div>
+</article>

@@ -80,6 +80,8 @@ function seHaceScroll() {
 		$('.mostrar-mas').trigger('click');
 	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {
 		$('#autor .mostrar-mas').trigger('click');
+	} else if($('#busqueda-posts .mostrar-mas').size() == 1 && sePuede) {
+		//$('#busqueda-posts .mostrar-mas').trigger('click');
 	}
 	
 	// scroll en la pantalla de actividad	
@@ -296,11 +298,11 @@ $(document).on('click', '.mostrar-mas', function(e) {
 	var $this = $(this);
 	var posts = $(this).parents('.posts');
 	var seccion = $(posts).find('.seccion');
-	var cant = $(posts).children('.cant').text();
-	var tipo = $(posts).children('.tipo').text();
-	var que = $(this).attr('mostrar-mas');
-	var url = $(this).attr('url');
 	var size = $(seccion).children().size();
+	var url = $('#page').attr('url');
+	var cant = $(this).attr('cant');
+	var tipo = $(this).attr('tipo');
+	var que = $(this).attr('mostrar-mas');
 	var data = {
 		submit : 'mostrar-mas',
 		que : que,
@@ -320,11 +322,15 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
-				$(seccion).append(json.content);
+				content = json.content;
+				$(seccion).append(content);
+				if( content.length == 0 || json.cant < size ) {
+					$this.addClass('hidden');					
+				}
 			}
 			$(posts).find('.fa-spin').addClass('hidden');
 			$(posts).find('.icono-mas').removeClass('hidden');
-			$this.attr("disabled", false);
+			$this.attr("disabled", false);			
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
