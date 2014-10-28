@@ -181,6 +181,9 @@ class PageController extends BaseController {
 		$args = HomeController::getBusqueda($search_query, 4);
 		$users = User::getUsersBySearch($search_query, $offset = 0, $limit = 4);
 		$args['users'] = [
+			'header' => I18n::trans('resultado_busqueda_usuarios', [
+				'que' => $search_query
+			]),
 			'seccion' => 'busqueda-users',
 			'a_buscar' => $search_query,
 			'tipo' => Utils::TIPO_BUSCAR_USUARIOS,

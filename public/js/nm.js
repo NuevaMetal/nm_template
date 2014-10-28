@@ -81,7 +81,7 @@ function seHaceScroll() {
 	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {
 		$('#autor .mostrar-mas').trigger('click');
 	} else if($('#busqueda-posts .mostrar-mas').size() == 1 && sePuede) {
-		//$('#busqueda-posts .mostrar-mas').trigger('click');
+		$('#busqueda-posts .mostrar-mas').trigger('click');
 	}
 	
 	// scroll en la pantalla de actividad	

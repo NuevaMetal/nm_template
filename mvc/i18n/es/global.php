@@ -111,6 +111,7 @@ return [
 	'reportar_entrada' => 'Reportar esta entrada :titulo',
 	'reportar_info' => 'Haz clic en caso de que esta entrada contenga información errónea u obsoleta, links caídos o imágenes rotas.',
 	'resultado_busqueda' => 'Resultados de la búsqueda: \':que\' ',
+	'resultado_busqueda_usuarios' => 'Usuarios encontrados con: \':que\' ',
 	'resultado_tag' => 'Resultados con la etiqueta \':que\' ',
 
 	'salir' => 'salir',

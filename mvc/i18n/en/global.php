@@ -106,6 +106,7 @@ return [
 	'reportar_entrada' => 'report this post: :titulo',
 	'reportar_info' => 'Click in the case that  this post includes wrong or obsolete information, fallen links or broken pictures.',
 	'resultado_busqueda' => 'Search results by \':que\' ',
+	'resultado_busqueda_usuarios' => 'Users found with name like \':que\' ',
 	'resultado_tag' => 'Search by \':que\' tag',
 
 	'salir' => 'exit',

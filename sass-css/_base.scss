@@ -6,6 +6,9 @@ $screen-xl-min: 1400px;
 
 $body-background-color: #fff;
 
+$rojo-danger: #d43f3a;
+$rojo-danger-hover: #c9302c;
+
 @mixin col($media) {
 	@if $media == xs {
 		@media only screen and (max-width: $screen-xs-max) { @content; }
@@ -39,13 +42,20 @@ $body-background-color: #fff;
 	overflow: hidden;
 }
 
+%sombreado-semitransparente {
+	padding: 5px;
+	border-radius: 10px;
+	background:rgba(0, 0, 0, 0.7);
+	font-size: 21px;
+	i {
+		color: $rojo-danger-hover;
+	}
+}
+
 %titular {
 	font-family: 'ralewayextrabold';
 	text-transform:uppercase;
 }
-
-$rojo-danger: #d43f3a;
-$rojo-danger-hover: #c9302c;
 
 .rojo-danger {
 	color: $rojo-danger;

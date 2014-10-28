@@ -1,11 +1,15 @@
 <article class="user text-center col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}">	
-	<a href="{{getPerfilUrl}}">
+	<a href="{{getPerfilUrl}}" title="{{getNombreCompleto}}" alt="{{display_name}}">
 		<div class="nombre">
 			{{display_name}}
 		</div>
 		<div class="row imagenes">
 			<span class="header"><img src="{{getImgHeaderPequena}}"></span>
 			<span class="avatar"><img src="{{getAvatar}}"></span>
+			<span class="tipo">{{getTipoTrans}}</span>
+			{{# getTotalPuntos }}
+			<span class="total-puntos">{{getTotalPuntos}} {{#transu}}puntos{{/transu}}</span>
+			{{/ getTotalPuntos }}
 		</div>
 	</a>
     <div class="descripcion">
