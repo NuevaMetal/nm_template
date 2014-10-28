@@ -4,15 +4,27 @@
 			{{display_name}}
 		</div>
 		<div class="row imagenes">
-			<span class="header"><img src="{{getImgHeaderPequena}}"></span>
+			<span class="header">
+				{{# getImgHeaderPequena }}
+				<img src="{{getImgHeaderPequena}}">
+				{{/ getImgHeaderPequena }}
+				{{^ getImgHeaderPequena }}
+				<img class="sin-thumbnail">
+				{{/ getImgHeaderPequena }}
+			</span>
+			
 			<span class="avatar"><img src="{{getAvatar}}"></span>
-			<span class="tipo">{{getTipoTrans}}</span>
 			{{# getTotalPuntos }}
 			<span class="total-puntos">{{getTotalPuntos}} {{#transu}}puntos{{/transu}}</span>
 			{{/ getTotalPuntos }}
 		</div>
 	</a>
     <div class="descripcion">
-		{{getDescriptionCorta}}
+    	{{# tieneDescripcion }}
+			{{getDescripcionCorta}}
+		{{/ tieneDescripcion }}
+		{{^ tieneDescripcion }}
+			{{getRol}}
+		{{/ tieneDescripcion }}
 	</div>
 </article>

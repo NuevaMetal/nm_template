@@ -58,6 +58,7 @@
 				top: 165px;
 			}
 			.total-puntos {
+				@extend %titular;
 				@extend %sombreado-semitransparente;
 				position: absolute;
 				color: #fff !important;

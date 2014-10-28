@@ -79,7 +79,7 @@ class User extends ModelBase {
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
 	// Número de palabras para la descripción corta
-	const NUM_DESCRIPTION_CORTA = 11;
+	const NUM_DESCRIPCION_CORTA = 11;
 
 	// Número límite de mensajes recibidos por petición
 	const LIMIT_MENSAJES_RECIBIDOS = 10;
@@ -394,7 +394,7 @@ class User extends ModelBase {
 	 *
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescripcion() {
 		return get_the_author_meta('description', $this->ID);
 	}
 
@@ -403,8 +403,16 @@ class User extends ModelBase {
 	 *
 	 * @return string
 	 */
-	public function getDescriptionCorta() {
-		return Utils::cortarStr($this->getDescription(), self::NUM_DESCRIPTION_CORTA);
+	public function getDescripcionCorta() {
+		return Utils::cortarStr($this->getDescripcion(), self::NUM_DESCRIPCION_CORTA);
+	}
+
+	/**
+	 * Devuelve true si tiene descripción
+	 * @return boolean
+	 */
+	public function tieneDescripcion() {
+		return strlen($this->getDescripcion());
 	}
 
 	/**

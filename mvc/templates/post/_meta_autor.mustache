@@ -15,18 +15,19 @@
 			{{/isTipoUsuario}}
 		</div>
 		</h2>
-		<div class="col-xs-12">
-			<blockquote>
-				{{#getDescription}}
-					<small>{{#transu}}biografia{{/transu}}</small>
-				{{/getDescription}}
+
+		<div class="col-xs-12">	
+			<div class="bs-callout bs-callout-default" itemprop="description">
+				{{#getDescripcion}}
+					<h4>{{#transu}}biografia{{/transu}}</h4>
+				{{/getDescripcion}}
 				<p itemprop="description">
-					{{getDescriptionCorta}}
-					{{^getDescription}}
+					{{getDescripcionCorta}}
+					{{^getDescripcion}}
 						{{#transu}}user.no_hay_info_perfil{{/transu}}
-					{{/getDescription}}
+					{{/getDescripcion}}
 				</p>
-			</blockquote>
+			</div>
 		</div>
 	</div>
 </div>
