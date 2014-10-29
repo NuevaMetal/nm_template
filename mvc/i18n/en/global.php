@@ -98,7 +98,7 @@ return [
 	'que_es_nm' => 'NuevaMetal?',
 
 	'recibidos' => 'received',
-	'recuerdame' => 'remember me',
+	'recuerdame' => 'remember',
 	'registrarse' => 'Sign in',
 	'redes' => 'networks',
 	'redes_sociales' => 'social networks',
