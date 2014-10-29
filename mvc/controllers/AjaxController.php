@@ -562,10 +562,9 @@ class AjaxController extends BaseController {
 	 * @return array JSON de respuesta para para JS
 	 */
 	private function _jsonUserActividad($_datos) {
-		$tipoActividad = $_datos['tipo_actividad'];
 		$offset = $_datos['size'];
 		$json['code'] = 200;
-		switch ($tipoActividad) {
+		switch ($_datos['tipo_actividad']) {
 			case '#actividades' :
 				$actividades = $this->current_user->getActividades($offset);
 				$content = $this->_render('user/actividad/_actividades', [
@@ -602,10 +601,9 @@ class AjaxController extends BaseController {
 	 * @return array JSON de respuesta para para JS
 	 */
 	private function _jsonUserMensajes($_datos) {
-		$tipoMensajes = $_datos['tipo_mensajes'];
 		$offset = $_datos['size'];
 		$json['code'] = 200;
-		switch ($tipoActividad) {
+		switch ($_datos['tipo_mensajes']) {
 			case '#recibidos' :
 				$mensajes = $this->current_user->getMensajesRecibidos($offset);
 				$json['content'] = $this->_render('user/mensajes/_mensajes_recibidos', [
