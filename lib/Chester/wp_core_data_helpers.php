@@ -113,7 +113,8 @@ class ChesterWPCoreDataHelpers {
 				$postType
 			],
 			'post__not_in' => $postsStickyIds,
-			'posts_per_page' => $numberPostsToFetch
+			'posts_per_page' => $numberPostsToFetch,
+			'post_status' => 'publish'
 		];
 		$querySettings = array_merge($querySettings, $moreQuerySettings);
 		$loop = new WP_Query($querySettings);

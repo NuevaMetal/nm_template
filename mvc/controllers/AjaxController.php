@@ -14,9 +14,9 @@ class AjaxController extends BaseController {
 	/*
 	 * Miembros
 	 */
-	private $current_user;
-	private $err;
-	private $err_sin_permisos;
+	public $current_user;
+	public $err;
+	public $err_sin_permisos;
 
 	/**
 	 * Constructor
@@ -660,47 +660,46 @@ class AjaxController extends BaseController {
 	 *
 	 * @param string $submit
 	 */
-	public static function getJsonBySubmit($submit, $_datos) {
-		$ajax = new AjaxController();
+	public function getJsonBySubmit($submit, $_datos) {
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
-				return $ajax->_jsonNotificar($_datos);
+				return $this->_jsonNotificar($_datos);
 
 			case Ajax::SER_COLABORADOR :
-				return $ajax->_jsonSerColaborador($_datos);
+				return $this->_jsonSerColaborador($_datos);
 
 			case Ajax::ME_GUSTA :
-				return $ajax->_jsonMeGusta($_datos);
+				return $this->_jsonMeGusta($_datos);
 
 			case Ajax::MOSTRAR_MAS :
-				return $ajax->_jsonMostrarMas($_datos);
+				return $this->_jsonMostrarMas($_datos);
 
 			case Ajax::REVISION :
-				return $ajax->_jsonRevision($_datos);
+				return $this->_jsonRevision($_datos);
 
 			case Ajax::REVISION_BAN :
-				return $ajax->_jsonRevisionBan($_datos);
+				return $this->_jsonRevisionBan($_datos);
 
 			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
-				return $ajax->_jsonAnaliticaPerfilPostPublicadosMes($_datos);
+				return $this->_jsonAnaliticaPerfilPostPublicadosMes($_datos);
 
 			case Ajax::ADMIN_PANEL_USER :
-				return $ajax->_jsonAdminPanelUser($_datos);
+				return $this->_jsonAdminPanelUser($_datos);
 
 			case Ajax::HOME :
-				return $ajax->_jsonHome($_datos);
+				return $this->_jsonHome($_datos);
 
 			case Ajax::MENU :
-				return $ajax->_jsonMenu($_datos);
+				return $this->_jsonMenu($_datos);
 
 			case Ajax::POST :
-				return $ajax->_jsonPost($_datos);
+				return $this->_jsonPost($_datos);
 
 			case Ajax::USER :
-				return $ajax->_jsonUser($_datos);
+				return $this->_jsonUser($_datos);
 
 			default :
-				$json['alerta'] = $ajax->renderAlertaDanger($this->err);
+				$json['alerta'] = $this->renderAlertaDanger($this->err);
 				return $json;
 		}
 	}
@@ -719,14 +718,16 @@ $submit = $_REQUEST['submit'];
 $nonce = $_POST['nonce'];
 $post_id = $_POST['post'];
 
+$ajax = new AjaxController();
+
 /**
- * Comprobar el noncepara peticiones que tengan relacción con un Post
+ * Comprobar el nonce para peticiones que tengan relacción con un Post
  */
 if (in_array($submit, [
 	Ajax::NOTIFICAR,
 	Ajax::ME_GUSTA
 ]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
-	die("An unexpected error has ocurred.");
+	die($ajax->err);
 }
 
 /**
@@ -734,16 +735,15 @@ if (in_array($submit, [
  */
 if ($submit == Ajax::USER && isset($_POST['tipo'])) {
 	$tipo = $_POST['tipo'];
-	$current_user = Utils::getCurrentUser();
 	if (in_array($tipo, [
 		User::ENVIAR_MENSAJE,
 		User::SEGUIR,
 		User::BORRAR_MENSAJE
-	]) && ! Ajax::esNonce($nonce, $tipo, $current_user->ID)) {
-		die("An unexpected error has ocurred.");
+	]) && ! Ajax::esNonce($nonce, $tipo, $ajax->current_user->ID)) {
+		die($ajax->err);
 	}
 }
 
-$json = AjaxController::getJsonBySubmit($submit, $_REQUEST);
+$json = $ajax->getJsonBySubmit($submit, $_REQUEST);
 
 echo json_encode($json);
