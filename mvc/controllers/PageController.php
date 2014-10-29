@@ -191,7 +191,7 @@ class PageController extends BaseController {
 			'lista_usuarios' => $users
 		];
 		return $this->_renderPageBase([
-			'content' => $this->_renderBusqueda($args)
+			'content' => $this->_render('busqueda', $args)
 		]);
 	}
 

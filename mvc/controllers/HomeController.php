@@ -94,11 +94,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getBusqueda($aBuscar = false, $cant = 4, $args = []) {
-		if (! $aBuscar) {
-			$aBuscar = get_search_query();
-			Utils::debug("HC> getBusqueda() > aBuscar : $aBuscar ");
-		}
+	public static function getBusqueda($aBuscar, $cant = 4, $args = []) {
 		$args['imagen'] = 'noimage';
 		$args['seccion'] = 'busqueda-posts';
 		$args['a_buscar'] = $aBuscar;
@@ -147,7 +143,7 @@ class HomeController extends BaseController {
 		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings);
 	}
 	public static function getPostsBySearch($aBuscar, $max = 4, $moreQuerySettings = []) {
-		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings, $otherQuerySettings);
+		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings);
 	}
 	public static function getPostsByAuthor($autor_id, $max = 4, $moreQuerySettings = []) {
 		return self::getPostsBy(Utils::TIPO_AUTHOR, $autor_id, $max, $moreQuerySettings);
@@ -173,11 +169,9 @@ class HomeController extends BaseController {
 			$aBuscar = $seccion;
 			// Comprobamos si tiene ':' para indicar una búsqueda especial por categoría
 			if (strpos($seccion, ':') !== false) {
-				$explode = explode(':', $seccion);
+				$_explode = explode(':', $seccion);
 				// Eliminamos espacios en blanco
-				array_walk($explode, function (&$item, $key) {
-					$item = trim($item);
-				});
+				$explode = array_map('trim', $_explode);
 				list($categoriaNombre, $aBuscar) = $explode;
 				// Si no tiene una s o la s no la tiene al final se la ponemos (al final)
 				// Por el motivo de que todas las categorías son en plural.

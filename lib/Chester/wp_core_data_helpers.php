@@ -106,6 +106,9 @@ class ChesterWPCoreDataHelpers {
 		$numberPostsToFetch = (count($posts) == $countSticky) ? $numberPostsToFetch - $countSticky : $numberPostsToFetch;
 
 		$querySettings = [
+			'orderby' => [
+				'date' => 'DESC'
+			],
 			'post_type' => [
 				$postType
 			],

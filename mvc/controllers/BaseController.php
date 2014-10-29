@@ -6,6 +6,10 @@ require_once dirname(__FILE__) . '/../i18n/I18n.php';
  * @author chema
  */
 abstract class BaseController extends ChesterBaseController {
+
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		parent::__construct();
 		$this->template->setHelpers(array(
@@ -98,22 +102,6 @@ abstract class BaseController extends ChesterBaseController {
 	 */
 	protected function _renderPage($args = []) {
 		return $this->_render('page', $args);
-	}
-	/**
-	 * search.php
-	 *
-	 * @param unknown $args
-	 */
-	protected function _renderBusqueda($args = []) {
-		return $this->_render('busqueda', $args);
-	}
-	/**
-	 * author.php
-	 *
-	 * @param unknown $args
-	 */
-	protected function _renderAutor($args = []) {
-		return $this->_render('user', $args);
 	}
 
 	/**

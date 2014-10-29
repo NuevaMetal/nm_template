@@ -49,7 +49,7 @@ class UserController extends BaseController {
 		];
 
 		return $this->_renderPageBase([
-			'content' => $this->_renderAutor($args)
+			'content' => $this->_render('user', $args)
 		]);
 	}
 
