@@ -492,6 +492,7 @@ class AjaxController extends BaseController {
 					'nombre' => $aQuien->display_name
 				]));
 			}
+			$json['cant'] = $aQuien->getTotalSeguidores();
 			$json['alert'] = $alert;
 			$json['btn'] = $this->_render('user/_btn_seguir', [
 				'user' => $aQuien

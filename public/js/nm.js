@@ -161,7 +161,7 @@ function seHaceScrollEnActividad() {
 	var tipo_actividad = actividad.find('.nav li[class="active"] a').attr('href');
 	var size = $(tipo_actividad).find('.actividades-content').children().size();
 
-	if(!$(tipo_actividad).find('.fa-spin').hasClass('hidden')){
+	if(!$(tipo_actividad).find('.fa-spin').hasClass('hidden') || $(tipo_actividad).find('button').length == 0 ){
 		return;
 	}
 	
@@ -210,13 +210,19 @@ function seHaceScrollEnMensajes() {
 	var tipo_mensajes = mensajes.find('.nav li[class="active"] a').attr('href');
 	var size = $(tipo_mensajes).find('.mensajes-content').children().size();
 	
+	if(!$(tipo_mensajes).find('.fa-spin').hasClass('hidden') || $(tipo_mensajes).find('button').length == 0){
+
+		console.log("NO pude pasar con: "+tipo_mensajes);
+		return;
+	}
+	console.log("Pasé con: "+tipo_mensajes);
 	var data = {
 		submit : 'user',
 		tipo: 'mensajes',
 		tipo_mensajes: tipo_mensajes,
 		size: size,
 	};
-
+console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -229,6 +235,9 @@ function seHaceScrollEnMensajes() {
 			if(json.code == 200 ) {
 				// tipo_mensajes: #recibidos | #enviados
 				$(tipo_mensajes).find('.mensajes-content').append(json.content);
+				if(json.content.length == 0){
+					$(tipo_mensajes).find('button').remove();
+				}
 			}
 			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
 		},
@@ -667,6 +676,7 @@ $(document).on('click', '.seguir', function(e) {
 				$this.find('.fa-spin').addClass('hidden');
 				$this.find('.fa-plus').removeClass('hidden');
 				$this.find('.fa-remove').removeClass('hidden');
+				$('#user .total-seguidores').text(json.cant);
 				mostrarAlerta(json.alert, 2);
 			} else {
 				mostrarAlerta(json.err, 2);
