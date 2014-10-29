@@ -24,17 +24,7 @@
 			</div>
         </div>
 		<a href="{{getUrl}}" title="{{{getTitulo}}}">
-			{{#getThumbnails}}
-				{{#medium}}
-					<img class="img-responsive" src="{{medium}}" />
-				{{/medium}}
-				{{^medium}}
-					<img class="img-responsive sin-thumbnail"/>
-				{{/medium}}
-			{{/getThumbnails}}
-			{{^getThumbnails}}
-				<img class="img-responsive sin-thumbnail"/>
-			{{/getThumbnails}}
+			{{> post/_thumbnail_medium }}
 		</a>
     </div>
     <h2 class="post-title titular">
