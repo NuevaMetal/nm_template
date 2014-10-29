@@ -115,6 +115,7 @@ return [
 	'seguidores' => 'followers',
 	'seguir' => 'follow',
 	'siguiendo' => 'following',
+	'sin_permisos' => 'without permissions',
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 

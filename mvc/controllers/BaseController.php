@@ -52,9 +52,9 @@ abstract class BaseController extends ChesterBaseController {
 
 		if ($user && ($total = $user->getTotalMensajesRecibidosSinLeer())) {
 			if ($total == 1) {
-				$msg = I18n::trans('user.tienes_un_mensaje_nuevo');
+				$msg = I18n::trans('actividad.tienes_un_mensaje_nuevo');
 			} else {
-				$msg = I18n::trans('user.tienes_mensajes_nuevos', [
+				$msg = I18n::trans('actividad.tienes_mensajes_nuevos', [
 					'total' => $total
 				]);
 			}

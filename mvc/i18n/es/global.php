@@ -120,6 +120,7 @@ return [
 	'seguidores' => 'seguidores',
 	'seguir' => 'seguir',
 	'siguiendo' => 'siguiendo',
+	'sin_permisos' => 'sin permisos',
 	'sitios_de_interes' => 'sitios de interés',
 	'subscriber' => 'suscriptor',
 

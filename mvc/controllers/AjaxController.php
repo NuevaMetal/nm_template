@@ -11,12 +11,29 @@ require_once 'BaseController.php';
  */
 class AjaxController extends BaseController {
 
+	/*
+	 * Miembros
+	 */
+	private $current_user;
+	private $err;
+	private $err_sin_permisos;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->current_user = Utils::getCurrentUser();
+		$this->err = I18n::transu('error');
+		$this->err = I18n::transu('sin_permisos');
+	}
+
 	/**
 	 * Crear una nueva notificacion de informe de un post en la BBDD
 	 *
 	 * @return View
 	 */
-	public function crearNotificacion($post_id, $user_id) {
+	private function _crearNotificacion($post_id, $user_id) {
 		global $wpdb;
 		// TODO: refactorizar
 		$post = Post::find($post_id);
@@ -48,7 +65,7 @@ class AjaxController extends BaseController {
 			return $this->renderAlertaSuccess("Notificación enviada con éxito", $post->post_title);
 		}
 
-		return $this->renderAlertaDanger('Ocurrió un error inesperado');
+		return $this->renderAlertaDanger($this->err);
 	}
 
 	/**
@@ -78,7 +95,7 @@ class AjaxController extends BaseController {
 	 * @param integer $offset
 	 * @return array
 	 */
-	public function mostrarMas($tipo, $que, $cant, $offset) {
+	private function _mostrarMas($tipo, $que, $cant, $offset) {
 		$homeController = new HomeController();
 		$moreQuerySettings['offset'] = $offset;
 
@@ -96,7 +113,7 @@ class AjaxController extends BaseController {
 		} else if ($tipo == Utils::TIPO_AUTHOR_FAV) {
 			$user = User::find($que);
 			$posts = $user->getFavoritos($cant, $offset);
-		} else if ($tipo == 'buscar-usuarios') {
+		} else if ($tipo == Utils::TIPO_BUSCAR_USUARIOS) {
 			$users = User::getUsersBySearch($que, $offset, $cant);
 		}
 
@@ -139,7 +156,7 @@ class AjaxController extends BaseController {
 	 * @param unknown $user_id
 	 * @return number
 	 */
-	public function editarRevisionBan($estado, $editor_id, $user_id) {
+	private function _editarRevisionBan($estado, $editor_id, $user_id) {
 		global $wpdb;
 		$nonce = $_POST['nonce'];
 		$mensaje = '?';
@@ -155,6 +172,13 @@ class AjaxController extends BaseController {
 		$json['alert'] = $this->renderAlertaSuccess($mensaje);
 		return $json;
 	}
+
+	/**
+	 *
+	 * @param unknown $estado
+	 * @param unknown $post_id
+	 * @return number
+	 */
 	public function editarRevision($estado, $post_id) {
 		global $wpdb;
 		$nonce = $_POST['nonce'];
@@ -235,7 +259,7 @@ class AjaxController extends BaseController {
 			];
 		} else {
 			$json['code'] = 504;
-			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
+			$json['alert'] = $this->renderAlertaDanger($this->err);
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => true,
 				'getNonceMeGusta' => $nonce
@@ -246,259 +270,439 @@ class AjaxController extends BaseController {
 	}
 
 	/**
+	 * Atiende a la petición de notificar
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonNotificar($_datos) {
+		$post_id = $_datos['post'];
+		$user_id = $_datos['user'];
+		$json['alerta'] = $this->_crearNotificacion($post_id, $user_id);
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición de solicitud para ser colaborador
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonSerColaborador($_datos) {
+		$user_id = $_datos['user'];
+		return $this->solicitarColaborador($user_id);
+	}
+
+	/**
+	 * Atiende a la petición de un Me Gusta
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonMeGusta($_datos) {
+		$post = Post::find($_datos['post']);
+		$user = User::find($_datos['user']);
+		$te_gusta = $_datos['te_gusta'];
+		if ($te_gusta == Utils::SI) {
+			return $this->_crearMeGusta($post, $user);
+		}
+		return $this->_quitarMeGusta($post, $user);
+	}
+
+	/**
+	 * Atiende a la petición de un Mostrar más
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonMostrarMas($_datos) {
+		$tipo = $_datos['tipo'];
+		$que = $_datos['que'];
+		$cant = $_datos['cant'];
+		$offset = $_datos['size'];
+		return $this->_mostrarMas($tipo, $que, $cant, $offset);
+	}
+
+	/**
+	 * Atiende a la petición de revisión de un post
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonRevision($_datos) {
+		if (! $this->current_user->canEditor()) {
+			return $this->err_sin_permisos;
+		}
+		$estado = $_datos['estado'];
+		$post_id = $_datos['que_id'];
+		return $this->_editarRevisionBan($estado, $post_id);
+	}
+
+	/**
+	 * Atiende a la petición del baneo de un usuario para enviar revisiones de un post
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonRevisionBan($_datos) {
+		if (! $this->current_user->canEditor()) {
+			return 'No tienes permisos';
+		}
+		$estado = $_datos['estado'];
+		$user_id = $_datos['que_id'];
+		$editor_id = $this->current_user->ID;
+		return $this->_editarRevisionBan($estado, $editor_id, $user_id);
+	}
+
+	/**
+	 * Atiende a la petición de la analitica del perfil y sus posts publicados por mes
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonAnaliticaPerfilPostPublicadosMes($_datos) {
+		$user_id = $_datos['user'];
+		$cant = $_datos['cant'];
+		$user = User::find($user_id);
+		$result = $user->getTotalEntradasPublicadasPorMes($cant);
+		$xKey = 'mes';
+		$yKeys = [
+			'total'
+		];
+		$labels = [
+			'Publicadas'
+		];
+		return Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
+	}
+
+	/**
+	 * Atiende a la petición del panel de administración rápida para un User
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonAdminPanelUser($_datos) {
+		$que = $_datos['que'];
+		$user_id = $_datos['user'];
+		$user = User::find($user_id);
+		// Comprobamos que el user actual sea un editor o admin
+		if (! $this->current_user->canEditor() || ($user->isAdmin() && ! $this->current_user->isAdmin())) {
+			return $this->err_sin_permisos;
+		}
+		switch ($que) {
+			case Ajax::QUITAR_HEADER :
+				$user->setImgHeader(null);
+				break;
+			case Ajax::QUITAR_AVATAR :
+				$user->setAvatar(null);
+				break;
+			case Ajax::BLOQUEAR :
+				$userBloqueado = new UserBloqueado($user_id);
+				$userBloqueado->editor_id = $this->current_user->ID;
+				$userBloqueado->save();
+				break;
+			case Ajax::DESBLOQUEAR :
+				$userBloqueado = new UserBloqueado($user_id);
+				$userBloqueado->borrar();
+				break;
+		}
+		return null;
+	}
+
+	/**
+	 * Atiende a la petición de la home
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonHome($_datos) {
+		$nombreSeccion = $_datos['seccion'];
+		$cantidad = $_datos['cant'];
+		$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
+		$argsSeccion['reducido'] = ($cantidad == 2);
+		$json['seccion'] = $this->_render('home/_seccion_contenido', $argsSeccion);
+		return $json;
+	}
+
+	/**
+	 * Atiende a los menus
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonMenu($_datos) {
+		$tipoMenu = $_datos['tipo'];
+		$menuArgs = [
+			'login_url' => wp_login_url('/'),
+			'redirect_to' => '/'
+		];
+		switch ($tipoMenu) {
+			case Ajax::MENU_PRINCIPAL :
+				$json['menu'] = $this->_render('menu/principal', $menuArgs);
+				break;
+			case Ajax::MENU_PERFIL :
+				$json['menu'] = $this->_render('menu/perfil', $menuArgs);
+				break;
+			case Ajax::MENU_FOOTER :
+				$json['menu'] = $this->_render('menu/footer');
+				break;
+		}
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un Post
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonPost($_datos) {
+		if (! $this->current_user->canEditor()) {
+			return $this->err_sin_permisos;
+		}
+		$tipo = $_datos['tipo'];
+		switch ($tipo) {
+			case Comment::BORRAR_COMENTARIO :
+				$comment = new Comment($_datos['id']);
+				$comment->borrar();
+				break;
+		}
+		break;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User de tipo Seguir
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserSeguir($_datos) {
+		$aQuienId = $_datos['id'];
+		try {
+			$ahoraLoSigue = $this->current_user->seguir($aQuienId, $_datos['seguir']);
+			$aQuien = User::find($aQuienId);
+
+			$json['code'] = 200;
+			if ($ahoraLoSigue) {
+				$alert = $this->renderAlertaInfo(I18n::transu('user.ahora_sigues_a', [
+					'nombre' => $aQuien->display_name
+				]));
+			} else {
+				$alert = $this->renderAlertaInfo(I18n::transu('user.dejaste_de_seguir_a', [
+					'nombre' => $aQuien->display_name
+				]));
+			}
+			$json['alert'] = $alert;
+			$json['btn'] = $this->_render('user/_btn_seguir', [
+				'user' => $aQuien
+			]);
+		} catch ( Exception $e ) {
+			$json['code'] = $e->getCode();
+			$json['err'] = $this->renderAlertaDanger($e->getMessage());
+		}
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User de tipo Enviar Mensaje
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserEnviarMensaje($_datos) {
+		$aQuienId = $_datos['user_id'];
+		$respuestaId = $_datos['respuesta_id'];
+		try {
+			$this->current_user->enviarMensajePrivado($_datos['mensaje'], $aQuienId, $_datos['respuesta_id']);
+			$aQuien = User::find($aQuienId);
+			if ($respuestaId) {
+				$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_respondido_exito', [
+					'nombre' => $aQuien->display_name
+				]));
+			} else {
+				$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_enviado_exito', [
+					'nombre' => $aQuien->display_name
+				]));
+			}
+			$json['code'] = 200;
+		} catch ( Exception $e ) {
+			$json['code'] = $e->getCode();
+			$alert = $this->renderAlertaDanger($e->getMessage());
+		}
+		$json['alert'] = $alert;
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User de tipo Borrar Mensaje
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserBorrarMensaje($_datos) {
+		$mensajeId = $_datos['mensaje_id'];
+		try {
+			$mensaje = new Mensaje();
+			$mensaje->ID = $mensajeId;
+			$mensaje->borrar();
+			$alert = $this->renderAlertaInfo(I18n::transu('user.mensaje_borrado'));
+			$json['code'] = 200;
+		} catch ( Exception $e ) {
+			$json['code'] = $e->getCode();
+			$alert = $this->renderAlertaDanger($e->getMessage());
+		}
+		$json['alert'] = $alert;
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User de tipo Actividad
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserActividad($_datos) {
+		$tipoActividad = $_datos['tipo_actividad'];
+		$offset = $_datos['size'];
+		$json['code'] = 200;
+		switch ($tipoActividad) {
+			case '#actividades' :
+				$actividades = $this->current_user->getActividades($offset);
+				$content = $this->_render('user/actividad/_actividades', [
+					'actividades' => $actividades
+				]);
+				break;
+			case '#actividades-propias' :
+				$actividades = $this->current_user->getActividadesPropias($offset);
+				$content = $this->_render('user/actividad/_actividades', [
+					'actividades' => $actividades
+				]);
+				break;
+			case '#seguidores' :
+				$content = $this->_render('user/actividad/_usuarios', [
+					'usuarios' => $this->current_user->getSeguidores($offset)
+				]);
+				break;
+			case '#siguiendo' :
+				$content = $this->_render('user/actividad/_usuarios', [
+					'usuarios' => $this->current_user->getSiguiendo($offset)
+				]);
+				break;
+			default :
+				$json['code'] = 500;
+		}
+		$json['content'] = $content;
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User de tipo Mensajes
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserMensajes($_datos) {
+		$tipoMensajes = $_datos['tipo_mensajes'];
+		$offset = $_datos['size'];
+		$json['code'] = 200;
+		switch ($tipoActividad) {
+			case '#recibidos' :
+				$mensajes = $this->current_user->getMensajesRecibidos($offset);
+				$json['content'] = $this->_render('user/mensajes/_mensajes_recibidos', [
+					'getMensajesRecibidos' => $mensajes
+				]);
+				break;
+			case '#enviados' :
+				$mensajes = $this->current_user->getMensajesEnviados($offset);
+				$json['content'] = $this->_render('user/mensajes/_mensajes_enviados', [
+					'getMensajesEnviados' => $mensajes
+				]);
+				break;
+			default :
+				$json['code'] = 500;
+		}
+		return $json;
+	}
+
+	/**
+	 * Atiende a la petición para acciones de un User
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUser($_datos) {
+		if (! isset($_datos['tipo'])) {
+			return $this->err;
+		}
+		if (! $this->current_user->canEditor()) {
+			return $this->err_sin_permisos;
+		}
+		switch ($_datos['tipo']) {
+			case User::SEGUIR :
+				return $this->_jsonUserSeguir($_datos);
+
+			case User::ENVIAR_MENSAJE :
+				return $this->_jsonUserEnviarMensaje($_datos);
+
+			case User::BORRAR_MENSAJE :
+				return $this->_jsonUserBorrarMensaje($_datos);
+
+			case User::ACTIVIDAD :
+				return $this->_jsonUserActividad($_datos);
+
+			case User::MENSAJES :
+				return $this->_jsonUserMensajes($_datos);
+		}
+		return $json;
+	}
+
+	/**
 	 *
 	 * @param string $submit
 	 */
 	public static function getJsonBySubmit($submit, $_datos) {
 		$ajax = new AjaxController();
-		$current_user = Utils::getCurrentUser();
-		$current_userCanEditor = $current_user && $current_user->canEditor();
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
-				$post_id = $_datos['post'];
-				$user_id = $_datos['user'];
-				$json['alerta'] = $ajax->crearNotificacion($post_id, $user_id);
-				break;
-			case Ajax::SER_COLABORADOR :
-				$user_id = $_datos['user'];
-				$json = $ajax->solicitarColaborador($user_id);
-				break;
-			case Ajax::ME_GUSTA :
-				$post = Post::find($_datos['post']);
-				$user = User::find($_datos['user']);
-				$te_gusta = $_datos['te_gusta'];
-				if ($te_gusta == Utils::SI) {
-					$json = $ajax->_crearMeGusta($post, $user);
-				} else {
-					$json = $ajax->_quitarMeGusta($post, $user);
-				}
-				break;
-			case Ajax::MOSTRAR_MAS :
-				$tipo = $_datos['tipo'];
-				$que = $_datos['que'];
-				$cant = $_datos['cant'];
-				$offset = $_datos['size'];
-				$json = $ajax->mostrarMas($tipo, $que, $cant, $offset);
-				break;
-			case Ajax::REVISION :
-				if (! $current_userCanEditor) {
-					return 'No tienes permisos';
-				}
-				$estado = $_datos['estado'];
-				$post_id = $_datos['que_id'];
-				$json = $ajax->editarRevision($estado, $post_id);
-				break;
-			case Ajax::REVISION_BAN :
-				if (! $current_userCanEditor) {
-					return 'No tienes permisos';
-				}
-				$estado = $_datos['estado'];
-				$user_id = $_datos['que_id'];
-				$editor_id = wp_get_current_user()->ID;
-				$json = $ajax->editarRevisionBan($estado, $editor_id, $user_id);
-				break;
-			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
-				$user_id = $_datos['user'];
-				$cant = $_datos['cant'];
-				$user = User::find($user_id);
-				$result = $user->getTotalEntradasPublicadasPorMes($cant);
-				$xKey = 'mes';
-				$yKeys = [
-					'total'
-				];
-				$labels = [
-					'Publicadas'
-				];
-				$json = Ajax::jsonParaMorris($result, $xKey, $yKeys, $labels);
-				break;
-			case Ajax::ADMIN_PANEL_USER :
-				$que = $_datos['que'];
-				$user_id = $_datos['user'];
-				$user = User::find($user_id);
-				// Comprobamos que el user actual sea un editor o admin
-				if (! $current_userCanEditor || ($user->isAdmin() && ! $current_user->isAdmin())) {
-					return 'No tienes permisos';
-				}
-				switch ($que) {
-					case Ajax::QUITAR_HEADER :
-						$user->setImgHeader(null);
-						break;
-					case Ajax::QUITAR_AVATAR :
-						$user->setAvatar(null);
-						break;
-					case Ajax::BLOQUEAR :
-						$userBloqueado = new UserBloqueado($user_id);
-						$userBloqueado->editor_id = $current_user->ID;
-						$userBloqueado->save();
-						break;
-					case Ajax::DESBLOQUEAR :
-						$userBloqueado = new UserBloqueado($user_id);
-						$userBloqueado->borrar();
-						break;
-				}
-				break;
-			case Ajax::HOME :
-				$nombreSeccion = $_datos['seccion'];
-				$cantidad = $_datos['cant'];
-				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-				$argsSeccion['reducido'] = ($cantidad == 2);
-				$json['seccion'] = $ajax->_render('home/_seccion_contenido', $argsSeccion);
-				break;
-			case Ajax::MENU :
-				$tipoMenu = $_datos['tipo'];
-				$menuArgs = [
-					'login_url' => wp_login_url('/'),
-					'redirect_to' => '/'
-				];
-				switch ($tipoMenu) {
-					case Ajax::MENU_PRINCIPAL :
-						$json['menu'] = $ajax->_render('menu/principal', $menuArgs);
-						break;
-					case Ajax::MENU_PERFIL :
-						$json['menu'] = $ajax->_render('menu/perfil', $menuArgs);
-						break;
-					case Ajax::MENU_FOOTER :
-						$json['menu'] = $ajax->_render('menu/footer');
-						break;
-				}
-				break;
-			case Ajax::POST :
-				if (! $current_userCanEditor) {
-					return 'No tienes permisos';
-				}
-				$tipo = $_datos['tipo'];
-				switch ($tipo) {
-					case Comment::BORRAR_COMENTARIO :
-						$comment = new Comment($_datos['id']);
-						$comment->borrar();
-						break;
-				}
-				break;
-			case Ajax::USER :
-				if (! $current_user) {
-					return 'No tienes permisos';
-				}
-				switch ($_datos['tipo']) {
-					case User::SEGUIR :
-						$aQuienId = $_datos['id'];
-						try {
-							$flag = $current_user->seguir($aQuienId, $_datos['seguir']);
-							$aQuien = User::find($aQuienId);
+				return $ajax->_jsonNotificar($_datos);
 
-							$json['code'] = 200;
-							if ($flag) {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('user.ahora_sigues_a', [
-									'nombre' => $aQuien->display_name
-								]));
-							} else {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('user.dejaste_de_seguir_a', [
-									'nombre' => $aQuien->display_name
-								]));
-							}
-							$json['alert'] = $alert;
-							$json['btn'] = $ajax->_render('user/_btn_seguir', [
-								'user' => $aQuien
-							]);
-						} catch ( Exception $e ) {
-							$json['code'] = $e->getCode();
-							$json['err'] = $ajax->renderAlertaDanger($e->getMessage());
-						}
-						break;
-					case User::ENVIAR_MENSAJE :
-						$aQuienId = $_datos['user_id'];
-						$respuestaId = $_datos['respuesta_id'];
-						try {
-							$current_user->enviarMensajePrivado($_datos['mensaje'], $aQuienId, $_datos['respuesta_id']);
-							$aQuien = User::find($aQuienId);
-							if ($respuestaId) {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('actividad.mensaje_respondido_exito', [
-									'nombre' => $aQuien->display_name
-								]));
-							} else {
-								$alert = $ajax->renderAlertaInfo(I18n::transu('actividad.mensaje_enviado_exito', [
-									'nombre' => $aQuien->display_name
-								]));
-							}
-							$json['code'] = 200;
-						} catch ( Exception $e ) {
-							$json['code'] = $e->getCode();
-							$alert = $ajax->renderAlertaDanger($e->getMessage());
-						}
-						$json['alert'] = $alert;
-						break;
-					case User::BORRAR_MENSAJE :
-						$mensajeId = $_datos['mensaje_id'];
-						try {
-							$mensaje = new Mensaje();
-							$mensaje->ID = $mensajeId;
-							$mensaje->borrar();
-							$alert = $ajax->renderAlertaInfo(I18n::transu('user.mensaje_borrado'));
-							$json['code'] = 200;
-						} catch ( Exception $e ) {
-							$json['code'] = $e->getCode();
-							$alert = $ajax->renderAlertaDanger($e->getMessage());
-						}
-						$json['alert'] = $alert;
-						break;
-					case User::ACTIVIDAD :
-						$tipoActividad = $_datos['tipo_actividad'];
-						$offset = $_datos['size'];
-						$json['code'] = 200;
-						switch ($tipoActividad) {
-							case '#actividades' :
-								$actividades = $current_user->getActividades($offset);
-								$content = $ajax->_render('user/actividad/_actividades', [
-									'actividades' => $actividades
-								]);
-								break;
-							case '#actividades-propias' :
-								$actividades = $current_user->getActividadesPropias($offset);
-								$content = $ajax->_render('user/actividad/_actividades', [
-									'actividades' => $actividades
-								]);
-								break;
-							case '#seguidores' :
-								$content = $ajax->_render('user/actividad/_usuarios', [
-									'usuarios' => $current_user->getSeguidores($offset)
-								]);
-								break;
-							case '#siguiendo' :
-								$content = $ajax->_render('user/actividad/_usuarios', [
-									'usuarios' => $current_user->getSiguiendo($offset)
-								]);
-								break;
-							default :
-								$json['code'] = 500;
-						}
-						$json['content'] = $content;
-						break;
-					case User::MENSAJES :
-						$tipoMensajes = $_datos['tipo_mensajes'];
-						$offset = $_datos['size'];
-						$json['code'] = 200;
-						switch ($tipoActividad) {
-							case '#recibidos' :
-								$mensajes = $current_user->getMensajesRecibidos($offset);
-								$json['content'] = $ajax->_render('user/mensajes/_mensajes_recibidos', [
-									'getMensajesRecibidos' => $mensajes
-								]);
-								break;
-							case '#enviados' :
-								$mensajes = $current_user->getMensajesEnviados($offset);
-								$json['content'] = $ajax->_render('user/mensajes/_mensajes_enviados', [
-									'getMensajesEnviados' => $mensajes
-								]);
-								break;
-							default :
-								$json['code'] = 500;
-						}
-						break;
-				}
-				break;
+			case Ajax::SER_COLABORADOR :
+				return $ajax->_jsonSerColaborador($_datos);
+
+			case Ajax::ME_GUSTA :
+				return $ajax->_jsonMeGusta($_datos);
+
+			case Ajax::MOSTRAR_MAS :
+				return $ajax->_jsonMostrarMas($_datos);
+
+			case Ajax::REVISION :
+				return $ajax->_jsonRevision($_datos);
+
+			case Ajax::REVISION_BAN :
+				return $ajax->_jsonRevisionBan($_datos);
+
+			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
+				return $ajax->_jsonAnaliticaPerfilPostPublicadosMes($_datos);
+
+			case Ajax::ADMIN_PANEL_USER :
+				return $ajax->_jsonAdminPanelUser($_datos);
+
+			case Ajax::HOME :
+				return $ajax->_jsonHome($_datos);
+
+			case Ajax::MENU :
+				return $ajax->_jsonMenu($_datos);
+
+			case Ajax::POST :
+				return $ajax->_jsonPost($_datos);
+
+			case Ajax::USER :
+				return $ajax->_jsonUser($_datos);
+
 			default :
-				$json['alerta'] = $ajax->renderAlertaDanger(I18n::transu('error'));
+				$json['alerta'] = $ajax->renderAlertaDanger($this->err);
+				return $json;
 		}
-		return $json;
 	}
 }
 
