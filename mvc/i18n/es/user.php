@@ -6,6 +6,7 @@ return [
 	'bandas_destacadas' => 'Bandas destacadas',
 
 	'dejaste_de_seguir_a' => 'Dejaste de seguir a :nombre',
+	'debes_iniciar_sesion' => 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para :para',
 
 	'editar_perfil' => 'editar perfil',
 	'eliminar_avatar' => 'eliminar avatar',
@@ -36,6 +37,8 @@ return [
 	'no_hay_entradas_publicadas' => 'Este usuario todavía no tiene entradas publicadas',
 
 	'quieres_escribir' => '¿Quieres escribir?',
+
+	'reportar_entrada' => 'reportar una entrada',
 
 	'se_unio_en' => 'Se unió en :mes de :ano',
 	'separa_por_comas' => 'Separadas por comas',

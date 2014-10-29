@@ -1,4 +1,4 @@
-<section class="col-xs-12">
+<div id="informar" class="col-xs-12">
 	<h3>{{#transu}}informar{{/transu}}</h3>
 		<p><small> {{#transu}}reportar_info{{/transu}}</small></p>
 	{{#current_user.ID}}
@@ -7,8 +7,7 @@
 				<input type="hidden" name="post" value="{{post.ID}}">
 				<input type="hidden" name="user" value="{{current_user.ID}}">
 				<input type="hidden" name="nonce" value="{{getNonceNotificar}}">
-				
-				
+
 				<button type="submit" name="submit" class="btn-notificar btn btn-danger col-xs-12" >
 					{{#transu}}reportar_entrada [titulo:{{{getTitulo}}}]{{/transu}}
 					<i class="fa fa-spinner fa-spin hidden"></i>
@@ -17,9 +16,6 @@
 		</div>
 	{{/current_user.ID}}
 	{{^current_user.ID}}
-		<a class="login-necesario form-control btn btn-default" href="/wp-login.php" target="_blank">
-			<i class='fa fa-flag-o'></i> 
-			{{#transu}}user.login_necesario{{/transu}}
-		</a>
+		{{#trans}}user.debes_iniciar_sesion [para:{{#trans}}user.reportar_entrada{{/trans}}]{{/trans}}.
 	{{/current_user.ID}}
-</section>
+</div>

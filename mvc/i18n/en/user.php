@@ -6,6 +6,7 @@ return [
 	'bandas_destacadas' => 'Featured Bands',
 
 	'dejaste_de_seguir_a' => 'Unfollowing :nombre',
+	'debes_iniciar_sesion' => 'Sorry, you must be <a href="/wp-login.php">logged in</a> to :para',
 
 	'editar_perfil' => 'edit profile',
 	'eliminar_avatar' => 'delete avatar',
@@ -16,6 +17,7 @@ return [
 	'eres_una_banda' => 'Are you a band?',
 	'es' => 'Spanish',
 	'escribir_mensaje' => 'Write mesaje',
+	'escribir_mensaje' => 'write a comesaje',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'generos_destacados' => 'Featured Genres',
@@ -36,6 +38,8 @@ return [
 	'no_hay_entradas_publicadas' => 'This user has no published entries yet',
 
 	'quieres_escribir' => 'Do you want to write?',
+
+	'reportar_entrada' => 'report a post',
 
 	'se_unio_en' => 'He joined in :mes :ano',
 	'separa_por_comas' => 'Separated by commas',

@@ -1,20 +1,22 @@
-<div id="comment-{{comment_ID}}" class="row comment bs-callout bs-callout-danger">
-	<div class="avatar col-xs-2">
-		<a href="{{getUser.getPerfilUrl}}">
-			<img src="{{getUser.getAvatar}}" alt="{{getUser.display_name}} avatar">
-		</a>
-	</div>
-	<div class="col-xs-10">
-		<span class="col-xs-8 author" id="user-{{user_id}}">
-			<span class="name"><a href="{{getUser.getPerfilUrl}}">{{comment_author}}</a></span>
-			<span class="date">{{comment_date_gmt}}</span>
-		</span>
-		{{#current_user.canEditor}}
-			<span class="col-xs-2">
-				<button class="btn btn-danger borrar-comentario">{{#transu}}borrar{{/transu}}</button>
-				<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+<div id="comment-{{comment_ID}}" class="row">
+	<div class="comment col-xs-12 bs-callout bs-callout-danger">
+		<div class="avatar col-xs-3 col-md-2">
+			<a href="{{getUser.getPerfilUrl}}">
+				<img src="{{getUser.getAvatar}}" alt="{{getUser.display_name}} avatar">
+			</a>
+		</div>
+		<div class="col-xs-9 col-md-10">
+			<span class="col-xs-8 author" id="user-{{user_id}}">
+				<span class="name"><a href="{{getUser.getPerfilUrl}}">{{comment_author}}</a></span>
+				<span class="date">{{comment_date_gmt}}</span>
 			</span>
-		{{/current_user.canEditor}}
-		<p class="col-xs-12">{{comment_content}}</p>
+			{{#current_user.canEditor}}
+				<span class="col-xs-2">
+					<button class="btn btn-danger borrar-comentario">{{#transu}}borrar{{/transu}}</button>
+					<i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+				</span>
+			{{/current_user.canEditor}}
+			<p class="col-xs-12">{{comment_content}}</p>
+		</div>
 	</div>
 </div>

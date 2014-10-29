@@ -11,19 +11,19 @@
 		</div>
 	
 		{{> post/_tags}}
-		
+		<hr>
 		{{> post/_meta_autor}}
 	
 		{{> post/_informar}}
 	
-		<div class="comment-form col-xs-12"> 
+		<div id="comment-form" class="col-xs-12"> 
 			{{{getFormComentarios}}}
 		</div>
 		
 		{{# getTotalComentarios }}
-		<h3 class="col-xs-12">{{#transu}}comentarios{{/transu}}</h3>
-		<div id="comments" class="comments col-xs-12">
-			{{#getComentarios}}
+		<div id="comments" class="col-xs-12">
+			<h3 class="col-xs-12">{{#transu}}comentarios{{/transu}}</h3>
+			{{#getComentarios}}				
 				{{> post/_comment}}
 			{{/getComentarios}}
 		</div>

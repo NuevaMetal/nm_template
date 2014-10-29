@@ -1,34 +1,28 @@
 {{#getAutor}}
-<div class="post-meta page-header row">
-	<div itemprop="author" itemscope itemtype="http://schema.org/Person">
-		<h2>
-		<div class="col-xs-12 " >
-			<a href="{{getPerfilUrl}}" itemprop="image">
+<div id="post-meta" class="col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person"  >
+	<div class="row">
+		<a href="{{getPerfilUrl}}">
+			<span class="col-xs-3 col-sm-4 col-md-2" itemprop="image">
 				<img alt="{{display_name}}" src="{{getAvatar}}" class="avatar">
-			</a>
-			<a href="{{getPerfilUrl}}" itemprop="name">{{display_name}}</a>
-			{{#isTipoUsuario}}				
-				<small itemprop="jobTitle">{{getRol}}</small>
-			{{/isTipoUsuario}}
-			{{^isTipoUsuario}}
-				<small itemprop="jobTitle">{{getTipoTrans}}</small>
-			{{/isTipoUsuario}}
-		</div>
-		</h2>
-
-		<div class="col-xs-12">	
-			<div class="bs-callout bs-callout-default" itemprop="description">
-				{{#getDescripcion}}
-					<h4>{{#transu}}biografia{{/transu}}</h4>
-				{{/getDescripcion}}
-				<p itemprop="description">
-					{{getDescripcionCorta}}
-					{{^getDescripcion}}
-						{{#transu}}user.no_hay_info_perfil{{/transu}}
-					{{/getDescripcion}}
-				</p>
-			</div>
-		</div>
+			</span>
+			<span class="col-xs-9 col-sm-8 col-md-10">
+				<h2>
+					<span itemprop="name">{{display_name}}</span>
+					{{#isTipoUsuario}}
+						<small itemprop="jobTitle">{{getRol}}</small>
+					{{/isTipoUsuario}}
+					{{^isTipoUsuario}}
+						<small itemprop="jobTitle">{{getTipoTrans}}</small>
+					{{/isTipoUsuario}}
+				</h2>
+			</span>
+		</a>
+		<blockquote class="col-xs-12" itemprop="description">
+			{{getDescripcionCorta}}
+			{{^getDescripcion}}
+				{{#transu}}user.no_hay_info_perfil{{/transu}}
+			{{/getDescripcion}}
+		</blockquote>
 	</div>
 </div>
 {{/getAutor}}

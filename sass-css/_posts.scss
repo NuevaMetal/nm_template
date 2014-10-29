@@ -31,6 +31,45 @@
 .post {
 
 	@extend %ul-inline;
+	
+	#post-meta{
+		//border: 1px solid red;
+		border-top: 1px solid #bbb;
+		margin-top: 10px;
+		padding-top: 10px;;
+		.avatar {
+			margin: 10px 0;
+		}
+		h1 {
+			//@include inline-block;
+		}
+	}
+	
+	#informar {
+		//border: 1px solid green;
+		border-top: 1px solid #bbb;
+	}
+	
+	#comment-form {
+		//border: 1px solid blue;
+		border-top: 1px solid #ccc;
+		margin-top: 20px;
+	}
+
+	#comments{
+		//border: 1px solid pink;
+		//border-top: 1px solid #ccc;
+		.comment {
+			margin: 5px 0;
+			p {
+				margin-top: 10px;
+			}
+			.author{
+				.name{}
+				.date{ text-align:right; }
+			}			
+		}
+	}
 
 	// Centrar las img de dentro de los posts
 	p img {
@@ -49,34 +88,14 @@
 	.categories {
 		@include sombreado-color(#fff, #333);
 	}
-	.comment-form {
-		margin-bottom: 10px;
-	}
-	
-	.comments{
-		.comment {
-			p {
-				margin-top: 10px;
-			}
-			.author{
-				.name{}
-				.date{text-align:right}
-			}			
-		}
-	}
+
 	.info {
 		margin: 6px 0;
 	}
 
 	.post-time{
 		margin-left: 20px;
-	}
-	
-	.post-meta{
-		h1 {
-			@include inline-block;
-		}
-	}
+	}	
 	
 	.total-me-gustas {
 		border: 0px;
