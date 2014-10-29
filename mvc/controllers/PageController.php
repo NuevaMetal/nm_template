@@ -49,18 +49,6 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * Ver los favoritos de un User
-	 */
-	public function getMensajes() {
-		$user = Utils::getCurrentUser();
-		return $this->_renderPageBase([
-			'content' => $this->_render('mensajes', [
-				'user' => $user
-			])
-		]);
-	}
-
-	/**
 	 * Paǵina de sitios de interés
 	 */
 	public function getAmigas() {

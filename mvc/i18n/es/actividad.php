@@ -24,6 +24,7 @@ return [
 	'mensaje_no_existe' => 'El mensaje no existe',
 	'mensajes_enviados' => 'Mensajes enviados',
 	'mensajes_recibidos' => 'Mensajes recibidos',
+	'mensajes_titulo' => 'Puedes enviar mensajes privados desde el perfil de aquel usuario al que quieras escribir',
 
 	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 

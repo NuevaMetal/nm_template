@@ -1,6 +1,6 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
+require_once (dirname(__FILE__) . '/mvc/controllers/UserController.php');
 
-$pageController = new PageController();
-$pageController->getMensajes();
+$controller = new UserController();
+$controller->getMensajes();
 ?>

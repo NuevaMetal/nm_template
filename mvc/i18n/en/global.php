@@ -74,6 +74,8 @@ return [
 
 	'mas' => 'more',
 	'me_gusta' => 'like',
+	'mensaje' => 'message',
+	'mensajes' => 'messages',
 	'mostrar_mas' => 'show more',
 	'mostrar_menos' => 'show less',
 

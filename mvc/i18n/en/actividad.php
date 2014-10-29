@@ -24,6 +24,7 @@ return [
 	'mensaje_no_existe' => 'This message don\'t exists',
 	'mensajes_enviados' => 'Messages sent',
 	'mensajes_recibidos' => 'Inbox',
+	'mensajes_titulo' => 'You can send private message from the user profile that you want to write',
 
 	'sin_actividad' => 'You haven\'t activity to show yet',
 

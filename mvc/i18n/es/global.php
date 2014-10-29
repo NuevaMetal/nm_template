@@ -77,6 +77,8 @@ return [
 
 	'mas' => 'más',
 	'me_gusta' => 'me gusta',
+	'mensaje' => 'mensaje',
+	'mensajes' => 'mensajes',
 	'mostrar_mas' => 'mostrar más',
 	'mostrar_menos' => 'mostrar menos',
 

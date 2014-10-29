@@ -216,4 +216,16 @@ class UserController extends BaseController {
 			'KEY_USER_GENEROS_DESTACADOS' => User::KEY_USER_GENEROS_DESTACADOS
 		]);
 	}
+
+	/**
+	 * Ver los favoritos de un User
+	 */
+	public function getMensajes() {
+		$user = Utils::getCurrentUser();
+		return $this->_renderPageBase([
+			'content' => $this->_render('user/_mensajes', [
+				'user' => $user
+			])
+		]);
+	}
 }
