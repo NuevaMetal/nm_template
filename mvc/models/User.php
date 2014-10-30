@@ -1286,19 +1286,20 @@ class User extends Favoriteador {
 	 */
 	public function getActividades($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		$siguientoIds = $this->_getSiguiendoIds();
-		$siguientoIds = implode(',', $siguientoIds);
+		$siguientoIds = implode(',', $this->_getSiguiendoIds());
 		$siguientoIds .= (strlen($siguientoIds) > 1) ? ",$this->ID" : $this->ID;
 		$sql = 'SELECT tipo_que, user_id, que_id, updated_at
 				FROM wp_v_actividades
 				WHERE user_id IN (' . $siguientoIds . ')
+				AND tipo_que != "' . VActividad::TIPO_SEGUIMIENTO_USER . '"
+				OR ((user_id = %d OR que_id = %d) AND tipo_que = %s )
 				ORDER BY updated_at DESC ';
 
 		if ($limit) {
 			$sql .= ' LIMIT %d OFFSET %d';
-			$actividades = $wpdb->get_results($wpdb->prepare($sql, $limit, $offset));
+			$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID, $this->ID, VActividad::TIPO_SEGUIMIENTO_USER, $limit, $offset));
 		} else {
-			$actividades = $wpdb->get_results($sql);
+			$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID, $this->ID, VActividad::TIPO_SEGUIMIENTO_USER));
 		}
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
