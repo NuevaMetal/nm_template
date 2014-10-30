@@ -564,7 +564,7 @@ class AjaxController extends BaseController {
 	private function _jsonUserActividad($_datos) {
 		$offset = $_datos['size'];
 		$json['code'] = 200;
-		switch ($_datos['tipo_actividad']) {
+		switch ($_datos['tipo_id']) {
 			case '#actividades' :
 				$actividades = $this->current_user->getActividades($offset);
 				$content = $this->_render('user/actividad/_actividades', [
@@ -603,7 +603,7 @@ class AjaxController extends BaseController {
 	private function _jsonUserFavoritos($_datos) {
 		$offset = $_datos['size'];
 		$json['code'] = 200;
-		switch ($_datos['tipo_favoritos']) {
+		switch ($_datos['tipo_id']) {
 			case '#' . Post::CATEGORY_BANDAS :
 				$favoritos = $this->current_user->getFavoritosBandas($offset);
 				$content = $this->_render('user/favoritos/_lista', [
@@ -638,7 +638,7 @@ class AjaxController extends BaseController {
 	private function _jsonUserMensajes($_datos) {
 		$offset = $_datos['size'];
 		$json['code'] = 200;
-		switch ($_datos['tipo_mensajes']) {
+		switch ($_datos['tipo_id']) {
 			case '#recibidos' :
 				$mensajes = $this->current_user->getMensajesRecibidos($offset);
 				$json['content'] = $this->_render('user/mensajes/_mensajes_recibidos', [

@@ -27,7 +27,7 @@ $(window).load(function(){
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
-var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD = 1500;
+//var ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD = 1500;
 
 /**
  * Constantes de la anchura
@@ -38,14 +38,14 @@ var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600 };
  * Indica si se puede hacer Scroll con una altura mínima parada por parámetro
  * @param int alturaMinima 
  */
-function siSePuede(alturaMinima) {
+function siSePuede(alturaMinima, elemento) {
 	var scroll = $(window).scrollTop();
 	var windowHeight = $( window ).height();
 	var documentHeight = $(document).height();
 	// Si estamos en la home no cargaremos el mostrar más de forma automática
 	// Si solo hay un mostrar más, entonces lo presionará solo al bajar 
 	var alturaMenosScroll = (documentHeight - windowHeight)-scroll;
-	var noHayspin = $('.mostrar-mas').find('.fa-spin').hasClass('hidden');
+	var noHayspin = $(elemento).find('.fa-spin').hasClass('hidden');
 	return noHayspin && alturaMenosScroll <= alturaMinima;
 }
 
@@ -75,29 +75,30 @@ function seHaceScroll() {
 	}
 	if($('#home').length > 0) return;
 	
-	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS);
-	if( $('.mostrar-mas').size() == 1 && sePuede) {
+	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS, '.mostrar-mas');
+	if( $('.mostrar-mas').size() == 1 && sePuede) {		
 		$('.mostrar-mas').trigger('click');
-	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {
+	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {		
 		$('#autor .mostrar-mas').trigger('click');
 	} else if($('#busqueda-posts .mostrar-mas').size() == 1 && sePuede) {
 		$('#busqueda-posts .mostrar-mas').trigger('click');
 	}
-	
-	// scroll en la pantalla de favoritos
-	if($('#favoritos').length > 0 && sePuede) {
-		seHaceScrollEnFavoritos();
+	_userHacerScrollSuPantalla();	
+}
+
+/**
+ * Controla cuando el user hace scroll
+ */
+function _userHacerScrollSuPantalla() {
+	function _scroll(donde){
+		if($('#'+donde).length > 0) {
+			if(siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS,'#'+donde+' .mostrar-mas'))
+				seHaceSrollEn(donde);
+		}
 	}
-	
-	// scroll en la pantalla de actividad	
-	sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD);
-	if($('#actividad').length > 0 && sePuede) {
-		seHaceScrollEnActividad();
-	}
-	// scroll en la pantalla de mensajes
-	if($('#mensajes').length > 0 && sePuede) {
-		seHaceScrollEnMensajes();
-	}
+	_scroll('favoritos');
+	_scroll('actividad');
+	_scroll('mensajes');
 }
 
 /**
@@ -149,39 +150,30 @@ function getWindowWidth(tam) {
 	return true;
 }
 
-$(document).on('click', '#favoritos ul li', function(e) {
+$(document).on('click', '.padre ul li', function(e) {
 	e.preventDefault();
-	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS);
-	if($('#favoritos').length > 0 && sePuede) {
-		seHaceScrollEnFavoritos();
-	}
+	_userHacerScrollSuPantalla();
 });
 
-$(document).on('click', '#actividad ul li', function(e) {
-	e.preventDefault();
-	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD);
-	if($('#actividad').length > 0 && sePuede) {
-		seHaceScrollEnActividad();
-	}
-});
 
 /**
- * Se hace scroll en la pantalla de actividad
+ * Se hace sroll en: actividad, mensajes, favoritos
+ * @param string _id
  */
-function seHaceScrollEnActividad() {
-	var actividad = $('#actividad');
+function seHaceSrollEn(_id){
+	var id = $("#"+_id);
+	var tipo_content = "."+_id+"-content";
+	var tipo_id = id.find('.nav li[class="active"] a').attr('href');
+	var size = $(tipo_id).find(tipo_content).children().size();
 	var url = $('#page').attr('url');
-	var tipo_actividad = actividad.find('.nav li[class="active"] a').attr('href');
-	var size = $(tipo_actividad).find('.actividades-content').children().size();
-
-	if(!$(tipo_actividad).find('.fa-spin').hasClass('hidden') || $(tipo_actividad).find('button').length == 0 ){
+	
+	if(!$(tipo_id).find('.mostrar-mas .fa-spin').hasClass('hidden') || $(tipo_id).find('.mostrar-mas').length == 0) {
 		return;
 	}
-	
 	var data = {
 		submit : 'user',
-		tipo: 'actividad',
-		tipo_actividad: tipo_actividad,
+		tipo: _id,
+		tipo_id: tipo_id,
 		size: size,
 	};
 
@@ -191,116 +183,20 @@ function seHaceScrollEnActividad() {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(tipo_actividad).find('.fa-spin').removeClass('hidden');
-			$(tipo_actividad).find('.fa-plus').addClass('hidden');
-		},
-		success : function(json) {
-			if(json.code == 200 ) {
-				// tipo_mensajes: #actividades | #actividades-propias | #seguidores | #siguiendo
-				$(tipo_actividad).find('.actividades-content').append(json.content);
-				if(json.content.length == 0){
-					$(tipo_actividad).find('button').remove();
-				}
-			}
-			$(tipo_actividad).find('.fa-spin').addClass('hidden');
-			$(tipo_actividad).find('.fa-plus').removeClass('hidden');
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-//	         alert("Ocurrió un error inesperado.\n" 
-//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			 + ",\n thrownError "+thrownError);
-	     }
-	});
-}
-
-/**
- * Se hace scroll en la pantalla de mensajes
- */
-function seHaceScrollEnMensajes() {	
-	var mensajes = $('#mensajes');
-	var url = $('#page').attr('url');
-	var tipo_mensajes = mensajes.find('.nav li[class="active"] a').attr('href');
-	var size = $(tipo_mensajes).find('.mensajes-content').children().size();
-	
-	if(!$(tipo_mensajes).find('.fa-spin').hasClass('hidden') || $(tipo_mensajes).find('.mostrar-mas').length == 0) {
-		return;
-	}
-	var data = {
-		submit : 'user',
-		tipo: 'mensajes',
-		tipo_mensajes: tipo_mensajes,
-		size: size,
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');	
-			$(tipo_favoritos).find('.fa-plus').addClass('hidden');	
-		},
-		success : function(json) {
-			console.log(json);
-			if(json.code == 200 ) {
-				// tipo_mensajes: #recibidos | #enviados
-				$(tipo_mensajes).find('.mensajes-content').append(json.content);
-			}
-			// Eliminar el btn si no hubiera más contenido
-			if (json.content == null || json.content.length == 0) {
-				$(tipo_mensajes).find('.mostrar-mas').remove();
-			}
-			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
-			$(tipo_favoritos).find('.fa-plus').removeClass('hidden');
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-//	         alert("Ocurrió un error inesperado.\n" 
-//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
-			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
-			 + ",\n thrownError "+thrownError);
-	     }
-	});
-}
-
-/**
- * Se hace scroll en la pantalla de favoritos
- */
-function seHaceScrollEnFavoritos() {	
-	var favoritos = $('#favoritos');
-	var url = $('#page').attr('url');
-	var tipo_favoritos = favoritos.find('.nav li[class="active"] a').attr('href');
-	var size = $(tipo_favoritos).find('.favoritos-content').children().size();
-	
-	if(!$(tipo_favoritos).find('.fa-spin').hasClass('hidden') || $(tipo_favoritos).find('button').length == 0) {
-		return;
-	}
-	var data = {
-		submit : 'user',
-		tipo: 'favoritos',
-		tipo_favoritos: tipo_favoritos,
-		size: size,
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$(tipo_favoritos).find('.fa-spin').removeClass('hidden');
-			$(tipo_favoritos).find('.fa-plus').addClass('hidden');
+			$(tipo_id).find('.fa-spin').removeClass('hidden');
+			$(tipo_id).find('.fa-plus').addClass('hidden');
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
 				// #bandas|#videos|#noticias...
-				$(tipo_favoritos).find('.favoritos-content').append(json.content);
+				$(tipo_id).find(tipo_content).append(json.content);
 			}
 			// Eliminar el btn si no hubiera más contenido
 			if (json.content == null || json.content.length == 0) {
-				$(tipo_favoritos).find('.mostrar-mas').remove();
+				$(tipo_id).find('.mostrar-mas').remove();
 			}
-			$(tipo_favoritos).find('.fa-spin').addClass('hidden');
-			$(tipo_favoritos).find('.fa-plus').removeClass('hidden');
+			$(tipo_id).find('.fa-spin').addClass('hidden');
+			$(tipo_id).find('.fa-plus').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 

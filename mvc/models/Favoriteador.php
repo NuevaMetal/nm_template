@@ -66,7 +66,7 @@ abstract class Favoriteador extends ModelBase {
 					AND post_id IN (p.id)
 					ORDER BY updated_at desc ';
 		} else {
-			$sql = 'SELECT post_id FROM wp_favoritos
+			$sql = 'SELECT distinct post_id FROM wp_favoritos
 				WHERE user_id = %d
 				AND status = %d
 				ORDER BY updated_at desc ';
