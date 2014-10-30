@@ -84,6 +84,11 @@ function seHaceScroll() {
 		$('#busqueda-posts .mostrar-mas').trigger('click');
 	}
 	
+	// scroll en la pantalla de favoritos
+	if($('#favoritos').length > 0 && sePuede) {
+		seHaceScrollEnFavoritos();
+	}
+	
 	// scroll en la pantalla de actividad	
 	sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS_ACTIVIDAD);
 	if($('#actividad').length > 0 && sePuede) {
@@ -93,11 +98,6 @@ function seHaceScroll() {
 	if($('#mensajes').length > 0 && sePuede) {
 		seHaceScrollEnMensajes();
 	}
-	// scroll en la pantalla de favoritos
-	if($('#favoritos').length > 0 && sePuede) {
-		seHaceScrollEnFavoritos();
-	}
-	
 }
 
 /**
@@ -148,6 +148,14 @@ function getWindowWidth(tam) {
 	}
 	return true;
 }
+
+$(document).on('click', '#favoritos ul li', function(e) {
+	e.preventDefault();
+	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS);
+	if($('#favoritos').length > 0 && sePuede) {
+		seHaceScrollEnFavoritos();
+	}
+});
 
 $(document).on('click', '#actividad ul li', function(e) {
 	e.preventDefault();
