@@ -55,8 +55,8 @@ abstract class Favoriteador extends ModelBase {
 		if ($categoria) {
 			$sql = 'SELECT distinct post_id
 					FROM wp_favoritos, (
-							SELECT object_id as id
-							FROM wp_term_relationships rel
+						SELECT object_id as id
+						FROM wp_term_relationships rel
 							JOIN wp_term_taxonomy tax ON rel.term_taxonomy_id = tax.term_taxonomy_id
 							JOIN wp_terms ter ON tax.term_id = ter.term_id
 						WHERE name = %s
@@ -93,7 +93,10 @@ abstract class Favoriteador extends ModelBase {
 	 */
 	public function getFavoritos($offset = 0, $limit = User::NUM_FAV_PERFIL_DEFAULT, $categoria = false) {
 		foreach ($this->_getFavoritosIds($offset, $limit, $categoria) as $post_id) {
-			$posts[] = Post::find($post_id);
+			$post = Post::find($post_id);
+			if ($post) {
+				$posts[] = $post;
+			}
 		}
 		return $posts;
 	}
@@ -190,15 +193,14 @@ abstract class Favoriteador extends ModelBase {
 	 */
 	public function getTotalFavoritosRecibidos() {
 		global $wpdb;
-		$activo = Favorito::ACTIVO;
-		return (int) $wpdb->get_var("SELECT SUM( p.totales )
+		$sql = 'SELECT SUM( p.totales )
 			FROM (
 				SELECT COUNT(ids.ID) as totales FROM wp_favoritos f,
-					(SELECT ID FROM wp_posts
-					where post_author = $this->ID) ids
+					(SELECT ID FROM wp_posts where post_author = %d) ids
 				where f.post_id = ids.ID
-				AND f.status = $activo
+				AND f.status = %d
 				GROUP BY f.user_id
-			) p");
+			) p';
+		return (int) $wpdb->get_var($wpdb->prepare($sql, $this->ID, Favorito::ACTIVO));
 	}
 }
