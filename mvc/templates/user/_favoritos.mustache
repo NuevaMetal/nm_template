@@ -7,13 +7,33 @@
 	
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs titular" role="tablist">
-			<li class="active"><a href="#{{CATEGORY_BANDAS}}" role="tab" data-toggle="tab">{{#transu}}bandas{{/transu}}</a></li>
+			{{# getTotalFavoritosBandas }}
+				<li class="active"><a href="#{{CATEGORY_BANDAS}}" role="tab" data-toggle="tab">{{#transu}}bandas{{/transu}}</a></li>
+			{{/ getTotalFavoritosBandas }}
+			
+			{{# getTotalFavoritosConciertos }}
 			<li ><a href="#{{CATEGORY_CONCIERTOS}}" role="tab" data-toggle="tab">{{#transu}}conciertos{{/transu}}</a></li>
+			{{/ getTotalFavoritosConciertos }}
+			
+			{{# getTotalFavoritosCriticas }}
 			<li ><a href="#{{CATEGORY_CRITICAS}}" role="tab" data-toggle="tab">{{#transu}}criticas{{/transu}}</a></li>
+			{{/ getTotalFavoritosCriticas }}
+			
+			{{# getTotalFavoritosCronicas }}
 			<li ><a href="#{{CATEGORY_CRONICAS}}" role="tab" data-toggle="tab">{{#transu}}cronicas{{/transu}}</a></li>
+			{{/ getTotalFavoritosCronicas }}
+			
+			{{# getTotalFavoritosEntrevistas }}
 			<li ><a href="#{{CATEGORY_ENTREVISTAS}}" role="tab" data-toggle="tab">{{#transu}}entrevistas{{/transu}}</a></li>
+			{{/ getTotalFavoritosEntrevistas }}
+			
+			{{# getTotalFavoritosNoticias }}
 			<li ><a href="#{{CATEGORY_NOTICIAS}}" role="tab" data-toggle="tab">{{#transu}}noticias{{/transu}}</a></li>
+			{{/ getTotalFavoritosNoticias }}
+			
+			{{# getTotalFavoritosVideos }}
 			<li ><a href="#{{CATEGORY_VIDEOS}}" role="tab" data-toggle="tab">{{#transu}}videos{{/transu}}</a></li>
+			{{/ getTotalFavoritosVideos }}
 		</ul>
 	
 		<!-- Tab panes -->
