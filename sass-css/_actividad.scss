@@ -20,6 +20,7 @@
 		.fila {
 			@extend %fila-sombreada;
 		}
+		
 		.tipo-me-gusta {
 			
 		}
@@ -39,6 +40,12 @@
 		
 		.texto {
 			margin-left: 10px;
+		}
+	}
+	
+	#seguidores, #siguiendo {
+		button.seguir {
+			margin-top: 6px;
 		}
 	}
 	
