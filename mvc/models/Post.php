@@ -286,11 +286,23 @@ class Post extends ModelBase {
 		}
 		return $thumbnails;
 	}
+
+	/**
+	 *
+	 * @param string $_content
+	 * @return string
+	 */
 	private static function getTheFilteredContentFromLoop($_content) {
 		$content = apply_filters('the_content', $_content);
 		$content = str_replace(']]>', ']]&gt;', $content);
 		return $content;
 	}
+
+	/**
+	 *
+	 * @param array $theTags
+	 * @return multitype:|multitype:unknown
+	 */
 	private static function _getTags($theTags) {
 		if (! $theTags) {
 			return array();
@@ -302,6 +314,12 @@ class Post extends ModelBase {
 		}
 		return $array;
 	}
+
+	/**
+	 *
+	 * @param array $theCategories
+	 * @return multitype:|multitype:unknown
+	 */
 	private static function _getCategories($theCategories) {
 		if (! $theCategories) {
 			return array();
@@ -368,21 +386,31 @@ class Post extends ModelBase {
 		}
 		return $postsSimilares;
 	}
-	public function haySimilares() {
+
+	/**
+	 * Devuelve el número total de entradas similares que se encuentran
+	 * @return number
+	 */
+	public function getTotalSimilares() {
 		return count($this->getSimilares());
-	}
-	public function hayReferencias() {
-		return count($this->getReferencias());
 	}
 
 	/**
-	 * Devuelve un array con posts que hacen referecia basásndose en su título
+	 *
+	 * @return number
+	 */
+	public function getTotalRelacionadas() {
+		return count($this->getRelacionadas());
+	}
+
+	/**
+	 * Devuelve un array con posts relacionados basásndose en su título
 	 *
 	 * @param number $max
 	 *        	Número máximo de posts 'refencia' que queremos
 	 * @return array<Post>
 	 */
-	public function getReferencias($max = self::NUM_REFERENCIAS_DEFAULT) {
+	public function getRelacionadas($max = self::NUM_REFERENCIAS_DEFAULT) {
 		global $wpdb;
 		$cont = 0;
 		$postsSimilares = array();
