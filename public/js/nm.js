@@ -605,10 +605,10 @@ $(document).on('click', '.borrar-comentario', function(e) {
 $(document).on('click', '.seguir', function(e) {
 	e.preventDefault();
 	var $this =  $(this);
-	var url = $this.attr('url');
 	var nonce = $this.attr('nonce');
 	var id = $this.attr('id');
 	var seguir = $this.attr('seguir');
+	var url = $('#page').attr('url');
 	var data = {
 		submit : 'user',
 		tipo: 'seguir',
@@ -616,6 +616,7 @@ $(document).on('click', '.seguir', function(e) {
 		seguir: seguir,
 		nonce: nonce
 	};	
+	console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -628,12 +629,12 @@ $(document).on('click', '.seguir', function(e) {
 			$this.attr('disabled', true);
 		},
 		success : function(json) {
+			$this.find('.fa-spin').addClass('hidden');
+			$this.find('.fa-plus').removeClass('hidden');
+			$this.find('.fa-remove').removeClass('hidden');
 			if(json.code == 200){
 				$this.attr('disabled', false);
 				$this.replaceWith(json.btn);
-				$this.find('.fa-spin').addClass('hidden');
-				$this.find('.fa-plus').removeClass('hidden');
-				$this.find('.fa-remove').removeClass('hidden');
 				$('#user .total-seguidores').text(json.cant);
 				mostrarAlerta(json.alert, 2);
 			} else {

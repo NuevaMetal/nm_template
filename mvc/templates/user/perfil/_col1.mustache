@@ -16,7 +16,14 @@
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{display_name}}</h3>
 		
 		<span class="col-xs-12 col-lg-10">
-			{{> user/_btn_seguir }}
+			{{#current_user}}
+				{{> user/_btn_seguir_user }}
+			{{/current_user}}
+			{{^current_user}}
+				<a class="btn btn-danger col-xs-12" href="/wp-login.php">
+					<i class="fa fa-plus"></i> {{#transu}}seguir{{/transu}}
+				</a>
+			{{/current_user}}
 		</span>
 		
 		<span class="col-xs-12 col-lg-10">

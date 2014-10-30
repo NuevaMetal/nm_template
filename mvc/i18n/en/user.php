@@ -17,7 +17,6 @@ return [
 	'eres_una_banda' => 'Are you a band?',
 	'es' => 'Spanish',
 	'escribir_mensaje' => 'Write mesaje',
-	'escribir_mensaje' => 'write a comesaje',
 	'etiquetas_destacadas_fav' => 'Top Tags as favorite',
 
 	'generos_destacados' => 'Featured Genres',

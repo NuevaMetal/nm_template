@@ -1,11 +1,18 @@
 <div class="fila bs-callout">
 	{{> user/actividad/_user}}
-	<div class="col-xs-8">
+	<div class="col-xs-6 col-md-7">
 		<a href="{{getPerfilUrl}}"><span class="col-xs-10">{{display_name}}</span></a>
-		<span class="col-xs-12">{{getDescripcionCorta}}</span>
+		<span class="col-xs-12">
+			{{#tieneDescripcion}} {{getDescripcionCorta}} {{/tieneDescripcion}}
+			{{^tieneDescripcion}} {{getRol}} {{/tieneDescripcion}}
+		</span>
 	</div>
-	<div class="col-xs-2">
+	<div class="col-xs-4 col-md-2">
 		{{#transu}}entradas{{/transu}}: {{getTotalPosts}}<br>
 		{{#transu}}puntos{{/transu}}: {{getTotalPuntos}}
 	</div>
+	<div class="visible-xs visible-sm row"></div>
+	<span class="col-xs-12 col-md-2">
+		{{> user/_btn_seguir }}
+	</span>
 </div>

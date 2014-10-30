@@ -1,26 +1,17 @@
-{{#current_user}}
-	{{#user}}
-		{{#isCurrentUser}}
-			<a class="btn btn-default col-xs-12" href="{{user.getEditUrl}}">
-				<i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}
-			</a>
-		{{/isCurrentUser}}
-		{{^isCurrentUser}}
-			{{^yaLoSigues}}
-				<button class="btn btn-danger seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="si" nonce="{{current_user.getNonceSeguir}}">
-					<i class="fa fa-plus"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}seguir{{/transu}}
-				</button>
-			{{/yaLoSigues}}
-			{{#yaLoSigues}}
-				<button class="btn btn-default seguir col-xs-12" id="{{ID}}" url="{{template_url}}/ajax.php" seguir="no" nonce="{{current_user.getNonceSeguir}}">
-					<i class="fa fa-remove"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}dejar_de_seguir{{/transu}}
-				</button>
-			{{/yaLoSigues}}
-		{{/isCurrentUser}}
-	{{/user}}
-{{/current_user}}
-{{^current_user}}
-	<a class="btn btn-danger col-xs-12" href="/wp-login.php">
-		<i class="fa fa-plus"></i> {{#transu}}seguir{{/transu}}
+{{#isCurrentUser}}
+	<a class="btn btn-default col-xs-12" href="{{user.getEditUrl}}">
+		<i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}
 	</a>
-{{/current_user}}
+{{/isCurrentUser}}
+{{^isCurrentUser}}
+	{{^yaLoSigues}}
+		<button class="btn btn-danger seguir col-xs-12" id="{{ID}}" seguir="si" nonce="{{current_user.getNonceSeguir}}">
+			<i class="fa fa-plus"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}seguir{{/transu}}
+		</button>
+	{{/yaLoSigues}}
+	{{#yaLoSigues}}
+		<button class="btn btn-default seguir col-xs-12" id="{{ID}}" seguir="no" nonce="{{current_user.getNonceSeguir}}">
+			<i class="fa fa-remove"></i><i class="fa fa-refresh fa-spin hidden"></i> {{#transu}}dejar_de_seguir{{/transu}}
+		</button>
+	{{/yaLoSigues}}
+{{/isCurrentUser}}

@@ -216,6 +216,20 @@ class UserController extends BaseController {
 		]);
 	}
 
+
+	/**
+	 * Ver la actividad de un User
+	 */
+	public function getActividad() {
+		$user = Utils::getCurrentUser();
+		return $this->_renderPageBase([
+			'content' => $this->_render('user/_actividad', [
+				'conSidebar' => false,
+				'user' => $user
+			])
+		]);
+	}
+
 	/**
 	 * Ver los favoritos de un User
 	 */
