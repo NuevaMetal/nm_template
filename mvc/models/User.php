@@ -1,11 +1,11 @@
 <?php
-require_once 'ModelBase.php';
+require_once 'Favoriteador.php';
 /**
  * Modelo que representa un Usuario
  *
  * @author José María Valera Reales <@Chemaclass>
  */
-class User extends ModelBase {
+class User extends Favoriteador {
 	public static $table = "users";
 	/*
 	 * Tamaños del avatar
@@ -113,6 +113,8 @@ class User extends ModelBase {
 	const BORRAR_MENSAJE = 'borrar-mensaje';
 
 	const MENSAJES = 'mensajes';
+
+	const FAVORITOS = 'favoritos';
 
 	const MENSAJES_ENVIADOS = 'mensajes-enviados';
 
@@ -409,6 +411,7 @@ class User extends ModelBase {
 
 	/**
 	 * Devuelve true si tiene descripción
+	 *
 	 * @return boolean
 	 */
 	public function tieneDescripcion() {
@@ -992,142 +995,6 @@ class User extends ModelBase {
 			self::TIPO_MANAGER,
 			self::TIPO_DISCOGRAFICA
 		];
-	}
-
-	/**
-	 * Devuelve una lista de arrays con las etiquetas de las entradas a las que le dio favoritos
-	 *
-	 * @return array
-	 */
-	public function getArrayEtiquetasFavoritas($cant = User::NUM_ETI_FAV_PERFIL_DEFAULT) {
-		$favoritos = $this->getFavoritos($limit = false, $offset = false, $conCategorias = true);
-		$tags = [];
-		foreach ($favoritos as $postFavorito) {
-			if ($postFavorito->tieneEtiquetas()) {
-				foreach ($postFavorito->getEtiquetas() as $t) {
-					if (isset($tags[$t->name])) {
-						$tags[$t->name]->total ++;
-					} else {
-						$tags[$t->name] = $t;
-						$tags[$t->name]->total = 1;
-					}
-				}
-			}
-		}
-		// Ordenamos el array de etiquetas por su cantidad total
-		usort($tags, function ($a, $b) {
-			return $a->total < $b->total;
-		});
-
-		if ($cant) {
-			return array_slice($tags, 0, $cant);
-		}
-
-		return $tags;
-	}
-
-	/**
-	 * Devuelve la lista de todos los favoritos de un User
-	 *
-	 * @param number $limit
-	 * @param number $offset
-	 * @param boolean $conCategorias
-	 * @return array
-	 */
-	public function getFavoritos($limit = false, $offset = false, $conCategorias = false) {
-		global $wpdb;
-		$status = Favorito::ACTIVO;
-		$tabla = $wpdb->prefix . Favorito::$table;
-		$user_id = $this->ID;
-		$queryPostId = "SELECT post_id FROM $tabla
-						WHERE status = $status
-						AND user_id = $user_id
-						ORDER BY updated_at desc ";
-		if ($limit) {
-			$queryPostId .= ' LIMIT ' . $limit;
-		}
-		if ($offset) {
-			$queryPostId .= ' OFFSET ' . $offset;
-		}
-		$posts_id = $wpdb->get_col($queryPostId);
-		$posts = [];
-		foreach ($posts_id as $post_id) {
-			$posts[] = Post::find($post_id);
-		}
-		return $posts;
-	}
-
-	/**
-	 * Devuelve
-	 *
-	 * @param string $cant
-	 * @return Ambigous <multitype:multitype: , unknown>
-	 */
-	public function getFavoritosAgrupados($cant = false) {
-		$todosFavoritos = $this->getFavoritos($cant);
-		$favoritos = [];
-		foreach ($todosFavoritos as $k => $f) {
-			$cat_name = strtolower($f->getCategoriaNombre());
-			if (! isset($favoritos[$cat_name])) {
-				$favoritos[$cat_name] = [];
-				if ($k == 0 && ! isset($favoritos[$cat_name]['activo'])) {
-					$favoritos[$cat_name]['activo'] = true;
-				}
-			}
-			$favoritos[$cat_name]['lista'][] = $f;
-		}
-		// Añadimos el total
-		foreach ($favoritos as &$f) {
-			$f['total_lista'] = count($f['lista']);
-		}
-		return $favoritos;
-	}
-
-	/**
-	 * Devuelve el número total de favoritos que tiene el user
-	 *
-	 * @return number Total de favoritos que tiene el User
-	 */
-	public function getTotalFavoritos() {
-		global $wpdb;
-		$activo = Favorito::ACTIVO;
-		return (int) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE user_id = $this->ID AND status = $activo;");
-	}
-	public function getFavoritosTab() {
-		$_parseaSecciones = function ($seccionesFavoritos) {
-			$result = [];
-			// sort($seccionesFavoritos);
-			foreach ($seccionesFavoritos as $k => $v) {
-				$result[] = [
-					'activo' => ($k == 0),
-					'clave' => $v,
-					'valor' => I18n::transu($v)
-				];
-			}
-			return $result;
-		};
-		return $_parseaSecciones(array_keys($this->getFavoritosAgrupados()));
-	}
-
-	/**
-	 * Devuelve el número total de favoritos que han recibido sus entradas
-	 *
-	 * @return string
-	 */
-	public function getTotalFavoritosRecibidos() {
-		global $wpdb;
-		$activo = Favorito::ACTIVO;
-		return (int) $wpdb->get_var("SELECT SUM( p.totales )
-			FROM (
-				SELECT COUNT(ids.ID) as totales FROM wp_favoritos f,
-					(SELECT ID FROM wp_posts
-					where post_author = $this->ID) ids
-				where f.post_id = ids.ID
-				AND f.status = $activo
-				GROUP BY f.user_id
-			) p");
 	}
 
 	/**

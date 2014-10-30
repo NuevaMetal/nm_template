@@ -93,6 +93,11 @@ function seHaceScroll() {
 	if($('#mensajes').length > 0 && sePuede) {
 		seHaceScrollEnMensajes();
 	}
+	// scroll en la pantalla de favoritos
+	if($('#favoritos').length > 0 && sePuede) {
+		seHaceScrollEnFavoritos();
+	}
+	
 }
 
 /**
@@ -210,19 +215,16 @@ function seHaceScrollEnMensajes() {
 	var tipo_mensajes = mensajes.find('.nav li[class="active"] a').attr('href');
 	var size = $(tipo_mensajes).find('.mensajes-content').children().size();
 	
-	if(!$(tipo_mensajes).find('.fa-spin').hasClass('hidden') || $(tipo_mensajes).find('button').length == 0){
-
-		console.log("NO pude pasar con: "+tipo_mensajes);
+	if(!$(tipo_mensajes).find('.fa-spin').hasClass('hidden') || $(tipo_mensajes).find('.mostrar-mas').length == 0) {
 		return;
 	}
-	console.log("Pasé con: "+tipo_mensajes);
+	console.log("button.length: "+$(tipo_mensajes).find('button').length);
 	var data = {
 		submit : 'user',
 		tipo: 'mensajes',
 		tipo_mensajes: tipo_mensajes,
 		size: size,
 	};
-console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -232,18 +234,66 @@ console.log(data);
 			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');		
 		},
 		success : function(json) {
+			console.log(json);
 			if(json.code == 200 ) {
 				// tipo_mensajes: #recibidos | #enviados
 				$(tipo_mensajes).find('.mensajes-content').append(json.content);
-				if(json.content.length == 0){
-					$(tipo_mensajes).find('button').remove();
-				}
 			}
 			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
+			// Eliminar el btn si no hubiera más contenido
+			if (json.content == null || json.content.length == 0) {
+				$(tipo_mensajes).find('.mostrar-mas').remove();
+			}
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
 //	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			 + ",\n thrownError "+thrownError);
+	     }
+	});
+}
+
+/**
+ * Se hace scroll en la pantalla de favoritos
+ */
+function seHaceScrollEnFavoritos() {	
+	var favoritos = $('#favoritos');
+	var url = $('#page').attr('url');
+	var tipo_favoritos = favoritos.find('.nav li[class="active"] a').attr('href');
+	var size = $(tipo_favoritos).find('.favoritos-content').children().size();
+	
+	if(!$(tipo_favoritos).find('.fa-spin').hasClass('hidden') || $(tipo_favoritos).find('button').length == 0) {
+		return;
+	}
+	var data = {
+		submit : 'user',
+		tipo: 'favoritos',
+		tipo_favoritos: tipo_favoritos,
+		size: size,
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			$(tipo_favoritos).find('.fa-spin').removeClass('hidden');		
+		},
+		success : function(json) {
+			if(json.code == 200 ) {
+				// #bandas|#videos|#noticias...
+				$(tipo_favoritos).find('.favoritos-content').append(json.content);
+			}
+			$(tipo_favoritos).find('.fa-spin').addClass('hidden');
+			// Eliminar el btn si no hubiera más contenido
+			if (json.content == null || json.content.length == 0) {
+				$(tipo_favoritos).find('.mostrar-mas').remove();
+			}
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+	         alert("Ocurrió un error inesperado.\n" 
+	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
 			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			 + ",\n thrownError "+thrownError);
 	     }
@@ -570,11 +620,12 @@ function cargarMenu(tipoMenu){
 	var menu = $('#'+tipoMenu);
 	if(menu.length==0) return; // Si no existe el elemento no hacemos nada
 	
-	var url = menu.parents('#page').attr('url');
+	var url = $('#page').attr('url');
 	var data = {
 		submit : 'menu',
 		tipo : tipoMenu
 	};
+
 	$.ajax({
 		url : url,
 		type : "POST",

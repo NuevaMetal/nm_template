@@ -37,18 +37,6 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * Ver los favoritos de un User
-	 */
-	public function getFavoritos() {
-		$user = Utils::getCurrentUser();
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_favoritos', [
-				'user' => $user
-			])
-		]);
-	}
-
-	/**
 	 * Paǵina de sitios de interés
 	 */
 	public function getAmigas() {

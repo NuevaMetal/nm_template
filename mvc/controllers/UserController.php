@@ -45,9 +45,8 @@ class UserController extends BaseController {
 			'a_buscar' => $user->ID,
 			'cant' => User::NUM_FAV_PERFIL_DEFAULT,
 			'tipo' => Utils::TIPO_AUTHOR_FAV,
-			'posts' => $user->getFavoritos(User::NUM_FAV_PERFIL_DEFAULT)
+			'posts' => $user->getFavoritos(0, User::NUM_FAV_PERFIL_DEFAULT)
 		];
-
 		return $this->_renderPageBase([
 			'content' => $this->_render('user', $args)
 		]);
@@ -225,6 +224,25 @@ class UserController extends BaseController {
 		return $this->_renderPageBase([
 			'content' => $this->_render('user/_mensajes', [
 				'user' => $user
+			])
+		]);
+	}
+
+	/**
+	 * Ver los favoritos de un User
+	 */
+	public function getFavoritos() {
+		$user = Utils::getCurrentUser();
+		return $this->_renderPageBase([
+			'content' => $this->_render('user/_favoritos', [
+				'user' => $user,
+				'CATEGORY_BANDAS' => Post::CATEGORY_BANDAS,
+				'CATEGORY_CONCIERTOS' => Post::CATEGORY_CONCIERTOS,
+				'CATEGORY_CRITICAS' => Post::CATEGORY_CRITICAS,
+				'CATEGORY_CRONICAS' => Post::CATEGORY_CRONICAS,
+				'CATEGORY_ENTREVISTAS' => Post::CATEGORY_ENTREVISTAS,
+				'CATEGORY_NOTICIAS' => Post::CATEGORY_NOTICIAS,
+				'CATEGORY_VIDEOS' => Post::CATEGORY_VIDEOS
 			])
 		]);
 	}

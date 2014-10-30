@@ -112,27 +112,26 @@ class AjaxController extends BaseController {
 			$posts = $homeController->getPostsByAuthor($que, $cant, $moreQuerySettings);
 		} else if ($tipo == Utils::TIPO_AUTHOR_FAV) {
 			$user = User::find($que);
-			$posts = $user->getFavoritos($cant, $offset);
+			$posts = $user->getFavoritos($offset, $cant);
 		} else if ($tipo == Utils::TIPO_BUSCAR_USUARIOS) {
 			$users = User::getUsersBySearch($que, $offset, $cant);
 		}
-
 		/*
 		 * Pintamos
 		 */
 		if ($tipo == Utils::TIPO_AUTHOR_FAV) {
-			$cant = count($posts);
-			$content = $this->render('user/favoritos/_posts', [
+			$count = count($posts);
+			$content = $this->render('user/perfil/favoritos/_posts', [
 				'posts' => $posts,
 				'reducido' => ($cant == 2)
 			]);
 		} elseif ($tipo == Utils::TIPO_BUSCAR_USUARIOS) {
-			$cant = count($users);
+			$count = count($users);
 			$content = $this->render('busqueda/_users', [
 				'lista_usuarios' => $users
 			]);
 		} else {
-			$cant = count($posts);
+			$count = count($posts);
 			$content = $this->render('home/_posts', [
 				'posts' => $posts,
 				'reducido' => ($cant == 2)
@@ -143,7 +142,7 @@ class AjaxController extends BaseController {
 		$content = mb_convert_encoding($content, "UTF-8");
 
 		$json['content'] = $content;
-		$json['cant'] = $cant;
+		$json['cant'] = $count;
 		$json['code'] = 200;
 
 		return $json;
@@ -596,6 +595,41 @@ class AjaxController extends BaseController {
 	}
 
 	/**
+	 * Atiende a la petición para acciones de un User de tipo Actividad
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonUserFavoritos($_datos) {
+		$offset = $_datos['size'];
+		$json['code'] = 200;
+		switch ($_datos['tipo_favoritos']) {
+			case '#' . Post::CATEGORY_BANDAS :
+				$favoritos = $this->current_user->getFavoritosBandas($offset);
+				$content = $this->_render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_VIDEOS :
+				$favoritos = $this->current_user->getFavoritosVideos($offset);
+				$content = $this->_render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_VIDEOS :
+				$favoritos = $this->current_user->getFavoritosVideos($offset);
+				$content = $this->_render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			default :
+				$json['code'] = 500;
+		}
+		$json['content'] = $content;
+		return $json;
+	}
+
+	/**
 	 * Atiende a la petición para acciones de un User de tipo Mensajes
 	 *
 	 * @param array $_datos
@@ -651,6 +685,9 @@ class AjaxController extends BaseController {
 
 			case User::MENSAJES :
 				return $this->_jsonUserMensajes($_datos);
+
+			case User::FAVORITOS :
+				return $this->_jsonUserFavoritos($_datos);
 		}
 		return $json;
 	}
