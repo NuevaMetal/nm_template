@@ -231,7 +231,7 @@ function seHaceScrollEnMensajes() {
 		dataType : "json",
 		beforeSend: function() {
 			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');	
-			$(tipo_favoritos).find('.icono-mas').addClass('hidden');	
+			$(tipo_favoritos).find('.fa-plus').addClass('hidden');	
 		},
 		success : function(json) {
 			console.log(json);
@@ -244,7 +244,7 @@ function seHaceScrollEnMensajes() {
 				$(tipo_mensajes).find('.mostrar-mas').remove();
 			}
 			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
-			$(tipo_favoritos).find('.icono-mas').removeClass('hidden');
+			$(tipo_favoritos).find('.fa-plus').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
@@ -280,7 +280,7 @@ function seHaceScrollEnFavoritos() {
 		dataType : "json",
 		beforeSend: function() {
 			$(tipo_favoritos).find('.fa-spin').removeClass('hidden');
-			$(tipo_favoritos).find('.icono-mas').addClass('hidden');
+			$(tipo_favoritos).find('.fa-plus').addClass('hidden');
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
@@ -292,7 +292,7 @@ function seHaceScrollEnFavoritos() {
 				$(tipo_favoritos).find('.mostrar-mas').remove();
 			}
 			$(tipo_favoritos).find('.fa-spin').addClass('hidden');
-			$(tipo_favoritos).find('.icono-mas').removeClass('hidden');
+			$(tipo_favoritos).find('.fa-plus').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	         alert("Ocurrió un error inesperado.\n" 
