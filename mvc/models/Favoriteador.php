@@ -101,49 +101,49 @@ abstract class Favoriteador extends ModelBase {
 	/**
 	 * Devuelve la lista de favoritos de bandas
 	 */
-	public function getFavoritosBandas($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosBandas($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_BANDAS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de vídeos
 	 */
-	public function getFavoritosVideos($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosVideos($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_VIDEOS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de Críticas
 	 */
-	public function getFavoritosCriticas($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosCriticas($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_CRITICAS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de Crónicas
 	 */
-	public function getFavoritosCronicas($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosCronicas($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_CRONICAS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de Noticias
 	 */
-	public function getFavoritosNoticias($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosNoticias($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_NOTICIAS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de Conciertos
 	 */
-	public function getFavoritosConciertos($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosConciertos($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_CONCIERTOS);
 	}
 
 	/**
 	 * Devuelve la lista de favoritos de Entrevistas
 	 */
-	public function getFavoritosEntrevistas($offset = 0, $limit = Post::NUM_REFERENCIAS_DEFAULT) {
+	public function getFavoritosEntrevistas($offset = 0, $limit = User::NUM_POSTS_FAV) {
 		return $this->getFavoritos($offset, $limit, Post::CATEGORY_ENTREVISTAS);
 	}
 

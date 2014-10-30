@@ -81,6 +81,9 @@ class User extends Favoriteador {
 	// Número de palabras para la descripción corta
 	const NUM_DESCRIPCION_CORTA = 11;
 
+	// Número de posts favositos para ir mostrando
+	const NUM_POSTS_FAV = 8;
+
 	// Número límite de mensajes recibidos por petición
 	const LIMIT_MENSAJES_RECIBIDOS = 10;
 

@@ -218,7 +218,6 @@ function seHaceScrollEnMensajes() {
 	if(!$(tipo_mensajes).find('.fa-spin').hasClass('hidden') || $(tipo_mensajes).find('.mostrar-mas').length == 0) {
 		return;
 	}
-	console.log("button.length: "+$(tipo_mensajes).find('button').length);
 	var data = {
 		submit : 'user',
 		tipo: 'mensajes',
@@ -231,7 +230,8 @@ function seHaceScrollEnMensajes() {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');		
+			$(tipo_mensajes).find('.fa-spin').removeClass('hidden');	
+			$(tipo_favoritos).find('.icono-mas').addClass('hidden');	
 		},
 		success : function(json) {
 			console.log(json);
@@ -239,11 +239,12 @@ function seHaceScrollEnMensajes() {
 				// tipo_mensajes: #recibidos | #enviados
 				$(tipo_mensajes).find('.mensajes-content').append(json.content);
 			}
-			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
 			// Eliminar el btn si no hubiera más contenido
 			if (json.content == null || json.content.length == 0) {
 				$(tipo_mensajes).find('.mostrar-mas').remove();
 			}
+			$(tipo_mensajes).find('.fa-spin').addClass('hidden');
+			$(tipo_favoritos).find('.icono-mas').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
@@ -278,18 +279,20 @@ function seHaceScrollEnFavoritos() {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(tipo_favoritos).find('.fa-spin').removeClass('hidden');		
+			$(tipo_favoritos).find('.fa-spin').removeClass('hidden');
+			$(tipo_favoritos).find('.icono-mas').addClass('hidden');
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
 				// #bandas|#videos|#noticias...
 				$(tipo_favoritos).find('.favoritos-content').append(json.content);
 			}
-			$(tipo_favoritos).find('.fa-spin').addClass('hidden');
 			// Eliminar el btn si no hubiera más contenido
 			if (json.content == null || json.content.length == 0) {
 				$(tipo_favoritos).find('.mostrar-mas').remove();
 			}
+			$(tipo_favoritos).find('.fa-spin').addClass('hidden');
+			$(tipo_favoritos).find('.icono-mas').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	         alert("Ocurrió un error inesperado.\n" 
