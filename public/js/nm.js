@@ -303,8 +303,8 @@ function seHaceScrollEnFavoritos() {
 			$(tipo_favoritos).find('.fa-plus').removeClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
-	         alert("Ocurrió un error inesperado.\n" 
-	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
+//	         alert("Ocurrió un error inesperado.\n" 
+//	        		+"Por favor, ponte en contacto con los administradores y coméntale qué sucedió.");
 			 console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			 + ",\n thrownError "+thrownError);
 	     }
