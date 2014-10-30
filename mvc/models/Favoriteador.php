@@ -14,7 +14,7 @@ abstract class Favoriteador extends ModelBase {
 	 * @return array
 	 */
 	public function getArrayEtiquetasFavoritas($cant = User::NUM_ETI_FAV_PERFIL_DEFAULT) {
-		$favoritos = $this->getFavoritos($limit = false, $offset = false, $conCategorias = true);
+		$favoritos = $this->getFavoritos(false, false, false);
 		$tags = [];
 		foreach ($favoritos as $postFavorito) {
 			if ($postFavorito->tieneEtiquetas()) {
@@ -66,7 +66,7 @@ abstract class Favoriteador extends ModelBase {
 					AND post_id IN (p.id)
 					ORDER BY updated_at desc ';
 		} else {
-			$sql = 'SELECT post_id FROM wp_favoritos
+			$sql = 'SELECT distinct post_id FROM wp_favoritos
 				WHERE user_id = %d
 				AND status = %d
 				ORDER BY updated_at desc ';
