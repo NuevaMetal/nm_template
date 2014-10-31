@@ -133,9 +133,24 @@ class Post extends ModelBase {
 		}
 		return get_the_time($dateFormat, $this->ID);
 	}
+
+	/**
+	 * Devuelve el contenido del post
+	 *
+	 * @return string
+	 */
 	public function getContent() {
-		return self::getTheFilteredContentFromLoop($this->post_content);
+		$content = apply_filters('the_content', $this->post_content);
+		$content = str_replace(']]>', ']]&gt;', $content);
+		return $content;
 	}
+
+	/**
+	 * Devuelve el excerpt del content.
+	 * Es decir, una porción del principio.
+	 *
+	 * @return string
+	 */
 	public function getExcerpt() {
 		// Quito las etiquetas e img
 		$the_excerpt = strip_tags(strip_shortcodes($this->post_content));
@@ -209,6 +224,12 @@ class Post extends ModelBase {
 		$lista = I18n::getFicheroIdioma('../post_format');
 		return str_ireplace(array_keys($lista), $lista, $content);
 	}
+
+	/**
+	 * Devuelve el Género si estuviera definido al principio del contenido
+	 *
+	 * @return string
+	 */
 	public function getGenero() {
 		$post_content = $this->post_content;
 		$post_content = strip_tags(strip_shortcodes($post_content));
@@ -221,6 +242,12 @@ class Post extends ModelBase {
 		$out = $out[0];
 		return $out;
 	}
+
+	/**
+	 * Devuelve el País si estuviera definido al principio del contenido
+	 *
+	 * @return string
+	 */
 	public function getPais() {
 		$post_content = $this->post_content;
 		$post_content = strip_tags(strip_shortcodes($post_content));
@@ -231,38 +258,101 @@ class Post extends ModelBase {
 		$out = implode('', $out);
 		return $out;
 	}
+
+	/**
+	 * Devuelve el autor del Post
+	 *
+	 * @return User
+	 */
 	public function getAutor() {
 		return User::find($this->post_author);
 	}
+
+	/**
+	 * Devuelve todas las etiquetas
+	 *
+	 * @return array<string>
+	 */
 	public function getEtiquetas() {
 		$tags = get_the_tags($this->ID);
-		return self::_getTags($tags);
+		if (! $tags) {
+			return array();
+		}
+		foreach ($tags as $tag) {
+			$tag->tag_link = get_tag_link($tag->term_id);
+			$array[] = $tag;
+		}
+		return $array;
 	}
-	public function tieneEtiquetas() {
+
+	/**
+	 * Devuelve el número total de etiquetas
+	 *
+	 * @return number
+	 */
+	public function getTotalEtiquetas() {
 		return count($this->getEtiquetas());
 	}
+
+	/**
+	 * Devuelve las categorías del Post
+	 *
+	 * @return array
+	 */
 	public function getCategorias() {
 		$categories = get_the_category($this->ID);
-		return self::_getCategories($categories);
+		if (! $categories) {
+			return array();
+		}
+		foreach ($categories as $category) {
+			$category->category_link = get_category_link($category->term_id);
+			$array[] = $category;
+		}
+		return $array;
 	}
-	public function tieneCategorias() {
+
+	/**
+	 * Devuelve el total de categorías
+	 *
+	 * @return integer
+	 */
+	public function getTotalCategorias() {
 		return count($this->getCategorias());
 	}
 
 	/**
 	 * Devuelve el thumbnail con clave thumbnail
+	 *
+	 * @return string src
 	 */
 	public function getThumbnail() {
-		$img = $this->getThumbnails();
-		return $img[self::IMG_THUMBNAIL];
+		return $this->_getThumbnail(self::IMG_THUMBNAIL);
 	}
 
 	/**
 	 * Devuelve el thumbnail con clave medium
+	 *
+	 * @return string src
 	 */
 	public function getThumbnailMedium() {
-		$img = $this->getThumbnails();
-		return $img[self::IMG_MEDIUM];
+		return $this->_getThumbnail(self::IMG_MEDIUM);
+	}
+
+	/**
+	 * Devuelve el src del thumbnail del post
+	 *
+	 * @param string $size
+	 *        	tamaño
+	 */
+	private function _getThumbnail($size) {
+		$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
+		if (! empty($imageObject)) {
+			return $imageObject[0];
+		} else {
+			// Cogemos la primera imágen del post
+			preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $this->post_content, $matches);
+			return $matches[1];
+		}
 	}
 
 	/**
@@ -271,7 +361,6 @@ class Post extends ModelBase {
 	 * @return multitype:unknown
 	 */
 	public function getThumbnails() {
-		$thumbnails = [];
 		$sizes = [
 			self::IMG_THUMBNAIL,
 			self::IMG_MEDIUM,
@@ -279,59 +368,18 @@ class Post extends ModelBase {
 			self::IMG_FULL
 		];
 		foreach ($sizes as $size) {
-			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
-			if (! empty($imageObject)) {
-				$thumbnails[$size] = $imageObject[0];
-			}
+			$thumbnails[] = $this->_getThumbnail($size);
 		}
 		return $thumbnails;
 	}
 
 	/**
+	 * Devuelve la primera categoría que encuentra del post.
+	 * http://codex.wordpress.org/Function_Reference/get_the_category
 	 *
-	 * @param string $_content
-	 * @return string
+	 * @return object
 	 */
-	private static function getTheFilteredContentFromLoop($_content) {
-		$content = apply_filters('the_content', $_content);
-		$content = str_replace(']]>', ']]&gt;', $content);
-		return $content;
-	}
-
-	/**
-	 *
-	 * @param array $theTags
-	 * @return multitype:|multitype:unknown
-	 */
-	private static function _getTags($theTags) {
-		if (! $theTags) {
-			return array();
-		}
-		$array = array();
-		foreach ($theTags as $tag) {
-			$tag->tag_link = get_tag_link($tag->term_id);
-			$array[] = $tag;
-		}
-		return $array;
-	}
-
-	/**
-	 *
-	 * @param array $theCategories
-	 * @return multitype:|multitype:unknown
-	 */
-	private static function _getCategories($theCategories) {
-		if (! $theCategories) {
-			return array();
-		}
-		$array = array();
-		foreach ($theCategories as $category) {
-			$category->category_link = get_category_link($category->term_id);
-			$array[] = $category;
-		}
-		return $array;
-	}
-	public function getCategory() {
+	public function getCategoria() {
 		$categories = get_the_category($this->ID);
 		return $categories[0];
 	}
@@ -348,7 +396,7 @@ class Post extends ModelBase {
 		$postsSimilares = array();
 		$nextTagThumb = - 1;
 		$tags = $this->getEtiquetas();
-		$cat_id = ($cat = $this->getCategory()) ? $cat->term_id : 0;
+		$cat_id = ($cat = $this->getCategoria()) ? $cat->term_id : 0;
 		foreach ($tags as $tag) {
 			if ($tag) {
 				$what_tag = $tags[($nextTagThumb + 1)]->term_id;
@@ -389,6 +437,7 @@ class Post extends ModelBase {
 
 	/**
 	 * Devuelve el número total de entradas similares que se encuentran
+	 *
 	 * @return number
 	 */
 	public function getTotalSimilares() {

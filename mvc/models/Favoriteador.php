@@ -17,7 +17,7 @@ abstract class Favoriteador extends ModelBase {
 		$favoritos = $this->getFavoritos(false, false, false);
 		$tags = [];
 		foreach ($favoritos as $postFavorito) {
-			if ($postFavorito->tieneEtiquetas()) {
+			if ($postFavorito->getTotalEtiquetas()) {
 				foreach ($postFavorito->getEtiquetas() as $t) {
 					if (isset($tags[$t->name])) {
 						$tags[$t->name]->total ++;

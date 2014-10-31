@@ -3,7 +3,7 @@
 		<meta itemprop="datePublished" content="{{getTimeISO}}"/>
 		<span class="post-time">{{getTime}}</span>
 		{{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
-		{{#tieneCategorias}} {{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>{{/tieneCategorias}} 
+		{{#getTotalCategorias}} {{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>{{/getTotalCategorias}} 
 	</div>
 	<div class="col-xs-3 text-right">		
 		{{> post/_redes_sociales}}

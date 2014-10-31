@@ -95,7 +95,7 @@ class ChesterWPCoreDataHelpers {
 		$postsStickyIds = [];
 		// Recorro los post fijados totales y compruebo que su categoría se corresponda con la categoría que se está buscando
 		foreach (get_option('sticky_posts') as $post_id) {
-			if ($isCat && ($post = Post::find($post_id)) && $post->getCategory()->term_id == $moreQuerySettings['cat']) {
+			if ($isCat && ($post = Post::find($post_id)) && $post->getCategoria()->term_id == $moreQuerySettings['cat']) {
 				$postsStickyIds[] = $post_id;
 			}
 		}
