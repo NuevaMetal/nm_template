@@ -266,9 +266,9 @@ $(document).on('click', '.mostrar-mas', function(e) {
 	var seccion = $(posts).find('.seccion');
 	var size = $(seccion).children().size();
 	var url = $('#page').attr('url');
-	var cant = $(this).attr('cant');
-	var tipo = $(this).attr('tipo');
-	var que = $(this).attr('mostrar-mas');
+	var cant = $this.attr('cant');
+	var tipo = $this.attr('tipo');
+	var que = $this.attr('mostrar-mas');
 	var data = {
 		submit : 'mostrar-mas',
 		que : que,
@@ -282,20 +282,20 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(posts).find('.fa-spin').removeClass('hidden');
-			$(posts).find('.icono-mas').addClass('hidden');
+			posts.find('.fa-spin').removeClass('hidden');
+			posts.find('.icono-mas').addClass('hidden');
 			$this.attr("disabled", true);
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
 				content = json.content;
 				$(seccion).append(content);
-				if( content.length == 0 || json.cant < size ) {
-					$this.addClass('hidden');					
+				if( content.length == 0 || json.cant < cant ) {
+					$this.addClass('hidden');
 				}
 			}
-			$(posts).find('.fa-spin').addClass('hidden');
-			$(posts).find('.icono-mas').removeClass('hidden');
+			posts.find('.fa-spin').addClass('hidden');
+			posts.find('.icono-mas').removeClass('hidden');
 			$this.attr("disabled", false);			
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
