@@ -53,23 +53,27 @@ abstract class Favoriteador extends ModelBase {
 		$tabla = $wpdb->prefix . Favorito::$table;
 		$user_id = $this->ID;
 		if ($categoria) {
-			$sql = 'SELECT distinct post_id
-					FROM wp_favoritos, (
-						SELECT object_id as id
-						FROM wp_term_relationships rel
-							JOIN wp_term_taxonomy tax ON rel.term_taxonomy_id = tax.term_taxonomy_id
+			$sql = 'SELECT distinct f.post_id
+					FROM wp_favoritos f
+					JOIN (
+						SELECT object_id
+						FROM wp_term_relationships r
+							JOIN wp_term_taxonomy tax ON r.term_taxonomy_id = tax.term_taxonomy_id
 							JOIN wp_terms ter ON tax.term_id = ter.term_id
 						WHERE name = %s
-						AND taxonomy = "category") p
-					WHERE user_id = %d
-					AND status = %d
-					AND post_id IN (p.id)
-					ORDER BY updated_at desc ';
+						AND taxonomy = "category")
+								rel ON (rel.object_id = f.post_id)
+					JOIN wp_posts p ON (p.ID = f.post_id)
+					WHERE f.user_id = %d
+					AND f.status = %d
+					AND f.post_id IN (rel.object_id)
+					ORDER BY f.updated_at desc ';
 		} else {
-			$sql = 'SELECT distinct post_id FROM wp_favoritos
-				WHERE user_id = %d
-				AND status = %d
-				ORDER BY updated_at desc ';
+			$sql = 'SELECT distinct f.post_id
+					FROM wp_favoritos f JOIN wp_posts p ON (f.post_id = p.ID)
+					WHERE f.user_id = %d
+					AND f.status = %d
+					ORDER BY f.updated_at desc';
 		}
 		if ($limit) {
 			$sql .= ' LIMIT ' . $limit;
