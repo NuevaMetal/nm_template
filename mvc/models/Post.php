@@ -71,11 +71,11 @@ class Post extends Image {
 	 * @see http://codex.wordpress.org/Function_Reference/get_comments
 	 */
 	public function getComentarios() {
-		$args_comments = array(
+		$args_comments = [
 			'post_id' => $this->ID,
 			'orderby' => 'comment_date_gmt',
 			'status' => 'approve'
-		);
+		];
 		$comentarios = [];
 		foreach (get_comments($args_comments, $this->ID) as $c) {
 			$comentarios[] = Comment::find($c->comment_ID, 'comment_ID');
@@ -105,17 +105,43 @@ class Post extends Image {
 	public static function get($post_id = false, $dateFormat = false, $conCategorias = false) {
 		return Post::find($post_id);
 	}
+
+	/**
+	 * Devuelve la URL del post
+	 *
+	 * @return string
+	 */
 	public function getUrl() {
 		return get_permalink($this->ID);
 	}
+
+	/**
+	 * Devuelve la URL para editar el post
+	 *
+	 * @return string
+	 */
 	public function getUrlEditar() {
 		return get_edit_post_link($this->ID);
 	}
+
+	/**
+	 * Devuelve el título del Post
+	 *
+	 * @param string $corto
+	 * @param unknown $cantCorto
+	 * @return Ambigous <unknown, string>
+	 */
 	public function getTitulo($corto = false, $cantCorto = self::CANT_TITLE_CORTO_DEFAULT) {
 		$title = get_the_title($this->ID);
 		// ($corto) ? explode('-', $title)[0] : $title;
 		return ($corto) ? self::getPalabrasByStr($title, $cantCorto) : $title;
 	}
+
+	/**
+	 * Devuelve el título acortado del Post
+	 *
+	 * @return string
+	 */
 	public function getTituloCorto() {
 		return $this->getTitulo(true);
 	}
