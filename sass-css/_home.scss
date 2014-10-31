@@ -35,9 +35,12 @@ h3.header {
 	text-align: center;	
  	
 	.post {
-		
 		img {
+			opacity: 0.9;
 			min-height: 150px;
+			&:hover {
+				opacity: 1;
+			}
 		}
 		
 		word-wrap: break-word;
