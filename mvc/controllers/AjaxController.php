@@ -363,6 +363,9 @@ class AjaxController extends BaseController {
 		$user_id = $_datos['user'];
 		$cant = $_datos['cant'];
 		$user = User::find($user_id);
+		if (! $user || ! is_numeric($cant)) {
+			return [];
+		}
 		$result = $user->getTotalEntradasPublicadasPorMes($cant);
 		$xKey = 'mes';
 		$yKeys = [

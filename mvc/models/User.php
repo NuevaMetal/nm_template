@@ -1010,16 +1010,15 @@ class User extends Favoriteador {
 		global $wpdb;
 		$query = 'SELECT DATE(post_date) dia, COUNT(*) total
 				FROM wp_posts
-				WHERE post_author = ' . $this->ID . '
+				WHERE post_author = %d
 					AND post_type = "post"
 					AND post_status = "publish"
 					AND DATE( post_date ) >= DATE( NOW( ) ) -30
 				GROUP BY dia
 				ORDER BY dia DESC
-	 			LIMIT ' . $cantidad;
-		$result = $wpdb->get_results($query);
-		$result = Analitica::formatearDias($result);
-		return $result;
+	 			LIMIT %d ';
+		$results = $wpdb->get_results($wpdb->prepare($query, $this->ID, $cantidad));
+		return Analitica::formatearMeses($results);
 	}
 
 	/**
@@ -1032,16 +1031,15 @@ class User extends Favoriteador {
 		global $wpdb;
 		$query = 'SELECT MONTH( post_date ) mes, COUNT( * ) total
 				FROM wp_posts
-				WHERE post_author = ' . $this->ID . '
+				WHERE post_author = %d
 					AND post_type =  "post"
 					AND post_status =  "publish"
 					AND YEAR( post_date ) = YEAR( NOW( ) )
 				GROUP BY mes, YEAR( post_date )
 				ORDER BY YEAR( post_date ) DESC , mes DESC
-				LIMIT ' . $cantidad;
-		$result = $wpdb->get_results($query);
-		$result = Analitica::formatearMeses($result);
-		return $result;
+				LIMIT %d';
+		$results = $wpdb->get_results($wpdb->prepare($query, $this->ID, $cantidad));
+		return Analitica::formatearMeses($results);
 	}
 
 	/**
@@ -1051,11 +1049,10 @@ class User extends Favoriteador {
 	 */
 	public function isRevisionBan() {
 		global $wpdb;
-		$isBan = (int) $wpdb->get_var('SELECT COUNT(*)
-				FROM  ' . $wpdb->prefix . 'revisiones_ban
-				WHERE user_id = ' . $this->ID . '
-				AND status = ' . Revision::USER_BANEADO);
-		return $isBan > 0;
+		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM  wp_revisiones_ban
+				WHERE user_id = %d
+				AND status = %d', $this->ID, Revision::USER_BANEADO));
 	}
 
 	/**
@@ -1066,11 +1063,11 @@ class User extends Favoriteador {
 	 */
 	public function yaNotificoPost($post_id) {
 		global $wpdb;
-		return $wpdb->get_var('SELECT COUNT(*)
+		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
 		 	FROM wp_revisiones
-			WHERE status = ' . Revision::ESTADO_PENDIENTE . '
-				AND post_id =' . $post_id . '
-				AND user_id =' . $this->ID);
+			WHERE user_id = %d
+				AND post_id = %d
+				AND status = %d', $this->ID, $post_id, Revision::ESTADO_PENDIENTE));
 	}
 
 	/**
@@ -1080,12 +1077,10 @@ class User extends Favoriteador {
 	 */
 	public function isBloqueado() {
 		global $wpdb;
-		$estadoBloqueado = UserBloqueado::ESTADO_BLOQUEADO;
-		$isBan = (int) $wpdb->get_var("SELECT COUNT(*)
+		return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)
 				FROM  wp_users_bloqueados
-				WHERE user_id = $this->ID
-				AND status = $estadoBloqueado;");
-		return $isBan > 0;
+				WHERE user_id = %d
+				AND status = %d;", $this->ID, UserBloqueado::ESTADO_BLOQUEADO));
 	}
 
 	/**
