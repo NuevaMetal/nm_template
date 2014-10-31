@@ -2,12 +2,12 @@
 <h3 id="img-header">{{#transu}}user.img_header{{/transu}}</h3>
 <div class="img-header col-xs-12">
 
-	{{#getImgHeader}}
-		<img alt="{{display_name}}" src="{{{getImgHeader}}}" >
-	{{/getImgHeader}}
-	{{^getImgHeader}}
+	{{#getHeader}}
+		<img alt="{{display_name}}" src="{{{getHeader}}}" >
+	{{/getHeader}}
+	{{^getHeader}}
 		<img class="sin-thumbnail" >
-	{{/getImgHeader}}
+	{{/getHeader}}
 	
 	<div class="text-right btn-img-header">
 		<button class="btn btn-default quitar-header" url="{{template_url}}/ajax.php"

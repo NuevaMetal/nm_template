@@ -1,10 +1,10 @@
 <?php
-require_once 'ModelBase.php';
+require_once 'Image.php';
 /**
  *
  * @author chema
  */
-class Post extends ModelBase {
+class Post extends Image {
 	public static $table = "posts";
 
 	const IMG_THUMBNAIL = 'thumbnail';

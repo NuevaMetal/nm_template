@@ -1,12 +1,12 @@
 <?php
-require_once 'ModelBase.php';
+require_once 'Image.php';
 /**
  * Modelo que representa un favoriteador.
  * Que puede tener favoritos
  *
  * @author José María Valera Reales <@Chemaclass>
  */
-abstract class Favoriteador extends ModelBase {
+abstract class Favoriteador extends Image {
 
 	/**
 	 * Devuelve una lista de arrays con las etiquetas de las entradas a las que le dio favoritos

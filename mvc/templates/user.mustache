@@ -6,12 +6,12 @@
 		
 		<div class="row img-header">
 			<div class="col-xs-12">
-				{{#getImgHeader}}
-					<img alt="{{display_name}}" src="{{getImgHeader}}">
-				{{/getImgHeader}}
-				{{^getImgHeader}}
+				{{#getHeader}}
+					<img alt="{{display_name}}" src="{{getHeader}}">
+				{{/getHeader}}
+				{{^getHeader}}
 					<img class="sin-thumbnail">
-				{{/getImgHeader}}
+				{{/getHeader}}
 				{{#isCurrentUserOrAdmin}}
 					<div class="text-right btn-img-header">
 						<a class="btn btn-default btn-xs" href="/wp-admin/profile.php#img-header" target="_blank">
