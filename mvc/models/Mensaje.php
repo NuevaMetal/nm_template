@@ -18,7 +18,7 @@ class Mensaje extends ModelBase {
 
 	const TAMANO_MAXIMO_TITULO = 64;
 
-	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 200;
+	const TAMANO_MAXIMO_MENSAJE_PRIVADO = 400;
 
 	const TAMANO_MAXIMO_ESTADO = 150;
 
