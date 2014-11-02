@@ -32,19 +32,6 @@
 
 	@extend %ul-inline;
 	
-	iframe {
-		width: 100%; 
-		@include col(sm) {
-			height: 288px !important;
-		}
-		@include col(md) {
-			height: 380px !important;
-		}
-		@include col(lg) {
-			height: 465px !important;
-		}
-	}
-	
 	#post-meta{
 		//border: 1px solid red;
 		border-top: 1px solid #bbb;
@@ -116,6 +103,31 @@
 		padding: 5px;
 		text-align: center;
 	}
+	
+	iframe {
+		width: 100%;
+	} 
+			
+	// Ajustar la 
+	&.categoria-videos {
+		iframe {
+			@include col(sm) {
+				height: 288px !important;
+			}
+			@include col(md) {
+				height: 380px !important;
+			}
+			@include col(lg) {
+				height: 465px !important;
+			}
+		}
+	}
+	/*&.categoria-bandas, &.categoria-entrevistas, &.categoria-criticas, 
+	&.categoria-cronicas, &.categoria-noticias, &.categoria-conciertos {
+		iframe {
+		}
+	}*/
+	
 }
 
 .tags {

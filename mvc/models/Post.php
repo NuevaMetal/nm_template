@@ -530,8 +530,8 @@ class Post extends Image {
 	 * @return string
 	 */
 	public function getCategoriaNombre() {
-		$categorias = $this->getCategorias();
-		return ($categorias) ? $categorias[0]->name : '';
+		$categoria = $this->getCategoria();
+		return ($categoria) ? $categoria->slug : '';
 	}
 
 	/**
