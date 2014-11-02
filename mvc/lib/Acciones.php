@@ -493,6 +493,23 @@ class Acciones {
 			update_option('image_default_size', 'full');
 		});
 	}
+
+	/**
+	 * Publicar posts programados
+	 */
+	public static function publicarPostsProgramados() {
+		add_action('wp', function () {
+			global $wpdb;
+			$sql = 'SELECT ID FROM wp_posts WHERE (post_date > 0 && post_date <= %s) AND post_status = "future" LIMIT 0,10';
+			$postsIds = $wpdb->get_col($wpdb->prepare($sql, current_time('mysql', 0)));
+			foreach ($postsIds as $postId) {
+				if ($postId) {
+					Utils::debug("> Publicar post->ID = $postId");
+					wp_publish_post($postId);
+				}
+			}
+		});
+	}
 }
 
 Acciones::userRegister();
@@ -516,3 +533,5 @@ Acciones::impedirLoginSiUserBloqueado();
 Acciones::sobrescribirGetAvatar();
 
 Acciones::establecerDefectoOpcionesParaAdjuntos();
+
+Acciones::publicarPostsProgramados();
