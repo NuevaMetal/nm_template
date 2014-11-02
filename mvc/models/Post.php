@@ -371,13 +371,23 @@ class Post extends Image {
 	 *        	tamaño
 	 */
 	private function _getThumbnail($size) {
-		$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $size);
-		if (! empty($imageObject)) {
+		$getSrc = function ($_id) use($size) {
+			$imageObject = wp_get_attachment_image_src(get_post_thumbnail_id($_id), $size);
+			if (empty($imageObject)) {
+				return null;
+			}
 			return $imageObject[0];
+		};
+		$imageObject = $getSrc($this->ID);
+		if ($imageObject) {
+			return $imageObject;
 		} else {
-			// Cogemos la primera imágen del post
+			// Si no hay cogemos la primera imágen del post y la añadimos como thumbnail
 			preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $this->post_content, $matches);
-			return $matches[1];
+			$src = $matches[1];
+			$attachmentId = Utils::getAttachmentIdFromUrl($src);
+			set_post_thumbnail($this->ID, $attachmentId);
+			return $getSrc($this->ID);
 		}
 	}
 
