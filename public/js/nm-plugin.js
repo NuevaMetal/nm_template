@@ -1,26 +1,19 @@
 /**
- * Documento listo para JQuery
- */
-$(document).ready(function() {
-	
-});
-
-/**
  * Disparador
  */
 $(document).on('click', '.dispara-revision', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	var estado = $(this).attr('estado');
-	var submit = $(this).attr('submit');
-	var que_id = $(this).attr('que_id');
-	var url = $(this).attr('url');
+	var estado = $this.attr('estado');
+	var submit = $this.attr('submit');
+	var que_id = $this.attr('que_id');
+	var fila = $this.parents('tr');
+	var url = $('#page-plugin').attr('url');
 	var data = {
 		submit: submit,
 		estado: estado,
 		que_id: que_id
 	};
-	console.log(data);	
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -31,7 +24,6 @@ $(document).on('click', '.dispara-revision', function(e) {
 			$this.attr("disabled", true);
 		},
 		success : function(json) {
-			console.log(json);
 			if(json.code == 200 ) {
 				$('#alertas-popup').html(json.content);
 				$('#alertas-popup').fadeIn();
@@ -42,6 +34,7 @@ $(document).on('click', '.dispara-revision', function(e) {
 			}
 			$this.find('.fa-spin').addClass('hidden');
 			$this.attr("disabled", false);
+			fila.remove();
 			location.reload();
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
