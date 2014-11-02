@@ -149,56 +149,6 @@ class AjaxController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @param unknown $estado
-	 * @param unknown $editor_id
-	 * @param unknown $user_id
-	 * @return number
-	 */
-	private function _editarRevisionBan($estado, $editor_id, $user_id) {
-		global $wpdb;
-		$nonce = $_POST['nonce'];
-		$mensaje = '?';
-		switch ($estado) {
-			case Revision::USER_BANEADO :
-				$mensaje = Revision::banear($editor_id, $user_id);
-				break;
-			case Revision::USER_DESBANEADO :
-				$mensaje = Revision::desbanear($editor_id, $user_id);
-				break;
-		}
-		$json['code'] = 200;
-		$json['alert'] = $this->renderAlertaSuccess($mensaje);
-		return $json;
-	}
-
-	/**
-	 *
-	 * @param unknown $estado
-	 * @param unknown $post_id
-	 * @return number
-	 */
-	public function editarRevision($estado, $post_id) {
-		global $wpdb;
-		$nonce = $_POST['nonce'];
-		$mensaje = '?';
-		switch ($estado) {
-			case Revision::ESTADO_PENDIENTE :
-				$mensaje = Revision::pendiente($post_id);
-				break;
-			case Revision::ESTADO_CORREGIDO :
-				$mensaje = Revision::corregir($post_id);
-				break;
-			case Revision::ESTADO_BORRADO :
-				$mensaje = Revision::borrar($post_id);
-				break;
-		}
-		$json['code'] = 200;
-		$json['alert'] = $this->renderAlertaSuccess($mensaje);
-		return $json;
-	}
-
-	/**
 	 * Crear me gusta de un Post a un User
 	 *
 	 * @param Post $post
@@ -332,9 +282,22 @@ class AjaxController extends BaseController {
 		if (! $this->current_user->canEditor()) {
 			return $this->err_sin_permisos;
 		}
-		$estado = $_datos['estado'];
 		$post_id = $_datos['que_id'];
-		return $this->_editarRevisionBan($estado, $post_id);
+		$mensaje = '?';
+		switch ($_datos['estado']) {
+			case Revision::ESTADO_PENDIENTE :
+				$mensaje = Revision::pendiente($post_id);
+				break;
+			case Revision::ESTADO_CORREGIDO :
+				$mensaje = Revision::corregir($post_id);
+				break;
+			case Revision::ESTADO_BORRADO :
+				$mensaje = Revision::borrar($post_id);
+				break;
+		}
+		$json['code'] = 200;
+		$json['alert'] = $this->renderAlertaSuccess($mensaje);
+		return $json;
 	}
 
 	/**
@@ -345,12 +308,25 @@ class AjaxController extends BaseController {
 	 */
 	private function _jsonRevisionBan($_datos) {
 		if (! $this->current_user->canEditor()) {
-			return 'No tienes permisos';
+			return $this->err_sin_permisos;
 		}
 		$estado = $_datos['estado'];
 		$user_id = $_datos['que_id'];
 		$editor_id = $this->current_user->ID;
-		return $this->_editarRevisionBan($estado, $editor_id, $user_id);
+
+		$mensaje = '?';
+		switch ($estado) {
+			case Revision::USER_BANEADO :
+				$mensaje = Revision::banear($editor_id, $user_id);
+				break;
+			case Revision::USER_DESBANEADO :
+				$mensaje = Revision::desbanear($editor_id, $user_id);
+				break;
+		}
+
+		$json['code'] = 200;
+		$json['alert'] = $this->renderAlertaSuccess($mensaje);
+		return $json;
 	}
 
 	/**

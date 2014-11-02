@@ -3,7 +3,7 @@
 		<a href="/" class=""><img src="{{template_url}}/public/img/NM_header.png"></a>
 	</div>	
 </header>
-<div id="page-plugin" class="container-fluid">
+<div id="page-plugin" class="container-fluid" url="{{template_url}}/ajax.php">
 	
 	<div id="alertas"></div>
 	
@@ -11,15 +11,11 @@
 		{{{ menuPrincipal }}}
 	</div>
 
-	{{#content}}
+	
     <div id="content" class="col-xs-12 {{#sidebar}}col-sm-9 col-md-9{{/sidebar}}">
         {{{content}}}
     </div>
-	{{/content}}
-	{{^content}}
-		¿No  hay contenido asociado?
-	{{/content}}
-	
+
     {{#sidebar}}
     <div id="sidebar" class="col-xs-12 col-sm-3 col-md-3 text-center">
         {{{sidebar}}}
@@ -27,8 +23,6 @@
     {{/sidebar}}
 	
 	{{{menuFooter}}}
-	
-	{{!>partials/copyright}}
 </div>
 
 <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i> 
