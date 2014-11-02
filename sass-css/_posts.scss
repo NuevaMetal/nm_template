@@ -32,6 +32,19 @@
 
 	@extend %ul-inline;
 	
+	iframe {
+		width: 100%; 
+		@include col(sm) {
+			height: 288px !important;
+		}
+		@include col(md) {
+			height: 380px !important;
+		}
+		@include col(lg) {
+			height: 465px !important;
+		}
+	}
+	
 	#post-meta{
 		//border: 1px solid red;
 		border-top: 1px solid #bbb;
