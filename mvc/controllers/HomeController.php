@@ -70,7 +70,7 @@ class HomeController extends BaseController {
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getBusqueda($aBuscar, $cant = 4, $args = []) {
-		$args['imagen'] = 'noimage';
+		$args['imagen'] = 'NM_avatar_2';
 		$args['seccion'] = 'busqueda-posts';
 		$args['a_buscar'] = $aBuscar;
 		$args['header'] = I18n::trans('resultado_busqueda', [

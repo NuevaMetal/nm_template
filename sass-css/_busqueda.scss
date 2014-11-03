@@ -68,8 +68,24 @@
 				width: 100%;
 				text-align: center;
     			top: 30px;
-			}			
+			}
 		}
-	}	
+	}
 	
+	//border: 1px solid red;
+	padding: 0px;
+	.header-seccion{
+		margin-top: 21px;
+	}
+}
+
+.definicion {
+	//border: 1px solid red;
+	@extend %fila-sombreada;
+	margin-bottom: 5px;
+	
+	h4 {
+		//margin-bottom: 16px;
+		border-bottom: 1px solid #ddd;
+	}
 }
