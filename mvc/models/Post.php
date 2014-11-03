@@ -541,16 +541,6 @@ class Post extends Image {
 	}
 
 	/**
-	 * Devuelve la primera categoría que encuentra del post
-	 *
-	 * @return string
-	 */
-	public function getCategoriaNombre() {
-		$categoria = $this->getCategoria();
-		return ($categoria) ? $categoria->slug : '';
-	}
-
-	/**
 	 * Devuelve el número total de favoritos que tiene el Post
 	 *
 	 * @return number Total de favoritos que tiene el Post
