@@ -15,16 +15,16 @@ class Post extends Image {
 
 	const IMG_FULL = 'full';
 
-	const NUM_SIMILARES_DEFAULT = 6;
+	const NUM_SIMILARES = 6;
 
-	const NUM_REFERENCIAS_DEFAULT = 4;
+	const NUM_RELACIONADAS = 4;
 
 	const NUM_USER_QUE_GUSTAN_DEFAULT = 5;
 
 	// Cantidad del extracto de una entrevista
-	const CANT_EXCERPT_DEFAULT = 12;
-	// Cantidad del título corto por defecto
-	const CANT_TITLE_CORTO_DEFAULT = 5;
+	const CANT_EXCERPT = 12;
+	// Cantidad de chars para el título corto
+	const CANT_TITLE_CORTO = 50;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_ENTREVISTA = 16;
@@ -131,10 +131,26 @@ class Post extends Image {
 	 * @param unknown $cantCorto
 	 * @return Ambigous <unknown, string>
 	 */
-	public function getTitulo($corto = false, $cantCorto = self::CANT_TITLE_CORTO_DEFAULT) {
+	public function getTitulo($corto = false, $cantCorto = self::CANT_TITLE_CORTO) {
 		$title = get_the_title($this->ID);
-		// ($corto) ? explode('-', $title)[0] : $title;
-		return ($corto) ? self::getPalabrasByStr($title, $cantCorto) : $title;
+		/*
+		 * Corto el string, busco el último espacio ' ' y vuelvo a cortar para quitar
+		 * la última palabra y concatenar con ..., o de lo contrario devuelvo el título
+		 * cortado ya.
+		 */
+		$getCharsByStr = function ($str) use($cantCorto) {
+			if (strlen($str) > $cantCorto) {
+				$substr = substr($str, 0, $cantCorto);
+				// strrchr => devuelve el str de la última ocurrencia
+				$posicionUltimoEspacio = strpos($substr, strrchr($substr, ' '));
+				if ($posicionUltimoEspacio) {
+					$substr = substr($substr, 0, $posicionUltimoEspacio) . '...';
+				}
+				return $substr;
+			}
+			return $str;
+		};
+		return ($corto) ? $getCharsByStr($title) : $title;
 	}
 
 	/**
@@ -184,7 +200,7 @@ class Post extends Image {
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
 		// Sustituyo todos los espacios raros por espacios normales
 		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
-		$the_excerpt = self::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT_DEFAULT);
+		$the_excerpt = self::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT);
 		// Aplicamos negrita a ciertas palabras
 		$the_excerpt = preg_replace([
 			'/(Género)/i',
@@ -435,7 +451,7 @@ class Post extends Image {
 	 *        	Número máximo de posts similares que queremos
 	 * @return array<Post>
 	 */
-	public function getSimilares($max = self::NUM_SIMILARES_DEFAULT) {
+	public function getSimilares($max = self::NUM_SIMILARES) {
 		$cont = 0;
 		$postsSimilares = array();
 		$nextTagThumb = - 1;
@@ -503,25 +519,25 @@ class Post extends Image {
 	 *        	Número máximo de posts 'refencia' que queremos
 	 * @return array<Post>
 	 */
-	public function getRelacionadas($max = self::NUM_REFERENCIAS_DEFAULT) {
+	public function getRelacionadas($max = self::NUM_RELACIONADAS) {
 		global $wpdb;
 		$cont = 0;
-		$postsSimilares = array();
-		$posts = $wpdb->get_col("
-				SELECT ID FROM $wpdb->posts
-				WHERE post_type = 'post'
-				AND post_status = 'publish'
-				AND post_title LIKE '%$this->post_title%'
-				AND ID != $this->ID
-				ORDER BY RAND()");
+		$posts = array();
+		$sql = 'SELECT ID FROM wp_posts
+				WHERE post_type = "post"
+					AND post_status = "publish"
+					AND post_title LIKE %s
+					AND ID != %d
+				ORDER BY RAND()';
+		$title = '%' . $this->post_title . '%';
+		$posts = $wpdb->get_col($wpdb->prepare($sql, $title, $this->ID));
 		foreach ($posts as $id) {
-			$postsSimilares[] = Post::find($id);
+			$posts[] = Post::find($id);
 			if (++ $cont == $max) {
 				break;
 			}
 		}
-
-		return $postsSimilares;
+		return $posts;
 	}
 
 	/**
