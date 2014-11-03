@@ -1,4 +1,7 @@
-{{#seccion}}
+{{# definicion }}
+	{{> busqueda/_definicion }}
+{{/ definicion }}
+{{# seccion }}
 	<div id="{{seccion}}" class="col-xs-12 seccion-posts ">
 		{{#url}}<a href="{{url}}">{{/url}}
 			<div class="header-seccion">
@@ -7,4 +10,4 @@
 		{{#url}}</a>{{/url}}
 		{{>home/_seccion_contenido}}
 	</div>
-{{/seccion}}
+{{/ seccion }}

@@ -162,17 +162,35 @@ class PageController extends BaseController {
 	 * tag.php
 	 */
 	public function getTag() {
-		$current_tag = single_tag_title("", false);
+		$current_tag = single_tag_title('', false);
+		$term = get_term_by('name', $current_tag, 'post_tag');
 
-		$seccion = HomeController::getTags($current_tag, 4);
+		$cant = 4;
 
-		$content = $this->_render('busqueda/_seccion', [
-			'header' => "Búsqueda por la etiqueta '$current_tag'",
-			'seccion' => $seccion
+		$args['imagen'] = 'noimage';
+		$args['seccion'] = 'busqueda';
+		$args['a_buscar'] = strtolower($current_tag);
+		$args['header'] = I18n::trans('resultado_tag', [
+			'que' => $current_tag
 		]);
+		$args['url'] = get_tag_link($cat);
+		$args['cant'] = $cant;
+		$args['tipo'] = Utils::TIPO_TAG;
+		$args['posts'] = HomeController::getPostsByTag($current_tag, $cant);
+
+		/*
+		 * Obtenemos el fichero de idioma 'generos' para obtener el valor de la definición de la tag
+		 * apartir de la clave de la tag. Si no se encontrase retornaría un false, y por tanto no
+		 * se llegaría a pintar.
+		 */
+		$fileGeneros = I18n::getFicheroIdioma('generos');
 
 		return $this->_renderPageBase([
-			'content' => $content
+			'content' => $this->_render('busqueda/_seccion', [
+				'definicion' => $fileGeneros['definicion_' . $term->slug],
+				'seccion' => $args,
+				'tag_trans' => I18n::transu('generos.' . $term->slug)
+			])
 		]);
 	}
 

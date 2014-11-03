@@ -40,6 +40,7 @@ return [
 
 	'dados' => 'dados',
 	'de' => 'de',
+	'definicion' => 'definición',
 	'dejar_de_seguir' => 'dejar de seguir',
 	'descripcion' => 'descripción',
 	'discografica' => 'discográfica',

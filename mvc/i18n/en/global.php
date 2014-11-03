@@ -39,6 +39,7 @@ return [
 
 	'dados' => 'given',
 	'de' => 'of',
+	'definicion' => 'definition',
 	'dejar_de_seguir' => 'unfollow',
 	'descripcion' => 'description',
 	'discografica' => 'record label',

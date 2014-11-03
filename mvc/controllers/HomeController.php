@@ -69,31 +69,6 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getTags($seccion, $cant = 4, $args = []) {
-		$args['imagen'] = 'noimage';
-		$args['seccion'] = 'busqueda';
-		$args['a_buscar'] = strtolower($seccion);
-		$args['header'] = I18n::trans('resultado_tag', [
-			'que' => $seccion
-		]);
-		$args['url'] = get_tag_link($cat);
-		$args['cant'] = $cant;
-		$args['tipo'] = Utils::TIPO_TAG;
-		$args['template_url'] = get_template_directory_uri();
-		$args['posts'] = self::getPostsByTag($seccion, $cant, []);
-		return $args;
-	}
-
-	/**
-	 * Devuelve una sección en base a una categoría o etiqueta
-	 *
-	 * @param string $seccion
-	 *        	Nombre de la categoría de la que sacar la sección
-	 * @param number $cant
-	 *        	Cantidad de entradas a obtener
-	 * @param array $args
-	 *        	Lista de parámetros opcionales para la vista de post
-	 */
 	public static function getBusqueda($aBuscar, $cant = 4, $args = []) {
 		$args['imagen'] = 'noimage';
 		$args['seccion'] = 'busqueda-posts';
