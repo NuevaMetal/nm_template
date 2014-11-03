@@ -122,6 +122,8 @@ return [
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 
+	'tu_actividad' => 'your activity',
+
 	'ubicacion' => 'location',
 	'unete_y_colabora' => 'join and collaborate',
 	'usuario' => 'user',

@@ -230,7 +230,7 @@ class VActividad extends ModelBase {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
 				return 'fa-users';
 			case VActividad::TIPO_ME_GUSTA :
-				return 'fa-thumbs-o-up';
+				return 'fa-star-o';
 			case VActividad::TIPO_NUEVA_ENTRADA :
 				return 'fa-file-text-o';
 			case VActividad::TIPO_NUEVO_COMENTARIO :

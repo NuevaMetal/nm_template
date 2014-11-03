@@ -1,0 +1,19 @@
+<table class="table table-striped">
+	<tr class="titular">
+		<th>{{#transu}}tipo{{/transu}}</th>
+		<th>{{#transu}}valor{{/transu}}</th>
+		<th>{{#transu}}cantidad{{/transu}}</th>
+		<th>{{#transu}}total{{/transu}}</th>
+	<tr>
+	{{# getPuntos }}
+		<tr>
+			<td class="titular"><i class="fa fa-2x {{getIcoByTipo}} col-xs-2"></i> <span class="col-xs-10">{{ getTipoTrans }}</span></td>
+			<td>{{ getPuntosByTipo }}</td>
+			<td>{{ total }}</td>
+			<td>{{ getTotalPuntosByTipo }}</td>
+		</tr>
+	{{/ getPuntos }}
+	{{^ getPuntos }}
+		<tr>{{#trans}}actividad.sin_puntos{{/trans}}.</tr>
+	{{/ getPuntos }}
+</table>

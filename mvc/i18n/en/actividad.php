@@ -31,7 +31,7 @@ return [
 	'tienes_mensajes_nuevos' => 'You have :total new messages.',
 	'tienes_un_mensaje_nuevo' => 'You have a new message.',
 	'tipo_seguimiento_user' => 'Following',
-	'tipo_me_gusta' => 'Likes',
+	'tipo_me_gusta' => 'Favorites',
 	'tipo_nueva_entrada' => 'Posts published',
 	'tipo_nuevo_comentario' => 'Coments',
 	'tipo_entrada_editada' => 'Posts edited',
