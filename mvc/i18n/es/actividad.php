@@ -30,8 +30,10 @@ return [
 
 	'tienes_mensajes_nuevos' => 'Tienes :total mensajes nuevos.',
 	'tienes_un_mensaje_nuevo' => 'Tienes 1 mensaje nuevo.',
-	'tipo_seguimiento_user' => 'Seguir',
-	'tipo_me_gusta' => 'Favoritos',
+	'tipo_seguimiento_user' => 'Siguiendo',
+	'tipo_seguimiento_user_a_ti' => 'Seguidores',
+	'tipo_favoritos_recibidos' => 'Favoritos recibidos',
+	'tipo_me_gusta' => 'Favoritos dados',
 	'tipo_nueva_entrada' => 'Entradas publicadas',
 	'tipo_nuevo_comentario' => 'Comentarios',
 	'tipo_entrada_editada' => 'Entradas editadas',

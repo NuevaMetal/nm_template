@@ -1053,12 +1053,23 @@ class User extends Favoriteador {
 	public function getPuntos() {
 		global $wpdb;
 		$sql = 'SELECT tipo_que, count(*) as total
-				FROM wp_v_actividades
-				WHERE user_id = %d
-				GROUP BY tipo_que
-				ORDER BY updated_at DESC ';
-		$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID));
-		// dd($actividades);
+					FROM wp_v_actividades
+					WHERE user_id = %d
+					and tipo_que != "tipo_entrada_editada"
+					GROUP BY tipo_que
+				UNION
+				SELECT "tipo_favoritos_recibidos" as tipo_que, count(*) total
+					FROM wp_posts p JOIN wp_favoritos f ON (p.ID = f.post_id)
+					where post_author = %d
+					and post_status = "publish"
+					and f.status = %d
+				UNION
+				SELECT "tipo_seguimiento_user_a_ti" as tipo_que, count( * ) total
+					FROM wp_v_actividades
+					WHERE que_id = %d
+					AND tipo_que = "tipo_seguimiento_user"
+				order by total desc';
+		$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID, $this->ID, Favorito::ACTIVO, $this->ID));
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
 			$_p = new VPuntos();
@@ -1066,7 +1077,15 @@ class User extends Favoriteador {
 			$_p->total = $item->total;
 			$item = $_p;
 		});
-
+		// Ordenamos por puntos
+		usort($actividades, function ($a, $b) {
+			$pa = $a->getTotalPuntosByTipo();
+			$pb = $b->getTotalPuntosByTipo();
+			if ($pa == $pb) {
+				return 0;
+			}
+			return ($pa < $pb) ? 1 : - 1;
+		});
 		return $actividades;
 	}
 

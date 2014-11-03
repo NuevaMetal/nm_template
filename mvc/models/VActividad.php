@@ -15,6 +15,10 @@ class VActividad extends ModelBase {
 	 */
 	const TIPO_SEGUIMIENTO_USER = 'tipo_seguimiento_user';
 
+	const TIPO_SEGUIMIENTO_USER_A_TI = 'tipo_seguimiento_user_a_ti';
+
+	const TIPO_FAVORITOS_RECIBIDOS = 'tipo_favoritos_recibidos';
+
 	const TIPO_ME_GUSTA = 'tipo_me_gusta';
 
 	const TIPO_NUEVA_ENTRADA = 'tipo_nueva_entrada';
@@ -28,13 +32,17 @@ class VActividad extends ModelBase {
 	 */
 	const PUNTOS_TIPO_SEGUIMIENTO_USER = 1;
 
+	const PUNTOS_TIPO_SEGUIMIENTO_USER_A_TI = 4;
+
+	const PUNTOS_TIPO_FAVORITOS_RECIBIDOS = 2;
+
 	const PUNTOS_TIPO_ME_GUSTA = 1;
 
-	const PUNTOS_TIPO_NUEVA_ENTRADA = 4;
+	const PUNTOS_TIPO_NUEVA_ENTRADA = 7;
 
-	const PUNTOS_TIPO_ENTRADA_EDITADA = 1;
+	const PUNTOS_TIPO_ENTRADA_EDITADA = 0;
 
-	const PUNTOS_TIPO_NUEVO_COMENTARIO = 2;
+	const PUNTOS_TIPO_NUEVO_COMENTARIO = 3;
 
 	/*
 	 * Miembros
@@ -171,7 +179,7 @@ class VActividad extends ModelBase {
 			self::TIPO_ME_GUSTA,
 			self::TIPO_NUEVA_ENTRADA,
 			self::TIPO_NUEVO_COMENTARIO,
-			self::TIPO_SEGUIMIENTO_USER
+			self::TIPO_SEGUIMIENTO_USER,
 		];
 	}
 
@@ -229,6 +237,10 @@ class VActividad extends ModelBase {
 		switch ($this->tipo_que) {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
 				return 'fa-users';
+			case VActividad::TIPO_SEGUIMIENTO_USER_A_TI :
+				return 'fa-child';
+			case VActividad::TIPO_FAVORITOS_RECIBIDOS :
+				return 'fa-star';
 			case VActividad::TIPO_ME_GUSTA :
 				return 'fa-star-o';
 			case VActividad::TIPO_NUEVA_ENTRADA :
@@ -251,6 +263,10 @@ class VActividad extends ModelBase {
 		switch ($this->tipo_que) {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
 				return I18n::transu('actividad.tipo_seguimiento_user');
+			case VActividad::TIPO_SEGUIMIENTO_USER_A_TI :
+				return I18n::transu('actividad.tipo_seguimiento_user_a_ti');
+			case VActividad::TIPO_FAVORITOS_RECIBIDOS :
+				return I18n::transu('actividad.tipo_favoritos_recibidos');
 			case VActividad::TIPO_ME_GUSTA :
 				return I18n::transu('actividad.tipo_me_gusta');
 			case VActividad::TIPO_NUEVA_ENTRADA :

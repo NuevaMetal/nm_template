@@ -2,6 +2,7 @@
 return [
 	'acceder' => 'login',
 	'actividad' => 'activity',
+	'actividades' => 'activities',
 	'administrator' => 'administrator',
 	'anadir_favoritos' => 'add to my favorites',
 	'ancho' => 'width',
