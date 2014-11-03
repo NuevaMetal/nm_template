@@ -23,6 +23,21 @@ class I18n {
 	}
 
 	/**
+	 * Devuelve el idioma del usuario actual si lo tuviera.
+	 * False en caso contrario
+	 *
+	 * @return string|boolean Idioma actual del usuario
+	 */
+	public static function getLangByCurrentUser() {
+		$currentUser = Utils::getCurrentUser();
+		// Si el usuario está logueado y tiene establecido el idioma, pondremos su idioma
+		if ($currentUser && ($idioma = $currentUser->getIdioma())) {
+			return $idioma;
+		}
+		return false;
+	}
+
+	/**
 	 * Devuelve la palabra traducida según el idioma del navegador
 	 *
 	 * @param string $key
@@ -31,11 +46,7 @@ class I18n {
 	 */
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
 		if (! $idiomaForzado) {
-			$currentUser = Utils::getCurrentUser();
-			// Si el usuario está logueado y tiene establecido el idioma, pondremos su idioma
-			if ($currentUser && ($idioma = $currentUser->getIdioma())) {
-				$idiomaForzado = $idioma;
-			}
+			$idiomaForzado = self::getLangByCurrentUser();
 		}
 		$traducir = strtolower($traducir);
 		// Utils::debug("trad: $traducir");

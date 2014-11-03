@@ -183,7 +183,7 @@ class PageController extends BaseController {
 		 * apartir de la clave de la tag. Si no se encontrase retornaría un false, y por tanto no
 		 * se llegaría a pintar.
 		 */
-		$fileGeneros = I18n::getFicheroIdioma('generos');
+		$fileGeneros = I18n::getFicheroIdioma('generos', I18n::getLangByCurrentUser());
 
 		return $this->_renderPageBase([
 			'content' => $this->_render('busqueda/_seccion', [
