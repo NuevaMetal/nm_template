@@ -505,11 +505,28 @@ class Post extends Image {
 	}
 
 	/**
+	 * Devuelve el total de entradas relacionadas
 	 *
 	 * @return number
 	 */
 	public function getTotalRelacionadas() {
-		return count($this->getRelacionadas());
+		return count($this->_getRelacionadasIds());
+	}
+
+	/**
+	 * Devuelve el ID de los post relacionados
+	 *
+	 * @return array<integer>
+	 */
+	private function _getRelacionadasIds() {
+		global $wpdb;
+		$title = '%' . $this->post_title . '%';
+		return $wpdb->get_col($wpdb->prepare('SELECT ID FROM wp_posts
+				WHERE post_type = "post"
+					AND post_status = "publish"
+					AND post_title LIKE %s
+					AND ID != %d
+				ORDER BY RAND()', $title, $this->ID));
 	}
 
 	/**
@@ -520,19 +537,9 @@ class Post extends Image {
 	 * @return array<Post>
 	 */
 	public function getRelacionadas($max = self::NUM_RELACIONADAS) {
-		global $wpdb;
 		$cont = 0;
-		$posts = array();
-		$sql = 'SELECT ID FROM wp_posts
-				WHERE post_type = "post"
-					AND post_status = "publish"
-					AND post_title LIKE %s
-					AND ID != %d
-				ORDER BY RAND()';
-		$title = '%' . $this->post_title . '%';
-		$posts = $wpdb->get_col($wpdb->prepare($sql, $title, $this->ID));
-		foreach ($posts as $id) {
-			$posts[] = Post::find($id);
+		foreach ($this->_getRelacionadasIds() as $post_id) {
+			$posts[] = Post::find($post_id);
 			if (++ $cont == $max) {
 				break;
 			}
@@ -547,10 +554,10 @@ class Post extends Image {
 	 */
 	public function getTotalMeGustas() {
 		global $wpdb;
-		$activo = Favorito::ACTIVO;
-		return (int) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE post_id = $this->ID AND status = $activo;");
+		return (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+		 		FROM wp_favoritos
+				WHERE post_id = %d
+				AND status = %d', $this->ID, Favorito::ACTIVO));
 	}
 
 	/**
@@ -579,12 +586,11 @@ class Post extends Image {
 			$user_id = wp_get_current_user()->ID;
 		}
 		global $wpdb;
-		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+		return (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
 				FROM ' . $wpdb->prefix . 'favoritos
 				WHERE user_id = %d
 				AND post_id = %d
-				AND status = 0;', $user_id, $this->ID));
-		return $leGusta > 0;
+				AND status = %d', $user_id, $this->ID, Favorito::ACTIVO));
 	}
 
 	/**
