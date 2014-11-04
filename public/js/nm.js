@@ -176,7 +176,6 @@ function seHaceSrollEn(_id){
 		tipo_id: tipo_id,
 		size: size,
 	};
-
 	$.ajax({
 		url : url,
 		type : "POST",

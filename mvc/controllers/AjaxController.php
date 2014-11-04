@@ -646,9 +646,7 @@ class AjaxController extends BaseController {
 		if (! isset($_datos['tipo'])) {
 			return $this->err;
 		}
-		if (! $this->current_user->canEditor()) {
-			return $this->err_sin_permisos;
-		}
+
 		switch ($_datos['tipo']) {
 			case User::SEGUIR :
 				return $this->_jsonUserSeguir($_datos);
@@ -668,7 +666,7 @@ class AjaxController extends BaseController {
 			case User::FAVORITOS :
 				return $this->_jsonUserFavoritos($_datos);
 		}
-		return $json;
+		return null;
 	}
 
 	/**
