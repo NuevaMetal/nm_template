@@ -26,6 +26,7 @@ return [
 	'mensajes_enviados' => 'Mensajes enviados',
 	'mensajes_recibidos' => 'Mensajes recibidos',
 	'mensajes_titulo' => 'Puedes enviar mensajes privados desde el perfil de aquel usuario al que quieras escribir',
+	'mover_a_mensaje_recibido' => 'Mover a recibido',
 
 	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 

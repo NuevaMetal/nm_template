@@ -1,6 +1,9 @@
 {{# getMensajesBorrados }}
 	<div class="row mensaje">	
 		{{> user/mensajes/_mensaje_fila }}	
+		<button class="col-xs-6 col-sm-2 btn btn-default borrar-mensaje" mensaje_id="{{ID}}" borrar="recibido"
+			nonce="{{getNonceBorrarMensaje}}">
+			<i class="fa fa-reply fa-xs"></i> {{#transu}}actividad.mover_a_mensaje_recibido{{/transu}}</button>	
 		<button class="col-xs-6 col-sm-2 btn btn-default borrar-mensaje" mensaje_id="{{ID}}" borrar="definitivo"
 			nonce="{{getNonceBorrarMensaje}}">
 			<i class="fa fa-trash fa-xs"></i> {{#transu}}borrar{{/transu}}</button>	

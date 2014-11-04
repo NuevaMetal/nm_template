@@ -142,17 +142,17 @@ class Mensaje extends ModelBase {
 	 * @return Mensaje
 	 */
 	public function borrar() {
-		global $wpdb;
-		$existe = $wpdb->get_var("SELECT count(*)
-				FROM {$wpdb->prefix}" . static::$table . "
-				WHERE ID = $this->ID");
-		if (! $existe) {
-			throw new Exception(I18n::transu('actividad.mensaje_no_existe'), 504);
-		}
-		$result = $wpdb->query($wpdb->prepare("
-				UPDATE {$wpdb->prefix}" . static::$table . " SET estado = %d
-			WHERE ID = %d;", self::ESTADO_BORRADO, $this->ID));
-		return $result;
+		return $this->_cambiarEstado(self::ESTADO_BORRADO);
+	}
+
+	/**
+	 * Establecer el estado del mensaje a activo (Recibido)
+	 *
+	 * @throws Exception
+	 * @return Mensaje
+	 */
+	public function moverARecibido() {
+		return $this->_cambiarEstado(self::ESTADO_ACTIVO);
 	}
 
 	/**
@@ -162,6 +162,17 @@ class Mensaje extends ModelBase {
 	 * @return Mensaje
 	 */
 	public function borrarDefinitivo() {
+		return $this->_cambiarEstado(self::ESTADO_BORRADO_DEFINITIVO);
+	}
+
+	/**
+	 * Cambiar el estado al mensaje
+	 *
+	 * @param unknown $aDonde
+	 * @throws Exception
+	 * @return unknown
+	 */
+	public function _cambiarEstado($aDonde) {
 		global $wpdb;
 		$existe = $wpdb->get_var($wpdb->prepare('
 				SELECT count(*)
@@ -170,10 +181,10 @@ class Mensaje extends ModelBase {
 		if (! $existe) {
 			throw new Exception(I18n::transu('actividad.mensaje_no_existe'), 504);
 		}
-		$result = $wpdb->query($wpdb->prepare('
+		$result = $wpdb->query($wpdb->prepare("
 				UPDATE wp_mensajes
 				SET estado = %d
-				WHERE ID = %d', self::ESTADO_BORRADO_DEFINITIVO, $this->ID));
+				WHERE ID = %d", $aDonde, $this->ID));
 		return $result;
 	}
 

@@ -26,6 +26,7 @@ return [
 	'mensajes_enviados' => 'Messages sent',
 	'mensajes_recibidos' => 'Inbox',
 	'mensajes_titulo' => 'You can send private message from the user profile that you want to write',
+	'mover_a_mensaje_recibido' => 'Move to received',
 
 	'sin_actividad' => 'You haven\'t activity to show yet',
 

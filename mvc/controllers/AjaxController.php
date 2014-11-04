@@ -523,10 +523,16 @@ class AjaxController extends BaseController {
 		try {
 			$mensaje = new Mensaje();
 			$mensaje->ID = $mensajeId;
-			if ($_datos['borrar'] == 'definitivo') {
-				$mensaje->borrarDefinitivo();
-			} else {
-				$mensaje->borrar();
+			switch ($_datos['borrar']) {
+				case 'recibido' :
+					$mensaje->moverARecibido();
+					break;
+				case 'papelera' :
+					$mensaje->borrar();
+					break;
+				case 'definitivo' :
+					$mensaje->borrarDefinitivo();
+					break;
 			}
 			$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_borrado') . '.');
 			$json['code'] = 200;

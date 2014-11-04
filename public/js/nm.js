@@ -740,7 +740,7 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 	var mensaje_id  = $this.attr('mensaje_id');
 	var borrar  = $this.attr('borrar');
 	
-	if(!confirm("¿Estás seguro de querer borrar el mensaje?")){
+	if(!confirm("¿Estás seguro de querer "+$this.text().trim()+" el mensaje?")){
 		return;
 	}
 	
