@@ -709,6 +709,7 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 		dataType : "json",
 		beforeSend: function() {
 			$this.find('.fa-spin').removeClass('hidden');
+			$this.attr('disabled', true);
 		},
 		success : function(json) {
 			if(json.code == 200){
@@ -717,6 +718,7 @@ $(document).on('click', '.enviar-mensaje', function(e) {
 				cant.text(parseInt(cant.text(), 10)+1);
 			}
 			mostrarAlerta(json.alert, 2);
+			$this.attr('disabled', false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
