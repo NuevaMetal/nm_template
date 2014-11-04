@@ -65,45 +65,29 @@ class Acciones {
 				if (! $user) {
 					$user = get_user_by('login', $user_email_or_login);
 				}
+				$user = User::find($user->ID);
 				// Si seguimos sin user es que no existe
-				if (! $user) {
+				if (! $user || ! $user->ID) {
 					return;
 				}
 
-				$user_login = stripslashes($user->user_login);
-				$user_email = stripslashes($user->user_email);
-				$user_pass = wp_generate_password(12, false);
-				wp_set_password($user_pass, $user->ID);
+				$urlKey = $user->getActivationKeyUrl();
 
-				$emailAvisoAdminPasswordReset = I18n::trans('emails.aviso_admin_password_reset', [
-					'user_login' => $user_login,
-					'user_pass' => $user_pass,
-					'user_email' => $user_email,
-					'blogname' => get_option('blogname')
-				]);
-
-				$enviado = Correo::enviarCorreoGenerico([
-					get_option('admin_email')
-				], sprintf(__('[%s] New User Recovering Pass'), get_option('blogname')), $emailAvisoAdminPasswordReset);
-
-				if (! $enviado) {
-					Utils::info('Fallo al enviar el correo al User con ID: ' . $user->ID);
-				}
-
-				if (empty($user_pass) || ! $user->ID)
-					return;
-
-				$emailNuevoUser = I18n::trans('emails.password_reset', [
-					'user_login' => $user_login,
-					'user_pass' => $user_pass,
+				$plantillaEmailPasswordReset = I18n::trans('emails.password_reset', [
+					'blogname' => get_option('blogname'),
+					'blogurl' => home_url(),
+					'user_login' => $user->getLogin(),
+					'user_key_url' => $urlKey,
+					'user_email' => $user->getEmail(),
 					'admin_email' => get_option('admin_email')
 				]);
 
 				$enviado = Correo::enviarCorreoGenerico([
-					$user_email
-				], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
+					get_option('admin_email'),
+					$user->getEmail()
+				], sprintf(__('[%s] Your username and password'), get_option('blogname')), $plantillaEmailPasswordReset);
 				if (! $enviado) {
-					Utils::info('Fallo al enviar el correo al User con ID: ' . $user->ID);
+					Utils::info("FALLO al enviar correo generico 'plantillaEmailPasswordReset'");
 				}
 				header('Location: /wp-login.php');
 			}

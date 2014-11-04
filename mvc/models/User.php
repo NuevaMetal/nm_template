@@ -56,6 +56,8 @@ class User extends Favoriteador {
 
 	const KEY_USER_TIPO = 'tipo_usuario';
 
+	const KEY_USER_HASH_ACTIVATION_KEY = 'hash_activation_key';
+
 	/*
 	 * Tipos de Usuario
 	 */
@@ -122,6 +124,25 @@ class User extends Favoriteador {
 	const MENSAJES_ENVIADOS = 'mensajes-enviados';
 
 	const MENSAJES_RECIBIDOS = 'mensajes-recibidos';
+
+	/**
+	 * Devuelve el login
+	 *
+	 * @return string
+	 */
+	public function getLogin() {
+		return stripslashes($this->user_login);
+	}
+
+	/**
+	 * Devuelve el email
+	 *
+	 * @return string
+	 */
+	public function getEmail() {
+		return stripslashes($this->user_email);
+	}
+
 	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
@@ -1437,5 +1458,66 @@ class User extends Favoriteador {
 		// return $aPuntos > $bPuntos ? 1 : - 1;
 		// });
 		return $users;
+	}
+
+	/**
+	 * Generar una nueva contraseña para el User.
+	 *
+	 * @return string Nueva contraseña
+	 */
+	public function setNewPassword() {
+		$user_pass = wp_generate_password(12, false);
+		wp_set_password($user_pass, $this->ID);
+		return $user_pass;
+	}
+
+	/**
+	 * Devuelve la url para generear la nueva password
+	 *
+	 * @return string|boolean
+	 */
+	public function getActivationKeyUrl() {
+		global $wpdb;
+		$generarNuevaKey = function () {
+			return wp_generate_password(30, false);
+		};
+		$activationKey = $generarNuevaKey();
+		/*
+		 * Mientras la key no sea única, generar otra nueva.
+		 */
+		while ($wpdb->get_var($wpdb->prepare('select count(*)
+				from wp_usermeta
+				where meta_key = %s
+				and meta_value = %s', self::KEY_USER_HASH_ACTIVATION_KEY, wp_hash_password($activationKey)))) {
+			$activationKey = $generarNuevaKey();
+		}
+		if ($this->setActivationKey($activationKey)) {
+			return home_url() . '/activation?user=' . $this->user_nicename . '&key=' . $activationKey;
+		}
+		return false;
+	}
+
+	/**
+	 * Establecer un nuevo hash para el cambio de password o borrarlo
+	 *
+	 * @param string $activationKey
+	 *        	clave sin hashear.
+	 * @param boolean $borrar
+	 *        	true para borrar el hash.
+	 */
+	public function setActivationKey($activationKey, $borrar = false) {
+		if ($borrar) {
+			return delete_user_meta($this->ID, self::KEY_USER_HASH_ACTIVATION_KEY);
+		}
+		return update_user_meta($this->ID, self::KEY_USER_HASH_ACTIVATION_KEY, wp_hash_password($activationKey));
+	}
+
+	/**
+	 * Devuelve el hash de la activación
+	 *
+	 * @return string
+	 */
+	public function getHashActivationKey() {
+		return get_user_meta($this->ID, self::KEY_USER_HASH_ACTIVATION_KEY, true);
 	}
 }

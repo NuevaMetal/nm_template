@@ -10,7 +10,8 @@ return [
 		User  en :blogname <br>
 		<b>Username: </b>: :user_login <br>
 		<b>Pass temp: </b>: :user_pass <br>
-		<b>E-mail</b>: :user_email <br>',
+		<b>E-mail</b>: :user_email <br>
+		<b>Key URL: </b>: <a href=" :user_key_url " target="_blank"> :user_key_url </a> <br>',
 
 	'nuevo_user' => 'Hi bro,
 		<br>

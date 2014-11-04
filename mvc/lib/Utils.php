@@ -547,4 +547,15 @@ class Utils {
 		}
 		return $attachment_id;
 	}
+
+	/**
+	 * Comprobamos que la cadena contenga algún valor, no sea todo espacios y sea mayor que 0
+	 *
+	 * @param string $valor
+	 *        	cadena a comprobar
+	 * @return boolean true: válida, false: no válida
+	 */
+	public static function esCadenaValida($valor) {
+		return (isset($valor) && ! ctype_space($valor) && strlen($valor) > 0);
+	}
 }
