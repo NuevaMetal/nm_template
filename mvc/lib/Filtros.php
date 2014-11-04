@@ -19,6 +19,8 @@ class Filtros {
 				'a'
 			]);
 			$content = Html::quitarLinksNMAbsolutos($content);
+			$content = Html::quitarEtiquetas($content);
+			$content = Html::quitarEtiquetaLeerMas($content);
 			return $content;
 		});
 	}
@@ -36,6 +38,8 @@ class Filtros {
 				'a'
 			]);
 			$content = Html::quitarLinksNMAbsolutos($content);
+			$content = Html::quitarEtiquetas($content);
+			$content = Html::quitarEtiquetaLeerMas($content);
 			return $content;
 		});
 	}
