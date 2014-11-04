@@ -1305,9 +1305,21 @@ class User extends Favoriteador {
 	}
 
 	/**
+	 * Devuelve el número de mensajes recibidos
+	 *
+	 * @return number
 	 */
 	public function getTotalMensajesRecibidos() {
 		return count($this->_getMensajesIds(self::MENSAJES_RECIBIDOS));
+	}
+
+	/**
+	 * Devuelve el número de mensajes recibidos borrados
+	 *
+	 * @return number
+	 */
+	public function getTotalMensajesBorrados() {
+		return count($this->_getMensajesIds(self::MENSAJES_RECIBIDOS, false, false));
 	}
 
 	/**
@@ -1317,7 +1329,7 @@ class User extends Favoriteador {
 	 * @param boolean $noLeidos
 	 *        	Por defecto todos (no leidos y leidos)
 	 */
-	private function _getMensajesIds($tipo, $noLeidos = false) {
+	private function _getMensajesIds($tipo, $noLeidos = false, $estadoActivo = true) {
 		global $wpdb;
 		switch ($tipo) {
 			case self::MENSAJES_ENVIADOS :
@@ -1330,11 +1342,14 @@ class User extends Favoriteador {
 		$sql = 'SELECT ID
 				FROM wp_mensajes
 				WHERE ' . $columna . ' = ' . $this->ID;
-		$sql .= ' AND estado = ' . Mensaje::ESTADO_ACTIVO;
+
+		$sql .= ' AND estado = ' . (($estadoActivo) ? Mensaje::ESTADO_ACTIVO : Mensaje::ESTADO_BORRADO);
+
 		if ($noLeidos) {
 			$sql .= ' AND leido = ' . Mensaje::LEIDO_NO;
 		}
 		$sql .= ' ORDER BY updated_at DESC ';
+
 		return $wpdb->get_col($sql);
 	}
 
@@ -1371,7 +1386,7 @@ class User extends Favoriteador {
 	/**
 	 * Devuelve todos los mensajes recibidos del usuarios
 	 *
-	 * @return unknown
+	 * @return array<Mensaje>
 	 */
 	public function getMensajesEnviados($offset = 0, $limit = self::LIMIT_MENSAJES_RECIBIDOS) {
 		global $wpdb;
@@ -1382,6 +1397,27 @@ class User extends Favoriteador {
 				ORDER BY updated_at DESC
 				LIMIT %d OFFSET %d
 				', $this->ID, Mensaje::ESTADO_ACTIVO, $limit, $offset));
+		$mensajes = [];
+		foreach ($mensajesIds as $id) {
+			$mensajes[] = Mensaje::find($id);
+		}
+		return $mensajes;
+	}
+
+	/**
+	 * Devuelve todos los mensajes recibidos que has borrado del usuarios
+	 *
+	 * @return unknown
+	 */
+	public function getMensajesBorrados($offset = 0, $limit = self::LIMIT_MENSAJES_RECIBIDOS) {
+		global $wpdb;
+		$mensajesIds = $wpdb->get_col($wpdb->prepare('
+				SELECT ID
+				FROM wp_mensajes
+				WHERE a_quien_id = %d AND estado = %d
+				ORDER BY updated_at DESC
+				LIMIT %d OFFSET %d
+				', $this->ID, Mensaje::ESTADO_BORRADO, $limit, $offset));
 		$mensajes = [];
 		foreach ($mensajesIds as $id) {
 			$mensajes[] = Mensaje::find($id);

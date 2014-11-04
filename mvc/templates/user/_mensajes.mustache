@@ -9,7 +9,11 @@
 			{{#trans}}actividad.mensajes_recibidos{{/trans}} (<span class="cant">{{getTotalMensajesRecibidos}}</span>)</a>
 		</li>
 		<li><a href="#enviados" role="tab" data-toggle="tab">
-			{{#trans}}actividad.mensajes_enviados{{/trans}} (<span class="cant">{{getTotalMensajesEnviados}}</span>)</a></li>
+			{{#trans}}actividad.mensajes_enviados{{/trans}} (<span class="cant">{{getTotalMensajesEnviados}}</span>)</a>
+		</li>
+		<li><a href="#borrados" role="tab" data-toggle="tab">
+			{{#trans}}actividad.mensajes_borrados{{/trans}} (<span class="cant">{{getTotalMensajesBorrados}}</span>)</a>
+		</li>
 	</ul>
 
 	<!-- Tab panes -->
@@ -30,6 +34,16 @@
 		
 			<div class="mensajes-content">
 				{{> user/mensajes/_mensajes_enviados }}
+			</div>
+			
+			{{> user/actividad/_btn_mostrar_mas }}	
+		</div>
+		
+		<div class="tab-pane active col-xs-12" id="borrados">
+			<h4 class="titular">{{#trans}}actividad.mensajes_borrados{{/trans}}</h4>
+			
+			<div class="mensajes-content">
+				{{> user/mensajes/_mensajes_borrados }}
 			</div>
 			
 			{{> user/actividad/_btn_mostrar_mas }}	

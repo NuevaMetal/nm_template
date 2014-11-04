@@ -757,9 +757,14 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 		},
 		success : function(json) {
 			if(json.code == 200) {
-				cant = $this.parents('#mensajes').find('.nav li[class="active"] .cant');
-				cant.text(parseInt(cant.text(), 10)-1);
-
+				idMensajes = $this.parents('#mensajes');
+				// Quitamos 1 en el número de mensajes recibidos
+				cantRecibidos = idMensajes.find('.nav li[class="active"] .cant');
+				cantRecibidos.text(parseInt(cantRecibidos.text(), 10)-1);
+				// Aumentamos en 1 el número de mensajes borrados
+				cantBorrados = idMensajes.find('.nav li:last-child .cant');
+				cantBorrados.text(parseInt(cantBorrados.text(), 10)+1);
+				
 				$this.find('.fa-spin').addClass('hidden');
 				mensaje.addClass('hidden');				
 			}

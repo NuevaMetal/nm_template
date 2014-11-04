@@ -22,6 +22,7 @@ return [
 	'mensaje_demasiado_corto' => 'Message too short',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado large',
 	'mensaje_no_existe' => 'This message don\'t exists',
+	'mensajes_borrados' => 'Deleted messages',
 	'mensajes_enviados' => 'Messages sent',
 	'mensajes_recibidos' => 'Inbox',
 	'mensajes_titulo' => 'You can send private message from the user profile that you want to write',

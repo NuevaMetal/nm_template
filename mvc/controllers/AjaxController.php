@@ -524,7 +524,7 @@ class AjaxController extends BaseController {
 			$mensaje = new Mensaje();
 			$mensaje->ID = $mensajeId;
 			$mensaje->borrar();
-			$alert = $this->renderAlertaInfo(I18n::transu('user.mensaje_borrado'));
+			$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_borrado') . '.');
 			$json['code'] = 200;
 		} catch ( Exception $e ) {
 			$json['code'] = $e->getCode();
@@ -628,6 +628,12 @@ class AjaxController extends BaseController {
 				$mensajes = $this->current_user->getMensajesEnviados($offset);
 				$json['content'] = $this->_render('user/mensajes/_mensajes_enviados', [
 					'getMensajesEnviados' => $mensajes
+				]);
+				break;
+			case '#borrados' :
+				$mensajes = $this->current_user->getMensajesBorrados($offset);
+				$json['content'] = $this->_render('user/mensajes/_mensajes_borrados', [
+					'getMensajesBorrados' => $mensajes
 				]);
 				break;
 			default :

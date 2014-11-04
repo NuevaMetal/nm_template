@@ -22,6 +22,7 @@ return [
 	'mensaje_demasiado_corto' => 'Mensaje demasiado corto',
 	'mensaje_demasiado_grande' => 'Mensaje demasiado grande',
 	'mensaje_no_existe' => 'El mensaje no existe',
+	'mensajes_borrados' => 'Mensajes borrados',
 	'mensajes_enviados' => 'Mensajes enviados',
 	'mensajes_recibidos' => 'Mensajes recibidos',
 	'mensajes_titulo' => 'Puedes enviar mensajes privados desde el perfil de aquel usuario al que quieras escribir',

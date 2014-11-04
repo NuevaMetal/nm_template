@@ -12,6 +12,8 @@ class Mensaje extends ModelBase {
 
 	const ESTADO_BORRADO = 0;
 
+	const ESTADO_BORRADO_DEFINITIVO = 2;
+
 	const LEIDO_SI = 1;
 
 	const LEIDO_NO = 0;
