@@ -736,6 +736,7 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 	var mensaje = $this.parents('.mensaje');
 	var nonce = $this.attr('nonce');
 	var mensaje_id  = $this.attr('mensaje_id');
+	var borrar  = $this.attr('borrar');
 	
 	if(!confirm("¿Estás seguro de querer borrar el mensaje?")){
 		return;
@@ -746,6 +747,7 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 		tipo: 'borrar-mensaje',
 		nonce: nonce,
 		mensaje_id : mensaje_id,
+		borrar: borrar
 	};
 	$.ajax({
 		url : url,
@@ -761,10 +763,11 @@ $(document).on('click', '.borrar-mensaje', function(e) {
 				// Quitamos 1 en el número de mensajes recibidos
 				cantRecibidos = idMensajes.find('.nav li[class="active"] .cant');
 				cantRecibidos.text(parseInt(cantRecibidos.text(), 10)-1);
-				// Aumentamos en 1 el número de mensajes borrados
-				cantBorrados = idMensajes.find('.nav li:last-child .cant');
-				cantBorrados.text(parseInt(cantBorrados.text(), 10)+1);
-				
+				if(borrar == 'papelera'){
+					// Aumentamos en 1 el número de mensajes borrados
+					cantBorrados = idMensajes.find('.nav li:last-child .cant');
+					cantBorrados.text(parseInt(cantBorrados.text(), 10)+1);
+				}
 				$this.find('.fa-spin').addClass('hidden');
 				mensaje.addClass('hidden');				
 			}

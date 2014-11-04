@@ -103,8 +103,7 @@ class Mensaje extends ModelBase {
 		global $wpdb;
 		$result = $wpdb->query($wpdb->prepare("
 			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, tipo, respuesta_id, titulo, mensaje, created_at, updated_at)
-			VALUES (%d, %d, %d, %d, %s, %s, null, null);",
-				$this->user_id, $this->a_quien_id, $this->tipo, $this->respuesta_id, $this->titulo, $this->mensaje));
+			VALUES (%d, %d, %d, %d, %s, %s, null, null);", $this->user_id, $this->a_quien_id, $this->tipo, $this->respuesta_id, $this->titulo, $this->mensaje));
 		$this->ID = $wpdb->insert_id;
 		return $this;
 	}
@@ -153,6 +152,28 @@ class Mensaje extends ModelBase {
 		$result = $wpdb->query($wpdb->prepare("
 				UPDATE {$wpdb->prefix}" . static::$table . " SET estado = %d
 			WHERE ID = %d;", self::ESTADO_BORRADO, $this->ID));
+		return $result;
+	}
+
+	/**
+	 * Establecer el estado del mensaje a borrado
+	 *
+	 * @throws Exception
+	 * @return Mensaje
+	 */
+	public function borrarDefinitivo() {
+		global $wpdb;
+		$existe = $wpdb->get_var($wpdb->prepare('
+				SELECT count(*)
+				FROM wp_mensajes
+				WHERE ID = %d', $this->ID));
+		if (! $existe) {
+			throw new Exception(I18n::transu('actividad.mensaje_no_existe'), 504);
+		}
+		$result = $wpdb->query($wpdb->prepare('
+				UPDATE wp_mensajes
+				SET estado = %d
+				WHERE ID = %d', self::ESTADO_BORRADO_DEFINITIVO, $this->ID));
 		return $result;
 	}
 
