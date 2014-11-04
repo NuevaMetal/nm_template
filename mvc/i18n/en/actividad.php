@@ -14,7 +14,7 @@ return [
 	'ha_publicado_una_entrada' => 'has published a post',
 	'has_publicado_una_entrada' => 'You have published a post',
 	'te_ha_gustado' => 'You like',
-	'le_ha_gustado' => 'liked it',
+	'le_ha_gustado' => 'liked',
 
 	'mensaje_borrado' => 'Message deleted succesfully',
 	'mensaje_enviado_exito' => 'Message sent successfully for :nombre',
