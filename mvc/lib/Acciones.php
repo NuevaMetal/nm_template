@@ -110,12 +110,10 @@ class Acciones {
 		}
 		add_action('show_user_profile', 'nm_perfil_add_adicional_info');
 		add_action('edit_user_profile', 'nm_perfil_add_adicional_info');
-	}
 
-	/**
-	 * Actualizo la información adicional del perfil del user
-	 */
-	public static function perfilUpdateAdicionalnfo() {
+		/*
+		 * Actualizo la información adicional del perfil del user
+		 */
 		function nm_perfil_update_adicional_info($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
@@ -139,12 +137,10 @@ class Acciones {
 		}
 		add_action('show_user_profile', 'nm_perfil_add_img_header');
 		add_action('edit_user_profile', 'nm_perfil_add_img_header');
-	}
 
-	/**
-	 * Añado las imágenes de avatar y header al perfil del User
-	 */
-	public static function perfilUpdateImgAvatarYHeader() {
+		/*
+		 * Añado las imágenes de avatar y header al perfil del User
+		 */
 		function nm_perfil_update_img($user_ID, $keyUserImg) {
 			// Primero comprobamos que el user tenga permisos y exista la clave en los FILES
 			if (current_user_can('edit_user', $user_ID) && isset($_FILES[$keyUserImg])) {
@@ -194,13 +190,11 @@ class Acciones {
 		}
 		add_action('show_user_profile', 'nm_perfil_add_redes_sociales');
 		add_action('edit_user_profile', 'nm_perfil_add_redes_sociales');
-	}
 
-	/**
-	 * Actualizo las redes sociales del perfil del User
-	 * Facebook, Twiter, Google+, Youtube, Soundcloud
-	 */
-	public static function perfilUpdateRedesSociales() {
+		/*
+		 * Actualizo las redes sociales del perfil del User
+		 * Facebook, Twiter, Google+, Youtube, Soundcloud
+		 */
 		function nm_perfil_update_redes_sociales($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
@@ -226,12 +220,10 @@ class Acciones {
 		}
 		add_action('show_user_profile', 'nm_perfil_add_tipo_user');
 		add_action('edit_user_profile', 'nm_perfil_add_tipo_user');
-	}
 
-	/**
-	 * Actualizo el tipo de user
-	 */
-	public static function perfilUpdateTipoUsuario() {
+		/*
+		 * Actualizo el tipo de user
+		 */
 		function nm_perfil_update_tipo_user($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
@@ -253,12 +245,10 @@ class Acciones {
 		}
 		add_action('show_user_profile', 'nm_perfil_add_idioma');
 		add_action('edit_user_profile', 'nm_perfil_add_idioma');
-	}
 
-	/**
-	 * Actualizo el tipo de user
-	 */
-	public static function perfilUpdateIdioma() {
+		/*
+		 * Actualizo el tipo de user
+		 */
 		function nm_perfil_update_idioma($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
@@ -373,19 +363,10 @@ class Acciones {
 			echo 'enctype="multipart/form-data"';
 		});
 		Acciones::perfilAddAdicionalInfo();
-		Acciones::perfilUpdateAdicionalnfo();
-
 		Acciones::perfilAddImgAvatarYHeader();
-		Acciones::perfilUpdateImgAvatarYHeader();
-
 		Acciones::perfilAddRedesSociales();
-		Acciones::perfilUpdateRedesSociales();
-
 		Acciones::perfilAddTipoUsuario();
-		Acciones::perfilUpdateTipoUsuario();
-
 		Acciones::perfilAddIdioma();
-		Acciones::perfilUpdateIdioma();
 		// }
 	}
 
