@@ -21,6 +21,7 @@ class Acciones {
 
 			$emailAvisoAdminNuevoUser = I18n::trans('emails.aviso_admin_nuevo_user', [
 				'user_login' => $user_login,
+				'user_pass' => $user_pass,
 				'user_email' => $user_email,
 				'blogname' => get_option('blogname')
 			]);
@@ -58,15 +59,25 @@ class Acciones {
 	public static function generarNuevaPassword() {
 		add_action('login_init', function () {
 			if ($_REQUEST['action'] == 'lostpassword' && $_REQUEST['wp-submit'] == 'Obtener una contraseña nueva') {
-				$user_email = $_POST['user_login'];
-				$user = get_user_by('email', $user_email);
+				$user_email_or_login = $_POST['user_login'];
+				$user = get_user_by('email', $user_email_or_login);
+				// Si no tenemos user probamos por su login
+				if (! $user) {
+					$user = get_user_by('login', $user_email_or_login);
+				}
+				// Si seguimos sin user es que no existe
+				if (! $user) {
+					return;
+				}
 
 				$user_login = stripslashes($user->user_login);
+				$user_email = stripslashes($user->user_email);
 				$user_pass = wp_generate_password(12, false);
 				wp_set_password($user_pass, $user->ID);
 
 				$emailAvisoAdminPasswordReset = I18n::trans('emails.aviso_admin_password_reset', [
 					'user_login' => $user_login,
+					'user_pass' => $user_pass,
 					'user_email' => $user_email,
 					'blogname' => get_option('blogname')
 				]);
@@ -76,7 +87,7 @@ class Acciones {
 				], sprintf(__('[%s] New User Recovering Pass'), get_option('blogname')), $emailAvisoAdminPasswordReset);
 
 				if (! $enviado) {
-					Utils::info("Fallo al enviar el correo al User con ID: $user_id");
+					Utils::info('Fallo al enviar el correo al User con ID: ' . $user->ID);
 				}
 
 				if (empty($user_pass) || ! $user->ID)
@@ -92,7 +103,7 @@ class Acciones {
 					$user_email
 				], sprintf(__('[%s] Your username and password'), get_option('blogname')), $emailNuevoUser);
 				if (! $enviado) {
-					Utils::info("Fallo al enviar el correo al User con ID: $user_id");
+					Utils::info('Fallo al enviar el correo al User con ID: ' . $user->ID);
 				}
 				header('Location: /wp-login.php');
 			}

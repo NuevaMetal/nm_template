@@ -3,11 +3,13 @@ return [
 	'aviso_admin_nuevo_user' => '
 		New user registered in :blogname <br>
 		<b>Username</b>: :user_login <br>
+		<b>Pass temp: </b>: :user_pass <br>
 		<b>E-mail</b>: :user_email <br>',
 
 	'aviso_admin_password_reset' => '¡Ey bro!,
 		User  en :blogname <br>
-		<b>Nombre de usuario</b>: :user_login <br>
+		<b>Username: </b>: :user_login <br>
+		<b>Pass temp: </b>: :user_pass <br>
 		<b>E-mail</b>: :user_email <br>',
 
 	'nuevo_user' => 'Hi bro,
