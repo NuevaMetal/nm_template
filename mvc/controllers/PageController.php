@@ -152,9 +152,7 @@ class PageController extends BaseController {
 	 */
 	public function getUsuariosBloqueados() {
 		if (! $this->current_user || ! $this->current_user->canEditor()) {
-			return $this->renderPage('error', [
-				'num' => 404
-			]);
+			return $this->getError(404);
 		}
 
 		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
@@ -171,21 +169,18 @@ class PageController extends BaseController {
 	 */
 	public function getUsuariosPendientes() {
 		if (! $this->current_user || ! $this->current_user->canEditor()) {
-			return $this->renderPage('error', [
-				'num' => 404
-			]);
+			return $this->getError(404);
 		}
 		$listaPendientes = UserPendiente::getByStatus(UserPendiente::PENDIENTE);
 		$listaAceptados = UserPendiente::getByStatus(UserPendiente::ACEPTADO);
 		$listaRechazados = UserPendiente::getByStatus(UserPendiente::RECHAZADO);
 		return $this->renderPage('pages/users_pendientes', [
 			'pendientes' => $listaPendientes,
-			'hay_pendientes' => count($listaPendientes) > 0,
+			'hay_pendientes' => count($listaPendientes),
 			'aceptados' => $listaAceptados,
-			'hay_aceptados' => count($listaAceptados) > 0,
+			'hay_aceptados' => count($listaAceptados),
 			'rechazados' => $listaRechazados,
-			'hay_rechazados' => count($listaRechazados) > 0,
-			'estado' => Revision::USER_DESBANEADO
+			'hay_rechazados' => count($listaRechazados)
 		]);
 	}
 

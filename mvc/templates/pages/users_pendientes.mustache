@@ -104,15 +104,11 @@
 					<td><a href="{{ getEditor.getPerfilUrl }}"
 					target="_blank">{{ getEditor.user_login }}</a></td>
 					{{#current_user.isAdmin}}
-					<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
-						 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"
-								user="{{user_id}}" editor="{{current_user.ID}}">
-							Pendiente
+					<td><button class="btn btn-info btn-xs btn-block hacer-colaborador" que="hacer-pendiente"
+								user="{{user_id}}" editor="{{current_user.ID}}"> Pendiente
 						</button>
-						<button class="btn btn-danger btn-xs btn-block hacer-colaborador"
-						 		url="{{template_url}}/admin_ajax.php" que="borrar"
-								user="{{user_id}}" editor="{{current_user.ID}}">
-							Borrar
+						<button class="btn btn-danger btn-xs btn-block hacer-colaborador"  que="borrar"
+								user="{{user_id}}" editor="{{current_user.ID}}"> Borrar
 						</button>
 					</td>
 					{{/current_user.isAdmin}}

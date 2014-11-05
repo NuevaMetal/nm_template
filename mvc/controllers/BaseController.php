@@ -97,7 +97,8 @@ abstract class BaseController {
 	 */
 	public function getError($num = 404) {
 		return $this->renderPage('error', [
-			'num' => $num
+			'num' => $num,
+			'mensaje' => I18n::trans('error.' . $num)
 		]);
 	}
 
