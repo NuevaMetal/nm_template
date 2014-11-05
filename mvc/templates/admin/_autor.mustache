@@ -1,20 +1,19 @@
 {{^ user.canEditor }}
-	<div class="row">
+	<div class="row" style="margin-top: 20px; margin-bottom: -11px;">
 		<div class="col-xs-12 text-right panel-admin-user">		
-			<button class="btn btn-default quitar-avatar" url="{{template_url}}/ajax.php"
+			<button class="btn btn-default quitar-avatar"
 					que="quitar-avatar" user="{{user.ID}}">Quitar avatar</button>
-			<button class="btn btn-default quitar-header" url="{{template_url}}/ajax.php"
+			<button class="btn btn-default quitar-header" 
 					que="quitar-header" user="{{user.ID}}">Quitar header</button>
 			{{^ user.isBloqueado }}
-			<button class="btn btn-danger bloquear" url="{{template_url}}/ajax.php"
+			<button class="btn btn-danger bloquear"
 					que="bloquear" user="{{user.ID}}">Bloquear</button>
 			{{/ user.isBloqueado }}
 			{{# user.isBloqueado }}
-			<button class="btn btn-warning bloquear" url="{{template_url}}/ajax.php"
+			<button class="btn btn-warning bloquear" 
 					que="desbloquear" user="{{user.ID}}">Desbloquear</button>
 			{{/ user.isBloqueado }}
 		</div>
 	</div>
 	<hr>
-	<script src="{{template_url}}/public/js/nm-plugin.js"></script>
 {{/ user.canEditor }}

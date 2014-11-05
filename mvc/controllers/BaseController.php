@@ -71,23 +71,6 @@ abstract class BaseController {
 	}
 
 	/**
-	 * Pintar la plantilla base con los menus
-	 *
-	 * @param array $args
-	 *        	Lista de parámetros a pasar a la plantilla base
-	 */
-	protected function _renderPageBase($args = []) {
-		$args['current_user'] = User::find(wp_get_current_user()->ID);
-		$args['template_url'] = get_template_directory_uri();
-		$args['blog_name'] = get_bloginfo('name');
-		$args['poner_analitica'] = ($_SERVER["SERVER_NAME"] == URL_PRODUCCION);
-
-		$args['alertas'] = $this->_getAlertas();
-
-		return $this->renderPage('base', $args);
-	}
-
-	/**
 	 * Devuelve las alertas que tenga el usuario actual pendientes
 	 *
 	 * @return array>View> Alertas
@@ -110,59 +93,21 @@ abstract class BaseController {
 	}
 
 	/**
-	 * Devuelve la pintada con los datos básicos para cualquier plantilla como
-	 * el usuario actual y template_url
-	 *
-	 * @param string $template
-	 *        	plantilla a pintar
-	 * @param array $args
-	 *        	argumentos adicionales para esa plantilla
-	 * @deprecated por nueva versión
-	 * @see render
-	 */
-	protected function _render($template, $args = []) {
-		$this->_setTemplateVars($args);
-		return $this->render($template, $args);
-	}
-
-	/**
-	 * Pintar la plantilla base para los plugins
-	 *
-	 * @param array $args
-	 *        	Lista de parámetros a pasar a la plantilla base de plugins
-	 * @deprecated por nueva versión
-	 * @see renderPage
-	 */
-	protected function _renderPageBasePlugin($args = []) {
-		$args['blog_name'] = get_bloginfo('name');
-		echo $this->_render('base_plugin', $args);
-	}
-
-	/**
-	 * page-*.php
-	 *
-	 * @deprecated por nueva versión
-	 * @see renderPage
-	 */
-	protected function _renderPage($template = 'page', $args = []) {
-		return $this->_render($template, $args);
-	}
-
-	/**
 	 * 404.php
 	 */
-	public function getError($num) {
+	public function getError($num = 404) {
 		return $this->renderPage('error', [
 			'num' => $num
 		]);
 	}
 
 	/**
-	 * Añadimos
+	 * Añadimos las variables comunes
 	 *
-	 * @param unknown $templateVars
+	 * @param
+	 *        	array &$templateVars
 	 */
-	private function _setTemplateVars(&$templateVars) {
+	private function _addVarsToTemplateVars(&$templateVars) {
 		$templateVars = array_merge($templateVars, [
 			'current_user' => $this->current_user,
 			'template_url' => get_template_directory_uri(),
@@ -176,7 +121,7 @@ abstract class BaseController {
 	 * @param string $templateVars
 	 */
 	public function render($templateName, $templateVars = []) {
-		$this->_setTemplateVars($templateVars);
+		$this->_addVarsToTemplateVars($templateVars);
 		return $this->template->render($templateName, $templateVars);
 	}
 
@@ -186,7 +131,7 @@ abstract class BaseController {
 	 * @param string $templateVars
 	 */
 	public function renderPage($templateName, $templateVars = []) {
-		$this->_setTemplateVars($templateVars);
+		$this->_addVarsToTemplateVars($templateVars);
 		echo $this->render('header', self::getBlogInfoData());
 		wp_head();
 		echo $this->render('header_close');

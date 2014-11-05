@@ -425,7 +425,7 @@ class AjaxController extends BaseController {
 		$cantidad = $_datos['cant'];
 		$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
 		$argsSeccion['reducido'] = ($cantidad == 2);
-		$json['seccion'] = $this->_render('home/_seccion_contenido', $argsSeccion);
+		$json['seccion'] = $this->render('home/_seccion_contenido', $argsSeccion);
 		return $json;
 	}
 
@@ -443,15 +443,15 @@ class AjaxController extends BaseController {
 		];
 		switch ($tipoMenu) {
 			case Ajax::MENU_PRINCIPAL :
-				$json['menu'] = $this->_render('menu/principal', $menuArgs);
+				$json['menu'] = $this->render('menu/principal', $menuArgs);
 				break;
 			case Ajax::MENU_PERFIL :
-				$json['menu'] = $this->_render('menu/perfil', array_merge($menuArgs, [
+				$json['menu'] = $this->render('menu/perfil', array_merge($menuArgs, [
 					'total_revisiones' => Revision::getTotalPorRevisar()
 				]));
 				break;
 			case Ajax::MENU_FOOTER :
-				$json['menu'] = $this->_render('menu/footer');
+				$json['menu'] = $this->render('menu/footer');
 				break;
 		}
 		return $json;
@@ -501,7 +501,7 @@ class AjaxController extends BaseController {
 			}
 			$json['cant'] = $aQuien->getTotalSeguidores();
 			$json['alert'] = $alert;
-			$json['btn'] = $this->_render('user/_btn_seguir_user', [
+			$json['btn'] = $this->render('user/_btn_seguir_user', [
 				'user' => $aQuien
 			]);
 		} catch ( Exception $e ) {
@@ -585,23 +585,23 @@ class AjaxController extends BaseController {
 		switch ($_datos['tipo_id']) {
 			case '#actividades' :
 				$actividades = $this->current_user->getActividades($offset);
-				$content = $this->_render('user/actividad/_actividades', [
+				$content = $this->render('user/actividad/_actividades', [
 					'actividades' => $actividades
 				]);
 				break;
 			case '#actividades-propias' :
 				$actividades = $this->current_user->getActividadesPropias($offset);
-				$content = $this->_render('user/actividad/_actividades', [
+				$content = $this->render('user/actividad/_actividades', [
 					'actividades' => $actividades
 				]);
 				break;
 			case '#seguidores' :
-				$content = $this->_render('user/actividad/_usuarios', [
+				$content = $this->render('user/actividad/_usuarios', [
 					'usuarios' => $this->current_user->getSeguidores($offset)
 				]);
 				break;
 			case '#siguiendo' :
-				$content = $this->_render('user/actividad/_usuarios', [
+				$content = $this->render('user/actividad/_usuarios', [
 					'usuarios' => $this->current_user->getSiguiendo($offset)
 				]);
 				break;
@@ -624,19 +624,19 @@ class AjaxController extends BaseController {
 		switch ($_datos['tipo_id']) {
 			case '#' . Post::CATEGORY_BANDAS :
 				$favoritos = $this->current_user->getFavoritosBandas($offset);
-				$content = $this->_render('user/favoritos/_lista', [
+				$content = $this->render('user/favoritos/_lista', [
 					'lista' => $favoritos
 				]);
 				break;
 			case '#' . Post::CATEGORY_VIDEOS :
 				$favoritos = $this->current_user->getFavoritosVideos($offset);
-				$content = $this->_render('user/favoritos/_lista', [
+				$content = $this->render('user/favoritos/_lista', [
 					'lista' => $favoritos
 				]);
 				break;
 			case '#' . Post::CATEGORY_VIDEOS :
 				$favoritos = $this->current_user->getFavoritosVideos($offset);
-				$content = $this->_render('user/favoritos/_lista', [
+				$content = $this->render('user/favoritos/_lista', [
 					'lista' => $favoritos
 				]);
 				break;
@@ -659,19 +659,19 @@ class AjaxController extends BaseController {
 		switch ($_datos['tipo_id']) {
 			case '#recibidos' :
 				$mensajes = $this->current_user->getMensajesRecibidos($offset);
-				$json['content'] = $this->_render('user/mensajes/_mensajes_recibidos', [
+				$json['content'] = $this->render('user/mensajes/_mensajes_recibidos', [
 					'getMensajesRecibidos' => $mensajes
 				]);
 				break;
 			case '#enviados' :
 				$mensajes = $this->current_user->getMensajesEnviados($offset);
-				$json['content'] = $this->_render('user/mensajes/_mensajes_enviados', [
+				$json['content'] = $this->render('user/mensajes/_mensajes_enviados', [
 					'getMensajesEnviados' => $mensajes
 				]);
 				break;
 			case '#borrados' :
 				$mensajes = $this->current_user->getMensajesBorrados($offset);
-				$json['content'] = $this->_render('user/mensajes/_mensajes_borrados', [
+				$json['content'] = $this->render('user/mensajes/_mensajes_borrados', [
 					'getMensajesBorrados' => $mensajes
 				]);
 				break;
