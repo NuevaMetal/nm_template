@@ -122,7 +122,7 @@ class UserController extends BaseController {
 				$template = 'user/editar_perfil/_img_avatar';
 				break;
 		}
-		return $this->_render($template, [
+		return $this->render($template, [
 			'user' => $user,
 			'KEY_USER_IMG_HEADER' => User::KEY_USER_IMG_HEADER,
 			'KEY_USER_IMG_AVATAR' => User::KEY_USER_IMG_AVATAR
@@ -176,7 +176,7 @@ class UserController extends BaseController {
 				'selected' => (($idioma = $user->getIdioma()) && $idioma == $t)
 			];
 		}
-		return $this->_render('user/editar_perfil/_idioma', [
+		return $this->render('user/editar_perfil/_idioma', [
 			'user' => $user,
 			'KEY_USER_IDIOMA' => User::KEY_USER_IDIOMA,
 			'idiomas' => $idiomas
@@ -195,7 +195,7 @@ class UserController extends BaseController {
 		}
 		$user = User::find($user_ID);
 
-		return $this->_render('user/editar_perfil/_adicional_info', [
+		return $this->render('user/editar_perfil/_adicional_info', [
 			'user' => $user,
 			'KEY_USER_UBICACION' => User::KEY_USER_UBICACION,
 			'KEY_USER_BANDAS_DESTACADAS' => User::KEY_USER_BANDAS_DESTACADAS,

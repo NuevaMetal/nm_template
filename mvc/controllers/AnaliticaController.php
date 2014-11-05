@@ -65,7 +65,7 @@ class AnaliticaController extends BaseController {
 			'template_url' => $template_url
 		]);
 
-		return $this->_renderPageBasePlugin([
+		return $this->renderPage([
 			'content' => $content
 		]);
 	}
