@@ -1,4 +1,6 @@
 <?php
+require_once 'mvc/models/User.php';
+
 /**
  * Acciones de Wordpress
  *
@@ -350,7 +352,6 @@ class Acciones {
 	 * Añadir la información extra al perfil del Usuario
 	 */
 	public static function perfilAddInfo() {
-		require_once 'mvc/models/User.php';
 		$current_user = User::find(wp_get_current_user()->ID);
 		// if ($current_user && $current_user->canColaborador()) {
 		// Añado el enctype para poder pasar las imágenes por el formulario

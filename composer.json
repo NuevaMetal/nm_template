@@ -1,0 +1,22 @@
+{
+	"name": "com.nuevametal",
+	"description": "NuevaMetal.com",
+	"authors": [
+	    {
+	        "name": "José María Valera Reales",
+	        "email": "chemaclass@outlook.es"
+	    }
+	],
+	"require": {
+	    "mustache/mustache" : "2.7.*",
+	    "phpmailer/phpmailer": "5.2.*"
+	},
+	"autoload": {
+	    "psr-0": {
+	        "controllers": "mvc/controllers/",
+            "i18n": "mvc/i18n/",
+            "lib": "mvc/lib/",
+	        "models": "mvc/models/"
+	    }
+	}
+}

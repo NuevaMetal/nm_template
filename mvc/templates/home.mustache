@@ -1,81 +1,85 @@
-<div class="banner banner-header col-xs-12">	
-	{{> partials/_banner_submenu}}
-</div>	
-<div id="home" class="text-center" url="{{template_url}}/ajax.php">
-	{{# bandas}}
-	<section id="bandas" class="col-xs-12 seccion-posts">
-		<a href="{{home_url}}/category/bandas">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/bandas.jpg" alt="{{#transu}}bandas{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</section>
-	{{/ bandas}}
-
-	{{# videos}}
-	<div id="videos" class="col-xs-12 seccion-posts">
-		<a href="{{home_url}}/category/videos">
-			<div class="header-seccion">
-				<img src="{{template_url}}/public/img/videos.jpg" alt="{{#transu}}videos{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+{{< base }}
+	{{$ content }}
+	<div class="banner banner-header col-xs-12">	
+		{{> partials/_banner_submenu}}
+	</div>	
+	<div id="home" class="text-center" url="{{template_url}}/ajax.php">
+		{{# bandas}}
+		<section id="bandas" class="col-xs-12 seccion-posts">
+			<a href="{{home_url}}/category/bandas">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/bandas.jpg" alt="{{#transu}}bandas{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</section>
+		{{/ bandas}}
+	
+		{{# videos}}
+		<div id="videos" class="col-xs-12 seccion-posts">
+			<a href="{{home_url}}/category/videos">
+				<div class="header-seccion">
+					<img src="{{template_url}}/public/img/videos.jpg" alt="{{#transu}}videos{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/ videos}}
+	
+		{{#criticas}}
+		<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts">
+			<a href="{{home_url}}/category/criticas">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/criticas.jpg" alt="{{#transu}}criticas{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/criticas}}
+	
+		{{#cronicas}}
+		<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts">
+			<a href="{{home_url}}/category/cronicas">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/cronicas.jpg" alt="{{#transu}}cronicas{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/cronicas}}
+	
+		{{#noticias}}
+		<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts">
+			<a href="{{home_url}}/category/noticias">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/noticias.jpg" alt="{{#transu}}noticias{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/noticias}}
+	
+		{{#conciertos}}
+		<div id="conciertos" class="col-xs-12 col-lg-6 seccion-posts">
+			<a href="{{home_url}}/category/conciertos">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/conciertos.jpg" alt="{{#transu}}conciertos{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/conciertos}}
+	
+		{{#entrevistas}}
+		<div id="entrevistas" class="col-xs-12 seccion-posts">
+			<a href="{{home_url}}/category/entrevistas">
+				<div class="col-xs-12 header-seccion">
+					<img src="{{template_url}}/public/img/entrevistas.jpg" alt="{{#transu}}entrevistas{{/transu}}"/>
+				</div>
+			</a>
+			<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+		</div>
+		{{/entrevistas}}
 	</div>
-	{{/ videos}}
-
-	{{#criticas}}
-	<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts">
-		<a href="{{home_url}}/category/criticas">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/criticas.jpg" alt="{{#transu}}criticas{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</div>
-	{{/criticas}}
-
-	{{#cronicas}}
-	<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts">
-		<a href="{{home_url}}/category/cronicas">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/cronicas.jpg" alt="{{#transu}}cronicas{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</div>
-	{{/cronicas}}
-
-	{{#noticias}}
-	<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts">
-		<a href="{{home_url}}/category/noticias">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/noticias.jpg" alt="{{#transu}}noticias{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</div>
-	{{/noticias}}
-
-	{{#conciertos}}
-	<div id="conciertos" class="col-xs-12 col-lg-6 seccion-posts">
-		<a href="{{home_url}}/category/conciertos">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/conciertos.jpg" alt="{{#transu}}conciertos{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</div>
-	{{/conciertos}}
-
-	{{#entrevistas}}
-	<div id="entrevistas" class="col-xs-12 seccion-posts">
-		<a href="{{home_url}}/category/entrevistas">
-			<div class="col-xs-12 header-seccion">
-				<img src="{{template_url}}/public/img/entrevistas.jpg" alt="{{#transu}}entrevistas{{/transu}}"/>
-			</div>
-		</a>
-		<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
-	</div>
-	{{/entrevistas}}
-</div>
+	{{/ content }}
+{{/ base }}

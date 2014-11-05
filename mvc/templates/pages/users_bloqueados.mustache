@@ -1,0 +1,38 @@
+{{< base }}
+	{{$ content }}
+		
+		<h1> Usuarios bloqueados</h1>	
+		
+		{{^hay_bloqueados}}
+			<p>Aún no hay usuarios bloqueados</p>
+		{{/hay_bloqueados}}
+		
+		{{# hay_bloqueados }}
+		<h2> Usuarios pendientes <small></small></h2>
+		<table class="table table-hover table-condensed table-responsive">
+			<thead>
+				<tr>
+					<th class="col-xs-3">Usuario</th>
+					<th class="col-xs-3">Editor</th>
+					<th class="col-xs-3">Fecha</th>
+					<th class="col-xs-2">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{# bloqueados }}
+			  	<tr>
+					<td><a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+					<td><a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a></td>
+					<td>{{ updated_at }}</td>
+					<td>
+						<button class="btn btn-warning bloquear" url="{{template_url}}/ajax.php"
+								que="desbloquear" user="{{getUser.ID}}">Desbloquear</button>				
+					</td>
+				</tr>
+		   	{{/ bloqueados }}
+		   	</tbody>
+		</table>
+		{{/ hay_bloqueados }}	
+		
+	{{/ content }}
+{{/ base }}

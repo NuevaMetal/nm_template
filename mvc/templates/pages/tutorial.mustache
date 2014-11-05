@@ -1,142 +1,146 @@
-<div class="pagina tutorial">
-	{{#current_user.isSuscriptor}}
-		{{#current_user.isSuscriptorRechazado}}
+{{< base }}
+	{{$ content }}
+	<div class="pagina tutorial">
+		{{#current_user.isSuscriptor}}
+			{{#current_user.isSuscriptorRechazado}}
+				<h1 class="col-xs-12 titular">Tutorial</h1>
+			{{/current_user.isSuscriptorRechazado}}	
+			{{^current_user.isSuscriptorRechazado}}	
+				<div id="publica"><br></div>
+				<div class="jumbotron">
+					<h1 class="col-xs-12 titular">{{#trans}}tutorial.publica_tus_entradas{{/trans}}</h1>
+					<p>{{#trans}}tutorial.haz_que_tu_banda{{/trans}}.</p>
+					<p>{{#trans}}tutorial.aceptas_terminos_condiciones{{/trans}}.</p>
+					<p>
+						<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
+								user={{current_user.ID}}>
+							{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
+						<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
+								user={{current_user.ID}}>
+							{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
+					</p>
+				</div>
+			{{/current_user.isSuscriptorRechazado}}
+		{{/current_user.isSuscriptor}}
+		{{^current_user.isSuscriptor}}
 			<h1 class="col-xs-12 titular">Tutorial</h1>
-		{{/current_user.isSuscriptorRechazado}}	
-		{{^current_user.isSuscriptorRechazado}}	
-			<div id="publica"><br></div>
-			<div class="jumbotron">
-				<h1 class="col-xs-12 titular">{{#trans}}tutorial.publica_tus_entradas{{/trans}}</h1>
-				<p>{{#trans}}tutorial.haz_que_tu_banda{{/trans}}.</p>
-				<p>{{#trans}}tutorial.aceptas_terminos_condiciones{{/trans}}.</p>
-				<p>
-					<button class="btn btn-danger btn-lg ser-colaborador hidden-xs" url="{{template_url}}/ajax.php"
-							user={{current_user.ID}}>
-						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
-					<button class="btn btn-danger btn-sm ser-colaborador visible-xs" url="{{template_url}}/ajax.php"
-							user={{current_user.ID}}>
-						{{#trans}}tutorial.pulsa_aqui_para_ser_colaborador{{/trans}}</button>
-				</p>
-			</div>
-		{{/current_user.isSuscriptorRechazado}}
-	{{/current_user.isSuscriptor}}
-	{{^current_user.isSuscriptor}}
-		<h1 class="col-xs-12 titular">Tutorial</h1>
-	{{/current_user.isSuscriptor}}
-
-	<div class="col-xs-12 ">
+		{{/current_user.isSuscriptor}}
+	
+		<div class="col-xs-12 ">
+			
+			<h3 class="titular">FAQ:</h3>
+			<a href="#LO">LOGUEARNOS</a> 
+			/ <a href="#ET">ETIQUETAS Y CATEGORÍAS</a> 
+			/ <a href="#IN">INSERTAR UNA IMAGEN</a> 
+			/ <a href="#ES">ESTRUCTURA DE LA ENTRADA</a> 
+			/ <a href="#CR">CREAR UN ENLACE</a> 
+			/ <a href="#PU">PUBLICA TU ENTRADA</a> 
+			/ <a href="#EN">ENTRADAS DE VÍDEOS</a>
+		</div>
 		
-		<h3 class="titular">FAQ:</h3>
-		<a href="#LO">LOGUEARNOS</a> 
-		/ <a href="#ET">ETIQUETAS Y CATEGORÍAS</a> 
-		/ <a href="#IN">INSERTAR UNA IMAGEN</a> 
-		/ <a href="#ES">ESTRUCTURA DE LA ENTRADA</a> 
-		/ <a href="#CR">CREAR UN ENLACE</a> 
-		/ <a href="#PU">PUBLICA TU ENTRADA</a> 
-		/ <a href="#EN">ENTRADAS DE VÍDEOS</a>
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">1 - LOGUEARNOS<a name="LO"></a></h3>
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-7.jpeg" target="_blank">
+			  	<img src="/wp-content/uploads/2014/09/Tutorial-bandas-7.jpeg" 
+					alt="Tutorial bandas 7"  />
+			</a>
+			Para crear nuestras propias entradas, el primer paso es loguearnos. Si anteriormente no te registraste 
+			en NuevaMetal, hacerlo es tan sencillo como hacer click en "Registrarse" y crearte un usuario.
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-6.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-6.jpeg" alt="Tutorial bandas 6"  />
+			</a>
+			Éste es el aspecto que tomará la web tras hacer el primer paso. Ahora, para añadir una nueva entrada, 
+			basta con pinchar en "Escribir". Este botón nos llevará a un editor donde podremos empezar a crear 
+			el cuerpo de nuestra entrada.
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">2 - ETIQUETAS Y CATEGORÍAS<a name="ET"></a></h3>
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-20.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-20.jpeg" 
+					alt="Tutorial bandas 20"  />
+			</a>
+			Por el momento, me centraré en explicar la estructura de las entradas sobre "Bandas". Arriba del 
+			todo, debemos poner como título el nombre de la banda. A la derecha, podemos observar el apartado 
+			de "Etiquetas" y el de "Categorías". El primero hay que cumplimentarlo en base a tres 
+			directrices: nombre de la banda, país y géneros(en inglés). 
+			En el segundo apartado, debemos seleccionar una de las categorías que se nos ofrecen, en relación 
+			al tipo de entrada que estemos haciendo.
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">3 - INSERTAR UNA IMAGEN<a name="IN"></a></h3>
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-8.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-8.jpeg" 
+					alt="Tutorial bandas 8"  />
+			</a>
+		Volviendo al cuerpo de la entrada, como primer paso, empezaremos subiendo una imagen de la portada 
+		del último disco que lanzó dicha banda. Pinchando sobre el botón "Añadir objeto", 
+		se nos abrirá esta ventana. Antes de subir las imágenes a la web, debemos asegurarnos 
+		de asignarles el nombre correspondiente desde nuestro pc: 
+		<em>nombreBanda</em> <em>nombreÚltimoÁlbum</em> cover.jpg (para la imagen de la portada del disco) 
+		y <em>nombreBanda</em> band.jpg (para la imagen de la banda). También revisaremos que el formato 
+		sea "jpg", que las imágenes no pesen más de 200 Kb y que midan alrededor de 300px ~ 600px.
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">4 - ESTRUCTURA DE LA ENTRADA<a name="ES"></a></h3>
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-21.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-21.jpeg" 
+					alt="Tutorial bandas 21"  />
+			</a>
+			Lo siguiente que tendremos que indicar es: Género, País (país y provincia), Estado, Álbumes (con enlaces de descarga/escucha), enlaces oficiales de redes sociales y sitios web (Facebook, Twitter...), imagen de la banda, Miembros y la url de un videoclip de la banda.
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-3.jpeg" target="_blank">
+				<img  src="/wp-content/uploads/2014/09/Tutorial-bandas-3.jpeg" 
+					alt="Tutorial bandas 3"  />
+			</a>
+			Pondremos en negrita las siguientes palabras: Género, País, Estado, Álbumes y Miembros. 
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-5.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-5.jpeg" 
+					alt="Tutorial bandas 5"  />
+			</a>
+			No olvidemos añadir la imagen destacada. Por convención, será seleccionada la imagen de la
+			portada de su último disco.
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">5 - CREAR UN ENLACE<a name="CR"></a></h3>
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-22.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-22.jpeg" 
+					alt="Tutorial bandas 22"  />
+			</a>
+			Al seleccionar el texto que queremos enlazar, se habilitará el botón de "Insertar/Editar enlace", 
+			que está situado a la derecha de las alineaciones de texto. Pinchamos sobre él y nos aparecerá una 
+			ventana que nos pide la url a enlazar. Después de rellenar ese campo, marcaremos la opción de 
+			"Abrir enlace en una nueva ventana/pestaña" y añadiremos el enlace.
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">6 - PUBLICA TU ENTRADA<a name="Pu"></a></h3>
+			Abajo a la derecha se encuentra el apartado "Publicar". Podremos publicar nuestra entrada 
+			inmediatamente o programarla para una fecha concreta. Para hacer esto último pulsaremos sobre 
+			"Editar", y tras configurar la nueva fecha, en "Actualizar".
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<h3 class="titular">7 - ENTRADAS DE VÍDEOS<a name="EN"></a></h3>
+			Conociendo lo anterior, sólo tendremos que añadir unas modificaciones.
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-12.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-12.jpeg" 
+					alt="Tutorial bandas 12"  />
+			</a>
+			El título estará compuesto como el de la imagen: <em>nombrebanda</em> - "<em>nombrecanción</em>" (Videoclip). Cambiamos la categoría a la de "Vídeos". La imagen ahora pertenecerá a una captura del propio vídeo a publicar y será la misma que elegiremos como imagen destacada.
+			<a href="/wp-content/uploads/2014/09/Tutorial-bandas-13.jpeg" target="_blank">
+				<img src="/wp-content/uploads/2014/09/Tutorial-bandas-13.jpeg" 
+					alt="Tutorial bandas 13"  />
+			</a>
+			Sólo pondremos ahora el "Género" y el "País", seguido de la url del videoclip.
+		</div>
+		
+		<div class="col-xs-12 ">
+			<h3 class="titular">Cualquier duda</h3>
+			Para cualquier duda, contactad con nosotros a través de nuestras <strong><a href="http://nuevametal.com/redes" target="_blank">redes</a></strong>
+		</div>
 	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">1 - LOGUEARNOS<a name="LO"></a></h3>
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-7.jpeg" target="_blank">
-		  	<img src="/wp-content/uploads/2014/09/Tutorial-bandas-7.jpeg" 
-				alt="Tutorial bandas 7"  />
-		</a>
-		Para crear nuestras propias entradas, el primer paso es loguearnos. Si anteriormente no te registraste 
-		en NuevaMetal, hacerlo es tan sencillo como hacer click en "Registrarse" y crearte un usuario.
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-6.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-6.jpeg" alt="Tutorial bandas 6"  />
-		</a>
-		Éste es el aspecto que tomará la web tras hacer el primer paso. Ahora, para añadir una nueva entrada, 
-		basta con pinchar en "Escribir". Este botón nos llevará a un editor donde podremos empezar a crear 
-		el cuerpo de nuestra entrada.
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">2 - ETIQUETAS Y CATEGORÍAS<a name="ET"></a></h3>
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-20.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-20.jpeg" 
-				alt="Tutorial bandas 20"  />
-		</a>
-		Por el momento, me centraré en explicar la estructura de las entradas sobre "Bandas". Arriba del 
-		todo, debemos poner como título el nombre de la banda. A la derecha, podemos observar el apartado 
-		de "Etiquetas" y el de "Categorías". El primero hay que cumplimentarlo en base a tres 
-		directrices: nombre de la banda, país y géneros(en inglés). 
-		En el segundo apartado, debemos seleccionar una de las categorías que se nos ofrecen, en relación 
-		al tipo de entrada que estemos haciendo.
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">3 - INSERTAR UNA IMAGEN<a name="IN"></a></h3>
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-8.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-8.jpeg" 
-				alt="Tutorial bandas 8"  />
-		</a>
-	Volviendo al cuerpo de la entrada, como primer paso, empezaremos subiendo una imagen de la portada 
-	del último disco que lanzó dicha banda. Pinchando sobre el botón "Añadir objeto", 
-	se nos abrirá esta ventana. Antes de subir las imágenes a la web, debemos asegurarnos 
-	de asignarles el nombre correspondiente desde nuestro pc: 
-	<em>nombreBanda</em> <em>nombreÚltimoÁlbum</em> cover.jpg (para la imagen de la portada del disco) 
-	y <em>nombreBanda</em> band.jpg (para la imagen de la banda). También revisaremos que el formato 
-	sea "jpg", que las imágenes no pesen más de 200 Kb y que midan alrededor de 300px ~ 600px.
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">4 - ESTRUCTURA DE LA ENTRADA<a name="ES"></a></h3>
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-21.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-21.jpeg" 
-				alt="Tutorial bandas 21"  />
-		</a>
-		Lo siguiente que tendremos que indicar es: Género, País (país y provincia), Estado, Álbumes (con enlaces de descarga/escucha), enlaces oficiales de redes sociales y sitios web (Facebook, Twitter...), imagen de la banda, Miembros y la url de un videoclip de la banda.
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-3.jpeg" target="_blank">
-			<img  src="/wp-content/uploads/2014/09/Tutorial-bandas-3.jpeg" 
-				alt="Tutorial bandas 3"  />
-		</a>
-		Pondremos en negrita las siguientes palabras: Género, País, Estado, Álbumes y Miembros. 
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-5.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-5.jpeg" 
-				alt="Tutorial bandas 5"  />
-		</a>
-		No olvidemos añadir la imagen destacada. Por convención, será seleccionada la imagen de la
-		portada de su último disco.
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">5 - CREAR UN ENLACE<a name="CR"></a></h3>
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-22.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-22.jpeg" 
-				alt="Tutorial bandas 22"  />
-		</a>
-		Al seleccionar el texto que queremos enlazar, se habilitará el botón de "Insertar/Editar enlace", 
-		que está situado a la derecha de las alineaciones de texto. Pinchamos sobre él y nos aparecerá una 
-		ventana que nos pide la url a enlazar. Después de rellenar ese campo, marcaremos la opción de 
-		"Abrir enlace en una nueva ventana/pestaña" y añadiremos el enlace.
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">6 - PUBLICA TU ENTRADA<a name="Pu"></a></h3>
-		Abajo a la derecha se encuentra el apartado "Publicar". Podremos publicar nuestra entrada 
-		inmediatamente o programarla para una fecha concreta. Para hacer esto último pulsaremos sobre 
-		"Editar", y tras configurar la nueva fecha, en "Actualizar".
-	</div>
-	
-	<div class="col-xs-12 col-sm-6">
-		<h3 class="titular">7 - ENTRADAS DE VÍDEOS<a name="EN"></a></h3>
-		Conociendo lo anterior, sólo tendremos que añadir unas modificaciones.
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-12.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-12.jpeg" 
-				alt="Tutorial bandas 12"  />
-		</a>
-		El título estará compuesto como el de la imagen: <em>nombrebanda</em> - "<em>nombrecanción</em>" (Videoclip). Cambiamos la categoría a la de "Vídeos". La imagen ahora pertenecerá a una captura del propio vídeo a publicar y será la misma que elegiremos como imagen destacada.
-		<a href="/wp-content/uploads/2014/09/Tutorial-bandas-13.jpeg" target="_blank">
-			<img src="/wp-content/uploads/2014/09/Tutorial-bandas-13.jpeg" 
-				alt="Tutorial bandas 13"  />
-		</a>
-		Sólo pondremos ahora el "Género" y el "País", seguido de la url del videoclip.
-	</div>
-	
-	<div class="col-xs-12 ">
-		<h3 class="titular">Cualquier duda</h3>
-		Para cualquier duda, contactad con nosotros a través de nuestras <strong><a href="http://nuevametal.com/redes" target="_blank">redes</a></strong>
-	</div>
-</div>
+	{{/ content }}
+{{/ base }}

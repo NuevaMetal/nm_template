@@ -1,8 +1,7 @@
 <?php
-
-// namespace Controllers\PageController;
-// use Controllers\BaseController;
 require_once 'BaseController.php';
+require_once 'HomeController.php';
+
 /**
  * Controlador principal de la web
  *
@@ -11,52 +10,30 @@ require_once 'BaseController.php';
 class PageController extends BaseController {
 
 	/**
-	 * index.php
-	 */
-	public function getIndex() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		return $this->_renderPageBase([
-			'content' => $this->render('busqueda/_seccion', [
-				'posts' => $posts
-			])
-		]);
-	}
-
-	/**
 	 * Paǵina de sitios de interés
 	 */
 	public function getAmigas() {
-		$content = $this->_render('pages/amigas');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/amigas');
 	}
 
 	/**
 	 * Paǵina de contacto
 	 */
 	public function getContacto() {
-		$content = $this->_render('pages/contacto');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/contacto');
 	}
 	/**
 	 * category.php
 	 */
 	public function getCategory() {
+		// TODO:
 		$current_category = single_cat_title("", false);
 		$current_category = strtolower($current_category);
 
 		$seccion = HomeController::getSeccion($current_category, 4);
 
-		$content = $this->_render('busqueda/_seccion', [
+		return $this->renderPage('categoria', [
 			'seccion' => $seccion
-		]);
-
-		return $this->_renderPageBase([
-			'content' => $content
 		]);
 	}
 
@@ -64,54 +41,28 @@ class PageController extends BaseController {
 	 * Paǵina de aviso legal
 	 */
 	public function getLegal() {
-		$content = $this->_render('pages/legal');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
-	}
-
-	/**
-	 * page.php
-	 */
-	public function getPage() {
-		$posts = ChesterWPCoreDataHelpers::getWordpressPostsFromLoop();
-
-		$content = $this->_renderPage([
-			'post' => $posts[0]
-		]);
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/legal');
 	}
 
 	/**
 	 * Paǵina de redes
 	 */
 	public function getRedes() {
-		$content = $this->_render('pages/redes');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/redes');
 	}
 
 	/**
 	 * Paǵina de nuevametal
 	 */
 	public function getMega() {
-		$content = $this->_render('pages/mega');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/mega');
 	}
 
 	/**
 	 * Paǵina de nuevametal
 	 */
 	public function getNuevaMetal() {
-		$content = $this->_render('pages/nuevametal');
-		return $this->_renderPageBase([
-			'content' => $content
-		]);
+		return $this->renderPage('pages/nuevametal');
 	}
 
 	/**
@@ -127,10 +78,8 @@ class PageController extends BaseController {
 			return $this->renderPage('404');
 		}
 
-		return $this->_renderPageBase([
-			'content' => $this->_render('post', [
-				'post' => $post
-			])
+		return $this->renderPage('post', [
+			'post' => $post
 		]);
 	}
 
@@ -153,9 +102,8 @@ class PageController extends BaseController {
 			'total_usuarios' => count($users),
 			'lista_usuarios' => $users
 		];
-		return $this->_renderPageBase([
-			'content' => $this->_render('busqueda', $args)
-		]);
+
+		return $this->renderPage('busqueda', $args);
 	}
 
 	/**
@@ -185,12 +133,10 @@ class PageController extends BaseController {
 		 */
 		$fileGeneros = I18n::getFicheroIdioma('generos', I18n::getLangByCurrentUser());
 
-		return $this->_renderPageBase([
-			'content' => $this->_render('busqueda/_seccion', [
-				'definicion' => $fileGeneros['definicion_' . $term->slug],
-				'seccion' => $args,
-				'tag_trans' => I18n::transu('generos.' . $term->slug)
-			])
+		return $this->renderPage('categoria', [
+			'definicion' => $fileGeneros['definicion_' . $term->slug],
+			'seccion' => $args,
+			'tag_trans' => I18n::transu('generos.' . $term->slug)
 		]);
 	}
 
@@ -198,9 +144,143 @@ class PageController extends BaseController {
 	 * Paǵina de tutorial
 	 */
 	public function getTutorial() {
-		$content = $this->_render('pages/tutorial');
-		return $this->_renderPageBase([
-			'content' => $content
+		return $this->renderPage('pages/tutorial');
+	}
+
+	/**
+	 * page-blocked-users.php
+	 */
+	public function getUsuariosBloqueados() {
+		if (! $this->current_user || ! $this->current_user->canEditor()) {
+			return $this->renderPage('error', [
+				'num' => 404
+			]);
+		}
+
+		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
+
+		return $this->renderPage('pages/users_bloqueados', [
+			'bloqueados' => $listaBloqueados,
+			'hay_bloqueados' => count($listaBloqueados) > 0,
+			'estado_borrado' => UserBloqueado::ESTADO_BORRADO
+		]);
+	}
+
+	/**
+	 * page-pending-users.php
+	 */
+	public function getUsuariosPendientes() {
+		if (! $this->current_user || ! $this->current_user->canEditor()) {
+			return $this->renderPage('error', [
+				'num' => 404
+			]);
+		}
+		$listaPendientes = UserPendiente::getByStatus(UserPendiente::PENDIENTE);
+		$listaAceptados = UserPendiente::getByStatus(UserPendiente::ACEPTADO);
+		$listaRechazados = UserPendiente::getByStatus(UserPendiente::RECHAZADO);
+		return $this->renderPage('pages/users_pendientes', [
+			'pendientes' => $listaPendientes,
+			'hay_pendientes' => count($listaPendientes) > 0,
+			'aceptados' => $listaAceptados,
+			'hay_aceptados' => count($listaAceptados) > 0,
+			'rechazados' => $listaRechazados,
+			'hay_rechazados' => count($listaRechazados) > 0,
+			'estado' => Revision::USER_DESBANEADO
+		]);
+	}
+
+	/**
+	 * page-revisions.php
+	 */
+	public function getRevisiones() {
+		/*
+		 * Parsear revisiones
+		 */
+		$_parsearRevisiones = function ($listaRevisiones, $pendiente) {
+			/*
+			 * Parsear los usuarios por revisión
+			 */
+			$_parsearUsersByRevision = function ($revision, $estado = Revision::ESTADO_PENDIENTE) {
+				global $wpdb;
+				$user_ids = $wpdb->get_results($wpdb->prepare('
+						SELECT user_id, updated_at, count
+						FROM wp_revisiones
+						WHERE post_id = %d
+						AND status = %d', $revision->post_id, $estado));
+				$users = [];
+				foreach ($user_ids as $u) {
+					$user = User::find($u->user_id);
+					$users[] = [
+						'user' => $user,
+						'updated_at' => $u->updated_at,
+						'count' => $u->count
+					];
+				}
+				return $users;
+			};
+
+			$revisiones = [];
+			$num = 0;
+			foreach ($listaRevisiones as $revision) {
+				$post = Post::find($revision->post_id);
+				if (isset($revisiones[$post->ID])) {
+					continue;
+				}
+				$_revision = [
+					'num' => ++ $num,
+					'count' => $revision->count,
+					'permalink' => $post->getUrl(),
+					'post_id' => $post->ID,
+					'title' => $post->post_title,
+					'pendiente' => $pendiente,
+					'estado' => (! $pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO,
+					'estado_borrar' => Revision::ESTADO_BORRADO,
+					'usuarios' => $_parsearUsersByRevision($revision, ($pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO)
+				];
+				$revisiones[$post->ID] = $_revision;
+			}
+			$revisiones = array_values($revisiones);
+			return $revisiones;
+		};
+
+		$_parsearRevisionesBan = function ($listaBaneos) {
+			$revisiones = [];
+			foreach ($listaBaneos as $num => $l) {
+				$user = User::find($l->user_id);
+				$editor = User::find($l->editor_id);
+				$revision = [];
+				$revision['num'] = $num + 1;
+				$revision['user'] = $user;
+				$revision['editor'] = $editor;
+				$revision['updated_at'] = $l->updated_at;
+				$revisiones[] = $revision;
+			}
+			return $revisiones;
+		};
+
+		$listaBaneos = Revision::allBan();
+		$baneos = $_parsearRevisionesBan($listaBaneos);
+
+		$listaPendientes = Revision::where('status', '=', Revision::ESTADO_PENDIENTE);
+		$listaRevisadas = Revision::where('status', '=', Revision::ESTADO_CORREGIDO);
+
+		$pendientes = $_parsearRevisiones($listaPendientes, $pendiente = true);
+		$revisadas = $_parsearRevisiones($listaRevisadas, $pendiente = false);
+
+		return $this->renderPage('pages/revisiones', [
+			'total_pendientes' => Revision::getTotalPorRevisar(),
+			'pendientes' => [
+				'estado' => 'Pendientes',
+				'reportes' => $pendientes
+			],
+			'revisadas' => [
+				'estado' => 'Revisadas',
+				'reportes' => $revisadas
+			],
+			'baneados' => [
+				'baneos' => $baneos,
+				'estado' => Revision::USER_DESBANEADO
+			]
 		]);
 	}
 }

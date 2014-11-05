@@ -3,7 +3,7 @@
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
 require_once 'BaseController.php';
-
+require_once 'HomeController.php';
 /**
  * Controlador del AJAX
  *
@@ -388,6 +388,33 @@ class AjaxController extends BaseController {
 	}
 
 	/**
+	 * Hacer colaborador a un usuario
+	 *
+	 * @param array $_datos
+	 * @return array
+	 */
+	private function _jsonAdminHacerColaborador($_datos) {
+		if (! $this->current_user->canEditor()) {
+			return $this->err_sin_permisos;
+		}
+		$user_id = $_datos['user'];
+		$editor_id = $_datos['editor'];
+		$que = $_datos['que'];
+		$userPendiente = UserPendiente::first('user_id', '=', $user_id);
+		if ($que == Ajax::HACER_COLABORADOR) {
+			$userPendiente->aceptarPor($editor_id);
+		} else if ($que == Ajax::RECHAZAR_COLABORADOR) {
+			$userPendiente->rechazarPor($editor_id);
+		} else if ($que == Ajax::HACER_PENDIENTE_COLABORADOR) {
+			$userPendiente->pendienterPor($editor_id);
+		} else if ($que == Ajax::BORRAR_COLABORADOR_PENDIENTE) {
+			$userPendiente->delete();
+		}
+		$json['content'] = 'OK';
+		return $json;
+	}
+
+	/**
 	 * Atiende a la petición de la home
 	 *
 	 * @param array $_datos
@@ -419,7 +446,9 @@ class AjaxController extends BaseController {
 				$json['menu'] = $this->_render('menu/principal', $menuArgs);
 				break;
 			case Ajax::MENU_PERFIL :
-				$json['menu'] = $this->_render('menu/perfil', $menuArgs);
+				$json['menu'] = $this->_render('menu/perfil', array_merge($menuArgs, [
+					'total_revisiones' => Revision::getTotalPorRevisar()
+				]));
 				break;
 			case Ajax::MENU_FOOTER :
 				$json['menu'] = $this->_render('menu/footer');
@@ -714,6 +743,9 @@ class AjaxController extends BaseController {
 
 			case Ajax::ADMIN_PANEL_USER :
 				return $this->_jsonAdminPanelUser($_datos);
+
+			case Ajax::HACER_COLABORADOR :
+				return $this->_jsonAdminHacerColaborador($_datos);
 
 			case Ajax::HOME :
 				return $this->_jsonHome($_datos);

@@ -1,12 +1,13 @@
 <?php
 require_once 'ModelBase.php';
+
 /**
  * Analítica
  *
  * @author chema
- *
  */
 class Analitica extends ModelBase {
+	public static $table = "analiticas";
 
 	const TOTAL_USERS = 'total-users';
 
@@ -15,12 +16,11 @@ class Analitica extends ModelBase {
 	const TOTAL_VISITAS_USERS = 'total-visitas-users';
 
 	const TOTAL_VISITAS_HORA = 'total-visitas-hora';
-	public static $table = "analiticas";
-	public $user_id;
 
-	public function __construct() {
-		parent::__construct();
-	}
+	/*
+	 * Miebros
+	 */
+	public $user_id;
 
 	/**
 	 * Devuelve el User asociado a una analítica
@@ -47,22 +47,22 @@ class Analitica extends ModelBase {
 	public function save() {
 		global $wpdb, $post;
 		$user = wp_get_current_user();
-		//Comprobamos si existe
+		// Comprobamos si existe
 		$query = "SELECT * FROM {$wpdb->prefix}" . static::$table . "
 		WHERE user_id = $user->ID AND DATE(created_at) = CURRENT_DATE;";
-		//Utils::debug($query);
+		// Utils::debug($query);
 		$analitica = $wpdb->get_row($query);
 
 		if ($analitica) {
-			//Si existe actualizamos
+			// Si existe actualizamos
 			$wpdb->query($wpdb->prepare("
 					UPDATE {$wpdb->prefix}" . static::$table . "
 					SET updated_at = now()
 					WHERE ID = %d", $analitica->ID));
 			$this->ID = $analitica->ID;
-			//dd($analitica);
+			// dd($analitica);
 		} else {
-			//Si no existe lo creamos
+			// Si no existe lo creamos
 			$result = $wpdb->query($wpdb->prepare("
 				INSERT {$wpdb->prefix}" . static::$table . " (user_id, created_at, updated_at)
 				VALUES (%d, null, null);", $user->ID));
@@ -110,10 +110,10 @@ class Analitica extends ModelBase {
 	 * Devuelve una lista con los nombres (y url) de los users logueados
 	 *
 	 * @param number $cantidad
-	 *        Límite máximo de nombres a obtener
+	 *        	Límite máximo de nombres a obtener
 	 * @param string $cuando
-	 *        fecha en SQL de cuándo se quiere dicha lista de nombres.
-	 *        Por defecto será el día actual
+	 *        	fecha en SQL de cuándo se quiere dicha lista de nombres.
+	 *        	Por defecto será el día actual
 	 * @return array Lista con el nombre y la url del usuario
 	 */
 	public static function getUsersLogueados($cantidad = 50, $cuando = 'DATE(NOW())') {
@@ -126,7 +126,7 @@ class Analitica extends ModelBase {
 		$users_id = $wpdb->get_col($query);
 		$users = [];
 		foreach ($users_id as $user_id) {
-			$users [] = [
+			$users[] = [
 				'url' => get_author_posts_url($user_id),
 				'nombre' => get_the_author_meta('display_name', $user_id)
 			];
@@ -139,21 +139,21 @@ class Analitica extends ModelBase {
 	 *
 	 * @param string $que
 	 * @param array<array> $listaArraysVisitas
-	 *        Lista de arrays a juntar por su misma que
+	 *        	Lista de arrays a juntar por su misma que
 	 * @return array
 	 */
 	public static function juntarValoresPor($que, $listaArraysVisitas = []) {
 		$result = [];
 		foreach ($listaArraysVisitas as $lista) {
 			foreach ($lista as $l) {
-				if (!isset($result [$l->{$que}])) {
+				if (! isset($result[$l->{$que}])) {
 					$obj = new stdClass();
 				} else {
-					$obj = $result [$l->{$que}];
+					$obj = $result[$l->{$que}];
 				}
 				$obj->{$que} = $l->{$que};
 				$obj->{$l->tipo} = $l->total;
-				$result [$l->{$que}] = $obj;
+				$result[$l->{$que}] = $obj;
 			}
 		}
 		return array_values($result);
@@ -166,7 +166,6 @@ class Analitica extends ModelBase {
 	 * @return array
 	 */
 	public static function formatearDias($totalPorDia) {
-
 		function _formatDia($dia) {
 			if ($dia < 10) {
 				return date('Y-m-0') . "$dia";
@@ -175,37 +174,35 @@ class Analitica extends ModelBase {
 		}
 		$result = [];
 		$numeroDeDias = intval(date("t", date('m')));
-		for ($i = 1; $i < $numeroDeDias; $i++) {
+		for($i = 1; $i < $numeroDeDias; $i ++) {
 			foreach ($totalPorDia as $t) {
 				$dia = _formatDia($i);
 				if ($dia == $t->dia) {
-					$result [] = $t;
+					$result[] = $t;
 					continue 2;
 				}
 			}
 			$obj = new stdClass();
 			$obj->dia = $dia;
 			$obj->total = "0";
-			$result [] = $obj;
+			$result[] = $obj;
 		}
 		return $result;
 	}
-
 	public static function formatearMeses($totalPorMes) {
 		$result = [];
-		for ($i = 1; $i <= 12; $i++) {
+		for($i = 1; $i <= 12; $i ++) {
 			foreach ($totalPorMes as $t) {
 				if ($i == $t->mes) {
-					$result [] = $t;
+					$result[] = $t;
 					continue 2;
 				}
 			}
 			$obj = new stdClass();
 			$obj->mes = "$i";
 			$obj->total = "0";
-			$result [] = $obj;
+			$result[] = $obj;
 		}
 		return $result;
 	}
-
 }

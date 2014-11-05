@@ -1,7 +1,6 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/PageController.php');
+require_once 'mvc/controllers/HomeController.php';
 
-$pageController = new PageController();
-
-$pageController->getIndex();
+$homeController = new HomeController();
+return $homeController->getHome();
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Respuestas del servidor
  *

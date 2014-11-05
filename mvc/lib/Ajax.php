@@ -1,6 +1,4 @@
 <?php
-require_once 'KeysRequest.php';
-
 /**
  *
  * @author chema

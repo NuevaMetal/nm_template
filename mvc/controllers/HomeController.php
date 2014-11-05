@@ -1,8 +1,6 @@
 <?php
-// namespace Controllers\HomeController;
-// use Controllers\BaseController;
-// require_once 'BaseController.php';
 require_once 'BaseController.php';
+
 /**
  * Controlador principal de la web
  *
@@ -14,16 +12,14 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHome() {
-		return $this->_renderPageBase([
-			'content' => $this->_render('home', [
-				'bandas' => true,
-				'videos' => true,
-				'conciertos' => true,
-				'cronicas' => true,
-				'entrevistas' => true,
-				'criticas' => true,
-				'noticias' => true
-			])
+		return $this->renderPage('home', [
+			'bandas' => true,
+			'videos' => true,
+			'conciertos' => true,
+			'cronicas' => true,
+			'entrevistas' => true,
+			'criticas' => true,
+			'noticias' => true
 		]);
 	}
 
@@ -159,6 +155,6 @@ class HomeController extends BaseController {
 		} elseif ($tipo == Utils::TIPO_AUTHOR) {
 			$moreQuerySettings['author'] = $seccion;
 		}
-		return ChesterWPCoreDataHelpers::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
+		return self::getPosts(false, 'post', $max, [], false, $moreQuerySettings);
 	}
 }

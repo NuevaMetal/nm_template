@@ -1,13 +1,10 @@
 <?php
-//namespace Controllers\AnaliticaController;
-//use Controllers\BaseController;
 require_once 'BaseController.php';
-require_once 'HomeController.php';
+
 /**
  * Controlador principal de la web
  *
  * @author chemaclass
- *
  */
 class AnaliticaController extends BaseController {
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author chemaclass
@@ -67,7 +68,7 @@ class I18n {
 		$key = trim($key);
 		$valor = isset($langArray[$key]) ? $langArray[$key] : $key;
 		// Utils::debug("trad: $traducir | key: $key | valor: $valor ||");
-		if (is_numeric(strpos($valor, ':')) && ! empty($params)) {
+		if (is_numeric(strpos($valor, ':')) && ! empty($params) && is_array($params)) {
 			// Utils::debug("/$dir/$file.php > valor: $valor");
 			$valor = static::_setParams($valor, $params);
 		}
@@ -122,6 +123,7 @@ class I18n {
 						break;
 					}
 				}
+
 				// Encontramos la key
 				if (isset($params[$key])) {
 					$langKey = $params[$key];
@@ -145,7 +147,12 @@ class I18n {
 	 * @param array $params
 	 */
 	private static function _getParams(&$traducir, &$params) {
-		if (empty($params) && ($pos = strpos($traducir, '['))) {
+		/*
+		 * ( Si es un array y está vacío o si es un objeto)
+		 * Y ( Si la cadena a traducir tiene '[' donde irían los parámetros )
+		 */
+		if (((is_array($params) && empty($params)) || is_object($params)) && ($pos = strpos($traducir, '['))) {
+			$params = [];
 			$_params = $params;
 			// +1 y -1 es para quitarle los corchetes '[]'
 			$strParams = substr($traducir, $pos + 1, strlen($strParams) - 1);

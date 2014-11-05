@@ -1,0 +1,125 @@
+{{< base }}
+	{{$ content }}
+		<h1> Usuarios pendientes</h1>	
+		
+		{{^hay_pendientes}}
+			<p>Aún no hay usuarios pendientes para hacer colaboradores</p>
+		{{/hay_pendientes}}
+		
+		{{# hay_pendientes }}
+		<h2> Usuarios pendientes <small></small></h2>
+		<table class="table table-hover table-condensed table-responsive">
+			<thead>
+				<tr>
+					<th class="col-xs-4">Usuario</th>
+					<th class="col-xs-4">Fecha</th>
+					<th class="col-xs-4">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{# pendientes }}
+			  	<tr>
+					<td><a href="{{ getUser.getPerfilUrl }}"
+					target="_blank">{{ getUser.user_login }}</a></td>
+					<td>{{ updated_at }}</td>
+					<td>
+						<button class="btn btn-success btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="hacer-colaborador"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Aceptar
+						</button>
+						<button class="btn btn-warning btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="rechazar-colaborador"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Rechazar
+						</button>
+					</td>
+				</tr>
+		   	{{/ pendientes }}
+		   	</tbody>
+		</table>
+		{{/ hay_pendientes }}
+		
+		<hr>
+		
+		{{# hay_aceptados }}
+		<h2> Usuarios aceptados</h2>
+		<table class="table table-hover table-condensed table-responsive">
+			<thead>
+				<tr>
+					<th class="col-xs-4">Usuario</th>
+					<th class="col-xs-4">Fecha</th>
+					<th class="{{^isAdmin}}col-xs-4{{/isAdmin}}{{#isAdmin}}col-xs-2{{/isAdmin}}">Editor</th>
+					{{#current_user.isAdmin}}
+					<th class="col-xs-2">Acciones</th>
+					{{/current_user.isAdmin}}
+				</tr>
+			</thead>
+			<tbody>
+			{{# aceptados }}
+			  	<tr>
+					<td><a href="{{ getUser.getPerfilUrl }}"
+					target="_blank">{{ getUser.user_login }}</a></td>
+					<td>{{ updated_at }}</td>
+					<td><a href="{{ getEditor.getPerfilUrl }}"
+					target="_blank">{{ getEditor.user_login }}</a></td>	
+					{{#current_user.isAdmin}}
+					<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Pendiente
+						</button>
+						<button class="btn btn-danger btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="borrar"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Borrar
+						</button>
+					</td>
+					{{/current_user.isAdmin}}
+				</tr>
+		   	{{/ aceptados }}
+		   	</tbody>
+		</table>
+		{{/ hay_aceptados }}
+		
+		{{# hay_rechazados }}
+		<h3> Usuarios rechazados</h3>
+		<table class="table table-hover table-condensed table-responsive">
+			<thead>
+				<tr>
+					<th class="col-xs-4">Usuario</th>
+					<th class="col-xs-4">Fecha</th>
+					<th class="{{^isAdmin}}col-xs-4{{/isAdmin}}{{#isAdmin}}col-xs-2{{/isAdmin}}">Editor</th>
+					{{#current_user.isAdmin}}
+					<th class="col-xs-2">Acciones</th>
+					{{/current_user.isAdmin}}
+				</tr>
+			</thead>
+			<tbody>
+			{{# rechazados }}
+			  	<tr>
+					<td><a href="{{ getUser.getPerfilUrl }}"
+					target="_blank">{{ getUser.user_login }}</a></td>
+					<td>{{ updated_at }}</td>
+					<td><a href="{{ getEditor.getPerfilUrl }}"
+					target="_blank">{{ getEditor.user_login }}</a></td>
+					{{#current_user.isAdmin}}
+					<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Pendiente
+						</button>
+						<button class="btn btn-danger btn-xs btn-block hacer-colaborador"
+						 		url="{{template_url}}/admin_ajax.php" que="borrar"
+								user="{{user_id}}" editor="{{current_user.ID}}">
+							Borrar
+						</button>
+					</td>
+					{{/current_user.isAdmin}}
+				</tr>
+		   	{{/ rechazados }}
+		   	</tbody>
+		</table>
+		{{/ hay_rechazados }}
+	{{/ content }}
+{{/ base }}

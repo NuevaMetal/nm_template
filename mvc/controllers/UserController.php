@@ -1,5 +1,7 @@
 <?php
 require_once 'BaseController.php';
+require_once 'HomeController.php';
+
 /**
  * Controlador del autor y su perfil
  *
@@ -24,9 +26,7 @@ class UserController extends BaseController {
 		$author_id = $author->ID;
 		$user = User::find($author_id);
 		// Comprobar si tiene publicaciones o ha sido bloqueado
-		if (! $user) {
-			return $this->_getAuthorSinPublicaciones();
-		} else if ($this->_estaBloqueado($user)) {
+		if (! $user || $this->_estaBloqueado($user)) {
 			return $this->_getAuthorBloqueado($user);
 		}
 
@@ -47,18 +47,7 @@ class UserController extends BaseController {
 			'tipo' => Utils::TIPO_AUTHOR_FAV,
 			'posts' => $user->getFavoritos(0, User::NUM_FAV_PERFIL_DEFAULT)
 		];
-		return $this->_renderPageBase([
-			'content' => $this->_render('user', $args)
-		]);
-	}
-
-	/**
-	 * El autor aún no hizo ninguna publicación
-	 */
-	private function _getAuthorSinPublicaciones() {
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_sin_publicaciones')
-		]);
+		return $this->renderPage('user', $args);
 	}
 
 	/**
@@ -68,10 +57,8 @@ class UserController extends BaseController {
 	 *        	Usuario bloqueado
 	 */
 	private function _getAuthorBloqueado($user) {
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_bloqueado', [
-				'user' => $user
-			])
+		return $this->renderPage('user/bloqueado', [
+			'user' => $user
 		]);
 	}
 
@@ -216,17 +203,14 @@ class UserController extends BaseController {
 		]);
 	}
 
-
 	/**
 	 * Ver la actividad de un User
 	 */
 	public function getActividad() {
 		$user = Utils::getCurrentUser();
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_actividad', [
-				'conSidebar' => false,
-				'user' => $user
-			])
+		return $this->renderPage('user/actividad', [
+			'conSidebar' => false,
+			'user' => $user
 		]);
 	}
 
@@ -235,10 +219,8 @@ class UserController extends BaseController {
 	 */
 	public function getMensajes() {
 		$user = Utils::getCurrentUser();
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_mensajes', [
-				'user' => $user
-			])
+		return $this->renderPage('user/mensajes', [
+			'user' => $user
 		]);
 	}
 
@@ -247,17 +229,15 @@ class UserController extends BaseController {
 	 */
 	public function getFavoritos() {
 		$user = Utils::getCurrentUser();
-		return $this->_renderPageBase([
-			'content' => $this->_render('user/_favoritos', [
-				'user' => $user,
-				'CATEGORY_BANDAS' => Post::CATEGORY_BANDAS,
-				'CATEGORY_CONCIERTOS' => Post::CATEGORY_CONCIERTOS,
-				'CATEGORY_CRITICAS' => Post::CATEGORY_CRITICAS,
-				'CATEGORY_CRONICAS' => Post::CATEGORY_CRONICAS,
-				'CATEGORY_ENTREVISTAS' => Post::CATEGORY_ENTREVISTAS,
-				'CATEGORY_NOTICIAS' => Post::CATEGORY_NOTICIAS,
-				'CATEGORY_VIDEOS' => Post::CATEGORY_VIDEOS
-			])
+		return $this->renderPage('user/favoritos', [
+			'user' => $user,
+			'CATEGORY_BANDAS' => Post::CATEGORY_BANDAS,
+			'CATEGORY_CONCIERTOS' => Post::CATEGORY_CONCIERTOS,
+			'CATEGORY_CRITICAS' => Post::CATEGORY_CRITICAS,
+			'CATEGORY_CRONICAS' => Post::CATEGORY_CRONICAS,
+			'CATEGORY_ENTREVISTAS' => Post::CATEGORY_ENTREVISTAS,
+			'CATEGORY_NOTICIAS' => Post::CATEGORY_NOTICIAS,
+			'CATEGORY_VIDEOS' => Post::CATEGORY_VIDEOS
 		]);
 	}
 }

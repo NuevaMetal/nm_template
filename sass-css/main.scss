@@ -196,3 +196,10 @@ body {
 .rojo {
 	color: $rojo-danger;
 }
+
+.nuevas {
+	color: $color-warning !important;
+	&:hover {
+		color: $color-danger !important;
+	}
+}

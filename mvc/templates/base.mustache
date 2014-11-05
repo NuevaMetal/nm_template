@@ -32,7 +32,7 @@
 	</div>
 
     <div id="content" class="col-xs-12">
-        {{{content}}}
+    	{{$ content }} Content {{/content }}
     </div>
 	
 	<div id="menu-footer"></div>	
@@ -55,7 +55,7 @@
 	{{#transu}}volver_arriba{{/transu}} 
 </a>
 
-{{#poner_analitica}}
+{{# poner_analitica }}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -64,4 +64,11 @@
   ga('create', 'UA-54522688-1', 'auto');
   ga('send', 'pageview');
 </script>
-{{/poner_analitica}}
+{{/ poner_analitica }}
+
+{{$ scripts }}
+	<script src="{{template_url}}/public/third/jquery/jquery.min.js"></script>
+	<script src="{{template_url}}/public/third/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{template_url}}/public/js/happycookies.js"></script>
+	<script src="{{template_url}}/public/js/nm.js"></script>
+{{/ scripts }}

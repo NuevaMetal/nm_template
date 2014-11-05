@@ -1,5 +1,6 @@
 <?php
 require_once 'Image.php';
+
 /**
  * Modelo que representa un favoriteador.
  * Que puede tener favoritos

@@ -1,37 +1,43 @@
-<div id="user" class="autor">
-	{{#user}}
-		{{#current_user.canEditor}}
-			{{> admin/_autor }}
-		{{/current_user.canEditor}}
-		
-		<div class="row img-header">
-			<div class="col-xs-12">
-				{{#getHeader}}
-					<img alt="{{display_name}}" src="{{getHeader}}">
-				{{/getHeader}}
-				{{^getHeader}}
-					<img class="sin-thumbnail">
-				{{/getHeader}}
-				{{#isCurrentUserOrAdmin}}
-					<div class="text-right btn-img-header">
-						<a class="btn btn-default btn-xs" href="/wp-admin/profile.php#img-header" target="_blank">
-							<i class="fa fa-image"></i> {{#transu}}cambiar{{/transu}}</a>
-					</div>
-				{{/isCurrentUserOrAdmin}}
+{{< base }}
+
+{{$ content }}
+	<div id="user" class="autor">
+		{{#user}}
+			{{#current_user.canEditor}}
+				{{> admin/_autor }}
+			{{/current_user.canEditor}}
+			
+			<div class="row img-header">
+				<div class="col-xs-12">
+					{{#getHeader}}
+						<img alt="{{display_name}}" src="{{getHeader}}">
+					{{/getHeader}}
+					{{^getHeader}}
+						<img class="sin-thumbnail">
+					{{/getHeader}}
+					{{#isCurrentUserOrAdmin}}
+						<div class="text-right btn-img-header">
+							<a class="btn btn-default btn-xs" href="/wp-admin/profile.php#img-header" target="_blank">
+								<i class="fa fa-image"></i> {{#transu}}cambiar{{/transu}}</a>
+						</div>
+					{{/isCurrentUserOrAdmin}}
+				</div>
 			</div>
-		</div>
-		<div class="content">
-			<div class="col1 col-xs-12 col-sm-3">
-				{{> user/perfil/_col1}}
+			<div class="content">
+				<div class="col1 col-xs-12 col-sm-3">
+					{{> user/perfil/_col1}}
+				</div>
+				<div class="col2 col-xs-12 col-sm-9">
+					{{> user/perfil/_col2}}
+				</div>
 			</div>
-			<div class="col2 col-xs-12 col-sm-9">
-				{{> user/perfil/_col2}}
-			</div>
-		</div>
-		{{# getTotalPosts }}
-			{{#posts}}
-				{{> busqueda/_seccion }}
-			{{/posts}}
-		{{/ getTotalPosts }}
-	{{/user}}
-</div>
+			{{# getTotalPosts }}
+				{{#posts}}
+					{{> busqueda/_seccion }}
+				{{/posts}}
+			{{/ getTotalPosts }}
+		{{/user}}
+	</div>
+{{/ content }}
+
+{{/ base }}

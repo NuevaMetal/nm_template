@@ -1,2 +1,2 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/AjaxController.php');
+require_once 'mvc/controllers/AjaxController.php';

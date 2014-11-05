@@ -1,31 +1,73 @@
 <?php
-// namespace Controllers\BaseController;
-require_once dirname(__FILE__) . '/../i18n/I18n.php';
+require_once dirname(__FILE__) . '/../../vendor/mustache/mustache/src/Mustache/Autoloader.php';
+
 /**
  *
  * @author chema
  */
-abstract class BaseController extends ChesterBaseController {
+abstract class BaseController {
+
+	/*
+	 * Miembros
+	 */
+	protected $template = "";
+	protected $current_user;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		parent::__construct();
-		$this->template->setHelpers(array(
-			'trans' => function ($text, $params = []) {
-				return I18n::trans($text, $params);
+		$this->current_user = Utils::getCurrentUser();
+
+		$templatesFolder = self::getTemplatesFolderLocation();
+
+		Mustache_Autoloader::register();
+
+		$this->template = new Mustache_Engine(array(
+			'cache_file_mode' => 0660,
+			'cache_lambda_templates' => true,
+			'loader' => new Mustache_Loader_FilesystemLoader($templatesFolder),
+			'partials_loader' => new Mustache_Loader_FilesystemLoader($templatesFolder),
+			'helpers' => array(
+				'trans' => function ($text, $params = []) {
+					return I18n::trans($text, $params);
+				},
+				'transu' => function ($text, $params = []) {
+					return I18n::transu($text, $params);
+				}
+			),
+			'escape' => function ($value) {
+				return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
 			},
-			'transu' => function ($text, $params = []) {
-				return I18n::transu($text, $params);
-			},
-			'transupper' => function ($text, $params = []) {
-				return I18n::transupper($text, $params);
-			},
-			'substr' => function ($text, $params = []) {
-				return I18n::substr($text, $params);
-			}
+			'charset' => 'UTF-8',
+			'logger' => new Mustache_Logger_StreamLogger('php://stderr'),
+			'strict_callables' => true,
+			'pragmas' => [
+				Mustache_Engine::PRAGMA_FILTERS,
+				Mustache_Engine::PRAGMA_BLOCKS
+			]
 		));
+
+		$this->template->addHelper('case', [
+			'lower' => function ($value) {
+				return strtolower((string) $value);
+			},
+			'upper' => function ($value) {
+				return strtoupper((string) $value);
+			}
+		]);
+		$this->template->addHelper('!!', function ($value) {
+			return $value . '!!';
+		});
+	}
+
+	/**
+	 * Devuelve la ruta relativa donde se encuentran las vistas
+	 *
+	 * @return string
+	 */
+	protected static function getTemplatesFolderLocation() {
+		return str_replace('//', '/', dirname(__FILE__) . '/') . '../templates';
 	}
 
 	/**
@@ -75,15 +117,12 @@ abstract class BaseController extends ChesterBaseController {
 	 *        	plantilla a pintar
 	 * @param array $args
 	 *        	argumentos adicionales para esa plantilla
+	 * @deprecated por nueva versión
+	 * @see render
 	 */
 	protected function _render($template, $args = []) {
-		// $next_posts_link = get_next_posts_link();
-		// $previous_posts_link = get_previous_posts_link();
-		return $this->render($template, array_merge($args, [
-			'current_user' => Utils::getCurrentUser(),
-			'template_url' => get_template_directory_uri(),
-			'home_url' => get_home_url()
-		]));
+		$this->_setTemplateVars($args);
+		return $this->render($template, $args);
 	}
 
 	/**
@@ -91,6 +130,8 @@ abstract class BaseController extends ChesterBaseController {
 	 *
 	 * @param array $args
 	 *        	Lista de parámetros a pasar a la plantilla base de plugins
+	 * @deprecated por nueva versión
+	 * @see renderPage
 	 */
 	protected function _renderPageBasePlugin($args = []) {
 		$args['blog_name'] = get_bloginfo('name');
@@ -99,21 +140,111 @@ abstract class BaseController extends ChesterBaseController {
 
 	/**
 	 * page-*.php
+	 *
+	 * @deprecated por nueva versión
+	 * @see renderPage
 	 */
-	protected function _renderPage($args = []) {
-		return $this->_render('page', $args);
+	protected function _renderPage($template = 'page', $args = []) {
+		return $this->_render($template, $args);
 	}
 
 	/**
 	 * 404.php
 	 */
 	public function getError($num) {
-		$content = $this->render('error', array(
+		return $this->renderPage('error', [
 			'num' => $num
-		));
-		return $this->_renderPageBase([
-			'content' => $content
 		]);
+	}
+
+	/**
+	 * Añadimos
+	 *
+	 * @param unknown $templateVars
+	 */
+	private function _setTemplateVars(&$templateVars) {
+		$templateVars = array_merge($templateVars, [
+			'current_user' => $this->current_user,
+			'template_url' => get_template_directory_uri(),
+			'home_url' => get_home_url()
+		]);
+	}
+
+	/**
+	 *
+	 * @param unknown $templateName
+	 * @param string $templateVars
+	 */
+	public function render($templateName, $templateVars = []) {
+		$this->_setTemplateVars($templateVars);
+		return $this->template->render($templateName, $templateVars);
+	}
+
+	/**
+	 *
+	 * @param unknown $templateName
+	 * @param string $templateVars
+	 */
+	public function renderPage($templateName, $templateVars = []) {
+		$this->_setTemplateVars($templateVars);
+		echo $this->render('header', self::getBlogInfoData());
+		wp_head();
+		echo $this->render('header_close');
+		echo $this->render($templateName, $templateVars);
+		wp_footer();
+		echo $this->render('footer');
+	}
+
+	/**
+	 * Devuelve una lista con la información básica del blog
+	 *
+	 * @return multitype:string NULL
+	 */
+	public static function getBlogInfoData() {
+		return array(
+			'blog_title' => self::_getBlogTitle(),
+			'name' => get_bloginfo('name'),
+			'description' => get_bloginfo('description'),
+			'admin_email' => get_bloginfo('admin_email'),
+
+			'url' => get_bloginfo('url'),
+			'wpurl' => get_bloginfo('wpurl'),
+
+			'stylesheet_directory' => get_bloginfo('stylesheet_directory'),
+			'stylesheet_url' => get_bloginfo('stylesheet_url'),
+			'template_directory' => get_bloginfo('template_directory'),
+			'public_directory' => get_bloginfo('template_directory') . '/public',
+			'template_url' => get_bloginfo('template_url'),
+
+			'atom_url' => get_bloginfo('atom_url'),
+			'rss2_url' => get_bloginfo('rss2_url'),
+			'rss_url' => get_bloginfo('rss_url'),
+			'pingback_url' => get_bloginfo('pingback_url'),
+			'rdf_url' => get_bloginfo('rdf_url'),
+
+			'comments_atom_url' => get_bloginfo('comments_atom_url'),
+			'comments_rss2_url' => get_bloginfo('comments_rss2_url'),
+
+			'charset' => get_bloginfo('charset'),
+			'html_type' => get_bloginfo('html_type'),
+			'language' => get_bloginfo('language'),
+			'text_direction' => get_bloginfo('text_direction'),
+			'version' => get_bloginfo('version'),
+
+			'is_user_logged_in' => is_user_logged_in()
+		);
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	private static function _getBlogTitle() {
+		if (is_home()) {
+			return get_bloginfo('name');
+		} else {
+			return wp_title("-", false, "right") . " " . get_bloginfo('name');
+		}
 	}
 
 	/*
@@ -180,5 +311,90 @@ abstract class BaseController extends ChesterBaseController {
 	 */
 	protected function renderAlertaWarning($mensaje, $strong = false, $href = false) {
 		return $this->_renderAlerta('warning', $mensaje, $strong, $href);
+	}
+
+	/**
+	 *
+	 * @param string $dateFormat
+	 * @param string $postType
+	 * @param unknown $numberPostsToFetch
+	 * @param unknown $customFields
+	 * @param string $oddOrEven
+	 * @param unknown $moreQuerySettings
+	 * @return Ambigous <multitype:Ambigous , object, NULL, unknown>
+	 */
+	public static function getPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = [], $oddOrEven = false, $moreQuerySettings = []) {
+		// Obtengo los post fijados
+		$posts = self::_getStickyPosts($dateFormat, $postType, $numberPostsToFetch, $customFields, $oddOrEven, $moreQuerySettings);
+		$isCat = isset($moreQuerySettings['cat']);
+		$postsStickyIds = [];
+		// Recorro los post fijados totales y compruebo que su categoría se corresponda con la categoría que se está buscando
+		foreach (get_option('sticky_posts') as $post_id) {
+			if ($isCat && ($post = Post::find($post_id)) && $post->getCategoria()->term_id == $moreQuerySettings['cat']) {
+				$postsStickyIds[] = $post_id;
+			}
+		}
+		// Comparamos la cantidad de post fijados totales con la cantidad de post fijados que hemos obtenido
+		$countSticky = count($postsStickyIds);
+		// De ser igual quiere decir que tenemos que restarle a la cantidad pedida el número de post fijados totales, de lo contrario
+		// la cantidad pedida seguirá siendo la misma.
+		$numberPostsToFetch = (count($posts) == $countSticky) ? $numberPostsToFetch - $countSticky : $numberPostsToFetch;
+
+		$querySettings = [
+			'orderby' => [
+				'date' => 'DESC'
+			],
+			'post_type' => [
+				$postType
+			],
+			'post__not_in' => $postsStickyIds,
+			'posts_per_page' => $numberPostsToFetch,
+			'post_status' => 'publish'
+		];
+		$querySettings = array_merge($querySettings, $moreQuerySettings);
+		$loop = new WP_Query($querySettings);
+
+		return array_merge($posts, self::_loop($loop));
+	}
+
+	/**
+	 * Devuelve los post fijados
+	 *
+	 * @return array<Post>
+	 */
+	private static function _getStickyPosts($dateFormat = false, $postType = 'post', $numberPostsToFetch = -1, $customFields = array(), $oddOrEven = false, $moreQuerySettings = array()) {
+		$sticky_posts = get_option('sticky_posts');
+		if (! $sticky_posts) {
+			return [];
+		}
+		$querySettings = [
+			'post_type' => [
+				$postType
+			],
+			'post__in' => $sticky_posts,
+			'posts_per_page' => $numberPostsToFetch
+		];
+		$querySettings = array_merge($querySettings, $moreQuerySettings);
+		$loop = new WP_Query($querySettings);
+
+		return self::_loop($loop);
+	}
+
+	/**
+	 * Recorrer la query y monta los objetos Post
+	 *
+	 * @param WP_Query $loop
+	 * @param boolean $oddOrEven
+	 * @return array<Post>
+	 */
+	private static function _loop($loop, $oddOrEven = false) {
+		$posts = [];
+		for($index = 0; $loop->have_posts(); $index ++) {
+			$loop->the_post();
+			if (! ($oddOrEven) || ($oddOrEven == 'EVEN' && $index % 2) || ($oddOrEven == 'ODD' && ! ($index % 2))) {
+				$posts[] = Post::find(get_the_ID());
+			}
+		}
+		return $posts;
 	}
 }

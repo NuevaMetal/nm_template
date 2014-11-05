@@ -1,6 +1,5 @@
 <?php
 require_once 'ModelBase.php';
-
 /**
  * Que puede tener imágenes
  *

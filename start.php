@@ -1,5 +1,8 @@
 <?php
 
+define(URL_PRODUCCION, 'nuevametal.com');
+define(URL_DESARROLLO, 'dev.nuevametal.com');
+
 // --------------------------------------------------------------
 // The path to the application directory.
 // --------------------------------------------------------------
@@ -21,7 +24,7 @@ $paths ['controllers'] = 'mvc/controllers';
 $paths ['i18n'] = 'mvc/i18n';
 
 // --------------------------------------------------------------
-// The path to the i18n directory.
+// The path to the models directory.
 // --------------------------------------------------------------
 $paths ['models'] = 'mvc/models';
 

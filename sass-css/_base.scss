@@ -9,6 +9,12 @@ $body-background-color: #fff;
 $rojo-danger: #d43f3a;
 $rojo-danger-hover: #c9302c;
 
+$color-primary: #428bca;
+$color-success: #5cb85c;
+$color-info:    #5bc0de;
+$color-warning: #f0ad4e;
+$color-danger:  #d9534f;
+
 @mixin col($media) {
 	@if $media == xs {
 		@media only screen and (max-width: $screen-xs-max) { @content; }

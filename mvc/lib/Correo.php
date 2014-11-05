@@ -1,4 +1,8 @@
 <?php
+/**
+ *
+ * @author chema
+ */
 class Correo {
 
 	/**
@@ -35,9 +39,9 @@ class Correo {
 	 * Enviar un correo genérico
 	 *
 	 * @param array|string $email
-	 *        Destino
+	 *        	Destino
 	 * @param string $subject
-	 *        Asunto
+	 *        	Asunto
 	 * @param string $bodyHtml
 	 * @param string $bodyHtmlAlt
 	 * @return boolean
@@ -52,5 +56,4 @@ class Correo {
 		$mail->AltBody = $bodyHtmlAlt;
 		return $mail->send();
 	}
-
 }

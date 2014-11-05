@@ -1,5 +1,5 @@
 <?php
-require_once (dirname(__FILE__) . '/mvc/controllers/UserController.php');
+require_once 'mvc/controllers/UserController.php';
 
 $controller = new UserController();
 $controller->getMensajes();
