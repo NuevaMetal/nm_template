@@ -11,3 +11,6 @@
 
 # Pruebas locales
 test.*
+
+# Dependencias
+vendor
