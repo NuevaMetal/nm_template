@@ -69,7 +69,7 @@ class Html {
 	 *        	Opcional, cadena de etiquetas que no serán eliminadas, su valor por defecto es "&lt;a&gt;&lt;blockquote&gt;&lt;br&gt;&lt;hr&gt;&lt;h1&gt;&lt;h2&gt;&lt;h3&gt;&lt;h4&gt;&lt;h5&gt;&lt;h6&gt;&lt;li&gt;&lt;ol&gt;&lt;p&gt;&lt;pre&gt;&lt;span&gt;&lt;ul&gt;".
 	 * @return string Cadena formateada.
 	 */
-	public static function quitarEtiquetas($cadena, $etiquetasAceptadas = '<a><br><em><hr><h1><h2><h3><h4><h5><h6><img><li><ol><ul><p><pre><span><strong>') {
+	public static function quitarEtiquetas($cadena, $etiquetasAceptadas = '<a><br><em><iframe><hr><h1><h2><h3><h4><h5><h6><img><li><ol><ul><p><pre><span><strong>') {
 		return strip_tags($cadena, $etiquetasAceptadas);
 	}
 
