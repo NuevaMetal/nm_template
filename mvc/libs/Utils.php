@@ -1,4 +1,10 @@
 <?php
+
+namespace Libs;
+
+use I18n\I18n;
+use Models\User;
+
 /**
  * Clase con utilidades
  *

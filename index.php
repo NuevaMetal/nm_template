@@ -1,5 +1,5 @@
 <?php
-require_once 'mvc/controllers/HomeController.php';
+use Controllers\HomeController;
 
 $homeController = new HomeController();
 return $homeController->getHome();

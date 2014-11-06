@@ -1,5 +1,8 @@
 <?php
-require_once 'Image.php';
+
+namespace Models;
+
+use Models\Favorito;
 
 /**
  * Modelo que representa un favoriteador.

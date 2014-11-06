@@ -1,5 +1,8 @@
 <?php
-require_once 'BaseController.php';
+
+namespace Controllers;
+
+use Libs\Utils;
 
 /**
  * Controlador principal de la web

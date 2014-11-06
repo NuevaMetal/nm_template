@@ -1,5 +1,13 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
+
+use I18n\I18n;
+use Libs\Utils;
+use Models\Post;
+use Models\User;
+use Models\Comment;
+
 /**
  * Analítica
  *
@@ -128,8 +136,11 @@ class VActividad extends ModelBase {
 		}
 
 		$model = $this->getModelQue();
-		if ($model) {
-			return $model::find($this->que_id);
+		switch ($model) {
+			case 'Post' :
+				return Post::find($this->que_id);
+			case 'User' :
+				return User::find($this->que_id);
 		}
 		return null;
 	}
@@ -179,7 +190,7 @@ class VActividad extends ModelBase {
 			self::TIPO_ME_GUSTA,
 			self::TIPO_NUEVA_ENTRADA,
 			self::TIPO_NUEVO_COMENTARIO,
-			self::TIPO_SEGUIMIENTO_USER,
+			self::TIPO_SEGUIMIENTO_USER
 		];
 	}
 

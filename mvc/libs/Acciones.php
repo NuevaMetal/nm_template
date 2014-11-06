@@ -1,5 +1,11 @@
 <?php
-require_once 'mvc/models/User.php';
+
+namespace Libs;
+
+use I18n\I18n;
+use Controllers\UserController;
+use Models\User;
+use Libs\Utils;
 
 /**
  * Acciones de Wordpress
@@ -100,99 +106,100 @@ class Acciones {
 	 * Añadir la vista para más información
 	 */
 	public static function perfilAddAdicionalInfo() {
-		function nm_perfil_add_adicional_info($user) {
-			require_once 'mvc/controllers/UserController.php';
+		$nm_perfil_add_adicional_info = function ($user) {
 			$c = new UserController();
 			echo $c->getPerfilAdicionalInfo($user->ID);
-		}
-		add_action('show_user_profile', 'nm_perfil_add_adicional_info');
-		add_action('edit_user_profile', 'nm_perfil_add_adicional_info');
+		};
+		add_action('show_user_profile', $nm_perfil_add_adicional_info);
+		add_action('edit_user_profile', $nm_perfil_add_adicional_info);
 
 		/*
 		 * Actualizo la información adicional del perfil del user
 		 */
-		function nm_perfil_update_adicional_info($user_ID) {
+		$nm_perfil_update_adicional_info = function ($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
 				$user->setUbicacion($_POST[User::KEY_USER_UBICACION]);
 				$user->setBandasDestacadas($_POST[User::KEY_USER_BANDAS_DESTACADAS]);
 				$user->setGenerosDestacados($_POST[User::KEY_USER_GENEROS_DESTACADOS]);
 			}
-		}
-		add_action('personal_options_update', 'nm_perfil_update_adicional_info');
-		add_action('edit_user_profile_update', 'nm_perfil_update_adicional_info');
+		};
+		add_action('personal_options_update', $nm_perfil_update_adicional_info);
+		add_action('edit_user_profile_update', $nm_perfil_update_adicional_info);
 	}
 
 	/**
 	 */
 	public static function perfilAddImgAvatarYHeader() {
-		function nm_perfil_add_img_header($user) {
-			require_once 'mvc/controllers/UserController.php';
+		$nm_perfil_add_img_header = function ($user) {
 			$c = new UserController();
 			echo $c->getPerfilImg(User::KEY_USER_IMG_AVATAR, $user->ID);
 			echo $c->getPerfilImg(User::KEY_USER_IMG_HEADER, $user->ID);
-		}
-		add_action('show_user_profile', 'nm_perfil_add_img_header');
-		add_action('edit_user_profile', 'nm_perfil_add_img_header');
+		};
+		add_action('show_user_profile', $nm_perfil_add_img_header);
+		add_action('edit_user_profile', $nm_perfil_add_img_header);
 
 		/*
 		 * Añado las imágenes de avatar y header al perfil del User
 		 */
-		function nm_perfil_update_img($user_ID, $keyUserImg) {
-			// Primero comprobamos que el user tenga permisos y exista la clave en los FILES
-			if (current_user_can('edit_user', $user_ID) && isset($_FILES[$keyUserImg])) {
-				// Después comprobamos que tenga un nombre definido
-				$img = $_FILES[$keyUserImg];
-				if ($img['name']) {
-					$user = User::find($user_ID);
-					try {
+		$nm_perfil_update_img = function ($user_ID, $keyUserImg) {
+			try {
+				// Primero comprobamos que el user tenga permisos y exista la clave en los FILES
+				if (current_user_can('edit_user', $user_ID) && isset($_FILES[$keyUserImg])) {
+					// Después comprobamos que tenga un nombre definido
+					$img = $_FILES[$keyUserImg];
+					if ($img['name']) {
+						$user = User::find($user_ID);
 						switch ($keyUserImg) {
 							case User::KEY_USER_IMG_HEADER :
-								$user->setImgHeader($img);
+								$user->setHeader($img);
 								break;
 							case User::KEY_USER_IMG_AVATAR :
 								$user->setAvatar($img);
 								break;
 						}
-					} catch ( Exception $e ) {
-						// Añadimos el mensaje de error en las notificaciones
-						add_action('user_profile_update_errors', function ($errors) use($e) {
-							$errors->add($keyUserImg, $e->getMessage());
-						});
 					}
 				}
+			} catch ( \Exception $e ) {
+				// Añadimos el mensaje de error en las notificaciones
+				add_action('user_profile_update_errors', function ($errors) use($e) {
+					$errors->add($keyUserImg, $e->getMessage());
+				});
 			}
-		}
-		function nm_perfil_update_img_avatar($user_ID) {
-			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_AVATAR);
-		}
-		function nm_perfil_update_img_header($user_ID) {
-			nm_perfil_update_img($user_ID, User::KEY_USER_IMG_HEADER);
-		}
+		};
+		/*
+		 * use($nm_perfil_update_img) => poder usar dicha función dentro del ámbito
+		 * de la función que lo engloba.
+		 */
+		$nm_perfil_update_img_avatar = function ($user_ID) use($nm_perfil_update_img) {
+			$nm_perfil_update_img($user_ID, User::KEY_USER_IMG_AVATAR);
+		};
+		$nm_perfil_update_img_header = function ($user_ID) use($nm_perfil_update_img) {
+			$nm_perfil_update_img($user_ID, User::KEY_USER_IMG_HEADER);
+		};
 
-		add_action('personal_options_update', 'nm_perfil_update_img_avatar');
-		add_action('edit_user_profile_update', 'nm_perfil_update_img_avatar');
-		add_action('personal_options_update', 'nm_perfil_update_img_header');
-		add_action('edit_user_profile_update', 'nm_perfil_update_img_header');
+		add_action('personal_options_update', $nm_perfil_update_img_avatar);
+		add_action('edit_user_profile_update', $nm_perfil_update_img_avatar);
+		add_action('personal_options_update', $nm_perfil_update_img_header);
+		add_action('edit_user_profile_update', $nm_perfil_update_img_header);
 	}
 
 	/**
 	 * Añado las redes sociales al perfil del User
 	 */
 	public static function perfilAddRedesSociales() {
-		function nm_perfil_add_redes_sociales($user) {
-			require_once 'mvc/controllers/UserController.php';
+		$nm_perfil_add_redes_sociales = function ($user) {
 			$c = new UserController();
 			echo $c->getPerfilRedesSociales($user->ID);
-		}
-		add_action('show_user_profile', 'nm_perfil_add_redes_sociales');
-		add_action('edit_user_profile', 'nm_perfil_add_redes_sociales');
+		};
+		add_action('show_user_profile', $nm_perfil_add_redes_sociales);
+		add_action('edit_user_profile', $nm_perfil_add_redes_sociales);
 
 		/*
 		 * Actualizo las redes sociales del perfil del User
 		 * Facebook, Twiter, Google+, Youtube, Soundcloud
 		 */
-		function nm_perfil_update_redes_sociales($user_ID) {
+		$nm_perfil_update_redes_sociales = function ($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
 				$user->setFacebook($_POST[User::KEY_USER_FACEBOOK]);
@@ -201,59 +208,57 @@ class Acciones {
 				$user->setYoutube($_POST[User::KEY_USER_YOUTUBE]);
 				$user->setSoundcloud($_POST[User::KEY_USER_SOUNDCLOUD]);
 			}
-		}
-		add_action('personal_options_update', 'nm_perfil_update_redes_sociales');
-		add_action('edit_user_profile_update', 'nm_perfil_update_redes_sociales');
+		};
+		add_action('personal_options_update', $nm_perfil_update_redes_sociales);
+		add_action('edit_user_profile_update', $nm_perfil_update_redes_sociales);
 	}
 
 	/**
 	 * Añado el tipo de user al perfil
 	 */
 	public static function perfilAddTipoUsuario() {
-		function nm_perfil_add_tipo_user($user) {
-			require_once 'mvc/controllers/UserController.php';
+		$nm_perfil_add_tipo_user = function ($user) {
 			$c = new UserController();
 			echo $c->getPerfilTipoUser($user->ID);
-		}
-		add_action('show_user_profile', 'nm_perfil_add_tipo_user');
-		add_action('edit_user_profile', 'nm_perfil_add_tipo_user');
+		};
+		add_action('show_user_profile', $nm_perfil_add_tipo_user);
+		add_action('edit_user_profile', $nm_perfil_add_tipo_user);
 
 		/*
 		 * Actualizo el tipo de user
 		 */
-		function nm_perfil_update_tipo_user($user_ID) {
+		$nm_perfil_update_tipo_user = function ($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
 				$user->setTipo($_POST[User::KEY_USER_TIPO]);
 			}
-		}
-		add_action('personal_options_update', 'nm_perfil_update_tipo_user');
-		add_action('edit_user_profile_update', 'nm_perfil_update_tipo_user');
+		};
+		add_action('personal_options_update', $nm_perfil_update_tipo_user);
+		add_action('edit_user_profile_update', $nm_perfil_update_tipo_user);
 	}
 
 	/**
 	 * Añado el tipo de user al perfil
 	 */
 	public static function perfilAddIdioma() {
-		function nm_perfil_add_idioma($user) {
-			require_once 'mvc/controllers/UserController.php';
+		$nm_perfil_add_idioma = function ($user) {
 			$c = new UserController();
 			echo $c->getPerfilIdioma($user->ID);
-		}
-		add_action('show_user_profile', 'nm_perfil_add_idioma');
-		add_action('edit_user_profile', 'nm_perfil_add_idioma');
+		};
+		add_action('show_user_profile', $nm_perfil_add_idioma);
+		add_action('edit_user_profile', $nm_perfil_add_idioma);
 
 		/*
 		 * Actualizo el tipo de user
 		 */
-		function nm_perfil_update_idioma($user_ID) {
+		$nm_perfil_update_idioma = function ($user_ID) {
 			if (current_user_can('edit_user', $user_ID)) {
 				$user = User::find($user_ID);
 				$user->setIdioma($_POST[User::KEY_USER_IDIOMA]);
 			}
-		}
-		add_action('personal_options_update', 'nm_perfil_update_idioma');
-		add_action('edit_user_profile_update', 'nm_perfil_update_idioma');
+		};
+		add_action('personal_options_update', $nm_perfil_update_idioma);
+		add_action('edit_user_profile_update', $nm_perfil_update_idioma);
 	}
 
 	/**
@@ -301,41 +306,40 @@ class Acciones {
 		// en profile.php
 		remove_action('admin_color_scheme_picker', 'admin_color_scheme_picker');
 
-		/**
-		 * Elimino las opciones personales: editor visual,Atajos de teclado y Barra de herramientas
+		/*
+		 * Elimino las opciones personales: Editor visual, Atajos de teclado y Barra de herramientas
 		 */
-		function nm_remove_personal_options($subject) {
-			// Opciones personales
-			$subject = preg_replace('#<h3>Opciones personales</h3>.+?/table>#s', '', $subject, 1);
+		$nm_remove_personal_options_start = function () {
+			ob_start(function ($subject) {
+				// Opciones personales
+				$subject = preg_replace('#<h3>Opciones personales</h3>.+?/table>#s', '', $subject, 1);
 
-			// Yahoo IM
-			$subject = preg_replace('#<th><label for="yim">.+?/th>#s', '', $subject, 1);
-			$subject = preg_replace('#<td><input type="text" name="yim".+?/td>#s', '', $subject, 1);
-			// AIM
-			$subject = preg_replace('#<th><label for="aim">.+?/th>#s', '', $subject, 1);
-			$subject = preg_replace('#<td><input type="text" name="aim".+?/td>#s', '', $subject, 1);
-			// Jabber / Google Talk
-			$subject = preg_replace('#<th><label for="jabber">.+?/th>#s', '', $subject, 1);
-			$subject = preg_replace('#<td><input type="text" name="jabber".+?/td>#s', '', $subject, 1);
+				// Yahoo IM
+				$subject = preg_replace('#<th><label for="yim">.+?/th>#s', '', $subject, 1);
+				$subject = preg_replace('#<td><input type="text" name="yim".+?/td>#s', '', $subject, 1);
+				// AIM
+				$subject = preg_replace('#<th><label for="aim">.+?/th>#s', '', $subject, 1);
+				$subject = preg_replace('#<td><input type="text" name="aim".+?/td>#s', '', $subject, 1);
+				// Jabber / Google Talk
+				$subject = preg_replace('#<th><label for="jabber">.+?/th>#s', '', $subject, 1);
+				$subject = preg_replace('#<td><input type="text" name="jabber".+?/td>#s', '', $subject, 1);
 
-			// Añado un id a la sección de "Acerca de ti"
-			$subject = str_replace('<h3>Acerca de ti</h3>', '<h3 id="acerca-de-ti">Acerca de ti</h3>', $subject);
-			// Añado un id a la sección de "Nombre"
-			$subject = str_replace('<h3>Nombre</h3>', '<h3 id="nombre">Nombre</h3>', $subject);
-			return $subject;
-		}
-		function nm_remove_personal_options_start() {
-			ob_start('nm_remove_personal_options');
-		}
-		function nm_remove_personal_options_end() {
+				// Añado un id a la sección de "Acerca de ti"
+				$subject = str_replace('<h3>Acerca de ti</h3>', '<h3 id="acerca-de-ti">Acerca de ti</h3>', $subject);
+				// Añado un id a la sección de "Nombre"
+				$subject = str_replace('<h3>Nombre</h3>', '<h3 id="nombre">Nombre</h3>', $subject);
+				return $subject;
+			});
+		};
+		$nm_remove_personal_options_end = function () {
 			ob_end_flush();
-		}
+		};
 		// Para el perfil propio
-		add_action('admin_head-profile.php', 'nm_remove_personal_options_start');
-		add_action('admin_footer-profile.php', 'nm_remove_personal_options_end');
+		add_action('admin_head-profile.php', $nm_remove_personal_options_start);
+		add_action('admin_footer-profile.php', $nm_remove_personal_options_end);
 		// Para el perfil de otro user
-		add_action('admin_head-user-edit.php', 'nm_remove_personal_options_start');
-		add_action('admin_footer-user-edit.php', 'nm_remove_personal_options_end');
+		add_action('admin_head-user-edit.php', $nm_remove_personal_options_start);
+		add_action('admin_footer-user-edit.php', $nm_remove_personal_options_end);
 	}
 
 	/**
@@ -392,6 +396,12 @@ class Acciones {
 			return str_replace('%author_tipo%', $user->getTipo(), $link);
 		}, 100, 2);
 	}
+
+	/**
+	 * Formulario de login/registro
+	 *
+	 * @return void
+	 */
 	public static function registerForm() {
 		session_start();
 		// 1. Añado nuevo input donde introducir el captcha
@@ -487,27 +497,3 @@ class Acciones {
 		});
 	}
 }
-
-Acciones::userRegister();
-Acciones::generarNuevaPassword();
-
-Acciones::perfilQuitarInfoSobrante();
-Acciones::perfilAddInfo();
-
-Acciones::cargarEstilosPaginaLogin();
-
-Acciones::quitarItemsParaLosUsuarios();
-
-Acciones::adminBarQuitarLogoWP();
-
-Acciones::cambiarSlugBaseDelAutorPorSuTipo();
-
-Acciones::registerForm();
-
-Acciones::impedirLoginSiUserBloqueado();
-
-Acciones::sobrescribirGetAvatar();
-
-Acciones::establecerDefectoOpcionesParaAdjuntos();
-
-Acciones::publicarPostsProgramados();

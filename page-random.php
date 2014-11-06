@@ -1,4 +1,6 @@
 <?php
+use Models\Post;
+
 // http://codex.wordpress.org/Class_Reference/WP_Query
 $args = array(
 	'post_status' => 'publish',
@@ -16,5 +18,5 @@ $args = array(
 );
 
 $posts = get_posts($args);
-$post = Post::find($posts [0]->ID);
+$post = Post::find($posts[0]->ID);
 header("Location: {$post->getUrl()}");

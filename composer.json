@@ -8,15 +8,18 @@
 	    }
 	],
 	"require": {
-	    "mustache/mustache" : "2.7.*",
+	    "mustache/mustache" : "2.7.0",
 	    "phpmailer/phpmailer": "5.2.*"
 	},
 	"autoload": {
 	    "psr-0": {
-	        "controllers": "mvc/controllers/",
-            "i18n": "mvc/i18n/",
-            "lib": "mvc/lib/",
-	        "models": "mvc/models/"
-	    }
+	        "Controllers": "mvc/",
+            "I18n": "mvc/",
+            "Libs": "mvc/",
+	        "Models": "mvc/"
+	    },
+		"classmap" : [
+			"mvc/"
+	    ]
 	}
 }

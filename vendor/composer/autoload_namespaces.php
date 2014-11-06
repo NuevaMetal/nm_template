@@ -6,9 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'models' => array($baseDir . '/mvc/models'),
-    'lib' => array($baseDir . '/mvc/lib'),
-    'i18n' => array($baseDir . '/mvc/i18n'),
-    'controllers' => array($baseDir . '/mvc/controllers'),
     'Mustache' => array($vendorDir . '/mustache/mustache/src'),
+    'Models' => array($baseDir . '/mvc'),
+    'Libs' => array($baseDir . '/mvc'),
+    'I18n' => array($baseDir . '/mvc'),
+    'Controllers' => array($baseDir . '/mvc'),
 );

@@ -1,5 +1,7 @@
 <?php
-require_once 'VActividad.php';
+
+namespace Models;
+
 /**
  * Puntos
  *

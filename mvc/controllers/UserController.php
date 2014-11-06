@@ -1,6 +1,12 @@
 <?php
-require_once 'BaseController.php';
-require_once 'HomeController.php';
+
+namespace Controllers;
+
+use I18n\I18n;
+use Libs\Ajax;
+use Libs\Utils;
+use Models\Post;
+use Models\User;
 
 /**
  * Controlador del autor y su perfil
@@ -9,15 +15,6 @@ require_once 'HomeController.php';
  */
 class UserController extends BaseController {
 
-	/**
-	 * Comprobar si el user no tiene perfil
-	 *
-	 * @param User $user
-	 */
-	private function _estaBloqueado($user) {
-		$current_user = Utils::getCurrentUser();
-		return $user->isBloqueado() && (! $current_user || ($current_user && ! $current_user->canEditor()));
-	}
 	/**
 	 * author.php
 	 */
@@ -60,6 +57,16 @@ class UserController extends BaseController {
 		return $this->renderPage('user/bloqueado', [
 			'user' => $user
 		]);
+	}
+
+	/**
+	 * Comprobar si el user no tiene perfil
+	 *
+	 * @param User $user
+	 */
+	private function _estaBloqueado($user) {
+		$current_user = Utils::getCurrentUser();
+		return $user->isBloqueado() && (! $current_user || ($current_user && ! $current_user->canEditor()));
 	}
 
 	/**

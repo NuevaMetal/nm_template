@@ -1,5 +1,8 @@
 <?php
-require_once 'BaseController.php';
+
+namespace Controllers;
+
+use Models\Analitica;
 
 /**
  * Controlador principal de la web
@@ -7,38 +10,6 @@ require_once 'BaseController.php';
  * @author chemaclass
  */
 class AnaliticaController extends BaseController {
-
-	/**
-	 * Crear las tablas para la analítica
-	 *
-	 * @return void
-	 */
-	public static function install() {
-		Utils::debug("> AnaliticaController->install() ");
-		global $wpdb;
-		// Create table
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}analiticas (
-			`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`user_id` bigint(20) UNSIGNED NOT NULL,
-			`created_at` TIMESTAMP NOT NULL DEFAULT 0,
-			`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (`ID`),
-			FOREIGN KEY (`user_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE SET NULL,
-			UNIQUE KEY (user_id, created_at)
-			)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-		$wpdb->query($query);
-	}
-
-	/**
-	 * Eliminar las tablas de analítica
-	 *
-	 * @return void
-	 */
-	public static function uninstall() {
-		Utils::debug("> AnaliticaController->uninstall() ");
-		global $wpdb;
-		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
-	}
 
 	/**
 	 * Pintar el index
@@ -109,5 +80,37 @@ class AnaliticaController extends BaseController {
 			'labels' => $labels
 		];
 		return $json;
+	}
+
+	/**
+	 * Crear las tablas para la analítica
+	 *
+	 * @return void
+	 */
+	public static function install() {
+		Utils::debug("> AnaliticaController->install() ");
+		global $wpdb;
+		// Create table
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}analiticas (
+		`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`user_id` bigint(20) UNSIGNED NOT NULL,
+		`created_at` TIMESTAMP NOT NULL DEFAULT 0,
+		`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY (`ID`),
+		FOREIGN KEY (`user_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE SET NULL,
+		UNIQUE KEY (user_id, created_at)
+		)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+		$wpdb->query($query);
+	}
+
+	/**
+	 * Eliminar las tablas de analítica
+	 *
+	 * @return void
+	 */
+	public static function uninstall() {
+		Utils::debug("> AnaliticaController->uninstall() ");
+		global $wpdb;
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
 	}
 }

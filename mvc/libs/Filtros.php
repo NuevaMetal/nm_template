@@ -1,4 +1,7 @@
 <?php
+
+namespace Libs;
+
 /**
  * Filtros de Wordpress
  *
@@ -74,10 +77,3 @@ class Filtros {
 		// });
 	}
 }
-
-Filtros::comentariosConBootstrap3();
-
-Filtros::contentSavePre();
-Filtros::theContent();
-
-Filtros::preCommentContent();

@@ -1,5 +1,9 @@
 <?php
 
+namespace I18n;
+
+use Libs\Utils;
+
 /**
  *
  * @author chemaclass

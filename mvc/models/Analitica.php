@@ -1,5 +1,6 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
 
 /**
  * Analítica
@@ -198,7 +199,7 @@ class Analitica extends ModelBase {
 					continue 2;
 				}
 			}
-			$obj = new stdClass();
+			$obj = new \stdClass();
 			$obj->mes = "$i";
 			$obj->total = "0";
 			$result[] = $obj;

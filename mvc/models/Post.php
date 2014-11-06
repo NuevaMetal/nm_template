@@ -1,5 +1,10 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
+
+use Libs\Utils;
+use Libs\Ajax;
+
 /**
  *
  * @author chema

@@ -1,9 +1,12 @@
 <?php
+
+namespace Controllers;
+
+use Libs\Utils;
+
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
-require_once 'BaseController.php';
-require_once 'AnaliticaController.php';
 
 /**
  * Controlador del AJAX

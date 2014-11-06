@@ -1,9 +1,19 @@
 <?php
+
+namespace Controllers;
+
+use I18n\I18n;
+use Libs\Utils;
+use Libs\Ajax;
+use Models\Revision;
+use Models\Post;
+use Models\User;
+use Models\UserBloqueado;
+use Models\UserPendiente;
+
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
-require_once 'BaseController.php';
-require_once 'HomeController.php';
 /**
  * Controlador del AJAX
  *
@@ -363,13 +373,17 @@ class AjaxController extends BaseController {
 		$que = $_datos['que'];
 		$user_id = $_datos['user'];
 		$user = User::find($user_id);
-		// Comprobamos que el user actual sea un editor o admin
-		if (! $this->current_user->canEditor() || ($user->isAdmin() && ! $this->current_user->isAdmin())) {
-			return $this->err_sin_permisos;
+		// Comprobamos que sea el mismo usuario el que quiera cambiarse el header o el avatar.
+		// En caso contrario comprobamos si es un editor o admin
+		if (! (($que == Ajax::QUITAR_HEADER || $que == Ajax::QUITAR_AVATAR) && $user->ID == $this->current_user->ID)) {
+			// Comprobamos que el user actual sea un editor o admin
+			if (! $this->current_user->canEditor() || ($user->isAdmin() && ! $this->current_user->isAdmin())) {
+				return $this->err_sin_permisos;
+			}
 		}
 		switch ($que) {
 			case Ajax::QUITAR_HEADER :
-				$user->setImgHeader(null);
+				$user->setHeader(null);
 				break;
 			case Ajax::QUITAR_AVATAR :
 				$user->setAvatar(null);
@@ -384,7 +398,8 @@ class AjaxController extends BaseController {
 				$userBloqueado->borrar();
 				break;
 		}
-		return null;
+		$json['content'] = 'OK';
+		return $json;
 	}
 
 	/**

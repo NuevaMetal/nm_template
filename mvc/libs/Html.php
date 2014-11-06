@@ -1,4 +1,7 @@
 <?php
+
+namespace Libs;
+
 /**
  * Clase con recursos para el HTML
  *

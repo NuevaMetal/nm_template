@@ -1,4 +1,7 @@
 <?php
+
+namespace Models;
+
 /**
  * Base abstract para los modelos
  *

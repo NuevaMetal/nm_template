@@ -1,5 +1,5 @@
 <?php
-require_once 'mvc/controllers/UserController.php';
+use Controllers\UserController;
 
 $controller = new UserController();
 $controller->getActividad();

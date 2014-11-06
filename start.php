@@ -1,90 +1,44 @@
 <?php
+use Libs\Acciones;
+use Libs\Filtros;
 
 define(URL_PRODUCCION, 'nuevametal.com');
 define(URL_DESARROLLO, 'dev.nuevametal.com');
 
 // --------------------------------------------------------------
-// The path to the application directory.
+// Acciones
 // --------------------------------------------------------------
-$paths ['app'] = 'mvc';
+Acciones::userRegister();
+Acciones::generarNuevaPassword();
+
+Acciones::perfilQuitarInfoSobrante();
+Acciones::perfilAddInfo();
+
+Acciones::cargarEstilosPaginaLogin();
+
+Acciones::quitarItemsParaLosUsuarios();
+
+Acciones::adminBarQuitarLogoWP();
+
+Acciones::cambiarSlugBaseDelAutorPorSuTipo();
+
+Acciones::registerForm();
+
+Acciones::impedirLoginSiUserBloqueado();
+
+Acciones::sobrescribirGetAvatar();
+
+Acciones::establecerDefectoOpcionesParaAdjuntos();
+
+Acciones::publicarPostsProgramados();
 
 // --------------------------------------------------------------
-// The path to the application directory.
+// Filtros
 // --------------------------------------------------------------
-$paths ['lib'] = 'mvc/lib';
 
-// --------------------------------------------------------------
-// The path to the application directory.
-// --------------------------------------------------------------
-$paths ['controllers'] = 'mvc/controllers';
+Filtros::comentariosConBootstrap3();
 
-// --------------------------------------------------------------
-// The path to the i18n directory.
-// --------------------------------------------------------------
-$paths ['i18n'] = 'mvc/i18n';
+Filtros::contentSavePre();
+Filtros::theContent();
 
-// --------------------------------------------------------------
-// The path to the models directory.
-// --------------------------------------------------------------
-$paths ['models'] = 'mvc/models';
-
-// --------------------------------------------------------------
-// The path to the config directory.
-// --------------------------------------------------------------
-$paths ['config'] = 'config';
-
-// --------------------------------------------------------------
-// The path to the public directory.
-// --------------------------------------------------------------
-$paths ['public'] = 'public';
-// --------------------------------------------------------------
-// Change to the current working directory.
-// --------------------------------------------------------------
-chdir(__DIR__);
-
-// --------------------------------------------------------------
-// Define the directory separator for the environment.
-// --------------------------------------------------------------
-if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
-}
-
-// --------------------------------------------------------------
-// Define the path to the base directory.
-// --------------------------------------------------------------
-$GLOBALS ['nm_paths'] ['base'] = __DIR__ . DS;
-
-// --------------------------------------------------------------
-// Define each constant if it hasn't been defined.
-// --------------------------------------------------------------
-foreach ($paths as $name => $path) {
-	if (!isset($GLOBALS ['nm_paths'] [$name])) {
-		$GLOBALS ['nm_paths'] [$name] = realpath($path) . DS;
-	}
-}
-
-/**
- * A global path helper function.
- *
- * <code>
- * $storage = path('storage');
- * </code>
- *
- * @param string $path
- * @return string
- */
-function path($path) {
-	return $GLOBALS ['nm_paths'] [$path];
-}
-
-/**
- * A global path setter function.
- *
- * @param string $path
- * @param string $value
- * @return void
- */
-function set_path($path, $value) {
-	$GLOBALS ['nm_paths'] [$path] = $value;
-}
-?>
+Filtros::preCommentContent();

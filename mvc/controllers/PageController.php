@@ -1,6 +1,14 @@
 <?php
-require_once 'BaseController.php';
-require_once 'HomeController.php';
+
+namespace Controllers;
+
+use I18n\I18n;
+use Libs\Utils;
+use Models\Post;
+use Models\Revision;
+use Models\User;
+use Models\UserBloqueado;
+use Models\UserPendiente;
 
 /**
  * Controlador principal de la web

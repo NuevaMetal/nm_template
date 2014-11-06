@@ -1,5 +1,10 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
+
+use Models\Post;
+use Models\User;
+
 /**
  *
  * @author chema

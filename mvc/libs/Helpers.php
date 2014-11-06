@@ -11,6 +11,15 @@ function dd($expression, $tag = "Tag") {
 }
 
 /**
+ * Cadena para debug
+ *
+ * @param string $str
+ */
+function debug($str) {
+	error_log(" DEBUG - " . $str);
+}
+
+/**
  * Reemplaza todos los acentos por sus equivalentes sin ellos
  *
  * @param string $string

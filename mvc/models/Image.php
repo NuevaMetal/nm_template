@@ -1,5 +1,7 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
+
 /**
  * Que puede tener imágenes
  *
@@ -21,8 +23,7 @@ abstract class Image extends ModelBase {
 	protected function _setImg($keyImg, $imgFile) {
 		// Si es false se la quita y además es null la borrará del servidor
 		if (! $imgFile || is_null($imgFile)) {
-			$this->_quitarImg($keyImg);
-			return;
+			return $this->_quitarImg($keyImg);
 		}
 		if (strpos($imgFile['name'], '.php') !== false) {
 			throw new Exception('For security reasons, the extension ".php" cannot be in your file name.');
@@ -56,7 +57,7 @@ abstract class Image extends ModelBase {
 			$url_or_media_id = wp_get_attachment_url($url_or_media_id);
 		}
 		$meta_value['full'] = $url_or_media_id;
-		update_user_meta($this->ID, $keyImg, $meta_value);
+		return update_user_meta($this->ID, $keyImg, $meta_value);
 	}
 
 	/**
@@ -128,7 +129,7 @@ abstract class Image extends ModelBase {
 		}
 
 		// Y lo quitamos de su meta
-		delete_user_meta($this->ID, $keyImg);
+		return delete_user_meta($this->ID, $keyImg);
 	}
 
 	/**

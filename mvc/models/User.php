@@ -1,5 +1,10 @@
 <?php
-require_once 'Favoriteador.php';
+
+namespace Models;
+
+use I18n\I18n;
+use Libs\Utils;
+
 /**
  * Modelo que representa un Usuario
  *
@@ -167,9 +172,10 @@ class User extends Favoriteador {
 	 * Establecer un nuevo avatar al User
 	 *
 	 * @param FILE $newAvatar
+	 * @return boolean
 	 */
 	public function setAvatar($newAvatar = false) {
-		$this->_setImg(self::KEY_USER_IMG_AVATAR, $newAvatar);
+		return $this->_setImg(self::KEY_USER_IMG_AVATAR, $newAvatar);
 	}
 
 	/**
@@ -264,9 +270,10 @@ class User extends Favoriteador {
 	 * Establecer el nuevo Header al User
 	 *
 	 * @param file $imgHeader
+	 * @return boolean
 	 */
-	public function setImgHeader($imgHeader) {
-		$this->_setImg(self::KEY_USER_IMG_HEADER, $imgHeader);
+	public function setHeader($imgHeader) {
+		return $this->_setImg(self::KEY_USER_IMG_HEADER, $imgHeader);
 	}
 
 	/**
@@ -358,7 +365,7 @@ class User extends Favoriteador {
 	 */
 	public function getMesYAnoRegistro() {
 		$fechaParseada = date_parse($this->getFechaRegistro());
-		$dateObj = DateTime::createFromFormat('!m', $fechaParseada['month']);
+		$dateObj = \DateTime::createFromFormat('!m', $fechaParseada['month']);
 		$numMes = $dateObj->format('n');
 
 		$mesTrans = Utils::getMesTransByNum($numMes);
@@ -376,7 +383,7 @@ class User extends Favoriteador {
 	 */
 	public function setRol($rol) {
 		if (in_array($rol, self::getRolesPermitidos())) {
-			$u = new WP_User($this->ID);
+			$u = new \WP_User($this->ID);
 			$u->set_role($rol);
 			return true;
 		}

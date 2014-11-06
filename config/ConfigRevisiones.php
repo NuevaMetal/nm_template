@@ -1,5 +1,9 @@
 <?php
-require_once 'mvc/models/Revision.php';
+
+namespace config;
+
+use Models\User;
+use Models\Revision;
 
 /**
  *

@@ -1,5 +1,14 @@
 <?php
-require_once dirname(__FILE__) . '/../../vendor/mustache/mustache/src/Mustache/Autoloader.php';
+
+namespace Controllers;
+
+use Libs\Utils;
+use Models\User;
+use Models\Post;
+use I18n\I18n;
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
+use Mustache_Logger_StreamLogger;
 
 /**
  *
@@ -17,11 +26,10 @@ abstract class BaseController {
 	 * Constructor
 	 */
 	public function __construct() {
+		// Mustache_Autoloader::register();
 		$this->current_user = Utils::getCurrentUser();
 
 		$templatesFolder = self::getTemplatesFolderLocation();
-
-		Mustache_Autoloader::register();
 
 		$this->template = new Mustache_Engine(array(
 			'cache_file_mode' => 0660,
@@ -56,9 +64,6 @@ abstract class BaseController {
 				return strtoupper((string) $value);
 			}
 		]);
-		$this->template->addHelper('!!', function ($value) {
-			return $value . '!!';
-		});
 	}
 
 	/**
@@ -298,7 +303,7 @@ abstract class BaseController {
 			'post_status' => 'publish'
 		];
 		$querySettings = array_merge($querySettings, $moreQuerySettings);
-		$loop = new WP_Query($querySettings);
+		$loop = new \WP_Query($querySettings);
 
 		return array_merge($posts, self::_loop($loop));
 	}
@@ -321,7 +326,7 @@ abstract class BaseController {
 			'posts_per_page' => $numberPostsToFetch
 		];
 		$querySettings = array_merge($querySettings, $moreQuerySettings);
-		$loop = new WP_Query($querySettings);
+		$loop = new \WP_Query($querySettings);
 
 		return self::_loop($loop);
 	}

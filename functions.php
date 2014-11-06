@@ -1,28 +1,6 @@
 <?php
-spl_autoload_register();
-require_once 'start.php';
 require_once 'vendor/autoload.php';
-
-require_once ('start.php');
-
-define(URL_PRODUCCION, 'nuevametal.com');
-define(URL_DESARROLLO, 'dev.nuevametal.com');
-
-// require_once (dirname(__FILE__) . '/lib/Chester/require.php');
-// require_once (dirname(__FILE__) . '/lib/PHPMailer/PHPMailerAutoload.php');
-
-require_once 'mvc/i18n/I18n.php';
-
-foreach (glob(dirname(__FILE__) . '/mvc/lib/*.php') as $filename) {
-	require_once $filename;
-}
-foreach (glob(dirname(__FILE__) . '/mvc/models/*.php') as $filename) {
-	require_once $filename;
-}
-
-foreach (glob(dirname(__FILE__) . '/config/*.php') as $filename) {
-	require_once $filename;
-}
+require_once 'start.php';
 
 /**
  * Instalar las tablas
@@ -36,24 +14,23 @@ add_action('after_switch_theme', function () {
 	// RevisionesController::install();
 });
 
+$publicDir = get_template_directory_uri() . '/public';
 /**
  * Ponemos estilos en el admin
  */
-add_action('admin_print_styles', function () {
-	$templateDir = get_template_directory_uri();
-	wp_enqueue_style('bootstrap', $templateDir . '/public/third/bootstrap/css/bootstrap.css');
-	wp_enqueue_style('font-awesome', $templateDir . '/public/third/font-awesome/css/font-awesome.min.css');
-	wp_enqueue_style('main', $templateDir . '/public/css/main.css');
+add_action('admin_print_styles', function () use($publicDir) {
+	wp_enqueue_style('bootstrap', $publicDir . '/third/bootstrap/css/bootstrap.css');
+	wp_enqueue_style('font-awesome', $publicDir . '/third/font-awesome/css/font-awesome.min.css');
+	wp_enqueue_style('main', $publicDir . '/css/main.css');
 });
 
 /**
  * Ponemos scripts en el admin
  */
-add_action('admin_print_scripts', function () {
-	$templateDir = get_template_directory_uri();
-	wp_enqueue_script('jquery-plugin', $templateDir . '/public/third/jquery/jquery.min.js');
-	wp_enqueue_script('bootstrap-plugin', $templateDir . '/public/third/bootstrap/js/bootstrap.min.js');
-	wp_enqueue_script('nm-plugin', $templateDir . '/public/js/nm-plugin.js');
+add_action('admin_print_scripts', function () use($publicDir) {
+	wp_enqueue_script('jquery-plugin', $publicDir . '/third/jquery/jquery.min.js');
+	wp_enqueue_script('bootstrap-plugin', $publicDir . '/third/bootstrap/js/bootstrap.min.js');
+	wp_enqueue_script('nm', $publicDir . '/js/nm.js');
 });
 
 /**

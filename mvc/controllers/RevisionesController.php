@@ -1,5 +1,10 @@
 <?php
-require_once 'BaseController.php';
+
+namespace Controllers;
+
+use Models\Post;
+use Models\Revision;
+use Models\User;
 
 /**
  *

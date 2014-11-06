@@ -1,4 +1,7 @@
 <?php
+
+namespace Libs;
+
 /**
  *
  * @author chema

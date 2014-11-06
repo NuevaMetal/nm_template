@@ -1,4 +1,7 @@
 <?php
+
+namespace Libs;
+
 /**
  * Respuestas del servidor
  *

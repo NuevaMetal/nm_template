@@ -1,5 +1,10 @@
 <?php
-require_once 'ModelBase.php';
+
+namespace Models;
+
+use I18n\I18n;
+use Libs\Utils;
+
 /**
  * Seguimientos entre dos Users
  *

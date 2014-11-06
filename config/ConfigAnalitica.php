@@ -1,6 +1,9 @@
 <?php
-require_once 'mvc/models/Analitica.php';
-require_once 'mvc/controllers/AnaliticaController.php';
+
+namespace config;
+
+use Controllers\AnaliticaController;
+use Models\Analitica;
 
 /**
  *

@@ -1,5 +1,5 @@
 <?php
-require_once 'mvc/controllers/PageController.php';
+use Controllers\PageController;
 
 $controller = new PageController();
 $controller->getPost();

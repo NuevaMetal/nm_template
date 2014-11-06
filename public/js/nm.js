@@ -869,10 +869,12 @@ $(document).on('click','.hacer-colaborador', function(e) {
 $(document).on('click','.quitar-header, .quitar-avatar, .bloquear, .desbloquear', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	if(!confirm('¿Estás seguro de que quieres '+$this.text().toUpperCase()+'?')){
+	if(!confirm('¿Estás seguro de que quieres '+$this.text().toUpperCase().trim()+'?')){
 		return;
 	}
 	var url = $('#page').attr('url');
+	// Si no encontró el elemento #page buscar la url en el mismo botón.
+	if (!url) { url = $this.attr('url'); }
 	var que = $this.attr('que');
 	var user = $this.attr('user');
 	var data = {
@@ -894,9 +896,9 @@ $(document).on('click','.quitar-header, .quitar-avatar, .bloquear, .desbloquear'
 			location.reload();
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
-			console.log("status: " + xhr.status + ",\n responseText: "
-					+ xhr.responseText + ",\n thrownError "
-					+ thrownError);
+			console.log("status: " + xhr.status 
+					//+ ",\n responseText: "+ xhr.responseText 
+					+ ",\n thrownError " + thrownError);
 		}
 	});
 });
