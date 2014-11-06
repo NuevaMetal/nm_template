@@ -2,8 +2,11 @@
 
 ### Qué es este repositorio ###
 
-* Tema oficial de la app web NuevaMetal
-* 1.1.0
+* Tema oficial de NuevaMetal.com
+* 3.1.0
+* Añadimos Composer. Cargamos PHPMailer y Mustache
+* Quitamos Chester.
+* Sustituyo require por namespaces.
 
 ### Preparar el entorno ###
 
@@ -20,8 +23,6 @@
 * Necesitas instalar una librería gráfica para poder utilizar el editor de imágenes
 	apt-get install php5-imagick php5-gd
 	service apache2 reload 
-
-
 
 
 ### Modo de trabajo ###
