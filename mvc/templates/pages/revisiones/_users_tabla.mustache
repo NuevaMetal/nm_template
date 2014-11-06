@@ -8,27 +8,27 @@
 		</tr>
 	</thead>
 	<tbody>	
-	{{# usuarios }}
+	{{# getUsers }}
 	<tr>
-		<td> <a href="{{ user.getPerfilUrl }}" target="_blank"> 
-			{{ user.user_login }}</a>
+		<td> <a href="{{ getPerfilUrl }}" target="_blank"> 
+			{{ user_login }}</a>
 		</td>
 		<td>{{ count }}</td>
 		<td>{{ updated_at }}</td>
 		<td>
-		{{^ user.isAdmin}}
-			{{# user.isRevisionBan }}
+		{{^ isAdmin }}
+			{{# isRevisionBan }}
 				<span class="label label-default label-block">Baneado</span>
-			{{/ user.isRevisionBan }}
-			{{^ user.isRevisionBan }}
+			{{/ isRevisionBan }}
+			{{^ isRevisionBan }}
 				<button class="btn btn-danger btn-xs btn-block dispara-revision"
-						que_id="{{user.ID}}" submit="revision-ban" estado="{{ estado }}" url="{{ template_url }}/ajax.php">
+						que_id="{{ID}}" submit="revision-ban" estado="{{ USER_BANEADO }}">
 					{{#transu}}banear{{/transu}}
 				</button>
-			{{/ user.isRevisionBan }}
-		{{/ user.isAdmin}}
+			{{/ isRevisionBan }}
+		{{/ isAdmin }}
 		</td>
 	</tr>
-	{{/ usuarios }}
+	{{/ getUsers }}
 	</tbody>
 </table>

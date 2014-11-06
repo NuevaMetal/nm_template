@@ -943,7 +943,7 @@ class User extends Favoriteador {
 		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
 				FROM  wp_revisiones_ban
 				WHERE user_id = %d
-				AND status = %d', $this->ID, Revision::USER_BANEADO));
+				AND status = %d', $this->ID, UserBaneado::BANEADO));
 	}
 
 	/**

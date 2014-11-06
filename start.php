@@ -1,4 +1,6 @@
 <?php
+require_once 'mvc/libs/Helpers.php';
+
 use Libs\Acciones;
 use Libs\Filtros;
 

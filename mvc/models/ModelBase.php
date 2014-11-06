@@ -14,6 +14,13 @@ abstract class ModelBase {
 	public $ID;
 	public $created_at;
 	public $updated_at;
+
+	/**
+	 * Constructor
+	 *
+	 * @param integer $_id
+	 *        	Identificador del modelo
+	 */
 	public function __construct($_id = -1) {
 		$this->ID = $_id;
 		global $wpdb;
@@ -45,6 +52,9 @@ abstract class ModelBase {
 	 * Buscar y devolver el objeto a través de su ID
 	 *
 	 * @param integer $ID
+	 *        	Identificador del objeto
+	 * @param string $pk
+	 *        	Clave primaria en la tabla
 	 * @return object
 	 */
 	public static function find($ID = false, $pk = 'ID') {
@@ -56,7 +66,6 @@ abstract class ModelBase {
 		$query = 'SELECT *
 				FROM wp_' . static::$table . '
 				WHERE ' . $pk . '= %d';
-		$result = [];
 		$object = $wpdb->get_row($wpdb->prepare($query, $ID));
 		$a = new $modelo();
 		if ($object) {
@@ -66,15 +75,41 @@ abstract class ModelBase {
 		}
 		return $a;
 	}
+
+	/**
+	 * Buscar todos los valores a partir de una columna
+	 *
+	 * @param string $columna
+	 * @param string $valor
+	 * @return array<object>
+	 */
+	public static function findAllBy($columna, $valor) {
+		global $wpdb;
+		$objects = [];
+		$modelo = get_called_class();
+		$query = 'SELECT * FROM wp_' . static::$table . ' WHERE ' . $columna . '= %d';
+		$resultsQuery = $wpdb->get_results($wpdb->prepare($query, $columna));
+		foreach ($resultsQuery as $_object) {
+			$object = new $modelo();
+			foreach ($_object as $column => $val) {
+				$object->$column = $val;
+			}
+			$objects[] = $object;
+		}
+		return $objects;
+	}
+
+	/**
+	 * Hacer un DELETE
+	 *
+	 * @return Exception|boolean
+	 */
 	public function delete() {
 		if ($this->ID !== false) {
 			global $wpdb;
-			$modelo = get_called_class();
-			$query = "DELETE
-					FROM {$wpdb->prefix}" . static::$table . "
-					WHERE ID = $this->ID";
 			try {
-				return $wpdb->query($query);
+				return $wpdb->query($wpdb->prepare('
+						DELETE FROM wp_' . static::$table . ' WHERE ID = %d', $this->ID));
 			} catch ( Exception $e ) {
 				return $e;
 			}
@@ -106,7 +141,6 @@ abstract class ModelBase {
 	 */
 	public static function where($columna, $que, $valor) {
 		global $wpdb;
-
 		$all = self::all();
 		$result = [];
 		foreach ($all as $item) {
@@ -118,6 +152,14 @@ abstract class ModelBase {
 		}
 		return $result;
 	}
+
+	/**
+	 *
+	 * @param unknown $columna
+	 * @param unknown $que
+	 * @param unknown $valor
+	 * @return boolean
+	 */
 	private static function _getComparacion($columna, $que, $valor) {
 		switch ($que) {
 			case "=" :

@@ -2,6 +2,10 @@
 
 namespace Models;
 
+use Libs\Utils;
+use Models\Post;
+use Models\User;
+
 /**
  *
  * @author chema
@@ -15,29 +19,112 @@ class Revision extends ModelBase {
 
 	const ESTADO_BORRADO = 2;
 
-	const USER_BANEADO = 1;
-
-	const USER_DESBANEADO = 2;
-
 	/*
 	 * Miembros
 	 */
-	public $user_id;
+	public $num;
 	public $post_id;
+	public $users_id;
+	public $status;
+	public $total;
 
 	/**
-	 * Devuelve el número total de entradas por revisar
+	 * Devuelve el Post de la revisión.
 	 *
-	 * @return integer Número total por revisar
+	 * @return Post
 	 */
-	public static function getTotalPorRevisar() {
+	public function getPost() {
+		return Post::find($this->post_id);
+	}
+
+	/**
+	 * Devuelve los users que le dieron a la revisión.
+	 *
+	 * @return User
+	 */
+	public function getUsers() {
+		$users = [];
+		foreach ($this->users_id as $user_id) {
+			$users[] = User::find($user_id);
+		}
+		return $users;
+	}
+
+	/**
+	 * Devuelve el número total de entradas pendientes
+	 *
+	 * @return intener
+	 */
+	public static function getTotalPendientes() {
+		return count(self::getPendientes());
+	}
+
+	/**
+	 * Devuelve todas las revisiones en base a su estado
+	 *
+	 * @param unknown $status
+	 */
+	private static function _getRevisionesByEstado($estado = false) {
 		global $wpdb;
-		return (int) $wpdb->get_var('
-			SELECT count(*) as total
-			FROM (SELECT post_id FROM `' . $wpdb->prefix . 'revisiones`
-					WHERE `status` = 0
-					GROUP BY post_id) r
-				');
+		$sql = 'SELECT DISTINCT r.post_id, r.status, count( * ) total
+				FROM wp_revisiones r
+				JOIN wp_posts p ON ( r.post_id = p.ID )
+				WHERE STATUS = %d
+				GROUP BY r.post_id, r.status';
+
+		$results = $wpdb->get_results($wpdb->prepare($sql, $estado));
+
+		foreach ($results as $k => $_r) {
+			$r = new Revision();
+			$r->num = $k + 1;
+			$r->post_id = $_r->post_id;
+			$r->status = $_r->status;
+			$r->total = $_r->total;
+			$r->users_id = self::_getUsersIdByPostId($_r->post_id, $estado);
+			$revisiones[] = $r;
+		}
+		return $revisiones;
+	}
+
+	/**
+	 * Devuelve la id de los usuarios que le dieron al post
+	 *
+	 * @param integer $post_id
+	 *        	Identificador del Post
+	 * @param integer $estado
+	 *        	Estado de la revisión
+	 */
+	private function _getUsersIdByPostId($post_id, $estado) {
+		global $wpdb;
+		return $wpdb->get_col($wpdb->prepare('
+				SELECT user_id FROM wp_revisiones
+				WHERE post_id = %d AND status = %d', $post_id, $estado));
+	}
+
+	/**
+	 * Devuelve true si la revisión está pendiente
+	 *
+	 * @return boolean
+	 */
+	public function isPendiente() {
+		return $this->status == self::ESTADO_PENDIENTE;
+	}
+	/**
+	 * Devuelve todas las revisiones pendientes
+	 *
+	 * @return array<Pendiente>
+	 */
+	public static function getPendientes() {
+		return self::_getRevisionesByEstado(Revision::ESTADO_PENDIENTE);
+	}
+
+	/**
+	 * Devuelve todas las revisiones pendientes
+	 *
+	 * @return array<Pendiente>
+	 */
+	public static function getCorregidas() {
+		return self::_getRevisionesByEstado(Revision::ESTADO_CORREGIDO);
 	}
 
 	/**
@@ -101,90 +188,11 @@ class Revision extends ModelBase {
 	}
 
 	/**
-	 * Banear a un user en las revisiones
-	 *
-	 * @param integer $editor_id
-	 *        	El User que banea
-	 * @param integer $user_id
-	 *        	El User baneado
-	 * @return string
-	 */
-	public static function banear($editor_id, $user_id) {
-		Utils::debug("> banear( $editor_id, $user_id)");
-		global $wpdb;
-		$user = User::find($user_id);
-		// Primero comprobamos que no sea un admin
-		if ($user->isAdmin()) {
-			return "El usuario <strong>'{$user->user_login}'</strong> es un administrador.";
-		}
-		// Segundo comprobamos que si ya está baneado
-		$isBan = (int) $wpdb->get_var('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . "revisiones_ban
-					WHERE user_id = $user_id AND status = 1;");
-		if ($isBan) {
-			return "Usuario <strong>'{$user->user_login}'</strong> ya baneado.";
-		}
-
-		// De lo contrario crearemos su registro en la tabla de users baneados
-		$result = $wpdb->query($wpdb->prepare("
-	INSERT {$wpdb->prefix}revisiones_ban (editor_id, user_id, created_at, updated_at)
-	VALUES (%d, %d, null, null);", $editor_id, $user_id));
-
-		return "User baneado de las revisiones con éxito: <strong>'{$user->user_login}'</strong>.";
-	}
-
-	/**
-	 * Quitar el baneo a un user de las revisiones
-	 *
-	 * @param integer $editor_id
-	 *        	El User que quita el baneo
-	 * @param integer $user_id
-	 *        	El User a quitar el baneo
-	 * @return string
-	 */
-	public static function desbanear($editor_id, $user_id) {
-		global $wpdb;
-		$user = get_userdata($user_id);
-
-		// Comprobamos que si ya está baneado
-		$isBan = (int) $wpdb->get_var('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . "revisiones_ban
-					WHERE user_id = $user_id AND status = 1;");
-
-		if (! $isBan) {
-			return "Usuario <strong>'{$user->user_login}'</strong> no baneado.";
-		}
-
-		// De lo contrario crearemos su registro en la tabla de users baneados
-		$result = $wpdb->query($wpdb->prepare("
-			UPDATE {$wpdb->prefix}revisiones_ban
-			SET status = 2 WHERE user_id = %d AND status = 1;", $user_id));
-
-		return "Quitado el baneo del Usuario <strong>'{$user->user_login}'</strong> con éxito.";
-	}
-
-	/**
-	 * Devuelve la lista total de Users baneados
-	 *
-	 * @return array
-	 */
-	public static function allBan() {
-		global $wpdb;
-		$status = self::USER_BANEADO;
-		$query = "SELECT *
-				FROM {$wpdb->prefix}revisiones_ban
-				WHERE status = $status
-				GROUP BY user_id, status";
-		$result = $wpdb->get_results($query);
-		return $result;
-	}
-
-	/**
 	 * Creamos las tablas
 	 *
 	 * @return void
 	 */
-	public function install() {
+	private function _install() {
 		Utils::debug("> RevisionesController->install() ");
 		global $wpdb;
 		// Create table
@@ -202,23 +210,6 @@ class Revision extends ModelBase {
 		)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 
 		// status: 1-pendiente, 2-revisada, 3-borrada
-		$wpdb->query($query);
-
-		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}revisiones_ban (
-		`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-		`user_id` bigint(20) UNSIGNED NOT NULL,
-		`editor_id` bigint(20) UNSIGNED NOT NULL,
-		`status` tinyint(1) NOT NULL DEFAULT '1',
-		`created_at` TIMESTAMP NOT NULL DEFAULT 0,
-		`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-		PRIMARY KEY (`ID`),
-		FOREIGN KEY (`user_id`) REFERENCES `wp_users`(`ID`),
-		FOREIGN KEY (`editor_id`) REFERENCES `wp_users`(`ID`)
-		)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-
-		// status: 1-pendiente, 2-borrada
-		// user_id -> User al que se le banean las revisiones
-		// editor_id -> User que banean las revisiones al user_id
 		$wpdb->query($query);
 	}
 }

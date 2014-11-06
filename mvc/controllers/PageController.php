@@ -9,6 +9,7 @@ use Models\Revision;
 use Models\User;
 use Models\UserBloqueado;
 use Models\UserPendiente;
+use Models\UserBaneado;
 
 /**
  * Controlador principal de la web
@@ -196,93 +197,27 @@ class PageController extends BaseController {
 	 * page-revisions.php
 	 */
 	public function getRevisiones() {
-		/*
-		 * Parsear revisiones
-		 */
-		$_parsearRevisiones = function ($listaRevisiones, $pendiente) {
-			/*
-			 * Parsear los usuarios por revisión
-			 */
-			$_parsearUsersByRevision = function ($revision, $estado = Revision::ESTADO_PENDIENTE) {
-				global $wpdb;
-				$user_ids = $wpdb->get_results($wpdb->prepare('
-						SELECT user_id, updated_at, count
-						FROM wp_revisiones
-						WHERE post_id = %d
-						AND status = %d', $revision->post_id, $estado));
-				$users = [];
-				foreach ($user_ids as $u) {
-					$user = User::find($u->user_id);
-					$users[] = [
-						'user' => $user,
-						'updated_at' => $u->updated_at,
-						'count' => $u->count
-					];
-				}
-				return $users;
-			};
-
-			$revisiones = [];
-			$num = 0;
-			foreach ($listaRevisiones as $revision) {
-				$post = Post::find($revision->post_id);
-				if (isset($revisiones[$post->ID])) {
-					continue;
-				}
-				$_revision = [
-					'num' => ++ $num,
-					'count' => $revision->count,
-					'permalink' => $post->getUrl(),
-					'post_id' => $post->ID,
-					'title' => $post->post_title,
-					'pendiente' => $pendiente,
-					'estado' => (! $pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO,
-					'estado_borrar' => Revision::ESTADO_BORRADO,
-					'usuarios' => $_parsearUsersByRevision($revision, ($pendiente) ? Revision::ESTADO_PENDIENTE : Revision::ESTADO_CORREGIDO)
-				];
-				$revisiones[$post->ID] = $_revision;
-			}
-			$revisiones = array_values($revisiones);
-			return $revisiones;
-		};
-
-		$_parsearRevisionesBan = function ($listaBaneos) {
-			$revisiones = [];
-			foreach ($listaBaneos as $num => $l) {
-				$user = User::find($l->user_id);
-				$editor = User::find($l->editor_id);
-				$revision = [];
-				$revision['num'] = $num + 1;
-				$revision['user'] = $user;
-				$revision['editor'] = $editor;
-				$revision['updated_at'] = $l->updated_at;
-				$revisiones[] = $revision;
-			}
-			return $revisiones;
-		};
-
-		$listaBaneos = Revision::allBan();
-		$baneos = $_parsearRevisionesBan($listaBaneos);
-
-		$listaPendientes = Revision::where('status', '=', Revision::ESTADO_PENDIENTE);
-		$listaRevisadas = Revision::where('status', '=', Revision::ESTADO_CORREGIDO);
-
-		$pendientes = $_parsearRevisiones($listaPendientes, $pendiente = true);
-		$revisadas = $_parsearRevisiones($listaRevisadas, $pendiente = false);
+		$listaPendientes = Revision::getPendientes();
+		$listaRevisadas = Revision::getCorregidas();
+		$listaBaneos = UserBaneado::getBaneados();
 
 		return $this->renderPage('pages/revisiones', [
-			'total_pendientes' => Revision::getTotalPorRevisar(),
+			'total_pendientes' => Revision::getTotalPendientes(),
+			'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
+			'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
+			'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
+			'USER_BANEADO' => UserBaneado::BANEADO,
+			'USER_DESBANEADO' => UserBaneado::DESBANEADO,
 			'pendientes' => [
-				'estado' => 'Pendientes',
-				'reportes' => $pendientes
+				'sEstado' => 'Pendientes',
+				'lista' => $listaPendientes
 			],
 			'revisadas' => [
-				'estado' => 'Revisadas',
-				'reportes' => $revisadas
+				'sEstado' => 'Revisadas',
+				'lista' => $listaRevisadas
 			],
 			'baneados' => [
-				'baneos' => $baneos,
-				'estado' => Revision::USER_DESBANEADO
+				'lista' => $listaBaneos
 			]
 		]);
 	}

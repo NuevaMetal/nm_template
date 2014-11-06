@@ -1,4 +1,4 @@
-<h2> Reportes <small>Estado: {{ estado }}</small> </h2>
+<h2> Reportes <small>Estado: {{ sEstado }}</small> </h2>
 <table class=" table table-condensed table-responsive">
 	<thead>
 		<tr>
@@ -9,30 +9,30 @@
 		</tr>
 	</thead>
 	<tbody>
-	{{# reportes }}
+	{{# lista }}
 		<tr>
 	  		<td>{{ num }}</td>
-			<td><a href="{{ permalink }}" target="_blank">{{ title }}</a></td>
-			<td>{{> plugin/revisiones/_users_tabla }}</td>
+			<td><a href="{{ getPost.getUrl }}" target="_blank">{{ getPost.getTitulo }}</a></td>
+			<td> {{> pages/revisiones/_users_tabla }}</td>
 			<td>
-				{{# pendiente }}
+				{{# isPendiente }}
 					<button class="btn btn-success btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado }}"> 
+							que_id="{{post_id}}" submit="revision" estado="{{ ESTADO_CORREGIDO }}"> 
 						{{#transu}}corregido{{/transu}}
 					</button>
-				{{/ pendiente }}
-				{{^ pendiente }}
+				{{/ isPendiente }}
+				{{^ isPendiente }}
 					<button class="btn btn-info btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado }}">
+							que_id="{{post_id}}" submit="revision" estado="{{ ESTADO_PENDIENTE }}">
 						{{#transu}}pendiente{{/transu}}
 					</button>
 					<button class="btn btn-warning btn-sm btn-block dispara-revision" 
-							que_id="{{post_id}}" submit="revision" estado="{{ estado_borrar }}">
+							que_id="{{post_id}}" submit="revision" estado="{{ ESTADO_BORRADO }}">
 						{{#transu}}borrar{{/transu}}
 					</button>
-				{{/ pendiente }}
+				{{/ isPendiente }}
 			</td>
 		</tr>
-   	{{/ reportes }}
+   	{{/ lista }}
    	</tbody>
 </table>

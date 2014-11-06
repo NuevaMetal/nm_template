@@ -10,6 +10,7 @@ use Models\Post;
 use Models\User;
 use Models\UserBloqueado;
 use Models\UserPendiente;
+use Models\UserBaneado;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -320,22 +321,32 @@ class AjaxController extends BaseController {
 		if (! $this->current_user->canEditor()) {
 			return $this->err_sin_permisos;
 		}
+
 		$estado = $_datos['estado'];
 		$user_id = $_datos['que_id'];
-		$editor_id = $this->current_user->ID;
+		$user = new UserBaneado();
+		$user->user_id = $user_id;
+		$user->editor_id = $this->current_user->ID;
 
-		$mensaje = '?';
+		$alert = '?';
+		$json['code'] = 200;
 		switch ($estado) {
-			case Revision::USER_BANEADO :
-				$mensaje = Revision::banear($editor_id, $user_id);
+			case UserBaneado::BANEADO :
+				if ($user->banearDeLasRevisiones()) {
+					$alert = $this->renderAlertaSuccess('Usuario baneado correctamente.');
+				} else {
+					$alert = $this->renderAlertaWarning('Ocurrió un error inesperado.');
+				}
 				break;
-			case Revision::USER_DESBANEADO :
-				$mensaje = Revision::desbanear($editor_id, $user_id);
+			case UserBaneado::DESBANEADO :
+				if ($user->desbanearDeLasRevisiones()) {
+					$alert = $this->renderAlertaSuccess('Usuario desbaneado correctamente.');
+				} else {
+					$alert = $this->renderAlertaWarning('Ocurrió un error inesperado.');
+				}
 				break;
 		}
-
-		$json['code'] = 200;
-		$json['alert'] = $this->renderAlertaSuccess($mensaje);
+		$json['alert'] = $alert;
 		return $json;
 	}
 
@@ -462,7 +473,7 @@ class AjaxController extends BaseController {
 				break;
 			case Ajax::MENU_PERFIL :
 				$json['menu'] = $this->render('menu/perfil', array_merge($menuArgs, [
-					'total_revisiones' => Revision::getTotalPorRevisar()
+					'total_revisiones' => Revision::getTotalPendientes()
 				]));
 				break;
 			case Ajax::MENU_FOOTER :

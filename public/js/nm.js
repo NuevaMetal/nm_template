@@ -795,7 +795,7 @@ $(document).on('click', '.dispara-revision', function(e) {
 		estado: estado,
 		que_id: que_id
 	};
-	
+	console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -803,7 +803,7 @@ $(document).on('click', '.dispara-revision', function(e) {
 		dataType : "json",
 		beforeSend: function() {
 			$this.find('.fa-spin').removeClass('hidden');
-			$this.attr("disabled", true);
+			//$this.attr("disabled", true);
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
@@ -816,8 +816,11 @@ $(document).on('click', '.dispara-revision', function(e) {
 			}
 			$this.find('.fa-spin').addClass('hidden');
 			$this.attr("disabled", false);
-			fila.remove();
-			//location.reload();
+			if (submit == "revision" || submit == "revision-ban") { 
+				fila.remove();
+			}
+			mostrarAlerta(json.alert, 2);
+			location.reload();
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	        alert("Ocurrió un error inesperado.\n" 
