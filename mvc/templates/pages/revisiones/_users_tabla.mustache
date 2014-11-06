@@ -2,8 +2,6 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th>Total</th>
-			<th>Último click</th>
 			<th>Acciones</th>
 		</tr>
 	</thead>
@@ -13,8 +11,6 @@
 		<td> <a href="{{ getPerfilUrl }}" target="_blank"> 
 			{{ user_login }}</a>
 		</td>
-		<td>{{ count }}</td>
-		<td>{{ updated_at }}</td>
 		<td>
 		{{^ isAdmin }}
 			{{# isRevisionBan }}
