@@ -2,6 +2,8 @@
 
 namespace Libs;
 
+use PHPMailer;
+
 /**
  *
  * @author chema

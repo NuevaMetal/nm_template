@@ -1,4 +1,7 @@
 <?php
+use Models\User;
+use Libs\Correo;
+
 /**
  * Establecer la nueva password al usuario
  */
