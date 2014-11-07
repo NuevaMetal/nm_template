@@ -26,6 +26,7 @@ class Revision extends ModelBase {
 	public $post_id;
 	public $users_id;
 	public $status;
+	public $updated_at;
 	public $total;
 
 	/**
@@ -75,12 +76,12 @@ class Revision extends ModelBase {
 	 */
 	private static function _getRevisionesByEstado($estado = false) {
 		global $wpdb;
-		$sql = 'SELECT DISTINCT r.post_id, r.status, count( * ) total
+		$sql = 'SELECT DISTINCT r.post_id, r.status, count( * ) total, max(updated_at) updated_at
 				FROM wp_revisiones r
 				JOIN wp_posts p ON ( r.post_id = p.ID )
 				WHERE STATUS = %d
-				GROUP BY r.post_id, r.status';
-
+				GROUP BY r.post_id, r.status
+				ORDER BY updated_at';
 		$results = $wpdb->get_results($wpdb->prepare($sql, $estado));
 
 		foreach ($results as $k => $_r) {
@@ -89,6 +90,7 @@ class Revision extends ModelBase {
 			$r->post_id = $_r->post_id;
 			$r->status = $_r->status;
 			$r->total = $_r->total;
+			$r->updated_at = $_r->updated_at;
 			$r->users_id = self::_getUsersIdByPostId($_r->post_id, $estado);
 			$revisiones[] = $r;
 		}

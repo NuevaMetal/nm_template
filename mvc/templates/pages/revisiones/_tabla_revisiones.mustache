@@ -4,7 +4,8 @@
 		<tr>
 			<th class="col-xs-1">Nº</th>
 			<th class="col-xs-3">Entrada</th>
-			<th class="col-xs-7">Usuarios</th>
+			<th class="col-xs-3">Fecha</th>
+			<th class="col-xs-4">Usuarios</th>
 			<th class="col-xs-1">Acciones</th>
 		</tr>
 	</thead>
@@ -13,6 +14,7 @@
 		<tr>
 	  		<td>{{ num }}</td>
 			<td><a href="{{ getPost.getUrl }}" target="_blank">{{ getPost.getTitulo }}</a></td>
+			<td>{{updated_at}}</td>
 			<td> {{> pages/revisiones/_users_tabla }}</td>
 			<td>
 				{{# isPendiente }}
