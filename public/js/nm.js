@@ -57,7 +57,7 @@ function seHaceScroll() {
 	// Ajuste del menú Para pantallas no xs
 	if (!getWindowWidth('xs')) {
 		if (scroll >= 260 || winWidth < COL.SM-15) {		
-			//scrollOn();
+			scrollOn();
 		} else {
 			scrollOff();
 		}
