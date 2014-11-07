@@ -30,34 +30,39 @@
 					{{/isSuscriptorRechazado}}
 				{{/isSuscriptor}}
 			   {{#canColaborador}}
-			    <a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/edit.php" target="_blank">
-			  		<i class="fa fa-files-o"></i> posts
-				</a>				
-				<a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/post-new.php" target="_blank">
-					<i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}
-				</a>
+				    <a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/edit.php" target="_blank"
+				    		title="{{#transu}}user.tus_posts{{/transu}}: {{total_posts}}">
+				  		<i class="fa fa-files-o"></i> posts
+					</a>				
+					<a class="list-group-item col-xs-12 col-sm-4" href="/wp-admin/post-new.php" target="_blank">
+						<i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}
+					</a>
 				{{/canColaborador}}
-				<a class="list-group-item col-xs-12 col-sm-4" href="/favorites">  	
+				<a class="list-group-item col-xs-12 col-sm-4" href="/favorites" title="{{total_favoritos}} {{#transu}}total{{/transu}}">
 			  		<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
 				</a>
-				<a class="list-group-item col-xs-12 col-sm-4" href="/activity">
+				<a class="list-group-item col-xs-12 col-sm-4" href="/activity" title="{{total_actividad}} {{#transu}}total{{/transu}}">
 					<span><i class="fa fa-bell"></i> {{#transu}}actividad{{/transu}}</span>
 				</a>
-				<a class="list-group-item col-xs-12 col-sm-4" href="/messages">  	
+				<a class="list-group-item col-xs-12 col-sm-4 {{#total_mensajes}}nuevas{{/total_mensajes}}" 
+						href="/messages" title="{{total_mensajes}} {{#transu}}mensajes.sin_leer{{/transu}}">
 			  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
 				</a>
 				<a class="list-group-item col-xs-12 col-sm-4" href="{{getPerfilUrl}}">
 					<span><i class="fa fa-user"></i> {{#transu}}perfil{{/transu}}</span>
 				</a>
 				{{# canEditor }}
-					<a class="list-group-item col-xs-12 col-sm-4 {{#total_revisiones}}nuevas{{/total_revisiones}}" href="/revisions">
+					<a class="list-group-item col-xs-12 col-sm-4 {{#total_revisiones}}nuevas{{/total_revisiones}}" 
+							href="/revisions" title="{{total_revisiones}} {{#transu}}pendientes{{/transu}}">
 						<span><i class="fa fa-clipboard "></i> {{#transu}}revisiones{{/transu}}</span>
 					</a>
-					<a class="list-group-item col-xs-12 col-sm-4" href="/blocked-users">
-						<span><i class="fa fa-close "></i> {{#transu}}bloqueados{{/transu}}</span>
-					</a>
-					<a class="list-group-item col-xs-12 col-sm-4" href="/pending-users">
+					<a class="list-group-item col-xs-12 col-sm-4 {{#total_pendientes}}nuevas{{/total_pendientes}}" 
+							href="/pending-users" title="{{total_pendientes}} {{#transu}}user.usuarios_pendientes{{/transu}}">
 						<span><i class="fa fa-users "></i> {{#transu}}pendientes{{/transu}}</span>
+					</a>
+					<a class="list-group-item col-xs-12 col-sm-4" href="/blocked-users" 
+							title="{{total_bloqueados}} {{#transu}}user.usuarios_bloqueados{{/transu}}">
+						<span><i class="fa fa-close"></i> {{#transu}}bloqueados{{/transu}}</span>
 					</a>
 				{{/ canEditor }}
 			</div>

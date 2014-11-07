@@ -165,10 +165,11 @@ class PageController extends BaseController {
 		}
 
 		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
+		$totalBloqueados = UserBloqueado::getTotalBloqueados();
 
 		return $this->renderPage('pages/users_bloqueados', [
 			'bloqueados' => $listaBloqueados,
-			'hay_bloqueados' => count($listaBloqueados) > 0,
+			'total_bloqueados' => $totalBloqueados,
 			'estado_borrado' => UserBloqueado::ESTADO_BORRADO
 		]);
 	}
@@ -203,6 +204,8 @@ class PageController extends BaseController {
 
 		return $this->renderPage('pages/revisiones', [
 			'total_pendientes' => Revision::getTotalPendientes(),
+			'total_corregidas' => Revision::getTotalCorregidas(),
+			'total_baneados' => UserBaneado::getTotalBaneados(),
 			'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
 			'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
 			'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
@@ -212,7 +215,7 @@ class PageController extends BaseController {
 				'sEstado' => 'Pendientes',
 				'lista' => $listaPendientes
 			],
-			'revisadas' => [
+			'corregidas' => [
 				'sEstado' => 'Revisadas',
 				'lista' => $listaRevisadas
 			],

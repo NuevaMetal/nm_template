@@ -45,9 +45,12 @@ return [
 
 	'tipo_usuario' => 'Tipo de usuario',
 	'tipo_usuario_explicacion' => 'Seleccione el tipo de usuario para que podamos ofrecerle una mejor experiencia',
+	'tus_posts' => 'tus entradas',
 
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
+	'usuarios_bloqueados' => 'Usuarios bloqueados',
+	'usuarios_pendientes' => 'Usuarios pendientes',
 
 	'ya_seguido' => 'Ya sigues a este usuario'
 ];

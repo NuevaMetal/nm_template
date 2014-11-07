@@ -472,9 +472,21 @@ class AjaxController extends BaseController {
 				$json['menu'] = $this->render('menu/principal', $menuArgs);
 				break;
 			case Ajax::MENU_PERFIL :
-				$json['menu'] = $this->render('menu/perfil', array_merge($menuArgs, [
-					'total_revisiones' => Revision::getTotalPendientes()
-				]));
+				// Comprobamos si el usuario está logueado
+				if ($this->current_user->ID > 0) {
+					$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
+					$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
+					$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
+					$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
+
+					// Comprobamos que el user tenga permisos de editor
+					if ($this->current_user->canEditor()) {
+						$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
+						$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
+						$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
+					}
+				}
+				$json['menu'] = $this->render('menu/perfil', $menuArgs);
 				break;
 			case Ajax::MENU_FOOTER :
 				$json['menu'] = $this->render('menu/footer');

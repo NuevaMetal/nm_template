@@ -52,11 +52,50 @@ class UserPendiente extends ModelBase {
 		}
 		return $r;
 	}
+
+	/**
+	 * Devuelve el User pendiente
+	 *
+	 * @return User
+	 */
 	public function getUser() {
 		return User::find($this->user_id);
 	}
+
+	/**
+	 * Devuelve el Editor que aceptó o denegó al user pendiente
+	 *
+	 * @return User
+	 */
 	public function getEditor() {
 		return User::find($this->editor_id);
+	}
+
+	/**
+	 * Devuelve el número total de Users pendientes
+	 *
+	 * @return integer
+	 */
+	public static function getTotalPendientes() {
+		return count(self::getByStatus(UserPendiente::PENDIENTE));
+	}
+
+	/**
+	 * Devuelve el número total de Users pendientes aceptados
+	 *
+	 * @return integer
+	 */
+	public static function getTotalAceptados() {
+		return count(self::getByStatus(UserPendiente::ACEPTADO));
+	}
+
+	/**
+	 * Devuelve el número total de Users pendientes rechazados
+	 *
+	 * @return integer
+	 */
+	public static function getTotalRechazados() {
+		return count(self::getByStatus(UserPendiente::RECHAZADO));
 	}
 
 	/**

@@ -56,11 +56,32 @@ class UserBloqueado extends ModelBase {
 		}
 		return $r;
 	}
+
+	/**
+	 * Devuelve el User bloqueado
+	 *
+	 * @return User
+	 */
 	public function getUser() {
 		return User::find($this->user_id);
 	}
+
+	/**
+	 * Devuelve el Editor que bloqueó al User
+	 *
+	 * @return User
+	 */
 	public function getEditor() {
 		return User::find($this->editor_id);
+	}
+
+	/**
+	 * Devuelve el número total de usuarios bloqueados
+	 *
+	 * @return number
+	 */
+	public static function getTotalBloqueados() {
+		return count(self::getByStatus(UserBloqueado::ESTADO_BLOQUEADO));
 	}
 
 	/**

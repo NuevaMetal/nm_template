@@ -60,6 +60,15 @@ class Revision extends ModelBase {
 	}
 
 	/**
+	 * Devuelve el número total de entradas corregidas
+	 *
+	 * @return intener
+	 */
+	public static function getTotalCorregidas() {
+		return count(self::getCorregidas());
+	}
+
+	/**
 	 * Devuelve todas las revisiones en base a su estado
 	 *
 	 * @param unknown $status

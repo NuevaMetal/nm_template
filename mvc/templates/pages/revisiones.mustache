@@ -7,13 +7,13 @@
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs titular" role="tablist">
 				<li class="active"><a href="#pendientes" role="tab" data-toggle="tab">
-					{{#transu}}pendientes{{/transu}} (<span class="cant">{{total_pendientes}}</span>)</a>
+					{{#transu}}pendientes{{/transu}} {{#total_pendientes}}(<span class="cant">{{total_pendientes}}</span>){{/total_pendientes}}</a>
 				</li>
-				<li><a href="#revisadas" role="tab" data-toggle="tab">
-					{{#transu}}revisadas{{/transu}}</a>
+				<li><a href="#corregidas" role="tab" data-toggle="tab">
+					{{#transu}}corregidas{{/transu}} {{#total_corregidas}}(<span class="cant">{{total_corregidas}}</span>){{/total_corregidas}}</a>
 				</li>
 				<li><a href="#baneados" role="tab" data-toggle="tab">
-					{{#transu}}baneados{{/transu}}</a>
+					{{#transu}}baneados{{/transu}} {{#total_baneados}}(<span class="cant">{{total_baneados}}</span>){{/total_baneados}}</a>
 				</li>
 			</ul>
 	
@@ -26,11 +26,11 @@
 					{{/ pendientes }}
 				</div>
 				
-				<div class="tab-pane col-xs-12" id="revisadas">
+				<div class="tab-pane col-xs-12" id="corregidas">
 					<h4 class="titular">{{#trans}}pendientes{{/trans}}</h4>
-					{{# revisadas }}
+					{{# corregidas }}
 						{{> pages/revisiones/_tabla_revisiones }}
-					{{/ revisadas }}
+					{{/ corregidas }}
 				</div>
 				
 				<div class="tab-pane col-xs-12" id="baneados">
