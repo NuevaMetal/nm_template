@@ -76,28 +76,6 @@ abstract class BaseController {
 	}
 
 	/**
-	 * Devuelve las alertas que tenga el usuario actual pendientes
-	 *
-	 * @return array>View> Alertas
-	 */
-	private function _getAlertas() {
-		$alertas = [];
-		$user = Utils::getCurrentUser();
-
-		if ($user && ($total = $user->getTotalMensajesRecibidosSinLeer())) {
-			if ($total == 1) {
-				$msg = I18n::trans('actividad.tienes_un_mensaje_nuevo');
-			} else {
-				$msg = I18n::trans('actividad.tienes_mensajes_nuevos', [
-					'total' => $total
-				]);
-			}
-			$alertas[] = $this->renderAlertaDanger($msg, I18n::transu('mensajes'), home_url() . '/messages');
-		}
-		return $alertas;
-	}
-
-	/**
 	 * 404.php
 	 */
 	public function getError($num = 404) {

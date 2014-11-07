@@ -1563,4 +1563,28 @@ class User extends Favoriteador {
 	public function getHashActivationKey() {
 		return get_user_meta($this->ID, self::KEY_USER_HASH_ACTIVATION_KEY, true);
 	}
+
+	/**
+	 * Devuelve las alertas que tenga el usuario actual pendientes
+	 *
+	 * @return array<View> Alertas
+	 */
+	public function getAlertas() {
+		$alertas = [];
+		if (($total = $this->getTotalMensajesRecibidosSinLeer())) {
+			if ($total == 1) {
+				$msg = I18n::trans('actividad.tienes_un_mensaje_nuevo');
+			} else {
+				$msg = I18n::trans('actividad.tienes_mensajes_nuevos', [
+					'total' => $total
+				]);
+			}
+			$alertas[] = [
+				'strong' => I18n::transu('mensajes'),
+				'mensaje' => $msg,
+				'url' => home_url() . '/messages'
+			];
+		}
+		return $alertas;
+	}
 }

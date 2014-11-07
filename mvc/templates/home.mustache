@@ -1,4 +1,13 @@
 {{< base }}
+	
+	{{$ alertas }}	
+		{{# current_user }}	
+			{{# getAlertas }}
+				{{> partials/alertas/_danger }}
+			{{/ getAlertas }}
+		{{/ current_user }}
+	{{/ alertas }}
+	
 	{{$ content }}
 	<div class="banner banner-header col-xs-12">	
 		{{> partials/_banner_submenu}}
