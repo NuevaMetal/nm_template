@@ -1,8 +1,8 @@
 <table class="table table-hover table-condensed table-responsive">
 	<thead>
 		<tr>
-			<th>Nombre</th>
-			<th>Acciones</th>
+			<th>{{#transu}}nombre{{/transu}}</th>
+			<th>{{#transu}}acciones{{/transu}}</th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -14,7 +14,7 @@
 		<td>
 		{{^ isAdmin }}
 			{{# isRevisionBan }}
-				<span class="label label-default label-block">Baneado</span>
+				<span class="label label-default label-block">{{#transu}}baneado{{/transu}}</span>
 			{{/ isRevisionBan }}
 			{{^ isRevisionBan }}
 				<button class="btn btn-danger btn-xs btn-block dispara-revision"

@@ -3,17 +3,17 @@
 	<thead>
 		<tr>
 			<th class="col-xs-1">Nº</th>
-			<th class="col-xs-3">Entrada</th>
-			<th class="col-xs-3">Fecha</th>
-			<th class="col-xs-4">Usuarios</th>
-			<th class="col-xs-1">Acciones</th>
+			<th class="col-xs-3">{{#transu}}entrada{{/transu}}</th>
+			<th class="col-xs-3">{{#transu}}fecha{{/transu}}</th>
+			<th class="col-xs-4">{{#transu}}usuarios{{/transu}}</th>
+			<th class="col-xs-1">{{#transu}}acciones{{/transu}}</th>
 		</tr>
 	</thead>
 	<tbody>
 	{{# lista }}
 		<tr>
 	  		<td>{{ num }}</td>
-			<td><a href="{{ getPost.getUrl }}" target="_blank">{{ getPost.getTitulo }}</a></td>
+			<td><a href="{{ getPost.getUrl }}" target="_blank">{{{ getPost.getTitulo }}}</a></td>
 			<td>{{updated_at}}</td>
 			<td> {{> pages/revisiones/_users_tabla }}</td>
 			<td>
