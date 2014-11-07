@@ -18,7 +18,7 @@ return [
 	'hasta' => 'since',
 	'hoy' => 'today',
 
-	'le_gusto_a' => 'This post is liked by',
+	'le_gusto_a' => 'People who like this post',
 
 	'país' => 'Country',
 
