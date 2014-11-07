@@ -86,16 +86,19 @@ abstract class BaseController {
 	}
 
 	/**
-	 * Añadimos las variables comunes
+	 * Añadimos las variables comunes que todos los controladores.
+	 * Aquí añadiremos las variables comunes como el usuario actual, entorno, etc, que tendrán
+	 * disponibles todas las vistas.
 	 *
-	 * @param
-	 *        	array &$templateVars
+	 * @param array $templateVars
+	 *        	Referencia del array con las variables que pasaran todos los controladores a sus vistas
 	 */
 	private function _addVarsToTemplateVars(&$templateVars) {
 		$templateVars = array_merge($templateVars, [
 			'current_user' => $this->current_user,
 			'template_url' => get_template_directory_uri(),
-			'home_url' => get_home_url()
+			'home_url' => get_home_url(),
+			'poner_analitica' => ($_SERVER['SERVER_NAME'] == URL_PRODUCCION)
 		]);
 	}
 
