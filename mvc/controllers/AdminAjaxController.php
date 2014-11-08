@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Libs\Utils;
+use Libs\Ajax;
+use Controllers\AnaliticaController;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -27,9 +29,7 @@ class AdminAjaxController extends BaseController {
 				$cant = $_datos['cant'];
 				$json = AnaliticaController::getByTabla($tabla, $cant);
 				break;
-
 			default :
-				Utils::debug("> AdminAjax> getJsonBySubmit()> Ocurrió un error inesperado");
 				$json = $ajax->renderAlertaDanger('Ocurrió un error inesperado');
 		}
 		return $json;

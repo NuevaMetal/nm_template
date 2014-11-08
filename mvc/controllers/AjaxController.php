@@ -15,6 +15,7 @@ use Models\UserBaneado;
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
 require_once dirname(__FILE__) . '/../../../../../wp-load.php';
+
 /**
  * Controlador del AJAX
  *
@@ -25,7 +26,6 @@ class AjaxController extends BaseController {
 	/*
 	 * Miembros
 	 */
-	public $current_user;
 	public $err;
 	public $err_sin_permisos;
 
@@ -34,9 +34,8 @@ class AjaxController extends BaseController {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->current_user = Utils::getCurrentUser();
 		$this->err = I18n::transu('error');
-		$this->err = I18n::transu('sin_permisos');
+		$this->err_sin_permisos = I18n::transu('sin_permisos');
 	}
 
 	/**
@@ -802,47 +801,55 @@ class AjaxController extends BaseController {
 				return $json;
 		}
 	}
-}
 
-/**
- * -------------------------------------
- * Controlador para las peticiones AJAX
- * -------------------------------------
- */
-$json = [
-	'code' => 504
-]; // Error default
+	/**
+	 * -------------------------------------
+	 * Controlador para las peticiones AJAX
+	 * -------------------------------------
+	 */
+	public function main() {
+		$json = [
+			'code' => 504
+		]; // Error default
 
-$submit = $_REQUEST['submit'];
-$nonce = $_POST['nonce'];
-$post_id = $_POST['post'];
+		$submit = $_REQUEST['submit'];
+		$nonce = $_POST['nonce'];
+		$post_id = $_POST['post'];
 
-$ajax = new AjaxController();
+		// Comprobamos que haya algún submit
+		if (! $submit) {
+			die('');
+		}
 
-/**
- * Comprobar el nonce para peticiones que tengan relacción con un Post
- */
-if (in_array($submit, [
-	Ajax::NOTIFICAR,
-	Ajax::ME_GUSTA
-]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
-	die($ajax->err);
-}
+		/**
+		 * Comprobar el nonce para peticiones que tengan relacción con un Post
+		 */
+		if (in_array($submit, [
+			Ajax::NOTIFICAR,
+			Ajax::ME_GUSTA
+		]) && ! Ajax::esNonce($nonce, $submit, $post_id)) {
+			die($this->err);
+		}
 
-/**
- * Comprobar el nonce para peticiones que tengan relacción con un User
- */
-if ($submit == Ajax::USER && isset($_POST['tipo'])) {
-	$tipo = $_POST['tipo'];
-	if (in_array($tipo, [
-		User::ENVIAR_MENSAJE,
-		User::SEGUIR,
-		User::BORRAR_MENSAJE
-	]) && ! Ajax::esNonce($nonce, $tipo, $ajax->current_user->ID)) {
-		die($ajax->err);
+		/**
+		 * Comprobar el nonce para peticiones que tengan relacción con un User
+		 */
+		if ($submit == Ajax::USER && isset($_POST['tipo'])) {
+			$tipo = $_POST['tipo'];
+			if (in_array($tipo, [
+				User::ENVIAR_MENSAJE,
+				User::SEGUIR,
+				User::BORRAR_MENSAJE
+			]) && ! Ajax::esNonce($nonce, $tipo, $this->current_user->ID)) {
+				die($this->err);
+			}
+		}
+
+		$json = $this->getJsonBySubmit($submit, $_REQUEST);
+
+		echo json_encode($json);
 	}
 }
 
-$json = $ajax->getJsonBySubmit($submit, $_REQUEST);
-
-echo json_encode($json);
+$ajax = new AjaxController();
+$ajax->main();
