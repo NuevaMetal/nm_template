@@ -151,7 +151,6 @@ abstract class BaseController {
 	 */
 	protected function minimizarHtml($html) {
 		// Eliminar comentarios de html
-		$html = preg_replace('/<!--.*-->/s', '', $html);
 		$explode = explode("\n", $html);
 		if ($this->minimizarCodigo) {
 			// Quito tabulaciones
