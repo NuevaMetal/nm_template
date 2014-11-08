@@ -457,47 +457,9 @@ class Post extends Image {
 	 * @return array<Post>
 	 */
 	public function getSimilares($max = self::NUM_SIMILARES) {
-		$cont = 0;
-		$postsSimilares = array();
-		$nextTagThumb = - 1;
 		$tags = $this->getEtiquetas();
-		$cat_id = ($cat = $this->getCategoria()) ? $cat->term_id : 0;
-		foreach ($tags as $tag) {
-			if ($tag) {
-				$what_tag = $tags[($nextTagThumb + 1)]->term_id;
-				$post__not_in = [
-					$this->ID
-				];
-				// Omitimos los post que ya están añadidos a la lista de similares
-				foreach ($postsSimilares as $_p) {
-					$post__not_in[] = $_p->ID;
-				}
-				$args = array(
-					'tag__in' => array(
-						$what_tag
-					),
-					'post__not_in' => $post__not_in,
-					'showposts' => 3,
-					'ignore_stickies' => 1,
-					'category__in' => [
-						$cat_id
-					],
-					'orderby' => 'rand'
-				);
-
-				$posts = get_posts($args);
-
-				foreach ($posts as $k => $_p) {
-					$postsSimilares[] = Post::find($_p->ID);
-					if (++ $cont == $max) {
-						break 2;
-					}
-				}
-			}
-			wp_reset_query();
-			$nextTagThumb = ($nextTagThumb + 1);
-		}
-		return $postsSimilares;
+		$cat_id = ($cat = $this->getCategoria()) ? $cat->term_id : false;
+		return VGenerosPost::getPostsRandomByEtiquetas($tags, $max, $cat_id);
 	}
 
 	/**
