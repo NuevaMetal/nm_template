@@ -20,14 +20,15 @@ abstract class BaseController {
 	/*
 	 * Miembros
 	 */
-	private $minimizarCodigo = false;
-	protected $template;
+	private $minimizarCodigo;
 	protected $current_user;
+	protected $template;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		$this->minimizarCodigo = Env::isProduccion();
 		$this->current_user = Utils::getCurrentUser();
 
 		$templatesFolder = self::getTemplatesFolderLocation();
@@ -140,18 +141,28 @@ abstract class BaseController {
 	}
 
 	/**
+	 * /**
 	 * Devuelve el código html minimizado.
 	 * Todo en una línea y sin espacios ni intros.
 	 *
 	 * @param string $html
+	 * @param string $completo
+	 * @return string
 	 */
 	protected function minimizarHtml($html) {
-		if (! $this->minimizarCodigo) {
-			return $html;
-		}
+		// Eliminar comentarios de html
+		$html = preg_replace('/<!--.*-->/s', '', $html);
 		$explode = explode("\n", $html);
-		$explodeFiltered = array_filter(array_map('trim', $explode));
-		return implode(' ', $explodeFiltered);
+		if ($this->minimizarCodigo) {
+			// Quito tabulaciones
+			$explode = array_map('trim', $explode);
+		}
+		// Quito líneas en blanco y saltos de línea
+		$explodeFiltered = array_filter($explode, 'trim');
+		if ($this->minimizarCodigo) {
+			return implode(" ", $explodeFiltered);
+		}
+		return implode("\n", $explodeFiltered);
 	}
 
 	/**
