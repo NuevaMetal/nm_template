@@ -6,6 +6,7 @@ use Libs\Filtros;
 
 define(URL_PRODUCCION, 'nuevametal.com');
 define(URL_DESARROLLO, 'dev.nuevametal.com');
+define(URL_LOCAL, 'nuevametal.local');
 
 // --------------------------------------------------------------
 // Acciones

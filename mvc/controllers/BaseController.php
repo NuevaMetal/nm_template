@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Libs\Utils;
+use Libs\Env;
 use Models\User;
 use Models\Post;
 use I18n\I18n;
@@ -19,14 +20,14 @@ abstract class BaseController {
 	/*
 	 * Miembros
 	 */
-	protected $template = "";
+	private $minimizarCodigo = false;
+	protected $template;
 	protected $current_user;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		// Mustache_Autoloader::register();
 		$this->current_user = Utils::getCurrentUser();
 
 		$templatesFolder = self::getTemplatesFolderLocation();
@@ -93,38 +94,64 @@ abstract class BaseController {
 	 * @param array $templateVars
 	 *        	Referencia del array con las variables que pasaran todos los controladores a sus vistas
 	 */
-	private function _addVarsToTemplateVars(&$templateVars) {
-		$templateVars = array_merge($templateVars, [
+	private function _addVariablesGlobales($templateVars = []) {
+		return array_merge($templateVars, [
+			'blog_title' => self::_getBlogTitle(),
 			'current_user' => $this->current_user,
-			'template_url' => get_template_directory_uri(),
 			'home_url' => get_home_url(),
-			'poner_analitica' => ($_SERVER['SERVER_NAME'] == URL_PRODUCCION)
+			'is_produccion' => Env::isProduccion(),
+			'is_desarrollo' => Env::isDesarrollo(),
+			'is_local' => Env::isLocal(),
+			'template_url' => get_template_directory_uri()
 		]);
 	}
 
 	/**
+	 * Pintar header + plantilla + footer
 	 *
-	 * @param unknown $templateName
-	 * @param string $templateVars
+	 * @param string $templateName
+	 *        	Nombre de la vista a pintar
+	 * @param array $templateVars
+	 *        	Parámetros para la vista
 	 */
-	public function render($templateName, $templateVars = []) {
-		$this->_addVarsToTemplateVars($templateVars);
-		return $this->template->render($templateName, $templateVars);
+	public function renderPage($templateName, $templateVars = []) {
+		$templateVars = $this->_addVariablesGlobales($templateVars);
+		// Pintamos el header, la plantilla que nos dieron y seguidamente el footer
+		foreach ([
+			'header',
+			$templateName,
+			'footer'
+		] as $_template) {
+			echo $this->render($_template, $templateVars);
+		}
 	}
 
 	/**
+	 * Pintar un partial
 	 *
-	 * @param unknown $templateName
-	 * @param string $templateVars
+	 * @param string $templateName
+	 *        	Nombre del partial a pintar
+	 * @param array $templateVars
+	 *        	Parámetros para la vista
 	 */
-	public function renderPage($templateName, $templateVars = []) {
-		$this->_addVarsToTemplateVars($templateVars);
-		echo $this->render('header', self::getBlogInfoData());
-		wp_head();
-		echo $this->render('header_close');
-		echo $this->render($templateName, $templateVars);
-		wp_footer();
-		echo $this->render('footer');
+	public function render($templateName, $templateVars = []) {
+		$html = $this->template->render($templateName, $this->_addVariablesGlobales($templateVars));
+		return $this->minimizarHtml($html);
+	}
+
+	/**
+	 * Devuelve el código html minimizado.
+	 * Todo en una línea y sin espacios ni intros.
+	 *
+	 * @param string $html
+	 */
+	protected function minimizarHtml($html) {
+		if (! $this->minimizarCodigo) {
+			return $html;
+		}
+		$explode = explode("\n", $html);
+		$explodeFiltered = array_filter(array_map('trim', $explode));
+		return implode(' ', $explodeFiltered);
 	}
 
 	/**
@@ -145,7 +172,6 @@ abstract class BaseController {
 			'stylesheet_directory' => get_bloginfo('stylesheet_directory'),
 			'stylesheet_url' => get_bloginfo('stylesheet_url'),
 			'template_directory' => get_bloginfo('template_directory'),
-			'public_directory' => get_bloginfo('template_directory') . '/public',
 			'template_url' => get_bloginfo('template_url'),
 
 			'atom_url' => get_bloginfo('atom_url'),
