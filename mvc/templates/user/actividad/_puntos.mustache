@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped col-xs-12">
 	<tr class="titular">
 		<th>{{#transu}}tipo{{/transu}}</th>
 		<th>{{#transu}}valor{{/transu}}</th>
@@ -17,3 +17,7 @@
 		<tr>{{#trans}}actividad.sin_puntos{{/trans}}.</tr>
 	{{/ getPuntos }}
 </table>
+
+<div class="col-xs-12 total-puntos">
+	{{getTotalPuntosFormat}} {{#trans}}total{{/trans}}
+</div>

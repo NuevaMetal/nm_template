@@ -564,4 +564,32 @@ class Utils {
 	public static function esCadenaValida($valor) {
 		return (isset($valor) && ! ctype_space($valor) && strlen($valor) > 0);
 	}
+
+	/**
+	 * Devuelve el número formateado dividido por el separador cada n caracteres empezando por la derecha.
+	 * Por defecto separa con un espacio cada 3 caracteres.
+	 *
+	 * @param number $numero
+	 *        	Número a formatear.
+	 * @param string $separador
+	 *        	Separador. Por defecto un espacio.
+	 * @param number $cada
+	 *        	Número que tendrá cada item. Por defecto 3.
+	 */
+	public static function formatearNumero($numero, $separador = ' ', $cada = 3) {
+		$split = str_split($numero);
+		$aux = "";
+		/*
+		 * Comprobamos que sea multiplo de 3, y sacamos los elementos que sobren
+		 * Por ejempo: 12345
+		 * Sacamos el 1 y el 2
+		 */
+		while (count($split) % $cada != 0) {
+			$aux .= array_shift($split);
+		}
+		// Pegamos elresto de números otra vez
+		$split = implode('', $split);
+		$split = str_split($split, $cada);
+		return trim($aux . $separador . implode($separador, $split));
+	}
 }

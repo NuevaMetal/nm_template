@@ -50,7 +50,14 @@
 	}
 	
 	#puntos {
-		@extend %fila-sombreada;
+		.table{		
+			@extend %fila-sombreada;
+		}
+		.total-puntos {
+			@extend %fila-sombreada;
+			font-size: 48px;
+			text-align: center;
+		}
 	}
 	
 	#sidebar {

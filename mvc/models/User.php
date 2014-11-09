@@ -1074,6 +1074,15 @@ class User extends Favoriteador {
 	}
 
 	/**
+	 * Devuelve el total de puntos en formato string separando con un espacio cada 3 cifras
+	 *
+	 * @return string
+	 */
+	public function getTotalPuntosFormat() {
+		return Utils::formatearNumero($this->getTotalPuntos());
+	}
+
+	/**
 	 * Devuelve una lista con los puntos teniendo por clave el tipo de actividad/puntuable y como valor el total
 	 *
 	 * @return array<string,integer>
