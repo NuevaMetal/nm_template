@@ -44,17 +44,25 @@ class Seguimiento extends ModelBase {
 	 * Guardar un nuevo seguimiento
 	 */
 	public function save() {
+		// Comprobamos si existen ambos usuarios
+		$user = User::find($this->user_id);
+		$aQuien = User::find($this->a_quien_id);
+		if (! $user || ! $aQuien) {
+			throw new Exception(I18n::transu('user.no_existe'), 504);
+		}
+		// Comprobamos si ya existe el seguimiento
 		global $wpdb;
-		$existe = $wpdb->get_var("SELECT count(*)
-					FROM {$wpdb->prefix}" . static::$table . "
-					WHERE user_id = $this->user_id
-						AND a_quien_id = $this->a_quien_id");
+		$existe = $wpdb->get_var($wpdb->prepare('SELECT count(*)
+					FROM wp_users_seguimientos
+					WHERE user_id = %d
+					AND a_quien_id = %d', $this->user_id, $this->a_quien_id));
 		if ($existe) {
 			throw new Exception(I18n::transu('user.ya_seguido'), 504);
 		}
-		$result = $wpdb->query($wpdb->prepare("
-			INSERT {$wpdb->prefix}" . static::$table . " (user_id, a_quien_id, created_at, updated_at)
-			VALUES (%d, %d, null, null);", $this->user_id, $this->a_quien_id));
+		// Creamos el seguimiento
+		$result = $wpdb->query($wpdb->prepare('
+			INSERT wp_users_seguimientos (user_id, a_quien_id, created_at, updated_at)
+			VALUES (%d, %d, null, null)', $this->user_id, $this->a_quien_id));
 		$this->ID = $wpdb->insert_id;
 		return $this;
 	}

@@ -471,6 +471,7 @@ class AjaxController extends BaseController {
 				$json['menu'] = $this->render('menu/principal', $menuArgs);
 				break;
 			case Ajax::MENU_PERFIL :
+
 				// Comprobamos si el usuario está logueado
 				if ($this->current_user->ID > 0) {
 					$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
@@ -523,8 +524,11 @@ class AjaxController extends BaseController {
 	private function _jsonUserSeguir($_datos) {
 		$aQuienId = $_datos['id'];
 		try {
-			$ahoraLoSigue = $this->current_user->seguir($aQuienId, $_datos['seguir']);
 			$aQuien = User::find($aQuienId);
+			if (! $aQuien) {
+				throw new \Exception('Usuario no existe', 504);
+			}
+			$ahoraLoSigue = $this->current_user->seguir($aQuienId, $_datos['seguir']);
 
 			$json['code'] = 200;
 			if ($ahoraLoSigue) {

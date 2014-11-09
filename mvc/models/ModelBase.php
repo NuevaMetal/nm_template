@@ -67,6 +67,9 @@ abstract class ModelBase {
 				FROM wp_' . static::$table . '
 				WHERE ' . $pk . '= %d';
 		$object = $wpdb->get_row($wpdb->prepare($query, $ID));
+		if (! $object) {
+			return null;
+		}
 		$a = new $modelo();
 		if ($object) {
 			foreach ($object as $c => $val) {
