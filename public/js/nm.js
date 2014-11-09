@@ -459,15 +459,10 @@ $(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) 
  */
 function cargarMenus(){
 	// Cargamos los menus por ajax
-	cargarMenu('menu-principal', 'fadeIn');
+	cargarMenu('menu-principal');
 	cargarMenu('menu-perfil', 'fadeIn');
 	cargarMenu('menu-footer');
 }
-
-$(document).on('click', '#menu-principal *', function(e) {
-	$(this).parents('#menu-principal').removeClass('animated');
-});
-
 
 /**
  * Cargar las secciones
