@@ -44,6 +44,9 @@ abstract class BaseController {
 				},
 				'transu' => function ($text, $params = []) {
 					return I18n::transu($text, $params);
+				},
+				'formatear_numero' => function ($value) {
+					return Utils::formatearNumero($value);
 				}
 			),
 			'escape' => function ($value) {

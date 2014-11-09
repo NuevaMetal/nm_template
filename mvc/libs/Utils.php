@@ -576,7 +576,10 @@ class Utils {
 	 * @param number $cada
 	 *        	Número que tendrá cada item. Por defecto 3.
 	 */
-	public static function formatearNumero($numero, $separador = ' ', $cada = 3) {
+	public static function formatearNumero($numero, $separador = '.', $cada = 3) {
+		if (strlen($numero) <= $cada) {
+			return $numero;
+		}
 		$split = str_split($numero);
 		$aux = "";
 		/*

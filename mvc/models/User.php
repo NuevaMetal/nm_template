@@ -152,20 +152,14 @@ class User extends Favoriteador {
 	 * Devuelve el número total de posts publicados por el User
 	 *
 	 * @return integer
-	 * @deprecated por nuevo nombre
-	 * @see User::getTotalPosts()
-	 */
-	public function getCountPosts() {
-		return $this->getTotalPosts();
-	}
-
-	/**
-	 * Devuelve el número total de posts publicados por el User
-	 *
-	 * @return integer
 	 */
 	public function getTotalPosts() {
-		return count_user_posts($this->ID);
+		global $wpdb;
+		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM wp_posts
+				WHERE post_author = %d
+				AND post_type = "post"
+				AND post_status = "publish"', $this->ID));
 	}
 
 	/**
@@ -1071,15 +1065,6 @@ class User extends Favoriteador {
 			$total += $p->getTotalPuntosByTipo();
 		}
 		return $total;
-	}
-
-	/**
-	 * Devuelve el total de puntos en formato string separando con un espacio cada 3 cifras
-	 *
-	 * @return string
-	 */
-	public function getTotalPuntosFormat() {
-		return Utils::formatearNumero($this->getTotalPuntos());
 	}
 
 	/**
