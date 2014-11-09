@@ -212,7 +212,7 @@ function seHaceSrollEn(_id){
 		success : function(json) {
 			if(json.code == 200 ) {
 				// #bandas|#videos|#noticias...
-				$(tipo_id).find(tipo_content).append(json.content);
+				$(tipo_id).find(tipo_content).append($(json.content).addClass('animated zoomInDown'));
 			}
 			// Eliminar el btn si no hubiera más contenido
 			if (json.content == null || json.content.length == 0) {
@@ -459,10 +459,15 @@ $(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) 
  */
 function cargarMenus(){
 	// Cargamos los menus por ajax
-	cargarMenu('menu-principal');
-	cargarMenu('menu-perfil');
-	cargarMenu('menu-footer');	
+	cargarMenu('menu-principal', 'fadeIn');
+	cargarMenu('menu-perfil', 'fadeIn');
+	cargarMenu('menu-footer');
 }
+
+$(document).on('click', '#menu-principal *', function(e) {
+	$(this).parents('#menu-principal').removeClass('animated');
+});
+
 
 /**
  * Cargar las secciones
@@ -511,7 +516,7 @@ function cargarSeccion(nombreSeccion, cant){
 			seccion.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			seccion.find('.seccion_contenido').html(json.seccion);
+			seccion.find('.seccion_contenido').html($(json.seccion).addClass('animated fadeIn'));
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
@@ -525,7 +530,7 @@ function cargarSeccion(nombreSeccion, cant){
  * 
  * @param tipoMenu El menu a cargar
  */
-function cargarMenu(tipoMenu){
+function cargarMenu(tipoMenu, animacion){
 	var menu = $('#'+tipoMenu);
 	if(menu.length==0) return; // Si no existe el elemento no hacemos nada
 	
@@ -544,14 +549,17 @@ function cargarMenu(tipoMenu){
 			menu.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
-			menu.addClass('hidden'); //Oculto el menú
+			//menu.addClass('hidden'); //Oculto el menú
 			menu.html(json.menu);	// Añado el html
-			menu.fadeTo( "fast", 0, function(){ // Le pongo 0 a opacidad
-				// Muestro de nuevo el elemento 
-				menu.removeClass('hidden')
-				// Aumento hasta 100% su opacidad para conseguir el efecto
-				menu.fadeTo( "slow", 1);
-			});
+			if (animacion != null) {
+				menu.addClass('animated '+animacion)
+			}
+//			menu.fadeTo( "fast", 0, function(){ // Le pongo 0 a opacidad
+//				// Muestro de nuevo el elemento 
+//				menu.removeClass('hidden')
+//				// Aumento hasta 100% su opacidad para conseguir el efecto
+//				menu.fadeTo( "slow", 1);
+//			});
 			// Para ajustar los menús a las pantallas pequeñas
 			seHaceScroll();
 		},
