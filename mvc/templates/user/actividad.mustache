@@ -8,19 +8,19 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs titular" role="tablist">
 						<li class="active"><a href="#actividades" role="tab" data-toggle="tab">
-							{{#transu}}actividades{{/transu}} (<span class="cant">{{getTotalActividades}}</span>)</a>
+							{{#transu}}actividades{{/transu}} (<span class="cant">{{getTotalActividades | formatear_numero}}</span>)</a>
 						</li>
 						<li><a href="#actividades-propias" role="tab" data-toggle="tab">
-							{{#transu}}tu_actividad{{/transu}} (<span class="cant">{{getTotalActividadesPropias}}</span>)</a>
+							{{#transu}}tu_actividad{{/transu}} (<span class="cant">{{getTotalActividadesPropias | formatear_numero}}</span>)</a>
 						</li>
 						<li><a href="#seguidores" role="tab" data-toggle="tab">
-							{{#transu}}seguidores{{/transu}} (<span class="cant">{{getTotalSeguidores}}</span>)</a>
+							{{#transu}}seguidores{{/transu}} (<span class="cant">{{getTotalSeguidores | formatear_numero}}</span>)</a>
 						</li>
 						<li><a href="#siguiendo" role="tab" data-toggle="tab">
-							{{#transu}}siguiendo{{/transu}} (<span class="cant">{{getTotalSiguiendo}}</span>)</a>
+							{{#transu}}siguiendo{{/transu}} (<span class="cant">{{getTotalSiguiendo | formatear_numero}}</span>)</a>
 						</li>
 						<li><a href="#puntos" role="tab" data-toggle="tab">
-							{{#transu}}puntos{{/transu}} (<span class="cant">{{getTotalPuntos}}</span>)</a>
+							{{#transu}}puntos{{/transu}} (<span class="cant">{{getTotalPuntos | formatear_numero}}</span>)</a>
 						</li>
 					</ul>
 		

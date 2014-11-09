@@ -65,6 +65,7 @@ return [
 	'escritorio' => 'dashboard',
 	'es' => 'is',
 	'escribir' => 'write',
+	'escribir_title' => 'Write new post',
 
 	'genero' => 'genre',
 
@@ -91,6 +92,7 @@ return [
 	'pagina_siguiente' => 'next page',
 	'panel' => 'panel',
 	'perfil' => 'profile',
+	'perfil_title' => 'view my profile',
 	'por' => 'by',
 	'productor' => 'producer',
 	'programador' => 'developer',

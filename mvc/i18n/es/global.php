@@ -68,6 +68,7 @@ return [
 	'es' => 'es',
 	'escritorio' => 'escritorio',
 	'escribir' => 'escribir',
+	'escribir_title' => 'Escribir nueva entrada',
 
 	'genero' => 'género',
 
@@ -94,6 +95,7 @@ return [
 	'pagina_siguiente' => 'página siguiente',
 	'panel' => 'panel',
 	'perfil' => 'perfil',
+	'perfil_title' => 'Ver perfil',
 	'por' => 'por',
 	'producer' => 'productor',
 	'productor' => 'productor',

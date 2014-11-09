@@ -9,8 +9,8 @@
 		<tr>
 			<td class="titular"><i class="fa fa-2x {{getIcoByTipo}} col-xs-2"></i> <span class="col-xs-10">{{ getTipoTrans }}</span></td>
 			<td>{{ getPuntosByTipo }}</td>
-			<td>{{ total }}</td>
-			<td>{{ getTotalPuntosByTipo }}</td>
+			<td>{{ total | formatear_numero}}</td>
+			<td>{{ getTotalPuntosByTipo | formatear_numero}}</td>
 		</tr>
 	{{/ getPuntos }}
 	{{^ getPuntos }}
@@ -19,5 +19,5 @@
 </table>
 
 <div class="col-xs-12 total-puntos">
-	{{getTotalPuntosFormat}} {{#trans}}total{{/trans}}
+	{{getTotalPuntos | formatear_numero}} {{#trans}}total{{/trans}}
 </div>
