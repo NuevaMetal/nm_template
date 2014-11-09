@@ -31,6 +31,8 @@ return [
 
 	'medidas_aconsejadas_img_header' => 'recommended measures',
 
+	'necesitas_ser_admin' => 'You must be admin',
+
 	'login_necesario' => 'for this you need be logged',
 
 	'no_hay_info_perfil' => 'this user has not shared any profile information',
@@ -51,6 +53,10 @@ return [
 	'ultimos_fav_dados' => 'Latest favorites',
 	'usuarios_aceptados' => 'Acepted users',
 	'usuarios_bloqueados' => 'Blocked users',
+	'usuarios_bloqueados_explicacion' => 'Blocked users can not automatically log in and profile will
+		be inaccessible publicly. This user profile will be reviewed. Only have access your account
+		editors and website administrators. Just be recovered again blocked access profile,
+		once that lock is removed.',
 	'usuarios_pendientes' => 'Pending users',
 
 	'ya_seguido' => 'You follow this user'

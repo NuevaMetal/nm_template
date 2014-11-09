@@ -31,6 +31,8 @@ return [
 
 	'medidas_aconsejadas_img_header' => 'medidas aconsejadas',
 
+	'necesitas_ser_admin' => 'Necesitas ser admin',
+
 	'login_necesario' => 'para ello es necesario estar logueado',
 
 	'no_hay_info_perfil' => 'Este usuario no ha compartido ninguna información de perfil',
@@ -51,6 +53,10 @@ return [
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
 	'usuarios_aceptados' => 'Usuarios aceptados',
 	'usuarios_bloqueados' => 'Usuarios bloqueados',
+	'usuarios_bloqueados_explicacion' => 'Los usuarios bloqueados no podrán iniciar sesión y automáticamente su
+		perfil quedará inaccesible de forma pública. Dicho perfil de usuario pasará a estar en revisión.
+		Sólo tendrá acceso a su cuenta los editores y administradores del sitio web. Sólo se podrá recuperar
+		el acceso del perfil bloqueado nuevamente, una vez que se quite dicho bloqueo.',
 	'usuarios_pendientes' => 'Usuarios pendientes',
 
 	'ya_seguido' => 'Ya sigues a este usuario'
