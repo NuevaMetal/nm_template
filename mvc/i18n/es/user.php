@@ -49,6 +49,7 @@ return [
 
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
+	'usuarios_aceptados' => 'Usuarios aceptados',
 	'usuarios_bloqueados' => 'Usuarios bloqueados',
 	'usuarios_pendientes' => 'Usuarios pendientes',
 

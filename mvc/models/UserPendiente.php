@@ -14,6 +14,10 @@ class UserPendiente extends ModelBase {
 	const ACEPTADO = 1;
 
 	const RECHAZADO = 2;
+
+	/*
+	 * Miembros
+	 */
 	public $user_id;
 	public function __construct($user_id = false) {
 		parent::__construct();
@@ -28,14 +32,17 @@ class UserPendiente extends ModelBase {
 	 * @param integer $que
 	 * @return number
 	 */
-	public static function getTotal($que = self::PENDIENTE) {
+	public static function getTotal($estado = self::PENDIENTE) {
 		global $wpdb;
-		return (int) $wpdb->get_var('
-			SELECT count(*) as total
-			FROM (SELECT user_id FROM ' . $wpdb->prefix . self::$table . '
-					WHERE status = ' . $que . '
-					GROUP BY user_id ) r
-				');
+		return $wpdb->get_var($wpdb->prepare('
+			SELECT count( * ) AS total
+			FROM (
+				SELECT user_id
+				FROM wp_users_pendientes p
+				JOIN wp_users u ON ( p.user_id = u.ID )
+				WHERE STATUS = %d
+				GROUP BY user_id
+			) r', $estado));
 	}
 
 	/**

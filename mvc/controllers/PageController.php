@@ -186,11 +186,11 @@ class PageController extends BaseController {
 		$listaRechazados = UserPendiente::getByStatus(UserPendiente::RECHAZADO);
 		return $this->renderPage('pages/users_pendientes', [
 			'pendientes' => $listaPendientes,
-			'hay_pendientes' => count($listaPendientes),
+			'total_pendientes' => count($listaPendientes),
 			'aceptados' => $listaAceptados,
-			'hay_aceptados' => count($listaAceptados),
+			'total_aceptados' => count($listaAceptados),
 			'rechazados' => $listaRechazados,
-			'hay_rechazados' => count($listaRechazados)
+			'total_rechazados' => count($listaRechazados)
 		]);
 	}
 
