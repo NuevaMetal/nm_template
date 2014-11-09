@@ -1,6 +1,30 @@
 /*
  Autor: Jose Maria Valera Reales <@Chemaclass>
  */
+/**
+ * Documento listo para JQuery
+ */
+$(document).ready(function() {
+	
+	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
+	
+	if (getWindowWidth('xs')) {
+		scrollOn()
+		scrollOff()
+	}
+
+	// Pongo esto porque si no no hace caso
+	setTimeout(function() {
+		seHaceScroll();
+	}, 10);
+	
+	//Si no está la home
+	if ($("#home").length == 0){
+		cargarMenus();
+		// Y si estámos en la home entonces se cargará en el window.load, cuando todos los elementos 
+		// estén cargados
+	}
+});
 
 /**
  * Controlar el scroll
@@ -428,28 +452,7 @@ $(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) 
 	$('.navbar-brand img').attr('src', imgUrl);
 });
 
-/**
- * Documento listo para JQuery
- */
-$(document).ready(function() {
-	if (getWindowWidth('xs')) {
-		scrollOn()
-		scrollOff()
-	}
 
-	// Pongo esto porque si no no hace caso
-	setTimeout(function() {
-		seHaceScroll();
-	}, 10);
-	
-	//Si no está la home
-	if ($("#home").length == 0){
-		cargarMenus();
-	}
-	// Y si estámos en la home entonces se cargará en el window.load, cuando todos los elementos 
-	// estén cargados
-	
-});
 
 /**
  * Cargar los Menus

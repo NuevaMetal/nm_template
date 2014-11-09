@@ -3,16 +3,19 @@
 		<form name="loginform" id="loginform" action="{{login_url}}"
 			method="post" role="form" class="form">
 			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="col-xs-12 col-sm-6 col-md-2">
 					<input type="text" name="log" id="user_login"
-						class="form-control" value="" size="20" placeholder="User">
+						data-toggle="tooltip" data-placement="top" title="{{#transu}}usuario_title{{/transu}}"
+						class="form-control" value="" size="20" placeholder="{{#transu}}user{{/transu}}">
 				</div>
-				<div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="col-xs-12 col-sm-6 col-md-2">
 				 <input type="password" name="pwd" id="user_pass"
-				 	class="form-control" value="" size="20"  placeholder="Password">
+				 	data-toggle="tooltip" data-placement="top" title="{{#transu}}contrasena{{/transu}}"
+				 	class="form-control" value="" size="20"  placeholder="{{#transu}}contrasena{{/transu}}">
 				</div>
 				<div class="login-submit col-xs-6 col-sm-3 col-md-2">
 					<button type="submit" name="wp-submit" id="wp-submit"
+				 		data-toggle="tooltip" data-placement="top" title="{{#transu}}acceder{{/transu}}"
 						class="btn btn-danger form-control">
 						<i class="fa fa-sign-in"></i> {{#transu}}acceder{{/transu}}
 					</button>
@@ -21,13 +24,15 @@
 				 	<label><input name="rememberme" type="checkbox" id="rememberme" 
 				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
 				</div>
-				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=register" >
-						<i class="fa fa-mail-forward"></i> {{#transu}}registrarse{{/transu}}</a>
+				<div class="col-xs-6 col-sm-3 col-md-2">
+					<a class="btn btn-default col-xs-12" href="/wp-login.php?action=register" 
+				 		data-toggle="tooltip" data-placement="top" title="{{#transu}}registrarse_title{{/transu}}">
+						{{#transu}}registrarse{{/transu}}</a>
 				</div>
-				<div class="col-xs-6 col-sm-6 col-md-2">
-					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword" >
-						<i class="fa fa-question-circle "></i> {{#transu}}contrasena_perdida{{/transu}}</a>
+				<div class="col-xs-6 col-sm-3 col-md-2">
+					<a class="btn btn-default col-xs-12" href="/wp-login.php?action=lostpassword" 
+				 		data-toggle="tooltip" data-placement="top" title="{{#transu}}contrasena_perdida{{/transu}}">
+						{{#transu}}contrasena{{/transu}}?</a>
 				</div>	
 			</div>
 		</form>
