@@ -312,14 +312,14 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		success : function(json) {
 			if(json.code == 200 ) {
 				content = json.content;
-				$(seccion).append(content);
+				$(seccion).append($(content).addClass('animated bounceIn'));
 				if( content.length == 0 || json.cant < cant ) {
 					$this.addClass('hidden');
 				}
 			}
 			posts.find('.fa-spin').addClass('hidden');
 			posts.find('.icono-mas').removeClass('hidden');
-			$this.attr("disabled", false);			
+			$this.attr("disabled", false);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
