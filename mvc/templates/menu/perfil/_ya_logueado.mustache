@@ -60,7 +60,7 @@
 							href="/pending-users" title="{{total_pendientes}} {{#transu}}user.usuarios_pendientes{{/transu}}">
 						<span><i class="fa fa-users "></i> {{#transu}}pendientes{{/transu}}</span>
 					</a>
-					<a class="list-group-item col-xs-12 col-sm-4" href="/blocked-users" 
+					<a class="list-group-item col-xs-12 col-sm-4" {{#total_bloqueados}}href="/blocked-users"{{/total_bloqueados}} 
 							title="{{total_bloqueados}} {{#transu}}user.usuarios_bloqueados{{/transu}}">
 						<span><i class="fa fa-close"></i> {{#transu}}bloqueados{{/transu}}</span>
 					</a>

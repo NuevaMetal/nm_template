@@ -216,7 +216,7 @@ class PageController extends BaseController {
 				'lista' => $listaPendientes
 			],
 			'corregidas' => [
-				'sEstado' => 'Revisadas',
+				'sEstado' => 'Corregidas',
 				'lista' => $listaRevisadas
 			],
 			'baneados' => [

@@ -12,38 +12,38 @@
 				<li><a href="#corregidas" role="tab" data-toggle="tab">
 					{{#transu}}corregidas{{/transu}} {{#total_corregidas}}(<span class="cant">{{total_corregidas}}</span>){{/total_corregidas}}</a>
 				</li>
+				{{# total_baneados }}
 				<li><a href="#baneados" role="tab" data-toggle="tab">
-					{{#transu}}baneados{{/transu}} {{#total_baneados}}(<span class="cant">{{total_baneados}}</span>){{/total_baneados}}</a>
+					{{#transu}}baneados{{/transu}} (<span class="cant">{{total_baneados}}</span>)</a>
 				</li>
+				{{/ total_baneados }}
 			</ul>
 	
 			<!-- Tab panes -->
 			<div class="tab-content">			
 				<div class="tab-pane active col-xs-12" id="pendientes">
-					<h4 class="titular">{{#trans}}pendientes{{/trans}}</h4>
 					{{# pendientes }}
 						{{> pages/revisiones/_tabla_revisiones }}
 					{{/ pendientes }}
 				</div>
 				
 				<div class="tab-pane col-xs-12" id="corregidas">
-					<h4 class="titular">{{#trans}}pendientes{{/trans}}</h4>
 					{{# corregidas }}
 						{{> pages/revisiones/_tabla_revisiones }}
 					{{/ corregidas }}
 				</div>
 				
 				<div class="tab-pane col-xs-12" id="baneados">
-					<h2> Baneos <small>Impide a un usuario volver a enviar notificaciones</small></h2>
+					<h2 class="titular">{{#transu}}baneos{{/transu}} <small>Impide a un usuario volver a enviar notificaciones</small></h2>
 					{{# baneados }}
 						<table class="table table-hover table-condensed table-responsive">
 							<thead>
 								<tr>
 									<th class="col-xs-1">Nº</th>
-									<th class="col-xs-3">Usuario</th>
-									<th class="col-xs-2">Fecha</th>
-									<th class="col-xs-4">Editor</th>
-									<th class="col-xs-2">Acciones</th>
+									<th class="col-xs-3">{{#transu}}usuario{{/transu}}</th>
+									<th class="col-xs-2">{{#transu}}fecha{{/transu}}</th>
+									<th class="col-xs-4">{{#transu}}editor{{/transu}}</th>
+									<th class="col-xs-2">{{#transu}}acciones{{/transu}}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -66,7 +66,7 @@
 					{{/ baneados }}
 				</div>
 				
-			</div>
+			</div><!-- /Tab panes -->
 			
 		</div>
 	{{/ content }}
