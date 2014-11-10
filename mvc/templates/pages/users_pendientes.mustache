@@ -31,27 +31,26 @@
 					<table class="table table-hover table-condensed table-responsive">
 						<thead>
 							<tr>
-								<th class="col-xs-4">Usuario</th>
-								<th class="col-xs-4">Fecha</th>
-								<th class="col-xs-4">Acciones</th>
+								<th class="col-xs-4">{{#transu}}usuario{{/transu}}</th>
+								<th class="col-xs-4">{{#transu}}fecha{{/transu}}</th>
+								<th class="col-xs-4">{{#transu}}acciones{{/transu}}</th>
 							</tr>
 						</thead>
 						<tbody>
 						{{# pendientes }}
 						  	<tr>
-								<td><a href="{{ getUser.getPerfilUrl }}" target="_blank">
-										<i class="fa fa-user"></i> {{ getUser.user_login }}</a></td>
-								<td> <i class="fa fa-clock-o"></i> {{ updated_at }}</td>
+								<td><i class="fa fa-user"></i> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+								<td><i class="fa fa-clock-o"></i> {{ updated_at }}</td>
 								<td>
-									<button class="btn btn-success btn-xs btn-block hacer-colaborador"
+									<button class="btn btn-success btn-xs hacer-colaborador col-xs-12 col-md-8"
 									 		url="{{template_url}}/admin_ajax.php" que="hacer-colaborador"
 											user="{{user_id}}" editor="{{current_user.ID}}">
-										Aceptar
+										{{#transu}}aceptar{{/transu}}
 									</button>
-									<button class="btn btn-warning btn-xs btn-block hacer-colaborador"
+									<button class="btn btn-warning btn-xs hacer-colaborador col-xs-12 col-md-4"
 									 		url="{{template_url}}/admin_ajax.php" que="rechazar-colaborador"
 											user="{{user_id}}" editor="{{current_user.ID}}">
-										Rechazar
+										{{#transu}}rechazar{{/transu}}
 									</button>
 								</td>
 							</tr>
@@ -82,11 +81,9 @@
 						<tbody>
 						{{# aceptados }}
 						  	<tr>
-								<td><a href="{{ getUser.getPerfilUrl }}" target="_blank">
-										<i class="fa fa-user"></i> {{ getUser.user_login }}</a></td>
+								<td><i class="fa fa-user"></i> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
 								<td><i class="fa fa-clock-o"></i> {{ updated_at }}</td>
-								<td><a href="{{ getEditor.getPerfilUrl }}" target="_blank">
-										<i class="fa fa-user-md"></i> {{ getEditor.user_login }}</a></td>	
+								<td><i class="fa fa-user-md"></i> <a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a></td>	
 								{{#current_user.isAdmin}}
 								<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
 									 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"

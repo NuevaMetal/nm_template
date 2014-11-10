@@ -20,10 +20,8 @@
 			<tbody>
 			{{# bloqueados }}
 			  	<tr>
-					<td><a href="{{ getUser.getPerfilUrl }}" target="_blank">
-							<i class="fa fa-user"></i> {{ getUser.user_login }}</a></td>
-					<td><a href="{{ getEditor.getPerfilUrl }}" target="_blank">
-							<i class="fa fa-user-md"></i> {{ getEditor.user_login }}</a></td>
+					<td><i class="fa fa-user"></i> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+					<td><i class="fa fa-user-md"></i> <a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a></td>
 					<td><i class="fa fa-clock-o"></i> {{ updated_at }}</td>
 					<td>
 						{{# current_user.isAdmin }}

@@ -8,8 +8,7 @@
 	<tbody>	
 	{{# getUsers }}
 	<tr>
-		<td> <a href="{{ getPerfilUrl }}" target="_blank"> 
-			{{ user_login }}</a>
+		<td><i class="fa fa-user"></i> <a href="{{ getPerfilUrl }}" target="_blank">{{ user_login }}</a>
 		</td>
 		<td>
 		{{^ isAdmin }}

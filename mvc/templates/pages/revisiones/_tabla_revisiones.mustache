@@ -13,8 +13,8 @@
 	{{# lista }}
 		<tr>
 	  		<td>{{ num }}</td>
-			<td><a href="{{ getPost.getUrl }}" target="_blank">{{{ getPost.getTitulo }}}</a></td>
-			<td>{{updated_at}}</td>
+			<td><i class="fa fa-edit"></i> <a href="{{ getPost.getUrl }}" target="_blank">{{{ getPost.getTitulo }}}</a></td>
+			<td><i class="fa fa-clock-o"></i> {{updated_at}}</td>
 			<td> {{> pages/revisiones/_users_tabla }}</td>
 			<td>
 				{{# isPendiente }}
@@ -24,11 +24,11 @@
 					</button>
 				{{/ isPendiente }}
 				{{^ isPendiente }}
-					<button class="btn btn-info btn-sm btn-block dispara-revision" 
+					<button class="btn btn-info btn-xs btn-block dispara-revision" 
 							que_id="{{post_id}}" submit="revision" estado="{{ ESTADO_PENDIENTE }}">
 						{{#transu}}pendiente{{/transu}}
 					</button>
-					<button class="btn btn-warning btn-sm btn-block dispara-revision" 
+					<button class="btn btn-warning btn-xs btn-block dispara-revision" 
 							que_id="{{post_id}}" submit="revision" estado="{{ ESTADO_BORRADO }}">
 						{{#transu}}borrar{{/transu}}
 					</button>
