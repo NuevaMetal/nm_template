@@ -6,7 +6,7 @@
 	<button class="col-xs-6 col-sm-2 btn btn-default borrar-mensaje" mensaje_id="{{ID}}" borrar="papelera"
 		nonce="{{getNonceBorrarMensaje}}">
 		<i class="fa fa-trash fa-xs"></i> {{#transu}}borrar{{/transu}}</button>
-	<div class="col-xs-12"></div>
+	<div class="row"><div class="col-xs-12"></div></div>
 	<form class="form hidden" nonce="{{current_user.getNonceEnviarMensaje}}">
 		<textarea class="form-control" id="mensaje" maxlength="200"></textarea> 
 		<button class="btn btn-danger enviar-mensaje col-xs-10" user_id="{{getUser.ID}}" respuesta_id="{{ID}}"
