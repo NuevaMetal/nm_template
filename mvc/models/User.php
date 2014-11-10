@@ -149,6 +149,15 @@ class User extends Favoriteador {
 	}
 
 	/**
+	 * Devuelve el nombre público del User (display_name)
+	 *
+	 * @return string
+	 */
+	public function getAlias() {
+		return stripslashes($this->display_name);
+	}
+
+	/**
 	 * Devuelve el número total de posts publicados por el User
 	 *
 	 * @return integer
@@ -341,12 +350,17 @@ class User extends Favoriteador {
 	}
 
 	/**
-	 * Devuelve el nombre y los apellidos del user
+	 * Devuelve el nombre y los apellidos del user.
+	 * Si no tiene puesto ninguno, mostrará el alias.
 	 *
 	 * @return string
 	 */
 	public function getNombreCompleto() {
-		return $this->getNombre() . ' ' . $this->getApellidos();
+		$nombreCompleto = $this->getNombre() . ' ' . $this->getApellidos();
+		if (strlen(trim($nombreCompleto))) {
+			return $nombreCompleto;
+		}
+		return $this->getAlias();
 	}
 	/**
 	 * Devuelve la fecha del registro
@@ -1580,17 +1594,5 @@ class User extends Favoriteador {
 			];
 		}
 		return $alertas;
-	}
-
-	/**
-	 * Devuelve la info para el title
-	 *
-	 * @return string
-	 */
-	public function getInfoTitle() {
-		$info = I18n::transu('nombre') . ' ' . $this->getNombreCompleto() . ' ';
-		$info .= I18n::transu('entradas') . ' ' . Utils::formatearNumero($this->getTotalPosts()) . ' | ';
-		$info .= I18n::transu('puntos') . ' ' . Utils::formatearNumero($this->getTotalPuntos()) . ' ';
-		return $info;
 	}
 }

@@ -1,15 +1,21 @@
 <article class="post col-xs-12 col-sm-6 {{^reducido}}col-lg-3{{/reducido}}" itemscope itemType="http://schema.org/BlogPosting">
 
 	<div class="thumbnail">
-		<div class="info titular">
+		<div class="info titular" data-toggle="tooltip" data-placement="bottom" 
+				title="{{#getAutor}}{{> home/_user_title }}{{/getAutor}}">
 	    	<span class="post-time">{{getTime}} </span>
-		    {{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
+		    {{#trans}}por{{/trans}} 
+		    <span class="post-author">
+		    	<a href="{{getAutor.getPerfilUrl}}" >
+		    		{{getAutor.display_name}}
+		    	</a>
+		    </span>
 		</div>
         <div class="caption">
 			<div class="col-xs-6 text-left">
 				{{# getTotalMeGustas }}
 					<span class="total-me-gustas titular">
-						<i class=" fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
+						<i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | formatear_numero}}</span>
 					</span>
 				{{/ getTotalMeGustas }}
 			</div>
@@ -17,7 +23,7 @@
 				{{# getTotalComentarios }}
 					<a href="{{getUrl}}#comments">
 						<span class="total-comentarios titular">
-							<i class=" fa fa-comment"></i> <span class="cant">{{ getTotalComentarios }}</span>
+							<i class=" fa fa-comment"></i> <span class="cant">{{getTotalComentarios | formatear_numero}}</span>
 						</span>
 					</a>
 				{{/ getTotalComentarios }}
