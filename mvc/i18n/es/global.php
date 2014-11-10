@@ -109,7 +109,7 @@ return [
 	'recibidos' => 'recibidos',
 	'record-seal' => 'discográfica',
 	'recuerdame' => 'recuérdame',
-	'registrarse' => 'registro',
+	'registrarse' => 'registrarse',
 	'registrarse_title' => 'Registrate gratis',
 	'redes' => 'redes',
 	'redes_sociales' => 'redes sociales',
