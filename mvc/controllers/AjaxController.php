@@ -11,6 +11,7 @@ use Models\User;
 use Models\UserBloqueado;
 use Models\UserPendiente;
 use Models\UserBaneado;
+use Models\Mensaje;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
