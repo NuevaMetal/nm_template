@@ -286,7 +286,7 @@ class Acciones {
 			// Obtenemos los datos del usuario actual
 			$user = User::find(wp_get_current_user()->ID);
 			// Si es que el usuario no tiene rol de editor o admin
-			if (! $user || ! $user->isEditor()) {
+			if (! $user || ! $user->canEditor()) {
 				remove_menu_page('edit-comments.php'); // Removemos el ítem comentarios
 				remove_menu_page('upload.php'); // Removemos el ítem medios
 			}
