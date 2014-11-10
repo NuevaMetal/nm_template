@@ -549,9 +549,9 @@ class User extends Favoriteador {
 	}
 
 	/**
-	 * Devuelve el nombre del rol del User
+	 * Devuelve el nombre del rol del User traducido
 	 *
-	 * @return string
+	 * @return string Rol del User traducido con I18n::transu()
 	 */
 	public function getRol() {
 		$roles = self::getRoles();
@@ -1580,5 +1580,17 @@ class User extends Favoriteador {
 			];
 		}
 		return $alertas;
+	}
+
+	/**
+	 * Devuelve la info para el title
+	 *
+	 * @return string
+	 */
+	public function getInfoTitle() {
+		$info = I18n::transu('nombre') . ' ' . $this->getNombreCompleto() . ' ';
+		$info .= I18n::transu('entradas') . ' ' . Utils::formatearNumero($this->getTotalPosts()) . ' | ';
+		$info .= I18n::transu('puntos') . ' ' . Utils::formatearNumero($this->getTotalPuntos()) . ' ';
+		return $info;
 	}
 }
