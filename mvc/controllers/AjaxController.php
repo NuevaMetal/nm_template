@@ -43,7 +43,7 @@ class AjaxController extends BaseController {
 	 *
 	 * @return View
 	 */
-	private function _crearNotificacion($post_id, $user_id) {
+	private function _crearNotificacionRevision($post_id, $user_id) {
 		global $wpdb;
 		// TODO: refactorizar
 		$post = Post::find($post_id);
@@ -234,10 +234,10 @@ class AjaxController extends BaseController {
 	 * @param array $_datos
 	 * @return array JSON de respuesta para para JS
 	 */
-	private function _jsonNotificar($_datos) {
+	private function _jsonNotificarRevision($_datos) {
 		$post_id = $_datos['post'];
 		$user_id = $_datos['user'];
-		$json['alerta'] = $this->_crearNotificacion($post_id, $user_id);
+		$json['alerta'] = $this->_crearNotificacionRevision($post_id, $user_id);
 		return $json;
 	}
 
@@ -762,7 +762,7 @@ class AjaxController extends BaseController {
 	public function getJsonBySubmit($submit, $_datos) {
 		switch ($submit) {
 			case Ajax::NOTIFICAR :
-				return $this->_jsonNotificar($_datos);
+				return $this->_jsonNotificarRevision($_datos);
 
 			case Ajax::SER_COLABORADOR :
 				return $this->_jsonSerColaborador($_datos);

@@ -548,7 +548,6 @@ function cargarMenu(tipoMenu, animacion){
 			//menu.addClass('hidden'); //Oculto el menú
 			menu.html(json.menu);	// Añado el html
 			if (animacion != null) {
-				console.log("typeof : "+(typeof animacion));
 				if (typeof animacion == 'string') {
 					menu.addClass('animated '+animacion)
 				} else {
@@ -826,7 +825,7 @@ $(document).on('click', '.dispara-revision', function(e) {
 			if (submit == "revision" || submit == "revision-ban") { 
 				fila.remove();
 			}
-			mostrarAlerta(json.alert, 2);
+			mostrarAlerta(json.alert, 5);
 			location.reload();
 		},
 		error: function (xhr, ajaxOptions, thrownError) {

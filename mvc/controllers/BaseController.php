@@ -237,7 +237,7 @@ abstract class BaseController {
 		$args['mensaje'] = $mensaje;
 		$args['strong'] = $strong;
 		$args['href'] = $href;
-		return $this->render('ajax/alerta', $args);
+		return $this->render('partials/alertas/_alerta', $args);
 	}
 
 	/**
