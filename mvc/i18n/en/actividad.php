@@ -16,18 +16,6 @@ return [
 	'te_ha_gustado' => 'You like',
 	'le_ha_gustado' => 'liked',
 
-	'mensaje_borrado' => 'Message deleted succesfully',
-	'mensaje_enviado_exito' => 'Message sent successfully for :nombre',
-	'mensaje_respondido_exito' => 'Sent message answer successfully for :nombre',
-	'mensaje_demasiado_corto' => 'Message too short',
-	'mensaje_demasiado_grande' => 'Mensaje demasiado large',
-	'mensaje_no_existe' => 'This message don\'t exists',
-	'mensajes_borrados' => 'Deleted messages',
-	'mensajes_enviados' => 'Messages sent',
-	'mensajes_recibidos' => 'Inbox',
-	'mensajes_titulo' => 'You can send private message from the user profile that you want to write',
-	'mover_a_mensaje_recibido' => 'Move to received',
-
 	'sin_actividad' => 'You haven\'t activity to show yet',
 
 	'tienes_mensajes_nuevos' => 'You have :total new messages.',

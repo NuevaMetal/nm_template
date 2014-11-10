@@ -5,7 +5,7 @@
  * Documento listo para JQuery
  */
 $(document).ready(function() {
-	
+	// Activar todos los tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	
 	if (getWindowWidth('xs')) {
@@ -58,6 +58,28 @@ var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
  */
 var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600 };
 
+
+/**
+ * Devuelve verdadero si el tamaño de la ventana se corresponde con el
+ * solicitado mediante el parámetro que se le pasa.
+ * 
+ * @param string
+ *            tam Tamaño
+ * @returns {Boolean}
+ */
+function getWindowWidth(tam) {
+	var w = $(window).width();
+	if (tam == "xs") {
+		return w < COL.SM;
+	} else if (tam == "sm") {
+		return w < COL.MD;
+	} else if (tam == "md") {
+		return w < COL.LG;
+	} else if (tam == "lg") {
+		return w < COL.XL;
+	}
+	return true;
+}
 /** 
  * Indica si se puede hacer Scroll con una altura mínima parada por parámetro
  * @param int alturaMinima 
@@ -153,29 +175,27 @@ function scrollOff() {
 }
 
 /**
- * Devuelve verdadero si el tamaño de la ventana se corresponde con el
- * solicitado mediante el parámetro que se le pasa.
- * 
- * @param string
- *            tam Tamaño
- * @returns {Boolean}
+ * Cuando hagamos click en una pestaña con un .padre.
+ * Como favoritos, actividad y mensajes.
  */
-function getWindowWidth(tam) {
-	var w = $(window).width();
-	if (tam == "xs") {
-		return w < COL.SM;
-	} else if (tam == "sm") {
-		return w < COL.MD;
-	} else if (tam == "md") {
-		return w < COL.LG;
-	} else if (tam == "lg") {
-		return w < COL.XL;
-	}
-	return true;
-}
-
 $(document).on('click', '.padre ul li', function(e) {
 	e.preventDefault();
+	function _borrarTodaPestana(donde){
+		var tipo_id = '#'+donde;
+		if($(tipo_id).length > 0) {
+			/*
+			 * Eliminamos todas las filas (.row) del content del id que estemos.
+			 * Quitamos la clase hidden para mostrar de nuevo el btn mostrar-mas
+			 * para así tener una carga, y por tanto refresco, con los datos actualizados.
+			 */
+			$(tipo_id).find('.'+donde+"-content .row").remove();
+			$(tipo_id).find('.mostrar-mas').removeClass('hidden');
+		}
+	}
+	var listaVentanas = ['favoritos', 'actividad', 'mensajes'];
+	_borrarTodaPestana('favoritos');
+	_borrarTodaPestana('actividad');
+	_borrarTodaPestana('mensajes');
 	_userHacerScrollSuPantalla();
 });
 
@@ -190,8 +210,11 @@ function seHaceSrollEn(_id){
 	var tipo_id = id.find('.nav li[class="active"] a').attr('href');
 	var size = $(tipo_id).find(tipo_content).children().size();
 	var url = $('#page').attr('url');
-	
-	if(!$(tipo_id).find('.mostrar-mas .fa-spin').hasClass('hidden') || $(tipo_id).find('.mostrar-mas').length == 0) {
+	/*
+	 * Comprobamos que el botón no esté oculto (hidden), 
+	 * ya que eso indicaría que ya no hay más contenido que cargar.
+	 */
+	if($(tipo_id).find('.mostrar-mas').hasClass('hidden')) {
 		return;
 	}
 	var data = {
@@ -208,15 +231,17 @@ function seHaceSrollEn(_id){
 		beforeSend: function() {
 			$(tipo_id).find('.fa-spin').removeClass('hidden');
 			$(tipo_id).find('.fa-plus').addClass('hidden');
+			// Ocultar el btn 
+			$(tipo_id).find('.mostrar-mas').addClass('hidden');
 		},
 		success : function(json) {
 			if(json.code == 200 ) {
 				// #bandas|#videos|#noticias...
 				$(tipo_id).find(tipo_content).append($(json.content).addClass('animated zoomInDown'));
 			}
-			// Eliminar el btn si no hubiera más contenido
-			if (json.content == null || json.content.length == 0) {
-				$(tipo_id).find('.mostrar-mas').remove();
+			// Mostrar el botón sólo si hubo contenido previo en la respuesta
+			if (json.content != null && json.content.length != 0) {
+				$(tipo_id).find('.mostrar-mas').removeClass('hidden');
 			}
 			$(tipo_id).find('.fa-spin').addClass('hidden');
 			$(tipo_id).find('.fa-plus').removeClass('hidden');

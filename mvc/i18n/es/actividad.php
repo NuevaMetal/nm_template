@@ -16,18 +16,6 @@ return [
 	'te_ha_gustado' => 'Te ha gustado',
 	'le_ha_gustado' => 'le ha gustado',
 
-	'mensaje_borrado' => 'Mensaje borrado con éxito',
-	'mensaje_enviado_exito' => 'Mensaje enviado con éxito para :nombre',
-	'mensaje_respondido_exito' => 'Mensaje respondido con éxito para :nombre',
-	'mensaje_demasiado_corto' => 'Mensaje demasiado corto',
-	'mensaje_demasiado_grande' => 'Mensaje demasiado grande',
-	'mensaje_no_existe' => 'El mensaje no existe',
-	'mensajes_borrados' => 'Mensajes borrados',
-	'mensajes_enviados' => 'Mensajes enviados',
-	'mensajes_recibidos' => 'Mensajes recibidos',
-	'mensajes_titulo' => 'Puedes enviar mensajes privados desde el perfil de aquel usuario al que quieras escribir',
-	'mover_a_mensaje_recibido' => 'Mover a recibido',
-
 	'sin_actividad' => 'Aún no tienes actividad para mostrar',
 
 	'tienes_mensajes_nuevos' => 'Tienes :total mensajes nuevos.',

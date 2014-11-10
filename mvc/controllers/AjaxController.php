@@ -561,11 +561,11 @@ class AjaxController extends BaseController {
 			$this->current_user->enviarMensajePrivado($_datos['mensaje'], $aQuienId, $_datos['respuesta_id']);
 			$aQuien = User::find($aQuienId);
 			if ($respuestaId) {
-				$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_respondido_exito', [
+				$alert = $this->renderAlertaInfo(I18n::transu('mensajes.respondido_exito', [
 					'nombre' => $aQuien->display_name
 				]));
 			} else {
-				$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_enviado_exito', [
+				$alert = $this->renderAlertaInfo(I18n::transu('mensajes.enviado_exito', [
 					'nombre' => $aQuien->display_name
 				]));
 			}
@@ -592,15 +592,17 @@ class AjaxController extends BaseController {
 			switch ($_datos['borrar']) {
 				case 'recibido' :
 					$mensaje->moverARecibido();
+					$alert = $this->renderAlertaInfo(I18n::transu('mensajes.movido_a_recibido'));
 					break;
 				case 'papelera' :
 					$mensaje->borrar();
+					$alert = $this->renderAlertaInfo(I18n::transu('mensajes.movido_a_papelera'));
 					break;
 				case 'definitivo' :
 					$mensaje->borrarDefinitivo();
+					$alert = $this->renderAlertaInfo(I18n::transu('mensajes.borrado'));
 					break;
 			}
-			$alert = $this->renderAlertaInfo(I18n::transu('actividad.mensaje_borrado') . '.');
 			$json['code'] = 200;
 		} catch ( Exception $e ) {
 			$json['code'] = $e->getCode();
@@ -693,23 +695,27 @@ class AjaxController extends BaseController {
 	private function _jsonUserMensajes($_datos) {
 		$offset = $_datos['size'];
 		$json['code'] = 200;
+		$nonceBorrarMensaje = $this->current_user->getNonceBorrarMensaje();
 		switch ($_datos['tipo_id']) {
 			case '#recibidos' :
 				$mensajes = $this->current_user->getMensajesRecibidos($offset);
 				$json['content'] = $this->render('user/mensajes/_mensajes_recibidos', [
-					'getMensajesRecibidos' => $mensajes
+					'getMensajesRecibidos' => $mensajes,
+					'getNonceBorrarMensaje' => $nonceBorrarMensaje
 				]);
 				break;
 			case '#enviados' :
 				$mensajes = $this->current_user->getMensajesEnviados($offset);
 				$json['content'] = $this->render('user/mensajes/_mensajes_enviados', [
-					'getMensajesEnviados' => $mensajes
+					'getMensajesEnviados' => $mensajes,
+					'getNonceBorrarMensaje' => $nonceBorrarMensaje
 				]);
 				break;
 			case '#borrados' :
 				$mensajes = $this->current_user->getMensajesBorrados($offset);
 				$json['content'] = $this->render('user/mensajes/_mensajes_borrados', [
-					'getMensajesBorrados' => $mensajes
+					'getMensajesBorrados' => $mensajes,
+					'getNonceBorrarMensaje' => $nonceBorrarMensaje
 				]);
 				break;
 			default :

@@ -98,11 +98,11 @@ class Mensaje extends ModelBase {
 	 */
 	public function save() {
 		if (! strlen($this->mensaje)) {
-			throw new Exception(I18n::transu('actividad.mensaje_demasiado_corto'), 500);
+			throw new Exception(I18n::transu('mensajes.mensaje_demasiado_corto'), 500);
 		} elseif (! in_array($this->tipo, self::_getTiposPermitidos())) {
-			throw new Exception(I18n::transu('actividad.tipo_mensaje_no_permitido'), 500);
+			throw new Exception(I18n::transu('mensajes.tipo_mensaje_no_permitido'), 500);
 		} elseif ($this->_superaTamanoMaximo()) {
-			throw new Exception(I18n::transu('actividad.mensaje_demasiado_grande'), 500);
+			throw new Exception(I18n::transu('mensajes.mensaje_demasiado_grande'), 500);
 		}
 
 		global $wpdb;
@@ -184,12 +184,12 @@ class Mensaje extends ModelBase {
 				FROM wp_mensajes
 				WHERE ID = %d', $this->ID));
 		if (! $existe) {
-			throw new Exception(I18n::transu('actividad.mensaje_no_existe'), 504);
+			throw new Exception(I18n::transu('mensajes.mensaje_no_existe'), 504);
 		}
-		$result = $wpdb->query($wpdb->prepare("
+		$result = $wpdb->query($wpdb->prepare('
 				UPDATE wp_mensajes
 				SET estado = %d
-				WHERE ID = %d", $aDonde, $this->ID));
+				WHERE ID = %d', $aDonde, $this->ID));
 		return $result;
 	}
 
