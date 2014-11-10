@@ -63,11 +63,11 @@
 				
 				<div class="tab-pane col-xs-12" id="aceptados">
 					<h4 class="titular">{{#trans}}user.usuarios_aceptados{{/trans}}</h4>
-					{{^ total_pendientes }}
+					{{^ total_aceptados }}
 						<h3>Lista de usuarios aceptados vacía.</h3>
-					{{/ total_pendientes }}
+					{{/ total_aceptados }}
 					
-					{{# total_pendientes }}
+					{{# total_aceptados }}
 					<table class="table table-hover table-condensed table-responsive">
 						<thead>
 							<tr>
@@ -104,7 +104,7 @@
 					   	{{/ aceptados }}
 					   	</tbody>
 					</table>
-					{{/ total_pendientes }}
+					{{/ total_aceptados }}
 				</div>
 				
 				<div class="tab-pane col-xs-12" id="rechazados">
