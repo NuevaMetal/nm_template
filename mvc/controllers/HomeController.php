@@ -12,7 +12,7 @@ use Libs\Utils;
  */
 class HomeController extends BaseController {
 
-	const NUM_POST_HOME = 8;
+	const NUM_POST_POR_SECCION = 8;
 
 	/**
 	 * home.php
@@ -39,7 +39,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getSeccion($seccion, $cant = self::NUM_POST_HOME, $args = []) {
+	public static function getSeccion($seccion, $cant = self::NUM_POST_POR_SECCION, $args = []) {
 		$args['imagen'] = strtolower($seccion);
 		$args['seccion'] = strtolower($seccion);
 		$args['a_buscar'] = strtolower($seccion);
@@ -70,7 +70,7 @@ class HomeController extends BaseController {
 	 * @param array $args
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
-	public static function getBusqueda($aBuscar, $cant = self::NUM_POST_HOME, $args = []) {
+	public static function getBusqueda($aBuscar, $cant = self::NUM_POST_POR_SECCION, $args = []) {
 		$args['imagen'] = 'NM_avatar_2';
 		$args['seccion'] = 'busqueda-posts';
 		$args['a_buscar'] = $aBuscar;
@@ -92,7 +92,7 @@ class HomeController extends BaseController {
 	 * @param unknown $args
 	 * @return unknown
 	 */
-	public static function getAutor($aBuscar, $cant = self::NUM_POST_HOME, $args = []) {
+	public static function getAutor($aBuscar, $cant = self::NUM_POST_POR_SECCION, $args = []) {
 		$args['imagen'] = 'noimage';
 		$args['seccion'] = 'autor';
 		$args['a_buscar'] = $aBuscar;
@@ -112,16 +112,16 @@ class HomeController extends BaseController {
 	 *        	número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	public static function getPostsByCategory($seccion, $max = self::NUM_POST_HOME, $moreQuerySettings = []) {
+	public static function getPostsByCategory($seccion, $max = self::NUM_POST_POR_SECCION, $moreQuerySettings = []) {
 		return self::getPostsBy(Utils::TIPO_CATEGORY, $seccion, $max, $moreQuerySettings);
 	}
-	public static function getPostsByTag($seccion, $max = self::NUM_POST_HOME, $moreQuerySettings = []) {
+	public static function getPostsByTag($seccion, $max = self::NUM_POST_POR_SECCION, $moreQuerySettings = []) {
 		return self::getPostsBy(Utils::TIPO_TAG, $seccion, $max, $moreQuerySettings);
 	}
-	public static function getPostsBySearch($aBuscar, $max = self::NUM_POST_HOME, $moreQuerySettings = []) {
+	public static function getPostsBySearch($aBuscar, $max = self::NUM_POST_POR_SECCION, $moreQuerySettings = []) {
 		return self::getPostsBy(Utils::TIPO_SEARCH, $aBuscar, $max, $moreQuerySettings);
 	}
-	public static function getPostsByAuthor($autor_id, $max = self::NUM_POST_HOME, $moreQuerySettings = []) {
+	public static function getPostsByAuthor($autor_id, $max = self::NUM_POST_POR_SECCION, $moreQuerySettings = []) {
 		return self::getPostsBy(Utils::TIPO_AUTHOR, $autor_id, $max, $moreQuerySettings);
 	}
 
@@ -134,7 +134,7 @@ class HomeController extends BaseController {
 	 *        	número máximo de posts a devolver
 	 * @return multitype:
 	 */
-	private static function getPostsBy($tipo, $seccion, $max = self::NUM_POST_HOME, $moreQuerySettings = []) {
+	private static function getPostsBy($tipo, $seccion, $max = self::NUM_POST_POR_SECCION, $moreQuerySettings = []) {
 		if ($tipo == Utils::TIPO_TAG) {
 			$tagId = Utils::getTagIdbyName($seccion);
 			$moreQuerySettings['tag_id'] = "$tagId";
