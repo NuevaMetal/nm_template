@@ -24,7 +24,7 @@ return [
 	'buscar' => 'buscar',
 
 	'cambiar' => 'cambiar',
-	'cerrar_sesion' => 'salir',
+	'cerrar_sesion' => 'cerrar sesión',
 	'comentario' => 'comentario',
 	'comentarios' => 'comentarios',
 	'compartir_con' => 'compartir con',

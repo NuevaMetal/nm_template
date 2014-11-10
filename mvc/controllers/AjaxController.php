@@ -457,26 +457,30 @@ class AjaxController extends BaseController {
 			'login_url' => wp_login_url('/'),
 			'redirect_to' => '/'
 		];
+		/*
+		 * Añadimos parámetros si se pidió el menú principal o el de perfil.
+		 */
+		if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_PERFIL) {
+			// Comprobamos si el usuario está logueado.
+			if ($this->current_user->ID > 0) {
+				$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
+				$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
+				$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
+				$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
+
+				// Comprobamos que el user tenga permisos de editor
+				if ($this->current_user->canEditor()) {
+					$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
+					$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
+					$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
+				}
+			}
+		}
 		switch ($tipoMenu) {
 			case Ajax::MENU_PRINCIPAL :
 				$json['menu'] = $this->render('menu/principal', $menuArgs);
 				break;
 			case Ajax::MENU_PERFIL :
-
-				// Comprobamos si el usuario está logueado
-				if ($this->current_user->ID > 0) {
-					$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
-					$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
-					$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
-					$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
-
-					// Comprobamos que el user tenga permisos de editor
-					if ($this->current_user->canEditor()) {
-						$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
-						$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
-						$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
-					}
-				}
 				$json['menu'] = $this->render('menu/perfil', $menuArgs);
 				break;
 			case Ajax::MENU_FOOTER :
