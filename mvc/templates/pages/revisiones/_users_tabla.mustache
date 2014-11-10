@@ -13,15 +13,15 @@
 		</td>
 		<td>
 		{{^ isAdmin }}
-			{{# isRevisionBan }}
+			{{# estaBaneadoDeRevisiones }}
 				<span class="label label-default label-block">{{#transu}}baneado{{/transu}}</span>
-			{{/ isRevisionBan }}
-			{{^ isRevisionBan }}
+			{{/ estaBaneadoDeRevisiones }}
+			{{^ estaBaneadoDeRevisiones }}
 				<button class="btn btn-danger btn-xs btn-block dispara-revision"
 						que_id="{{ID}}" submit="revision-ban" estado="{{ USER_BANEADO }}">
 					{{#transu}}banear{{/transu}}
 				</button>
-			{{/ isRevisionBan }}
+			{{/ estaBaneadoDeRevisiones }}
 		{{/ isAdmin }}
 		</td>
 	</tr>

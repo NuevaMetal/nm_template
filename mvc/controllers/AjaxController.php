@@ -49,30 +49,25 @@ class AjaxController extends BaseController {
 		$post = Post::find($post_id);
 		$user = User::find($user_id);
 
-		if ($user->isRevisionBan()) {
-			return $this->renderAlertaWarning('Usuario baneado.
-					Ponte en contacto con los administradores si
-					quieres volver a enviar revisiones');
+		if ($user->estaBaneadoDeRevisiones()) {
+			return $this->renderAlertaWarning('Usuario baneado para enviar nuevos reportes.
+					Ponte en contacto con los administradores si quieres volver a enviar revisiones');
 		}
 		// Segundo comprobamos si dicho usuario ya notificó sobre dicho post
 		// Si no existe, lo creamos
 		if (! $user->yaNotificoPost($post_id)) {
-			$result = $wpdb->query($wpdb->prepare("
-			INSERT INTO {$wpdb->prefix}revisiones (post_id,user_id,created_at,updated_at)
-			 VALUES (%d, %d, null, null );", $post_id, $user_id));
+			$result = $wpdb->query($wpdb->prepare('
+			INSERT INTO wp_revisiones (post_id,user_id,created_at,updated_at)
+			 VALUES (%d, %d, null, null )', $post_id, $user_id));
 		} else {
 			// Si ya existe, aumentamos su contador
-			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}revisiones
-		 		SET count = count + 1
-		 		WHERE post_id = %d
-		 		AND user_id = %d
-		 		AND status = 0;", $post_id, $user_id));
+			$result = $user->aumentarContadorRevision($post_id);
 			// y notificamos que ya envió una notificación para este post
 			return $this->renderAlertaInfo('Ya notificaste esta entrada', $post->post_title);
 		}
 
 		if (! empty($result)) {
-			return $this->renderAlertaSuccess("Notificación enviada con éxito", $post->post_title);
+			return $this->renderAlertaSuccess('Notificación enviada con éxito', $post->post_title);
 		}
 
 		return $this->renderAlertaDanger($this->err);

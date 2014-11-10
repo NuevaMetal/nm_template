@@ -946,7 +946,7 @@ class User extends Favoriteador {
 	 *
 	 * @return boolean
 	 */
-	public function isRevisionBan() {
+	public function estaBaneadoDeRevisiones() {
 		global $wpdb;
 		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
 				FROM  wp_revisiones_ban
@@ -1594,5 +1594,21 @@ class User extends Favoriteador {
 			];
 		}
 		return $alertas;
+	}
+
+	/**
+	 * Aumentar el contador de la revisión para el mismo post si ya le dió
+	 * para revisar y aún no se corrigió
+	 *
+	 * @param integer $post_id
+	 *        	Identificador del post
+	 */
+	public function aumentarContadorRevision($post_id) {
+		global $wpdb;
+		return $wpdb->query($wpdb->prepare('UPDATE wp_revisiones
+		 		SET count = count + 1
+		 		WHERE post_id = %d
+		 		AND user_id = %d
+		 		AND status = %d', $post_id, $this->ID, Revision::ESTADO_PENDIENTE));
 	}
 }
