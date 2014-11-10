@@ -4,11 +4,13 @@
 			method="post" role="form" class="form">
 				<div class="col-xs-12 ">
 					<input type="text" name="log" id="user_login"
-						class="form-control" value="" size="20" placeholder="User">
+						data-toggle="tooltip" data-placement="left" title="{{#transu}}usuario_title{{/transu}}"
+						class="form-control" value="" size="20" placeholder="{{#transu}}usuario{{/transu}}">
 				</div>
 				<div class="col-xs-12">
 				 <input type="password" name="pwd" id="user_pass"
-				 	class="form-control" value="" size="20"  placeholder="Password">
+						data-toggle="tooltip" data-placement="left" title="{{#transu}}contrasena{{/transu}}"
+				 	class="form-control" value="" size="20"  placeholder="{{#transu}}contrasena{{/transu}}">
 				</div>
 				<div class="login-submit col-xs-12 ">
 					<input type="submit" name="wp-submit" id="wp-submit"
@@ -19,12 +21,14 @@
 				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
 				</div>
 				<div class="col-xs-12 "> 
-					<a class="form-control btn btn-default" href="/wp-login.php?action=register" >
-					<i class="fa fa-mail-forward"></i>  {{#transu}}registrarse{{/transu}}</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=register" 
+						data-toggle="tooltip" data-placement="left" title="{{#transu}}registrarse_title{{/transu}}">
+					<i class="fa fa-mail-forward"></i> {{#transu}}registrarse{{/transu}}</a>
 				</div>
 				<div class="col-xs-12 "> 
-					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword" >
-					<i class="fa fa-question-circle "></i>  {{#transu}}contrasena_perdida{{/transu}}</a>
+					<a class="form-control btn btn-default" href="/wp-login.php?action=lostpassword" 
+						data-toggle="tooltip" data-placement="left" title="{{#transu}}contrasena_perdida{{/transu}}">
+					<i class="fa fa-question-circle "></i> {{#transu}}contrasena{{/transu}}</a>
 				</div>
 		</form>
 	</div>
