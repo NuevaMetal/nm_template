@@ -22,6 +22,9 @@ class UserController extends BaseController {
 		$author = get_queried_object();
 		$author_id = $author->ID;
 		$user = User::find($author_id);
+		if (! $user) {
+			return $this->getError('404');
+		}
 		// Comprobar si tiene publicaciones o ha sido bloqueado
 		if (! $user || $this->_estaBloqueado($user)) {
 			return $this->_getAuthorBloqueado($user);
@@ -215,6 +218,9 @@ class UserController extends BaseController {
 	 */
 	public function getActividad() {
 		$user = Utils::getCurrentUser();
+		if (! $user) {
+			return $this->getError('404');
+		}
 		return $this->renderPage('user/actividad', [
 			'conSidebar' => false,
 			'user' => $user
@@ -226,6 +232,9 @@ class UserController extends BaseController {
 	 */
 	public function getMensajes() {
 		$user = Utils::getCurrentUser();
+		if (! $user) {
+			return $this->getError('404');
+		}
 		return $this->renderPage('user/mensajes', [
 			'user' => $user
 		]);
@@ -236,6 +245,9 @@ class UserController extends BaseController {
 	 */
 	public function getFavoritos() {
 		$user = Utils::getCurrentUser();
+		if (! $user) {
+			return $this->getError('404');
+		}
 		return $this->renderPage('user/favoritos', [
 			'user' => $user,
 			'CATEGORY_BANDAS' => Post::CATEGORY_BANDAS,

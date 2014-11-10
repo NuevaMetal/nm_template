@@ -4,7 +4,7 @@ return [
 	'actividad' => 'activity',
 	'actividades' => 'activities',
 	'administrator' => 'administrator',
-	'anadir_favoritos' => 'add to my favorites',
+	'anadir_favoritos' => 'add to my favs',
 	'ancho' => 'width',
 	'aleatorio' => 'random',
 	'alto' => 'height',
