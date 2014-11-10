@@ -1,10 +1,12 @@
 {{#isMeGusta}}
-	<button te-gusta="no" class="btn-me-gusta btn btn-default col-xs-12" nonce="{{getNonceMeGusta}}">
+	<button class="btn-me-gusta btn btn-default col-xs-12" nonce="{{getNonceMeGusta}}"
+			 post="{{post.ID}}"  user="{{current_user.ID}}" te-gusta="no" >
 		<i class='fa fa-star-o'></i> {{#transu}}ya_no_me_gusta{{/transu}} <i class="fa fa-spinner fa-spin hidden"></i>
 	</button>
 {{/isMeGusta}}
 {{^isMeGusta}}
-	<button te-gusta="si" class="btn-me-gusta btn btn-danger col-xs-12" nonce="{{getNonceMeGusta}}">
+	<button class="btn-me-gusta btn btn-danger col-xs-12" nonce="{{getNonceMeGusta}}"
+	 	post="{{post.ID}}"  user="{{current_user.ID}}" te-gusta="si" >
 		<i class='fa fa-star'></i> {{#transu}}me_gusta{{/transu}} <i class="fa fa-spinner fa-spin hidden"></i>
 	</button>
 {{/isMeGusta}}

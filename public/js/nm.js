@@ -261,33 +261,33 @@ function seHaceSrollEn(_id){
 $(document).on('click', '.btn-me-gusta', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	var post = $this.parents('.post');
 	var sidebar = $this.parents('.post-content').find('#sidebar');
-	var formulario = $this.parents('.formulario');
-	var form = formulario.find('form');
-	var post_val = form.find('[name=post]').val();
-	var user_val = form.find('[name=user]').val();
+	var post = $this.parents('.post');
+	var post_id = $this.attr('post');
+	var user_id = $this.attr('user');
 	var te_gusta = $this.attr('te-gusta'); 
-	var nonce = $(this).attr('nonce');
-	var url = form.attr('action');
+	var nonce = $this.attr('nonce');
+	
+	var url = $('#page').attr('url');
 	var data = {
 		submit : 'me-gusta',
-		post : post_val,
-		user : user_val,
+		post : post_id,
+		user : user_id,
 		te_gusta: te_gusta,
 		nonce: nonce
 	};
+	console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			formulario.find('.fa-spin').removeClass('hidden');
+			$this.find('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
 			post.find('.total-me-gustas .cant').html(json.total_me_gustas);
-			formulario.find('.fa-spin').addClass('hidden');
+			$this.find('.fa-spin').addClass('hidden');
 			$this.replaceWith(json.btn);
 			// Al sidebar
 			if (json.user_que_gusta['quitar']) {

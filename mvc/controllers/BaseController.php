@@ -47,7 +47,10 @@ abstract class BaseController {
 				},
 				'formatear_numero' => function ($value) {
 					return Utils::formatearNumero($value);
-				}
+				},
+				'ucfirst' =>  function ($value) {
+					return ucfirst($value);
+				},
 			),
 			'escape' => function ($value) {
 				return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');

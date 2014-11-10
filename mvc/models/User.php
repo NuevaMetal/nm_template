@@ -294,7 +294,11 @@ class User extends Favoriteador {
 	 * @return string
 	 */
 	public function getDescripcion() {
-		return get_the_author_meta('description', $this->ID);
+		$string = get_the_author_meta('description', $this->ID);
+		if (strlen($string)) {
+			return $string;
+		}
+		return I18n::trans('user.no_hay_info_perfil');
 	}
 
 	/**
@@ -812,13 +816,6 @@ class User extends Favoriteador {
 	public function getTipo() {
 		$tipo = get_user_meta($this->ID, self::KEY_USER_TIPO, true);
 		return (! $tipo) ? self::TIPO_USUARIO : $tipo;
-	}
-
-	/**
-	 * Devuelve el tipo de usuario traducido
-	 */
-	public function getTipoTrans() {
-		return I18n::transu($this->getTipo());
 	}
 
 	/**

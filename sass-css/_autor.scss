@@ -121,3 +121,16 @@
 	}*/
 	
 }
+
+.btn-me-gusta-y-editar {
+	
+	.login-necesario {
+		margin-top: 5px ;
+		a {
+			color: #333 ;
+			&:hover {
+				color: #333;
+			}
+		}
+	}
+}

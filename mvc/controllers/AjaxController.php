@@ -168,17 +168,19 @@ class AjaxController extends BaseController {
 			$json['alert'] = $this->renderAlertaInfo('Te gusta', $post->post_title);
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => true,
-				'getNonceMeGusta' => $nonce
+				'getNonceMeGusta' => $nonce,
+				'post' => $post
 			]);
 			$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta', [
 				'user' => $user
 			]);
 		} else {
 			$json['code'] = 504;
-			$json['alert'] = $this->renderAlertaDanger('Ocurrió un error inesperado');
+			$json['alert'] = $this->renderAlertaDanger($this->err);
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => false,
-				'getNonceMeGusta' => $nonce
+				'getNonceMeGusta' => $nonce,
+				'post' => $post
 			]);
 		}
 		$json['total_me_gustas'] = $post->getTotalMeGustas();
@@ -201,7 +203,8 @@ class AjaxController extends BaseController {
 			$json['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post->post_title);
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => false,
-				'getNonceMeGusta' => $nonce
+				'getNonceMeGusta' => $nonce,
+				'post' => $post
 			]);
 			$json['user_que_gusta'] = [
 				'quitar' => true,
@@ -212,7 +215,8 @@ class AjaxController extends BaseController {
 			$json['alert'] = $this->renderAlertaDanger($this->err);
 			$json['btn'] = $this->render('post/_btn_me_gusta', [
 				'isMeGusta' => true,
-				'getNonceMeGusta' => $nonce
+				'getNonceMeGusta' => $nonce,
+				'post' => $post
 			]);
 		}
 		$json['total_me_gustas'] = $post->getTotalMeGustas();

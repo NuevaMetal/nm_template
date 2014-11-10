@@ -57,21 +57,30 @@
 	}*/
 	
 	#post-meta{
-		//border: 1px solid red;
 		border-top: 1px solid #bbb;
 		margin-top: 10px;
 		padding-top: 10px;;
 		.avatar {
 			margin: 10px 0;
-		}
-		h1 {
-			//@include inline-block;
-		}
+		}		
 		.autor:hover {
-			@extend %negrita;
+			@extend %negrita;			
 		}
 		.avatar:hover {
 			box-shadow: 2px 2px 5px #888;
+		}
+		.descripcion {
+			//visibility: hidden;
+			display: none;
+		}
+		@include col(xs) {
+			text-align: center;
+		}
+		&:hover {
+			.descripcion {
+				display: inline-block !important;
+				//visibility: visible !important;
+			}
 		}
 	}
 	
