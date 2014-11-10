@@ -143,14 +143,9 @@ class AjaxController extends BaseController {
 				'reducido' => ($cant == 2)
 			]);
 		}
-
-		// Convierte la codificación a UTF-8
-		$content = mb_convert_encoding($content, "UTF-8");
-
 		$json['content'] = $content;
 		$json['cant'] = $count;
 		$json['code'] = 200;
-
 		return $json;
 	}
 
@@ -673,8 +668,32 @@ class AjaxController extends BaseController {
 					'lista' => $favoritos
 				]);
 				break;
-			case '#' . Post::CATEGORY_VIDEOS :
-				$favoritos = $this->current_user->getFavoritosVideos($offset);
+			case '#' . Post::CATEGORY_ENTREVISTAS :
+				$favoritos = $this->current_user->getFavoritosEntrevistas($offset);
+				$content = $this->render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_CRITICAS :
+				$favoritos = $this->current_user->getFavoritosCriticas($offset);
+				$content = $this->render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_CRONICAS :
+				$favoritos = $this->current_user->getFavoritosCronicas($offset);
+				$content = $this->render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_NOTICIAS :
+				$favoritos = $this->current_user->getFavoritosNoticias($offset);
+				$content = $this->render('user/favoritos/_lista', [
+					'lista' => $favoritos
+				]);
+				break;
+			case '#' . Post::CATEGORY_CONCIERTOS :
+				$favoritos = $this->current_user->getFavoritosConciertos($offset);
 				$content = $this->render('user/favoritos/_lista', [
 					'lista' => $favoritos
 				]);
@@ -852,6 +871,9 @@ class AjaxController extends BaseController {
 		}
 
 		$json = $this->getJsonBySubmit($submit, $_REQUEST);
+
+		// Convierte la codificación a UTF-8
+		$json['content'] = mb_convert_encoding($json['content'], "UTF-8");
 
 		echo json_encode($json);
 	}

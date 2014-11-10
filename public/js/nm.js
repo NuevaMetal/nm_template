@@ -184,11 +184,11 @@ $(document).on('click', '.padre ul li', function(e) {
 		var tipo_id = '#'+donde;
 		if($(tipo_id).length > 0) {
 			/*
-			 * Eliminamos todas las filas (.row) del content del id que estemos.
+			 * Eliminamos todas los hijos del content (con empty()) del id que estemos.
 			 * Quitamos la clase hidden para mostrar de nuevo el btn mostrar-mas
 			 * para así tener una carga, y por tanto refresco, con los datos actualizados.
 			 */
-			$(tipo_id).find('.'+donde+"-content .fila").remove();
+			$(tipo_id).find('.'+donde+"-content").empty();
 			$(tipo_id).find('.mostrar-mas').removeClass('hidden');
 		}
 	}
