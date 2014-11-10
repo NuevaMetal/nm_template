@@ -45,12 +45,7 @@
 							<h4 class="titular">{{#trans}}actividad.actividades_propias{{/trans}}</h4>
 							
 							<div class="actividad-content content">
-								{{# getActividadesPropias }}
-									{{> user/actividad/_actividad_fila }}
-								{{/ getActividadesPropias }}
-								{{^ getActividadesPropias }}
-									{{#trans}}actividad.sin_actividad{{/trans}}.
-								{{/ getActividadesPropias }}
+								
 							</div>
 						
 							{{> user/actividad/_btn_mostrar_mas }}
@@ -60,9 +55,7 @@
 							<h4 class="titular">{{#trans}}actividad.usuarios_que_te_estan_siguiendo{{/trans}}</h4>
 							
 							<div class="actividad-content content">
-								{{# getSeguidores }}
-									{{> user/actividad/_usuario_fila }}
-								{{/ getSeguidores }}
+								
 							</div>
 									
 							{{> user/actividad/_btn_mostrar_mas }}
@@ -72,9 +65,7 @@
 							<h4 class="titular">{{#trans}}actividad.usuarios_que_estas_siguiendo{{/trans}}</h4>
 							
 							<div class="actividad-content content">
-								{{# getSiguiendo }}
-									{{> user/actividad/_usuario_fila }}
-								{{/ getSiguiendo }}
+								
 							</div>
 							
 							{{> user/actividad/_btn_mostrar_mas }}

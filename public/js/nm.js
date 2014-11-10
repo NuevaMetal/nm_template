@@ -188,7 +188,7 @@ $(document).on('click', '.padre ul li', function(e) {
 			 * Quitamos la clase hidden para mostrar de nuevo el btn mostrar-mas
 			 * para así tener una carga, y por tanto refresco, con los datos actualizados.
 			 */
-			$(tipo_id).find('.'+donde+"-content .row").remove();
+			$(tipo_id).find('.'+donde+"-content .fila").remove();
 			$(tipo_id).find('.mostrar-mas').removeClass('hidden');
 		}
 	}
