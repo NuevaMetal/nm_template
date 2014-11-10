@@ -98,20 +98,6 @@ class Post extends Image {
 	}
 
 	/**
-	 * Devuelve el array con la información del Post
-	 *
-	 * @param integer $post_id
-	 *        	Identificador del Post
-	 * @param string $dateFormat
-	 * @return array
-	 * @deprecated por usar find
-	 * @see Post::find
-	 */
-	public static function get($post_id = false, $dateFormat = false, $conCategorias = false) {
-		return Post::find($post_id);
-	}
-
-	/**
 	 * Devuelve la URL del post
 	 *
 	 * @return string

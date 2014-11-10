@@ -524,6 +524,7 @@ function cargarSeccion(nombreSeccion, cant){
  * Cargar el menú por Ajax
  * 
  * @param tipoMenu El menu a cargar
+ * @param animacion 
  */
 function cargarMenu(tipoMenu, animacion){
 	var menu = $('#'+tipoMenu);
@@ -547,14 +548,14 @@ function cargarMenu(tipoMenu, animacion){
 			//menu.addClass('hidden'); //Oculto el menú
 			menu.html(json.menu);	// Añado el html
 			if (animacion != null) {
-				menu.addClass('animated '+animacion)
+				console.log("typeof : "+(typeof animacion));
+				if (typeof animacion == 'string') {
+					menu.addClass('animated '+animacion)
+				} else {
+					var item = animacion[Math.floor(Math.random()*animacion.length)];					
+					menu.addClass('animated '+item)
+				}
 			}
-//			menu.fadeTo( "fast", 0, function(){ // Le pongo 0 a opacidad
-//				// Muestro de nuevo el elemento 
-//				menu.removeClass('hidden')
-//				// Aumento hasta 100% su opacidad para conseguir el efecto
-//				menu.fadeTo( "slow", 1);
-//			});
 			// Para ajustar los menús a las pantallas pequeñas
 			seHaceScroll();
 		},
