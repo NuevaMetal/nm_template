@@ -504,6 +504,13 @@ class Acciones {
 	public static function commentPost() {
 		add_action('comment_post', function ($comment_ID) {
 			$comment = Comment::find($comment_ID);
+			$user = Utils::getCurrentUser();
+			if (! $user) {
+				/*
+				 * Si no hay usuario borramos el comentario. Y forzamos su borrado.
+				 */
+				$comment->borrar(true);
+			}
 			/*
 			 * Quitamos las etiquetas para impesir ataques XSS entre otros.
 			 * Y nos aseguramos de que no tenga más del tamaño permitido.
