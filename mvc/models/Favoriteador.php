@@ -54,8 +54,6 @@ abstract class Favoriteador extends Image {
 	 */
 	private function _getFavoritosIds($offset = 0, $limit = User::NUM_FAV_PERFIL_DEFAULT, $categoria = false) {
 		global $wpdb;
-		$tabla = $wpdb->prefix . Favorito::$table;
-		$user_id = $this->ID;
 		if ($categoria) {
 			$sql = 'SELECT distinct f.post_id
 					FROM wp_favoritos f
@@ -65,18 +63,19 @@ abstract class Favoriteador extends Image {
 							JOIN wp_term_taxonomy tax ON r.term_taxonomy_id = tax.term_taxonomy_id
 							JOIN wp_terms ter ON tax.term_id = ter.term_id
 						WHERE name = %s
-						AND taxonomy = "category")
-								rel ON (rel.object_id = f.post_id)
+						AND taxonomy = "category") rel ON (rel.object_id = f.post_id)
 					JOIN wp_posts p ON (p.ID = f.post_id)
 					WHERE f.user_id = %d
 					AND f.status = %d
 					AND f.post_id IN (rel.object_id)
+					AND p.post_status = "publish"
 					ORDER BY f.updated_at desc ';
 		} else {
 			$sql = 'SELECT distinct f.post_id
 					FROM wp_favoritos f JOIN wp_posts p ON (f.post_id = p.ID)
 					WHERE f.user_id = %d
 					AND f.status = %d
+					AND p.post_status = "publish"
 					ORDER BY f.updated_at desc';
 		}
 		if ($limit) {
