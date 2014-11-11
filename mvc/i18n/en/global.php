@@ -1,6 +1,10 @@
 <?php
 return [
 	'acceder' => 'login',
+	'accion' => 'action',
+	'acciones' => 'actions',
+	'aceptados' => 'accepted',
+	'aceptar' => 'accept',
 	'actividad' => 'activity',
 	'actividades' => 'activities',
 	'administrator' => 'administrator',
@@ -18,6 +22,9 @@ return [
 
 	'banda' => 'band',
 	'bandas' => 'bands',
+	'banear' => 'ban',
+	'baneado' => 'ban',
+	'baneados' => 'banned users',
 	'bienvenido' => 'welcome',
 	'biografia' => 'biography',
 	'buscar' => 'search',
@@ -32,6 +39,8 @@ return [
 	'como' => 'as',
 	'conectado_como' => 'logged in as',
 	'conciertos' => 'concerts',
+	'corregida' => 'corrected',
+	'corregidas' => 'corrected',
 	'contacto' => 'contact',
 	'contrasena' => 'password',
 	'contrasena_perdida' => 'Do you lost your password?',
@@ -70,6 +79,11 @@ return [
 	'es' => 'is',
 	'escribir' => 'write',
 	'escribir_title' => 'Write new post',
+	'estado' => 'state',
+
+	'favorito' => 'favorite',
+	'favoritos' => 'favorites',
+	'fecha' => 'date',
 
 	'genero' => 'genre',
 
@@ -86,6 +100,7 @@ return [
 	'mostrar_menos' => 'show less',
 
 	'no_hay_resultados' => 'results not found',
+	'nombre' => 'name',
 	'noticias' => 'news',
 	'nueva_entrada' => 'new post',
 
@@ -95,6 +110,8 @@ return [
 	'pagina_anterior' => 'previous page',
 	'pagina_siguiente' => 'next page',
 	'panel' => 'panel',
+	'pendiente' => 'pending',
+	'pendientes' => 'pending',
 	'perfil' => 'profile',
 	'perfil_title' => 'view my profile',
 	'por' => 'by',
@@ -108,6 +125,7 @@ return [
 	'que_es_nm' => 'NuevaMetal?',
 	'quieres_salir' => 'Want to get away?',
 
+	'rechazar' => 'reject',
 	'recibidos' => 'received',
 	'recuerdame' => 'remember',
 	'registrarse' => 'Sign in',
@@ -121,6 +139,8 @@ return [
 	'resultado_busqueda_usuarios' => 'Users found with name like \':que\' ',
 	'resultado_busqueda_vacio' => 'They don\'t encountered posts with nam: \':que\' ',
 	'resultado_tag' => 'Search by \':que\' tag',
+	'revision' => 'revision',
+	'revisiones' => 'revisions',
 
 	'salir' => 'exit',
 	'secciones' => 'sections',
@@ -136,6 +156,7 @@ return [
 	'ubicacion' => 'location',
 	'unete_y_colabora' => 'join and collaborate',
 	'usuario' => 'user',
+	'usuarios' => 'users',
 	'usuario_title' => 'Username',
 
 	'ver_perfil' => 'see profile',

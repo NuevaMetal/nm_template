@@ -1,6 +1,10 @@
 <?php
 return [
 	'acceder' => 'acceder',
+	'accion' => 'acción',
+	'acciones' => 'acciones',
+	'aceptados' => 'aceptados',
+	'aceptar' => 'aceptar',
 	'actividad' => 'actividad',
 	'actividades' => 'actividades',
 	'administrator' => 'administrador',
@@ -19,6 +23,9 @@ return [
 	'band' => 'banda',
 	'banda' => 'banda',
 	'bandas' => 'bandas',
+	'banear' => 'banear',
+	'baneado' => 'baneado',
+	'baneados' => 'baneados',
 	'bienvenido' => 'bienvenido',
 	'biografia' => 'biografía',
 	'buscar' => 'buscar',
@@ -33,6 +40,8 @@ return [
 	'como' => 'como',
 	'conciertos' => 'conciertos',
 	'conectado_como' => 'conectado como',
+	'corregida' => 'corregida',
+	'corregidas' => 'corregidas',
 	'contacto' => 'contacto',
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Has perdido tu contraseña?',
@@ -53,9 +62,11 @@ return [
 	'editor' => 'editor',
 	'eliminar' => 'eliminar',
 	'error' => 'Ocurrió un error inesperado',
+	'estado' => 'estado',
 
 	'favorito' => 'favorito',
 	'favoritos' => 'favoritos',
+	'fecha' => 'fecha',
 
 	'hola' => 'hola',
 
@@ -89,6 +100,7 @@ return [
 	'mostrar_menos' => 'mostrar menos',
 
 	'no_hay_resultados' => 'no se encontraron resultados',
+	'nombre' => 'nombre',
 	'noticias' => 'noticias',
 	'nueva_entrada' => 'escribir',
 
@@ -98,6 +110,8 @@ return [
 	'pagina_anterior' => 'página anterior',
 	'pagina_siguiente' => 'página siguiente',
 	'panel' => 'panel',
+	'pendiente' => 'pendiente',
+	'pendientes' => 'pendientes',
 	'perfil' => 'perfil',
 	'perfil_title' => 'Ver perfil',
 	'por' => 'por',
@@ -112,6 +126,7 @@ return [
 	'que_es_nm' => '¿NuevaMetal?',
 	'quieres_salir' => '¿Quieres salir?',
 
+	'rechazar' => 'rechazar',
 	'recibidos' => 'recibidos',
 	'record-seal' => 'discográfica',
 	'recuerdame' => 'recuérdame',
@@ -126,6 +141,8 @@ return [
 	'resultado_busqueda_usuarios' => 'Usuarios encontrados con: \':que\' ',
 	'resultado_busqueda_vacio' => 'No se encontraron posts con nombre: \':que\' ',
 	'resultado_tag' => 'Resultados con la etiqueta \':que\' ',
+	'revision' => 'revisión',
+	'revisiones' => 'revisiones',
 
 	'salir' => 'salir',
 	'secciones' => 'secciones',
@@ -142,6 +159,7 @@ return [
 	'unete_y_colabora' => 'Únete y colabora',
 	'user' => 'usuario',
 	'usuario' => 'usuario',
+	'usuarios' => 'usuarios',
 	'usuario_title' => 'Nombre de usuario',
 
 	'ver_perfil' => 'ver perfil',

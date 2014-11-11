@@ -39,18 +39,18 @@ abstract class BaseController {
 			'loader' => new Mustache_Loader_FilesystemLoader($templatesFolder),
 			'partials_loader' => new Mustache_Loader_FilesystemLoader($templatesFolder),
 			'helpers' => array(
-				'trans' => function ($text, $params = []) {
-					return I18n::trans($text, $params);
+				'trans' => function ($value) {
+					return I18n::trans($value);
 				},
-				'transu' => function ($text, $params = []) {
-					return I18n::transu($text, $params);
+				'transu' => function ($value) {
+					return I18n::transu($value);
 				},
 				'formatear_numero' => function ($value) {
 					return Utils::formatearNumero($value);
 				},
-				'ucfirst' =>  function ($value) {
+				'ucfirst' => function ($value) {
 					return ucfirst($value);
-				},
+				}
 			),
 			'escape' => function ($value) {
 				return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
