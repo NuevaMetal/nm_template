@@ -1,65 +1,76 @@
 {{#current_user}}
-<div class="row principal-login text-center">
+<div class="row principal-login">
 
-	<div class="col-sm-12">
-		<a href="{{getPerfilUrl}}" alt="{{display_name}}">
-			<img alt="{{display_name}}" src="{{getAvatarPerfil}}" class="avatar">
+	<div class="col-xs-12 col-sm-6 avatar">
+		<a href="{{getPerfilUrl}}">
+			<img alt="{{getAlias}}" src="{{getAvatarPerfil}}" >
 		</a>
 	</div>
 	
-	<div class="title col-sm-12">
-		<h3>{{#transu}}bienvenido{{/transu}}
+	<div class="title col-xs-12 col-sm-7 usuario">
+		<h3 class="alias">
 			<a href="{{getPerfilUrl}}" data-toggle="tooltip" data-placement="left" 
-				title="{{#transu}}puntos{{/transu}}: {{getTotalPuntos | formatear_numero}}">
-				{{display_name}}
+				title="{{#transu}}ver_perfil{{/transu}}">
+			{{getAlias}}
 			</a>
 		</h3>
+		<div class=" info titular hidden-xs">
+			{{#transu}}puntos{{/transu}}: 
+			<a href="/activity#puntos" data-toggle="tooltip" data-placement="right" 
+				title="{{#transu}}puntos{{/transu}}: {{getTotalPuntos | formatear_numero}}">{{getTotalPuntos | formatear_numero}}</a>
+			<br>	
+			{{#transu}}seguidores{{/transu}}: 
+			<a href="/activity#seguidores" data-toggle="tooltip" data-placement="right" 
+				title="{{#transu}}seguidores{{/transu}}: {{getTotalSeguidores | formatear_numero}}">{{getTotalSeguidores | formatear_numero}}</a>
+			<br>
+			{{#transu}}siguiendo{{/transu}}: 
+			<a href="/activity#siguiendo" data-toggle="tooltip" data-placement="right" 
+				title="{{#transu}}siguiendo{{/transu}}: {{getTotalSiguiendo | formatear_numero}}">{{getTotalSiguiendo | formatear_numero}}</a>
+		</div>
 	</div>
 
 	<div class="title col-sm-12">
-		<div class="list-group">
-			{{#isSuscriptor}}
-				{{^isSuscriptorRechazado}}
-				  <a class="list-group-item" href="/tutorial#publica"
-						data-toggle="tooltip" data-placement="left"
-						title="{{#transu}}escribir_title{{/transu}}">
-					<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
-				  </a>
-				{{/isSuscriptorRechazado}}
-			{{/isSuscriptor}}
-			{{#canColaborador}}
-			<a class="list-group-item" href="/wp-admin/edit.php" target="_blank"
-		    		data-toggle="tooltip" data-placement="left"
-		    		title="{{#transu}}user.tus_posts{{/transu}}: {{total_posts | formatear_numero}}">
-				<i class="fa fa-files-o"></i> posts 
-			</a>
-			<a class="list-group-item" href="/wp-admin/post-new.php" target="_blank"
+		{{#isSuscriptor}}
+			{{^isSuscriptorRechazado}}
+			  <a class="col-xs-12 col-sm-6 btn btn-default" href="/tutorial#publica"
 					data-toggle="tooltip" data-placement="left"
 					title="{{#transu}}escribir_title{{/transu}}">
-				<i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}} 
-			</a>
-			{{/canColaborador}}
-			<a class="list-group-item" href="/favorites"
-					data-toggle="tooltip" data-placement="left" 
-					title="{{total_favoritos | formatear_numero}} {{#transu}}total{{/transu}}">		  	
-				<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
-			</a>
-			<a class="list-group-item" href="/activity" 
-					data-toggle="tooltip" data-placement="left" 
-					title="{{total_actividad | formatear_numero}} {{#transu}}total{{/transu}}">
-				<i class="fa fa-user"></i> {{#transu}}actividad{{/transu}}
-			</a>
-			<a class="list-group-item {{#total_mensajes}}nuevas{{/total_mensajes}}" href="/messages" 
-					data-toggle="tooltip" data-placement="left" 
-					title="{{total_mensajes | formatear_numero}} {{#transu}}mensajes.sin_leer{{/transu}}">
-		  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
-			</a>
-			<a class="list-group-item" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}"
-						data-toggle="tooltip" data-placement="left"
-						title="{{#transu}}cerrar_sesion{{/transu}}">
-				<i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}} 
-			</a>
-		</div>
+				<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
+			  </a>
+			{{/isSuscriptorRechazado}}
+		{{/isSuscriptor}}
+		{{#canColaborador}}
+		<a class="col-xs-12 col-sm-6 btn btn-default" href="/wp-admin/edit.php" target="_blank"
+	    		data-toggle="tooltip" data-placement="left"
+	    		title="{{#transu}}user.tus_posts{{/transu}}: {{total_posts | formatear_numero}}">
+			<i class="fa fa-files-o"></i> posts 
+		</a>
+		<a class="col-xs-12 col-sm-6 btn btn-default" href="/wp-admin/post-new.php" target="_blank"
+				data-toggle="tooltip" data-placement="left"
+				title="{{#transu}}escribir_title{{/transu}}">
+			<i class="fa fa-pencil"></i> {{#transu}}nueva_entrada{{/transu}} 
+		</a>
+		{{/canColaborador}}
+		<a class="col-xs-12 col-sm-6 btn btn-default" href="/favorites"
+				data-toggle="tooltip" data-placement="left" 
+				title="{{total_favoritos | formatear_numero}} {{#transu}}total{{/transu}}">		  	
+			<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
+		</a>
+		<a class="col-xs-12 col-sm-6 btn btn-default" href="/activity" 
+				data-toggle="tooltip" data-placement="left" 
+				title="{{total_actividad | formatear_numero}} {{#transu}}total{{/transu}}">
+			<i class="fa fa-user"></i> {{#transu}}actividad{{/transu}}
+		</a>
+		<a class="col-xs-12 col-sm-6 btn btn-default {{#total_mensajes}}nuevas{{/total_mensajes}}" href="/messages" 
+				data-toggle="tooltip" data-placement="left" 
+				title="{{total_mensajes | formatear_numero}} {{#transu}}mensajes.sin_leer{{/transu}}">
+	  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
+		</a>
+		<a class="col-xs-12 col-sm-6 btn btn-default" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}"
+					data-toggle="tooltip" data-placement="left"
+					title="{{#transu}}cerrar_sesion{{/transu}}">
+			<i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}} 
+		</a>
 	</div>
 </div>
 {{/current_user}}

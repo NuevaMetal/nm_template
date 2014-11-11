@@ -19,7 +19,7 @@
 				      {{#current_user}}{{current_user.user_login}}{{/current_user}}
 					  {{^current_user}}Login{{/current_user}}
 				      <span class="caret"></span></a>
-			      <ul class="dropdown-menu" role="menu" id="foo">
+			      <ul class="dropdown-menu menu-principal-perfil" role="menu" id="menu-principal-perfil-xs">
 			        <li class="text-center">
 				        {{#current_user}}
 							{{> menu/principal/_ya_logueado }}
@@ -119,7 +119,7 @@
 			      {{#current_user}}{{current_user.user_login}}{{/current_user}}
 				  {{^current_user}}{{#transu}}acceder{{/transu}}{{/current_user}}
 			      </i></a>
-			      <ul class="dropdown-menu" role="menu" id="foo">
+			      <ul class="dropdown-menu menu-principal-perfil" role="menu" id="menu-principal-perfil-md">
 			        <li class="text-center">
 				        {{#current_user}}
 							{{> menu/principal/_ya_logueado }}
