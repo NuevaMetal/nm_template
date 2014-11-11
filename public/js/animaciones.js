@@ -29,18 +29,18 @@ $(document).on('mouseover', '#post-meta', function(e) {
 	e.preventDefault();
 	clearTimeout(timer);
 	var meta = $('#post-meta');
-	meta.find('.avatar').addClass('tada');
+	meta.find('.avatar').addClass('bounce');
 	meta.find('.descripcion').css('display','block');
-	meta.find('.descripcion').removeClass('flipOutX');
-	meta.find('.descripcion').addClass('flipInX');
+	meta.find('.descripcion').removeClass('zoomOut');
+	meta.find('.descripcion').addClass('zoomIn');
 });
 
 $(document).on('mouseleave', '#post-meta', function(e) {
 	e.preventDefault();
 	var meta = $('#post-meta');
-	meta.find('.avatar').removeClass('tada');	
-	meta.find('.descripcion').removeClass('flipInX');
-	meta.find('.descripcion').addClass('flipOutX');
+	meta.find('.avatar').removeClass('bounce');	
+	meta.find('.descripcion').removeClass('zoomIn');
+	meta.find('.descripcion').addClass('zoomOut');
 	timer = setTimeout(function(){
 		meta.find('.descripcion').css('display','none');
 	}, 1500);

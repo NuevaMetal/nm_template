@@ -77,15 +77,15 @@
 				}
 			}
 		}
-		.autor{			
+		.autor {
 			//border: 1px solid red;
 			//margin-top: 10px;
 			overflow: hidden;
 			* {margin-top: 0px;}
 			a:hover {
 				@extend %negrita;
-			}			
-		}		
+			}		
+		}
 		.descripcion {
 			display: none;
 		}
@@ -95,7 +95,7 @@
 		&:hover {
 			.descripcion {
 				display: inline-block ;
-				margin-top: 5px;
+				//margin-top: 5px;
 			}
 		}
 	}
