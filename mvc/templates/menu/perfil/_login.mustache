@@ -20,8 +20,10 @@
 					</button>
 				</div>
 				 <div class="checkbox col-xs-6 col-sm-3 col-md-2">
-				 	<label><input name="rememberme" type="checkbox" id="rememberme" 
-				    	 value="forever"> {{#transu}}recuerdame{{/transu}}</label>
+				 	<label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> 
+				 		<span class="hidden-md">{{#transu}}recuerdame{{/transu}}</span>
+				 		<span class="visible-md">{{#transu}}recuerda{{/transu}}</span>
+					</label>
 				</div>
 				<div class="col-xs-6 col-sm-3 col-md-2">
 					<a class="btn btn-default col-xs-12" href="/wp-login.php?action=register" 

@@ -127,6 +127,7 @@ return [
 
 	'rechazar' => 'reject',
 	'recibidos' => 'received',
+	'recuerda' => 'remember',
 	'recuerdame' => 'remember',
 	'registrarse' => 'Sign in',
 	'registrarse_title' => 'Sign in free on NM',

@@ -129,6 +129,7 @@ return [
 	'rechazar' => 'rechazar',
 	'recibidos' => 'recibidos',
 	'record-seal' => 'discográfica',
+	'recuerda' => 'recuerda',
 	'recuerdame' => 'recuérdame',
 	'registrarse' => 'registrarse',
 	'registrarse_title' => 'Registrate gratis',
