@@ -46,9 +46,10 @@ $(document).on('mouseleave', '#post-meta', function(e) {
 	}, 1500);
 });
 
-/**
- * Agrandar los iconos de las redes sociales.
- */
+// Animar las img del contenido de un post
+pasarRaton('.post-content img', 'animated pulse');
+
+// Agrandar los iconos de las redes sociales.
 pasarRaton('.redes-sociales a', 'btn-lg');
 
 /**
