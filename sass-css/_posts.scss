@@ -59,7 +59,7 @@
 	#post-meta {
 		border-top: 1px solid #bbb;
 		
-		margin-top: 10px;
+		margin-bottom: 10px;
 		padding-top: 10px;
 		word-wrap: break-word; 
 		.avatar {
@@ -95,7 +95,7 @@
 		&:hover {
 			.descripcion {
 				display: inline-block ;
-				margin: 10px 0;
+				margin-top: 5px;
 			}
 		}
 	}

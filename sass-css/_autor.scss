@@ -27,8 +27,15 @@
 			}
 	    }
 	}
+	
+	.col1 {
+		word-wrap: break-word;
+	}
 
 	.col2 {
+		.descripcion {
+			word-wrap: break-word;
+		}
 		@include col(sm) {
 			margin-top: 195px;
 	    }

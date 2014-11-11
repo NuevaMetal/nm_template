@@ -2,10 +2,10 @@
 
 {{$ content }}
 	<div id="user" class="autor">
-		{{#user}}
-			{{#current_user.canEditor}}
+		{{# user }}
+			{{# current_user.canEditor }}
 				{{> admin/_autor }}
-			{{/current_user.canEditor}}
+			{{/ current_user.canEditor }}
 			
 			<div class="row img-header">
 				<div class="col-xs-12">
@@ -36,7 +36,7 @@
 					{{> busqueda/_seccion }}
 				{{/posts}}
 			{{/ getTotalPosts }}
-		{{/user}}
+		{{/ user }}
 	</div>
 {{/ content }}
 
