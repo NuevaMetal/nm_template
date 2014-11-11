@@ -46,11 +46,15 @@ $(document).on('mouseleave', '#post-meta', function(e) {
 	}, 1500);
 });
 
-// Animar las img del contenido de un post
-pasarRaton('.post-content img', 'animated pulse');
+// Animar las img del contenido de un post, y de los posts de la home
+pasarRaton('.post-content img, .seccion_contenido img, #posts img, #users .avatar img', 'animated pulse');
+pasarRaton('.posts img', 'animated pulse');
+
+// Animar la vista de un perfil
+pasarRaton('#user img.avatar, #user .btn-social-icon', 'animated pulse');
 
 // Agrandar los iconos de las redes sociales.
-pasarRaton('.redes-sociales a', 'btn-lg');
+pasarRaton('.redes-sociales a', 'btn-lg animated pulse');
 
 /**
  * Dar al selector una clase cuando se pase el ratón por encima y quitarla cuando se quite el ratón.
