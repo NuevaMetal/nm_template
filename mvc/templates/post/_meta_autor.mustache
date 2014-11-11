@@ -1,23 +1,26 @@
 {{#getAutor}}
-<div id="post-meta" class="col-xs-12" itemprop="author" itemscope itemtype="http://schema.org/Person" >
+<div id="post-meta" class="col-xs-12 " itemprop="author" itemscope itemtype="http://schema.org/Person" >
 	<h3 class="titular">{{#transu}}autor{{/transu}}</h3>
 
 	<div class="col-xs-12 col-sm-4 col-md-2 avatar" itemprop="image" >
-		<a href="{{getPerfilUrl}}">
+		<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}">
 			<img alt="{{display_name}}" src="{{getAvatarPerfil}}" >
 		</a>
 	</div>
-	<div class="col-xs-12 col-sm-8 col-md-4 autor">
+	<div class="col-xs-12 col-sm-8 col-md-4 autor titular">
 		<h3>
 			<small itemprop="jobTitle">
 				{{# isTipoUsuario }} {{getRol}} {{/ isTipoUsuario }}
 				{{^ isTipoUsuario }} {{getTipo | transu}} {{/ isTipoUsuario }}
 			</small><br>
-			<a href="{{getPerfilUrl}}" data-toggle="tooltip" data-placement="top" 
-				title="{{getTotalPuntos | formatear_numero}} {{#trans}}puntos{{/trans}}">
+			<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}">
 				<span itemprop="name">{{display_name}}</span>
-			</a>
+			</a><br>
 		</h3>
+		<div>
+			{{getTotalPosts | formatear_numero}} {{#trans}}entradas{{/trans}}<br>
+			{{getTotalPuntos | formatear_numero}} {{#trans}}puntos{{/trans}}
+		</div>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-6 descripcion" itemprop="description">
 		{{getDescripcionCorta | ucfirst}}
