@@ -2,7 +2,7 @@
 <div id="post-meta" class="col-xs-12 " itemprop="author" itemscope itemtype="http://schema.org/Person" >
 	<h3 class="titular">{{#transu}}autor{{/transu}}</h3>
 
-	<div class="col-xs-12 col-sm-4 col-md-2 avatar" itemprop="image" >
+	<div class="col-xs-12 col-sm-4 col-md-2 animated avatar" itemprop="image" >
 		<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}">
 			<img alt="{{getAlias}}" src="{{getAvatarPerfil}}" >
 		</a>
@@ -22,7 +22,7 @@
 			{{getTotalPuntos | formatear_numero}} {{#trans}}puntos{{/trans}}
 		</div>
 	</div>
-	<div class="col-xs-12 col-sm-12 col-md-6 descripcion" itemprop="description">
+	<div class="col-xs-12 col-sm-12 col-md-6 descripcion animated" itemprop="description">
 		<i class="fa fa-quote-left"></i> {{getDescripcionCorta | ucfirst}} <a href="{{getPerfilUrl}}">{{#transu}}ver_perfil{{/transu}}</a>
 	</div>
 </div>
