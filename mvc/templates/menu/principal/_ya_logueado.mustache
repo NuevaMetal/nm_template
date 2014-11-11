@@ -16,15 +16,15 @@
 		</h3>
 		<div class=" info titular hidden-xs">
 			{{#transu}}puntos{{/transu}}: 
-			<a href="/activity#puntos" data-toggle="tooltip" data-placement="right" 
+			<a href="/activity?active=puntos" data-toggle="tooltip" data-placement="right" 
 				title="{{#transu}}puntos{{/transu}}: {{getTotalPuntos | formatear_numero}}">{{getTotalPuntos | formatear_numero}}</a>
 			<br>	
 			{{#transu}}seguidores{{/transu}}: 
-			<a href="/activity#seguidores" data-toggle="tooltip" data-placement="right" 
+			<a href="/activity?active=seguidores" data-toggle="tooltip" data-placement="right" 
 				title="{{#transu}}seguidores{{/transu}}: {{getTotalSeguidores | formatear_numero}}">{{getTotalSeguidores | formatear_numero}}</a>
 			<br>
 			{{#transu}}siguiendo{{/transu}}: 
-			<a href="/activity#siguiendo" data-toggle="tooltip" data-placement="right" 
+			<a href="/activity?active=siguiendo" data-toggle="tooltip" data-placement="right" 
 				title="{{#transu}}siguiendo{{/transu}}: {{getTotalSiguiendo | formatear_numero}}">{{getTotalSiguiendo | formatear_numero}}</a>
 		</div>
 	</div>

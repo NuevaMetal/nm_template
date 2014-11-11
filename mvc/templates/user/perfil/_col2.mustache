@@ -1,6 +1,8 @@
 <div class="row estadisticas titular">
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}puntos{{/transu}}<br>	
-		<i class="fa fa-check"></i> <span class="rojo total-puntos">{{getTotalPuntos | formatear_numero}}</span>
+		<i class="fa fa-check"></i> 
+		{{#isCurrentUser}}<a href="/activity?active=puntos"><span class="rojo total-puntos">{{getTotalPuntos | formatear_numero}}</span></a>{{/isCurrentUser}}
+		{{^isCurrentUser}}<span class="rojo total-puntos">{{getTotalPuntos | formatear_numero}}</span>{{/isCurrentUser}}
 	</span>
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}posts{{/transu}}<br>	
@@ -8,15 +10,21 @@
 	</span>	
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}seguidores{{/transu}}<br>
-		<i class="fa fa-users"></i> <span class="rojo total-seguidores">{{getTotalSeguidores | formatear_numero}}</span>
+		<i class="fa fa-users"></i> 
+		{{#isCurrentUser}}<a href="/activity?active=seguidores"><span class="rojo total-seguidores">{{getTotalSeguidores | formatear_numero}}</span></a>{{/isCurrentUser}}
+		{{^isCurrentUser}}<span class="rojo total-seguidores">{{getTotalSeguidores | formatear_numero}}</span>{{/isCurrentUser}}
 	</span>
 		
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}siguiendo{{/transu}}<br>
-		<i class="fa fa-users"></i> <span class="rojo total-siguiendo">{{getTotalSiguiendo | formatear_numero}}</span>
+		<i class="fa fa-users"></i> 
+		{{#isCurrentUser}}<a href="/activity?active=siguiendo"><span class="rojo total-siguiendo">{{getTotalSiguiendo | formatear_numero}}</span></a>{{/isCurrentUser}}
+		{{^isCurrentUser}}<span class="rojo total-siguiendo">{{getTotalSiguiendo | formatear_numero}}</span>{{/isCurrentUser}}
 	</span>
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}dados{{/transu}}<br>
-		<i class="fa fa-star"></i> <span class="rojo total-favoritos">{{getTotalFavoritos | formatear_numero}}</span>
+		<i class="fa fa-star"></i> 
+		{{#isCurrentUser}}<a href="/favorites"><span class="rojo total-favoritos">{{getTotalFavoritos | formatear_numero}}</span></a>{{/isCurrentUser}}
+		{{^isCurrentUser}}<span class="rojo total-favoritos">{{getTotalFavoritos | formatear_numero}}</span>{{/isCurrentUser}}
 	</span>
 	
 	<span class="col-xs-6 col-sm-4 col-md-2">{{#transu}}recibidos{{/transu}}<br>

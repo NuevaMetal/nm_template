@@ -1,32 +1,39 @@
 {{< base }}
+
 	{{$ content }}
-		{{#user}}
+		{{#user}}		
+			{{# activo }}
 			<div id="actividad" class="padre">
 				<h1 class="titular">{{#transu}}actividad{{/transu}}</h1>
 			
 				<div class="col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">	
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs titular" role="tablist">
-						<li class="active"><a href="#actividades" role="tab" data-toggle="tab">
+						<li class="{{#actividades}}active{{/actividades}}">
+							<a href="#actividades" role="tab" data-toggle="tab">
 							{{#transu}}actividades{{/transu}} (<span class="cant">{{getTotalActividades | formatear_numero}}</span>)</a>
 						</li>
-						<li><a href="#actividades-propias" role="tab" data-toggle="tab">
+						<li class="{{#actividades-propias}}active{{/actividades-propias}}">
+							<a href="#actividades-propias" role="tab" data-toggle="tab">
 							{{#transu}}tu_actividad{{/transu}} (<span class="cant">{{getTotalActividadesPropias | formatear_numero}}</span>)</a>
 						</li>
-						<li><a href="#seguidores" role="tab" data-toggle="tab">
+						<li class="{{#seguidores}}active{{/seguidores}}">
+							<a href="#seguidores" role="tab" data-toggle="tab">
 							{{#transu}}seguidores{{/transu}} (<span class="cant">{{getTotalSeguidores | formatear_numero}}</span>)</a>
 						</li>
-						<li><a href="#siguiendo" role="tab" data-toggle="tab">
+						<li class="{{#siguiendo}}active{{/siguiendo}}">
+							<a href="#siguiendo" role="tab" data-toggle="tab">
 							{{#transu}}siguiendo{{/transu}} (<span class="cant">{{getTotalSiguiendo | formatear_numero}}</span>)</a>
 						</li>
-						<li><a href="#puntos" role="tab" data-toggle="tab">
+						<li class="{{#puntos}}active{{/puntos}}">
+							<a href="#puntos" role="tab" data-toggle="tab">
 							{{#transu}}puntos{{/transu}} (<span class="cant">{{getTotalPuntos | formatear_numero}}</span>)</a>
 						</li>
-					</ul>
-		
+					</ul>					
+					
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div class="tab-pane active col-xs-12" id="actividades">
+						<div class="tab-pane col-xs-12 {{#actividades}}active{{/actividades}}" id="actividades">
 							<h4 class="titular">{{#trans}}actividad.aqui_ver_actividad{{/trans}}</h4>
 							
 							<div class="actividad-content content">
@@ -41,7 +48,7 @@
 							{{> user/actividad/_btn_mostrar_mas }}
 						</div>
 		
-						<div class="tab-pane col-xs-12" id="actividades-propias">
+						<div class="tab-pane col-xs-12 {{#actividades-propias}}active{{/actividades-propias}}" id="actividades-propias">
 							<h4 class="titular">{{#trans}}actividad.actividades_propias{{/trans}}</h4>
 							
 							<div class="actividad-content content">
@@ -51,7 +58,7 @@
 							{{> user/actividad/_btn_mostrar_mas }}
 						</div>
 						
-						<div class="tab-pane col-xs-12 seguidores" id="seguidores">
+						<div class="tab-pane col-xs-12 {{#seguidores}}active{{/seguidores}}" id="seguidores">
 							<h4 class="titular">{{#trans}}actividad.usuarios_que_te_estan_siguiendo{{/trans}}</h4>
 							
 							<div class="actividad-content content">
@@ -61,7 +68,7 @@
 							{{> user/actividad/_btn_mostrar_mas }}
 						</div>
 		
-						<div class="tab-pane col-xs-12" id="siguiendo">
+						<div class="tab-pane col-xs-12 {{#siguiendo}}active{{/siguiendo}}" id="siguiendo">
 							<h4 class="titular">{{#trans}}actividad.usuarios_que_estas_siguiendo{{/trans}}</h4>
 							
 							<div class="actividad-content content">
@@ -71,23 +78,24 @@
 							{{> user/actividad/_btn_mostrar_mas }}
 						</div>
 						
-						<div class="tab-pane col-xs-12" id="puntos">
+						<div class="tab-pane col-xs-12 {{#puntos}}active{{/puntos}}" id="puntos">
 							<h4 class="titular">{{#trans}}actividad.aqui_ver_puntos{{/trans}}.</h4>					
 							{{> user/actividad/_puntos }}
 						</div>
 		
 					</div>
 				</div>
-				
 				{{#conSidebar}}
 				<div id="sidebar" class="col-xs-12 col-md-3">
 					{{> user/actividad/_sidebar}}
 				</div>
 				{{/conSidebar}}
 			</div>
+			{{/ activo }}
 		{{/user}}
 		{{^user}}
 			{{> error }}
 		{{/user}}
 	{{/ content }}
+	
 {{/ base }}

@@ -221,9 +221,27 @@ class UserController extends BaseController {
 		if (! $user) {
 			return $this->getError('404');
 		}
+
+		$posiblesActivo = [
+			'actividades' => false,
+			'actividades-propias' => false,
+			'seguidores' => false,
+			'siguiendo' => false,
+			'puntos' => false
+		];
+
+		$active = $_GET['active'];
+		if ($active && in_array($active, array_keys($posiblesActivo))) {
+			$posiblesActivo[$active] = true;
+		} else {
+			// Por defecto estará actividades, la primera pestaña.
+			$posiblesActivo['actividades'] = true;
+		}
+
 		return $this->renderPage('user/actividad', [
 			'conSidebar' => false,
-			'user' => $user
+			'user' => $user,
+			'activo' => $posiblesActivo
 		]);
 	}
 
