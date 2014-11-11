@@ -4,6 +4,7 @@ namespace Models;
 
 use Libs\Utils;
 use Libs\Ajax;
+use I18n\I18n;
 
 /**
  *
@@ -54,18 +55,26 @@ class Post extends Image {
 	 */
 	public function getFormComentarios() {
 		ob_start();
+		$placeholderTextarea = I18n::transu('compartir_comentario', []);
 		$params = [
+			'comment_notes_after' => '',
 			'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Your Name') . '</label>
-					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
+					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30" /></p>',
 			'comment_field' => '
 				<div class="form-group comment-form-comment">
 		            <label for="comment">' . _x('Comment', 'noun') . '</label>
 		            <textarea class="form-control" id="comment" name="comment" cols="45" rows="2"
-							maxlength="1000" aria-required="true"></textarea>
-		        </div>',
+							maxlength="1000" aria-required="true" placeholder="' . $placeholderTextarea . '"></textarea>
+		        </div>'
 		];
 		comment_form($params, $this->ID);
 		$comment_form = ob_get_clean();
+		$comment_form = str_replace('class="comment-reply-title"', 'class="comment-reply-title titular"', $comment_form);
+		$comment_form = str_replace('Deja un comentario', I18n::transu('deja_un_comentario'), $comment_form);
+		$comment_form = str_replace('Conectado como', I18n::transu('conectado_como'), $comment_form);
+		$comment_form = str_replace('¿Quieres salir?', I18n::transu('quieres_salir'), $comment_form);
+		$comment_form = str_replace('Comentario', I18n::transu('comentario'), $comment_form);
+		$comment_form = str_replace('Publicar comentario', I18n::transu('publicar_comentario'), $comment_form);
 		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
 		return $comment_form;
 	}

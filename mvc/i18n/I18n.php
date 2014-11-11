@@ -182,17 +182,6 @@ class I18n {
 	}
 
 	/**
-	 * Devuelve la palabra traducida según el idioma del navegador con la primera letra mayúscula
-	 *
-	 * @param string $key
-	 *        	clave del fichero de idiomas
-	 * @return string valor del idioma al que le corresponde dicha clave
-	 */
-	public static function transupper($key, $params = [], $idiomaForzado = false) {
-		return strtoupper(self::trans($key, $params, $idiomaForzado));
-	}
-
-	/**
 	 *
 	 * @param unknown $key
 	 * @param unknown $params
