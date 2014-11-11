@@ -35,6 +35,7 @@ Acciones::establecerDefectoOpcionesParaAdjuntos();
 
 Acciones::publicarPostsProgramados();
 
+Acciones::commentPost();
 // --------------------------------------------------------------
 // Filtros
 // --------------------------------------------------------------
@@ -43,5 +44,3 @@ Filtros::comentariosConBootstrap3();
 
 Filtros::contentSavePre();
 Filtros::theContent();
-
-Filtros::preCommentContent();

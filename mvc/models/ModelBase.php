@@ -11,6 +11,12 @@ abstract class ModelBase {
 
 	// Columnas de la tabla del modelo
 	protected static $columnas = array();
+	// Clave primaria
+	protected static $PK = 'ID';
+
+	/*
+	 * Miembros
+	 */
 	public $ID;
 	public $created_at;
 	public $updated_at;
@@ -21,8 +27,8 @@ abstract class ModelBase {
 	 * @param integer $_id
 	 *        	Identificador del modelo
 	 */
-	public function __construct($_id = -1) {
-		$this->ID = $_id;
+	public function __construct($ID = 0) {
+		$this->ID = $ID;
 		global $wpdb;
 		static::$columnas = $wpdb->get_col_info();
 	}
@@ -34,9 +40,9 @@ abstract class ModelBase {
 	 */
 	public static function all() {
 		global $wpdb;
+		// Clase hija
 		$modelo = get_called_class();
-		$query = "SELECT * FROM {$wpdb->prefix}{$modelo::$table}";
-		$queryResults = $wpdb->get_results($query);
+		$queryResults = $wpdb->get_results('SELECT * FROM wp_' . $modelo::$table);
 		$result = [];
 		foreach ($queryResults as $qr) {
 			$a = new $modelo();
@@ -57,7 +63,7 @@ abstract class ModelBase {
 	 *        	Clave primaria en la tabla
 	 * @return object
 	 */
-	public static function find($ID = false, $pk = 'ID') {
+	public static function find($ID = false) {
 		if ($ID == null || ! is_numeric($ID)) {
 			return null;
 		}
@@ -65,7 +71,7 @@ abstract class ModelBase {
 		$modelo = get_called_class();
 		$query = 'SELECT *
 				FROM wp_' . static::$table . '
-				WHERE ' . $pk . '= %d';
+				WHERE ' . static::$PK . '= %d';
 		$object = $wpdb->get_row($wpdb->prepare($query, $ID));
 		if (! $object) {
 			return null;
@@ -91,7 +97,7 @@ abstract class ModelBase {
 		$objects = [];
 		$modelo = get_called_class();
 		$query = 'SELECT * FROM wp_' . static::$table . ' WHERE ' . $columna . '= %d';
-		$resultsQuery = $wpdb->get_results($wpdb->prepare($query, $columna));
+		$resultsQuery = $wpdb->get_results($wpdb->prepare($query, $valor));
 		foreach ($resultsQuery as $_object) {
 			$object = new $modelo();
 			foreach ($_object as $column => $val) {

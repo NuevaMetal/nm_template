@@ -58,14 +58,16 @@ class Post extends Image {
 			'comment_notes_after' => '',
 			'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Your Name') . '</label>
 					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
-			'comment_field' => '<div class="form-group comment-form-comment">
-			            <label for="comment">' . _x('Comment', 'noun') . '</label>
-			            <textarea class="form-control" id="comment" name="comment" cols="45" rows="2" maxlength="1000" aria-required="true"></textarea>
-			        </div>'
+			'comment_field' => '
+				<div class="form-group comment-form-comment">
+		            <label for="comment">' . _x('Comment', 'noun') . '</label>
+		            <textarea class="form-control" id="comment" name="comment" cols="45" rows="2"
+							maxlength="1000" aria-required="true"></textarea>
+		        </div>',
 		];
 		comment_form($params, $this->ID);
 		$comment_form = ob_get_clean();
-		$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
+		//$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
 		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
 		return $comment_form;
 	}
@@ -83,7 +85,7 @@ class Post extends Image {
 		];
 		$comentarios = [];
 		foreach (get_comments($args_comments, $this->ID) as $c) {
-			$comentarios[] = Comment::find($c->comment_ID, 'comment_ID');
+			$comentarios[] = Comment::find($c->comment_ID);
 		}
 		return $comentarios;
 	}

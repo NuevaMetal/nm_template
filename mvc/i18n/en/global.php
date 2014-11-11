@@ -25,6 +25,7 @@ return [
 	'cambiar' => 'change',
 	'cerrar_sesion' => 'logout',
 	'comentario' => 'comment',
+	'comentario_borrado_exito' => 'Comentario deleted succesfully.',
 	'comentarios' => 'comments',
 	'compartir_con' => 'share with',
 	'como' => 'as',

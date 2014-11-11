@@ -67,13 +67,4 @@ class Filtros {
 			return $fields;
 		}
 	}
-
-	/**
-	 */
-	public static function preCommentContent() {
-		// TODO: Filtrar que los comentarios no tengan un tamaño máximo
-		// add_filter('comment_save_pre', function ($arr) {
-
-		// });
-	}
 }

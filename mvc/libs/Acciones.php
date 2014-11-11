@@ -6,6 +6,7 @@ use I18n\I18n;
 use Controllers\UserController;
 use Models\User;
 use Libs\Utils;
+use Models\Comment;
 
 /**
  * Acciones de Wordpress
@@ -494,6 +495,26 @@ class Acciones {
 					wp_publish_post($postId);
 				}
 			}
+		});
+	}
+
+	/**
+	 * Eliminar etiquetas de un comentario y limitar su tamaño.
+	 */
+	public static function commentPost() {
+		add_action('comment_post', function ($comment_ID) {
+			$comment = Comment::find($comment_ID);
+			/*
+			 * Quitamos las etiquetas para impesir ataques XSS entre otros.
+			 * Y nos aseguramos de que no tenga más del tamaño permitido.
+			 */
+			$content = $comment->comment_content;
+			$content = Html::quitarEtiquetas($content);
+			if (strlen($content) > Comment::MAX_LENGTH) {
+				$content = substr($content, 0, Comment::MAX_LENGTH);
+			}
+			$comment->comment_content = $content;
+			$comment->save();
 		});
 	}
 }

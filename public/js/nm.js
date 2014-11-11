@@ -596,7 +596,7 @@ function cargarMenu(tipoMenu, animacion){
 $(document).on('click', '.borrar-comentario', function(e) {
 	e.preventDefault();
 	var $this =  $(this);
-	var url = $this.parents('.post-content').attr('url');
+	var url = $('#page').attr('url');
 	var comment = $this.parents('.row');
 	var id = comment.attr('id').split('-')[1];
 	var data = {
@@ -620,6 +620,7 @@ $(document).on('click', '.borrar-comentario', function(e) {
 		},
 		success : function(json) {
 			comment.remove();
+			mostrarAlerta(json.alert, 3);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 

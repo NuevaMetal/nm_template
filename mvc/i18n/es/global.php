@@ -26,6 +26,7 @@ return [
 	'cambiar' => 'cambiar',
 	'cerrar_sesion' => 'cerrar sesión',
 	'comentario' => 'comentario',
+	'comentario_borrado_exito' => 'Comentario borrado con éxito.',
 	'comentarios' => 'comentarios',
 	'compartir_con' => 'compartir con',
 	'como' => 'como',

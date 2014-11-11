@@ -12,6 +12,8 @@ use Models\UserBloqueado;
 use Models\UserPendiente;
 use Models\UserBaneado;
 use Models\Mensaje;
+use Libs\KeysRequest;
+use Models\Comment;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -504,14 +506,16 @@ class AjaxController extends BaseController {
 		if (! $this->current_user->canEditor()) {
 			return $this->err_sin_permisos;
 		}
-		$tipo = $_datos['tipo'];
-		switch ($tipo) {
+		$json = [];
+		switch ($_datos['tipo']) {
 			case Comment::BORRAR_COMENTARIO :
 				$comment = new Comment($_datos['id']);
 				$comment->borrar();
+				$alert = $this->renderAlertaInfo(I18n::trans('comentario_borrado_exito'));
 				break;
 		}
-		break;
+		$json['alert'] = $alert;
+		return $json;
 	}
 
 	/**
