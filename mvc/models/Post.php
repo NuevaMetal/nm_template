@@ -55,7 +55,6 @@ class Post extends Image {
 	public function getFormComentarios() {
 		ob_start();
 		$params = [
-			'comment_notes_after' => '',
 			'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Your Name') . '</label>
 					<input id="author" name="author" type="text"  value="Your First and Last Name" size="30"' . $aria_req . ' /></p>',
 			'comment_field' => '
@@ -67,7 +66,6 @@ class Post extends Image {
 		];
 		comment_form($params, $this->ID);
 		$comment_form = ob_get_clean();
-		//$comment_form = str_replace('class="comment-form"', 'class="comment-form"', $comment_form);
 		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
 		return $comment_form;
 	}

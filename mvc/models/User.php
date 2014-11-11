@@ -86,7 +86,7 @@ class User extends Favoriteador {
 	const NUM_ETI_FAV_PERFIL_DEFAULT = 20;
 
 	// Número de palabras para la descripción corta
-	const NUM_DESCRIPCION_CORTA = 11;
+	const NUM_DESCRIPCION_CORTA = 30;
 
 	// Número de posts favositos para ir mostrando
 	const NUM_POSTS_FAV = 8;
