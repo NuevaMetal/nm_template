@@ -1,4 +1,5 @@
 {{< base }}
+
 	{{$ content }}
 		{{#post}}
 		<div class="post-content">
@@ -38,4 +39,30 @@
 		</div>
 		{{/post}}
 	{{/ content }}
+	
+	{{$ scripts }}		
+		<script>
+		$(document).ready(function() {
+			/**
+			 * Actualizar el contenido de las similares o relacionadas
+			 */
+			function actualizar(tipo) {
+				var url = "{{template_url}}/ajax.php?submit=post&tipo="+tipo+"&id={{post.ID}}";
+				pintarEnIdByUrl(tipo, url);
+			}
+			var segParaActualizar = 30;
+			// Actualizar cada 30sg
+			setInterval(function(){
+				actualizar("entradas-similares");
+			} , segParaActualizar * 1000);
+			setInterval(function(){
+				actualizar("entradas-relacionadas");
+			}, segParaActualizar * 1000);
+			
+			actualizar("entradas-similares");
+			actualizar("entradas-relacionadas");
+		});
+		</script>
+	{{/ scripts }}
+
 {{/ base }}

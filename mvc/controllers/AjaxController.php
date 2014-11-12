@@ -5,15 +5,15 @@ namespace Controllers;
 use I18n\I18n;
 use Libs\Utils;
 use Libs\Ajax;
-use Models\Revision;
+use Models\Comment;
+use Models\Mensaje;
 use Models\Post;
 use Models\User;
 use Models\UserBloqueado;
 use Models\UserPendiente;
 use Models\UserBaneado;
-use Models\Mensaje;
+use Models\Revision;
 use Libs\KeysRequest;
-use Models\Comment;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -503,18 +503,32 @@ class AjaxController extends BaseController {
 	 * @return array JSON de respuesta para para JS
 	 */
 	private function _jsonPost($_datos) {
-		if (! $this->current_user->canEditor()) {
-			return $this->err_sin_permisos;
-		}
 		$json = [];
+		$json['code'] = 200;
 		switch ($_datos['tipo']) {
 			case Comment::BORRAR_COMENTARIO :
+				if (! $this->current_user->canEditor()) {
+					return $this->err_sin_permisos;
+				}
 				$comment = new Comment($_datos['id']);
 				$comment->borrar();
 				$alert = $this->renderAlertaInfo(I18n::trans('comentario_borrado_exito'));
 				break;
+			case 'entradas-similares' :
+				$post = Post::find($_datos['id']);
+				$content = $this->render('post/sidebar/_similares', [
+					'post' => $post
+				]);
+				break;
+			case 'entradas-relacionadas' :
+				$post = Post::find($_datos['id']);
+				$content = $this->render('post/sidebar/_relacionadas', [
+					'post' => $post
+				]);
+				break;
 		}
 		$json['alert'] = $alert;
+		$json['content'] = $content;
 		return $json;
 	}
 
@@ -850,8 +864,8 @@ class AjaxController extends BaseController {
 		]; // Error default
 
 		$submit = $_REQUEST['submit'];
-		$nonce = $_POST['nonce'];
-		$post_id = $_POST['post'];
+		$nonce = $_REQUEST['nonce'];
+		$post_id = $_REQUEST['post'];
 
 		// Comprobamos que haya algún submit
 		if (! $submit) {

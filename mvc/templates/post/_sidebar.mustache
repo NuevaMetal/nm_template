@@ -1,20 +1,19 @@
-{{#current_user.canSuscriptor}}
+{{# current_user.canSuscriptor }}
 	{{> post/sidebar/_users_que_gustan }}
-{{/current_user.canSuscriptor}}
-{{^current_user.canSuscriptor}}
-	{{#hayUsersQueGustan}}
+{{/ current_user.canSuscriptor }}
+{{^ current_user.canSuscriptor }}
+	{{# hayUsersQueGustan }}
 		{{> post/sidebar/_users_que_gustan }}
-	{{/hayUsersQueGustan}}
-{{/current_user.canSuscriptor}}
+	{{/ hayUsersQueGustan }}
+{{/ current_user.canSuscriptor }}
+
 
 {{# getTotalSimilares }}
 <div class="sidebar-item col-sm-12 similares">
 	<h3 class="titular"><i class="fa fa-group"></i> {{#trans}}sidebar.entradas_similares{{/trans}}</h3>
 	<hr>
-	<section>
-	{{# getSimilares }}
-		{{> post/sidebar/_similares}}
-	{{/ getSimilares }}
+	<section id="entradas-similares">
+		{{!> post/sidebar/_similares }}
 	</section>
 </div>
 {{/ getTotalSimilares }}
@@ -23,10 +22,8 @@
 <div class="sidebar-item col-sm-12 similares">
 	<h3 class="titular"><i class="fa fa-code-fork "></i> {{#trans}}sidebar.entradas_relacionadas{{/trans}}</h3>
 	<hr>
-	<section>
-	{{# getRelacionadas }}
-		{{> post/sidebar/_similares}}
-	{{/ getRelacionadas }}
+	<section id="entradas-relacionadas">
+		{{!> post/sidebar/_relacionadas }}
 	</section>
 </div>
 {{/ getTotalRelacionadas }}

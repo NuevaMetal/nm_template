@@ -79,3 +79,25 @@ function pasarRaton(selector, clase){
 	mouseOver(selector, clase);
 	mouseLeave(selector, clase);
 }
+
+
+/**
+ * Pintar en un id a partir del contenido resultante de una petición get
+ */
+function pintarEnIdByUrl(elementId, url) {
+	$.get(url, function(_json) {
+		var json = JSON.parse(_json);
+		_pintarEnIdByUrl(elementId, json);
+	});
+}
+
+function _pintarEnIdByUrl(elementId, json) {
+	if (json.code == 200) {
+		var elemento = $("#" + elementId);
+		elemento.find('article').addClass("animated zoomOut");
+		setTimeout(function() {
+			elemento.empty(); // eliminar hijos
+			elemento.append($(json.content).addClass('animated zoomIn')); // poner el contenido
+		},500);
+	}
+}
