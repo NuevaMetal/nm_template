@@ -35,6 +35,11 @@ h3.header {
 	text-align: center;	
  	
 	.post {
+	
+		&:hover img {
+			 @include scale(1.05);
+		}
+	
 		img {
 			opacity: 0.9;
 			min-height: 150px;

@@ -46,16 +46,8 @@ $(document).on('mouseleave', '#post-meta', function(e) {
 	}, 1500);
 });
 
-// Animar las img del contenido de un post, y de los posts de la home
-pasarRaton('.post img, .seccion_contenido img, #posts img, #users .avatar img', 'animated pulse');
-pasarRaton('.posts img', 'animated pulse');
-
-// Animar la vista de un perfil
-pasarRaton('#user img.avatar, #user .btn-social-icon', 'animated pulse');
-pasarRaton('#actividad img', 'animated pulse');
-
 // Agrandar los iconos de las redes sociales.
-pasarRaton('.redes-sociales a', 'btn-lg animated pulse');
+pasarRaton('.redes-sociales a', 'btn-lg');
 
 /**
  * Dar al selector una clase cuando se pase el ratón por encima y quitarla cuando se quite el ratón.
@@ -82,22 +74,21 @@ function pasarRaton(selector, clase){
 
 
 /**
- * Pintar en un id a partir del contenido resultante de una petición get
+ * Pintar en un id a partir del contenido resultante de una petición get.
+ * 
+ * @param selectorId Identificador del elemento.
+ * @param url URL para la petición get.
  */
-function pintarEnIdByUrl(elementId, url) {
+function pintarEnIdByUrl(selectorId, url) {
 	$.get(url, function(_json) {
 		var json = JSON.parse(_json);
-		_pintarEnIdByUrl(elementId, json);
+		if (json.code == 200) {
+			var elemento = $("#" + selectorId);
+			elemento.find('article').addClass("animated zoomOut");
+			setTimeout(function() {
+				elemento.empty(); // eliminar hijos
+				elemento.append($(json.content).addClass('animated zoomIn')); // poner el contenido
+			},500);
+		}
 	});
-}
-
-function _pintarEnIdByUrl(elementId, json) {
-	if (json.code == 200) {
-		var elemento = $("#" + elementId);
-		elemento.find('article').addClass("animated zoomOut");
-		setTimeout(function() {
-			elemento.empty(); // eliminar hijos
-			elemento.append($(json.content).addClass('animated zoomIn')); // poner el contenido
-		},500);
-	}
 }
