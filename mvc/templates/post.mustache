@@ -40,28 +40,16 @@
 		{{/post}}
 	{{/ content }}
 
-	{{$ scripts }}		
+	{{$ scripts }}
+		<script src="{{template_url}}/public/js/post.js"></script>
 		<script>
-		$(document).ready(function() {
 			/**
-			 * Actualizar el contenido de las similares o relacionadas
+			 * Actualizar el contenido de las similares o relacionadas.
 			 */
-			function actualizar(tipo) {
+			function actualizarEntradas(tipo) {
 				var url = "{{template_url}}/ajax.php?submit=post&tipo="+tipo+"&id={{post.ID}}";
 				pintarEnIdByUrl(tipo, url);
 			}
-			var segParaActualizar = 30;
-			/* Actualizar cada 30sg */
-			setInterval(function(){
-				actualizar("entradas-similares");
-			} , segParaActualizar * 1000);
-			setInterval(function(){
-				actualizar("entradas-relacionadas");
-			}, segParaActualizar * 1000);
-			
-			actualizar("entradas-similares");
-			actualizar("entradas-relacionadas");
-		});
 		</script>
 	{{/ scripts }}
 

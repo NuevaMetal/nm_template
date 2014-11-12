@@ -10,7 +10,10 @@
 
 {{# getTotalSimilares }}
 <div class="sidebar-item col-sm-12 similares">
-	<h3 class="titular"><i class="fa fa-group"></i> {{#trans}}sidebar.entradas_similares{{/trans}}</h3>
+	<h3 class="titular refrescar" tipo="entradas-similares" 
+			data-toggle="tooltip" data-placement="left" title="{{#transu}}mostrar_mas{{/transu}}">
+		<i class="fa fa-group"></i> {{#trans}}sidebar.entradas_similares{{/trans}}
+	</h3>
 	<hr>
 	<section id="entradas-similares">
 		{{!> post/sidebar/_similares }}
@@ -20,7 +23,10 @@
 
 {{# getTotalRelacionadas }}
 <div class="sidebar-item col-sm-12 similares">
-	<h3 class="titular"><i class="fa fa-code-fork "></i> {{#trans}}sidebar.entradas_relacionadas{{/trans}}</h3>
+	<h3 class="titular refrescar" tipo="entradas-relacionadas"
+			data-toggle="tooltip" data-placement="left" title="{{#transu}}mostrar_mas{{/transu}}">
+		<i class="fa fa-code-fork "></i> {{#trans}}sidebar.entradas_relacionadas{{/trans}}
+	</h3>
 	<hr>
 	<section id="entradas-relacionadas">
 		{{!> post/sidebar/_relacionadas }}
