@@ -14,11 +14,7 @@
 		</div>
         <div class="caption">
 			<div class="col-xs-6 text-left">
-				{{# getTotalMeGustas }}
-					<span class="total-me-gustas titular">
-						<i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | formatear_numero}}</span>
-					</span>
-				{{/ getTotalMeGustas }}
+				{{> home/_btn_estrella_me_gusta }}
 			</div>
 			<div class="col-xs-6 text-right">
 				{{# getTotalComentarios }}

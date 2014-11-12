@@ -147,6 +147,11 @@ h3.header {
     .total-comentarios, .total-me-gustas {
     	@extend %sombreado-semitransparente;  
     }
+    .total-me-gustas.te-gusta {
+		i {
+			color: $rojo-danger-hover;
+		}
+    }
 }
 
 .tus-propias-entradas {

@@ -53,9 +53,6 @@ $color-danger:  #d9534f;
 	border-radius: 10px;
 	background:rgba(0, 0, 0, 0.7);
 	font-size: 21px;
-	i {
-		color: $rojo-danger-hover;
-	}
 }
 
 %titular {
@@ -68,6 +65,21 @@ $color-danger:  #d9534f;
 }
 .rojo-danger-hover {
 	color: $rojo-danger-hover;
+}
+.color-primary {
+	color: $color-primary;
+}
+.color-success {
+	color: $color-success;
+}
+.color-info {
+	color: $color-info;
+}
+.color-warning {
+	color: $color-warning;
+}
+.color-danger {
+	color: $color-danger;
 }
 
 ::selection {

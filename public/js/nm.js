@@ -256,6 +256,43 @@ function seHaceSrollEn(_id){
 }
 
 /**
+ * Botón estrella me gusta
+ */
+$(document).on('click', '.post .total-me-gustas', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	var post_id = $this.attr('post');
+	var user_id = $this.attr('user');
+	var nonce = $this.attr('nonce');
+	var url = $('#page').attr('url');
+
+	if(user_id == "" || user_id == null)return;
+
+	var data = {
+		submit: 'post',
+		tipo : 'me-gusta',
+		post : post_id,
+		nonce: nonce
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+		},
+		success : function(json) {
+			$this.replaceWith(json.content);
+			mostrarAlerta(json.alert, 5);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+});
+
+/**
  * Botón me gusta
  */
 $(document).on('click', '.btn-me-gusta', function(e) {
@@ -276,7 +313,6 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 		te_gusta: te_gusta,
 		nonce: nonce
 	};
-	console.log(data);
 	$.ajax({
 		url : url,
 		type : "POST",
@@ -295,7 +331,7 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 			} else {
 				sidebar.find('.users-que-gustan').prepend(json.user_que_gusta);
 			}
-			mostrarAlerta(json.alert, 2);
+			mostrarAlerta(json.alert, 3);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 

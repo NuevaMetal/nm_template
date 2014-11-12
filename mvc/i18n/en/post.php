@@ -26,6 +26,10 @@ return [
 
 	'redes sociales' => 'Social netwoks',
 	'redes' => 'Social netwoks',
+
+	'te_gusta' => 'you like',
+	'te_dejo_de_gustar' => 'you don\'t like',
+
 	'vocalista' => 'Vocal',
 	'vocals' => 'Vocal',
 	'voz' => 'Vocal',

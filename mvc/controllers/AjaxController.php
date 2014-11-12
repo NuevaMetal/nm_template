@@ -416,7 +416,7 @@ class AjaxController extends BaseController {
 	 * @return array
 	 */
 	private function _jsonAdminHacerColaborador($_datos) {
-		if (! $this->current_user->canEditor()) {
+		if (! $this->current_user || ! $this->current_user->canEditor()) {
 			return $this->err_sin_permisos;
 		}
 		$user_id = $_datos['user'];
@@ -507,26 +507,55 @@ class AjaxController extends BaseController {
 		$json['code'] = 200;
 		switch ($_datos['tipo']) {
 			case Comment::BORRAR_COMENTARIO :
-				if (! $this->current_user->canEditor()) {
+				if (! $this->current_user || ! $this->current_user->canEditor()) {
 					return $this->err_sin_permisos;
 				}
 				$comment = new Comment($_datos['id']);
 				$comment->borrar();
 				$alert = $this->renderAlertaInfo(I18n::trans('comentario_borrado_exito'));
 				break;
-			case 'entradas-similares' :
+			case Post::ENTRADAS_SIMILARES :
 				$post = Post::find($_datos['post']);
 				$content = $this->render('post/sidebar/_similares', [
 					'post' => $post
 				]);
 				break;
-			case 'entradas-relacionadas' :
+			case Post::ENTRADAS_RELACIONADAS :
 				$post = Post::find($_datos['post']);
 				$content = $this->render('post/sidebar/_relacionadas', [
 					'post' => $post
 				]);
 				break;
+			case Ajax::ME_GUSTA :
+				$post = Post::find($_datos['post']);
+				// El usuario debe estar logueado
+				if ($this->current_user && $this->current_user->canSuscriptor()) {
+
+					$teGusta = $this->current_user->meGustaToogle($post);
+
+					$content = $this->render('home/_btn_estrella_me_gusta', [
+						'ID' => $post->ID,
+						'isMeGusta' => $teGusta,
+						'getNonceMeGusta' => $_datos['nonce'],
+						'getTotalMeGustas' => $post->getTotalMeGustas()
+					]);
+					if ($teGusta) {
+						$alert = $this->renderAlertaInfo($post->getTitulo(), I18n::transu('post.te_gusta'));
+					} else {
+						$alert = $this->renderAlertaInfo($post->getTitulo(), I18n::transu('post.te_dejo_de_gustar'));
+					}
+				} else {
+					// Si no está logueado devuelve la vista igual.
+					$content = $this->render('home/_btn_estrella_me_gusta', [
+						'ID' => $post->ID,
+						'isMeGusta' => $teGusta,
+						'getNonceMeGusta' => $_datos['nonce'],
+						'getTotalMeGustas' => $post->getTotalMeGustas()
+					]);
+				}
+				break;
 		}
+
 		$json['alert'] = $alert;
 		$json['content'] = $content;
 		return $json;

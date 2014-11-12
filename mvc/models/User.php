@@ -1608,4 +1608,60 @@ class User extends Favoriteador {
 		 		AND user_id = %d
 		 		AND status = %d', $post_id, $this->ID, Revision::ESTADO_PENDIENTE));
 	}
+
+	/**
+	 * Devuelve true si al User le gusta el Post pasado por parámetro.
+	 * False en caso contrario.
+	 *
+	 * @param Post $post
+	 */
+	public function teGusta($post) {
+		global $wpdb;
+		$estado = (int) $wpdb->get_var($wpdb->prepare('SELECT status FROM wp_favoritos
+				WHERE post_id = %d AND user_id = %d', $post->ID, $this->ID));
+		if ($estado == Favorito::ACTIVO) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Crear me gusta o quitar, dependiendo del estado anterior que tenga el me gusta.
+	 * Si no existe lo crea.
+	 *
+	 * @param Post $post
+	 *        	Post que te gusta
+	 * @return integer
+	 */
+	public function meGustaToogle($post) {
+		global $wpdb;
+		// Comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
+		$num = (int) $wpdb->get_var($wpdb->prepare('
+				SELECT COUNT(*) FROM wp_favoritos
+				WHERE post_id = %d AND user_id =%d', $post->ID, $this->ID));
+
+		// Si no existe, lo creamos con estado borrado por defecto.
+		if (! $num) {
+			$result = $wpdb->query($wpdb->prepare('
+					INSERT INTO wp_favoritos (post_id, user_id, status, created_at, updated_at)
+					VALUES (%d, %d, %d, null, null );', $post->ID, $this->ID, Favorito::BORRADO));
+		}
+
+		if ($this->teGusta($post)) {
+			// Si está activo lo ponemos borrado
+			$wpdb->query($wpdb->prepare('
+					UPDATE wp_favoritos
+					SET status =  %d, count = count + 1
+					WHERE post_id = %d AND user_id = %d
+					AND status = %d;', Favorito::BORRADO, $post->ID, $this->ID, Favorito::ACTIVO));
+			return false;
+		}
+		// Si está borrado lo ponemos activo
+		$wpdb->query($wpdb->prepare('
+					UPDATE wp_favoritos
+					SET status =  %d, count = count + 1
+					WHERE post_id = %d AND user_id = %d
+					AND status = %d;', Favorito::ACTIVO, $post->ID, $this->ID, Favorito::BORRADO));
+		return true;
+	}
 }

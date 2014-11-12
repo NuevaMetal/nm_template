@@ -22,6 +22,10 @@ return [
 	'members' => 'Miembros',
 
 	'social netwoks' => 'Redes sociales',
+
+	'te_gusta' => 'te gusta',
+	'te_dejo_de_gustar' => 'te dejó de gustar',
+
 	'vocals' => 'Voz',
 	'vocal' => 'Voz',
 	'vocalist' => 'Voz',

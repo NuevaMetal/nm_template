@@ -520,10 +520,9 @@ class Post extends Image {
 	 */
 	public function getTotalMeGustas() {
 		global $wpdb;
-		return (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-		 		FROM wp_favoritos
-				WHERE post_id = %d
-				AND status = %d', $this->ID, Favorito::ACTIVO));
+		return (int) $wpdb->get_var($wpdb->prepare('
+				SELECT COUNT(*) FROM wp_favoritos
+				WHERE post_id = %d AND status = %d', $this->ID, Favorito::ACTIVO));
 	}
 
 	/**
@@ -615,29 +614,37 @@ class Post extends Image {
 	 */
 	public function crearMeGusta($user) {
 		global $wpdb;
-		$nonce = $_POST['nonce'];
-		$statusActivo = Favorito::ACTIVO;
-		$statusBorrado = Favorito::BORRADO;
-		// Segundo comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
-		$num = (int) $wpdb->get_var('SELECT COUNT(*)
-		 		FROM ' . $wpdb->prefix . "favoritos
-				WHERE post_id = {$this->ID}
-				AND user_id = {$user->ID};");
+		// Comprobamos si dicho usuario ya le dió alguna vez a me gusta a ese post
+		$num = (int) $wpdb->get_var($wpdb->prepare('
+				SELECT COUNT(*) FROM wp_favoritos
+				WHERE post_id = %d AND user_id =%d', $this->ID, $user->ID));
 
-		// Si no existe, lo creamos
+		// Si no existe, lo creamos con estado borrado por defecto.
 		if (! $num) {
-			$result = $wpdb->query($wpdb->prepare("
-					INSERT INTO {$wpdb->prefix}favoritos (post_id, user_id, created_at, updated_at)
-					VALUES (%d, %d, null, null );", $this->ID, $user->ID));
-		} else {
-			// Si ya existe, aumetamos su contador y modificamos su estado para decir que te gusta
-			$result = $wpdb->query($wpdb->prepare("
-				UPDATE {$wpdb->prefix}favoritos
-				SET status =  $statusActivo, count = count + 1
-				WHERE post_id = %d
-					AND user_id = %d
-					AND status = $statusBorrado;", $this->ID, $user->ID));
+			$result = $wpdb->query($wpdb->prepare('
+					INSERT INTO wp_favoritos (post_id, user_id, status, created_at, updated_at)
+					VALUES (%d, %d, %d, null, null );', $this->ID, $user->ID, Favorito::BORRADO));
 		}
+
+		// Obtenemos su estado actual
+		$estado = (int) $wpdb->get_var($wpdb->prepare('SELECT status FROM wp_favoritos
+				WHERE post_id = %d AND user_id = %d', $this->ID, $user->ID));
+		// Si está borrado lo ponemos activo
+		if ($estado == Favorito::BORRADO) {
+			$result = $wpdb->query($wpdb->prepare('
+					UPDATE wp_favoritos
+					SET status =  %d, count = count + 1
+					WHERE post_id = %d AND user_id = %d
+					AND status = %d;', Favorito::ACTIVO, $this->ID, $user->ID, Favorito::BORRADO));
+		} else {
+			// Si está activo lo ponemos borrado
+			$result = $wpdb->query($wpdb->prepare('
+					UPDATE wp_favoritos
+					SET status =  %d, count = count + 1
+					WHERE post_id = %d AND user_id = %d
+					AND status = %d;', Favorito::BORRADO, $this->ID, $user->ID, Favorito::ACTIVO));
+		}
+
 		return $result;
 	}
 
