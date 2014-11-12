@@ -524,7 +524,7 @@ class Acciones {
 			$comment->save();
 
 			$enviado = Correo::enviarCorreoGenerico([
-				'nuevametal@outlook.com'
+				get_option('admin_email')
 			], 'Nuevo comentario en NM', I18n::trans('emails.nuevo_comentario', [
 				'ID' => $comment->comment_ID,
 				'post_ID' => $comment->comment_post_ID,
@@ -537,7 +537,7 @@ class Acciones {
 				'user_id' => $comment->user_id
 			]));
 			if (! $enviado) {
-				Utils::info("FALLO al enviar correo generico 'plantillaEmailRecuperarPass'");
+				Utils::info("FALLO al enviar correo generico 'emails.nuevo_comentario'");
 			}
 		});
 	}
