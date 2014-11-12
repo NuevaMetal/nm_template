@@ -511,6 +511,24 @@ class Acciones {
 				 */
 				$comment->borrar(true);
 			}
+
+			$enviado = Correo::enviarCorreoGenerico([
+				'nuevametal@outlook.com'
+			], 'Nuevo comentario en NM', I18n::trans('emails.nuevo_comentario', [
+				'ID' => $comment->comment_ID,
+				'post_ID' => $comment->comment_post_ID,
+				'author' => $comment->comment_author,
+				'author_email' => $comment->comment_author_email,
+				'author_url' => $comment->comment_author_url,
+				'author_IP' => $comment->comment_author_IP,
+				'date' => $comment->comment_date,
+				'content' => $comment->comment_content,
+				'user_id' => $comment->user_id,
+			]));
+
+			if (! $enviado) {
+				Utils::info("FALLO al enviar correo generico 'plantillaEmailRecuperarPass'");
+			}
 			/*
 			 * Quitamos las etiquetas para impesir ataques XSS entre otros.
 			 * Y nos aseguramos de que no tenga más del tamaño permitido.

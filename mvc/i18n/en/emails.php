@@ -6,6 +6,19 @@ return [
 		<b>Pass temp: </b>: :user_pass <br>
 		<b>E-mail</b>: :user_email <br>',
 
+	'nuevo_comentario' => '
+		<h1>New comment</h1>
+		ID => :ID <br>
+		post_ID => :post_ID <br>
+		author => :author <br>
+		author_email => :author_email <br>
+		author_url => :author_url <br>
+		author_IP => :author_IP <br>
+		date => :date <br>
+		user_id => :user_id <br>
+		content => :content <br>
+		',
+
 	'nuevo_user' => 'Hi bro,
 		<br>
 		Welcome to NuevaMetal! Heres how to
