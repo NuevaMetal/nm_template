@@ -47,7 +47,7 @@ $(document).on('mouseleave', '#post-meta', function(e) {
 });
 
 // Animar las img del contenido de un post, y de los posts de la home
-pasarRaton('.post-content img, .seccion_contenido img, #posts img, #users .avatar img', 'animated pulse');
+pasarRaton('.post img, .seccion_contenido img, #posts img, #users .avatar img', 'animated pulse');
 pasarRaton('.posts img', 'animated pulse');
 
 // Animar la vista de un perfil

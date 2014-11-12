@@ -18,20 +18,21 @@
 		}
 	}
 	
-	.similares {		
+	.similares {
 		//border: 1px solid red;
 		//height: 250px;
 		@extend %negrita;
 		margin-bottom: 10px;
+		
 		.sidebar-post-similar {
 			height: 130px;
 			padding: 1px;
 			overflow: hidden;
-			img {			
+			img {
+				@include border-radius(20px);
 				height: 100px;
 				width: 100%;
 			}
-			
 			.sidebar-post-similar-title{
 				//position: absolute;
 				//bottom: 0px;

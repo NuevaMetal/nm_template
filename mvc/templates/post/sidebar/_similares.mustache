@@ -1,6 +1,9 @@
 <article class="col-xs-6 col-sm-12 col-md-6 text-center sidebar-post-similar">
-	<a href="{{getUrl}}" title="{{{getTitulo}}}"> 
+	<a href="{{getUrl}}" title="{{{getTitulo}}}" >
 		{{> post/_thumbnail_medium }}
 	</a>
-	<p class="sidebar-post-similar-title titular">{{{getTituloCorto}}}</p>
+	<a href="{{getUrl}}" title="{{{getTitulo}}}"  
+		data-toggle="tooltip" data-placement="top" title="{{{getTituloCorto}}}"> 
+		<p class="sidebar-post-similar-title titular">{{{getTituloCorto}}}</p>
+	</a>
 </article>
