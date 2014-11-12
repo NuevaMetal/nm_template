@@ -29,7 +29,6 @@
 			padding: 1px;
 			overflow: hidden;
 			img {
-				@include border-radius(20px);
 				height: 100px;
 				width: 100%;
 			}
