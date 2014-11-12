@@ -52,6 +52,7 @@ pasarRaton('.posts img', 'animated pulse');
 
 // Animar la vista de un perfil
 pasarRaton('#user img.avatar, #user .btn-social-icon', 'animated pulse');
+pasarRaton('#actividad img', 'animated pulse');
 
 // Agrandar los iconos de las redes sociales.
 pasarRaton('.redes-sociales a', 'btn-lg animated pulse');

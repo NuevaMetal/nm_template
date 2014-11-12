@@ -39,7 +39,13 @@
 						<tbody>
 						{{# pendientes }}
 						  	<tr>
-								<td><i class="fa fa-user"></i> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+								<td>
+									<span class="avatar">
+										<a href="{{getUser.getPerfilUrl}}">
+											<img src="{{getUser.getAvatarIco}}" alt="{{getUser.getAlias}} avatar">
+										</a>
+									</span> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a><br>
+								</td>
 								<td><i class="fa fa-clock-o"></i> {{ updated_at }}</td>
 								<td>
 									<button class="btn btn-success btn-xs hacer-colaborador col-xs-12 col-md-8"
@@ -81,9 +87,21 @@
 						<tbody>
 						{{# aceptados }}
 						  	<tr>
-								<td><i class="fa fa-user"></i> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+								<td>
+									<span class="avatar">
+										<a href="{{getUser.getPerfilUrl}}">
+											<img src="{{getUser.getAvatarIco}}" alt="{{getUser.getAlias}} avatar">
+										</a>
+									</span> <a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a>
+								</td>
 								<td><i class="fa fa-clock-o"></i> {{ updated_at }}</td>
-								<td><i class="fa fa-user-md"></i> <a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a></td>	
+								<td>
+									<span class="avatar">
+										<a href="{{getEditor.getPerfilUrl}}">
+											<img src="{{getEditor.getAvatarIco}}" alt="{{getEditor.getAlias}} avatar">
+										</a>
+									</span> <a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a>
+								</td>	
 								{{#current_user.isAdmin}}
 								<td><button class="btn btn-info btn-xs btn-block hacer-colaborador"
 									 		url="{{template_url}}/admin_ajax.php" que="hacer-pendiente"

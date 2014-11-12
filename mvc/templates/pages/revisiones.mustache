@@ -50,9 +50,23 @@
 							{{# lista }}
 							  	<tr>
 							  		<td>{{ num }}</td>
-									<td><a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a></td>
+									<td>
+										<span class="avatar">
+											<a href="{{getUser.getPerfilUrl}}">
+												<img src="{{getUser.getAvatarIco}}" alt="{{getUser.getAlias}} avatar">
+											</a>
+										</span>
+										<a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.user_login }}</a>
+									</td>
 									<td>{{ created_at }}</td>
-									<td><a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a></td>
+									<td>
+										<span class="avatar">
+											<a href="{{getEditor.getPerfilUrl}}">
+												<img src="{{getEditor.getAvatarIco}}" alt="{{getEditor.getAlias}} avatar">
+											</a>
+										</span>
+										<a href="{{ getEditor.getPerfilUrl }}" target="_blank">{{ getEditor.user_login }}</a>
+									</td>
 									<td>
 										<button class="btn btn-danger btn-xs btn-block dispara-revision"
 												que_id="{{getUser.ID}}" submit="revision-ban" estado="{{ USER_DESBANEADO }}">
