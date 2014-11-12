@@ -515,13 +515,13 @@ class AjaxController extends BaseController {
 				$alert = $this->renderAlertaInfo(I18n::trans('comentario_borrado_exito'));
 				break;
 			case 'entradas-similares' :
-				$post = Post::find($_datos['id']);
+				$post = Post::find($_datos['post']);
 				$content = $this->render('post/sidebar/_similares', [
 					'post' => $post
 				]);
 				break;
 			case 'entradas-relacionadas' :
-				$post = Post::find($_datos['id']);
+				$post = Post::find($_datos['post']);
 				$content = $this->render('post/sidebar/_relacionadas', [
 					'post' => $post
 				]);
@@ -892,6 +892,19 @@ class AjaxController extends BaseController {
 				User::SEGUIR,
 				User::BORRAR_MENSAJE
 			]) && ! Ajax::esNonce($nonce, $tipo, $this->current_user->ID)) {
+				die($this->err);
+			}
+		}
+
+		/**
+		 * Comprobar el nonce para peticiones que tengan relacción con un Post
+		 */
+		if ($submit == Ajax::POST && isset($_REQUEST['tipo'])) {
+			$tipo = $_REQUEST['tipo'];
+			if (in_array($tipo, [
+				Post::ENTRADAS_SIMILARES,
+				Post::ENTRADAS_RELACIONADAS
+			]) && ! Ajax::esNonce($nonce, $tipo, $_REQUEST['post'])) {
 				die($this->err);
 			}
 		}

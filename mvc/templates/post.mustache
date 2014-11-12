@@ -43,11 +43,19 @@
 	{{$ scripts }}
 		<script src="{{template_url}}/public/js/post.js"></script>
 		<script>
+			var ENTRADAS_SIMILARES = "{{ENTRADAS_SIMILARES}}";
+			var ENTRADAS_RELACIONADAS = "{{ENTRADAS_RELACIONADAS}}";			
 			/**
 			 * Actualizar el contenido de las similares o relacionadas.
 			 */
 			function actualizarEntradas(tipo) {
-				var url = "{{template_url}}/ajax.php?submit=post&tipo="+tipo+"&id={{post.ID}}";
+				var nonce;
+				if (tipo == ENTRADAS_SIMILARES) {
+					nonce = "{{post.getNonceEntradasSimilares}}";
+				} else if (tipo == ENTRADAS_RELACIONADAS) {
+					nonce = "{{post.getNonceEntradasRelacionadas}}";
+				}
+				var url = "{{template_url}}/ajax.php?submit=post&tipo="+tipo+"&post={{post.ID}}&nonce="+nonce;
 				pintarEnIdByUrl(tipo, url);
 			}
 		</script>

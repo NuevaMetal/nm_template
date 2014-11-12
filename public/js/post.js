@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	actualizarEntradas("entradas-similares");
-	actualizarEntradas("entradas-relacionadas");
+	actualizarEntradas(ENTRADAS_SIMILARES);
+	actualizarEntradas(ENTRADAS_RELACIONADAS);
 	crearIntervaloActualizarEntradas();
 });
 
@@ -11,10 +11,10 @@ function crearIntervaloActualizarEntradas() {
 	var segParaActualizar = 50;
 	/* Actualizar cada 50 sg */
 	setInterval(function(){
-		actualizarEntradas("entradas-similares");
+		actualizarEntradas(ENTRADAS_SIMILARES);
 	} , segParaActualizar * 1000);
 	setInterval(function(){
-		actualizarEntradas("entradas-relacionadas");
+		actualizarEntradas(ENTRADAS_RELACIONADAS);
 	}, segParaActualizar * 1000);
 }
 

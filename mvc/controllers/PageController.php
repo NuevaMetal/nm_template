@@ -88,7 +88,9 @@ class PageController extends BaseController {
 		}
 
 		return $this->renderPage('post', [
-			'post' => $post
+			'post' => $post,
+			'ENTRADAS_SIMILARES' => Post::ENTRADAS_SIMILARES,
+			'ENTRADAS_RELACIONADAS' => Post::ENTRADAS_RELACIONADAS
 		]);
 	}
 

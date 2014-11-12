@@ -49,6 +49,10 @@ class Post extends Image {
 
 	const CATEGORY_CRONICAS = 'cronicas';
 
+	const ENTRADAS_SIMILARES = 'entradas-similares';
+
+	const ENTRADAS_RELACIONADAS = 'entradas-relacionadas';
+
 	/**
 	 *
 	 * @return mixed
@@ -668,5 +672,23 @@ class Post extends Image {
 							AND status = $statusActivo;", $this->ID, $user->ID));
 		}
 		return $result;
+	}
+
+	/**
+	 * Devuelve el nonce para un ver las entradas similares
+	 *
+	 * @return string
+	 */
+	public function getNonceEntradasSimilares() {
+		return $this->crearNonce(Post::ENTRADAS_SIMILARES);
+	}
+
+	/**
+	 * Devuelve el nonce para un ver las entradas relacionadas
+	 *
+	 * @return string
+	 */
+	public function getNonceEntradasRelacionadas() {
+		return $this->crearNonce(Post::ENTRADAS_RELACIONADAS);
 	}
 }
