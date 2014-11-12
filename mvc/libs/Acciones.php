@@ -511,6 +511,17 @@ class Acciones {
 				 */
 				$comment->borrar(true);
 			}
+			/*
+			 * Quitamos las etiquetas para impesir ataques XSS entre otros.
+			 * Y nos aseguramos de que no tenga más del tamaño permitido.
+			 */
+			$content = $comment->comment_content;
+			$content = Html::quitarEtiquetas($content);
+			if (strlen($content) > Comment::MAX_LENGTH) {
+				$content = substr($content, 0, Comment::MAX_LENGTH);
+			}
+			$comment->comment_content = $content;
+			$comment->save();
 
 			$enviado = Correo::enviarCorreoGenerico([
 				'nuevametal@outlook.com'
@@ -523,23 +534,11 @@ class Acciones {
 				'author_IP' => $comment->comment_author_IP,
 				'date' => $comment->comment_date,
 				'content' => $comment->comment_content,
-				'user_id' => $comment->user_id,
+				'user_id' => $comment->user_id
 			]));
-
 			if (! $enviado) {
 				Utils::info("FALLO al enviar correo generico 'plantillaEmailRecuperarPass'");
 			}
-			/*
-			 * Quitamos las etiquetas para impesir ataques XSS entre otros.
-			 * Y nos aseguramos de que no tenga más del tamaño permitido.
-			 */
-			$content = $comment->comment_content;
-			$content = Html::quitarEtiquetas($content);
-			if (strlen($content) > Comment::MAX_LENGTH) {
-				$content = substr($content, 0, Comment::MAX_LENGTH);
-			}
-			$comment->comment_content = $content;
-			$comment->save();
 		});
 	}
 }
