@@ -24,18 +24,21 @@
 		@extend %negrita;
 		margin-bottom: 10px;
 		
-		.sidebar-post-similar {
+		.post {
 			height: 130px;
 			padding: 1px;
 			overflow: hidden;
 			img {
 				height: 100px;
 				width: 100%;
+				&:hover {
+					 @include scale(1.04);
+				}
 			}
-			.sidebar-post-similar-title{
+			.titulo {
 				//position: absolute;
 				//bottom: 0px;
-				margin:5px;
+				margin: 5px;
 			}
 		}
 

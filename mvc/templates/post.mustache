@@ -2,27 +2,27 @@
 
 	{{$ content }}
 		{{#post}}
-		<div class="post-content">
+		<div id="post" class="post-content">
 			<div class="col-xs-12 col-sm-9 post categoria-{{getCategoria.slug}}" itemscope itemType="http://schema.org/BlogPosting">
-			
+
 				<h1 class="page-header titular" itemprop="headline">{{{getTitulo}}}</h1>
-			
-				{{> post/_info}}
-				
+
+				{{> post/_info }}
+
 				<div class="content text-center col-xs-12" itemprop="articleBody">
 					{{{getContent}}}
 				</div>
-			
-				{{> post/_tags}}
-				
-				{{> post/_meta_autor}}
-			
-				{{> post/_informar}}
-			
+
+				{{> post/_tags }}
+
+				{{> post/_meta_autor }}
+
+				{{> post/_informar }}
+
 				<div id="comment-form" class="col-xs-12"> 
 					{{{getFormComentarios}}}
 				</div>
-				
+
 				{{# getTotalComentarios }}
 				<div id="comments" class="col-xs-12">
 					<h3 class="col-xs-12 titular">{{#transu}}comentarios{{/transu}}</h3>
@@ -32,14 +32,14 @@
 				</div>
 				{{/ getTotalComentarios }}
 			</div>
-		
+
 			<div id="sidebar" class="col-xs-12 col-sm-3 text-center"> 
 			    {{> post/_sidebar }}
 			</div>
 		</div>
 		{{/post}}
 	{{/ content }}
-	
+
 	{{$ scripts }}		
 		<script>
 		$(document).ready(function() {
