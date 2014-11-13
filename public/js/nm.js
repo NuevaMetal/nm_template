@@ -346,13 +346,13 @@ $(document).on('click', '.btn-me-gusta', function(e) {
 $(document).on('click', '.mostrar-mas', function(e) {
 	e.preventDefault();
 	var $this = $(this);
-	var posts = $(this).parents('.posts');
+	var posts = $this.parents('.posts');
 	var seccion = $(posts).find('.seccion');
 	var size = $(seccion).children().size();
-	var url = $('#page').attr('url');
 	var cant = $this.attr('cant');
 	var tipo = $this.attr('tipo');
 	var que = $this.attr('mostrar-mas');
+	var url = $('#page').attr('url');
 	var data = {
 		submit : 'mostrar-mas',
 		que : que,
@@ -366,8 +366,8 @@ $(document).on('click', '.mostrar-mas', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			posts.find('.fa-spin').removeClass('hidden');
-			posts.find('.icono-mas').addClass('hidden');
+			$this.find('.fa-spin').removeClass('hidden');
+			$this.find('.icono-mas').addClass('hidden');
 			$this.attr("disabled", true);
 		},
 		success : function(json) {
