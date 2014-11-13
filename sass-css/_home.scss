@@ -135,17 +135,16 @@ h3.header {
     margin-top: 35px;
     color:#fff !important;
     z-index:2;
-    .total-comentarios {
-    	.titular {
-	    	cursor:pointer; 
-	    	cursor: hand;
-	    }
+
+    .total-comentarios, .total-me-gustas {
+		@extend %sombreado-semitransparente;
+
+		cursor: pointer !important;
+		cursor: hand;
+
 		.cant {
 			color: white !important;
 		}
-	}
-    .total-comentarios, .total-me-gustas {
-    	@extend %sombreado-semitransparente;  
     }
     .total-me-gustas.te-gusta {
 		i {
