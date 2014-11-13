@@ -278,6 +278,8 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
+			$this.find('.fa-spin').removeClass('hidden');
+			$this.find('.fa-star').addClass('hidden');
 		},
 		success : function(json) {
 			$this.replaceWith(json.content);
