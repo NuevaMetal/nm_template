@@ -540,9 +540,9 @@ class AjaxController extends BaseController {
 						'getTotalMeGustas' => $post->getTotalMeGustas()
 					]);
 					if ($teGusta) {
-						$alert = $this->renderAlertaInfo($post->getTitulo(), I18n::transu('post.te_gusta'));
+						$alert = $this->renderAlertaDanger($post->getTitulo(), I18n::transu('post.te_gusta'), $post->getUrl());
 					} else {
-						$alert = $this->renderAlertaInfo($post->getTitulo(), I18n::transu('post.te_dejo_de_gustar'));
+						$alert = $this->renderAlertaWarning($post->getTitulo(), I18n::transu('post.te_dejo_de_gustar'), $post->getUrl());
 					}
 				} else {
 					// Si no está logueado devuelve la vista igual.
@@ -552,6 +552,7 @@ class AjaxController extends BaseController {
 						'getNonceMeGusta' => $_datos['nonce'],
 						'getTotalMeGustas' => $post->getTotalMeGustas()
 					]);
+					$alert = $this->renderAlertaDanger(I18n::transu('user.login_necesario_para_favorito'));
 				}
 				break;
 		}

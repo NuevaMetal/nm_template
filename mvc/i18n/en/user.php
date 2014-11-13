@@ -34,6 +34,7 @@ return [
 	'necesitas_ser_admin' => 'You must be admin',
 
 	'login_necesario' => 'for this you need be logged',
+	'login_necesario_para_favorito' => '<a href="/wp-login.php">Login</a> to save favorites.',
 
 	'no_hay_info_perfil' => 'this user has not shared any profile information',
 	'no_hay_entradas_publicadas' => 'This user has no published entries yet',

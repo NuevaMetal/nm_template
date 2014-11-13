@@ -265,9 +265,7 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 	var user_id = $this.attr('user');
 	var nonce = $this.attr('nonce');
 	var url = $('#page').attr('url');
-
-	if(user_id == "" || user_id == null)return;
-
+	//if(user_id == "" || user_id == null)return;
 	var data = {
 		submit: 'post',
 		tipo : 'me-gusta',
@@ -283,7 +281,7 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 		},
 		success : function(json) {
 			$this.replaceWith(json.content);
-			mostrarAlerta(json.alert, 5);
+			mostrarAlerta(json.alert, 4);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText
@@ -471,19 +469,6 @@ $(document).on('click', '.btn-notificar', function(e) {
 	     }
 	});
 });
-
-/**
- * Mostrar una alerta
- */
-function mostrarAlerta(texto, segundos){
-	alterta = $('#alertas-popup');
-	alterta.hide();
-	alterta.html(texto);
-	alterta.fadeIn();		
-	setTimeout(function(){
-		alterta.fadeOut();
-	}, segundos*1000);
-}
 
 
 /**
@@ -944,3 +929,17 @@ $(document).on('click','.quitar-header, .quitar-avatar, .bloquear, .desbloquear'
 		}
 	});
 });
+
+/**
+ * Mostrar una alerta
+ */
+function mostrarAlerta(texto, segundos){
+	var altertasPopup = $('#alertas-popup');
+	var cantidad = altertasPopup.find(".alerta li").length;
+	cantidad++;
+	altertasPopup.append('<div class="alerta alerta-'+cantidad+'">'+texto+'</div>');
+	var alerta = altertasPopup.find('.alerta-'+cantidad);
+	setTimeout(function(){
+		alerta.fadeOut();
+	}, segundos*1000);
+}
