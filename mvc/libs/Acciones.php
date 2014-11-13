@@ -505,9 +505,11 @@ class Acciones {
 		add_action('comment_post', function ($comment_ID) {
 			$comment = Comment::find($comment_ID);
 			$user = Utils::getCurrentUser();
-			if (! $user) {
+			if (! $user || ! $comment->user_id) {
+				debug("> Comentario ID: {$comment->comment_ID} borrado forzosamente.");
 				/*
-				 * Si no hay usuario borramos el comentario. Y forzamos su borrado.
+				 * Si no hay usuario, o el autor del comentario no está registrado, borramos el comentario.
+				 * Y forzamos su borrado.
 				 */
 				$comment->borrar(true);
 			}
