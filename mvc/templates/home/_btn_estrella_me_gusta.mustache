@@ -1,10 +1,10 @@
 {{#isMeGusta}}
 <span class="total-me-gustas titular te-gusta" nonce="{{getNonceMeGusta}}" post="{{ID}}" user="{{current_user.ID}}">
-	<i class="fa fa-circle-o-notch fa-spin hidden"></i><i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | formatear_numero}}</span>
+	<i class="fa fa-circle-o-notch fa-spin hidden"></i><i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | si0poner1 | formatear_numero}}</span>
 </span>
 {{/isMeGusta}}
 {{^isMeGusta}}
 <span class="total-me-gustas titular" nonce="{{getNonceMeGusta}}" post="{{ID}}" user="{{current_user.ID}}">
-	<i class="fa fa-circle-o-notch fa-spin hidden"></i><i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | formatear_numero}}</span>
+	<i class="fa fa-circle-o-notch fa-spin hidden"></i><i class=" fa fa-star"></i> <span class="cant">{{getTotalMeGustas | si0poner1 | formatear_numero}}</span>
 </span>
 {{/isMeGusta}}

@@ -50,6 +50,9 @@ abstract class BaseController {
 				},
 				'ucfirst' => function ($value) {
 					return ucfirst($value);
+				},
+				'si0poner1' => function ($value) {
+					return ($value == 0) ? 1 : $value;
 				}
 			),
 			'escape' => function ($value) {

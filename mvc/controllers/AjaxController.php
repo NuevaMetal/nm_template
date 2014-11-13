@@ -552,7 +552,7 @@ class AjaxController extends BaseController {
 						'getNonceMeGusta' => $_datos['nonce'],
 						'getTotalMeGustas' => $post->getTotalMeGustas()
 					]);
-					$alert = $this->renderAlertaDanger(I18n::transu('user.login_necesario_para_favorito'));
+					$alert = $this->renderAlertaDanger(false, I18n::transu('user.login_necesario_para_favorito'));
 				}
 				break;
 		}
