@@ -132,33 +132,26 @@
 		left: 100%; // move the whole width of the image to the right
 		margin-left: -200%; // magic!		
 	}
-	
+
 	.page-header {
 		margin-top: 25px;
 	}
-	
-	.btn-me-gusta-y-editar  {
-		margin: 10px;
-	}
+
 	.categories {
 		@include sombreado-color(#fff, #333);
 	}
 
-	.info {
-		margin: 6px 0;
+	.info {	
+		margin-bottom: 10px;
 	}
+}
 
-	.post-time{
-		margin-left: 20px;
-	}	
-	
-	.total-me-gustas {
-		border: 0px;
-		cursor: default;
-		padding: 5px;
-		text-align: center;
-	}
-	
+.total-me-gustas {
+	cursor: pointer;
+	cursor: hand;
+}
+.total-me-gustas.te-gusta i {
+	color: $rojo-danger-hover;
 }
 
 .tags {

@@ -136,19 +136,10 @@ h3.header {
     color:#fff !important;
     z-index:2;
 
-    .total-comentarios, .total-me-gustas {
+	.total-comentarios, .total-me-gustas {
 		@extend %sombreado-semitransparente;
-
-		cursor: pointer !important;
-		cursor: hand;
-
 		.cant {
 			color: white !important;
-		}
-    }
-    .total-me-gustas.te-gusta {
-		i {
-			color: $rojo-danger-hover;
 		}
     }
 }

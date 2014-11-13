@@ -265,7 +265,7 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 	var user_id = $this.attr('user');
 	var nonce = $this.attr('nonce');
 	var url = $('#page').attr('url');
-	//if(user_id == "" || user_id == null)return;
+	var sidebar = $this.parents('#post').find('#sidebar');
 	var data = {
 		submit: 'post',
 		tipo : 'me-gusta',
@@ -283,58 +283,17 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 		},
 		success : function(json) {
 			$this.replaceWith(json.content);
+			// Al sidebar
+			if(json.user_que_gusta !== undefined)
+				if (json.user_que_gusta['quitar']) {
+					sidebar.find('.users-que-gustan').find('.user-'+json.user_que_gusta['user']).remove();
+				} else {
+					sidebar.find('.users-que-gustan').prepend(json.user_que_gusta);
+				}
 			mostrarAlerta(json.alert, 4);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText
-			+ ",\n thrownError "+thrownError);
-	     }
-	});
-});
-
-/**
- * Botón me gusta
- */
-$(document).on('click', '.btn-me-gusta', function(e) {
-	e.preventDefault();
-	var $this = $(this);
-	var sidebar = $this.parents('.post-content').find('#sidebar');
-	var post = $this.parents('.post');
-	var post_id = $this.attr('post');
-	var user_id = $this.attr('user');
-	var te_gusta = $this.attr('te-gusta'); 
-	var nonce = $this.attr('nonce');
-	
-	var url = $('#page').attr('url');
-	var data = {
-		submit : 'me-gusta',
-		post : post_id,
-		user : user_id,
-		te_gusta: te_gusta,
-		nonce: nonce
-	};
-	$.ajax({
-		url : url,
-		type : "POST",
-		data : data,
-		dataType : "json",
-		beforeSend: function() {
-			$this.find('.fa-spin').removeClass('hidden');
-		},
-		success : function(json) {
-			post.find('.total-me-gustas .cant').html(json.total_me_gustas);
-			$this.find('.fa-spin').addClass('hidden');
-			$this.replaceWith(json.btn);
-			// Al sidebar
-			if (json.user_que_gusta['quitar']) {
-				sidebar.find('.users-que-gustan').find('.user-'+json.user_que_gusta['user']).remove();
-			} else {
-				sidebar.find('.users-que-gustan').prepend(json.user_que_gusta);
-			}
-			mostrarAlerta(json.alert, 3);
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
 			+ ",\n thrownError "+thrownError);
 	     }
 	});

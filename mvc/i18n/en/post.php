@@ -28,6 +28,7 @@ return [
 	'redes' => 'Social netwoks',
 
 	'te_gusta' => 'you like',
+	'te_gusta?' => 'Do you like it?',
 	'te_dejo_de_gustar' => 'you don\'t like',
 
 	'vocalista' => 'Vocal',

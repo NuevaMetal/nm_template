@@ -24,6 +24,7 @@ return [
 	'social netwoks' => 'Redes sociales',
 
 	'te_gusta' => 'te gusta',
+	'te_gusta?' => '¿Te gusta?',
 	'te_dejo_de_gustar' => 'te dejó de gustar',
 
 	'vocals' => 'Voz',

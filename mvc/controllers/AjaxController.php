@@ -152,80 +152,6 @@ class AjaxController extends BaseController {
 	}
 
 	/**
-	 * Crear me gusta de un Post a un User
-	 *
-	 * @param Post $post
-	 *        	Post que es gustado
-	 * @param User $user
-	 *        	User al que le gusta el Post
-	 * @return Json para el ajax
-	 */
-	private function _crearMeGusta($post, $user) {
-		$result = $post->crearMeGusta($user);
-
-		$nonce = $_POST['nonce'];
-
-		if (! empty($result)) {
-			$json['code'] = 200;
-			$json['alert'] = $this->renderAlertaInfo('Te gusta', $post->post_title);
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => true,
-				'getNonceMeGusta' => $nonce,
-				'post' => $post
-			]);
-			$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta', [
-				'user' => $user
-			]);
-		} else {
-			$json['code'] = 504;
-			$json['alert'] = $this->renderAlertaDanger($this->err);
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => false,
-				'getNonceMeGusta' => $nonce,
-				'post' => $post
-			]);
-		}
-		$json['total_me_gustas'] = $post->getTotalMeGustas();
-		return $json;
-	}
-
-	/**
-	 * Quitar me gusta
-	 *
-	 * @param Post $post
-	 * @param User $user
-	 * @return Json
-	 */
-	private function _quitarMeGusta($post, $user) {
-		$result = $post->quitarMeGusta($user);
-		$nonce = $_POST['nonce'];
-
-		if (! empty($result)) {
-			$json['code'] = 200;
-			$json['alert'] = $this->renderAlertaInfo('Te dejó de gustar', $post->post_title);
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => false,
-				'getNonceMeGusta' => $nonce,
-				'post' => $post
-			]);
-			$json['user_que_gusta'] = [
-				'quitar' => true,
-				'user' => $user->user_nicename
-			];
-		} else {
-			$json['code'] = 504;
-			$json['alert'] = $this->renderAlertaDanger($this->err);
-			$json['btn'] = $this->render('post/_btn_me_gusta', [
-				'isMeGusta' => true,
-				'getNonceMeGusta' => $nonce,
-				'post' => $post
-			]);
-		}
-		$json['total_me_gustas'] = $post->getTotalMeGustas();
-		return $json;
-	}
-
-	/**
 	 * Atiende a la petición de notificar
 	 *
 	 * @param array $_datos
@@ -247,22 +173,6 @@ class AjaxController extends BaseController {
 	private function _jsonSerColaborador($_datos) {
 		$user_id = $_datos['user'];
 		return $this->solicitarColaborador($user_id);
-	}
-
-	/**
-	 * Atiende a la petición de un Me Gusta
-	 *
-	 * @param array $_datos
-	 * @return array JSON de respuesta para para JS
-	 */
-	private function _jsonMeGusta($_datos) {
-		$post = Post::find($_datos['post']);
-		$user = User::find($_datos['user']);
-		$te_gusta = $_datos['te_gusta'];
-		if ($te_gusta == Utils::SI) {
-			return $this->_crearMeGusta($post, $user);
-		}
-		return $this->_quitarMeGusta($post, $user);
 	}
 
 	/**
@@ -541,8 +451,15 @@ class AjaxController extends BaseController {
 					]);
 					if ($teGusta) {
 						$alert = $this->renderAlertaDanger($post->getTitulo(), I18n::transu('post.te_gusta'), $post->getUrl());
+						$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta', [
+							'user' =>  $this->current_user
+						]);
 					} else {
 						$alert = $this->renderAlertaWarning($post->getTitulo(), I18n::transu('post.te_dejo_de_gustar'), $post->getUrl());
+						$json['user_que_gusta'] = [
+							'quitar' => true,
+							'user' =>  $this->current_user->user_nicename
+						];
 					}
 				} else {
 					// Si no está logueado devuelve la vista igual.
@@ -843,9 +760,6 @@ class AjaxController extends BaseController {
 
 			case Ajax::SER_COLABORADOR :
 				return $this->_jsonSerColaborador($_datos);
-
-			case Ajax::ME_GUSTA :
-				return $this->_jsonMeGusta($_datos);
 
 			case Ajax::MOSTRAR_MAS :
 				return $this->_jsonMostrarMas($_datos);

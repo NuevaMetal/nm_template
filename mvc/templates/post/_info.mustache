@@ -1,39 +1,24 @@
 <div class="info row">
-	<div class="col-xs-12 col-sm-9 titular">
+	<div class="col-xs-12 col-sm-8 titular">
 		<meta itemprop="datePublished" content="{{getTimeISO}}"/>
-		<span class="post-time">{{getTime}}</span>
-		{{#trans}}por{{/trans}} <span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
-		{{#getTotalCategorias}} {{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>{{/getTotalCategorias}} 
+		<i class="fa fa-calendar"></i> <span class="post-time">{{getTime}}</span>
+		{{#trans}}por{{/trans}} 
+		<span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
+		{{# getTotalCategorias }}
+			{{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>
+		{{/ getTotalCategorias }} 
 	</div>
-	<div class="col-xs-12 col-sm-3 text-right">		
+	<div class="col-xs-12 col-sm-4 text-right">		
 		{{> post/_redes_sociales}}
 	</div>
 </div>
 
+{{# current_user.canEditor }}
 <div class="btn-me-gusta-y-editar row">
-	{{# getUrlEditar }}
-	<p class="col-xs-12 col-sm-4 titular">
-		<a href="{{{getUrlEditar}}}" class="btn btn-default btn-editar col-xs-12">
+	<p class="col-xs-12 titular">
+		<a href="{{{getUrlEditar}}}" target="_blank" class="btn btn-default btn-editar col-xs-12">
 			<i class="fa fa-edit"></i> {{#transu}}editar{{/transu}}
 		</a>
-	</p>
-	{{/ getUrlEditar }}
-	<div class="col-xs-12 col-sm-2 titular">
-		<span class="total-me-gustas col-xs-12">
-			<i class="fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
-		</span>
-	</div>
-	{{# getUrlEditar }}<div class="col-xs-12 col-sm-6 titular"> {{/ getUrlEditar }}
-	{{^ getUrlEditar }}<div class="col-xs-12 col-sm-10 "> {{/ getUrlEditar }}
-		{{# current_user.ID }}
-			{{> post/_btn_me_gusta}}
-		{{/ current_user.ID }}
-		{{^ current_user.ID }}
-			<div class="login-necesario">
-				<a  href="/wp-login.php" target="_blank">
-					<i class='fa fa-star-o'></i> {{#transu}}anadir_favoritos{{/transu}} 
-				</a> <small>{{#transu}}user.login_necesario{{/transu}}</small>
-			</div>
-		{{/ current_user.ID }}
-	</div>
+	</p>	
 </div>
+{{/ current_user.canEditor }}
