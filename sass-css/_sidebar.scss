@@ -80,20 +80,23 @@
 		}
 
 		.otros-mas {
-			@extend %color-enlace;
 			.otros {
+				//border: 1px solid red;
 				@extend %fila-sombreada;
 				background-color: $body-background-color;
 				position: absolute; 
 				display:none;
-				left: -255px;
-				top: -152px;
+				left: -245px;
+				top: -201px;
 				width: 240px;
 				padding: 0;
 			}
-			& .texto:hover {
-				@extend %cursorPointer;
-				@extend %negrita;
+			.texto{
+				@extend %color-enlace;
+			 	&:hover {
+					@extend %cursorPointer;
+					@extend %negrita;
+				}
 			}
 		}
 	}

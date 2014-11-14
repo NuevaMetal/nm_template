@@ -25,7 +25,7 @@ class Post extends Image {
 
 	const NUM_RELACIONADAS = 4;
 
-	const NUM_USER_QUE_GUSTAN_DEFAULT = 3;
+	const NUM_USER_QUE_GUSTAN_DEFAULT = 4;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT = 12;

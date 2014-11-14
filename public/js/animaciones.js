@@ -84,7 +84,7 @@ function pasarRaton(selector, clase){
 }
 
 /** Pasar el ratón por "más usuarios que le dieron me gusta a un post" */
-$(document).on('click', '#sidebar .users-gustan .otros-mas', function(e) {
+$(document).on('click', '#sidebar .users-gustan .otros-mas .texto', function(e) {
 	e.preventDefault();
 	if($('#sidebar .users-gustan .otros').hasClass('zoomIn')) {
 		ocultarOtrosUsersQueGustan();

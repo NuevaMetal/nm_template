@@ -8,10 +8,14 @@
 		{{/ lista }}
 		{{# mas }}
 			<div class="col-xs-12 otros-mas ">
-				<span class="texto" data-toggle="tooltip" data-placement="left" title="{{#transu}}mostrar{{/transu}}">
+				<span class="visible-xs">
+					{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}
+				</span>
+				<span class="texto hidden-xs" data-toggle="tooltip" data-placement="left" title="{{#transu}}mostrar{{/transu}}">
 					{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}
 				</span>
 				<div class="otros animated">
+					<h6 class="titular">{{#transu}}post.le_gusto_a{{/transu}}</h6>
 					{{#otros}}
 						{{> post/sidebar/_user_que_gusta}}
 					{{/otros}}
