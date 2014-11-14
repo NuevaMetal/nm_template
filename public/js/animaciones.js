@@ -29,7 +29,7 @@ $(document).on('mouseover', '#post-meta', function(e) {
 	e.preventDefault();
 	clearTimeout(timer);
 	var meta = $('#post-meta');
-	meta.find('.avatar').addClass('bounce');
+	//meta.find('.avatar').addClass('bounce');
 	meta.find('.descripcion').css('display','block');
 	meta.find('.descripcion').removeClass('zoomOut');
 	meta.find('.descripcion').addClass('zoomIn');
@@ -38,12 +38,23 @@ $(document).on('mouseover', '#post-meta', function(e) {
 $(document).on('mouseleave', '#post-meta', function(e) {
 	e.preventDefault();
 	var meta = $('#post-meta');
-	meta.find('.avatar').removeClass('bounce');	
+	//meta.find('.avatar').removeClass('bounce');	
 	meta.find('.descripcion').removeClass('zoomIn');
 	meta.find('.descripcion').addClass('zoomOut');
 	timer = setTimeout(function(){
 		meta.find('.descripcion').css('display','none');
-	}, 1500);
+	}, 1000);
+});
+
+/** Pasar el ratón por el nombre del autor */
+$(document).on('mouseover', '#post-meta h3', function(e) {
+	e.preventDefault();
+	 $('#post-meta .avatar').addClass('bounce');
+});
+/** Pasar el ratón por la img del avatar del autor */
+$(document).on('mouseleave', '#post-meta .avatar', function(e) {
+	e.preventDefault();
+	 $('#post-meta .avatar').removeClass('bounce');
 });
 
 // Agrandar los iconos de las redes sociales.
