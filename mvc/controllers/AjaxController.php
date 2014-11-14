@@ -451,14 +451,14 @@ class AjaxController extends BaseController {
 					]);
 					if ($teGusta) {
 						$alert = $this->renderAlertaDanger($post->getTitulo(), I18n::transu('post.te_gusta'), $post->getUrl());
-						$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta', [
-							'user' =>  $this->current_user
+						$json['user_que_gusta'] = $this->render('post/sidebar/_user_que_gusta_ajax', [
+							'user' => $this->current_user
 						]);
 					} else {
 						$alert = $this->renderAlertaWarning($post->getTitulo(), I18n::transu('post.te_dejo_de_gustar'), $post->getUrl());
 						$json['user_que_gusta'] = [
 							'quitar' => true,
-							'user' =>  $this->current_user->user_nicename
+							'user' => $this->current_user->user_nicename
 						];
 					}
 				} else {

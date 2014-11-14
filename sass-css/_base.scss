@@ -36,6 +36,13 @@ $color-danger:  #d9534f;
 	}
 }
 
+%color-enlace {
+	color: $rojo-danger;
+	&:hover,&:focus,&.focus,&.active{
+		color: $rojo-danger-hover;
+	}
+}
+
 %negrita {
 	font-weight: bold;
 }
@@ -58,6 +65,10 @@ $color-danger:  #d9534f;
 %titular {
 	font-family: 'ralewayextrabold';
 	text-transform:uppercase;
+}
+%cursorPointer {
+	cursor: pointer;
+	cursor: hand;
 }
 
 .rojo-danger {

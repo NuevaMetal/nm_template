@@ -96,6 +96,7 @@ return [
 	'me_gusta' => 'like',
 	'mensaje' => 'message',
 	'mensajes' => 'messages',
+	'mostrar' => 'show',
 	'mostrar_mas' => 'show more',
 	'mostrar_menos' => 'show less',
 

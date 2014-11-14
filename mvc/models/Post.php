@@ -25,7 +25,7 @@ class Post extends Image {
 
 	const NUM_RELACIONADAS = 4;
 
-	const NUM_USER_QUE_GUSTAN_DEFAULT = 5;
+	const NUM_USER_QUE_GUSTAN_DEFAULT = 3;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT = 12;
@@ -566,13 +566,13 @@ class Post extends Image {
 	public function getUsersQueGustan() {
 		global $wpdb;
 		$result = $wpdb->get_results($wpdb->prepare('SELECT user_id
-				FROM ' . $wpdb->prefix . 'favoritos
+				FROM wp_favoritos
 				WHERE post_id = %d
 				AND status = %d
 				order by updated_at desc', $this->ID, Favorito::ACTIVO));
 		$users = [];
 		foreach ($result as $r) {
-			$users['user'][] = User::find($r->user_id);
+			$users[] = User::find($r->user_id);
 		}
 		return $users;
 	}
@@ -593,15 +593,18 @@ class Post extends Image {
 	 */
 	public function getUsersQueGustanLimitado($numUserQueGustan = self::NUM_USER_QUE_GUSTAN_DEFAULT) {
 		$users = $this->getUsersQueGustan();
-		$cantidad = 0;
-		$count = count($users);
-		if ($count > $numUserQueGustan) {
+		$totalUsersQueGustan = count($users);
+		$mas = 0;
+		if ($totalUsersQueGustan > $numUserQueGustan) {
+			$otros = array_slice($users, $numUserQueGustan);
 			$users = array_slice($users, 0, $numUserQueGustan);
-			$cantidad = $count - $numUserQueGustan;
+			$mas = count($otros);
+			// $cantidad = $totalUsersQueGustan - $numUserQueGustan;
 		}
 		return [
 			'lista' => $users,
-			'mas' => $cantidad
+			'otros' => $otros,
+			'mas' => $mas
 		];
 	}
 

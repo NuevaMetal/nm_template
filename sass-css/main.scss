@@ -50,10 +50,7 @@
 }
 
 a {
-	color: $rojo-danger;
-	&:hover,&:focus,&.focus,&.active{
-		color: $rojo-danger-hover;
-	}
+	@extend %color-enlace;
 }
 
 #alertas-popup {

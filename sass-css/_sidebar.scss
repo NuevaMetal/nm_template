@@ -17,8 +17,7 @@
 			}
 		}
 		.refrescar {
-			cursor: pointer;
-			cursor: hand;
+			@extend %cursorPointer;
 		}
 	}
 	
@@ -77,6 +76,24 @@
 			.avatar {
 				height: 35px;
 				width: 35px;
+			}
+		}
+
+		.otros-mas {
+			@extend %color-enlace;
+			.otros {
+				@extend %fila-sombreada;
+				background-color: $body-background-color;
+				position: absolute; 
+				display:none;
+				left: -255px;
+				top: -152px;
+				width: 240px;
+				padding: 0;
+			}
+			& .texto:hover {
+				@extend %cursorPointer;
+				@extend %negrita;
 			}
 		}
 	}

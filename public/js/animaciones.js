@@ -82,3 +82,34 @@ function pasarRaton(selector, clase){
 	mouseOver(selector, clase);
 	mouseLeave(selector, clase);
 }
+
+/** Pasar el ratón por "más usuarios que le dieron me gusta a un post" */
+$(document).on('click', '#sidebar .users-gustan .otros-mas', function(e) {
+	e.preventDefault();
+	if($('#sidebar .users-gustan .otros').hasClass('zoomIn')) {
+		ocultarOtrosUsersQueGustan();
+	} else {
+		mostrarOtrosUsersQueGustan();
+	}
+});
+/** Pasar el ratón por "más usuarios que le dieron me gusta" */
+$(document).on('mouseleave', '#sidebar .users-gustan .otros', function(e) {
+	e.preventDefault();
+	ocultarOtrosUsersQueGustan();
+});
+
+function mostrarOtrosUsersQueGustan() {
+	clearTimeout(timer);
+	var otros = $('#sidebar .users-gustan .otros');
+	otros.css('display','block');
+	otros.removeClass('zoomOut');
+	otros.addClass('zoomIn');
+}
+function ocultarOtrosUsersQueGustan() {
+	var otros = $('#sidebar .users-gustan .otros');
+	timer = setTimeout(function(){
+		otros.css('display','none')
+	}, 100);                                                           
+	otros.removeClass('zoomIn');
+	otros.addClass('zoomOut');
+}

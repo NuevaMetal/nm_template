@@ -2,15 +2,22 @@
 	<h3 class="titular"><i class="fa fa-star"></i> {{#transu}}post.le_gusto_a{{/transu}}</h3>
 	<hr>
 	<section class="users-que-gustan">
-	{{#getUsersQueGustanLimitado}}
-		{{#lista}}
+	{{# getUsersQueGustanLimitado }}
+		{{# lista }}
 			{{> post/sidebar/_user_que_gusta}}
-		{{/lista}}
-		{{#mas}}
-			<div class="col-xs-12">
-				{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}.
+		{{/ lista }}
+		{{# mas }}
+			<div class="col-xs-12 otros-mas ">
+				<span class="texto" data-toggle="tooltip" data-placement="left" title="{{#transu}}mostrar{{/transu}}">
+					{{#trans}}y{{/trans}} {{mas}} {{#trans}}mas{{/trans}}
+				</span>
+				<div class="otros animated">
+					{{#otros}}
+						{{> post/sidebar/_user_que_gusta}}
+					{{/otros}}
+				</div>
 			</div>
-		{{/mas}}
-	{{/getUsersQueGustanLimitado}}
+		{{/ mas }}
+	{{/ getUsersQueGustanLimitado }}
 	</section>
 </div>

@@ -1,10 +1,8 @@
-{{#user}}
 <div class="row user-{{user_nicename}}">
 	<a href="{{getPerfilUrl}}">
-		<div class="col-xs-12" data-toggle="tooltip" data-placement="left" title="{{#transu}}ver_perfil{{/transu}}">
-			<span class="col-xs-3"><img alt="{{display_name}} avatar" src="{{getAvatarPequeno}}" class="avatar"></span>
-			<span class="col-xs-9 nombre">{{display_name}}</span>
+		<div class="col-xs-12">
+			<span class="col-xs-3"><img alt="{{getAlias}} avatar" src="{{getAvatarPequeno}}" class="avatar"></span>
+			<span class="col-xs-9 nombre">{{getAlias}}</span>
 		</div>
 	</a>
 </div>
-{{/user}}
