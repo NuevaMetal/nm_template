@@ -12,20 +12,9 @@
 		    	</a>
 		    </span>
 		</div>
-        <div class="caption">
-			<div class="col-xs-6 text-left">
-				{{> home/_btn_estrella_me_gusta }}
-			</div>
-			<div class="col-xs-6 text-right">
-				{{# getTotalComentarios }}
-					<a href="{{getUrl}}#comments">
-						<span class="total-comentarios titular">
-							<i class=" fa fa-comment"></i> <span class="cant">{{getTotalComentarios | formatear_numero}}</span>
-						</span>
-					</a>
-				{{/ getTotalComentarios }}
-			</div>
-        </div>
+        
+        {{> home/_post_caption }}
+		
 		<a href="{{getUrl}}" title="{{{getTitulo}}}">
 			{{> post/_thumbnail_medium }}
 		</a>

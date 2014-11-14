@@ -2,19 +2,14 @@
 	itemscope itemType="http://schema.org/BlogPosting">
 
 	<div class="thumbnail">
-        <div class="caption text-left">
-		{{# getTotalMeGustas }}
-			<span class="total-me-gustas titular">
-				<i class=" fa fa-star"></i> <span class="cant">{{ getTotalMeGustas }}</span>
-			</span>
-		{{/ getTotalMeGustas }}		
-        </div>
+	
+        {{> home/_post_caption }}
         
 		<a href="{{getUrl}}" title="{{{getTitulo}}}">			
 			{{> post/_thumbnail_medium }}
 		</a>
     </div>
     <h2 class="post-title titular">
-		<a href="{{getUrl}}" title="{{{getTitulo}}}">{{{getTituloCorto}}}</a>
-    </h2>	
+		<a href="{{getUrl}}" title="{{getTitulo}}">{{{getTituloCorto}}}</a>
+    </h2>
 </article>
