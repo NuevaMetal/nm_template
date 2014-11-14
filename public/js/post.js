@@ -34,12 +34,12 @@ $(document).on('click', '#sidebar .refrescar', function(e) {
 		dataType : "json",
 		beforeSend: function(){
 			$('.fa').addClass('hidden');
-			$('.fa-circle-o').removeClass('hidden');
+			$('.fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
 			if (json.code == 200) {
 				$('.fa').removeClass('hidden');
-				$('.fa-circle-o').addClass('hidden');
+				$('.fa-spin').addClass('hidden');
 				var elemento = $('#'+tipo);
 				elemento.find('article').addClass("animated zoomOut");
 				setTimeout(function() {
