@@ -3,6 +3,7 @@ return [
 	'borrado' => 'Message deleted succesfully',
 	'borrados' => 'Deleted messages',
 
+	'de' => 'from',
 	'demasiado_corto' => 'Message too short',
 	'demasiado_grande' => 'Mensaje demasiado large',
 
@@ -14,6 +15,8 @@ return [
 	'mover_a_recibido' => 'Move to received',
 	'movido_a_recibido' => 'Moved to received',
 	'movido_a_papelera' => 'Moved to trash',
+
+	'para' => 'to',
 
 	'recibidos' => 'Inbox',
 	'respondido_exito' => 'Sent message answer successfully for :nombre',

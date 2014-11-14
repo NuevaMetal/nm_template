@@ -1,8 +1,22 @@
 <div class="col-xs-12 col-sm-10 fila bs-callout bs-callout-danger">
 	<span class="col-xs-12 col-sm-6 autor autor-de">
-		De <a href="{{getUser.getPerfilUrl}}">{{getUser.display_name}}</a>
+		<span class="avatar">
+			<a href="{{getUser.getPerfilUrl}}">
+				<img src="{{getUser.getAvatarIco}}" alt="{{getUser.getAlias}} avatar">
+			</a>
+		</span> 
+		{{#transu}}mensajes.de{{/transu}}
+		<a href="{{ getUser.getPerfilUrl }}" target="_blank">{{ getUser.getLogin | ucfirst }}</a>
 	</span>
-	<span class="col-xs-12 col-sm-6 autor autor-para">Para <a href="{{getAQuien.getPerfilUrl}}">{{getAQuien.display_name}}</a></span>
+	<span class="col-xs-12 col-sm-6 autor autor-para">
+		<span class="avatar">
+			<a href="{{getAQuien.getPerfilUrl}}">
+				<img src="{{getAQuien.getAvatarIco}}" alt="{{getAQuien.getAlias}} avatar">
+			</a>
+		</span>
+		{{#transu}}mensajes.para{{/transu}} 
+		<a href="{{getAQuien.getPerfilUrl}}">{{getAQuien.display_name}}</a>
+	</span>
 	<span class="col-xs-12 fecha">
 		<i class="fa fa-calendar fa-xs"></i> {{getDate}}. <i class="fa fa-clock-o fa-xs"></i> {{getTime}}
 	</span>
