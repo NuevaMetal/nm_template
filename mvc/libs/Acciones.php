@@ -525,21 +525,28 @@ class Acciones {
 			$comment->comment_content = $content;
 			$comment->save();
 
-			$enviado = Correo::enviarCorreoGenerico([
-				get_option('admin_email')
-			], 'Nuevo comentario en NM', I18n::trans('emails.nuevo_comentario', [
-				'ID' => $comment->comment_ID,
-				'post_ID' => $comment->comment_post_ID,
-				'author' => $comment->comment_author,
-				'author_email' => $comment->comment_author_email,
-				'author_url' => $comment->comment_author_url,
-				'author_IP' => $comment->comment_author_IP,
-				'date' => $comment->comment_date,
-				'content' => $comment->comment_content,
-				'user_id' => $comment->user_id
-			]));
-			if (! $enviado) {
-				Utils::info("FALLO al enviar correo generico 'emails.nuevo_comentario'");
+			/*
+			 * Alguien envía un comentario o
+			 * Se ha recibido un comentario para moderar.
+			 */
+			$pendienteDeModerar = (get_option('moderation_notify')) && ($comment->comment_approved != Comment::APROVADO);
+			if (get_option('comments_notify') || $pendienteDeModerar) {
+				$enviado = Correo::enviarCorreoGenerico([
+					get_option('admin_email')
+				], 'Nuevo comentario en NM', I18n::trans('emails.nuevo_comentario', [
+					'ID' => $comment->comment_ID,
+					'post_ID' => $comment->comment_post_ID,
+					'author' => $comment->comment_author,
+					'author_email' => $comment->comment_author_email,
+					'author_url' => $comment->comment_author_url,
+					'author_IP' => $comment->comment_author_IP,
+					'date' => $comment->comment_date,
+					'content' => $comment->comment_content,
+					'user_id' => $comment->user_id
+				]));
+				if (! $enviado) {
+					Utils::info("FALLO al enviar correo generico 'emails.nuevo_comentario'");
+				}
 			}
 		});
 	}

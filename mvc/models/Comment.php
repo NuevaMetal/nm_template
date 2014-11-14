@@ -17,6 +17,9 @@ class Comment extends ModelBase {
 
 	const BORRAR_COMENTARIO = 'borrar-comentario';
 
+	const PENDIENTE = 0;
+
+	const APROVADO = 1;
 	/**
 	 * Borrar comentario
 	 */
