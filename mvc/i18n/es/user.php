@@ -34,7 +34,12 @@ return [
 	'necesitas_ser_admin' => 'Necesitas ser admin',
 
 	'login_necesario' => 'para ello es necesario estar logueado',
-	'login_necesario_para_favorito' => '<a href="/wp-login.php">Inicia sesión</a> para guardar tus favoritos.',
+	'login_necesario_para_favorito' => 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para indicar que te gusta',
+	'login_necesario_para_comentar'=> 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para escribir un comentario',
+	'login_necesario_para_comentar_1'=> 'Disculpa, debes ',
+	'login_necesario_para_comentar_2'=> 'iniciar sesión',
+	'login_necesario_para_comentar_3'=> 'para escribir un comentario',
+
 
 	'no_hay_info_perfil' => 'Este usuario no ha compartido ninguna información de perfil',
 	'no_hay_entradas_publicadas' => 'Este usuario todavía no tiene entradas publicadas',

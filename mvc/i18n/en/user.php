@@ -34,7 +34,11 @@ return [
 	'necesitas_ser_admin' => 'You must be admin',
 
 	'login_necesario' => 'for this you need be logged',
-	'login_necesario_para_favorito' => '<a href="/wp-login.php">Login</a> to save favorites.',
+	'login_necesario_para_favorito' => 'Sorry, you must <a href="/wp-login.php">logged in</a> to indicate that you like',
+	'login_necesario_para_comentar'=> 'Sorry, you must be <a href="/wp-login.php">logged in</a> to post a comment.',
+	'login_necesario_para_comentar_1'=> 'Sorry, you must be ',
+	'login_necesario_para_comentar_2'=> 'logged in',
+	'login_necesario_para_comentar_3'=> 'to post a comment.',
 
 	'no_hay_info_perfil' => 'this user has not shared any profile information',
 	'no_hay_entradas_publicadas' => 'This user has no published entries yet',

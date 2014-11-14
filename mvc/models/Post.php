@@ -77,6 +77,9 @@ class Post extends Image {
 		$comment_form = str_replace('Deja un comentario', I18n::transu('deja_un_comentario'), $comment_form);
 		$comment_form = str_replace('Conectado como', I18n::transu('conectado_como'), $comment_form);
 		$comment_form = str_replace('¿Quieres salir?', I18n::transu('quieres_salir'), $comment_form);
+		$comment_form = str_replace('Disculpa, debes', I18n::transu('user.login_necesario_para_comentar_1'), $comment_form);
+		$comment_form = str_replace('iniciar sesión', I18n::trans('user.login_necesario_para_comentar_2'), $comment_form);
+		$comment_form = str_replace('para escribir un comentario', I18n::trans('user.login_necesario_para_comentar_3'), $comment_form);
 		$comment_form = str_replace('Comentario', I18n::transu('comentario'), $comment_form);
 		$comment_form = str_replace('Publicar comentario', I18n::transu('publicar_comentario'), $comment_form);
 		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
