@@ -71,24 +71,3 @@ function pasarRaton(selector, clase){
 	mouseOver(selector, clase);
 	mouseLeave(selector, clase);
 }
-
-
-/**
- * Pintar en un id a partir del contenido resultante de una petición get.
- * 
- * @param selectorId Identificador del elemento.
- * @param url URL para la petición get.
- */
-function pintarEnIdByUrl(selectorId, url) {
-	$.get(url, function(_json) {
-		var json = JSON.parse(_json);
-		if (json.code == 200) {
-			var elemento = $("#" + selectorId);
-			elemento.find('article').addClass("animated zoomOut");
-			setTimeout(function() {
-				elemento.empty(); // eliminar hijos
-				elemento.append($(json.content).addClass('animated zoomIn')); // poner el contenido
-			},500);
-		}
-	});
-}

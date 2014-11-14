@@ -1,8 +1,8 @@
 {{< base }}
 
 	{{$ content }}
-		{{#post}}
-		<div id="post" class="post-content">
+		{{# post }}
+		<div id="post" class="post-content" _id="{{ID}}">
 			<div class="col-xs-12 col-sm-9 post categoria-{{getCategoria.slug}}" itemscope itemType="http://schema.org/BlogPosting">
 
 				<h1 class="page-header titular" itemprop="headline">{{{getTitulo}}}</h1>
@@ -52,27 +52,14 @@
 			    {{> post/_sidebar }}
 			</div>
 		</div>
-		{{/post}}
+		{{/ post }}
 	{{/ content }}
 
 	{{$ scripts }}
 		<script src="{{template_url}}/public/js/post.js"></script>
 		<script>
 			var ENTRADAS_SIMILARES = "{{ENTRADAS_SIMILARES}}";
-			var ENTRADAS_RELACIONADAS = "{{ENTRADAS_RELACIONADAS}}";			
-			/**
-			 * Actualizar el contenido de las similares o relacionadas.
-			 */
-			function actualizarEntradas(tipo) {
-				var nonce;
-				if (tipo == ENTRADAS_SIMILARES) {
-					nonce = "{{post.getNonceEntradasSimilares}}";
-				} else if (tipo == ENTRADAS_RELACIONADAS) {
-					nonce = "{{post.getNonceEntradasRelacionadas}}";
-				}
-				var url = "{{template_url}}/ajax.php?submit=post&tipo="+tipo+"&post={{post.ID}}&nonce="+nonce;
-				pintarEnIdByUrl(tipo, url);
-			}
+			var ENTRADAS_RELACIONADAS = "{{ENTRADAS_RELACIONADAS}}";
 		</script>
 	{{/ scripts }}
 
