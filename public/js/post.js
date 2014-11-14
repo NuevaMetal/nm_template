@@ -33,14 +33,14 @@ $(document).on('click', '#sidebar .refrescar', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function(){
-			$('.fa').addClass('hidden');
-			$('.fa-spin').removeClass('hidden');
+			$('#sidebar .fa').addClass('hidden');
+			$('#sidebar .fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
 			if (json.code == 200) {
-				$('.fa').removeClass('hidden');
-				$('.fa-spin').addClass('hidden');
-				var elemento = $('#'+tipo);
+				$('#sidebar .fa').removeClass('hidden');
+				$('#sidebar .fa-spin').addClass('hidden');
+				var elemento = $('#sidebar #'+tipo);
 				elemento.find('article').addClass("animated zoomOut");
 				setTimeout(function() {
 					elemento.empty(); // eliminar hijos
