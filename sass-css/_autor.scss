@@ -1,4 +1,10 @@
 .autor {
+	#entradas-publicadas {
+		height:120px;
+		&:hover{
+			margin-bottom:50px;
+		}
+	}
 
 	.estadisticas {
 		margin: 10px 0;
