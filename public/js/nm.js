@@ -229,8 +229,8 @@ function seHaceSrollEn(_id){
 		data : data,
 		dataType : "json",
 		beforeSend: function() {
-			$(tipo_id).find('.fa-spin').removeClass('hidden');
-			$(tipo_id).find('.fa-plus').addClass('hidden');
+			// Mostrar el spin de carga grande
+			$(tipo_id).find('.fa-refresh').removeClass('hidden');
 			// Ocultar el btn 
 			$(tipo_id).find('.mostrar-mas').addClass('hidden');
 		},
@@ -243,8 +243,7 @@ function seHaceSrollEn(_id){
 			if (json.content != null && json.content.length != 0) {
 				$(tipo_id).find('.mostrar-mas').removeClass('hidden');
 			}
-			$(tipo_id).find('.fa-spin').addClass('hidden');
-			$(tipo_id).find('.fa-plus').removeClass('hidden');
+			$(tipo_id).find('.fa-refresh').addClass('hidden');
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 //	         alert("Ocurrió un error inesperado.\n" 
