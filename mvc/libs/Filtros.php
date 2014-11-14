@@ -67,4 +67,15 @@ class Filtros {
 			return $fields;
 		}
 	}
+
+	/**
+	 * Filtramos el título para evitar ataques XSS.
+	 * http://codex.wordpress.org/Plugin_API/Filter_Reference/the_title
+	 */
+	public static function theTitle() {
+		add_filter('the_title', function ($title) {
+			$title = Html::quitarEtiquetas($title);
+			return $title;
+		});
+	}
 }

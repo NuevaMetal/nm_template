@@ -44,3 +44,4 @@ Filtros::comentariosConBootstrap3();
 
 Filtros::contentSavePre();
 Filtros::theContent();
+Filtros::theTitle();

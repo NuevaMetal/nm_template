@@ -7,7 +7,22 @@
 
 				<h1 class="page-header titular" itemprop="headline">{{{getTitulo}}}</h1>
 
-				{{> post/_info }}
+				<div class="info row">
+					<div class="col-xs-12 col-sm-8 titular">
+						<meta itemprop="datePublished" content="{{getTimeISO}}"/>
+						<i class="fa fa-calendar"></i> <span class="post-time">{{getTime}}</span>
+						{{#trans}}por{{/trans}} 
+						<span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
+						{{# getTotalCategorias }}
+							{{#trans}}en{{/trans}} <span class="categories">{{> post/_categories}}</span>
+						{{/ getTotalCategorias }} 
+					</div>
+					<div class="col-xs-12 col-sm-4 text-right">		
+						{{> post/_redes_sociales}}
+					</div>
+				</div>
+				
+				{{> post/_editor }}
 
 				<div class="content text-center col-xs-12" itemprop="articleBody">
 					{{{getContent}}}

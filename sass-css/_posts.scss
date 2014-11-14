@@ -133,17 +133,28 @@
 		margin-left: -200%; // magic!		
 	}
 
-	.page-header {
-		margin-top: 25px;
-	}
-
 	.categories {
 		@include sombreado-color(#fff, #333);
+	}
+	
+	.editor {
+		margin-bottom: 10px;
+		padding: 0px;
+		img {
+			height: 34px;
+			width: auto;
+		}
 	}
 
 	.info {	
 		margin-bottom: 10px;
 	}
+
+	.page-header {
+		margin-top: 25px;
+	}
+	
+	
 }
 
 .total-me-gustas {

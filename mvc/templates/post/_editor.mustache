@@ -1,0 +1,21 @@
+{{# current_user.canEditor }}
+<div class="row editor text-center">
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
+		<span class="post-thumbnail">
+			<a href="{{{getUrlEditar}}}#set-post-thumbnail">
+				{{# getThumbnail}}
+					<img src="{{.}}" alt="{{getTitulo}} thumbnail"/>
+				{{/ getThumbnail}}
+				{{^ getThumbnail}}
+					<img class="sin-thumbnail" alt="{{getTitulo}} thumbnail"/>
+				{{/ getThumbnail}}
+			</a>
+		</span>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11 titular">
+		<a href="{{{getUrlEditar}}}" target="_blank" class="btn btn-default btn-editar col-xs-12">
+			<i class="fa fa-edit"></i> {{#transu}}editar{{/transu}}
+		</a>
+	</div>
+</div>
+{{/ current_user.canEditor }}
