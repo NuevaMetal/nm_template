@@ -106,18 +106,16 @@
 		border-top: 1px solid #bbb;
 	}
 
-	.comment-form-comment {
+	#commentform {
 		textarea {
 			width: 100%;
-			height: 50px;
+			height: 40px;
 			max-height: 200px;
 			min-height: 37px;
-
-			&:hover, &:focus {
-				width: 100%;
-				height: 120px;
-				resize: vertical;
-			}
+			resize: vertical;
+		}
+		&:hover textarea, textarea:focus {
+			height: 100px;
 		}
 	}
 
