@@ -9,6 +9,7 @@ return [
 	'actividades' => 'actividades',
 	'administrator' => 'administrador',
 	'anadir_favoritos' => 'añadir a mis favs',
+	'analitica' => 'analítica',
 	'ancho' => 'ancho',
 	'aleatorio' => 'aleatorio',
 	'alto' => 'alto',
