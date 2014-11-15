@@ -11,6 +11,8 @@ define(URL_LOCAL, 'nuevametal.local');
 // --------------------------------------------------------------
 // Acciones
 // --------------------------------------------------------------
+Acciones::guardarAnalitica();
+
 Acciones::userRegister();
 Acciones::generarNuevaPassword();
 

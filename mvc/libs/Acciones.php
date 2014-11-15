@@ -7,6 +7,7 @@ use Controllers\UserController;
 use Models\User;
 use Libs\Utils;
 use Models\Comment;
+use Models\Analitica;
 
 /**
  * Acciones de Wordpress
@@ -545,8 +546,22 @@ class Acciones {
 					'user_id' => $comment->user_id
 				]));
 				if (! $enviado) {
-					Utils::info("FALLO al enviar correo generico 'emails.nuevo_comentario'");
+					info("FALLO al enviar correo generico 'emails.nuevo_comentario'");
 				}
+			}
+		});
+	}
+
+	/**
+	 * Guardar la analítica
+	 */
+	public static function guardarAnalitica() {
+		add_action('wp', function () {
+			try {
+				$analitica = new Analitica();
+				$analitica->save();
+			} catch ( Exception $e ) {
+				info('No se pudo guardar la Analitica ?');
 			}
 		});
 	}

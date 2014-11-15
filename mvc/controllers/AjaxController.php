@@ -14,6 +14,7 @@ use Models\UserPendiente;
 use Models\UserBaneado;
 use Models\Revision;
 use Libs\KeysRequest;
+use Models\Analitica;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -750,6 +751,45 @@ class AjaxController extends BaseController {
 	}
 
 	/**
+	 * Atiende a la petición para la analítica de usuarios interna
+	 *
+	 * @param array $_datos
+	 * @return array JSON de respuesta para para JS
+	 */
+	private function _jsonAnalitica($_datos) {
+		if (! $this->current_user || ! $this->current_user->isAdmin()) {
+			return $this->err_sin_permisos;
+		}
+		$tabla = $_datos['tabla'];
+		$cant = $_datos['cant'];
+		switch ($tabla) {
+			case Analitica::TOTAL_USERS :
+				$total = Analitica::getTotalRegistrosPorDia($cant);
+				$json['data'] = Analitica::formatearDias($total);
+				$json['xkey'] = 'dia';
+				$json['ykeys'] = [
+					'total'
+				];
+				$json['labels'] = [
+					'Usuarios registrados'
+				];
+				return $json;
+
+			case Analitica::TOTAL_VISITAS_USERS :
+				$total = Analitica::getTotalVisitasUsersLogueados($cant);
+				$json['data'] = Analitica::formatearDias($total);
+				$json['xkey'] = 'dia';
+				$json['ykeys'] = [
+					'total'
+				];
+				$json['labels'] = [
+					'Usuarios logueados'
+				];
+				return $json;
+		}
+	}
+
+	/**
 	 *
 	 * @param string $submit
 	 */
@@ -769,6 +809,9 @@ class AjaxController extends BaseController {
 
 			case Ajax::REVISION_BAN :
 				return $this->_jsonRevisionBan($_datos);
+
+			case Ajax::ANALITICA :
+				return $this->_jsonAnalitica($_datos);
 
 			case Ajax::ANALITICA_PERFIL_POST_PUBLICADOS_MES :
 				return $this->_jsonAnaliticaPerfilPostPublicadosMes($_datos);

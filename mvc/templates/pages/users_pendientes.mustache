@@ -1,6 +1,8 @@
 {{< base }}
 
 	{{$ content }}
+	<div id="users-pendientes" class="pagina">
+	
 		<h1 class="titular">{{#transu}}user.usuarios_pendientes{{/transu}}</h1>	
 		
 		<!-- Nav tabs -->
@@ -15,7 +17,7 @@
 				<li><a href="#rechazados" role="tab" data-toggle="tab">
 					{{#transu}}rechazados{{/transu}} (<span class="cant">{{total_rechazados}}</span>)</a>
 				</li>
-				{{/ total_rechazados }}				
+				{{/ total_rechazados }}
 			</ul>
 	
 			<!-- Tab panes -->
@@ -165,7 +167,7 @@
 				</div>
 				
 			</div>
-		
+		</div>
 	{{/ content }}
 	
 {{/ base }}

@@ -10,6 +10,7 @@ use Models\User;
 use Models\UserBloqueado;
 use Models\UserPendiente;
 use Models\UserBaneado;
+use Models\Analitica;
 
 /**
  * Controlador principal de la web
@@ -23,6 +24,20 @@ class PageController extends BaseController {
 	 */
 	public function getAmigas() {
 		return $this->renderPage('pages/amigas');
+	}
+
+	/**
+	 * Analitica.
+	 * page-analytics.php
+	 */
+	public function getAnalitica() {
+		$logueados_hoy = Analitica::getUsersLogueados(50);
+		$logueados_ayer = Analitica::getUsersLogueados(50, 'date(now())-1');
+
+		return $this->renderPage('pages/analitica', [
+			'logueados_hoy' => $logueados_hoy,
+			'logueados_ayer' => $logueados_ayer
+		]);
 	}
 
 	/**

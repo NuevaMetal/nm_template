@@ -53,6 +53,9 @@ abstract class BaseController {
 				},
 				'si0poner1' => function ($value) {
 					return ($value == 0) ? 1 : $value;
+				},
+				'count' => function ($value) {
+					return count($value);
 				}
 			),
 			'escape' => function ($value) {

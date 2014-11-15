@@ -1,0 +1,50 @@
+analitica.mustache
+{{< base }}
+
+	{{$ content }}
+	<div id="analitica" class="pagina">
+		<h1><i class="fa fa-terminal"></i> Analítica y seguimiento de usuarios </h1>
+	
+		<div id="usuarios-registrados-dia" class="col-xs-12">
+			<h3><i class="fa fa-bar-chart"></i> Total de usuarios registrados / día</h3>
+			<div id="total-users" class="tabla"></div>
+		</div>
+		
+		<div id="visitas-user" class="col-xs-12">
+			<h3><i class="fa fa-line-chart"></i> Visitas por usuario / día</h3>
+			<div id="total-visitas-users" class="tabla"></div>
+		</div>
+		
+		<div id="logueados-hoy" class="col-xs-12">
+			<h4 class="titular">Logueados hoy: {{logueados_hoy | count}}</h4>
+			{{# logueados_hoy }}
+				<span class="col-xs-3"><a href="{{getPerfilUrl}}">{{getAlias}}</a></span>
+			{{/ logueados_hoy }}
+		</div>
+		
+		<div id="logueados-ayer" class="col-xs-12">
+			<h4 class="titular">Logueados ayer: {{logueados_ayer | count}}</h4>
+			{{# logueados_ayer }}
+				<span class="col-xs-3"><a href="{{getPerfilUrl}}">{{getAlias}}</a></span>
+			{{/ logueados_ayer }}
+		</div>		
+	</div>
+	{{/ content }}
+	
+	{{$ scripts }}
+		<script src="{{template_url}}/public/third/raphael/raphael.min.js"></script>
+		<script src="{{template_url}}/public/third/morris/morris.js"></script>
+		<script src="{{template_url}}/public/js/analitica.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				var url = "{{template_url}}/ajax.php?submit=analitica&tabla=total-users&cant=50";
+				pintarMorris("total-users", url);
+
+				url = "{{template_url}}/ajax.php?submit=analitica&tabla=total-visitas-users&cant=50";
+				pintarMorris("total-visitas-users", url);
+			});
+		</script>
+	{{/ scripts }}
+	
+{{/ base }}

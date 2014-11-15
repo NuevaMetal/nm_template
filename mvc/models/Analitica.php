@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use Libs\Utils;
+
 /**
  * Analítica
  *
@@ -30,43 +32,31 @@ class Analitica extends ModelBase {
 	 *         o NULL en caso de no tener user_id asociado
 	 */
 	public function getUser() {
-		if ($this->user_id == null) {
-			return null;
-		}
-		global $wpdb;
-		$query = "SELECT *
-				FROM {$wpdb->prefix}" . static::$table . "
-				WHERE user_id = $this->user_id";
-		return $wpdb->get_row($query);
+		return User::find($this->user_id);
 	}
 
 	/**
-	 *
-	 * @param string $ID
-	 * @return NULL
+	 * Guardar/actualizar una analítica
 	 */
 	public function save() {
-		global $wpdb, $post;
-		$user = wp_get_current_user();
+		global $wpdb;
+		$user = Utils::getCurrentUser();
 		// Comprobamos si existe
-		$query = "SELECT * FROM {$wpdb->prefix}" . static::$table . "
-		WHERE user_id = $user->ID AND DATE(created_at) = CURRENT_DATE;";
-		// Utils::debug($query);
-		$analitica = $wpdb->get_row($query);
+		$analitica = $wpdb->get_row($wpdb->prepare('
+				SELECT * FROM wp_analiticas
+				WHERE user_id = %d
+				AND DATE(created_at) = CURRENT_DATE', $user->ID));
 
 		if ($analitica) {
-			// Si existe actualizamos
-			$wpdb->query($wpdb->prepare("
-					UPDATE {$wpdb->prefix}" . static::$table . "
+			$wpdb->query($wpdb->prepare('
+					UPDATE wp_analiticas
 					SET updated_at = now()
-					WHERE ID = %d", $analitica->ID));
+					WHERE ID = %d', $analitica->ID));
 			$this->ID = $analitica->ID;
-			// dd($analitica);
 		} else {
-			// Si no existe lo creamos
-			$result = $wpdb->query($wpdb->prepare("
-				INSERT {$wpdb->prefix}" . static::$table . " (user_id, created_at, updated_at)
-				VALUES (%d, null, null);", $user->ID));
+			$result = $wpdb->query($wpdb->prepare('
+				INSERT wp_analiticas (user_id, created_at, updated_at)
+				VALUES (%d, null, null)', $user->ID));
 			$this->ID = $wpdb->insert_id;
 		}
 	}
@@ -79,14 +69,14 @@ class Analitica extends ModelBase {
 	 */
 	public static function getTotalRegistrosPorDia($cantidad = 31, $mes = 'MONTH(NOW())', $ano = 'YEAR(NOW())') {
 		global $wpdb;
-		$query = "SELECT DATE( user_registered ) dia, COUNT( * ) total
+		return $wpdb->get_results($wpdb->prepare('
+				SELECT DATE( user_registered ) dia, COUNT( * ) total
 				FROM wp_users
-				WHERE MONTH( user_registered ) = $mes
-				AND YEAR( user_registered ) = $ano
+				WHERE MONTH( user_registered ) = ' . $mes . '
+				AND YEAR( user_registered ) = ' . $ano . '
 				GROUP BY dia
 				ORDER BY dia DESC
-				LIMIT $cantidad";
-		return $wpdb->get_results($query);
+				LIMIT %d', $cantidad));
 	}
 
 	/**
@@ -108,7 +98,7 @@ class Analitica extends ModelBase {
 	}
 
 	/**
-	 * Devuelve una lista con los nombres (y url) de los users logueados
+	 * Devuelve una lista con users logueados
 	 *
 	 * @param number $cantidad
 	 *        	Límite máximo de nombres a obtener
@@ -119,18 +109,14 @@ class Analitica extends ModelBase {
 	 */
 	public static function getUsersLogueados($cantidad = 50, $cuando = 'DATE(NOW())') {
 		global $wpdb;
-		$query = "SELECT distinct user_id
+		$users_id = $wpdb->get_col($wpdb->prepare('
+				SELECT distinct user_id
 				FROM wp_analiticas
-				WHERE user_id !=0
-				AND DATE( created_at ) = $cuando
-				LIMIT $cantidad";
-		$users_id = $wpdb->get_col($query);
+				WHERE user_id !=0 AND DATE( created_at ) = ' . $cuando . '
+				LIMIT %d', $cantidad));
 		$users = [];
 		foreach ($users_id as $user_id) {
-			$users[] = [
-				'url' => get_author_posts_url($user_id),
-				'nombre' => get_the_author_meta('display_name', $user_id)
-			];
+			$users[] = User::find($user_id);
 		}
 		return $users;
 	}
@@ -166,7 +152,7 @@ class Analitica extends ModelBase {
 	 * @param array $totalPorDia
 	 * @return array
 	 */
-	public static function formatearDias($totalPorDia) {
+	public static function formatearDias($totalPorDia = []) {
 		function _formatDia($dia) {
 			if ($dia < 10) {
 				return date('Y-m-0') . "$dia";
@@ -176,14 +162,14 @@ class Analitica extends ModelBase {
 		$result = [];
 		$numeroDeDias = intval(date("t", date('m')));
 		for($i = 1; $i < $numeroDeDias; $i ++) {
+			$dia = _formatDia($i);
 			foreach ($totalPorDia as $t) {
-				$dia = _formatDia($i);
-				if ($dia == $t->dia) {
+				if ($t && $dia == $t->dia) {
 					$result[] = $t;
 					continue 2;
 				}
 			}
-			$obj = new stdClass();
+			$obj = new \stdClass();
 			$obj->dia = $dia;
 			$obj->total = "0";
 			$result[] = $obj;
@@ -205,5 +191,35 @@ class Analitica extends ModelBase {
 			$result[] = $obj;
 		}
 		return $result;
+	}
+
+	/**
+	 * Crear las tablas para la analítica
+	 *
+	 * @return void
+	 */
+	private static function _install() {
+		global $wpdb;
+		// Create table
+		$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}analiticas (
+		`ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`user_id` bigint(20) UNSIGNED NOT NULL,
+		`created_at` TIMESTAMP NOT NULL DEFAULT 0,
+		`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY (`ID`),
+		FOREIGN KEY (`user_id`) REFERENCES `{$wpdb->prefix}users`(`ID`) ON DELETE SET NULL,
+		UNIQUE KEY (user_id, created_at)
+		)ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+		$wpdb->query($query);
+	}
+
+	/**
+	 * Eliminar las tablas de analítica
+	 *
+	 * @return void
+	 */
+	private static function _uninstall() {
+		global $wpdb;
+		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}analiticas ");
 	}
 }

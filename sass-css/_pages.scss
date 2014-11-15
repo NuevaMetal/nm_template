@@ -1,13 +1,28 @@
-.pagina {
-	&.tutorial {
-		img {
-			width: 100%;
-		}
+#analitica {
+	#usuarios-registrados-dia {
+		//border: 1px solid red;
 	}
+	#visitas-user {
+		//border: 1px solid green;
+	}
+	#logueados-hoy,#logueados-ayer {
+		//border: 1px solid brown;
+	} 
 	
-	&.redes {
-		.titular a {
-			color: #333;
-		}
+	.tabla {
+		height: 200px; 
+		margin-bottom:50px;
+	}
+}
+
+#tutorial {
+	img {
+		width: 100%;
+	}
+}
+	
+#redes {
+	.titular a {
+		color: #333;
 	}
 }

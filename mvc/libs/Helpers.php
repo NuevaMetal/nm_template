@@ -19,3 +19,12 @@ function dd($expression, $tag = "Tag") {
 function debug($str) {
 	error_log(" DEBUG - " . $str);
 }
+
+/**
+ * Cadena para info 'debug'
+ *
+ * @param string $str
+ */
+function info($str) {
+	error_log(" INFO - " . $str);
+}
