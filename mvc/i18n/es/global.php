@@ -72,6 +72,7 @@ return [
 	'hola' => 'hola',
 
 	'informar' => 'informar',
+	'inicio' => 'inicio',
 	'introduce_tu' => 'introduce tu :que aquí',
 
 	'editar' => 'editar',

@@ -6,14 +6,24 @@ $screen-xl-min: 1400px;
 
 $body-background-color: #fff;
 
+$margin-top-titulo-content: 16px;
+
 $rojo-danger: #d43f3a;
 $rojo-danger-hover: #c9302c;
+
+$rojo-nm: #CB2027;
+$rojo-nm-hover: #CB2027;
 
 $color-primary: #428bca;
 $color-success: #5cb85c;
 $color-info:    #5bc0de;
 $color-warning: #f0ad4e;
 $color-danger:  #d9534f;
+
+.borde-abajo-amarillo {
+	border-bottom: 5px solid $color-warning;
+	@include border-radius(10px);
+}
 
 @mixin col($media) {
 	@if $media == xs {

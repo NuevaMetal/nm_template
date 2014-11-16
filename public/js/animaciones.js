@@ -58,7 +58,7 @@ $(document).on('mouseleave', '#post-meta .avatar', function(e) {
 });
 
 // Agrandar los iconos de las redes sociales.
-pasarRaton('.redes-sociales a', 'btn-lg');
+//pasarRaton('.redes-sociales a', 'btn-lg');
 
 /**
  * Dar al selector una clase cuando se pase el ratón por encima y quitarla cuando se quite el ratón.
@@ -84,32 +84,124 @@ function pasarRaton(selector, clase){
 }
 
 /** Pasar el ratón por "más usuarios que le dieron me gusta a un post" */
-$(document).on('click', '#sidebar .users-gustan .otros-mas .texto', function(e) {
+$(document).on('click', '#post-sidebar .users-gustan .otros-mas .texto', function(e) {
 	e.preventDefault();
-	if($('#sidebar .users-gustan .otros').hasClass('zoomIn')) {
+	if($('#post-sidebar .users-gustan .otros').hasClass('zoomIn')) {
 		ocultarOtrosUsersQueGustan();
+		console.log("a");
 	} else {
 		mostrarOtrosUsersQueGustan();
+		console.log("b");
 	}
 });
 /** Pasar el ratón por "más usuarios que le dieron me gusta" */
-$(document).on('mouseleave', '#sidebar .users-gustan .otros', function(e) {
+$(document).on('mouseleave', '#post-sidebar .users-gustan .otros', function(e) {
 	e.preventDefault();
 	ocultarOtrosUsersQueGustan();
 });
 
 function mostrarOtrosUsersQueGustan() {
 	clearTimeout(timer);
-	var otros = $('#sidebar .users-gustan .otros');
+	var otros = $('#post-sidebar .users-gustan .otros');
 	otros.css('display','block');
 	otros.removeClass('zoomOut');
 	otros.addClass('zoomIn');
 }
 function ocultarOtrosUsersQueGustan() {
-	var otros = $('#sidebar .users-gustan .otros');
+	var otros = $('#post-sidebar .users-gustan .otros');
 	timer = setTimeout(function(){
 		otros.css('display','none')
 	}, 100);                                                           
 	otros.removeClass('zoomIn');
 	otros.addClass('zoomOut');
 }
+
+/*
+ * Mostrar/Ocultar el menú lateral
+ */
+var timerMenuDisplay;
+var timerMenuAnimacion;
+var timerLoginForm;
+var contentIn = 'col-sm-10';
+var contentOut = 'col-sm-10';
+var menuIn = 'animated fadeInLeft';
+var menuOut = 'animated fadeOutLeft';
+
+$(document).on('click', '.navbar-header .navbar-brand', function(e) {
+	e.preventDefault();
+	if(!comprobarSiMostrarMenuLateral()){
+		return false;
+	}
+	if ($('#menu-lateral').hasClass(menuOut)){
+		window.location.href = '/';
+		return false;
+	}
+	menuLateralToggle();
+	return false;
+});
+
+$(document).on('click', '.mostrar-menu-lateral', function(e) {
+	e.preventDefault();
+	if(!comprobarSiMostrarMenuLateral()){
+		return false;
+	}
+	menuLateralToggle();
+	return false;
+});
+
+// Comprueba si debemos mostrar el menú lateral
+function comprobarSiMostrarMenuLateral() {
+	if (getWindowWidth('xs') || $('#page').attr('user')=='') {
+		$('.back-to-top').trigger('click');		
+		//$('.login').css("border-bottom",'5px solid red');
+		$('.login').addClass("borde-abajo-amarillo");
+		timerLoginForm = setTimeout(function(){
+			//$('.login').css("border-bottom",'none');
+			$('.login').removeClass("borde-abajo-amarillo");
+		}, 2500);
+		return false;
+	}
+	return true;
+}
+// Menu lateral mostrar como un toggle
+function menuLateralToggle() {	
+	if ($('#menu-lateral').hasClass(menuIn)) {
+		ocultarMenuLateral(0);
+	} else {
+		mostrarMenuLateral();
+		$('.back-to-top').trigger('click');
+	}
+	return false;
+}
+
+function ocultarMenuLateral(segParaQuitar){
+	var content = $('#content');
+	var menu = $('#menu-lateral');
+	timerMenuDisplay = setTimeout(function(){		
+		menu.css('display','none');
+	}, segParaQuitar);
+	timerMenuAnimacion = setTimeout(function(){
+		content.addClass(contentOut);
+		content.removeClass(contentIn);
+		menu.removeClass(menuIn);
+		menu.addClass(menuOut);
+	}, segParaQuitar);
+}
+
+function mostrarMenuLateral() {
+	console.log("mostrarMenuLateral");
+	clearTimeout(timerMenuAnimacion);
+	clearTimeout(timerMenuDisplay);
+	var content = $('#content');
+	content.addClass(contentIn);
+	content.addClass(contentOut);
+	var menu = $('#menu-lateral');
+	menu.css('display','block');
+	menu.removeClass(menuOut);
+	menu.addClass(menuIn);	
+}
+
+$(document).on('click', '#menu-lateral .cerrar-menu-lateral', function(e) {
+	e.preventDefault();
+	ocultarMenuLateral(500);
+});

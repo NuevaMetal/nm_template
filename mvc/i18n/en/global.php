@@ -65,6 +65,7 @@ return [
 	'favoritos' => 'favorites',
 
 	'informar' => 'notify',
+	'inicio' => 'home',
 	'introduce_tu' => 'Enter your :que here',
 
 	'editar' => 'edit',

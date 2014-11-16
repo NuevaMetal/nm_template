@@ -1,37 +1,51 @@
 <header id="top" class="container">
-	<div class="site-title col-xs-12 col-sm-9 col-md-9 col-lg-8" title="{{blog_name}}">
+	<div id="nm-header" class="site-title col-xs-12 col-sm-9 col-md-9 col-lg-8" title="{{blog_name}}">
 		<a href="/" class=""><img src="{{template_url}}/public/img/NM_header.png"></a>
 	</div>
 	<div class="redes-sociales">
-		<a class="btn btn-social-icon btn-twitter" href="https://twitter.com/NuevaMetal" 
-			target="_blank" data-toggle="tooltip" data-placement="right" title="@NuevaMetal">
+		<a class="btn btn-social-icon btn-sm btn-google-plus mostrar-menu-lateral" 
+				data-toggle="tooltip" data-placement="right" title="{{#transu}}inicio{{/transu}}">
+			<i class="fa fa-home"></i>
+		</a><br>
+		<a class="btn btn-social-icon btn-sm btn-twitter" href="https://twitter.com/NuevaMetal" 
+				target="_blank" data-toggle="tooltip" data-placement="right" title="@NuevaMetal">
 			<i class="fa fa-twitter"></i>
 		</a><br>
-		<a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/nuevametal" 
-			target="_blank" data-toggle="tooltip" data-placement="right"  title="/NuevaMetal">
+		<a class="btn btn-social-icon btn-sm btn-facebook" href="https://www.facebook.com/nuevametal" 
+				target="_blank" data-toggle="tooltip" data-placement="right"  title="/NuevaMetal">
 			<i class="fa fa-facebook "></i>
 		</a><br>
-		<a class="btn btn-social-icon btn-google-plus" href="https://plus.google.com/+NuevametalWeb/posts" 
-			target="_blank" data-toggle="tooltip" data-placement="right" title="+NuevaMetalWeb">
+		<a class="btn btn-social-icon btn-sm btn-google-plus" href="https://plus.google.com/+NuevametalWeb/posts" 
+				target="_blank" data-toggle="tooltip" data-placement="right" title="+NuevaMetalWeb">
 			<i class="fa fa-google-plus "></i>
 		</a><br>
 	</div>
 </header>
-<div id="page" class="container" url="{{template_url}}/ajax.php">
-
+<div id="page" class="container" url="{{template_url}}/ajax.php" user="{{current_user.ID}}">
+	
 	<div id="alertas-popup"></div>
 	<div class="col-xs-12">
-		<div id="menu-principal"></div>
-		<div id="menu-perfil"></div>
+		<div id="menu-principal">{{!> menu/principal }}</div>
 		<div id="alertas" class="col-xs-12">
 			{{$ alertas }} {{/ alertas }}
 		</div>
 	</div>
-
-    <div id="content" class="col-xs-12">
-    	{{$ content }} Content {{/content }}
-    </div>
-
+	
+	<div id="super" class="row">
+		{{# current_user }}
+			<div id="menu-lateral" class="col-sm-2 animated fadeInLeft">
+				{{> menu/lateral/_ya_logueado }}
+			</div>
+		{{/ current_user }}
+		{{^ current_user }}
+			<div id="menu-perfil" class="col-xs-12 perfil-login titular hidden-xs">
+				{{> menu/perfil/_login }}
+			</div>
+		{{/ current_user }}
+	    <div id="content" class="col-xs-12 {{#current_user}}col-sm-10{{/current_user}}">
+	    	{{$ content }} Content {{/content }}
+	    </div>
+	</div>
 	<div id="menu-footer"></div>	
 </div>
 {{$ scripts }} {{/ scripts }}

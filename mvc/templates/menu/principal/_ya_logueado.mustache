@@ -15,7 +15,7 @@
 			</a>
 		</h3>
 		<div class=" info titular hidden-xs">
-			{{#transu}}puntos{{/transu}}: 
+			{{#transu}}puntos{{/transu}}:
 			<a href="/activity?active=puntos" data-toggle="tooltip" data-placement="right" 
 				title="{{#transu}}puntos{{/transu}}: {{getTotalPuntos | formatear_numero}}">{{getTotalPuntos | formatear_numero}}</a>
 			<br>	
@@ -66,7 +66,7 @@
 				title="{{total_mensajes | formatear_numero}} {{#transu}}mensajes.sin_leer{{/transu}}">
 	  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
 		</a>
-		<a class="col-xs-12 col-sm-6 btn btn-default" href="/wp-login.php?action=logout&amp;redirect_to={{redirect_to}}"
+		<a class="col-xs-12 col-sm-6 btn btn-default url-redirect" href="/wp-login.php?action=logout&amp;"
 					data-toggle="tooltip" data-placement="left"
 					title="{{#transu}}cerrar_sesion{{/transu}}">
 			<i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}} 

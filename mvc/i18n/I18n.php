@@ -14,6 +14,9 @@ class I18n {
 	const LANG_ES = 'es';
 	// English const
 	const LANG_EN = 'en';
+	//
+	const IDIOMA_SESION = 'idioma-sesion';
+
 
 	/**
 	 * Devuelve una lista con todos los idiomas disponibles
@@ -34,6 +37,11 @@ class I18n {
 	 * @return string|boolean Idioma actual del usuario
 	 */
 	public static function getLangByCurrentUser() {
+		session_start();
+		// Si se estableció un idioma para la sesión
+		if ($_SESSION[self::IDIOMA_SESION]) {
+			return $_SESSION[self::IDIOMA_SESION];
+		}
 		$currentUser = Utils::getCurrentUser();
 		// Si el usuario está logueado y tiene establecido el idioma, pondremos su idioma
 		if ($currentUser && ($idioma = $currentUser->getIdioma())) {

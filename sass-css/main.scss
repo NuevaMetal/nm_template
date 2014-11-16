@@ -5,18 +5,18 @@
 //@import "libs/html5boilerplate/main.scss";
 @import "compass/css3/inline-block";
 @import "compass/css3/transform";
+@import "compass/css3/border-radius";
 
+@import "actividad.scss";
 @import "base.scss";
 @import "busqueda.scss";
 @import "home.scss";
 @import "posts.scss";
-@import "sidebar.scss";
 @import "navbar.scss";
 @import "happycookies.scss";
 @import "plugin.scss";
 @import "pages.scss";
-@import "autor.scss";
-@import "actividad.scss";
+@import "user.scss";
 @import "mensajes.scss";
 
 #busqueda, #autor {
@@ -30,7 +30,9 @@
 #top{
 	.site-title, .site-title-plugin {
 		padding: 0;
-		margin: 30px 0;
+		//margin: 30px 0;
+		margin-top: 65px;
+		margin-bottom: 15px;
 		margin-left: -15px;
 		@include col(xs) {
 			margin: 20px 9px;
@@ -45,7 +47,16 @@
 	    bottom: 19px;
 	    left: 10px;
 	    z-index: 100;
-	    a { margin: 3px 0;}
+	    a { 
+	    	margin: 3px 0;
+	    }
+		.mostrar-menu-lateral{
+			 //color: $color-success; 
+			 background: $rojo-nm;
+			 &:hover {
+			 	background: $rojo-nm-hover;
+			 }
+		}
 	}
 }
 
@@ -58,12 +69,16 @@ a {
 	left: 50px;
 	position: fixed;
 	width: auto;
-	z-index: 3;
+	z-index: 5;
 }
 
 #content{
 	overflow: hidden;
-	margin-top: -23px;
+	margin: 0;
+	margin-top: -2px;
+	//margin-top: 16px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 #cookies {
@@ -85,10 +100,6 @@ a {
 	.poner-cookie {
 		font-weight: bold;
 	}
-}
-
-#sidebar{
-	
 }
 
 body {
@@ -137,10 +148,6 @@ body {
 	height: 300px;
 }
 
-.aumentar-padding-top-content{	
-	padding-top: 130px; // sm	
-}
-
 .back-to-top {
     position: fixed;
     bottom: 19px;
@@ -157,6 +164,10 @@ body {
 		background-color: rgba(135, 135, 135, 0.50);
 		text-decoration: none;
     }
+}
+
+.banner {
+	margin-top: $margin-top-titulo-content;
 }
 .copyright {
 	//border: 1px solid red;

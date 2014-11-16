@@ -1,5 +1,58 @@
-.navbar{
-
+#menu-lateral {
+	
+	padding: 0;
+	word-wrap: break-word;
+	z-index: 4;
+	.panel {		
+		background-color: $body-background-color; 
+		border: 1px solid #ccc;	
+		width: 100%;
+		.imagenes {
+			
+			.header img {
+				left: 0px;
+				height: 100px;
+				width: 100%;
+			}
+			.avatar {
+				height: 100px;
+				width: auto;
+				box-shadow: 2px 2px 5px #888;
+				position: absolute;
+    			left:10px;
+    			top: 0px;
+    			z-index: 2;
+				@include col(md) {
+					left: 27px;
+    				top: 10px;
+				}
+				@include col(lg) {
+					left: 45px;
+    				top: 15px;
+				}
+			}
+		}
+		.user-info {
+			margin-bottom: -15px;
+			.alias {
+				margin-top: 20px;
+				margin-bottom: 0px;
+			}
+			.info {}
+			@include col(lg){
+				.alias {
+					margin-top: 20px;
+					font-size: 21px;
+				}
+			}			
+		}
+	}
+	.fa {
+		display: none;
+		@include col(lg) {
+			display: inline-block;	
+		}
+	}
 }
 
 .navbar-brand {

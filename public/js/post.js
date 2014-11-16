@@ -11,10 +11,10 @@ $(document).ready(function() {
 });
 
 function actualizarEntradas() {
-	$('#sidebar .refrescar').trigger('click');
+	$('#post-sidebar .refrescar').trigger('click');
 }
 
-$(document).on('click', '#sidebar .refrescar', function(e) {
+$(document).on('click', '#post-sidebar .refrescar', function(e) {
 	e.preventDefault();
 	$this = $(this);
 	var url = $('#page').attr('url');
@@ -33,14 +33,14 @@ $(document).on('click', '#sidebar .refrescar', function(e) {
 		data : data,
 		dataType : "json",
 		beforeSend: function(){
-			$('#sidebar .fa').addClass('hidden');
-			$('#sidebar .fa-spin').removeClass('hidden');
+			$('#post-sidebar .fa').addClass('hidden');
+			$('#post-sidebar .fa-spin').removeClass('hidden');
 		},
 		success : function(json) {
 			if (json.code == 200) {
-				$('#sidebar .fa').removeClass('hidden');
-				$('#sidebar .fa-spin').addClass('hidden');
-				var elemento = $('#sidebar #'+tipo);
+				$('#post-sidebar .fa').removeClass('hidden');
+				$('#post-sidebar .fa-spin').addClass('hidden');
+				var elemento = $('#post-sidebar #'+tipo);
 				elemento.find('article').addClass("animated zoomOut");
 				setTimeout(function() {
 					elemento.empty(); // eliminar hijos

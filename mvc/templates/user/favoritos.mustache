@@ -2,14 +2,14 @@
 
 	{{$ content }}
 		{{# user }}	
-		<div id="favoritos" class="padre">
-			<h1 class="titular">{{#transu}}favoritos{{/transu}} 
+		<div id="favoritos" class="padre col-xs-12">
+			<h1 class="titular ">{{#transu}}favoritos{{/transu}} 
 				<small>{{#transu}}total{{/transu}}: {{getTotalFavoritos}}</small>
 			</h1>
+			<div class="col-xs-12 {{#conSidebar}}col-md-9{{/conSidebar}}">
 			{{# getTotalFavoritos }}
-			
 				<!-- Nav tabs -->
-				<ul class="nav nav-tabs titular" role="tablist">
+				<ul class="nav nav-tabs titular col-xs-12" role="tablist">
 					{{# getTotalFavoritosBandas }}
 						<li class="active"><a href="#{{CATEGORY_BANDAS}}" role="tab" data-toggle="tab">{{#transu}}bandas{{/transu}}</a></li>
 					{{/ getTotalFavoritosBandas }}
@@ -40,7 +40,7 @@
 				</ul>
 			
 				<!-- Tab panes -->
-				<div class="tab-content posts">
+				<div class="tab-content col-xs-12 posts">
 					
 					<div class="tab-pane active" id="{{CATEGORY_BANDAS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosBandas}}</h4>
@@ -52,7 +52,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}					
 					</div>
 					
-					<div class="tab-pane " id="{{CATEGORY_VIDEOS}}">
+					<div class="tab-pane" id="{{CATEGORY_VIDEOS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosVideos}}</h4>
 						<div class="favoritos-content content">
 							
@@ -60,7 +60,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}					
 					</div>
 			
-					<div class="tab-pane " id="{{CATEGORY_CONCIERTOS}}">
+					<div class="tab-pane" id="{{CATEGORY_CONCIERTOS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosConciertos}}</h4>					
 						<div class="favoritos-content content">
 									
@@ -68,7 +68,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}
 					</div>
 					
-					<div class="tab-pane " id="{{CATEGORY_CRONICAS}}">
+					<div class="tab-pane" id="{{CATEGORY_CRONICAS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosCronicas}}</h4>
 						<div class="favoritos-content content">
 						
@@ -76,7 +76,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}					
 					</div>
 					
-					<div class="tab-pane " id="{{CATEGORY_CRITICAS}}">
+					<div class="tab-pane" id="{{CATEGORY_CRITICAS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosCriticas}}</h4>
 						<div class="favoritos-content content">
 							
@@ -84,7 +84,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}
 					</div>
 			
-					<div class="tab-pane " id="{{CATEGORY_NOTICIAS}}">
+					<div class="tab-pane" id="{{CATEGORY_NOTICIAS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosNoticias}}</h4>
 						<div class="favoritos-content content">
 										
@@ -92,7 +92,7 @@
 						{{> user/actividad/_btn_mostrar_mas }}
 					</div>
 					
-					<div class="tab-pane " id="{{CATEGORY_ENTREVISTAS}}">
+					<div class="tab-pane" id="{{CATEGORY_ENTREVISTAS}}">
 						<h4 class="titular">{{#transu}}total{{/transu}}: {{getTotalFavoritosEntrevistas}}</h4>
 						<div class="favoritos-content content">
 											
@@ -104,11 +104,16 @@
 			
 			{{/ getTotalFavoritos }}
 			{{^ getTotalFavoritos }}
-			<p>Aún no marcaste ninguna entrada como favorita. <br>
+			<p class="col-xs-12">Aún no marcaste ninguna entrada como favorita. <br>
 				Entra ya a una entrada y dale al botón de "<i class="fa fa-star"></i> Me gusta" 
 				para ver el listado completo en esta sección.</p>
 			
 			{{/ getTotalFavoritos }}
+			{{#conSidebar}}
+			<div id="sidebar" class="col-xs-12 col-md-3">
+				{{> user/actividad/_sidebar}}
+			</div>
+			{{/conSidebar}}
 		</div>
 		{{/ user }}
 		{{^ user }}

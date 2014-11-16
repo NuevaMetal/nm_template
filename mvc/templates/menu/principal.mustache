@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-principal titular" role="navigation">
+<nav class="navbar navbar-default navbar-principal navbar-fixed-top titular" role="navigation">
 	<div class="container-fluid">
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -112,24 +112,16 @@
 					</form>
 				</li>
 			</ul>
-			<ul class="hidden-xs nav navbar-nav navbar-right navbar-principal-login hidden">
-			    <li class="dropdown">
-			      <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 			      
-			      <i class="fa fa-user"> 
-			      {{#current_user}}{{current_user.user_login}}{{/current_user}}
-				  {{^current_user}}{{#transu}}acceder{{/transu}}{{/current_user}}
-			      </i></a>
-			      <ul class="dropdown-menu menu-principal-perfil" role="menu" id="menu-principal-perfil-md">
-			        <li class="text-center">
-				        {{#current_user}}
-							{{> menu/principal/_ya_logueado }}
-						{{/current_user}}
-						{{^current_user}}
-							{{> menu/principal/_login }}
-						{{/current_user}}
-					 </li>
-				  </ul>
-			    </li>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-flag"></i> {{current_lang}}
+			     	</a>
+			     	 <ul class="dropdown-menu" role="menu">
+				        <li><a href="/lang?lang=en" class="url-redirect">English [en]</a></li>
+				        <li><a href="/lang?lang=es" class="url-redirect">Español [es]</a></li>
+			        </ul>
+				</li>
 			</ul>
 		</div>
 	</div>

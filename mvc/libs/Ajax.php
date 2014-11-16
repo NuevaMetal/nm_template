@@ -36,6 +36,8 @@ class Ajax {
 
 	const MENU_PERFIL = "menu-perfil";
 
+	const MENU_LATERAL = "menu-lateral";
+
 	const MOSTRAR_MAS = "mostrar-mas";
 
 	const NOTIFICAR = "notificar";

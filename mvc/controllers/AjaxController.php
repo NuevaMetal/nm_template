@@ -372,12 +372,11 @@ class AjaxController extends BaseController {
 		$tipoMenu = $_datos['tipo'];
 		$menuArgs = [
 			'login_url' => wp_login_url('/'),
-			'redirect_to' => '/'
 		];
 		/*
 		 * Añadimos parámetros si se pidió el menú principal o el de perfil.
 		 */
-		if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_PERFIL) {
+		if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_LATERAL) {
 			// Comprobamos si el usuario está logueado.
 			if ($this->current_user->ID > 0) {
 				$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
@@ -399,6 +398,9 @@ class AjaxController extends BaseController {
 				break;
 			case Ajax::MENU_PERFIL :
 				$json['menu'] = $this->render('menu/perfil', $menuArgs);
+				break;
+			case Ajax::MENU_LATERAL :
+				$json['menu'] = $this->render('menu/lateral', $menuArgs);
 				break;
 			case Ajax::MENU_FOOTER :
 				$json['menu'] = $this->render('menu/footer');

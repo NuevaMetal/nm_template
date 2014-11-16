@@ -1,4 +1,4 @@
-.autor {
+#user {
 	#entradas-publicadas {
 		height:120px;
 		&:hover{
@@ -55,8 +55,8 @@
 		}
 	}
 	.img-header {		
-		margin-top: 23px;
 		img {
+			//padding-top: -16px0; //23px;
 			position: absolute;
 			height: 200px;
 			width: 100%;
@@ -80,7 +80,7 @@
     	.btn-img-header {
 			position: absolute;
 			top: 10px;
-			right: 10px;
+			right: 25px;
 		}
 	}
 
@@ -93,7 +93,7 @@
 			margin-top: 120px;
 		}
 	}
-	
+
 	.ultimos-favoritos{
 		img {
 			height: 10px;		
@@ -121,29 +121,13 @@
 			height: 100px;
 		}
 	}
-	
-	
+
 	.tipo-usuario {
 		font-size: 21px;
 	}
-	
-	/*.seguir {
-		//width: 90px;
-		//padding: 5px 70px;
-		//border: 1px solid black;
-	}*/
-	
 }
 
-.btn-me-gusta-y-editar {
+
+#favoritos {
 	
-	.login-necesario {
-		margin-top: 5px ;
-		a {
-			color: #333 ;
-			&:hover {
-				color: #333;
-			}
-		}
-	}
 }

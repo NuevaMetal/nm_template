@@ -1,0 +1,109 @@
+<div class="hijo-menu panel titular text-center col-xs-11">
+
+	<div class="row imagenes">
+		<span class="header">
+			{{# getHeaderPequena }}
+			<img src="{{getHeaderPequena}}">
+			{{/ getHeaderPequena }}
+			{{^ getHeaderPequena }}
+			<img class="sin-thumbnail">
+			{{/ getHeaderPequena }}
+		</span>
+		<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}">
+			<img src="{{getAvatarPerfil}}" class="avatar">
+		</a>
+	</div>
+	<div class="row user-info">
+		<div class="col-xs-12">
+			<h5 class="alias">
+				<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}"> {{getAlias}} </a>
+			</h5>
+		<div class=" info visible-lg">
+			{{#transu}}entradas{{/transu}}:
+			<a href="{{getPerfilUrl}}#posts" 
+				title="{{#transu}}entradas{{/transu}}: {{getTotalPosts | formatear_numero}}">{{getTotalPosts | formatear_numero}}</a>
+			<br>	
+			{{#transu}}seguidores{{/transu}}: 
+			<a href="/activity?active=seguidores" 
+				title="{{#transu}}seguidores{{/transu}}: {{getTotalSeguidores | formatear_numero}}">{{getTotalSeguidores | formatear_numero}}</a>
+			<br>
+			{{#transu}}siguiendo{{/transu}}: 
+			<a href="/activity?active=siguiendo" 
+				title="{{#transu}}siguiendo{{/transu}}: {{getTotalSiguiendo | formatear_numero}}">{{getTotalSiguiendo | formatear_numero}}</a>
+		</div>
+		</div>
+	</div>
+	<div class="row menu-acciones">
+		<div class="acciones">
+			<div class="list-group">
+				<a class="list-group-item col-xs-12 " href="/" 
+						data-toggle="tooltip" data-placement="right" title="{{#transu}}inicio{{/transu}}">
+			  		<i class="fa fa-home"></i> {{#transu}}inicio{{/transu}}
+				</a>
+				{{#isSuscriptor}}
+					{{^isSuscriptorRechazado}}
+					  <a class="list-group-item col-xs-12 col-sm-8" href="/tutorial#publica"
+					  		title="{{#trans}}user.quieres_escribir{{/trans}}">
+						<i class="fa fa-pencil"></i> {{#trans}}user.quieres_escribir{{/trans}}
+					  </a>
+					{{/isSuscriptorRechazado}}
+				{{/isSuscriptor}}
+			   {{#canColaborador}}
+				    <a class="list-group-item col-xs-12 " href="/wp-admin/edit.php" target="_blank"
+				    		data-toggle="tooltip" data-placement="right"
+				    		title="{{#transu}}user.tus_posts{{/transu}}: {{total_posts | formatear_numero}}">
+				  		<i class="fa fa-files-o"></i> posts
+					</a>
+					<a class="list-group-item col-xs-12" href="/wp-admin/post-new.php" target="_blank"
+							data-toggle="tooltip" data-placement="right"
+							title="{{#transu}}escribir_title{{/transu}}">
+						<i class="fa fa-pencil"></i> {{#transu}}escribir{{/transu}}
+					</a>
+				{{/canColaborador}}
+				<a class="list-group-item col-xs-12 " href="/favorites" 
+						data-toggle="tooltip" data-placement="right"
+						title="{{total_favoritos | formatear_numero}} {{#transu}}total{{/transu}}">
+			  		<i class="fa fa-star"></i> {{#transu}}favoritos{{/transu}}
+				</a>
+				<a class="list-group-item col-xs-12" href="/activity" 
+						data-toggle="tooltip" data-placement="right"
+						title="{{total_actividad | formatear_numero}} {{#transu}}total{{/transu}}">
+					<span><i class="fa fa-bell"></i> {{#transu}}actividad{{/transu}}</span>
+				</a>
+				<a class="list-group-item col-xs-12 {{#total_mensajes}}nuevas{{/total_mensajes}}" href="/messages"
+						data-toggle="tooltip" data-placement="right" 
+						title="{{total_mensajes | formatear_numero}} {{#transu}}mensajes.sin_leer{{/transu}}">
+			  		<i class="fa fa-file-text-o"></i> {{#transu}}mensajes{{/transu}}
+				</a>
+				{{# canEditor }}
+					<a class="list-group-item col-xs-12  {{#total_revisiones}}nuevas{{/total_revisiones}}" href="/revisions"
+							data-toggle="tooltip" data-placement="right" 
+							title="{{total_revisiones | formatear_numero}} {{#transu}}pendientes{{/transu}}">
+						<i class="fa fa-clipboard "></i> {{#transu}}revisiones{{/transu}}
+					</a>
+					<a class="list-group-item col-xs-12  {{#total_pendientes}}nuevas{{/total_pendientes}}" href="/pending-users"
+							data-toggle="tooltip" data-placement="right" 
+							title="{{total_pendientes | formatear_numero}} {{#transu}}user.usuarios_pendientes{{/transu}}">
+						<i class="fa fa-users "></i> {{#transu}}pendientes{{/transu}}</span>
+					</a>
+					<a class="list-group-item col-xs-12 " href="/blocked-users" 
+							data-toggle="tooltip" data-placement="right"
+							title="{{total_bloqueados | formatear_numero}} {{#transu}}user.usuarios_bloqueados{{/transu}}">
+						<i class="fa fa-close"></i> {{#transu}}bloqueados{{/transu}}
+					</a>
+					{{# isAdmin }}
+						<a class="list-group-item col-xs-12 " href="/analytics"
+							data-toggle="tooltip" data-placement="right" title="{{#transu}}analitica{{/transu}}">
+							<i class="fa fa-bar-chart "></i> {{#transu}}analitica{{/transu}}
+						</a>
+					{{/ isAdmin }}
+				{{/ canEditor }}
+				<a class="list-group-item col-xs-12" href="/wp-login.php?action=logout&amp;redirect_to=/"
+							data-toggle="tooltip" data-placement="right" title="{{#transu}}cerrar_sesion{{/transu}}">
+					<i class="fa fa-exclamation-circle"></i> {{#transu}}salir{{/transu}}
+				</a>
+			</a>
+			</div>
+		</div>
+	</div>	
+</div>

@@ -1,12 +1,12 @@
 {{< base }}
 
 	{{$ content }}
-	<div id="users-pendientes" class="pagina">
+	<div id="users-pendientes" class="pagina col-xs-12">
 	
 		<h1 class="titular">{{#transu}}user.usuarios_pendientes{{/transu}}</h1>	
 		
 		<!-- Nav tabs -->
-			<ul class="nav nav-tabs titular" role="tablist">
+			<ul class="nav nav-tabs titular col-xs-12" role="tablist">
 				<li class="active"><a href="#pendientes" role="tab" data-toggle="tab">
 					{{#transu}}pendientes{{/transu}} (<span class="cant">{{total_pendientes}}</span>)</a>
 				</li>
@@ -21,9 +21,9 @@
 			</ul>
 	
 			<!-- Tab panes -->
-			<div class="tab-content">			
+			<div class="tab-content col-xs-12">			
 			
-				<div class="tab-pane active col-xs-12" id="pendientes">
+				<div class="tab-pane active" id="pendientes">
 					<h4 class="titular">{{#trans}}user.usuarios_pendientes{{/trans}}</h4>
 					{{^ total_pendientes }}
 						<h3>Aún no hay usuarios pendientes para hacer colaboradores.</h3>
@@ -68,7 +68,7 @@
 					{{/ total_pendientes }}
 				</div>
 				
-				<div class="tab-pane col-xs-12" id="aceptados">
+				<div class="tab-pane" id="aceptados">
 					<h4 class="titular">{{#trans}}user.usuarios_aceptados{{/trans}}</h4>
 					{{^ total_aceptados }}
 						<h3>Lista de usuarios aceptados vacía.</h3>
@@ -124,7 +124,7 @@
 					{{/ total_aceptados }}
 				</div>
 				
-				<div class="tab-pane col-xs-12" id="rechazados">
+				<div class="tab-pane" id="rechazados">
 					{{^ total_rechazados }}
 						<h3>No hay usuarios rechazados.</h3>
 					{{/ total_rechazados }}

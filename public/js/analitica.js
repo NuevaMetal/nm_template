@@ -42,6 +42,8 @@ function crearMorris(elementId, json) {
 					"Noviembre", "Diciembre" ];
 			return data.getDate() + " - " + monthNames[data.getMonth()]
 		},
+		hideHover : false,
+		resize : true,
 	});
 }
 

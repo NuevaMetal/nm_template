@@ -8,6 +8,8 @@ $(document).ready(function() {
 	// Activar todos los tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	
+	$('.back-to-top').trigger('click');
+	
 	if (getWindowWidth('xs')) {
 		scrollOn()
 		scrollOff()
@@ -151,27 +153,12 @@ function _userHacerScrollSuPantalla() {
  * Cuando se hace scroll y se deja de ver el header
  */
 function scrollOn() {
-
-	$(".navbar-principal").addClass("navbar-fixed-top");
-	$(".perfil-login").addClass("hidden");
-	
-	$("#content").addClass("aumentar-padding-top-content");
-	
-	$(".navbar-principal-login").removeClass("hidden");
-	$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
 }
 
 /**
  * Cuando se está viendo el header; aún no se ha hecho scroll
  */
 function scrollOff() {
-	$(".navbar-principal").removeClass("navbar-fixed-top");
-	$(".perfil-login").removeClass("hidden");
-	
-	$(".navbar-principal-login-xs").parent('button').addClass("hidden");
-	$("#content").removeClass("aumentar-padding-top-content");
-	
-	$(".navbar-principal-login").addClass("hidden");
 }
 
 /**
@@ -264,7 +251,7 @@ $(document).on('click', '.post .total-me-gustas', function(e) {
 	var user_id = $this.attr('user');
 	var nonce = $this.attr('nonce');
 	var url = $('#page').attr('url');
-	var sidebar = $this.parents('#post').find('#sidebar');
+	var sidebar = $this.parents('#post').find('#post-sidebar');
 	var data = {
 		submit: 'post',
 		tipo : 'me-gusta',
@@ -353,14 +340,11 @@ $(document).on('click', '.mostrar-mas', function(e) {
 $(document).on('click', '.back-to-top', function(e) {
 	e.preventDefault();
 	$('html, body').animate({
-		scrollTop : 0
+		scrollTop : 161
 	}, 500);
 	return false;
 });
 
-$(document).on('click', '.navbar-header .navbar-brand', function(e) {
-	$('.back-to-top').trigger('click');
-});
 
 /**
  * Botón para solicitar ser colaborador
@@ -437,7 +421,7 @@ $(document).on('click', '.btn-notificar', function(e) {
 function cargarMenus(){
 	// Cargamos los menus por ajax
 	cargarMenu('menu-principal');
-	cargarMenu('menu-perfil', 'fadeIn');
+	cargarMenu('menu-lateral');
 	cargarMenu('menu-footer');
 }
 
@@ -903,3 +887,11 @@ function mostrarAlerta(texto, segundos){
 		alerta.fadeOut();
 	}, segundos*1000);
 }
+
+/**
+ * Usar la redirección de retorno para la url actual para un enlace. 
+ */
+$(document).on('click','.url-redirect', function(e) {
+	e.preventDefault();
+	window.location.replace($(this).attr('href')+'&redirect='+window.location.pathname);
+});

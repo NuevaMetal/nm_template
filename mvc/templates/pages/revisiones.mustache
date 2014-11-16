@@ -1,11 +1,11 @@
 {{< base }}
 
 	{{$ content }}	
-		<div id="revisiones" class="pagina padre">
+		<div id="revisiones" class="pagina padre col-xs-12">
 			<h1 class="titular">{{#transu}}revisiones{{/transu}}</h1>
 			
 			<!-- Nav tabs -->
-			<ul class="nav nav-tabs titular" role="tablist">
+			<ul class="nav nav-tabs titular col-xs-12" role="tablist">
 				<li class="active"><a href="#pendientes" role="tab" data-toggle="tab">
 					{{#transu}}pendientes{{/transu}} {{#total_pendientes}}(<span class="cant">{{total_pendientes}}</span>){{/total_pendientes}}</a>
 				</li>
@@ -20,20 +20,20 @@
 			</ul>
 	
 			<!-- Tab panes -->
-			<div class="tab-content">			
-				<div class="tab-pane active col-xs-12" id="pendientes">
+			<div class="tab-content col-xs-12">			
+				<div class="tab-pane active" id="pendientes">
 					{{# pendientes }}
 						{{> pages/revisiones/_tabla_revisiones }}
 					{{/ pendientes }}
 				</div>
 				
-				<div class="tab-pane col-xs-12" id="corregidas">
+				<div class="tab-pane" id="corregidas">
 					{{# corregidas }}
 						{{> pages/revisiones/_tabla_revisiones }}
 					{{/ corregidas }}
 				</div>
 				
-				<div class="tab-pane col-xs-12" id="baneados">
+				<div class="tab-pane " id="baneados">
 					<h2 class="titular">{{#transu}}baneos{{/transu}} <small>Impide a un usuario volver a enviar notificaciones</small></h2>
 					{{# baneados }}
 						<table class="table table-hover table-condensed table-responsive">

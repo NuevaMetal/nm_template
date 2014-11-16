@@ -108,6 +108,7 @@ abstract class BaseController {
 	 *        	Referencia del array con las variables que pasaran todos los controladores a sus vistas
 	 */
 	private function _addVariablesGlobales($templateVars = []) {
+		//debug($_SERVER['REQUEST_URI']);
 		return array_merge($templateVars, [
 			'blog_title' => self::_getBlogTitle(),
 			'current_user' => $this->current_user,
@@ -115,7 +116,9 @@ abstract class BaseController {
 			'is_produccion' => Env::isProduccion(),
 			'is_desarrollo' => Env::isDesarrollo(),
 			'is_local' => Env::isLocal(),
-			'template_url' => get_template_directory_uri()
+			'template_url' => get_template_directory_uri(),
+			'login_url' => wp_login_url($_SERVER['REQUEST_URI']),
+			'current_lang' => I18n::getLangByCurrentUser()
 		]);
 	}
 

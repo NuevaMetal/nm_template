@@ -2,7 +2,7 @@ analitica.mustache
 {{< base }}
 
 	{{$ content }}
-	<div id="analitica" class="pagina">
+	<div id="analitica" class="pagina col-xs-12">
 		<h1><i class="fa fa-terminal"></i> Analítica y seguimiento de usuarios </h1>
 	
 		<div id="usuarios-registrados-dia" class="col-xs-12">
@@ -27,7 +27,7 @@ analitica.mustache
 			{{# logueados_ayer }}
 				<span class="col-xs-3"><a href="{{getPerfilUrl}}">{{getAlias}}</a></span>
 			{{/ logueados_ayer }}
-		</div>		
+		</div>
 	</div>
 	{{/ content }}
 	

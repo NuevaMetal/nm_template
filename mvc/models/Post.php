@@ -30,7 +30,7 @@ class Post extends Image {
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT = 12;
 	// Cantidad de chars para el título corto
-	const CANT_TITLE_CORTO = 50;
+	const CANT_TITLE_CORTO = 35;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_ENTREVISTA = 16;

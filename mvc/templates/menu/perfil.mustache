@@ -1,12 +1,8 @@
-<div class="perfil-login titular">
-
-	<div class="hidden-xs">
-		{{#current_user}}
-			{{> menu/perfil/_ya_logueado }}
-		{{/current_user}}
-		{{^current_user}}
-			{{> menu/perfil/_login }}
-		{{/current_user}}
-	</div>
-	
+<div class="perfil-login titular hidden-xs">
+	{{#current_user}}
+		{{> menu/perfil/_ya_logueado }}
+	{{/current_user}}
+	{{^current_user}}
+		{{> menu/perfil/_login }}
+	{{/current_user}}
 </div>
