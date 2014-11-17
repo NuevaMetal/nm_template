@@ -1,14 +1,17 @@
 #menu-lateral {
-	
+
+	@extend %enlace-negrita-rojo-hover;	
 	padding: 0;
 	word-wrap: break-word;
 	z-index: 4;
-	.panel {		
+	
+	.panel {
+	
 		background-color: $body-background-color; 
 		border: 1px solid #ccc;	
 		width: 100%;
+		
 		.imagenes {
-			
 			.header img {
 				left: 0px;
 				height: 100px;
@@ -61,6 +64,7 @@
 
 .perfil-login, .principal-login {
 
+	@extend %enlace-negrita-rojo-hover;
 	margin-top: 6px;
 	margin-bottom: 4px;	
 	word-wrap: break-word;
@@ -100,13 +104,6 @@
 
 	.pequeno a {
 		width: 90%;
-	}	
-
-	a:hover {
-		@extend %negrita;
-		&:hover {
-			color: $rojo-danger;
-		}
 	}
 }
 

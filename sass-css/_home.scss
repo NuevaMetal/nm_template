@@ -3,6 +3,48 @@
 	margin-bottom: 10px;
 }
 
+#carousel-home {
+
+	margin-top: 12px;
+	a {
+		color: $body-background-color;
+	}
+	.carousel-caption {
+		//border: 1px solid red;
+		padding: 0px;
+		position: absolute;
+		right: 0;
+		z-index: 1;
+	}
+	.carousel-indicators{
+		//border: 1px solid red;
+		position: absolute;
+		bottom: 0px;
+		width: 81%;	
+		
+	}
+	.carousel-inner {
+		@extend %background-nm;
+		.item {
+			img {
+				height: 140px;
+				width: auto;
+			    overflow: hidden;
+			    text-align: center;
+			}
+			.titulo {
+				margin-top: 20px !important;
+				.tipo {}
+			}
+			.excerpt {}
+		}
+	}
+	.left, .right {
+		z-index: 3;
+	}
+}
+
+
 h3.header {
 	a {
 		color: #333;

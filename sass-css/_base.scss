@@ -14,6 +14,8 @@ $rojo-danger-hover: #c9302c;
 $rojo-nm: #CB2027;
 $rojo-nm-hover: #CB2027;
 
+$color-body: #333;
+
 $color-primary: #428bca;
 $color-success: #5cb85c;
 $color-info:    #5bc0de;
@@ -50,6 +52,15 @@ $color-danger:  #d9534f;
 	color: $rojo-danger;
 	&:hover,&:focus,&.focus,&.active{
 		color: $rojo-danger-hover;
+	}
+}
+
+%enlace-negrita-rojo-hover {
+	a:hover {
+		@extend %negrita;
+		&:hover {
+			color: $rojo-danger;
+		}
 	}
 }
 

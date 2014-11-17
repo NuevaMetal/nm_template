@@ -4,6 +4,7 @@ namespace Controllers;
 
 use I18n\I18n;
 use Libs\Utils;
+use Models\Post;
 
 /**
  * Controlador principal de la web
@@ -25,7 +26,8 @@ class HomeController extends BaseController {
 			'cronicas' => true,
 			'entrevistas' => true,
 			'criticas' => true,
-			'noticias' => true
+			'noticias' => true,
+			'postsConMasFavoritos' => Post::getConMasFavoritos(5)
 		]);
 	}
 

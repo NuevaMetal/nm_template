@@ -11,7 +11,10 @@
 	{{$ content }}
 		<div class="banner banner-header col-xs-12">	
 			{{> partials/_banner_submenu}}
-		</div>	
+		</div>
+		<div class="col-xs-12">
+			{{> home/_carousel }}
+		</div>
 		<div id="home" class="text-center" url="{{template_url}}/ajax.php">
 			{{# bandas}}
 			<section id="bandas" class="col-xs-12 seccion-posts">
@@ -67,7 +70,7 @@
 				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
 			</div>
 			{{/noticias}}
-		
+
 			{{#conciertos}}
 			<div id="conciertos" class="col-xs-12 col-lg-6 seccion-posts">
 				<a href="{{home_url}}/category/conciertos">

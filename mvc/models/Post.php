@@ -147,7 +147,7 @@ class Post extends Image {
 		 */
 		$getCharsByStr = function ($str) use($cantCorto) {
 			if (strlen($str) > $cantCorto) {
-				return substr($str, 0, $cantCorto). '...';
+				return substr($str, 0, $cantCorto) . '...';
 
 				$substr = substr($str, 0, $cantCorto);
 				// strrchr => devuelve el str de la última ocurrencia
@@ -156,8 +156,6 @@ class Post extends Image {
 					$substr = substr($substr, 0, $posicionUltimoEspacio) . '...';
 				}
 				return $substr;
-
-
 			}
 			return $str;
 		};
@@ -456,6 +454,17 @@ class Post extends Image {
 	}
 
 	/**
+	 * Devuelve el tipo de entrada en función de su categoría.
+	 * El tipo es la categoría en singular.
+	 *
+	 * @return string
+	 */
+	public function getTipo() {
+		$name = $this->getCategoria()->name;
+		return substr($name, 0, strlen($name) - 1);
+	}
+
+	/**
 	 * Devuelve un array con posts similares basásndose en sus etiquetas
 	 *
 	 * @param number $max
@@ -707,5 +716,28 @@ class Post extends Image {
 	 */
 	public function getNonceEntradasRelacionadas() {
 		return $this->crearNonce(Post::ENTRADAS_RELACIONADAS);
+	}
+
+	/**
+	 * Devuelve los post con más favoritos recibidos
+	 *
+	 * @param integer $limit
+	 *        	Cantidad límite a buscar
+	 * @return array<Post> Lista de post resultante
+	 */
+	public function getConMasFavoritos($limit) {
+		global $wpdb;
+		$results = $wpdb->get_results($wpdb->prepare('
+				SELECT post_id, concat(year(f.updated_at),"-",month(f.updated_at)) fecha, count(*) total
+				FROM wp_favoritos f
+				JOIN wp_posts p ON (f.post_id = p.ID)
+				group by p.ID, fecha
+				order by fecha desc, total desc
+				limit %d', $limit));
+		$posts = [];
+		foreach ($results as $r) {
+			$posts[] = Post::find($r->post_id);
+		}
+		return $posts;
 	}
 }

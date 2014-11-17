@@ -48,7 +48,9 @@ return [
 	'contrasena_perdida' => '¿Has perdido tu contraseña?',
 	'contributor' => 'colaborador',
 	'creado_por' => 'creado por',
+	'critica' => 'crítica',
 	'criticas' => 'críticas',
+	'cronica' => 'crónica',
 	'cronicas' => 'crónicas',
 
 	'dados' => 'dados',
@@ -167,6 +169,7 @@ return [
 	'usuario_title' => 'Nombre de usuario',
 
 	'ver_perfil' => 'ver perfil',
+	'video' => 'vídeo',
 	'videos' => 'vídeos',
 	'volver_arriba' => 'volver arriba',
 

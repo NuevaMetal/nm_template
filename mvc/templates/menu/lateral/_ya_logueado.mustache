@@ -1,5 +1,5 @@
 <div class="hijo-menu panel titular text-center col-xs-11">
-
+	
 	<div class="row imagenes">
 		<span class="header">
 			{{# getHeaderPequena }}
@@ -13,6 +13,7 @@
 			<img src="{{getAvatarPerfil}}" class="avatar">
 		</a>
 	</div>
+	
 	<div class="row user-info">
 		<div class="col-xs-12">
 			<h5 class="alias">
@@ -33,6 +34,7 @@
 		</div>
 		</div>
 	</div>
+	
 	<div class="row menu-acciones">
 		<div class="acciones">
 			<div class="list-group">
@@ -51,7 +53,7 @@
 			   {{#canColaborador}}
 				    <a class="list-group-item col-xs-12 " href="/wp-admin/edit.php" target="_blank"
 				    		data-toggle="tooltip" data-placement="right"
-				    		title="{{#transu}}user.tus_posts{{/transu}}: {{total_posts | formatear_numero}}">
+				    		title="{{total_posts | formatear_numero}} {{#transu}}user.tus_posts{{/transu}}">
 				  		<i class="fa fa-files-o"></i> posts
 					</a>
 					<a class="list-group-item col-xs-12" href="/wp-admin/post-new.php" target="_blank"
@@ -105,5 +107,6 @@
 			</a>
 			</div>
 		</div>
-	</div>	
+	</div>
+	
 </div>

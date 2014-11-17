@@ -47,7 +47,9 @@ return [
 	'contrasena_perdida' => 'Do you lost your password?',
 	'contributor' => 'contributor',
 	'creado_por' => 'created by',
+	'critica' => 'review',
 	'criticas' => 'reviews',
+	'cronica' => 'chronic',
 	'cronicas' => 'chronics',
 
 	'dados' => 'given',
@@ -164,6 +166,7 @@ return [
 	'usuario_title' => 'Username',
 
 	'ver_perfil' => 'see profile',
+	'video' => 'video',
 	'videos' => 'videos',
 	'volver_arriba' => 'back to top',
 

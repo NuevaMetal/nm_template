@@ -1,0 +1,39 @@
+<div id="carousel-home" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-home" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-home" data-slide-to="1"></li>
+    <li data-target="#carousel-home" data-slide-to="2"></li>
+    <li data-target="#carousel-home" data-slide-to="3"></li>
+    <li data-target="#carousel-home" data-slide-to="4"></li>
+    <li data-target="#carousel-home" data-slide-to="5"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      	<img src="{{template_url}}/public/img/NM_header.png" alt="{{blog_name}}">
+		<div class="carousel-caption">
+      	</div>
+    </div>
+    {{# postsConMasFavoritos }}
+	    <div class="item row tipo-{{getTipo | case.lower}}">
+		  <img src="{{getThumbnailMedium}}" alt="{{{getTitulo}}}">
+	      <div class="carousel-caption post">
+	        <h3 class="titulo"><a href="{{getUrl}}">{{{getTitulo}}}</a> <small class="tipo">{{getTipo | transu}}</small></h3>
+	        <p class="excerpt">{{> home/_post_excerpt }}</p>
+	      </div>
+	    </div>
+    {{/ postsConMasFavoritos }}
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">{{#transu}}anterior{{/transu}}</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">{{#transu}}siguiente{{/transu}}</span>
+  </a>
+</div>

@@ -10,6 +10,10 @@ $(document).ready(function() {
 	
 	$('.back-to-top').trigger('click');
 	
+	$('.carousel').carousel({
+		interval: 4000
+	});
+		
 	if (getWindowWidth('xs')) {
 		scrollOn()
 		scrollOff()
