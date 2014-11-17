@@ -38,6 +38,8 @@ Acciones::establecerDefectoOpcionesParaAdjuntos();
 Acciones::publicarPostsProgramados();
 
 Acciones::commentPost();
+
+Acciones::createTerm();
 // --------------------------------------------------------------
 // Filtros
 // --------------------------------------------------------------

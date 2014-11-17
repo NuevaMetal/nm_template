@@ -45,17 +45,28 @@ abstract class BaseController {
 				'transu' => function ($value) {
 					return I18n::transu($value);
 				},
+				'case' => [
+					'lower' => function ($value) {
+						return strtolower((string) $value);
+					},
+					'upper' => function ($value) {
+						return strtoupper((string) $value);
+					}
+				],
+				'count' => function ($value) {
+					return count($value);
+				},
 				'formatear_numero' => function ($value) {
 					return Utils::formatearNumero($value);
+				},
+				'toArray' => function ($value) {
+					return explode(',', $value);
 				},
 				'ucfirst' => function ($value) {
 					return ucfirst($value);
 				},
 				'si0poner1' => function ($value) {
 					return ($value == 0) ? 1 : $value;
-				},
-				'count' => function ($value) {
-					return count($value);
 				}
 			),
 			'escape' => function ($value) {
@@ -69,15 +80,6 @@ abstract class BaseController {
 				Mustache_Engine::PRAGMA_BLOCKS
 			]
 		));
-
-		$this->template->addHelper('case', [
-			'lower' => function ($value) {
-				return strtolower((string) $value);
-			},
-			'upper' => function ($value) {
-				return strtoupper((string) $value);
-			}
-		]);
 	}
 
 	/**
@@ -108,7 +110,7 @@ abstract class BaseController {
 	 *        	Referencia del array con las variables que pasaran todos los controladores a sus vistas
 	 */
 	private function _addVariablesGlobales($templateVars = []) {
-		//debug($_SERVER['REQUEST_URI']);
+		// debug($_SERVER['REQUEST_URI']);
 		return array_merge($templateVars, [
 			'blog_title' => self::_getBlogTitle(),
 			'current_user' => $this->current_user,

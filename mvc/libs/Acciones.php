@@ -8,6 +8,7 @@ use Models\User;
 use Libs\Utils;
 use Models\Comment;
 use Models\Analitica;
+use Models\Post;
 
 /**
  * Acciones de Wordpress
@@ -564,5 +565,21 @@ class Acciones {
 				info('No se pudo guardar la Analitica ?');
 			}
 		});
+	}
+
+	/**
+	 * Limitar la creación de categorías.
+	 * add_action('create_term', func($term_id, $term_taxonomy_id, $taxonomy), 10, 3);
+	 */
+	public static function createTerm() {
+		add_action('create_term', function ($term_id, $tt_id, $taxonomy) {
+			$user = Utils::getCurrentUser();
+			/*
+			 * Eliminar la term si fuera una categoría.
+			 */
+			if (! $user->isAdmin() && Utils::TIPO_CATEGORY == $taxonomy) {
+				wp_delete_term($term_id, $taxonomy);
+			}
+		}, 10, 3);
 	}
 }

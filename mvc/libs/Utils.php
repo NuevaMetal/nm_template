@@ -16,10 +16,6 @@ class Utils {
 
 	const NO = 'no';
 
-	const ACTIVO = 0;
-
-	const BORRADO = 1;
-
 	const HOY = 'hoy';
 
 	const AYER = 'ayer';
@@ -35,20 +31,6 @@ class Utils {
 	const TIPO_AUTHOR_FAV = 'author-fav';
 
 	const TIPO_BUSCAR_USUARIOS = 'buscar-usuarios';
-	// CATEGORÍAS
-	const CATEGORIA_BANDAS = "bandas";
-
-	const CATEGORIA_CRITICAS = "criticas";
-
-	const CATEGORIA_CRONICAS = "cronicas";
-
-	const CATEGORIA_CONCIERTOS = "conciertos";
-
-	const CATEGORIA_ENTREVISTAS = "entrevistas";
-
-	const CATEGORIA_NOTICIAS = "noticias";
-
-	const CATEGORIA_VIDEOS = "videos";
 
 	/**
 	 * Devuelve una lista con el nombre de los días de la semana
