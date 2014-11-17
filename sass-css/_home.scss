@@ -9,34 +9,43 @@
 	a {
 		color: $body-background-color;
 	}
-	.carousel-caption {
-		//border: 1px solid red;
-		padding: 0px;
-		position: absolute;
-		right: 0;
-		z-index: 1;
-	}
 	.carousel-indicators{
-		//border: 1px solid red;
-		position: absolute;
-		bottom: 0px;
-		width: 81%;	
-		
+		//bottom: 0px;	
 	}
 	.carousel-inner {
 		@extend %background-nm;
 		.item {
-			img {
-				height: 140px;
+			//background-color: $body-background-color;
+			height: 180px;
+			overflow: hidden;
+			img.thumbnail {
+				position: absolute;
+				left: 0;
+				height: 100%;
 				width: auto;
+				opacity: 1;
 			    overflow: hidden;
 			    text-align: center;
+			    z-index: 3;
 			}
-			.titulo {
-				margin-top: 20px !important;
-				.tipo {}
+			img.fondo {
+				position: absolute;
+				height: auto;
+				width: 100%;
+				opacity: .4;
+			    overflow: hidden;
+			    text-align: center;
+			    z-index: 2;
 			}
-			.excerpt {}
+			.post {
+				//background-color: $body-background-color;
+				text-shadow: 1px 1px #000;
+				.titulo {
+					margin-top: 20px !important;
+					.tipo {}
+				}
+				.excerpt {}
+			}
 		}
 	}
 	.left, .right {

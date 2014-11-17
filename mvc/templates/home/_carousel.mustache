@@ -12,13 +12,13 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      	<img src="{{template_url}}/public/img/NM_header.png" alt="{{blog_name}}">
-		<div class="carousel-caption">
-      	</div>
+      	<img src="{{template_url}}/public/img/NM_header.png" alt="{{blog_name}}" style="opacity: 1;width:auto; height: auto; margin: 25px auto; ">
+		<div class="carousel-caption"></div>
     </div>
     {{# postsConMasFavoritos }}
 	    <div class="item row tipo-{{getTipo | case.lower}}">
-		  <img src="{{getThumbnailMedium}}" alt="{{{getTitulo}}}">
+		  <img class="fondo" src="{{getThumbnailMedium}}" alt="fondo">
+		  <img class="thumbnail" src="{{getThumbnailMedium}}" alt="thumbnail">
 	      <div class="carousel-caption post">
 	        <h3 class="titulo"><a href="{{getUrl}}">{{{getTitulo}}}</a> <small class="tipo">{{getTipo | transu}}</small></h3>
 	        <p class="excerpt">{{> home/_post_excerpt }}</p>
