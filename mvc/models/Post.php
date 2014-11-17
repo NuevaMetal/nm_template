@@ -728,12 +728,13 @@ class Post extends Image {
 	public function getConMasFavoritos($limit) {
 		global $wpdb;
 		$results = $wpdb->get_results($wpdb->prepare('
-				SELECT post_id, concat(year(f.updated_at),"-",month(f.updated_at)) fecha, count(*) total
+				SELECT post_id, year( f.updated_at ) ano, month( f.updated_at ) mes, count( * ) total
 				FROM wp_favoritos f
-				JOIN wp_posts p ON (f.post_id = p.ID)
-				group by p.ID, fecha
-				order by fecha desc, total desc
-				limit %d', $limit));
+				JOIN wp_posts p ON ( f.post_id = p.ID )
+				WHERE status = %d
+				GROUP BY f.post_id, ano, mes
+				ORDER BY ano DESC , mes DESC , total DESC
+				limit %d', Favorito::ACTIVO, $limit));
 		$posts = [];
 		foreach ($results as $r) {
 			$posts[] = Post::find($r->post_id);
