@@ -5,15 +5,18 @@
  * Documento listo para JQuery
  */
 $(document).ready(function() {
+	// Cargar los menus
+	cargarMenus();
+	
 	// Activar todos los tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
 	
 	$('.back-to-top').trigger('click');
 	
 	$('.carousel').carousel({
-		interval: 4000
+		interval: 6000
 	});
-		
+
 	if (getWindowWidth('xs')) {
 		scrollOn()
 		scrollOff()
@@ -23,13 +26,6 @@ $(document).ready(function() {
 	setTimeout(function() {
 		seHaceScroll();
 	}, 10);
-	
-	//Si no está la home
-	if ($("#home").length == 0){
-		cargarMenus();
-		// Y si estámos en la home entonces se cargará en el window.load, cuando todos los elementos 
-		// estén cargados
-	}
 });
 
 /**
@@ -51,7 +47,6 @@ $(window).on("resize", function() {
  */
 $(window).load(function(){
 	if ($("#home").length > 0){
-		cargarMenus();
 		cargarSecciones();
 	}
 });
