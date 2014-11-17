@@ -30,7 +30,7 @@ class Post extends Image {
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT = 12;
 	// Cantidad de chars para el título corto
-	const CANT_TITLE_CORTO = 35;
+	const CANT_TITLE_CORTO = 40;
 
 	// Cantidad del extracto de una entrevista
 	const CANT_EXCERPT_ENTREVISTA = 16;
@@ -147,6 +147,8 @@ class Post extends Image {
 		 */
 		$getCharsByStr = function ($str) use($cantCorto) {
 			if (strlen($str) > $cantCorto) {
+				return substr($str, 0, $cantCorto). '...';
+
 				$substr = substr($str, 0, $cantCorto);
 				// strrchr => devuelve el str de la última ocurrencia
 				$posicionUltimoEspacio = strpos($substr, strrchr($substr, ' '));
@@ -154,6 +156,8 @@ class Post extends Image {
 					$substr = substr($substr, 0, $posicionUltimoEspacio) . '...';
 				}
 				return $substr;
+
+
 			}
 			return $str;
 		};

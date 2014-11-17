@@ -168,10 +168,13 @@ h2.post-title.titular a {
 h2.post-title.titular {
 	background: #d43f3a;
 	margin-top: 0;
-	padding: 10px 8px;
+	padding: 5px 8px;
 }
 .posts .post .post-title {
-	min-height: 60px;
+	//min-height: 60px;
+	height: 60px;
+	overflow: hidden;
+	line-height: 150%;
 }
 .seccion .thumbnail {
 	margin-bottom: 0;
