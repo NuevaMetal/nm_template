@@ -12,8 +12,8 @@
 		<div class="banner banner-header col-xs-12">	
 			{{> partials/_banner_submenu}}
 		</div>
-		<div class="col-xs-12">
-			{{> home/_carousel }}
+		<div id="carousel" class="col-xs-12 text-center">
+			<i class="fa fa-spinner fa-spin fa-1x hidden "></i>
 		</div>
 		<div id="home" class="text-center" url="{{template_url}}/ajax.php">
 			{{# bandas}}
@@ -23,7 +23,7 @@
 						<img src="{{template_url}}/public/img/bandas.jpg" alt="{{#transu}}bandas{{/transu}}"/>
 					</div>
 				</a>
-				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-2x "></i></div>
 			</section>
 			{{/ bandas}}
 		
@@ -34,7 +34,7 @@
 						<img src="{{template_url}}/public/img/videos.jpg" alt="{{#transu}}videos{{/transu}}"/>
 					</div>
 				</a>
-				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-2x "></i></div>
 			</div>
 			{{/ videos}}
 		
@@ -45,7 +45,7 @@
 						<img src="{{template_url}}/public/img/criticas.jpg" alt="{{#transu}}criticas{{/transu}}"/>
 					</div>
 				</a>
-				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-3x "></i></div>
 			</div>
 			{{/criticas}}
 		
@@ -56,7 +56,7 @@
 						<img src="{{template_url}}/public/img/cronicas.jpg" alt="{{#transu}}cronicas{{/transu}}"/>
 					</div>
 				</a>
-				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-4x "></i></div>
+				<div class="seccion_contenido"><i class="fa fa-spinner fa-spin fa-3x "></i></div>
 			</div>
 			{{/cronicas}}
 		

@@ -26,8 +26,7 @@ class HomeController extends BaseController {
 			'cronicas' => true,
 			'entrevistas' => true,
 			'criticas' => true,
-			'noticias' => true,
-			'postsConMasFavoritos' => Post::getConMasFavoritos(5)
+			'noticias' => true
 		]);
 	}
 

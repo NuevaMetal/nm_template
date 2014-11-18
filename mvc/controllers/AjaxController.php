@@ -354,11 +354,20 @@ class AjaxController extends BaseController {
 	 * @return array JSON de respuesta para para JS
 	 */
 	private function _jsonHome($_datos) {
-		$nombreSeccion = $_datos['seccion'];
-		$cantidad = $_datos['cant'];
-		$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-		$argsSeccion['reducido'] = ($cantidad == 2);
-		$json['seccion'] = $this->render('home/_seccion_contenido', $argsSeccion);
+		switch ($_datos['tipo']) {
+			case 'seccion' :
+				$nombreSeccion = $_datos['seccion'];
+				$cantidad = $_datos['cant'];
+				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
+				$argsSeccion['reducido'] = ($cantidad == 2);
+				$json['seccion'] = $this->render('home/_seccion_contenido', $argsSeccion);
+				break;
+			case 'carousel' :
+				$json['content'] = $this->render('home/_carousel', [
+					'postsConMasFavoritos' => Post::getConMasFavoritos(5)
+				]);
+				break;
+		}
 		return $json;
 	}
 
@@ -371,7 +380,7 @@ class AjaxController extends BaseController {
 	private function _jsonMenu($_datos) {
 		$tipoMenu = $_datos['tipo'];
 		$menuArgs = [
-			'login_url' => wp_login_url('/'),
+			'login_url' => wp_login_url('/')
 		];
 		/*
 		 * Añadimos parámetros si se pidió el menú principal o el de perfil.

@@ -8,7 +8,7 @@
 	    }
 	],
 	"require": {
-	    "mustache/mustache" : "2.7.0",
+	    "mustache/mustache" : "2.7.*",
 	    "phpmailer/phpmailer": "5.2.*"
 	},
 	"autoload": {

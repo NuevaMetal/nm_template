@@ -7,6 +7,7 @@
 $(document).ready(function() {
 	// Cargar los menus
 	cargarMenus();
+	cargarCarousel();
 	
 	// Activar todos los tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
@@ -424,6 +425,31 @@ function cargarMenus(){
 	cargarMenu('menu-footer');
 }
 
+function cargarCarousel() {
+	var url = $('#page').attr('url');
+	var carousel = $('#carousel');
+	var data = {
+		submit : 'home',
+		tipo: 'carousel'
+	};
+	$.ajax({
+		url : url,
+		type : "POST",
+		data : data,
+		dataType : "json",
+		beforeSend: function() {
+			carousel.find('.fa-spin').removeClass('hidden');
+		},
+		success : function(json) {
+			carousel.html($(json.content).addClass('animated fadeIn'));
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("status: "+xhr.status + ",\n responseText: "+xhr.responseText 
+			+ ",\n thrownError "+thrownError);
+	     }
+	});
+}
+
 /**
  * Cargar las secciones
  */
@@ -459,6 +485,7 @@ function cargarSeccion(nombreSeccion, cant){
 	var url = seccion.parent().attr('url');
 	var data = {
 		submit : 'home',
+		tipo: 'seccion',
 		seccion : nombreSeccion,
 		cant : cant
 	};
