@@ -3,10 +3,14 @@
 	{{$ content }}
 	<div id="busqueda-home" class="col-xs-12">
 		{{# users }}
-			{{> busqueda/_seccion_users }}
+			<div class="col-xs-12">
+				{{> busqueda/_seccion_users }}
+			</div>
 		{{/ users }}
 		{{# total_posts }}
-			{{> busqueda/_seccion }}
+			<div class="col-xs-12">
+				{{> busqueda/_seccion }}
+			</div>
 		{{/ total_posts }}
 		{{^ total_posts }}
 			<div class="col-xs-12 mensaje-busqueda-vacia">
