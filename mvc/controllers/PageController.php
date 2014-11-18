@@ -56,7 +56,7 @@ class PageController extends BaseController {
 
 		$args = HomeController::getSeccion($current_category, HomeController::NUM_POST_POR_SECCION);
 
-		return $this->renderPage('categoria', [
+		return $this->renderPage('busqueda', [
 			'seccion' => $args,
 			'total_posts' => count($args['posts'])
 		]);
@@ -160,7 +160,7 @@ class PageController extends BaseController {
 		 */
 		$fileGeneros = I18n::getFicheroIdioma('generos', I18n::getLangByCurrentUser());
 
-		return $this->renderPage('categoria', [
+		return $this->renderPage('busqueda', [
 			'definicion' => $fileGeneros['definicion_' . $term->slug],
 			'seccion' => $args,
 			'total_posts' => count($args['posts']),

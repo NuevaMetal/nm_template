@@ -2,10 +2,10 @@
 	{{> busqueda/_definicion }}
 {{/ definicion }}
 {{# seccion }}
-	<div id="{{seccion}}" class="col-xs-12 seccion-posts ">
+	<div id="{{seccion}}" class="seccion-posts ">
 		{{#url}}<a href="{{url}}">{{/url}}
 			<div class="header-seccion">
-				<img src="{{template_url}}/public/img/{{imagen}}.jpg"/> {{#header}}<span class="titular">{{header}} <span>{{/header}}
+				<img src="{{template_url}}/public/img/{{imagen}}.jpg"/>{{#header}}<span class="titular">{{header}}</span>{{/header}}
 			</div>
 		{{#url}}</a>{{/url}}
 		{{> home/_seccion_contenido }}
