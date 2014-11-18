@@ -54,10 +54,11 @@ class PageController extends BaseController {
 		$current_category = single_cat_title("", false);
 		$current_category = strtolower($current_category);
 
-		$seccion = HomeController::getSeccion($current_category, HomeController::NUM_POST_POR_SECCION);
+		$args = HomeController::getSeccion($current_category, HomeController::NUM_POST_POR_SECCION);
 
 		return $this->renderPage('categoria', [
-			'seccion' => $seccion
+			'seccion' => $args,
+			'total_posts' => count($args['posts'])
 		]);
 	}
 
@@ -162,6 +163,7 @@ class PageController extends BaseController {
 		return $this->renderPage('categoria', [
 			'definicion' => $fileGeneros['definicion_' . $term->slug],
 			'seccion' => $args,
+			'total_posts' => count($args['posts']),
 			'tag_trans' => I18n::transu('generos.' . $term->slug)
 		]);
 	}
