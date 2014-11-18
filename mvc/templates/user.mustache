@@ -32,9 +32,11 @@
 				</div>
 			</div>
 			{{# getTotalPosts }}
-				{{#posts}}
-					{{> busqueda/_seccion }}
-				{{/posts}}
+				<div class="col-xs-12">
+					{{#posts}}
+						{{> busqueda/_seccion }}
+					{{/posts}}
+				</div>
 			{{/ getTotalPosts }}
 		{{/ user }}
 	</div>
