@@ -82,7 +82,7 @@ class Post extends Image {
 		$comment_form = str_replace('para escribir un comentario', I18n::trans('user.login_necesario_para_comentar_3'), $comment_form);
 		$comment_form = str_replace('Comentario', I18n::transu('comentario'), $comment_form);
 		$comment_form = str_replace('Publicar comentario', I18n::transu('publicar_comentario'), $comment_form);
-		$comment_form = str_replace('class="submit"', 'class="btn btn-danger"', $comment_form);
+		$comment_form = str_replace('id="submit"', 'class="btn btn-danger"', $comment_form);
 		return $comment_form;
 	}
 
