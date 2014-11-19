@@ -6,7 +6,7 @@
 			<img src="{{getHeaderPequena}}">
 			{{/ getHeaderPequena }}
 			{{^ getHeaderPequena }}
-			<img class="sin-thumbnail">
+			<img class="sin-thumbnail col-xs-12">
 			{{/ getHeaderPequena }}
 		</span>
 		<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}">
@@ -19,7 +19,7 @@
 			<h5 class="alias">
 				<a href="{{getPerfilUrl}}" title="{{#transu}}ver_perfil{{/transu}}"> {{getAlias}} </a>
 			</h5>
-		<div class=" info visible-lg">
+		<div class=" info visible-lg col-xs-12">
 			{{#transu}}entradas{{/transu}}:
 			<a href="{{getPerfilUrl}}#posts" 
 				title="{{#transu}}entradas{{/transu}}: {{getTotalPosts | formatear_numero}}">{{getTotalPosts | formatear_numero}}</a>
