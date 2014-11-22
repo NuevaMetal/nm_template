@@ -1,0 +1,14 @@
+<article class="post col-xs-12">
+
+	<div class="thumbnail">        
+        {{> home/_post_caption }}
+		<a href="{{getUrl}}" title="{{{getTitulo}}}">
+			{{> post/_thumbnail_medium }}
+		</a>
+    </div>
+    <h2 class="post-title titular">
+		<a href="{{getUrl}}" data-toggle="tooltip" data-placement="top" title="{{{getTitulo}}}">
+			{{{getTitulo}}}
+		</a>
+    </h2>
+</article>

@@ -77,6 +77,7 @@ return [
 	'entrada' => 'post',
 	'entradas' => 'posts',
 	'entradas_de' => ':nombre\'s posts',
+	'entradas_recomendadas' => 'recommended posts',
 	'entrevistas' => 'interviews',
 	'error' => 'An unexpected error has occurred',
 	'escritorio' => 'dashboard',

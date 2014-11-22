@@ -1,9 +1,11 @@
-{{#getGenero}}
-	<b class="titular">{{#transu}}genero{{/transu}}</b>: {{getGenero}} <br>
-{{/getGenero}}
-{{#getPais}}
-	<b class="titular">{{#transu}}pais{{/transu}}</b>: {{getPais}} <br>
-{{/getPais}}
-{{^getGenero}}
-	{{{ getExcerpt }}}
-{{/getGenero}}
+<div class="excerpt">
+	{{#getGenero}}
+		<b class="titular">{{#transu}}genero{{/transu}}</b>: {{getGenero}} <br>
+	{{/getGenero}}
+	{{#getPais}}
+		<b class="titular">{{#transu}}pais{{/transu}}</b>: {{getPais}} <br>
+	{{/getPais}}
+	{{^getGenero}}
+		{{{ getExcerpt }}}
+	{{/getGenero}}
+</div>

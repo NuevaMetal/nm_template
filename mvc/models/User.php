@@ -1626,12 +1626,13 @@ class User extends Favoriteador {
 	}
 
 	/**
-	 * Crear me gusta o quitar, dependiendo del estado anterior que tenga el me gusta.
+	 * Indicar 'me gusta' o quitar 'me gusta', dependiendo del estado anterior que tenga el me gusta
+	 * del Post pasado por parámetro.
 	 * Si no existe lo crea.
 	 *
 	 * @param Post $post
 	 *        	Post que te gusta
-	 * @return integer
+	 * @return boolean true si te gusta, false si no te gusta.
 	 */
 	public function meGustaToogle($post) {
 		global $wpdb;
@@ -1663,5 +1664,39 @@ class User extends Favoriteador {
 					WHERE post_id = %d AND user_id = %d
 					AND status = %d;', Favorito::ACTIVO, $post->ID, $this->ID, Favorito::BORRADO));
 		return true;
+	}
+
+	/**
+	 * Devuelve una lista de Users en base a las etiquetas de los favoritos que tenga el User.
+	 *
+	 * @return array<User> Users recomendados en base a sus favoritos.
+	 */
+	public function getUsersRecomendados() {
+		// TODO:
+		// global $wpdb;
+		// $pieces = $this->getEtiquetasUnicasByFavoritos();
+		// $tagsFavsIds = implode(',', $pieces);
+		return [];
+	}
+
+	/**
+	 * Devuelve una lista de Posts en base a las etiquetas de los favoritos que tenga el User.
+	 *
+	 * @return array<Post> Posts recomendados en base a sus favoritos.
+	 */
+	public function getPostsRecomendados() {
+		global $wpdb;
+		$pieces = $this->getEtiquetasUnicasByFavoritos();
+		$tagsFavsIds = implode(',', $pieces);
+		$posts_id = $wpdb->get_col($wpdb->prepare('
+				SELECT distinct object_id AS post_id
+				FROM wp_term_relationships
+				WHERE term_taxonomy_id IN (%s)
+				ORDER BY RAND()
+				LIMIT 2', $tagsFavsIds));
+		foreach ($posts_id as $post_id) {
+			$posts[] = Post::find($post_id);
+		}
+		return $posts;
 	}
 }

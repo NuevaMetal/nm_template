@@ -109,6 +109,26 @@ abstract class Favoriteador extends Image {
 	}
 
 	/**
+	 * Devuelve todas las etiquetas únicas de mis favoritos.
+	 *
+	 * @return array<object>
+	 */
+	public function getEtiquetasUnicasByFavoritos() {
+		global $wpdb;
+		return $wpdb->get_col($wpdb->prepare('
+				select term_taxonomy_id as taxonomy_id
+				from (SELECT distinct f.post_id
+					FROM wp_favoritos f JOIN wp_posts p ON (f.post_id = p.ID)
+					WHERE f.user_id = %d
+					AND f.status = %d
+					AND p.post_status = "publish"
+					ORDER BY f.updated_at desc) p, wp_term_relationships r
+				where r.object_id in (p.post_id)
+				group by taxonomy_id
+				order by count(*) desc, taxonomy_id', $this->ID, Favorito::ACTIVO));
+	}
+
+	/**
 	 * Devuelve la lista de favoritos de bandas
 	 */
 	public function getFavoritosBandas($offset = 0, $limit = User::NUM_POSTS_FAV) {

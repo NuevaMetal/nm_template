@@ -79,10 +79,11 @@ return [
 
 	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',
-	'entrada' => 'entrada',
 	'en' => 'en',
 	'entradas' => 'entradas',
+	'entrada' => 'entrada',
 	'entradas_de' => 'entradas de :nombre',
+	'entradas_recomendadas' => 'entradas recomendadas',
 	'entrevistas' => 'entrevistas',
 	'es' => 'es',
 	'escritorio' => 'escritorio',

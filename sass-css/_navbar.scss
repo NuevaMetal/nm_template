@@ -1,14 +1,16 @@
 #menu-lateral {
 
-	@extend %enlace-negrita-rojo-hover;	
 	padding: 0;
 	word-wrap: break-word;
 	z-index: 4;
+	.hijo-menu {
+		border: 1px solid #ccc;	
+	}
 	
 	.panel {
-	
+		@extend %enlace-negrita-rojo-hover;
 		background-color: $body-background-color; 
-		border: 1px solid #ccc;	
+		
 		width: 100%;
 		
 		.imagenes {
@@ -35,8 +37,9 @@
 				}
 			}
 		}
-		.user-info {
+		.user-info {			
 			margin-bottom: -15px;
+			
 			.alias {
 				margin-top: 20px;
 				margin-bottom: 0px;
@@ -49,11 +52,39 @@
 				}
 			}			
 		}
+		.menu-acciones .fa {
+			display: none;
+			@include col(lg) {
+				display: inline-block;	
+			}
+		}
 	}
-	.fa {
-		display: none;
-		@include col(lg) {
-			display: inline-block;	
+	
+	.posts-recomendados {
+		a:hover {
+			&:hover {
+				color: $body-background-color;
+			}
+		}
+		h2, .titular, .excerpt {
+			font-size: 14px;
+			line-height: 140%;
+			margin: 1px;
+		}
+		
+		.post {
+			height: auto;
+			.thumbnail {
+				height: 120px;
+				margin: 0;
+			}
+			.caption {
+				margin: 0;
+				padding-left: 0;
+			}
+			.post-title {
+				height: 45px;
+			}
 		}
 	}
 }
