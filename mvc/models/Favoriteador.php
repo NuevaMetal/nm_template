@@ -122,6 +122,7 @@ abstract class Favoriteador extends Image {
 					WHERE f.user_id = %d
 					AND f.status = %d
 					AND p.post_status = "publish"
+					AND YEAR(p.post_date) >= 2012
 					ORDER BY f.updated_at desc) p, wp_term_relationships r
 				where r.object_id in (p.post_id)
 				group by taxonomy_id
