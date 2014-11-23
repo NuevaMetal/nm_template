@@ -359,15 +359,9 @@ class AjaxController extends BaseController {
 			case 'seccion' :
 				$nombreSeccion = $_datos['seccion'];
 				$cantidad = $_datos['cant'];
-				$TRANSIENT_HOME_SECCION = 'home-seccion-' . $nombreSeccion;
-				// Get any existing copy of our transient data
-				if (false === ($seccion = get_transient($TRANSIENT_HOME_SECCION))) {
-					// It wasn't there, so regenerate the data and save the transient
-					$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-					$argsSeccion['reducido'] = ($cantidad == 2);
-					$seccion = $this->render('home/_seccion_contenido', $argsSeccion);
-					set_transient($TRANSIENT_HOME_SECCION, $seccion, DAY_IN_SECONDS);
-				}
+				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
+				$argsSeccion['reducido'] = ($cantidad == 2);
+				$seccion = $this->render('home/_seccion_contenido', $argsSeccion);
 				$json['seccion'] = $seccion;
 				break;
 			case 'carousel' :
@@ -387,56 +381,46 @@ class AjaxController extends BaseController {
 	 */
 	private function _jsonMenu($_datos) {
 		$tipoMenu = $_datos['tipo'];
-		$TRANSIENT_MENU = $tipoMenu;
-		/*
-		 * Siempbre pediremos el menú lateral, ya que será propio para cada usuario.
-		 * El resto de menus: principal y footer los guardaremos en un transient y los
-		 * refrescaremos 1 vez por semana.
-		 */
-		if ($tipoMenu == Ajax::MENU_LATERAL || false === ($menu = get_transient($TRANSIENT_MENU))) {
-			$menuArgs = [
-				'login_url' => wp_login_url('/')
-			];
-			/*
-			 * Añadimos parámetros si se pidió el menú principal o el de perfil.
-			 */
-			if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_LATERAL) {
-				// Comprobamos si el usuario está logueado.
-				if ($this->current_user->ID > 0) {
-					$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
-					$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
-					$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
-					$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
+		delete_transient($tipoMenu);
 
-					// Comprobamos que el user tenga permisos de editor
-					if ($this->current_user->canEditor()) {
-						$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
-						$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
-						$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
-					}
+		$menuArgs = [
+			'login_url' => wp_login_url('/')
+		];
+		/*
+		 * Añadimos parámetros si se pidió el menú principal o el de perfil.
+		 */
+		if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_LATERAL) {
+			// Comprobamos si el usuario está logueado.
+			if ($this->current_user->ID > 0) {
+				$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
+				$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
+				$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
+				$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
+
+				// Comprobamos que el user tenga permisos de editor
+				if ($this->current_user->canEditor()) {
+					$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
+					$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
+					$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
 				}
-				if ($tipoMenu == Ajax::MENU_LATERAL) {
-					$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
-				}
 			}
-			switch ($tipoMenu) {
-				case Ajax::MENU_PRINCIPAL :
-					$menu = $this->render('menu/principal', $menuArgs);
-					break;
-				case Ajax::MENU_PERFIL :
-					$menu = $this->render('menu/perfil', $menuArgs);
-					break;
-				case Ajax::MENU_FOOTER :
-					$menu = $this->render('menu/footer');
-					break;
-				case Ajax::MENU_LATERAL :
-					$menu = $this->render('menu/lateral', $menuArgs);
-					break;
+			if ($tipoMenu == Ajax::MENU_LATERAL) {
+				$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
 			}
-			// Solo guardar el transient si el menú es distinto del menu-lateral
-			if ($tipoMenu != Ajax::MENU_LATERAL) {
-				set_transient($TRANSIENT_MENU, $menu, WEEK_IN_SECONDS);
-			}
+		}
+		switch ($tipoMenu) {
+			case Ajax::MENU_PRINCIPAL :
+				$menu = $this->render('menu/principal', $menuArgs);
+				break;
+			case Ajax::MENU_PERFIL :
+				$menu = $this->render('menu/perfil', $menuArgs);
+				break;
+			case Ajax::MENU_FOOTER :
+				$menu = $this->render('menu/footer');
+				break;
+			case Ajax::MENU_LATERAL :
+				$menu = $this->render('menu/lateral', $menuArgs);
+				break;
 		}
 		$json['menu'] = $menu;
 		return $json;
