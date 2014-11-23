@@ -1,4 +1,6 @@
-// _home.scss
+$altura-home-carousel: 180px;
+$altura-home-carousel-xs: 140px;
+
 #menu-perfil {
 	margin-bottom: 10px;
 }
@@ -16,7 +18,10 @@
 		@extend %background-nm;
 		.item {
 			//background-color: $body-background-color;
-			height: 180px;
+			height: $altura-home-carousel-xs;
+			@include col(sm) {
+				height: $altura-home-carousel;	
+			}
 			overflow: hidden;
 			img.thumbnail {
 				position: absolute;
