@@ -387,45 +387,58 @@ class AjaxController extends BaseController {
 	 */
 	private function _jsonMenu($_datos) {
 		$tipoMenu = $_datos['tipo'];
-		$menuArgs = [
-			'login_url' => wp_login_url('/')
-		];
+		$TRANSIENT_MENU = $tipoMenu;
 		/*
-		 * Añadimos parámetros si se pidió el menú principal o el de perfil.
+		 * Siempbre pediremos el menú lateral, ya que será propio para cada usuario.
+		 * El resto de menus: principal y footer los guardaremos en un transient y los
+		 * refrescaremos 1 vez por semana.
 		 */
-		if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_LATERAL) {
-			// Comprobamos si el usuario está logueado.
-			if ($this->current_user->ID > 0) {
-				$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
-				$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
-				$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
-				$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
+		if ($tipoMenu == Ajax::MENU_LATERAL || false === ($menu = get_transient($TRANSIENT_MENU))) {
+			$menuArgs = [
+				'login_url' => wp_login_url('/')
+			];
+			/*
+			 * Añadimos parámetros si se pidió el menú principal o el de perfil.
+			 */
+			if ($tipoMenu == Ajax::MENU_PRINCIPAL || $tipoMenu == Ajax::MENU_LATERAL) {
+				// Comprobamos si el usuario está logueado.
+				if ($this->current_user->ID > 0) {
+					$menuArgs['total_mensajes'] = $this->current_user->getTotalMensajesRecibidosSinLeer();
+					$menuArgs['total_favoritos'] = $this->current_user->getTotalFavoritos();
+					$menuArgs['total_actividad'] = $this->current_user->getTotalActividades();
+					$menuArgs['total_posts'] = $this->current_user->getTotalPosts();
 
-				// Comprobamos que el user tenga permisos de editor
-				if ($this->current_user->canEditor()) {
-					$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
-					$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
-					$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
+					// Comprobamos que el user tenga permisos de editor
+					if ($this->current_user->canEditor()) {
+						$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
+						$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
+						$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
+					}
+				}
+				if ($tipoMenu == Ajax::MENU_LATERAL) {
+					$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
 				}
 			}
-			if ($tipoMenu == Ajax::MENU_LATERAL) {
-				$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
+			switch ($tipoMenu) {
+				case Ajax::MENU_PRINCIPAL :
+					$menu = $this->render('menu/principal', $menuArgs);
+					break;
+				case Ajax::MENU_PERFIL :
+					$menu = $this->render('menu/perfil', $menuArgs);
+					break;
+				case Ajax::MENU_FOOTER :
+					$menu = $this->render('menu/footer');
+					break;
+				case Ajax::MENU_LATERAL :
+					$menu = $this->render('menu/lateral', $menuArgs);
+					break;
+			}
+			// Solo guardar el transient si el menú es distinto del menu-lateral
+			if ($tipoMenu != Ajax::MENU_LATERAL) {
+				set_transient($TRANSIENT_MENU, $menu, WEEK_IN_SECONDS);
 			}
 		}
-		switch ($tipoMenu) {
-			case Ajax::MENU_PRINCIPAL :
-				$json['menu'] = $this->render('menu/principal', $menuArgs);
-				break;
-			case Ajax::MENU_PERFIL :
-				$json['menu'] = $this->render('menu/perfil', $menuArgs);
-				break;
-			case Ajax::MENU_LATERAL :
-				$json['menu'] = $this->render('menu/lateral', $menuArgs);
-				break;
-			case Ajax::MENU_FOOTER :
-				$json['menu'] = $this->render('menu/footer');
-				break;
-		}
+		$json['menu'] = $menu;
 		return $json;
 	}
 
