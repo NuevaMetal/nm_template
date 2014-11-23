@@ -109,6 +109,7 @@ return [
 	'no_hay_resultados' => 'no se encontraron resultados',
 	'nombre' => 'nombre',
 	'noticias' => 'noticias',
+	'nube_etiquetas' => 'nube de etiquetas',
 	'nueva_entrada' => 'escribir',
 
 	'ok' => 'ok',

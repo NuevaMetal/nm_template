@@ -55,6 +55,8 @@ class Post extends Image {
 
 	const ENTRADAS_RELACIONADAS = 'entradas-relacionadas';
 
+	const TRANSIENT_POSTS_CON_MAS_FAVORITOS = 'posts-con-mas-favoritos';
+
 	/**
 	 *
 	 * @return mixed
@@ -725,21 +727,28 @@ class Post extends Image {
 	 *
 	 * @param integer $limit
 	 *        	Cantidad límite a buscar
+	 * @see http://codex.wordpress.org/Transients_API
 	 * @return array<Post> Lista de post resultante
 	 */
 	public function getConMasFavoritos($limit) {
 		global $wpdb;
-		$results = $wpdb->get_results($wpdb->prepare('
-				SELECT post_id, year( f.updated_at ) ano, month( f.updated_at ) mes, count( * ) total
-				FROM wp_favoritos f
-				JOIN wp_posts p ON ( f.post_id = p.ID )
-				WHERE status = %d
-				GROUP BY f.post_id, ano, mes
-				ORDER BY ano DESC , mes DESC , total DESC
-				limit %d', Favorito::ACTIVO, $limit));
-		$posts = [];
-		foreach ($results as $r) {
-			$posts[] = Post::find($r->post_id);
+		// Get any existing copy of our transient data
+		if (false === ($posts = get_transient(self::TRANSIENT_POSTS_CON_MAS_FAVORITOS))) {
+			debug("Guardo los posts con mas favoritos en un transient");
+			// It wasn't there, so regenerate the data and save the transient
+			$results = $wpdb->get_results($wpdb->prepare('
+					SELECT post_id, year( f.updated_at ) ano, month( f.updated_at ) mes, count( * ) total
+					FROM wp_favoritos f
+					JOIN wp_posts p ON ( f.post_id = p.ID )
+					WHERE status = %d
+					GROUP BY f.post_id, ano, mes
+					ORDER BY ano DESC , mes DESC , total DESC
+					limit %d', Favorito::ACTIVO, $limit));
+			$posts = [];
+			foreach ($results as $r) {
+				$posts[] = Post::find($r->post_id);
+			}
+			set_transient(self::TRANSIENT_POSTS_CON_MAS_FAVORITOS, $posts, 6 * HOUR_IN_SECONDS);
 		}
 		return $posts;
 	}

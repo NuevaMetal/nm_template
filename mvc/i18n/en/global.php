@@ -109,6 +109,7 @@ return [
 	'no_hay_resultados' => 'results not found',
 	'nombre' => 'name',
 	'noticias' => 'news',
+	'nube_etiquetas' => 'cloud of tags',
 	'nueva_entrada' => 'new post',
 
 	'ok' => 'ok',

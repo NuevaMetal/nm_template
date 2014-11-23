@@ -15,6 +15,7 @@ use Models\UserBaneado;
 use Models\Revision;
 use Libs\KeysRequest;
 use Models\Analitica;
+use Models\Etiqueta;
 
 // Cargamos WP.
 // Si no se hace, en Ajax no se conocerá y no funcionará ninguna función de WP
@@ -399,6 +400,9 @@ class AjaxController extends BaseController {
 					$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
 					$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
 				}
+			}
+			if ($tipoMenu == Ajax::MENU_LATERAL) {
+				$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
 			}
 		}
 		switch ($tipoMenu) {

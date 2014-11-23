@@ -109,17 +109,27 @@
 	</div>
 	
 	<div class="row posts posts-recomendados">
-		
 		<h4><i class="fa fa-star-half-o"></i> {{#transu}}entrada_recomendada{{/transu}}</h4>
 		{{# getPostsRecomendados }}
 			{{> menu/lateral/_post }} <br>
 		{{/ getPostsRecomendados }}
 	</div>
 	
+	<div class="row posts etiquetas-contadas">
+		<h4><i class="fa fa-tags "></i> {{#transu}}nube_etiquetas{{/transu}}</h4>
+		{{# etiquetasContadas }} 
+			<a href="/tag/{{slug}}"	data-toggle="tooltip" data-placement="right" 
+				title="{{total}} {{#transu}}total{{/transu}}">{{name}}</a> <br>
+		{{/ etiquetasContadas }}
+	</div>
+	
+	
 	<div class="row">
 		<div id="banner-menu-lateral" class="banner col-xs-12">
 			{{> partials/banners/menu_lateral }}
 		</div>
 	</div>
+	
+	
 		
 </div>
