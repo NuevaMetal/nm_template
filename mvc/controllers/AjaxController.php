@@ -364,7 +364,7 @@ class AjaxController extends BaseController {
 				break;
 			case 'carousel' :
 				$json['content'] = $this->render('home/_carousel', [
-					'postsConMasFavoritos' => Post::getConMasFavoritos(5)
+					'postsConMasFavoritos' => Post::getConMasFavoritos(Post::NUM_CAROUSEL_HOME)
 				]);
 				break;
 		}

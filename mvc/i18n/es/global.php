@@ -83,6 +83,7 @@ return [
 	'entradas' => 'entradas',
 	'entrada' => 'entrada',
 	'entradas_de' => 'entradas de :nombre',
+	'entrada_recomendada' => 'entrada recomendada',
 	'entradas_recomendadas' => 'entradas recomendadas',
 	'entrevistas' => 'entrevistas',
 	'es' => 'es',

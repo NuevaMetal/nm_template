@@ -91,6 +91,9 @@ class User extends Favoriteador {
 	// Número de posts favositos para ir mostrando
 	const NUM_POSTS_FAV = 8;
 
+	// Número de posts recomendados
+	const NUM_POSTS_RECOMENDADOS = 1;
+
 	// Número límite de mensajes recibidos por petición
 	const LIMIT_MENSAJES_RECIBIDOS = 10;
 
@@ -1684,7 +1687,7 @@ class User extends Favoriteador {
 	 *
 	 * @return array<Post> Posts recomendados en base a sus favoritos.
 	 */
-	public function getPostsRecomendados() {
+	public function getPostsRecomendados($limit = self::NUM_POSTS_RECOMENDADOS) {
 		global $wpdb;
 		$pieces = $this->getEtiquetasUnicasByFavoritos();
 		$tagsFavsIds = implode(',', $pieces);
@@ -1693,7 +1696,7 @@ class User extends Favoriteador {
 				FROM wp_term_relationships
 				WHERE term_taxonomy_id IN (%s)
 				ORDER BY RAND()
-				LIMIT 2', $tagsFavsIds));
+				LIMIT %d', $tagsFavsIds, $limit));
 		foreach ($posts_id as $post_id) {
 			$posts[] = Post::find($post_id);
 		}

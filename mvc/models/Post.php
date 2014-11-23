@@ -21,6 +21,8 @@ class Post extends Image {
 
 	const IMG_FULL = 'full';
 
+	const NUM_CAROUSEL_HOME = 5;
+
 	const NUM_SIMILARES = 6;
 
 	const NUM_RELACIONADAS = 4;

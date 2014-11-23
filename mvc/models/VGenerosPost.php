@@ -34,10 +34,12 @@ class VGenerosPost extends ModelBase {
 	/**
 	 * Devuelve una lista de posts conociendo sus etiquetas
 	 *
-	 * @param array $tags
+	 * @param array<Term> $tags
 	 *        	Nombre de las tags a buscar
 	 * @param integer $limit
 	 *        	Límite
+	 * @param integer $cat_id
+	 *        	Identificador de la categoría. Por defecto false.
 	 * @return array<Post> Devuelve
 	 */
 	public static function getPostsRandomByEtiquetas($tags = [], $limit = false, $cat_id = false) {
