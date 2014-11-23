@@ -9,13 +9,16 @@
 	{{/ alertas }}
 
 	{{$ content }}
-		<div class="banner banner-header col-xs-12">
-			{{> partials/_banner_submenu}}
+		<div class="col-xs-12">
+			<div id="banner-home-top" class="banner col-xs-12">
+				{{> partials/banners/home_top }}
+			</div>
 		</div>
+		
 		<div id="carousel" class="col-xs-12 text-center">
 			<i class="fa fa-spinner fa-spin fa-1x hidden "></i>
 		</div>
-		<div id="home" class="text-center" url="{{template_url}}/ajax.php">
+		<div id="home" class="text-center">
 			{{# bandas}}
 			<section id="bandas" class="col-xs-12 seccion-posts">
 				<a href="{{home_url}}/category/bandas">

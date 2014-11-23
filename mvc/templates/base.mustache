@@ -1,6 +1,12 @@
 <header id="top" class="container">
-	<div id="nm-header" class="site-title col-xs-12 col-sm-9 col-md-9 col-lg-8" title="{{blog_name}}">
-		<a href="/" class=""><img src="{{template_url}}/public/img/NM_header.png"></a>
+	<div class="nm-header row">
+		<div class="site-title col-xs-12 col-md-10 col-lg-8" title="{{blog_name}}">
+			<a href="/" class=""><img src="{{template_url}}/public/img/NM_header.png"></a>
+		</div>
+		
+		<div id="banner-base-header" class="banner col-xs-12 col-md-2 col-lg-4 ">
+			{{> partials/banners/base_header }}
+		</div>
 	</div>
 	<div class="row titular ">
 		<span class="col-xs-12 frase">

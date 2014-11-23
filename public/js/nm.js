@@ -340,7 +340,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 $(document).on('click', '.back-to-top', function(e) {
 	e.preventDefault();
 	$('html, body').animate({
-		scrollTop : 187
+		scrollTop : 0 //187
 	}, 500);
 	return false;
 });
@@ -482,7 +482,7 @@ function cargarSecciones() {
 function cargarSeccion(nombreSeccion, cant){
 	var seccion = $('#'+nombreSeccion);
 	if(seccion.length==0) return; // Si no existe el elemento no hacemos nada
-	var url = seccion.parent().attr('url');
+	var url = $('#page').attr('url');
 	var data = {
 		submit : 'home',
 		tipo: 'seccion',
@@ -516,13 +516,11 @@ function cargarSeccion(nombreSeccion, cant){
 function cargarMenu(tipoMenu, animacion){
 	var menu = $('#'+tipoMenu);
 	if(menu.length==0) return; // Si no existe el elemento no hacemos nada
-	
 	var url = $('#page').attr('url');
 	var data = {
 		submit : 'menu',
 		tipo : tipoMenu
 	};
-
 	$.ajax({
 		url : url,
 		type : "POST",
