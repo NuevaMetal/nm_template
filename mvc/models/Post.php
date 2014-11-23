@@ -734,7 +734,6 @@ class Post extends Image {
 		global $wpdb;
 		// Get any existing copy of our transient data
 		if (false === ($posts = get_transient(self::TRANSIENT_POSTS_CON_MAS_FAVORITOS))) {
-			debug("Guardo los posts con mas favoritos en un transient");
 			// It wasn't there, so regenerate the data and save the transient
 			$results = $wpdb->get_results($wpdb->prepare('
 					SELECT post_id, year( f.updated_at ) ano, month( f.updated_at ) mes, count( * ) total
