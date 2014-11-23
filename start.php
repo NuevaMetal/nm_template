@@ -40,6 +40,8 @@ Acciones::publicarPostsProgramados();
 Acciones::commentPost();
 
 Acciones::createTerm();
+
+Acciones::eliminarTransientDeLaHomeSeccion();
 // --------------------------------------------------------------
 // Filtros
 // --------------------------------------------------------------

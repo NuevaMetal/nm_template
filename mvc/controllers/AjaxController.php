@@ -359,9 +359,16 @@ class AjaxController extends BaseController {
 			case 'seccion' :
 				$nombreSeccion = $_datos['seccion'];
 				$cantidad = $_datos['cant'];
-				$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
-				$argsSeccion['reducido'] = ($cantidad == 2);
-				$json['seccion'] = $this->render('home/_seccion_contenido', $argsSeccion);
+				$TRANSIENT_HOME_SECCION = 'home-seccion-' . $nombreSeccion;
+				// Get any existing copy of our transient data
+				if (false === ($seccion = get_transient($TRANSIENT_HOME_SECCION))) {
+					// It wasn't there, so regenerate the data and save the transient
+					$argsSeccion = HomeController::getSeccion($nombreSeccion, $cantidad);
+					$argsSeccion['reducido'] = ($cantidad == 2);
+					$seccion = $this->render('home/_seccion_contenido', $argsSeccion);
+					set_transient($TRANSIENT_HOME_SECCION, $seccion, DAY_IN_SECONDS);
+				}
+				$json['seccion'] = $seccion;
 				break;
 			case 'carousel' :
 				$json['content'] = $this->render('home/_carousel', [

@@ -459,18 +459,18 @@ function cargarSecciones() {
 	
 	setTimeout(function() {
 		cargarSeccion('videos', 4);		
-	}, 1000);
+	}, 500);
 	setTimeout(function() {
 		cargarSeccion('criticas', 2);
 		cargarSeccion('cronicas', 2);
-	}, 2500);
+	}, 1000);
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);
-	}, 4000);
+	}, 2000);
 	setTimeout(function() {
 		cargarSeccion('entrevistas', 4);
-	}, 5500);
+	}, 3000);
 }
 
 /**

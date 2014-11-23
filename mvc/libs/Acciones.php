@@ -582,4 +582,22 @@ class Acciones {
 			}
 		}, 10, 3);
 	}
+
+	/**
+	 * Eliminar el transient de la sección de la home para las categorías
+	 * del post cuando se edite, publique o elimine un Post.
+	 */
+	public static function eliminarTransientDeLaHomeSeccion() {
+		$deleteTransient = function ($post_id) {
+			$post = Post::find($post_id);
+			$categorias = $post->getCategorias();
+			foreach ($post->getCategorias() as $cat) {
+				$TRANSIENT_HOME_SECCION = 'home-seccion-' . $cat->slug;
+				delete_transient($TRANSIENT_HOME_SECCION);
+			}
+		};
+		add_action('edit_post', $deleteTransient);
+		add_action('publish_post', $deleteTransient);
+		add_action('deleted_post', $deleteTransient);
+	}
 }
