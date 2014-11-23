@@ -339,8 +339,8 @@ $(document).on('click', '.mostrar-mas', function(e) {
 
 $(document).on('click', '.back-to-top', function(e) {
 	e.preventDefault();
-	$('html, body').animate({
-		scrollTop : 0 //187
+	$('html, body #super').animate({
+		scrollTop : 185
 	}, 500);
 	return false;
 });
