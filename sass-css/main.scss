@@ -19,41 +19,24 @@
 @import "user.scss";
 @import "mensajes.scss";
 
-#top{
-	.site-title{
-		padding: 0;
-		//margin: 30px 0;
-		margin-top: 65px;
-		margin-bottom: 15px;
-		margin-left: -15px;
-		@include col(xs) {
-			margin: 20px 9px;
-			padding-top: 52px;
-			img {
-				width: 100%;
-			}
-		}
-	}
-	.redes-sociales{
-		position: fixed;
-	    bottom: 19px;
-	    left: 10px;
-	    z-index: 100;
-	    a { 
-	    	margin: 3px 0;
-	    }
-		.mostrar-menu-lateral{
-			 //color: $color-success; 
-			 background: $rojo-nm;
-			 &:hover {
-			 	background: $rojo-nm-hover;
-			 }
-		}
-	}
+%background-nm {
+	background-color: $body-background-color; 
+	background: url(../img/01.jpg);
+	background-repeat: repeat;
+	background-attachment: fixed;
+	background-position: center;
 }
 
 a {
 	@extend %color-enlace;
+}
+
+body {
+  	@extend %background-nm;
+	color: $color-body;
+	font-family: Helvetica,Arial;
+	font-size: 16px ;
+	margin-bottom: 6px;
 }
 
 #alertas-popup {
@@ -62,6 +45,22 @@ a {
 	position: fixed;
 	width: auto;
 	z-index: 5;
+}
+
+#page{
+  	background-color: $body-background-color;
+	margin-top: 8px;
+	//padding-top: 8px;
+	/*@include col(sm) {
+		padding-top: 40px;
+		margin: 0 1%;
+	}  
+	@include col(lg) {
+		margin: 0 3%;
+	}
+	@include col(xl) {
+		margin: 0 6%;
+	}*/
 }
 
 #content{
@@ -94,41 +93,46 @@ a {
 	}
 }
 
-%background-nm {
-	background-color: $body-background-color; 
-	background: url(../img/01.jpg);
-	background-repeat: repeat;
-	background-attachment: fixed;
-	background-position: center;
-}
-
-body {
-  	@extend %background-nm;
-	color: $color-body;
-	font-family: Helvetica,Arial;
-	font-size: 16px ;
-	margin-bottom: 6px;
-}
-
-#page{
-  	background-color: $body-background-color;
-	/*@include col(sm) {
-		padding-top: 40px;
-		margin: 0 1%;
-	}  
-	@include col(lg) {
-		margin: 0 3%;
-	}
-	@include col(xl) {
-		margin: 0 6%;
-	}*/
-}
-.pager{
-	margin: 10px;
-}
-
 #footer{
 	margin-top: 10px;	
+}
+
+#top{
+	.redes-sociales{
+		position: fixed;
+	    bottom: 19px;
+	    left: 10px;
+	    z-index: 100;
+	    a { 
+	    	margin: 3px 0;
+	    }
+		.mostrar-menu-lateral{
+			 //color: $color-success; 
+			 background: $rojo-nm;
+			 &:hover {
+			 	background: $rojo-nm-hover;
+			 }
+		}
+	}
+	.site-title{
+		padding: 0;
+		//margin: 30px 0;
+		margin-top: 65px;
+		margin-bottom: 8px;
+		margin-left: -15px;
+		@include col(xs) {
+			margin: 20px 9px;
+			padding-top: 52px;
+			img {
+				width: 100%;
+			}
+		}
+	}
+	
+	.frase {
+		//border: 0px solid red;
+		color: $body-background-color;
+	}
 }
 
 .page-header {
@@ -138,6 +142,10 @@ body {
 		color: #333;
 		text-decoration: none;
 	}
+}
+
+.pager{
+	margin: 10px;
 }
 
 .post.thumbnail {

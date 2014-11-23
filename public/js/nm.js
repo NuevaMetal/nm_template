@@ -340,7 +340,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 $(document).on('click', '.back-to-top', function(e) {
 	e.preventDefault();
 	$('html, body').animate({
-		scrollTop : 161
+		scrollTop : 187
 	}, 500);
 	return false;
 });

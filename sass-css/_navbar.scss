@@ -17,6 +17,7 @@
 			.header img {
 				left: 0px;
 				height: 100px;
+				top: -5px;
 				width: 100%;
 			}
 			.avatar {
@@ -86,6 +87,10 @@
 				height: 45px;
 			}
 		}
+	}
+	
+	h4 {
+		border-bottom: 1px solid #ddd;
 	}
 }
 
