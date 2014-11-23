@@ -58,7 +58,6 @@ class HomeController extends BaseController {
 		$args['cant'] = $cant;
 		$args['tipo'] = Utils::TIPO_CATEGORY;
 		$TRANSIENT_HOME_SECCION = 'home-seccion-' . $seccion;
-		delete_transient($TRANSIENT_HOME_SECCION);
 		// Get any existing copy of our transient data
 		if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
 			// It wasn't there, so regenerate the data and save the transient

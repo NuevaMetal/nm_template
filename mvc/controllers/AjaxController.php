@@ -381,8 +381,6 @@ class AjaxController extends BaseController {
 	 */
 	private function _jsonMenu($_datos) {
 		$tipoMenu = $_datos['tipo'];
-		delete_transient($tipoMenu);
-
 		$menuArgs = [
 			'login_url' => wp_login_url('/')
 		];
