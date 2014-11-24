@@ -109,11 +109,6 @@ function seHaceScroll() {
 		} else {
 			scrollOff();
 		}
-	} else {
-		// Ajuste del menú Para pantallas xs
-		$(".navbar-principal").addClass("navbar-fixed-top");
-		$(".perfil-login").addClass("hidden");
-		$(".navbar-principal-login-xs").parent('button').removeClass("hidden");
 	}
 	
 	if (scroll > 200) {
@@ -121,17 +116,21 @@ function seHaceScroll() {
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
-	if($('#home').length > 0) return;
 	
-	var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS, '.mostrar-mas');
-	if( $('.mostrar-mas').size() == 1 && sePuede) {		
-		$('.mostrar-mas').trigger('click');
-	} else if($('#autor .mostrar-mas').size() == 1 && sePuede) {		
-		$('#autor .mostrar-mas').trigger('click');
-	} else if($('#busqueda-posts .mostrar-mas').size() == 1 && sePuede) {
-		$('#busqueda-posts .mostrar-mas').trigger('click');
+	/*
+	 * Mostrar más si se puede.
+	 */
+	if($('#home').length == 0) {
+		var sePuede = siSePuede(ALTURA_MINIMA_PARA_MOSTRAR_MAS, '.mostrar-mas');
+		if( $('.mostrar-mas').size() == 1 && sePuede) {
+			$('.mostrar-mas').trigger('click');
+		} else if($('#seccion-autor .mostrar-mas').size() == 1 && sePuede) {
+			$('#seccion-autor .mostrar-mas').trigger('click');
+		} else if($('#seccion-busqueda-posts .mostrar-mas').size() == 1 && sePuede) {
+			$('#seccion-busqueda-posts .mostrar-mas').trigger('click');
+		}
+		_userHacerScrollSuPantalla();
 	}
-	_userHacerScrollSuPantalla();	
 }
 
 /**
