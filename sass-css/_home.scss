@@ -1,5 +1,5 @@
-$altura-home-carousel: 180px;
-$altura-home-carousel-xs: 180px;
+$altura-header-seccion-home-carousel: 180px;
+$altura-header-seccion-home-carousel-xs: 180px;
 
 #menu-perfil {
 	margin-bottom: 10px;
@@ -18,9 +18,9 @@ $altura-home-carousel-xs: 180px;
 		@extend %background-nm;
 		.item {
 			//background-color: $body-background-color;
-			height: $altura-home-carousel-xs;
+			height: $altura-header-seccion-home-carousel-xs;
 			@include col(sm) {
-				height: $altura-home-carousel;	
+				height: $altura-header-seccion-home-carousel;	
 			}
 			overflow: hidden;
 			img.thumbnail {
@@ -66,18 +66,22 @@ h3.header {
 }
 
 .header-seccion {
-	$altura: 55px;
+	$altura-header-seccion: 55px;
+	$font-size-header-seccion: 34px;
 	
 	background-color: $background-header-seccion;
-	height: $altura;
+	height: $altura-header-seccion;
 	margin: 10px;
-	margin-top: 30px;
+	margin-top: 34px;
 	padding: 0 !important;
-	font-size: 32px;
+	font-size: $font-size-header-seccion;
 	text-align:left;
-	width: 100%;
+	
+	color: #fff;
+	padding: 10px;
+
 	img { 
-		height: $altura;
+		height: $altura-header-seccion;
 	}
 	a {
 		color: $body-background-color;
@@ -85,13 +89,13 @@ h3.header {
 	&:hover {
 		a {
 			text-decoration: none;
-			font-size: 34px;
+			font-size: $font-size-header-seccion + 2;
 		}
 	}
 	@include col(xs) {
 		width: 100%;
 		img {
-			height: $altura;
+			height: $altura-header-seccion;
 		}
 	}
 }
