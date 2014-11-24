@@ -30,6 +30,7 @@ return [
 	'bienvenido' => 'bienvenido',
 	'biografia' => 'biografía',
 	'buscar' => 'buscar',
+	'busqueda' => 'busqueda',
 
 	'cambiar' => 'cambiar',
 	'cerrar_sesion' => 'cerrar sesión',
@@ -123,6 +124,7 @@ return [
 	'perfil' => 'perfil',
 	'perfil_title' => 'Ver perfil',
 	'por' => 'por',
+	'posts' => 'entradas',
 	'producer' => 'productor',
 	'productor' => 'productor',
 	'programador' => 'programador',
@@ -167,6 +169,7 @@ return [
 	'ubicacion' => 'ubicación',
 	'unete_y_colabora' => 'Únete y colabora',
 	'user' => 'usuario',
+	'users' => 'usuarios',
 	'usuario' => 'usuario',
 	'usuarios' => 'usuarios',
 	'usuario_title' => 'Nombre de usuario',

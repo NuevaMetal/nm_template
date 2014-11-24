@@ -1,0 +1,6 @@
+<div class="header-seccion">
+	{{#url}}<a href="{{home_url}}{{url}}">{{/url}}
+		<img src="{{template_url}}/public/img/NM_avatar_2.jpg"/>
+		<span class="titular">{{ seccion | quitar_guiones | trans_palabras }}{{#que}}: {{.}}{{/que}}</span>
+	{{#url}}</a>{{/url}}
+</div>

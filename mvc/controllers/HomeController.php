@@ -19,15 +19,23 @@ class HomeController extends BaseController {
 	 * home.php
 	 */
 	public function getHome() {
-		return $this->renderPage('home', [
-			'bandas' => true,
-			'videos' => true,
-			'conciertos' => true,
-			'cronicas' => true,
-			'entrevistas' => true,
-			'criticas' => true,
-			'noticias' => true
-		]);
+		$catActivas = [
+			Post::CATEGORY_BANDAS,
+			Post::CATEGORY_VIDEOS,
+			Post::CATEGORY_CRITICAS,
+			Post::CATEGORY_CRONICAS,
+			Post::CATEGORY_NOTICIAS,
+			Post::CATEGORY_CONCIERTOS,
+			Post::CATEGORY_ENTREVISTAS
+		];
+		$args = [];
+		foreach ($catActivas as $cat) {
+			$args[$cat] = [
+				'seccion' => $cat,
+				'url' => '/category/' . $cat
+			];
+		}
+		return $this->renderPage('home', $args);
 	}
 
 	/**
@@ -79,15 +87,11 @@ class HomeController extends BaseController {
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getBusqueda($aBuscar, $cant = self::NUM_POST_POR_SECCION, $args = []) {
-		$args['imagen'] = 'NM_avatar_2';
 		$args['seccion'] = 'busqueda-posts';
 		$args['a_buscar'] = $aBuscar;
-		$args['header'] = I18n::trans('resultado_busqueda', [
-			'que' => $aBuscar
-		]);
+		$args['que'] = $aBuscar;
 		$args['cant'] = $cant;
 		$args['tipo'] = Utils::TIPO_SEARCH;
-		$args['template_url'] = get_template_directory_uri();
 		$args['posts'] = self::getPostsBySearch($aBuscar, $cant, []);
 		$args['total_posts'] = count($args['posts']);
 		return $args;

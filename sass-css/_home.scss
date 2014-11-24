@@ -66,21 +66,32 @@ h3.header {
 }
 
 .header-seccion {
-	background-color: #404042;
-	height: 60px;
+	$altura: 55px;
+	
+	background-color: $background-header-seccion;
+	height: $altura;
 	margin: 10px;
 	margin-top: 30px;
 	padding: 0 !important;
-	img { 
-		height: 60px;
-		//z-index: 9999999 !important;
-		//margin-left: -80px !important;
-	}
+	font-size: 32px;
 	text-align:left;
+	width: 100%;
+	img { 
+		height: $altura;
+	}
+	a {
+		color: $body-background-color;
+	}
+	&:hover {
+		a {
+			text-decoration: none;
+			font-size: 34px;
+		}
+	}
 	@include col(xs) {
 		width: 100%;
 		img {
-			height: 60px;
+			height: $altura;
 		}
 	}
 }

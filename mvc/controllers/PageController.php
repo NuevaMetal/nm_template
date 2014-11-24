@@ -142,12 +142,9 @@ class PageController extends BaseController {
 
 		$cant = 4;
 
-		$args['imagen'] = 'NM_avatar_2';
 		$args['seccion'] = 'busqueda';
 		$args['a_buscar'] = strtolower($current_tag);
-		$args['header'] = I18n::trans('resultado_tag', [
-			'que' => $current_tag
-		]);
+		$args['que'] = $current_tag;
 		$args['url'] = get_tag_link($cat);
 		$args['cant'] = $cant;
 		$args['tipo'] = Utils::TIPO_TAG;

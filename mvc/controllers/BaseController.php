@@ -59,8 +59,18 @@ abstract class BaseController {
 				'formatear_numero' => function ($value) {
 					return Utils::formatearNumero($value);
 				},
+				'quitar_guiones' => function ($value) {
+					return str_replace('-', ' ', $value);
+				},
 				'toArray' => function ($value) {
 					return explode(',', $value);
+				},
+				'trans_palabras' => function ($value) {
+					$out = '';
+					foreach (explode(' ', $value) as $traducir) {
+						$out .= ' ' . I18n::trans($traducir);
+					}
+					return ucfirst($out);
 				},
 				'ucfirst' => function ($value) {
 					return ucfirst($value);
