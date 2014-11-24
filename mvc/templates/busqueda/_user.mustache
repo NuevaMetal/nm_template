@@ -15,7 +15,7 @@
 			
 			<span class="avatar"><img src="{{getAvatar}}"></span>
 			{{# getTotalPuntos }}
-			<span class="total-puntos">{{getTotalPuntos}} {{#transu}}puntos{{/transu}}</span>
+			<span class="total-puntos">{{getTotalPuntos | formatear_numero}} {{#transu}}puntos{{/transu}}</span>
 			{{/ getTotalPuntos }}
 		</div>
 	</a>
