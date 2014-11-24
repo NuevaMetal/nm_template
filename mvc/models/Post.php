@@ -176,17 +176,23 @@ class Post extends Image {
 	}
 
 	/**
-	 * Fecha ISO 8601.
-	 * 2004-02-12T15:19:21+00:00
+	 * Devuelve la fecha de publicacion.
+	 *
+	 * @return string
 	 */
-	public function getTimeISO() {
-		return get_the_time('c', $this->ID);
+	public function getFechaPublicacion() {
+		global $wpdb;
+		return $wpdb->get_var($wpdb->prepare('SELECT post_date FROM wp_posts WHERE ID = %d', $this->ID));
 	}
-	public function getTime($dateFormat = false) {
-		if (! $dateFormat) {
-			$dateFormat = (is_single()) ? 'l, d F Y' : get_option('date_format');
-		}
-		return get_the_time($dateFormat, $this->ID);
+
+	/**
+	 * Devuelve la última fecha de edición del Post.
+	 *
+	 * @return string
+	 */
+	public function getUltimaFechaEdicion() {
+		global $wpdb;
+		return $wpdb->get_var($wpdb->prepare('SELECT post_modified FROM wp_posts WHERE ID = %d', $this->ID));
 	}
 
 	/**

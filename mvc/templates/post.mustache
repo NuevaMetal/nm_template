@@ -9,8 +9,8 @@
 
 				<div class="info row">
 					<div class="col-xs-12 col-sm-8 titular">
-						<meta itemprop="datePublished" content="{{getTimeISO}}"/>
-						<i class="fa fa-calendar"></i> <span class="post-time">{{getTime}}</span>
+						<meta itemprop="datePublished" content="{{getFechaPublicacion | date.xmlschema}}"/>
+						<i class="fa fa-calendar"></i> <span class="post-time">{{getFechaPublicacion | date.string}}</span>
 						{{#trans}}por{{/trans}} 
 						<span class="post-author"><a href="{{getAutor.getPerfilUrl}}">{{getAutor.display_name}}</a></span>
 						{{# getTotalCategorias }}

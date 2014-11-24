@@ -56,6 +56,17 @@ abstract class BaseController {
 				'count' => function ($value) {
 					return count($value);
 				},
+				'date' => [
+					'xmlschema' => function ($value) {
+						return date('c', strtotime($value));
+					},
+					'string' => function ($value) {
+						return date('l, d F Y', strtotime($value));
+					},
+					'format' => function ($value) {
+						return date(get_option('date_format'), strtotime($value));
+					}
+				],
 				'formatear_numero' => function ($value) {
 					return Utils::formatearNumero($value);
 				},

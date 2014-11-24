@@ -4,7 +4,7 @@
 	<div class="thumbnail">
 		<div class="info titular" data-toggle="tooltip" data-placement="bottom" 
 				title="{{#getAutor}}{{> home/_user_title }}{{/getAutor}}">
-	    	<span class="post-time">{{getTime}} </span>
+	    	<span class="post-time">{{getFechaPublicacion | date.format}} </span>
 		    {{#trans}}por{{/trans}} 
 		    <span class="post-author">
 		    	<a href="{{getAutor.getPerfilUrl}}" >
