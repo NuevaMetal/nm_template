@@ -6,7 +6,8 @@ return [
 	'bandas_destacadas' => 'Featured Bands',
 
 	'dejaste_de_seguir_a' => 'Unfollowing :nombre',
-	'debes_iniciar_sesion' => 'Sorry, you must be <a href="/wp-login.php">logged in</a> to :para',
+	'debes_iniciar_sesion' => '<p class="must-log-in">Sorry, you must be <a href="/wp-login.php">logged in</a>
+		to :para </p>',
 
 	'editar_perfil' => 'edit profile',
 	'eliminar_avatar' => 'delete avatar',
@@ -45,7 +46,7 @@ return [
 
 	'quieres_escribir' => 'Do you want to write?',
 
-	'reportar_entrada' => 'report a post',
+	'reportar_entrada' => 'report a post.',
 
 	'se_unio_en' => 'He joined in :mes :ano',
 	'separa_por_comas' => 'Separated by commas',

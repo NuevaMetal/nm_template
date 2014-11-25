@@ -60,6 +60,7 @@ $(document).on('mouseleave', '#post-meta .avatar', function(e) {
 // Agrandar los iconos de las redes sociales.
 //pasarRaton('.redes-sociales a', 'btn-lg');
 
+pasarRaton('.must-log-in a', 'mostrar-menu-lateral');
 /**
  * Dar al selector una clase cuando se pase el ratón por encima y quitarla cuando se quite el ratón.
  * 

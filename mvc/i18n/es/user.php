@@ -6,7 +6,8 @@ return [
 	'bandas_destacadas' => 'Bandas destacadas',
 
 	'dejaste_de_seguir_a' => 'Dejaste de seguir a :nombre',
-	'debes_iniciar_sesion' => 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para :para',
+	'debes_iniciar_sesion' => '<p class="must-log-in">Disculpa, debes <a href="/wp-login.php">iniciar sesión</a>
+		para :para </p>',
 
 	'editar_perfil' => 'editar perfil',
 	'eliminar_avatar' => 'eliminar avatar',
@@ -46,7 +47,7 @@ return [
 
 	'quieres_escribir' => '¿Quieres escribir?',
 
-	'reportar_entrada' => 'reportar una entrada',
+	'reportar_entrada' => 'reportar una entrada.',
 
 	'se_unio_en' => 'Se unió en :mes de :ano',
 	'separa_por_comas' => 'Separadas por comas',
