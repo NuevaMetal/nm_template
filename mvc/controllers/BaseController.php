@@ -132,6 +132,9 @@ abstract class BaseController {
 	 */
 	private function _addVariablesGlobales($templateVars = []) {
 		// debug($_SERVER['REQUEST_URI']);
+
+		$citas = array_values(I18n::getFicheroIdioma('citas'));
+
 		return array_merge($templateVars, [
 			'blog_title' => self::_getBlogTitle(),
 			'current_user' => $this->current_user,
@@ -141,7 +144,8 @@ abstract class BaseController {
 			'is_local' => Env::isLocal(),
 			'template_url' => get_template_directory_uri(),
 			'login_url' => wp_login_url($_SERVER['REQUEST_URI']),
-			'current_lang' => I18n::getLangByCurrentUser()
+			'current_lang' => I18n::getLangByCurrentUser(),
+			'cita_random' => $citas[rand(0, count($citas)-1)]
 		]);
 	}
 

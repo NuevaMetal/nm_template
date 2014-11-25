@@ -1,9 +1,14 @@
-<nav class="navbar col-xs-12" role="navigation ">
-	<ul class="nav nav-pills">
+<footer class="navbar col-xs-12" role="navigation ">
+	<ul class="nav nav-pills col-xs-12">
 	  <li><a href="/tutorial"><i class="fa fa-link"></i> {{#transu}}unete_y_colabora{{/transu}}</a></li>
 	  <li><a href="/redes"><i class="fa fa-share-alt"></i> {{#transu}}redes{{/transu}}</a></li>
 	  <li><a href="/contacto"><i class="fa fa-at"></i> {{#transu}}contacto{{/transu}}</a></li>
 	  <li><a href="/legal"><i class="fa fa-info"></i> {{#transu}}aviso_legal{{/transu}}</a></li>
 	</ul>
-</nav>
-
+	{{#cita_random}}
+		<span class="col-xs-12 cita-random">
+			<i class="fa fa-quote-left"></i> {{cita}}. <i class="fa fa-quote-right"></i> 
+			<span class="autor">{{autor}}.</span>
+		</span>
+	{{/cita_random}}
+</footer>

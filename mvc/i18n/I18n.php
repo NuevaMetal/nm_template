@@ -17,7 +17,6 @@ class I18n {
 	//
 	const IDIOMA_SESION = 'idioma-sesion';
 
-
 	/**
 	 * Devuelve una lista con todos los idiomas disponibles
 	 *
@@ -96,9 +95,12 @@ class I18n {
 	 * @param string $fichero
 	 *        	Nombre del fichero del idioma
 	 */
-	public static function getFicheroIdioma($fichero, $idioma = null) {
-		if ($idioma == null) {
-			$idioma = Utils::getLang();
+	public static function getFicheroIdioma($fichero, $idioma = false) {
+		if (! $idioma) {
+			$idioma = static::getLangByCurrentUser();
+			if (! $idioma) {
+				$idioma = Utils::getLang();
+			}
 		}
 		return require (dirname(__FILE__) . "/$idioma/$fichero.php");
 	}

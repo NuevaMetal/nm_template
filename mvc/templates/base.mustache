@@ -55,37 +55,36 @@
 	    	{{$ content }} Content {{/content }}
 	    </div>
 	</div>
-	<div id="menu-footer"></div>
-
-	{{^ current_user }}
-	<!-- Modal -->
-		<div id="modal-login" class="modal fade must-log-in-modal" tabindex="-1" role="dialog" 
-				aria-labelledby="myLargeModalLabel" aria-hidden="true" >
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title"><span class="titulo">{{#transu}}iniciar_sesion{{/transu}}</span></h4>
-					</div>
-		    		<div class="modal-body">
-						{{> menu/perfil/_login }}
-					</div>
+	<div id="menu-footer" class="row"></div>
+</div>
+{{^ current_user }}
+<!-- Modal -->
+	<div id="modal-login" class="modal fade must-log-in-modal" tabindex="-1" role="dialog" 
+			aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title"><span class="titulo">{{#transu}}iniciar_sesion{{/transu}}</span></h4>
+				</div>
+	    		<div class="modal-body">
+					{{> menu/perfil/_login }}
 				</div>
 			</div>
 		</div>
-		
-		<button id="must-log-in-modal" type="button" class="hidden btn btn-primary" data-toggle="modal" 
-			data-target=".must-log-in-modal"></button>
-		
-		<script>
-			$(document).on('click', '.must-log-in a', function(e){
-				e.preventDefault();
-				$('#must-log-in-modal').click();
-			});
-		</script>
-	{{/ current_user }}
+	</div>
 	
-	{{$ scripts }} {{/ scripts }}
-</div>
+	<button id="must-log-in-modal" type="button" class="hidden btn btn-primary" data-toggle="modal" 
+		data-target=".must-log-in-modal"></button>
+	
+	<script>
+		$(document).on('click', '.must-log-in a', function(e){
+			e.preventDefault();
+			$('#must-log-in-modal').click();
+		});
+	</script>
+{{/ current_user }}
+
+{{$ scripts }} {{/ scripts }}
