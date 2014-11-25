@@ -23,7 +23,7 @@ class PageController extends BaseController {
 	 * Paǵina de sitios de interés
 	 */
 	public function getAmigas() {
-		return $this->renderPage('pages/amigas');
+		return $this->getError(404);
 	}
 
 	/**
