@@ -166,10 +166,10 @@ return [
 
 	'ubicacion' => 'location',
 	'unete_y_colabora' => 'join and collaborate',
+	'user' => 'user',
+	'users' => 'users',
 	'usuario' => 'user',
 	'usuarios' => 'users',
-	'user' => 'usuario',
-	'users' => 'usuarios',
 	'usuario_title' => 'Username',
 
 	'ver_perfil' => 'see profile',
