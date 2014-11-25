@@ -62,15 +62,6 @@ return [
 	'discografica' => 'record label',
 	'diseñador' => 'designer',
 
-	'hola' => 'hello',
-
-	'favorito' => 'favorite',
-	'favoritos' => 'favorites',
-
-	'informar' => 'notify',
-	'inicio' => 'home',
-	'introduce_tu' => 'Enter your :que here',
-
 	'editar' => 'edit',
 	'editar_perfil' => 'edit profile',
 	'eliminar' => 'delete',
@@ -93,6 +84,13 @@ return [
 	'fecha' => 'date',
 
 	'genero' => 'genre',
+
+	'hola' => 'hello',
+
+	'informar' => 'notify',
+	'iniciar_sesion' => 'login',
+	'inicio' => 'home',
+	'introduce_tu' => 'Enter your :que here',
 
 	'leer_mas' => 'show more',
 	'leer_mas_movil' => 'more',

@@ -35,8 +35,10 @@ return [
 	'necesitas_ser_admin' => 'Necesitas ser admin',
 
 	'login_necesario' => 'para ello es necesario estar logueado',
-	'login_necesario_para_favorito' => 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para indicar que te gusta',
-	'login_necesario_para_comentar'=> 'Disculpa, debes <a href="/wp-login.php">iniciar sesión</a> para escribir un comentario',
+	'login_necesario_para_favorito' => '<span class="must-log-in">Disculpa, debes <a href="/wp-login.php">iniciar sesión</a>
+		para indicar que te gusta</span>',
+	'login_necesario_para_comentar'=> '<span class="must-log-in">Disculpa, debes <a href="/wp-login.php">iniciar sesión</a>
+		para escribir un comentario</span>',
 	'login_necesario_para_comentar_1'=> 'Disculpa, debes ',
 	'login_necesario_para_comentar_2'=> 'iniciar sesión',
 	'login_necesario_para_comentar_3'=> 'para escribir un comentario',

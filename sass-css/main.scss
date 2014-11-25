@@ -98,6 +98,12 @@ body {
 	margin-top: 10px;	
 }
 
+#modal-login {
+	.modal-body{
+  		//@extend %background-nm;
+  	}
+}
+
 #top{
 	.nm-header {
 		

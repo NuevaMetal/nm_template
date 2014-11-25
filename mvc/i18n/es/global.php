@@ -75,6 +75,7 @@ return [
 	'hola' => 'hola',
 
 	'informar' => 'informar',
+	'iniciar_sesion' => 'iniciar sesión',
 	'inicio' => 'inicio',
 	'introduce_tu' => 'introduce tu :que aquí',
 
