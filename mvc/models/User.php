@@ -26,9 +26,13 @@ class User extends Favoriteador {
 	/*
 	 * Tamaño por defecto para el header
 	 */
-	const IMG_HEADER_HEIGHT_DEFAULT = 270;
+	const IMG_HEADER_WIDTH = 1200;
 
-	const IMG_HEADER_WIDTH_DEFAULT = 1200;
+	const IMG_HEADER_HEIGHT = 270;
+
+	const IMG_HEADER_WIDTH_PEQUE = 540;// 540
+
+	const IMG_HEADER_HEIGHT_PEQUE = 250;// 250
 
 	/*
 	 * Claves de los metadatos
@@ -227,15 +231,6 @@ class User extends Favoriteador {
 	}
 
 	/**
-	 * Devuelve la url del avatar tipo pequeño
-	 *
-	 * @return string
-	 */
-	public function getHeaderPequena() {
-		return $this->_getImg(self::KEY_USER_IMG_HEADER, 540, 250);
-	}
-
-	/**
 	 * Devuelve un array con todos los tamaños que puede tener un avatar
 	 *
 	 * @return array<integer>
@@ -266,10 +261,16 @@ class User extends Favoriteador {
 	 * @return string
 	 */
 	public function getHeader() {
-		$keyUserImg = self::KEY_USER_IMG_HEADER;
-		$sizeW = self::IMG_HEADER_WIDTH_DEFAULT;
-		$sizeH = self::IMG_HEADER_HEIGHT_DEFAULT;
-		return $this->_getImg($keyUserImg, $sizeW, $sizeH);
+		return $this->_getImg(self::KEY_USER_IMG_HEADER, self::IMG_HEADER_WIDTH, self::IMG_HEADER_HEIGHT);
+	}
+
+	/**
+	 * Devuelve la url del avatar tipo pequeño
+	 *
+	 * @return string
+	 */
+	public function getHeaderPequena() {
+		return $this->_getImg(self::KEY_USER_IMG_HEADER, self::IMG_HEADER_WIDTH_PEQUE, self::IMG_HEADER_HEIGHT_PEQUE); // 540, 250);
 	}
 
 	/**
