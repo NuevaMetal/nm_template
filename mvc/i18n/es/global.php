@@ -24,6 +24,7 @@ return [
 	'band' => 'banda',
 	'banda' => 'banda',
 	'bandas' => 'bandas',
+	'bandas_y_etiquetas' => 'Bandas y etiquetas',
 	'banear' => 'banear',
 	'baneado' => 'baneado',
 	'baneados' => 'baneados',

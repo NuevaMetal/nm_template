@@ -196,11 +196,15 @@
 }
 
 #menu-footer {
+	margin-top: 6px;
 	footer {
 		.cita-random {
 			.autor {
 				color: #666;
 			}
+		}
+		.etiquetas {
+			margin-top: 4px;
 		}
 	}
 }

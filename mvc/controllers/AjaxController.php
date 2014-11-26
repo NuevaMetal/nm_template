@@ -406,6 +406,9 @@ class AjaxController extends BaseController {
 				$menuArgs['etiquetasContadas'] = Etiqueta::getEtiquetasContadas();
 			}
 		}
+		if ($tipoMenu == Ajax::MENU_FOOTER) {
+			$menuArgs['todasEtiquetasContadas'] = Etiqueta::getTodasEtiquetasContadas();
+		}
 		switch ($tipoMenu) {
 			case Ajax::MENU_PRINCIPAL :
 				$menu = $this->render('menu/principal', $menuArgs);
@@ -414,7 +417,7 @@ class AjaxController extends BaseController {
 				$menu = $this->render('menu/perfil', $menuArgs);
 				break;
 			case Ajax::MENU_FOOTER :
-				$menu = $this->render('menu/footer');
+				$menu = $this->render('menu/footer', $menuArgs);
 				break;
 			case Ajax::MENU_LATERAL :
 				$menu = $this->render('menu/lateral', $menuArgs);

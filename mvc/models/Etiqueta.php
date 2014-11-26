@@ -21,6 +21,8 @@ class Etiqueta {
 
 	const TRANSIENT_ETIQUETAS_CONTADAS = 'etiquetas-contadas';
 
+	const TRANSIENT_TODAS_ETIQUETAS_CONTADAS = 'todas-etiquetas-contadas';
+
 	/**
 	 * Devuelve una lista con todas las etiquetas
 	 *
@@ -45,9 +47,7 @@ class Etiqueta {
 	 */
 	public static function getEtiquetasContadas($limit = self::LIMIT_ETIQUETAS_CONTADAS) {
 		global $wpdb;
-		// Get any existing copy of our transient data
 		if (false === ($results = get_transient(self::TRANSIENT_ETIQUETAS_CONTADAS))) {
-			// It wasn't there, so regenerate the data and save the transient
 			$results = $wpdb->get_results($wpdb->prepare('
 				SELECT ta.term_taxonomy_id as taxonomy_id, name, slug, count(*) total
 				FROM wp_term_taxonomy ta
@@ -55,9 +55,33 @@ class Etiqueta {
 				JOIN wp_term_relationships re ON (re.term_taxonomy_id = ta.term_taxonomy_id)
 				WHERE taxonomy = "post_tag"
 				GROUP BY name, slug, taxonomy_id
-				ORDER BY total DESC
+				ORDER BY total DESC, name, slug
 				LIMIT %d', $limit));
 			set_transient(self::TRANSIENT_ETIQUETAS_CONTADAS, $results, 12 * HOUR_IN_SECONDS);
+		}
+		return $results;
+	}
+
+	/**
+	 * Devuelve la lista de todas las etiquetas contadas.
+	 * Guardaremos el resultado de la query en un transient por unas horas.
+	 *
+	 * @see http://codex.wordpress.org/Transients_API
+	 * @return array<Etiqueta> Listado de todas las etiquetas.
+	 */
+	public static function getTodasEtiquetasContadas() {
+		global $wpdb;
+		delete_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS);
+		if (false === ($results = get_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS))) {
+			$results = $wpdb->get_results('
+				SELECT ta.term_taxonomy_id as taxonomy_id, name, slug, count(*) total
+				FROM wp_term_taxonomy ta
+				JOIN wp_terms te ON (te.term_id = ta.term_id)
+				JOIN wp_term_relationships re ON (re.term_taxonomy_id = ta.term_taxonomy_id)
+				WHERE taxonomy = "post_tag"
+				GROUP BY name, slug, taxonomy_id
+				ORDER BY total DESC, name, slug');
+			set_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS, $results, 12 * HOUR_IN_SECONDS);
 		}
 		return $results;
 	}

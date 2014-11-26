@@ -95,7 +95,7 @@ return [
 	],
 	[
 		'cita' => 'Si no tratas de investigar la mente del hombre no eres un artista',
-		'autor' => 'Blackie Lawless, W.A.S.P.'
+		'autor' => 'Blackie Lawless, WASP'
 	],
 	[
 		'cita' => 'Hubo una etapa en mi vida que me estaba metiendo una tercera parte de la economía colombiana por mi nariz',
@@ -240,7 +240,7 @@ return [
 	],
 	[
 		'cita' => 'Me metí en el heavy metal para que me chuparan la polla. Ahora sigue siendo importante, pero también hay otras cosas',
-		'autor' => 'Blackie Lawless, W.A.S.P.'
+		'autor' => 'Blackie Lawless, WASP'
 	],
 	[
 		'cita' => 'Hace mucho tiempo creamos nuestra propia carretera para ir por ella. Y después de tantos años, todavía no hay nadie que pueda seguir por nuestro camino',

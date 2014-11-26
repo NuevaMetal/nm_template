@@ -206,3 +206,9 @@ $(document).on('click', '#menu-lateral .cerrar-menu-lateral', function(e) {
 	e.preventDefault();
 	ocultarMenuLateral(500);
 });
+
+$(document).on('change', '#menu-footer .etiquetas', function(e) {
+	e.preventDefault();
+	var valueSelected = this.value;
+	window.location.href = '/tag/'+valueSelected;
+});

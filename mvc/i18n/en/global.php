@@ -23,6 +23,7 @@ return [
 
 	'banda' => 'band',
 	'bandas' => 'bands',
+	'bandas_y_etiquetas' => 'Tags & Bands',
 	'banear' => 'ban',
 	'baneado' => 'ban',
 	'baneados' => 'banned users',
