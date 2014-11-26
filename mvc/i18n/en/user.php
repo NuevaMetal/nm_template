@@ -35,8 +35,10 @@ return [
 	'necesitas_ser_admin' => 'You must be admin',
 
 	'login_necesario' => 'for this you need be logged',
-	'login_necesario_para_favorito' => 'Sorry, you must <a href="/wp-login.php">logged in</a> to indicate that you like',
-	'login_necesario_para_comentar'=> 'Sorry, you must be <a href="/wp-login.php">logged in</a> to post a comment.',
+	'login_necesario_para_favorito' => '<span class="must-log-in">Sorry, you must <a href="/wp-login.php">logged in</a>
+		to indicate that you like</span>',
+	'login_necesario_para_comentar'=> '<span class="must-log-in">Sorry, you must be <a href="/wp-login.php">logged in</a>
+		to post a comment</span>',
 	'login_necesario_para_comentar_1'=> 'Sorry, you must be ',
 	'login_necesario_para_comentar_2'=> 'logged in',
 	'login_necesario_para_comentar_3'=> 'to post a comment',
