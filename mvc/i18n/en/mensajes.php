@@ -7,7 +7,8 @@ return [
 	'demasiado_corto' => 'Message too short',
 	'demasiado_grande' => 'Mensaje demasiado large',
 
-	'enviado_exito' => 'Message sent successfully for :nombre',
+	'enviado_exito_para' => 'Message sent successfully for :nombre',
+	'enviado_exito' => 'Message sent successfully',
 	'enviados' => 'Messages sent',
 
 	'no_existe' => 'This message don\'t exists',
@@ -17,6 +18,7 @@ return [
 	'movido_a_papelera' => 'Moved to trash',
 
 	'para' => 'to',
+	'placeholder' => 'write your message here',
 
 	'recibidos' => 'Inbox',
 	'respondido_exito' => 'Sent message answer successfully for :nombre',

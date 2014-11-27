@@ -7,11 +7,28 @@ return [
 		<b>E-mail:</b>: :user_email <br>',
 
 	'contacto' => '
-		<h1>Nuevo mensaje de contacto para el departamento <strong>:departamento </strong></h1>
-		<p>De: :email </p>
-		<p>Mensaje: :mensaje </p>
+	<div class="col-xs-12">
+		<h1>Nuevo mensaje de contacto para el departamento <strong> :departamento </strong></h1>
 
-		<small>Mensaje enviado desde la página de contacto de la web <a href=" :blogurl "> :blogname </a></small>',
+		<fieldset>
+    		<legend>De</legend>
+			<div><strong>Nombre:</strong> :nombre  </div>
+			<div><strong>Email:</strong> :email </div>
+			<div><strong>Web:</strong> :web </div>
+		</fieldset>
+
+		<fieldset>
+    		<legend>Para</legend>
+			<div><strong>Departamento:</strong> :departamento </div>
+		</fieldset>
+
+		<fieldset>
+    		<legend>Mensaje</legend>
+			<div> :mensaje </div>
+		</fieldset>
+
+		<small>Mensaje enviado desde la página de contacto de la web <a href=" :blogurl "> :blogname </a></small>
+	</div>',
 
 	'nuevo_comentario' => '
 		<h1>Nuevo comentario</h1>
@@ -53,6 +70,6 @@ return [
 		<b>Contraseña:</b> :user_pass <br><br>
 		<p>Aquí tienes la nueva contraseña. Recuerda cambiarla desde tu panel de control de usuario.<br>
 		Si tienes algún problema, por favor contáctame :admin_email <br>
-		¡Nos vemos!</p>',
-
-];
+		¡Nos vemos!</p>'
+]
+;

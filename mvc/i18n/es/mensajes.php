@@ -7,7 +7,8 @@ return [
 	'demasiado_corto' => 'Mensaje demasiado corto',
 	'demasiado_grande' => 'Mensaje demasiado grande',
 
-	'enviado_exito' => 'Mensaje enviado con éxito para :nombre',
+	'enviado_exito_para' => 'Mensaje enviado con éxito para :nombre',
+	'enviado_exito' => 'Mensaje enviado con éxito',
 	'enviados' => 'Mensajes enviados',
 
 	'no_existe' => 'El mensaje no existe',
@@ -17,6 +18,7 @@ return [
 	'movido_a_papelera' => 'Movido a la papelera',
 
 	'para' => 'para',
+	'placeholder' => 'escribe aquí tu mensaje',
 
 	'recibidos' => 'Mensajes recibidos',
 	'respondido_exito' => 'Mensaje respondido con éxito para :nombre',

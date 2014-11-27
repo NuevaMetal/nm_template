@@ -64,6 +64,8 @@ class PageController extends BaseController {
 
 				$departamento = $_POST['departamento'];
 				$email = $_POST['email'];
+				$nombre = $_POST['nombre'];
+				$web = $_POST['web'];
 				$mensaje = $_POST['mensaje'];
 
 				$emailsDepartamentos = [
@@ -80,6 +82,8 @@ class PageController extends BaseController {
 							$emailsDepartamentos[] = $user->getEmail();
 							break;
 						case 'general' :
+							$user = User::findAllBy('user_login', 'JesusVa', true);
+							$emailsDepartamentos[] = $user->getEmail();
 							break;
 					}
 				}
@@ -90,9 +94,12 @@ class PageController extends BaseController {
 					'blogurl' => home_url(),
 					'departamento' => ucfirst($departamento),
 					'email' => $email,
-					'mensaje' => $mensaje
+					'mensaje' => $mensaje,
+					'nombre' => $nombre,
+					'web' => $web
 				]);
-				$enviado = Correo::enviarCorreoGenerico(array_unique($emailsDepartamentos), 'Mensaje de contacto [' . $blogname . ']', $plantillaContacto);
+				$asunto = 'Mensaje de contacto [' . $blogname . ']';
+				$enviado = Correo::enviarCorreoGenerico(array_unique($emailsDepartamentos), $asunto, $plantillaContacto);
 			} else if (! $verify_captcha) {
 				$errores[] = 'Captcha incorrecto';
 			}
@@ -109,7 +116,8 @@ class PageController extends BaseController {
 			'mostrarFormulario' => $mostrarFormulario,
 			'nonce' => $nonce,
 			'captcha' => $captcha,
-			'errores' => $errores
+			'errores' => $errores,
+			'nombreDepartamento' => $departamento
 		]);
 	}
 	/**

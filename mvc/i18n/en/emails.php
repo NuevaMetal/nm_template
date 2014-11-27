@@ -7,12 +7,28 @@ return [
 		<b>E-mail</b>: :user_email <br>',
 
 	'contacto' => '
-		<h1>Nuevo mensaje de contacto para el departamento: <strong>:departamento </strong></h1>
-		<p>De: :email </p>
-		<p>Mensaje: :mensaje </p>
+	<div class="col-xs-12">
+		<h1>New message to contact for depart: <strong> :departamento </strong></h1>
 
-		<small>Mensaje enviado desde la página de contacto de la web <a href=" :blogurl "> :blogname </a></small>',
+		<fieldset>
+    		<legend>From</legend>
+			<div><strong>name:</strong> :nombre  </div>
+			<div><strong>Email:</strong> :email </div>
+			<div><strong>Web:</strong> :web </div>
+		</fieldset>
 
+		<fieldset>
+    		<legend>To</legend>
+			<div><strong>Depart:</strong> :departamento </div>
+		</fieldset>
+
+		<fieldset>
+    		<legend>Message</legend>
+			<div> :mensaje </div>
+		</fieldset>
+
+		<small>Message sent by contact page from <a href=" :blogurl "> :blogname </a></small>
+	</div>',
 	'nuevo_comentario' => '
 		<h1>New comment</h1>
 		ID => :ID <br>

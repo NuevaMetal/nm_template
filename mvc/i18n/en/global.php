@@ -45,6 +45,7 @@ return [
 	'corregida' => 'corrected',
 	'corregidas' => 'corrected',
 	'contacto' => 'contact',
+	'contenido' => 'content',
 	'contrasena' => 'password',
 	'contrasena_perdida' => 'Do you lost your password?',
 	'contributor' => 'contributor',
@@ -59,6 +60,9 @@ return [
 	'definicion' => 'definition',
 	'deja_un_comentario' => 'Leave a Reply',
 	'dejar_de_seguir' => 'unfollow',
+	'departamento' => 'depart',
+	'desarrollo' => 'development',
+	'desarrollo_web' => 'web development',
 	'descripcion' => 'description',
 	'discografica' => 'record label',
 	'diseñador' => 'designer',
@@ -84,6 +88,7 @@ return [
 	'favoritos' => 'favorites',
 	'fecha' => 'date',
 
+	'general' => 'general',
 	'genero' => 'genre',
 
 	'hola' => 'hello',
@@ -92,6 +97,7 @@ return [
 	'iniciar_sesion' => 'login',
 	'inicio' => 'home',
 	'introduce_tu' => 'Enter your :que here',
+	'introduce_el_catpcha' => 'Write the captcha',
 
 	'leer_mas' => 'show more',
 	'leer_mas_movil' => 'more',
@@ -128,6 +134,7 @@ return [
 	'programador' => 'developer',
 	'programadores' => 'developers',
 	'publicar_comentario' => 'add comment',
+	'publicidad' => 'advertising',
 	'punto' => 'point',
 	'puntos' => 'points',
 

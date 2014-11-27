@@ -3,10 +3,7 @@
 	<div id="contacto" class="pagina">
 		<div class="col-xs-12">
 			<div class="col-xs-12">
-				<h1 class="titular">Contacto</h1>
-				
-				<p>Para cualquier necesidad de contacto siempre podréis escribirnos a 
-					través de nuestro correo nuevametal[@]outlook.com</p>
+				<h1 class="titular">{{#transu}}contacto{{/transu}}</h1>
 				<ul class="errores">
 				{{# errores }}
 					<li class="error">{{.}}</li>
@@ -15,46 +12,85 @@
 				{{# mostrarFormulario }}
 					<form class="form-horizontal" role="form" method="post">
 						<input type="hidden" name="nonce" value="{{nonce}}">
-						<div class="form-group">
-							<label for="email" class="col-md-2 control-label">Email</label>
-							<div class="col-md-10">
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email" 
-								{{#current_user}}value="{{getEmail}}"{{/current_user}}>
+						
+						<fieldset>
+    						<legend>{{#transu}}mensajes.de{{/transu}}</legend>
+							<div class="form-group">
+								<label for="nombre" class="col-md-2 control-label">
+									 {{#transu}}nombre{{/transu}}*
+								</label>
+								<div class="col-md-10">
+									<input type="text" class="form-control" id="nombre" name="nombre" placeholder="{{#transu}}nombre{{/transu}}" 
+									{{#current_user}}value="{{getNombreCompleto}}"{{/current_user}} required>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="departamento" class="col-md-2 control-label">Departamento</label>
-							<div class="col-md-10">
-								<select class="form-control" id="departamento" name="departamento">
-									<option value="general">General</option>
-									<option value="publicidad">Publicidad</option>
-									<option value="desarrollo">Desarrollo web</option>
-								</select>
+							<div class="form-group">
+								<label for="email" class="col-md-2 control-label">
+									 {{#transu}}email{{/transu}}*
+								</label>
+								<div class="col-md-10">
+									<input type="email" class="form-control" id="email" name="email" placeholder="{{#transu}}email{{/transu}}" 
+									{{#current_user}}value="{{getEmail}}"{{/current_user}} required>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="mensaje" class="col-md-2 control-label">Mensaje</label>
-							<div class="col-md-10">
-					 			<textarea class="form-control" id="mensaje" name="mensaje" rows="3"></textarea>
-					 		</div>
-						</div>
-						<div class="form-group">
-							<label for="captcha" class="col-md-2 control-label">Introduce el captcha</label>
-							<div class="col-md-10">
-								<div>{{captcha}}</div>
-					 			<input type="text" class="form-control" id="captcha" name="captcha" placeholder="***********">
-					 		</div>
-						</div>
+							<div class="form-group">
+								<label for="web" class="col-md-2 control-label">
+									 {{#transu}}web{{/transu}}
+								</label>
+								<div class="col-md-10">
+									<input type="text" class="form-control" id="web" name="web" placeholder="{{#transu}}web{{/transu}}" 
+									{{#current_user}}value="{{getUrl}}"{{/current_user}} required>
+								</div>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+    						<legend>{{#transu}}mensajes.para{{/transu}}</legend>
+							<div class="form-group">
+								<label for="departamento" class="col-md-2 control-label">
+									{{#transu}}departamento{{/transu}}
+								</label>
+								<div class="col-md-10">
+									<select class="form-control" id="departamento" name="departamento">
+										<option value="general">{{#transu}}general{{/transu}}</option>
+										<option value="publicidad">{{#transu}}publicidad{{/transu}}</option>
+										<option value="desarrollo">{{#transu}}desarrollo_web{{/transu}}</option>
+									</select>
+								</div>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+    						<legend>{{#transu}}mensaje{{/transu}} </legend>
+							<div class="form-group">
+								<label for="mensaje" class="col-md-2 control-label">
+									{{#transu}}mensaje{{/transu}}*
+								</label>
+								<div class="col-md-10">
+						 			<textarea class="form-control" id="mensaje" name="mensaje" rows="3"
+						 					 placeholder="{{#transu}}mensajes.placeholder{{/transu}}" required></textarea>
+						 		</div>
+							</div>
+							<div class="form-group">
+								<label for="captcha" class="col-md-2 control-label">Catpcha*</label>
+								<div class="col-md-10">
+									<div><i class="fa fa-quote-left"></i> {{captcha}} <i class="fa fa-quote-right"></i></div>
+						 			<input type="text" class="form-control" id="captcha" name="captcha" 
+						 					placeholder="{{#transu}}introduce_el_catpcha{{/transu}}" required>
+						 		</div>
+							</div>
+						</fieldset>
+						
 						<div class="form-group">
 							<div class="col-md-offset-2 col-md-10">
-					    		<button type="submit" class="btn btn-default">Enviar mensaje</button>
+					    		<button type="submit" class="btn btn-default">{{#transu}}enviar{{/transu}}</button>
 					 		</div>
 						</div>
+						
 					</form>
 				{{/ mostrarFormulario }}
 				{{^ mostrarFormulario }}
-					<p>Mensaje enviado con éxito. En breves recibirás respuesta al email indicado. 
-						Un saludo y gracias por confiar en NuevaMetal.</p>
+					<p>{{#transu}}mensajes.enviado_exito{{/transu}}</p>
 				{{/ mostrarFormulario }}
 			</div>
 		</div>	

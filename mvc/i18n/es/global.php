@@ -46,6 +46,7 @@ return [
 	'corregida' => 'corregida',
 	'corregidas' => 'corregidas',
 	'contacto' => 'contacto',
+	'contenido' => 'contenido',
 	'contrasena' => 'contraseña',
 	'contrasena_perdida' => '¿Has perdido tu contraseña?',
 	'contributor' => 'colaborador',
@@ -60,6 +61,9 @@ return [
 	'definicion' => 'definición',
 	'deja_un_comentario' => 'Deja un comentario',
 	'dejar_de_seguir' => 'dejar de seguir',
+	'departamento' => 'departamento',
+	'desarrollo' => 'desarrollo',
+	'desarrollo_web' => 'desarrollo web',
 	'descripcion' => 'descripción',
 	'discografica' => 'discográfica',
 	'diseñador' => 'diseñador',
@@ -79,6 +83,7 @@ return [
 	'iniciar_sesion' => 'iniciar sesión',
 	'inicio' => 'inicio',
 	'introduce_tu' => 'introduce tu :que aquí',
+	'introduce_el_catpcha' => 'Introduce el captcha',
 
 	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',
@@ -94,6 +99,7 @@ return [
 	'escribir' => 'escribir',
 	'escribir_title' => 'Escribir nueva entrada',
 
+	'general' => 'general',
 	'genero' => 'género',
 
 	'leer_mas' => 'leer más',
@@ -132,6 +138,7 @@ return [
 	'programador' => 'programador',
 	'programadores' => 'programadores',
 	'publicar_comentario' => 'publicar comentario',
+	'publicidad' => 'publicidad',
 	'punto' => 'punto',
 	'puntos' => 'puntos',
 
