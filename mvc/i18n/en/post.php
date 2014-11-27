@@ -10,7 +10,9 @@ return [
 	'bateria' => 'Drums',
 	'batería' => 'Drums',
 
-	'estado' => 'Status',
+	'entradas_pendientes' => 'pending posts',
+	'entradas_revisiones' => 'post in review',
+	'estado' => 'status',
 
 	'género' => 'Genre',
 	'guitarra' => 'Guitar',

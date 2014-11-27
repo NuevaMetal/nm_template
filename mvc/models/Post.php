@@ -55,6 +55,10 @@ class Post extends Image {
 
 	const ENTRADAS_RELACIONADAS = 'entradas-relacionadas';
 
+	const ESTADO_PUBLICADA = "publish";
+
+	const ESTADO_PENDIENTE = "pending";
+
 	const TRANSIENT_POSTS_CON_MAS_FAVORITOS = 'posts-con-mas-favoritos';
 
 	/**
@@ -190,7 +194,7 @@ class Post extends Image {
 	 *
 	 * @return string
 	 */
-	public function getUltimaFechaEdicion() {
+	public function getFechaModificacion() {
 		global $wpdb;
 		return $wpdb->get_var($wpdb->prepare('SELECT post_modified FROM wp_posts WHERE ID = %d', $this->ID));
 	}
@@ -754,6 +758,24 @@ class Post extends Image {
 				$posts[] = Post::find($r->post_id);
 			}
 			set_transient(self::TRANSIENT_POSTS_CON_MAS_FAVORITOS, $posts, 6 * HOUR_IN_SECONDS);
+		}
+		return $posts;
+	}
+
+	/**
+	 * Devuelve una lista con las entradas con estado pendiente (pending)
+	 *
+	 * @return array<Post>
+	 */
+	public static function getPendientes() {
+		global $wpdb;
+		$posts_ids = $wpdb->get_col($wpdb->prepare('
+				SELECT ID FROM wp_posts WHERE post_status = %s', self::ESTADO_PENDIENTE));
+		$posts = [];
+		foreach ($posts_ids as $k => $post_id) {
+			$p = Post::find($post_id);
+			$p->num = $k + 1;
+			$posts[] = $p;
 		}
 		return $posts;
 	}

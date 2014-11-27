@@ -285,28 +285,44 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 */
+	public function getPostsPendientes() {
+		if (! $this->current_user || ! $this->current_user->canEditor()) {
+			return $this->getError(404);
+		}
+		$postsPendientes = Post::getPendientes();
+		return $this->renderPage('pages/pendientes_aceptar', [
+			'total_entradas_pendientes' => count($postsPendientes),
+			'entradas_pendientes' => $postsPendientes
+		]);
+	}
+
+	/**
 	 * page-revisions.php
 	 */
 	public function getRevisiones() {
+		if (! $this->current_user || ! $this->current_user->canEditor()) {
+			return $this->getError(404);
+		}
 		$listaPendientes = Revision::getPendientes();
 		$listaRevisadas = Revision::getCorregidas();
 		$listaBaneos = UserBaneado::getBaneados();
 
 		return $this->renderPage('pages/revisiones', [
-			'total_pendientes' => Revision::getTotalPendientes(),
-			'total_corregidas' => Revision::getTotalCorregidas(),
-			'total_baneados' => UserBaneado::getTotalBaneados(),
+			'total_pendientes' => count($listaPendientes),
+			'total_corregidas' => count($listaRevisadas),
+			'total_baneados' => count($listaBaneos),
+
 			'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
 			'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
 			'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
 			'USER_BANEADO' => UserBaneado::BANEADO,
 			'USER_DESBANEADO' => UserBaneado::DESBANEADO,
+
 			'pendientes' => [
-				'sEstado' => 'Pendientes',
 				'lista' => $listaPendientes
 			],
 			'corregidas' => [
-				'sEstado' => 'Corregidas',
 				'lista' => $listaRevisadas
 			],
 			'baneados' => [

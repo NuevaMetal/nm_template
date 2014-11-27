@@ -8,7 +8,9 @@ return [
 
 	'drums' => 'Batería',
 
-	'estado' => 'Estado',
+	'entradas_pendientes' => 'entradas pendientes',
+	'entradas_revisiones' => 'entradas en revisión',
+	'estado' => 'estado',
 
 	'guitar' => 'Guitarra',
 

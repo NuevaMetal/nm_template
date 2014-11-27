@@ -1,0 +1,57 @@
+{{< base }}
+
+	{{$ content }}
+		<div id="pendientes-aceptar" class="pagina padre col-xs-12">
+			<h1 class="titular">
+				{{#transu}}post.entradas_pendientes{{/transu}}
+				<small>
+					{{#total_entradas_pendientes}}
+						(<span class="cant">{{total_entradas_pendientes}}</span>)
+					{{/total_entradas_pendientes}}
+				</small>
+			</h1>
+			<table class=" table table-condensed table-responsive table-striped">
+				<thead>
+					<tr>
+						<th class="col-xs-1">Nº</th>
+						<th class="col-xs-3">{{#transu}}entrada{{/transu}}</th>
+						<th class="col-xs-3">{{#transu}}fecha{{/transu}}</th>
+						<th class="col-xs-4">{{#transu}}usuario{{/transu}}</th>
+						<th class="col-xs-1">{{#transu}}acciones{{/transu}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{{# entradas_pendientes }}
+					<tr>
+				  		<td>{{ num }}</td>
+						<td>
+							<a href="{{ getPost.getUrl }}" target="_blank">{{{ getTitulo }}}</a><br>
+							<span class="post-thumbnail ">
+								<a href="{{getUrl}}">
+									{{#getThumbnail}}
+										<img src="{{.}}" alt="{{getPost.getTitulo}} thumbnail" style="height:auto; width: 100px;"/>
+									{{/getThumbnail}}
+									{{^getThumbnail}}
+										<img class="sin-thumbnail" alt="{{getTitulo}} thumbnail"/>
+									{{/getThumbnail}}
+								</a>
+							</span>
+						</td>
+						<td><i class="fa fa-clock-o"></i> {{ getFechaModificacion }}</td>
+						<td>
+							{{# getAutor }}
+								{{> partials/_user_avatar_ico_alias }}
+							{{/ getAutor }}
+						</td>
+						<td>
+							<a href="{{{getUrlEditar}}}" class="btn btn-default" target="_blank">{{#transu}}editar{{/transu}}</a>
+						</td>
+					</tr>
+			   	{{/ entradas_pendientes }}
+			   	</tbody>
+			</table>
+							
+		</div>
+	{{/ content }}
+	
+{{/ base }}

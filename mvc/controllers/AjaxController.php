@@ -400,6 +400,7 @@ class AjaxController extends BaseController {
 					$menuArgs['total_revisiones'] = Revision::getTotalPendientes();
 					$menuArgs['total_bloqueados'] = UserBloqueado::getTotalBloqueados();
 					$menuArgs['total_pendientes'] = UserPendiente::getTotalPendientes();
+					$menuArgs['total_entradas_pendientes'] = count(Post::getPendientes());
 				}
 			}
 			if ($tipoMenu == Ajax::MENU_LATERAL) {

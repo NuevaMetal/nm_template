@@ -80,13 +80,18 @@
 				{{# canEditor }}
 					<a class="list-group-item col-xs-12  {{#total_revisiones}}nuevas{{/total_revisiones}}" href="/revisions"
 							data-toggle="tooltip" data-placement="right" 
-							title="{{total_revisiones | formatear_numero}} {{#transu}}pendientes{{/transu}}">
+							title="{{total_revisiones | formatear_numero}} {{#transu}}post.entradas_revisiones{{/transu}}">
 						<i class="fa fa-clipboard "></i> {{#transu}}revisiones{{/transu}}
+					</a>
+					<a class="list-group-item col-xs-12  {{#total_entradas_pendientes}}nuevas{{/total_entradas_pendientes}}" href="/pending-posts"
+							data-toggle="tooltip" data-placement="right" 
+							title="{{total_entradas_pendientes | formatear_numero}} {{#transu}}post.entradas_pendientes{{/transu}}">
+						<i class="fa fa-clipboard "></i> {{#transu}}post.entradas_pendientes{{/transu}}
 					</a>
 					<a class="list-group-item col-xs-12  {{#total_pendientes}}nuevas{{/total_pendientes}}" href="/pending-users"
 							data-toggle="tooltip" data-placement="right" 
 							title="{{total_pendientes | formatear_numero}} {{#transu}}user.usuarios_pendientes{{/transu}}">
-						<i class="fa fa-users "></i> {{#transu}}pendientes{{/transu}}
+						<i class="fa fa-users "></i> {{#transu}}user.usuarios_pendientes{{/transu}}
 					</a>
 					<a class="list-group-item col-xs-12 " href="/blocked-users" 
 							data-toggle="tooltip" data-placement="right"
