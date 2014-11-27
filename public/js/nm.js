@@ -5,9 +5,14 @@
  * Documento listo para JQuery
  */
 $(document).ready(function() {
+	// Si estamos en la home cargar las secciones
+	if ($("#home").length > 0){
+		cargarCarousel();
+		cargarSecciones();
+	}
+	
 	// Cargar los menus
 	cargarMenus();
-	cargarCarousel();
 	
 	// Activar todos los tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
@@ -47,9 +52,7 @@ $(window).on("resize", function() {
  * Cuando todos los elementos básicos estén cargados (ej:imágenes)
  */
 $(window).load(function(){
-	if ($("#home").length > 0){
-		cargarSecciones();
-	}
+	
 });
 
 var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
@@ -59,7 +62,6 @@ var ALTURA_MINIMA_PARA_MOSTRAR_MAS = 2000;
  * Constantes de la anchura
  */
 var COL = { SM : 768, MD : 992, LG : 1200, XL : 1600 };
-
 
 /**
  * Devuelve verdadero si el tamaño de la ventana se corresponde con el
