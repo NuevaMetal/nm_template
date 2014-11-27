@@ -11,6 +11,7 @@ use Models\UserBloqueado;
 use Models\UserPendiente;
 use Models\UserBaneado;
 use Models\Analitica;
+use Libs\Correo;
 
 /**
  * Controlador principal de la web
@@ -44,7 +45,72 @@ class PageController extends BaseController {
 	 * Paǵina de contacto
 	 */
 	public function getContacto() {
-		return $this->renderPage('pages/contacto');
+		session_start();
+
+		$CLAVE_NONCE = 'clave_nonce_contacto';
+		$CLAVE_CAPTCHA = 'clave_captcha_contacto';
+		$mostrarFormulario = true;
+		$errores = [];
+
+		$nonce = $_POST['nonce'];
+		$captcha = $_POST['captcha'];
+
+		if ($nonce) {
+			// Verificamos si hay nonce
+			$verify_captcha = $captcha && wp_verify_nonce($captcha, $_SESSION[$CLAVE_CAPTCHA]);
+			if (wp_verify_nonce($nonce, $_SESSION[$CLAVE_NONCE]) && $verify_captcha) {
+
+				$mostrarFormulario = false;
+
+				$departamento = $_POST['departamento'];
+				$email = $_POST['email'];
+				$mensaje = $_POST['mensaje'];
+
+				$emailsDepartamentos = [
+					get_option('admin_email')
+				];
+				if ($departamento) {
+					switch ($departamento) {
+						case 'publicidad' :
+							$user = User::findAllBy('user_login', 'Juan Valera', true);
+							$emailsDepartamentos[] = $user->getEmail();
+							break;
+						case 'desarrollo' :
+							$user = User::findAllBy('user_login', 'Chemaclass', true);
+							$emailsDepartamentos[] = $user->getEmail();
+							break;
+						case 'general' :
+							break;
+					}
+				}
+
+				$blogname = get_option('blogname');
+				$plantillaContacto = I18n::trans('emails.contacto', [
+					'blogname' => $blogname,
+					'blogurl' => home_url(),
+					'departamento' => ucfirst($departamento),
+					'email' => $email,
+					'mensaje' => $mensaje
+				]);
+				$enviado = Correo::enviarCorreoGenerico(array_unique($emailsDepartamentos), 'Mensaje de contacto [' . $blogname . ']', $plantillaContacto);
+			} else if (! $verify_captcha) {
+				$errores[] = 'Captcha incorrecto';
+			}
+		}
+		/*
+		 * Creamos un nuevo nonce y un nuevo captcha en cada petición.
+		 */
+		$_SESSION[$CLAVE_NONCE] = 'nonce-contacto' . time();
+		$nonce = wp_create_nonce($_SESSION[$CLAVE_NONCE]);
+		$_SESSION[$CLAVE_CAPTCHA] = 'captcha-contacto' . time();
+		$captcha = wp_create_nonce($_SESSION[$CLAVE_CAPTCHA]);
+
+		return $this->renderPage('pages/contacto', [
+			'mostrarFormulario' => $mostrarFormulario,
+			'nonce' => $nonce,
+			'captcha' => $captcha,
+			'errores' => $errores
+		]);
 	}
 	/**
 	 * category.php

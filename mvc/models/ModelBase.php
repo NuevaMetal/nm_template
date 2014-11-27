@@ -90,21 +90,38 @@ abstract class ModelBase {
 	 *
 	 * @param string $columna
 	 * @param string $valor
+	 * @param boolean $single
+	 *        	Por defecto false. True si es sólo 1.
 	 * @return array<object>
 	 */
-	public static function findAllBy($columna, $valor) {
+	public static function findAllBy($columna, $valor, $single = false) {
 		global $wpdb;
 		$objects = [];
 		$modelo = get_called_class();
-		$query = 'SELECT * FROM wp_' . static::$table . ' WHERE ' . $columna . '= %d';
+		$query = 'SELECT * FROM wp_' . static::$table . ' WHERE ' . $columna . '= %s';
 		$resultsQuery = $wpdb->get_results($wpdb->prepare($query, $valor));
-		foreach ($resultsQuery as $_object) {
+
+		/*
+		 * Declaro una función que será la que montará el obj en cuestión.
+		 */
+		$montarObj = function ($_object) use($modelo) {
 			$object = new $modelo();
 			foreach ($_object as $column => $val) {
 				$object->$column = $val;
 			}
-			$objects[] = $object;
+			return $object;
+		};
+
+		if ($single) {
+			foreach ($resultsQuery as $_object) {
+				return $montarObj($_object);
+			}
 		}
+
+		foreach ($resultsQuery as $_object) {
+			$objects[] = $montarObj($_object);
+		}
+
 		return $objects;
 	}
 

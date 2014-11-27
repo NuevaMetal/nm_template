@@ -6,6 +6,13 @@ return [
 		<b>Pass temp: </b>: :user_pass <br>
 		<b>E-mail</b>: :user_email <br>',
 
+	'contacto' => '
+		<h1>Nuevo mensaje de contacto para el departamento: <strong>:departamento </strong></h1>
+		<p>De: :email </p>
+		<p>Mensaje: :mensaje </p>
+
+		<small>Mensaje enviado desde la página de contacto de la web <a href=" :blogurl "> :blogname </a></small>',
+
 	'nuevo_comentario' => '
 		<h1>New comment</h1>
 		ID => :ID <br>
