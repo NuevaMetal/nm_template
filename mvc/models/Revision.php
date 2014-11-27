@@ -78,8 +78,9 @@ class Revision extends ModelBase {
 		global $wpdb;
 		$sql = 'SELECT DISTINCT r.post_id, r.status, count( * ) total, max(updated_at) updated_at
 				FROM wp_revisiones r
-				JOIN wp_posts p ON ( r.post_id = p.ID )
-				WHERE STATUS = %d
+				RIGHT JOIN wp_posts p ON ( r.post_id = p.ID )
+				WHERE r.status = %d
+				AND p.post_status = "publish"
 				GROUP BY r.post_id, r.status
 				ORDER BY updated_at';
 		$results = $wpdb->get_results($wpdb->prepare($sql, $estado));
