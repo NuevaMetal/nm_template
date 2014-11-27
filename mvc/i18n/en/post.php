@@ -29,6 +29,8 @@ return [
 	'redes sociales' => 'Social netwoks',
 	'redes' => 'Social netwoks',
 
+	'sin_entradas_pendientes' => 'We don\'t have any pending post yet',
+
 	'te_gusta' => 'you like',
 	'te_gusta?' => 'Do you like it?',
 	'te_dejo_de_gustar' => 'you don\'t like',

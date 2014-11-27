@@ -23,6 +23,7 @@ return [
 
 	'members' => 'Miembros',
 
+	'sin_entradas_pendientes' => 'Sin entradas pendientes todavía',
 	'social netwoks' => 'Redes sociales',
 
 	'te_gusta' => 'te gusta',
