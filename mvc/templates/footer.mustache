@@ -16,6 +16,12 @@
 	<a href="#" class="back-to-top titular"><i class="fa fa-angle-double-up"></i> 
 		{{#transu}}volver_arriba{{/transu}} 
 	</a>
+
+	<script async src="{{template_url}}/public/third/jquery/jquery.min.js"></script>
+	<script async src="{{template_url}}/public/third/bootstrap/js/bootstrap.min.js"></script>
+	<script async src="{{template_url}}/public/js/happycookies.js"></script>
+	<script async src="{{template_url}}/public/js/nm.js"></script>
+	<script async src="{{template_url}}/public/js/animaciones.js"></script>
 	
 	{{# is_produccion }}
 	<script>
@@ -26,7 +32,6 @@
 	  ga('create', 'UA-54522688-1', 'auto');
 	  ga('send', 'pageview');
 	</script>
-	{{/ is_produccion }}	
-
+	{{/ is_produccion }}
    </body>
 </html>
