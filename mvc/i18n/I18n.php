@@ -35,7 +35,11 @@ class I18n {
 	 *
 	 * @return string|boolean Idioma actual del usuario
 	 */
-	public static function getLangByCurrentUser() {
+	public static function getLangByCurrentUser($idiomaForzado = false) {
+		// Si se fuerza un idioma, no hay otra posibilidad.
+		if ($idiomaForzado && in_array($idiomaForzado, self::getTodosIdiomasDisponibles())) {
+			return $idiomaForzado;
+		}
 		session_start();
 		// Si se estableció un idioma para la sesión
 		if ($_SESSION[self::IDIOMA_SESION]) {
@@ -46,7 +50,7 @@ class I18n {
 		if ($currentUser && ($idioma = $currentUser->getIdioma())) {
 			return $idioma;
 		}
-		return false;
+		return Utils::getLang();
 	}
 
 	/**
@@ -57,17 +61,12 @@ class I18n {
 	 * @return string valor del idioma al que le corresponde dicha clave
 	 */
 	public static function trans($traducir, $params = [], $idiomaForzado = false) {
-		if (! $idiomaForzado) {
-			$idiomaForzado = self::getLangByCurrentUser();
-		}
 		$traducir = strtolower($traducir);
 		// Utils::debug("trad: $traducir");
 		static::_getParams($traducir, $params);
-		if ($idiomaForzado && in_array($idiomaForzado, self::getTodosIdiomasDisponibles())) {
-			$dir = $idiomaForzado;
-		} else {
-			$dir = Utils::getLang();
-		}
+
+		$dir = self::getLangByCurrentUser($idiomaForzado);
+
 		list($file, $key) = explode('.', $traducir);
 		// Si no le pasamos fichero a traducir, cogerá del fichero global
 		if (is_null($key)) {
