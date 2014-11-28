@@ -28,7 +28,7 @@ abstract class BaseController {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->minimizarCodigo = Env::isProduccion();
+		$this->minimizarCodigo = false; //Env::isProduccion();
 		$this->current_user = Utils::getCurrentUser();
 
 		$templatesFolder = self::getTemplatesFolderLocation();
