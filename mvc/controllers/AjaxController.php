@@ -779,7 +779,9 @@ class AjaxController extends BaseController {
 	 */
 	private function _jsonAnalitica($_datos) {
 		if (! $this->current_user || ! $this->current_user->isAdmin()) {
-			return $this->err_sin_permisos;
+			return [
+				'content' => $this->err_sin_permisos
+			];
 		}
 		$tabla = $_datos['tabla'];
 		$cant = $_datos['cant'];

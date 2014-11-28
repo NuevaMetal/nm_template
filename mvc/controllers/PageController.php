@@ -3,15 +3,15 @@
 namespace Controllers;
 
 use I18n\I18n;
+use Libs\Correo;
 use Libs\Utils;
+use Models\Analitica;
 use Models\Post;
 use Models\Revision;
 use Models\User;
+use Models\UserBaneado;
 use Models\UserBloqueado;
 use Models\UserPendiente;
-use Models\UserBaneado;
-use Models\Analitica;
-use Libs\Correo;
 
 /**
  * Controlador principal de la web
@@ -19,6 +19,21 @@ use Libs\Correo;
  * @author chemaclass
  */
 class PageController extends BaseController {
+
+	/*
+	 * Miembros
+	 */
+	protected $permisoEditor = false;
+	protected $permisoAdmin = false;
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->permisoEditor = $this->current_user && $this->current_user->canEditor();
+		$this->permisoAdmin = $this->permisoEditor && $this->current_user->canAdmin();
+	}
 
 	/**
 	 * Paǵina de sitios de interés
@@ -32,6 +47,9 @@ class PageController extends BaseController {
 	 * page-analytics.php
 	 */
 	public function getAnalitica() {
+		if (! $this->permisoEditor) {
+			return $this->getError(404);
+		}
 		$logueados_hoy = Analitica::getUsersLogueados(50);
 		$logueados_ayer = Analitica::getUsersLogueados(50, 'date(now())-1');
 
@@ -185,6 +203,54 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 * pending-posts.php
+	 */
+	public function getPostsPendientes() {
+		if (! $this->permisoEditor) {
+			return $this->getError(404);
+		}
+		$postsPendientes = Post::getPendientes();
+		return $this->renderPage('pages/pendientes_aceptar', [
+			'total_entradas_pendientes' => count($postsPendientes),
+			'entradas_pendientes' => $postsPendientes
+		]);
+	}
+
+	/**
+	 * page-revisions.php
+	 */
+	public function getRevisiones() {
+		if (! $this->permisoEditor) {
+			return $this->getError(404);
+		}
+		$listaPendientes = Revision::getPendientes();
+		$listaRevisadas = Revision::getCorregidas();
+		$listaBaneos = UserBaneado::getBaneados();
+
+		return $this->renderPage('pages/revisiones', [
+			'total_pendientes' => count($listaPendientes),
+			'total_corregidas' => count($listaRevisadas),
+			'total_baneados' => count($listaBaneos),
+
+			'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
+			'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
+			'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
+			'USER_BANEADO' => UserBaneado::BANEADO,
+			'USER_DESBANEADO' => UserBaneado::DESBANEADO,
+
+			'pendientes' => [
+				'lista' => $listaPendientes
+			],
+			'corregidas' => [
+				'lista' => $listaRevisadas
+			],
+			'baneados' => [
+				'lista' => $listaBaneos
+			]
+		]);
+	}
+
+	/**
 	 * search.php
 	 */
 	public function getSearch() {
@@ -240,20 +306,12 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * Paǵina de tutorial
-	 */
-	public function getTutorial() {
-		return $this->renderPage('pages/tutorial');
-	}
-
-	/**
 	 * page-blocked-users.php
 	 */
 	public function getUsuariosBloqueados() {
-		if (! $this->current_user || ! $this->current_user->canEditor()) {
+		if (! $this->permisoEditor) {
 			return $this->getError(404);
 		}
-
 		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
 		$totalBloqueados = UserBloqueado::getTotalBloqueados();
 
@@ -268,7 +326,7 @@ class PageController extends BaseController {
 	 * page-pending-users.php
 	 */
 	public function getUsuariosPendientes() {
-		if (! $this->current_user || ! $this->current_user->canEditor()) {
+		if (! $this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$listaPendientes = UserPendiente::getByStatus(UserPendiente::PENDIENTE);
@@ -285,49 +343,9 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 * Paǵina de tutorial
 	 */
-	public function getPostsPendientes() {
-		if (! $this->current_user || ! $this->current_user->canEditor()) {
-			return $this->getError(404);
-		}
-		$postsPendientes = Post::getPendientes();
-		return $this->renderPage('pages/pendientes_aceptar', [
-			'total_entradas_pendientes' => count($postsPendientes),
-			'entradas_pendientes' => $postsPendientes
-		]);
-	}
-
-	/**
-	 * page-revisions.php
-	 */
-	public function getRevisiones() {
-		if (! $this->current_user || ! $this->current_user->canEditor()) {
-			return $this->getError(404);
-		}
-		$listaPendientes = Revision::getPendientes();
-		$listaRevisadas = Revision::getCorregidas();
-		$listaBaneos = UserBaneado::getBaneados();
-
-		return $this->renderPage('pages/revisiones', [
-			'total_pendientes' => count($listaPendientes),
-			'total_corregidas' => count($listaRevisadas),
-			'total_baneados' => count($listaBaneos),
-
-			'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
-			'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
-			'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
-			'USER_BANEADO' => UserBaneado::BANEADO,
-			'USER_DESBANEADO' => UserBaneado::DESBANEADO,
-
-			'pendientes' => [
-				'lista' => $listaPendientes
-			],
-			'corregidas' => [
-				'lista' => $listaRevisadas
-			],
-			'baneados' => [
-				'lista' => $listaBaneos
-			]
-		]);
+	public function getTutorial() {
+		return $this->renderPage('pages/tutorial');
 	}
 }
