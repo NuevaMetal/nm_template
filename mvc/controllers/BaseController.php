@@ -137,6 +137,7 @@ abstract class BaseController {
 
 		return array_merge($templateVars, [
 			'blog_title' => self::_getBlogTitle(),
+			'descripcion' => I18n::trans('nm.descripcion'),
 			'current_user' => $this->current_user,
 			'home_url' => get_home_url(),
 			'is_produccion' => Env::isProduccion(),
