@@ -9,9 +9,6 @@ $(document).ready(function() {
 	cargarMenus();
 	cargarCarousel();
 	
-	// Activar todos los tooltips
-	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
-	
 	$('.back-to-top').trigger('click');
 	
 	$('.carousel').carousel({
