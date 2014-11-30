@@ -1,4 +1,16 @@
 #user {
+
+	.row {
+		.btn-xs {
+			display: none;
+		}
+		&:hover {
+			.btn-xs {
+				display: inline-block;
+			}
+		}
+	}
+	
 	#entradas-publicadas {
 		height: 120px;
 		margin-bottom: 50px;
