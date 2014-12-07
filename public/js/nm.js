@@ -96,24 +96,11 @@ function siSePuede(alturaMinima, elemento) {
 
 function seHaceScroll() {
 	var scroll = $(window).scrollTop();
-	
-	var winWidth = $(window).width();
-
-	// Ajuste del menú Para pantallas no xs
-	if (!getWindowWidth('xs')) {
-		if (scroll >= 260 || winWidth < COL.SM-15) {		
-			scrollOn();
-		} else {
-			scrollOff();
-		}
-	}
-	
 	if (scroll > 200) {
 		$('.back-to-top').fadeIn(500);
 	} else {
 		$('.back-to-top').fadeOut(500);
 	}
-	
 	/*
 	 * Mostrar más si se puede.
 	 */
