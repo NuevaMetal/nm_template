@@ -10,6 +10,37 @@
 	</div>
 	
 	{{^ current_user }}
+		<div id="modal-buscamos" class="modal fade buscamos-colaboradores-modal" tabindex="-1" role="dialog" 
+				aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">
+							<span class="titulo">
+								{{#trans}}banner.buscamos_colaboradores_aviso{{/trans}}
+							</span>
+						</h4>
+					</div>
+		    		<div class="modal-body text-center">
+						{{#trans}}banner.buscamos_colaboradores_texto{{/trans}}
+						<h3><a href="/tutorial"><i class="fa fa-link"></i> {{#transu}}unete_y_colabora{{/transu}}</a></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<button id="buscamos-colaboradores-modal" type="button" class="hidden btn btn-primary" data-toggle="modal" 
+			data-target=".buscamos-colaboradores-modal"></button>
+		
+		<script>
+			$(document).on('click', '.buscamos-colaboradores', function(e){
+				e.preventDefault();
+				$('#buscamos-colaboradores-modal').click();
+			});
+		</script>
 		{{> partials/cookies }}
 	{{/ current_user }}
 	

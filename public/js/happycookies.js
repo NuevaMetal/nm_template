@@ -8,7 +8,7 @@
     var happycookies = {
         policy: {
             banner: '#happycookies',
-            cookieName: 'cookies_accepted',
+            cookieName: 'nm_cookies_accepted',
             cookiePath: '/',
             cookieDomain: false,
             init: function() {
