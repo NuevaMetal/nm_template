@@ -14,19 +14,74 @@
 			<div id="total-visitas-users" class="tabla"></div>
 		</div>
 		
-		<div id="logueados-hoy" class="col-xs-12">
-			<h4 class="titular">Logueados hoy: {{logueados_hoy | count}}</h4>
-			{{# logueados_hoy }}
-				<span class="col-xs-3"><a href="{{getPerfilUrl}}">{{getAlias}}</a></span>
-			{{/ logueados_hoy }}
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs titular col-xs-12" role="tablist">
+			<li class="active">
+				<a href="#logueados-hoy" role="tab" data-toggle="tab">
+				Hoy (<span class="cant">{{logueados_hoy | count | formatear_numero}}</span>)</a>
+			</li>
+			<li>
+				<a href="#logueados-ayer" role="tab" data-toggle="tab">
+				Ayer (<span class="cant">{{logueados_ayer | count | formatear_numero}}</span>)</a>
+			</li>
+			<li>
+				<a href="#logueados-ayer-2" role="tab" data-toggle="tab">
+				Hace 2 días (<span class="cant">{{logueados_ayer_2 | count | formatear_numero}}</span>)</a>
+			</li>
+			<li>
+				<a href="#logueados-ayer-3" role="tab" data-toggle="tab">
+				Hace 3 días (<span class="cant">{{logueados_ayer_3 | count | formatear_numero}}</span>)</a>
+			</li>
+			<li>
+				<a href="#logueados-ayer-4" role="tab" data-toggle="tab">
+				Hace 4 días (<span class="cant">{{logueados_ayer_4 | count | formatear_numero}}</span>)</a>
+			</li>
+			<li>
+				<a href="#logueados-ayer-5" role="tab" data-toggle="tab">
+				Hace 5 días (<span class="cant">{{logueados_ayer_5 | count | formatear_numero}}</span>)</a>
+			</li>
+		</ul>					
+		
+		<!-- Tab panes -->
+		<div class="tab-content col-xs-12">
+			<div id="logueados-hoy" class="tab-pane col-xs-12 active">
+				<h4 class="titular">Logueados hoy: {{logueados_hoy | count}}</h4>
+				{{# logueados_hoy }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_hoy }}
+			</div>
+			<div id="logueados-ayer" class="tab-pane col-xs-12">
+				<h4 class="titular">Logueados ayer: {{logueados_ayer | count}}</h4>
+				{{# logueados_ayer }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_ayer }}
+			</div>
+			<div id="logueados-ayer-2" class="tab-pane col-xs-12">
+				<h4 class="titular">Logueados hace 2 días: {{logueados_ayer_2 | count}}</h4>
+				{{# logueados_ayer_2 }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_ayer_2 }}
+			</div>
+			<div id="logueados-ayer-3" class="tab-pane col-xs-12">
+				<h4 class="titular">Logueados hace 3 días: {{logueados_ayer_3 | count}}</h4>
+				{{# logueados_ayer_3 }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_ayer_3 }}
+			</div>
+			<div id="logueados-ayer-4" class="tab-pane col-xs-12">
+				<h4 class="titular">Logueados hace 4 días: {{logueados_ayer_4 | count}}</h4>
+				{{# logueados_ayer_4 }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_ayer_4 }}
+			</div>
+			<div id="logueados-ayer-5" class="tab-pane col-xs-12">
+				<h4 class="titular">Logueados hace 5 días: {{logueados_ayer_5 | count}}</h4>
+				{{# logueados_ayer_5 }}
+					{{> pages/analitica/_user }}
+				{{/ logueados_ayer_5 }}
+			</div>
 		</div>
 		
-		<div id="logueados-ayer" class="col-xs-12">
-			<h4 class="titular">Logueados ayer: {{logueados_ayer | count}}</h4>
-			{{# logueados_ayer }}
-				<span class="col-xs-3"><a href="{{getPerfilUrl}}">{{getAlias}}</a></span>
-			{{/ logueados_ayer }}
-		</div>
 	</div>
 	{{/ content }}
 	

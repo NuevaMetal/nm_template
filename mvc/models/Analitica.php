@@ -113,6 +113,7 @@ class Analitica extends ModelBase {
 				SELECT distinct user_id
 				FROM wp_analiticas
 				WHERE user_id !=0 AND DATE( created_at ) = ' . $cuando . '
+				ORDER BY updated_at
 				LIMIT %d', $cantidad));
 		$users = [];
 		foreach ($users_id as $user_id) {

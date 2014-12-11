@@ -52,10 +52,18 @@ class PageController extends BaseController {
 		}
 		$logueados_hoy = Analitica::getUsersLogueados(50);
 		$logueados_ayer = Analitica::getUsersLogueados(50, 'date(now())-1');
+		$logueados_ayer_2 = Analitica::getUsersLogueados(50, 'date(now())-2');
+		$logueados_ayer_3 = Analitica::getUsersLogueados(50, 'date(now())-3');
+		$logueados_ayer_4 = Analitica::getUsersLogueados(50, 'date(now())-4');
+		$logueados_ayer_5 = Analitica::getUsersLogueados(50, 'date(now())-5');
 
 		return $this->renderPage('pages/analitica', [
 			'logueados_hoy' => $logueados_hoy,
-			'logueados_ayer' => $logueados_ayer
+			'logueados_ayer' => $logueados_ayer,
+			'logueados_ayer_2' => $logueados_ayer_2,
+			'logueados_ayer_3' => $logueados_ayer_3,
+			'logueados_ayer_4' => $logueados_ayer_4,
+			'logueados_ayer_5' => $logueados_ayer_5
 		]);
 	}
 
