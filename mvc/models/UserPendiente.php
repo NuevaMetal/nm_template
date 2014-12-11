@@ -2,6 +2,9 @@
 
 namespace Models;
 
+use I18n\I18n;
+use Libs\Correo;
+
 /**
  *
  * @author chema
@@ -117,26 +120,36 @@ class UserPendiente extends ModelBase {
 			return false;
 		}
 		global $wpdb;
-		$table = $wpdb->prefix . self::$table;
-		$estadoPendiente = self::PENDIENTE;
-		$estadoAceptado = self::ACEPTADO;
 		// Actualizamos su rol a Colaborador
 		$user = $this->getUser();
 		$user->setRol(User::ROL_COLABORADOR);
 		// Cambiamos sus valores en la BBDD
-		$result = $wpdb->query("
-				UPDATE $table
-				SET editor_id = $editor_id, status = $estadoAceptado, updated_at = now()
-				where user_id = $this->user_id
-				and status = $estadoPendiente");
+		$result = $wpdb->query($wpdb->prepare('
+				UPDATE wp_users_pendientes
+				SET editor_id = %d, status = %d, updated_at = now()
+				where user_id = %d
+				and status = %d', $editor_id, self::ACEPTADO, $this->user_id, self::PENDIENTE));
+		// Enviamos correo para informar al usuario que fue aceptado como colaborador
+		$plantillaAceptadoColaborador = I18n::trans('emails.aceptado_como_colaborador', [
+			'blogname' => get_option('blogname'),
+			'user_login' => $user->getLogin()
+		]);
+		$asunto = I18n::trans('user.aceptado_como_colaborador');
+		$enviado = Correo::enviarCorreoGenerico([
+			get_option('admin_email'),
+			$this->getUser()->getEmail()
+		], $asunto, $plantillaAceptadoColaborador);
+
+		if (! $enviado) {
+			Utils::info("FALLO al enviar correo generico 'plantillaAceptadoColaborador'");
+		}
 	}
 
 	/**
-	 * Cambia el estado del usuario pendiente, le pone el rol de colaborador
-	 * y le indicamos el editor que lo aceptó
+	 * No cambia el estado del usuario pendiente y le indicamos el editor que lo rechazó.
 	 *
 	 * @param integer $editor_id
-	 *        	Identificador del editor que aceptó al usuario como colaborador
+	 *        	Identificador del editor que rechazó al usuario como colaborador
 	 */
 	public function rechazarPor($editor_id) {
 		if (! $editor_id || ! is_numeric($editor_id)) {
@@ -156,6 +169,12 @@ class UserPendiente extends ModelBase {
 				where user_id = $this->user_id
 				and status = $estadoPendiente");
 	}
+
+	/**
+	 *
+	 * @param integer $editor_id
+	 * @return boolean
+	 */
 	public function pendienterPor($editor_id) {
 		if (! $editor_id || ! is_numeric($editor_id)) {
 			return false;

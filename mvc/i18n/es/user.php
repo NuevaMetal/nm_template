@@ -1,5 +1,6 @@
 <?php
 return [
+	'aceptado_como_colaborador' => 'Aceptado como colaborador',
 	'actualizar_mi_perfil' => 'Actualizar mi información de perfil',
 	'ahora_sigues_a' => 'Ahora sigues a :nombre',
 

@@ -1,5 +1,17 @@
 <?php
 return [
+	'aceptado_como_colaborador' => 'Hi :user_login !
+		<br>
+		<h2>We accept you like a collaborator in <a href="http://nuevametal.com"> :blogname </a></h2>
+		Remember that you have an awesome <a href="http://nuevametal.com/tutorial">Tutorial</a>,
+		where we explain all about you needed for create your own content.
+		<br><br>
+		If you have any problem with the create your own posts, please contact with us
+		via <a href="http://nuevametal.com/contacto">Web Contact Form</a>.<br>
+		See you!
+		<br><br>
+		Your NuevaMetal`s team.',
+
 	'aviso_admin_nuevo_user' => '
 		New user registered in :blogname <br>
 		<b>Username</b>: :user_login <br>

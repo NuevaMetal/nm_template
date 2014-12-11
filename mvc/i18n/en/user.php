@@ -1,5 +1,6 @@
 <?php
 return [
+	'aceptado_como_colaborador' => 'Accepted like a collaborator',
 	'actualizar_mi_perfil' => 'Updating my profile',
 	'ahora_sigues_a' => 'Following :nombre',
 

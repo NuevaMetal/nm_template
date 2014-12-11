@@ -1,5 +1,18 @@
 <?php
 return [
+	'aceptado_como_colaborador' => 'Ey :user_login !
+		<br>
+		<h2>¡Acabas de ser aceptado como colaborador en <a href="http://nuevametal.com"> :blogname </a></h2>
+		Recuerda que tienes un <a href="http://nuevametal.com/tutorial">Tutorial</a>
+		bellísimo donde explicamos todo lo necesario para crear tus propias entradas.
+		<br><br>
+		Si tienes algún problema, por favor no dudes en contactar con nosotros a través de nuestro
+		<a href="http://nuevametal.com/contacto">Formulario de Contacto</a>
+		<br><br>
+		¡Nos vemos!
+		<br><br>
+		Tu equipo de NuevaMetal.',
+
 	'aviso_admin_nuevo_user' => '
 		Nuevo usuario registrado en :blogname <br>
 		<b>Nombre de usuario:</b> :user_login <br>
@@ -71,5 +84,4 @@ return [
 		<p>Aquí tienes la nueva contraseña. Recuerda cambiarla desde tu panel de control de usuario.<br>
 		Si tienes algún problema, por favor contáctame :admin_email <br>
 		¡Nos vemos!</p>'
-]
-;
+];
