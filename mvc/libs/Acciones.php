@@ -23,10 +23,10 @@ class Acciones {
 	 */
 	public static function userRegister() {
 		add_action('user_register', function ($user_id) {
-			$user = get_user_by('id', $user_id);
+			$user = User::find($user_id);
 
-			$user_login = stripslashes($user->user_login);
-			$user_email = stripslashes($user->user_email);
+			$user_login = $user->getLogin();
+			$user_email = $user->getEmail();
 			$user_pass = wp_generate_password(12, false);
 			wp_set_password($user_pass, $user_id);
 
@@ -60,6 +60,21 @@ class Acciones {
 			if (! $enviado) {
 				Utils::info("Fallo al enviar el correo al User con ID: $user_id");
 			}
+
+			$chema = User::findAllBy('user_login', 'Chemaclass', true);
+			$jesus = User::findAllBy('user_login', 'JesusVa', true);
+			$juan = User::findAllBy('user_login', 'Juan Valera', true);
+
+			$admins = [
+				$chema,
+				$jesus,
+				$juan
+			];
+
+			foreach ($admins as $admin) {
+				$user->seguir($admin->ID);
+			}
+
 			header('Location: /wp-login.php');
 		});
 	}
