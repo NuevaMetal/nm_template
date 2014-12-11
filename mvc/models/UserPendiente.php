@@ -55,12 +55,20 @@ class UserPendiente extends ModelBase {
 	 * @return array
 	 */
 	public static function getByStatus($status = self::PENDIENTE) {
-		foreach (self::all() as $a) {
-			if ($a->status == $status) {
-				$r[] = $a;
+		global $wpdb;
+		$queryResults = $wpdb->get_results($wpdb->prepare('SELECT *
+				FROM wp_users_pendientes
+				WHERE status = %d
+				ORDER BY updated_at desc', $status));
+		$result = [];
+		foreach ($queryResults as $qr) {
+			$a = new UserPendiente();
+			foreach (self::$columnas as $c) {
+				$a->$c = $qr->$c;
 			}
+			$result[] = $a;
 		}
-		return $r;
+		return $result;
 	}
 
 	/**
