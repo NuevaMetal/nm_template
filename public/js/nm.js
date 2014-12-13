@@ -437,16 +437,17 @@ function cargarCarousel() {
  * Cargar las secciones
  */
 function cargarSecciones() {
-	
 	cargarSeccion('bandas', 4);
 	
 	setTimeout(function() {
 		cargarSeccion('videos', 4);		
 	}, 500);
 	setTimeout(function() {
-		cargarSeccion('criticas', 2);
-		cargarSeccion('cronicas', 2);
+		cargarSeccion('criticas', 4);
 	}, 1000);
+	setTimeout(function() {
+		cargarSeccion('cronicas', 4);
+	}, 1500);
 	setTimeout(function() {
 		cargarSeccion('noticias', 2);
 		cargarSeccion('conciertos', 2);

@@ -32,16 +32,10 @@
 			{{/ videos}}
 		
 			{{#criticas}}
-			<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts">
+			<div id="criticas" class="col-xs-12 seccion-posts">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/criticas}}
-		
-			{{#cronicas}}
-			<div id="cronicas" class="col-xs-12 col-lg-6 seccion-posts">
-				{{> home/_seccion_posts }}
-			</div>
-			{{/cronicas}}
 		
 			{{# noticias }}
 			<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts">
@@ -54,6 +48,12 @@
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ conciertos }}
+			
+			{{#cronicas}}
+			<div id="cronicas" class="col-xs-12 seccion-posts">
+				{{> home/_seccion_posts }}
+			</div>
+			{{/cronicas}}
 		
 			{{# entrevistas }}
 			<div id="entrevistas" class="col-xs-12 seccion-posts">

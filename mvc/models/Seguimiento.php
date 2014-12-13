@@ -33,10 +33,10 @@ class Seguimiento extends ModelBase {
 		}
 		if ($this->user_id && $this->a_quien_id) {
 			global $wpdb;
-			$this->ID = $wpdb->get_var("SELECT ID
-					FROM {$wpdb->prefix}" . static::$table . "
-					WHERE user_id = $this->user_id
-						AND a_quien_id = $this->a_quien_id");
+			$this->ID = $wpdb->get_var($wpdb->prepare('SELECT ID
+					FROM users_seguimientos
+					WHERE user_id = %d
+					AND a_quien_id = %d', $this->user_id, $this->a_quien_id));
 		}
 	}
 
