@@ -130,15 +130,7 @@ var menuOut = 'animated fadeOutLeft';
 
 $(document).on('click', '.navbar-header .navbar-brand', function(e) {
 	e.preventDefault();
-	if(!comprobarSiMostrarMenuLateral()){
-		return false;
-	}
-	if ($('#menu-lateral').hasClass(menuOut)){
-		window.location.href = '/';
-		return false;
-	}
-	menuLateralToggle();
-	return false;
+	window.location.href = '/';
 });
 
 $(document).on('click', '.mostrar-menu-lateral', function(e) {
@@ -147,7 +139,6 @@ $(document).on('click', '.mostrar-menu-lateral', function(e) {
 		return false;
 	}
 	menuLateralToggle();
-	return false;
 });
 
 // Comprueba si debemos mostrar el menú lateral
