@@ -39,6 +39,8 @@ return [
 	'compartir_con' => 'compartir con',
 	'compartir_comentario' => 'Comparte tu comentario',
 	'como' => 'como',
+	'comunicacion' => 'comunicación',
+	'comunicacion_y_publicidad' => 'Comunicación y Publicidad',
 	'conciertos' => 'conciertos',
 	'conectado_como' => 'conectado como',
 	'corregida' => 'corregida',

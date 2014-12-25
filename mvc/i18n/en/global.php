@@ -37,6 +37,8 @@ return [
 	'compartir_con' => 'share with',
 	'compartir_comentario' => 'Share your comment',
 	'como' => 'as',
+	'comunicacion' => 'communication',
+	'comunicacion_y_publicidad' => 'Communication & Advertisement',
 	'conectado_como' => 'logged in as',
 	'conciertos' => 'concerts',
 	'corregida' => 'corrected',
