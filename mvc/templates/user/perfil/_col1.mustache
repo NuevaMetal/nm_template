@@ -18,7 +18,7 @@
 		<small class="col-xs-12">
 			{{^isCurrentUser}}
 				{{# yaTeSigue }}
-					<i class="fa fa-puzzle-piece"></i> {{#transu}}user.ya_te_sigue{{/transu}}.
+					<i class="fa fa-puzzle-piece"></i> {{#transu}}user.ya_te_sigue{{/transu}}
 				{{/ yaTeSigue }}
 			{{/isCurrentUser}}
 		</small>
@@ -82,7 +82,6 @@
 		{{/ getUbicacion }}
 	</div>
 
-	{{# isCurrentUserOrAdmin }}
 	<div class="row">
 		{{# getIdiomaTrans }}
 			<h4 class="col-xs-12"><i class="fa fa-language"></i> <small>{{.}}</small>
@@ -94,9 +93,8 @@
 					{{/isCurrentUserOrAdmin}}
 			</h4>
 		{{/ getIdiomaTrans }}
-	</div>	
-	{{/ isCurrentUserOrAdmin }}
-	
+	</div>
+
 	{{# tieneRedes }}
 	<div class="row">
 		<h4 class="col-xs-12 titular">{{#transu}}contacto{{/transu}}</h4>
