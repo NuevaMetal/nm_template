@@ -4,3 +4,8 @@
 {{^current_user}}
 	{{> menu/lateral/_login }}
 {{/current_user}}
+<script>
+$(document).ready(function() {
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
