@@ -68,5 +68,6 @@ return [
 		once that lock is removed.',
 	'usuarios_pendientes' => 'Pending users',
 
-	'ya_seguido' => 'You follow this user'
+	'ya_seguido' => 'You follow this user',
+	'ya_te_sigue' => 'Already follows you'
 ];

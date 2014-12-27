@@ -69,5 +69,6 @@ return [
 		el acceso del perfil bloqueado nuevamente, una vez que se quite dicho bloqueo.',
 	'usuarios_pendientes' => 'Usuarios pendientes',
 
-	'ya_seguido' => 'Ya sigues a este usuario'
+	'ya_seguido' => 'Ya sigues a este usuario',
+	'ya_te_sigue' => 'Ya te sigue'
 ];

@@ -15,6 +15,14 @@
 	<div class="row">
 		<h3 class="col-xs-12 titular"><span itemprop="name">{{getAlias}}</span></h3>
 		
+		<small class="col-xs-12">
+			{{^isCurrentUser}}
+				{{# yaTeSigue }}
+					<i class="fa fa-puzzle-piece"></i> {{#transu}}user.ya_te_sigue{{/transu}}.
+				{{/ yaTeSigue }}
+			{{/isCurrentUser}}
+		</small>
+		
 		<span class="col-xs-12 col-lg-10">
 			{{# current_user }}
 				{{> user/_btn_seguir_user }}

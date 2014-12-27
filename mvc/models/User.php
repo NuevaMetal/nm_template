@@ -30,9 +30,9 @@ class User extends Favoriteador {
 
 	const IMG_HEADER_HEIGHT = 270;
 
-	const IMG_HEADER_WIDTH_PEQUE = 540;// 540
+	const IMG_HEADER_WIDTH_PEQUE = 540; // 540
 
-	const IMG_HEADER_HEIGHT_PEQUE = 250;// 250
+	const IMG_HEADER_HEIGHT_PEQUE = 250; // 250
 
 	/*
 	 * Claves de los metadatos
@@ -1157,13 +1157,31 @@ class User extends Favoriteador {
 	 */
 	public function yaLoSigues($user_id = false) {
 		if (! $user_id) {
-			$user_id = wp_get_current_user()->ID;
+			$user_id = Utils::getCurrentUser()->ID;
 		}
 		global $wpdb;
 		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM ' . $wpdb->prefix . 'users_seguimientos
+				FROM wp_users_seguimientos
 				WHERE user_id = %d
 				AND a_quien_id = %d;', $user_id, $this->ID));
+		return $leGusta > 0;
+	}
+
+	/**
+	 * Devuelve true en caso de que el User actual ya siga al user que está viendo
+	 *
+	 * @param integer $user_id
+	 * @return boolean
+	 */
+	public function yaTeSigue($user_id = false) {
+		if (! $user_id) {
+			$user_id = Utils::getCurrentUser()->ID;
+		}
+		global $wpdb;
+		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM wp_users_seguimientos
+				WHERE user_id = %d
+				AND a_quien_id = %d;', $this->ID, $user_id));
 		return $leGusta > 0;
 	}
 
