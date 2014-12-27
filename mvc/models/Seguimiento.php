@@ -8,6 +8,7 @@ namespace Models;
  * @author chema
  */
 class Seguimiento extends ModelBase {
+
 	public static $table = "users_seguimientos";
 	/*
 	 * Miembros
@@ -34,7 +35,7 @@ class Seguimiento extends ModelBase {
 		if ($this->user_id && $this->a_quien_id) {
 			global $wpdb;
 			$this->ID = $wpdb->get_var($wpdb->prepare('SELECT ID
-					FROM users_seguimientos
+					FROM wp_users_seguimientos
 					WHERE user_id = %d
 					AND a_quien_id = %d', $this->user_id, $this->a_quien_id));
 		}
