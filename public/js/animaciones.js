@@ -12,15 +12,39 @@ var timer;
  */
 $(document).on('mouseover', '.navbar-brand img, .navbar-collapse', function(e) {
 	e.preventDefault();
-	var imgUrl = $('.navbar-brand img').attr('src').replace('_gris.jpg', '.jpg')
-	$('.navbar-brand img').attr('src', imgUrl);
+	clearInterval(navbarInterval);
+	_navbarRojo();
 });
 
 $(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) {
 	e.preventDefault();
+	navbarInterval = crearIntervalLatido(1000)
+	_navbarGris();
+});
+
+var navbarInterval = crearIntervalLatido(1500);
+
+function crearIntervalLatido(time) {
+	var _navbarLatido = 0;
+	return setInterval(function () {
+		if ( _navbarLatido%2 == 0 ) {
+			_navbarRojo();
+		} else {
+			_navbarGris();
+		}
+		_navbarLatido++;
+	}, time);
+}
+
+function _navbarRojo() {
+	var imgUrl = $('.navbar-brand img').attr('src').replace('_gris.jpg', '.jpg')
+	$('.navbar-brand img').attr('src', imgUrl);
+}
+
+function _navbarGris() {
 	var imgUrl = $('.navbar-brand img').attr('src').replace('.jpg', '_gris.jpg')
 	$('.navbar-brand img').attr('src', imgUrl);
-});
+}
 
 /**
  * Animar el la descripción del autor de un post
