@@ -79,6 +79,7 @@ return [
 
 	'hola' => 'hola',
 
+	'informacion' => 'información',
 	'informar' => 'informar',
 	'iniciar_sesion' => 'iniciar sesión',
 	'inicio' => 'inicio',
