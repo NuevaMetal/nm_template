@@ -170,6 +170,24 @@ class PageController extends BaseController {
 	}
 
 	/**
+	 * Página por defecto
+	 */
+	public function getPage() {
+		if (have_posts()) {
+			the_post();
+			$page = Post::find(get_the_ID());
+		}
+
+		if (! isset($page)) {
+			return $this->renderPage('404');
+		}
+
+		return $this->renderPage('pages/page', [
+			'page' => $page
+		]);
+	}
+
+	/**
 	 * Paǵina de redes
 	 */
 	public function getRedes() {

@@ -302,7 +302,7 @@ class Acciones {
 	public static function quitarItemsParaLosUsuarios() {
 		add_action('admin_menu', function () {
 			// Obtenemos los datos del usuario actual
-			$user = User::find(wp_get_current_user()->ID);
+			$user = Utils::getCurrentUser();
 			// Si es que el usuario no tiene rol de editor o admin
 			if (! $user || ! $user->canEditor()) {
 				remove_menu_page('edit-comments.php'); // Removemos el ítem comentarios
