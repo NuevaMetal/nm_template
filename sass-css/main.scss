@@ -147,6 +147,12 @@ body {
 			 	background: $rojo-nm-hover;
 			 }
 		}
+		.btn-youtube {
+			background: $rojo-yt;
+			&:hover {
+				background: $rojo-yt-hover;
+			}
+		}
 	}
 
 }
