@@ -15,7 +15,7 @@ return [
 	'industrial-metal' => 'industrial metal',
 	'melodic-metal' => 'melodic metal',
 	'nu-metal' => 'nu metal',
-	'power-meta' => 'power metal',
+	'power-metal' => 'power metal',
 	'progressive-metal' => 'progressive metal',
 	'thrash-metal' => 'thrash metal',
 	'technical-death' => 'technical death',
