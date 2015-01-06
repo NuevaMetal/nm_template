@@ -168,6 +168,7 @@ return [
 	'sitios_de_interes' => 'interest sites',
 	'subscriber' => 'subscriber',
 
+	'tablatura_informativa' => 'Notice board',
 	'tu_actividad' => 'your activity',
 
 	'ubicacion' => 'location',

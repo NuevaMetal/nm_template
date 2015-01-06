@@ -174,6 +174,7 @@ return [
 	'sitios_de_interes' => 'sitios de interés',
 	'subscriber' => 'suscriptor',
 
+	'tablatura_informativa' => 'Tablatura informativa',
 	'tu_actividad' => 'tu actividad',
 
 	'ubicacion' => 'ubicación',
