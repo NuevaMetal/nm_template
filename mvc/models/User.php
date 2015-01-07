@@ -179,6 +179,21 @@ class User extends Favoriteador {
 	}
 
 	/**
+	 * Devuelve el número total de posts publicados por el User este año
+	 *
+	 * @return integer
+	 */
+	public function getTotalPostsEsteAno() {
+		global $wpdb;
+		return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
+				FROM wp_posts
+				WHERE post_author = %d
+				AND post_type = "post"
+				AND post_status = "publish"
+				AND YEAR(post_modified) = YEAR(now())', $this->ID));
+	}
+
+	/**
 	 * Establecer un nuevo avatar al User
 	 *
 	 * @param FILE $newAvatar
