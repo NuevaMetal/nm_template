@@ -5,6 +5,8 @@ return [
 			of use',
 	'a_un_artista_de_verdad' => "A true artist, don't hurts him that people download his albums, if not they aren't listened.",
 
+	'eslogan' => 'Humor, Metal and a lot of Love.',
+
 	'haz_que_tu_banda' => 'Make your band to appear in our sections',
 
 	'publica' => '<h3 class="header titular"><a href="/tutorial">Post</a></h3>

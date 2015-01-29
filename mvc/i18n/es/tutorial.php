@@ -6,6 +6,7 @@ return [
 	'a_un_artista_de_verdad' => 'A un artista de verdad, lo que le duele no es que descarguen sus álbumes,
 			sino que no sean escuchados.',
 
+	'eslogan' => 'Humor, Metal y mucho Amor.',
 	'haz_que_tu_banda' => 'Haz que tu banda aparezca en nuestras secciones',
 
 	'publica' => '<h3 class="header titular"><a href="/tutorial">Publica</a></h3>
