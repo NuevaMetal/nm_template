@@ -79,7 +79,9 @@
 						<i class="fa fa-close"></i> {{#transu}}bloqueados{{/transu}}
 					</a>
 					{{# isAdmin }}
-						<a class="list-group-item col-xs-12 col-sm-4" href="/analytics">
+						<a class="list-group-item col-xs-12 col-sm-4" href="/analytics"
+							data-toggle="tooltip" data-placement="top" 
+							title="{{total_analitica_hoy | formatear_numero}} {{#transu}}user.usuarios_analitica_hoy{{/transu}}">
 							<i class="fa fa-bar-chart "></i> {{#transu}}analitica{{/transu}}
 						</a>
 					{{/ isAdmin }}

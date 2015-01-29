@@ -61,6 +61,7 @@ return [
 	'ubicacion' => 'Include your location',
 	'ultimos_fav_dados' => 'Latest favorites',
 	'usuarios_aceptados' => 'Acepted users',
+	'usuarios_analitica_hoy' => 'Logged users today',
 	'usuarios_bloqueados' => 'Blocked users',
 	'usuarios_bloqueados_explicacion' => 'Blocked users can not automatically log in and profile will
 		be inaccessible publicly. This user profile will be reviewed. Only have access your account

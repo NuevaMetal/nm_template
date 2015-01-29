@@ -98,11 +98,12 @@
 							title="{{total_bloqueados | formatear_numero}} {{#transu}}user.usuarios_bloqueados{{/transu}}">
 						<i class="fa fa-close"></i> {{#transu}}bloqueados{{/transu}}
 					</a>
-					{{# isAdmin }}
-						<a class="list-group-item col-xs-12 " href="/analytics"
-							data-toggle="tooltip" data-placement="right" title="{{#transu}}analitica{{/transu}}">
+					{{# isAdmin }}						
+						<a class="list-group-item col-xs-12" href="/analytics"
+							data-toggle="tooltip" data-placement="right" 
+							title="{{total_analitica_hoy | formatear_numero}} {{#transu}}user.usuarios_analitica_hoy{{/transu}}">
 							<i class="fa fa-bar-chart "></i> {{#transu}}analitica{{/transu}}
-						</a>
+						</a>						
 					{{/ isAdmin }}
 				{{/ canEditor }}
 				<a class="list-group-item col-xs-12" href="/wp-login.php?action=logout&amp;redirect_to=/"

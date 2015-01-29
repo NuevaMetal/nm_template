@@ -62,6 +62,7 @@ return [
 	'ubicacion' => 'Incluye tu ubicación',
 	'ultimos_fav_dados' => 'Últimos favoritos dados',
 	'usuarios_aceptados' => 'Usuarios aceptados',
+	'usuarios_analitica_hoy' => 'Usuarios logueados hoy',
 	'usuarios_bloqueados' => 'Usuarios bloqueados',
 	'usuarios_bloqueados_explicacion' => 'Los usuarios bloqueados no podrán iniciar sesión y automáticamente su
 		perfil quedará inaccesible de forma pública. Dicho perfil de usuario pasará a estar en revisión.

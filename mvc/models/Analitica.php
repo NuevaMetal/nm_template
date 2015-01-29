@@ -105,7 +105,7 @@ class Analitica extends ModelBase {
 	 * @param string $cuando
 	 *        	fecha en SQL de cuándo se quiere dicha lista de nombres.
 	 *        	Por defecto será el día actual
-	 * @return array Lista con el nombre y la url del usuario
+	 * @return array Users
 	 */
 	public static function getUsersLogueados($cantidad = 50, $cuando = 'DATE(NOW())') {
 		global $wpdb;
