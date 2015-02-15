@@ -67,11 +67,11 @@ class HomeController extends BaseController {
 		$args['tipo'] = Utils::TIPO_CATEGORY;
 		$TRANSIENT_HOME_SECCION = 'home-seccion-' . $seccion;
 		// Get any existing copy of our transient data
-		//if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
+		if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
 			// It wasn't there, so regenerate the data and save the transient
 			$posts = self::getPostsByCategory($seccion, $cant, []);
 			set_transient($TRANSIENT_HOME_SECCION, $posts, DAY_IN_SECONDS);
-		//}
+		}
 		$args['posts'] = $posts;
 		return $args;
 	}
