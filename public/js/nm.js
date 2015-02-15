@@ -436,23 +436,31 @@ function cargarCarousel() {
  * Cargar las secciones
  */
 function cargarSecciones() {
-	cargarSeccion('bandas', 4);
+	var NUM_BANDAS = 4;
+	var NUM_VIDEOS = 4;
+	var NUM_CONCIERTOS = 4;
+	var NUM_CRONICAS = 4;
+	var NUM_NOTICIAS = 2;
+	var NUM_CRITICAS = 2;
+	var NUM_ENTREVISTAS = 4;
+	
+	cargarSeccion('bandas', NUM_BANDAS);
 	
 	setTimeout(function() {
-		cargarSeccion('videos', 4);		
+		cargarSeccion('videos', NUM_VIDEOS);		
 	}, 500);
 	setTimeout(function() {
-		cargarSeccion('criticas', 4);
+		cargarSeccion('conciertos', NUM_CONCIERTOS);
 	}, 1000);
 	setTimeout(function() {
-		cargarSeccion('cronicas', 4);
+		cargarSeccion('cronicas', NUM_CRONICAS);
 	}, 1500);
 	setTimeout(function() {
-		cargarSeccion('noticias', 2);
-		cargarSeccion('conciertos', 2);
+		cargarSeccion('noticias', NUM_NOTICIAS);
+		cargarSeccion('criticas', NUM_CRITICAS);
 	}, 2000);
 	setTimeout(function() {
-		cargarSeccion('entrevistas', 4);
+		cargarSeccion('entrevistas', NUM_ENTREVISTAS);
 	}, 3000);
 }
 
