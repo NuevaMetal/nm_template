@@ -9,6 +9,7 @@ return [
 	'actividades' => 'actividades',
 	'administrator' => 'administrador',
 	'anadir_favoritos' => 'añadir a mis favs',
+	'amigas' => 'amigas',
 	'analitica' => 'analítica',
 	'ancho' => 'ancho',
 	'aleatorio' => 'aleatorio',
@@ -190,9 +191,6 @@ return [
 	'video' => 'vídeo',
 	'videos' => 'vídeos',
 	'volver_arriba' => 'volver arriba',
-
-	'webs_amigas' => 'Webs amigas',
-	'webs_amigas_y_partners' => 'Webs amigas y Partners',
 
 	'y' => 'y',
 	'ya_no_me_gusta' => 'ya no me gusta',

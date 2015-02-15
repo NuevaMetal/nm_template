@@ -8,6 +8,7 @@ return [
 	'actividad' => 'activity',
 	'actividades' => 'activities',
 	'administrator' => 'administrator',
+	'amigas' => 'partners',
 	'anadir_favoritos' => 'add to my favs',
 	'analitica' => 'analytics',
 	'ancho' => 'width',
@@ -184,9 +185,6 @@ return [
 	'video' => 'video',
 	'videos' => 'videos',
 	'volver_arriba' => 'back to top',
-
-	'webs_amigas' => 'Webs amigas',
-	'webs_amigas_y_partners' => 'Webs amigas y Partners',
 
 	'y' => 'and',
 	'ya_no_me_gusta' => 'don\'t like',
