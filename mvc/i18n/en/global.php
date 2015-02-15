@@ -111,6 +111,7 @@ return [
 	'mostrar' => 'show',
 	'mostrar_mas' => 'show more',
 	'mostrar_menos' => 'show less',
+	'musica' => 'music',
 
 	'no_hay_resultados' => 'results not found',
 	'nombre' => 'name',
@@ -183,6 +184,9 @@ return [
 	'video' => 'video',
 	'videos' => 'videos',
 	'volver_arriba' => 'back to top',
+
+	'webs_amigas' => 'Webs amigas',
+	'webs_amigas_y_partners' => 'Webs amigas y Partners',
 
 	'y' => 'and',
 	'ya_no_me_gusta' => 'don\'t like',
