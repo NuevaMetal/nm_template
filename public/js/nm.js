@@ -9,8 +9,6 @@ $(document).ready(function() {
 	cargarMenus();
 	cargarCarousel();
 	
-	$('.back-to-top').trigger('click');
-	
 	$('.carousel').carousel({
 		interval: 6000
 	});
@@ -20,10 +18,11 @@ $(document).ready(function() {
 		scrollOff()
 	}
 
+	//$('.back-to-top').trigger('click');
 	// Pongo esto porque si no no hace caso
-	setTimeout(function() {
-		seHaceScroll();
-	}, 10);
+	//setTimeout(function() {
+	//	seHaceScroll();
+	//}, 10);
 });
 
 /**
