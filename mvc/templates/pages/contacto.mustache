@@ -51,11 +51,16 @@
 									{{#transu}}departamento{{/transu}}
 								</label>
 								<div class="col-md-10">
+									{{#toDepart}}
 									<select class="form-control" id="departamento" name="departamento">
-										<option value="general">{{#transu}}general{{/transu}}</option>
-										<option value="publicidad">{{#transu}}comunicacion_y_publicidad{{/transu}}</option>
-										<option value="desarrollo">{{#transu}}desarrollo_web{{/transu}}</option>
+										<option value="general" {{#general}}selected{{/general}}>
+											{{#transu}}general{{/transu}}</option>
+										<option value="publicidad" {{#publicidad}}selected{{/publicidad}}>
+											{{#transu}}comunicacion_y_publicidad{{/transu}}</option>
+										<option value="desarrollo" {{#desarrollo}}selected{{/desarrollo}}>
+											{{#transu}}desarrollo_web{{/transu}}</option>
 									</select>
+									{{/toDepart}}
 								</div>
 							</div>
 						</fieldset>

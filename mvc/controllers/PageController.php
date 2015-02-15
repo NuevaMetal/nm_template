@@ -80,6 +80,7 @@ class PageController extends BaseController {
 
 		$nonce = $_POST['nonce'];
 		$captcha = $_POST['captcha'];
+		$toDepart = $_GET['to'];
 
 		if ($nonce) {
 			// Verificamos si hay nonce
@@ -143,7 +144,12 @@ class PageController extends BaseController {
 			'nonce' => $nonce,
 			'captcha' => $captcha,
 			'errores' => $errores,
-			'nombreDepartamento' => $departamento
+			'nombreDepartamento' => $departamento,
+			'toDepart' => [
+				'general' => $toDepart == 'general',
+				'publicidad' => $toDepart == 'publicidad',
+				'desarrollo' => $toDepart == 'desarrollo',
+			]
 		]);
 	}
 	/**
