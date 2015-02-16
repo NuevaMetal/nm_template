@@ -803,7 +803,7 @@ $(document).on('click', '.dispara-revision', function(e) {
 				fila.remove();
 			}
 			mostrarAlerta(json.alert, 5);
-			location.reload();
+			//location.reload();
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 	        alert("Ocurrió un error inesperado.\n" 
