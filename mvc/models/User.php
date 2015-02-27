@@ -1037,10 +1037,10 @@ class User extends Favoriteador {
 	 */
 	public function _getSiguiendoIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		$sql = 'SELECT a_quien_id
-				FROM  wp_users_seguimientos
-				WHERE user_id = %d
-				ORDER BY updated_at DESC ';
+		$sql = 'SELECT distinct s.a_quien_id
+				FROM  wp_users_seguimientos s join wp_users u on (s.a_quien_id = u.ID)
+				WHERE s.user_id = %d
+				ORDER BY s.updated_at DESC';
 		if ($limit) {
 			$sql .= ' LIMIT %d OFFSET %d';
 			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
@@ -1055,10 +1055,10 @@ class User extends Favoriteador {
 	 */
 	private function _getSeguidoresIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
-		$sql = 'SELECT distinct user_id
-				FROM  wp_users_seguimientos
-				WHERE a_quien_id = %d
-				ORDER BY updated_at DESC ';
+		$sql = 'SELECT distinct s.user_id
+				FROM  wp_users_seguimientos s join wp_users u on (s.user_id = u.ID)
+				WHERE s.a_quien_id = %d
+				ORDER BY s.updated_at DESC';
 		if ($limit) {
 			$sql .= ' LIMIT %d OFFSET %d';
 			return $wpdb->get_col($wpdb->prepare($sql, $this->ID, $limit, $offset));
@@ -1175,10 +1175,10 @@ class User extends Favoriteador {
 			$user_id = Utils::getCurrentUser()->ID;
 		}
 		global $wpdb;
-		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM wp_users_seguimientos
-				WHERE user_id = %d
-				AND a_quien_id = %d;', $user_id, $this->ID));
+		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(s.ID)
+				FROM wp_users_seguimientos s join wp_users u on (s.user_id = u.ID)
+				WHERE s.user_id = %d
+				AND s.a_quien_id = %d;', $user_id, $this->ID));
 		return $leGusta > 0;
 	}
 
@@ -1193,10 +1193,10 @@ class User extends Favoriteador {
 			$user_id = Utils::getCurrentUser()->ID;
 		}
 		global $wpdb;
-		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*)
-				FROM wp_users_seguimientos
-				WHERE user_id = %d
-				AND a_quien_id = %d;', $this->ID, $user_id));
+		$leGusta = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(s.ID)
+				FROM wp_users_seguimientos s join wp_users u on (s.user_id = u.ID)
+				WHERE s.user_id = %d
+				AND s.a_quien_id = %d;', $this->ID, $user_id));
 		return $leGusta > 0;
 	}
 
