@@ -13,24 +13,24 @@ var timer;
 /**
  * Animar el avatar del menú gris<->rojo
  */
-$(document).on('mouseover', '.navbar-brand img, .navbar-collapse', function(e) {
+$(document).on('mouseover', '.logo-cambiante', function(e) {
 	e.preventDefault();
-	_navbarRojo();
+	_navbarRojo($(this));
 });
 
-$(document).on('mouseleave', '.navbar-brand img, .navbar-collapse', function(e) {
+$(document).on('mouseleave', '.logo-cambiante', function(e) {
 	e.preventDefault();
-	_navbarGris();
+	_navbarGris($(this));
 });
 
-function _navbarRojo() {
-	var imgUrl = $('.navbar-brand img').attr('src').replace('_gris.jpg', '.jpg')
-	$('.navbar-brand img').attr('src', imgUrl);
+function _navbarRojo($this) {	
+	var img = $this.find('img');
+	img.attr('src', img.attr('src').replace('_gris.jpg', '.jpg'));
 }
 
-function _navbarGris() {
-	var imgUrl = $('.navbar-brand img').attr('src').replace('.jpg', '_gris.jpg')
-	$('.navbar-brand img').attr('src', imgUrl);
+function _navbarGris($this) {
+	var img = $this.find('img');
+	img.attr('src', img.attr('src').replace('.jpg', '_gris.jpg'));
 }
 
 /**
