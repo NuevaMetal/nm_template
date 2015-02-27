@@ -399,9 +399,16 @@ class Utils {
 	public static function cadenaValida($str = '') {
 		return (isset($str) && is_string($str) && strlen($str) > 0);
 	}
+
+	/**
+	 *
+	 * @param integer $size
+	 * @return string URL con la img por defecto para los usuarios
+	 */
 	public static function getUrlGravatarDefault($size = User::AVATAR_SIZE_DEFAULT) {
-		$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
-		return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $size;
+// 		$host = is_ssl() ? 'https://secure.gravatar.com' : 'http://0.gravatar.com';
+// 		return $host . '/avatar/ad516503a11cd5ca435acc9bb6523536?s=' . $size;
+		return '/wp-content/themes/nm_template/public/img/avatar/avatar_' . $size;
 	}
 
 	/**
