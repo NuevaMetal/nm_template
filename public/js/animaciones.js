@@ -24,12 +24,12 @@ $(document).on('mouseleave', '.logo-cambiante', function(e) {
 });
 
 function _navbarRojo($this) {	
-	var img = $this.find('img');
+	var img = $this.find('.logo-a-cambiar img');
 	img.attr('src', img.attr('src').replace('_gris.jpg', '.jpg'));
 }
 
 function _navbarGris($this) {
-	var img = $this.find('img');
+	var img = $this.find('.logo-a-cambiar img');
 	img.attr('src', img.attr('src').replace('.jpg', '_gris.jpg'));
 }
 

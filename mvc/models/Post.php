@@ -236,6 +236,23 @@ class Post extends Image {
 	}
 
 	/**
+	 * Devuelve el número total de entradas que hay en la categoría con dicho nombre
+	 *
+	 * @param string $catName
+	 * @param string $taxonomyName
+	 */
+	public static function getCantidadTotalEnCategoria($catName, $taxonomyName = "category") {
+		global $wpdb;
+		return $wpdb->get_var($wpdb->prepare('
+				SELECT count(*) total
+				FROM wp_v_generos_posts
+				where taxonomy_name = %s
+				AND term_slug = %s
+				group by term_slug, taxonomy_name
+				order by total desc', $taxonomyName, $catName));
+	}
+
+	/**
 	 * Devuelve un número de palabras de un string
 	 *
 	 * @param string $str

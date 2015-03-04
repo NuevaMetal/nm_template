@@ -32,7 +32,8 @@ class HomeController extends BaseController {
 		foreach ($catActivas as $cat) {
 			$args[$cat] = [
 				'seccion' => $cat,
-				'url' => '/category/' . $cat
+				'url' => '/category/' . $cat,
+				'cantidad_total' => Post::getCantidadTotalEnCategoria($cat)
 			];
 		}
 		return $this->renderPage('home', $args);
@@ -49,9 +50,10 @@ class HomeController extends BaseController {
 	 *        	Lista de parámetros opcionales para la vista de post
 	 */
 	public static function getSeccion($seccion, $cant = self::NUM_POST_POR_SECCION, $args = []) {
-		$args['imagen'] = strtolower($seccion);
-		$args['seccion'] = strtolower($seccion);
-		$args['a_buscar'] = strtolower($seccion);
+		$seccionLower = strtolower($seccion);
+		$args['imagen'] = $seccionLower;
+		$args['seccion'] = $seccionLower;
+		$args['a_buscar'] = $seccionLower;
 		$url = esc_url(get_category_link(get_cat_ID($seccion)));
 		// Quitamos la ruta absoluta http://nuevametal.com
 		$url = Utils::quitarUrlAbsoluta($url);
@@ -67,12 +69,13 @@ class HomeController extends BaseController {
 		$args['tipo'] = Utils::TIPO_CATEGORY;
 		$TRANSIENT_HOME_SECCION = 'home-seccion-' . $seccion;
 		// Get any existing copy of our transient data
-		//if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
-			// It wasn't there, so regenerate the data and save the transient
-			$posts = self::getPostsByCategory($seccion, $cant, []);
-			set_transient($TRANSIENT_HOME_SECCION, $posts, DAY_IN_SECONDS);
-		//}
+		// if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
+		// It wasn't there, so regenerate the data and save the transient
+		$posts = self::getPostsByCategory($seccion, $cant, []);
+		set_transient($TRANSIENT_HOME_SECCION, $posts, DAY_IN_SECONDS);
+		// }
 		$args['posts'] = $posts;
+		$args['cantidad_total'] = Post::getCantidadTotalEnCategoria($seccionLower);
 		return $args;
 	}
 
