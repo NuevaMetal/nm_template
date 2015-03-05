@@ -186,6 +186,8 @@ return [
 	'videos' => 'videos',
 	'volver_arriba' => 'back to top',
 
+	'web' => 'website',
+
 	'y' => 'and',
 	'ya_no_me_gusta' => 'don\'t like',
 

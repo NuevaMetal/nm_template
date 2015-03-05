@@ -192,6 +192,8 @@ return [
 	'videos' => 'vídeos',
 	'volver_arriba' => 'volver arriba',
 
+	'web' => 'web',
+
 	'y' => 'y',
 	'ya_no_me_gusta' => 'ya no me gusta',
 
