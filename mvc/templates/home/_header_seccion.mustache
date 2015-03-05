@@ -2,7 +2,8 @@
 	{{#url}}<a href="{{home_url}}{{url}}">{{/url}}
 		<img src="{{template_url}}/public/img/NM_avatar_2.jpg"/>
 		<span class="titular">
-			{{ seccion | quitar_guiones | trans_palabras }}{{#que}}: {{.}}{{/que}} <span class="cantidad-total">({{cantidad_total}})</span>
+			{{ seccion | quitar_guiones | trans_palabras }}{{#que}}: {{.}}{{/que}} 
+			{{#cantidad_total}}<span class="cantidad-total">({{cantidad_total}})</span>{{/cantidad_total}}
 		</span>
 	{{#url}}</a>{{/url}}
 </div>
