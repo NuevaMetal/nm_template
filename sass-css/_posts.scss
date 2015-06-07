@@ -168,6 +168,14 @@
 		margin-top: $margin-top-titulo-content;
 	}
 	
+	.siguiente-anterior-post {
+		border-top: 1px solid #ccc;
+		padding: 10px 0px;
+		.post-siguiente {
+			border-right: 1px solid #ccc;
+		}
+	}
+	
 	
 }
 

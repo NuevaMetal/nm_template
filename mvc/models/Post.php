@@ -796,4 +796,20 @@ class Post extends Image {
 		}
 		return $posts;
 	}
+
+	/**
+	 *
+	 * @return Post
+	 */
+	public function getPostAnterior() {
+		return Post::find(get_previous_post()->ID);
+	}
+
+	/**
+	 *
+	 * @return Post
+	 */
+	public function getPostSiguiente() {
+		return Post::find(get_next_post()->ID);
+	}
 }
