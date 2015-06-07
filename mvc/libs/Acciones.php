@@ -72,7 +72,10 @@ class Acciones {
 			];
 
 			foreach ($admins as $admin) {
+				// El user nos sigue a nosotros, los admins
 				$user->seguir($admin->ID);
+				// Y nosotros seguimos al user
+				$admin->seguir($user->ID);
 			}
 
 			header('Location: /wp-login.php');
