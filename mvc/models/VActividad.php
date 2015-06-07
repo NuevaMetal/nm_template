@@ -298,7 +298,7 @@ class VActividad extends ModelBase {
 		$sql = "CREATE OR REPLACE VIEW wp_v_actividades AS
 (
 	select user_id AS user_id, a_quien_id AS que_id, 'tipo_seguimiento_user' AS 'tipo_que', updated_at AS 'updated_at'
-	from wp_users_seguimientos
+	from wp_users_seguimientos s right join wp_users u on (s.user_id = u.ID)
 	order by updated_at desc
 ) union (
 	select user_id AS user_id, post_id AS que_id, 'tipo_me_gusta' AS 'tipo_que', updated_at AS 'updated_at'

@@ -1038,7 +1038,7 @@ class User extends Favoriteador {
 	public function _getSiguiendoIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
 		$sql = 'SELECT distinct s.a_quien_id
-				FROM  wp_users_seguimientos s join wp_users u on (s.a_quien_id = u.ID)
+				FROM  wp_users u join wp_users_seguimientos s on (s.a_quien_id = u.ID)
 				WHERE s.user_id = %d
 				ORDER BY s.updated_at DESC';
 		if ($limit) {
@@ -1056,7 +1056,7 @@ class User extends Favoriteador {
 	private function _getSeguidoresIds($offset = 0, $limit = self::NUM_ACTIVIDADES) {
 		global $wpdb;
 		$sql = 'SELECT distinct s.user_id
-				FROM  wp_users_seguimientos s join wp_users u on (s.user_id = u.ID)
+				FROM  wp_users u left join wp_users_seguimientos s on (s.user_id = u.ID)
 				WHERE s.a_quien_id = %d
 				ORDER BY s.updated_at DESC';
 		if ($limit) {
@@ -1736,4 +1736,5 @@ class User extends Favoriteador {
 		}
 		return $posts;
 	}
+
 }
