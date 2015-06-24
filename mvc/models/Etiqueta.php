@@ -80,7 +80,7 @@ class Etiqueta {
 				JOIN wp_term_relationships re ON (re.term_taxonomy_id = ta.term_taxonomy_id)
 				WHERE taxonomy = "post_tag"
 				GROUP BY name, slug, taxonomy_id
-				ORDER BY total DESC, name, slug');
+				ORDER BY name DESC, total, slug');
 			set_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS, $results, 12 * HOUR_IN_SECONDS);
 		}
 		return $results;
