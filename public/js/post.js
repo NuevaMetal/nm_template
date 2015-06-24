@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	actualizarEntradas();
-	var segParaActualizar = 40;
+	var segParaActualizar = 360;
 	/* 
 	 * Crear intervalo de actualización de las entradas.
 	 * Actualizar cada 50 sg 
