@@ -71,7 +71,7 @@ class Etiqueta {
 	 */
 	public static function getTodasEtiquetasContadas() {
 		global $wpdb;
-		delete_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS);
+		//delete_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS);
 		if (false === ($results = get_transient(self::TRANSIENT_TODAS_ETIQUETAS_CONTADAS))) {
 			$results = $wpdb->get_results('
 				SELECT ta.term_taxonomy_id as taxonomy_id, name, slug, count(*) total
