@@ -101,6 +101,8 @@ return [
 	'introduce_tu' => 'Enter your :que here',
 	'introduce_el_catpcha' => 'Write the captcha',
 
+	'knob_description' => 'Knob is a PHP MVC Framework for creating Wordpress templates easier and funnier than ever before',
+
 	'leer_mas' => 'show more',
 	'leer_mas_movil' => 'more',
 	'leer_menos' => 'show less',
@@ -177,6 +179,7 @@ return [
 
 	'ubicacion' => 'location',
 	'unete_y_colabora' => 'join and collaborate',
+	'usando' => 'using',
 	'user' => 'user',
 	'users' => 'users',
 	'usuario' => 'user',

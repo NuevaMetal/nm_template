@@ -20,7 +20,6 @@ return [
 	'aviso' => 'aviso',
 	'aviso_legal' => 'aviso legal',
 
-
 	'band' => 'banda',
 	'banda' => 'banda',
 	'bandas' => 'bandas',
@@ -87,6 +86,8 @@ return [
 	'inicio' => 'inicio',
 	'introduce_tu' => 'introduce tu :que aquí',
 	'introduce_el_catpcha' => 'Introduce el captcha',
+
+	'knob_description' => 'Knob es un Framework PHP MVC para crear plantillas para Wordpress más fácil y divertido que nunca',
 
 	'editar' => 'editar',
 	'editar_perfil' => 'editar perfil',
@@ -183,6 +184,7 @@ return [
 
 	'ubicacion' => 'ubicación',
 	'unete_y_colabora' => 'Únete y colabora',
+	'usando' => 'usando',
 	'user' => 'usuario',
 	'users' => 'usuarios',
 	'usuario' => 'usuario',
