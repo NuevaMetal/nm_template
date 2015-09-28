@@ -24,8 +24,8 @@ return [
 	'tipo_seguimiento_user_a_ti' => 'Followers',
 	'tipo_favoritos_recibidos' => 'Favs received',
 	'tipo_me_gusta' => 'Favs given',
-	'tipo_nueva_entrada' => 'Posts published',
-	'tipo_nuevo_comentario' => 'Coments',
+	'tipo_nueva_entrada' => 'Published posts',
+	'tipo_nuevo_comentario' => 'Comments',
 	'tipo_entrada_editada' => 'Posts edited',
 
 	'usuarios_que_te_estan_siguiendo' => 'Users who are following you',

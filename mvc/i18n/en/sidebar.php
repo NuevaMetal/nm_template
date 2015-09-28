@@ -17,5 +17,5 @@ return [
 
 	'te_gusta_lo_que_ves' => 'Do you like it?
 		Do you have a metal band and you want appear in NuevaMetal?
-		Would you like post your entries?'
+		Would you like publish your own posts?'
 ];
