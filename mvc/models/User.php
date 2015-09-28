@@ -1124,10 +1124,7 @@ class User extends Favoriteador {
 		$actividades = $wpdb->get_results($wpdb->prepare($sql, $this->ID, $this->ID, Favorito::ACTIVO, $this->ID));
 		// Parseo los objetos genéricos (StdClass) a VActividad
 		array_walk($actividades, function (&$item) {
-			$_p = new VPuntos();
-			$_p->tipo_que = $item->tipo_que;
-			$_p->total = $item->total;
-			$item = $_p;
+			$item = new VPuntos($item->tipo_que,  $item->total);
 		});
 		// Ordenamos por puntos
 		usort($actividades, function ($a, $b) {

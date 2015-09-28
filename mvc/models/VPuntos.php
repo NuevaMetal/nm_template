@@ -12,7 +12,15 @@ class VPuntos extends VActividad {
 	/*
 	 * Miembros
 	 */
-	public $total;
+	private $totalPuntos;
+	private $total;
+	private $tipoQue;
+
+	public function __construct($tipo, $total){
+		$this->tipoQue = $tipo;
+		$this->total = $total;
+		$this->totalPuntos = $this->total * $this->getPuntosByTipo();
+	}
 
 	/**
 	 *
@@ -46,6 +54,6 @@ class VPuntos extends VActividad {
 	 * @return number
 	 */
 	public function getTotalPuntosByTipo() {
-		return $this->total * $this->getPuntosByTipo();
+		return $this->totalPuntos;
 	}
 }
