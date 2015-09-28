@@ -100,10 +100,10 @@ $(document).on('click', '#post-sidebar .users-gustan .otros-mas .texto', functio
 	e.preventDefault();
 	if($('#post-sidebar .users-gustan .otros').hasClass('zoomIn')) {
 		ocultarOtrosUsersQueGustan();
-		console.log("a");
+		//console.log("a");
 	} else {
 		mostrarOtrosUsersQueGustan();
-		console.log("b");
+		//console.log("b");
 	}
 });
 /** Pasar el ratón por "más usuarios que le dieron me gusta" */

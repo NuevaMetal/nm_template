@@ -18,11 +18,11 @@ $(document).ready(function() {
 		scrollOff()
 	}
 
-	//$('.back-to-top').trigger('click');
-	// Pongo esto porque si no no hace caso
-	//setTimeout(function() {
-	//	seHaceScroll();
-	//}, 10);
+	$('.back-to-top').trigger('click');
+	//Pongo esto porque si no no hace caso
+	setTimeout(function() {
+		seHaceScroll();
+	}, 10);
 });
 
 /**
