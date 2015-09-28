@@ -47,7 +47,7 @@ class PageController extends BaseController {
 	 * page-analytics.php
 	 */
 	public function getAnalitica() {
-		if (! $this->permisoEditor) {
+		if (!$this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$logueados_hoy = Analitica::getUsersLogueados(50);
@@ -76,7 +76,7 @@ class PageController extends BaseController {
 		$CLAVE_NONCE = 'clave_nonce_contacto';
 		$CLAVE_CAPTCHA = 'clave_captcha_contacto';
 		$mostrarFormulario = true;
-		$errores = [];
+		$errores = [ ];
 
 		$nonce = $_POST['nonce'];
 		$captcha = $_POST['captcha'];
@@ -127,7 +127,7 @@ class PageController extends BaseController {
 				]);
 				$asunto = 'Mensaje de contacto [' . $blogname . ']';
 				$enviado = Correo::enviarCorreoGenerico(array_unique($emailsDepartamentos), $asunto, $plantillaContacto);
-			} else if (! $verify_captcha) {
+			} else if (!$verify_captcha) {
 				$errores[] = 'Captcha incorrecto';
 			}
 		}
@@ -148,7 +148,7 @@ class PageController extends BaseController {
 			'toDepart' => [
 				'general' => $toDepart == 'general',
 				'publicidad' => $toDepart == 'publicidad',
-				'desarrollo' => $toDepart == 'desarrollo',
+				'desarrollo' => $toDepart == 'desarrollo'
 			]
 		]);
 	}
@@ -169,10 +169,29 @@ class PageController extends BaseController {
 	}
 
 	/**
-	 * Paǵina de aviso legal
+	 * Paǵina de aviso legal.
 	 */
 	public function getLegal() {
 		return $this->renderPage('pages/legal');
+	}
+
+	/**
+	 * Página de Conócenos
+	 * About Us.
+	 */
+	public function getEquipo() {
+		$chema = User::findAllBy('user_nicename', 'chemaclass', true);
+		$jesus = User::findAllBy('user_nicename', 'jesusva', true);
+		$juan = User::findAllBy('user_nicename', 'juan-valera', true);
+		// $lola = User::findAllBy('username', 'metalola', true);
+		// dd($juan->getNombre());
+		return $this->renderPage('pages/equipo', [
+			'admins' => [
+				$chema,
+				$jesus,
+				$juan
+			]
+		]);
 	}
 
 	/**
@@ -184,7 +203,7 @@ class PageController extends BaseController {
 			$page = Post::find(get_the_ID());
 		}
 
-		if (! isset($page)) {
+		if (!isset($page)) {
 			return $this->renderPage('404');
 		}
 
@@ -223,7 +242,7 @@ class PageController extends BaseController {
 			$post = Post::find(get_the_ID());
 		}
 
-		if (! isset($post)) {
+		if (!isset($post)) {
 			return $this->renderPage('404');
 		}
 
@@ -238,7 +257,7 @@ class PageController extends BaseController {
 	 * pending-posts.php
 	 */
 	public function getPostsPendientes() {
-		if (! $this->permisoEditor) {
+		if (!$this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$postsPendientes = Post::getPendientes();
@@ -252,7 +271,7 @@ class PageController extends BaseController {
 	 * page-revisions.php
 	 */
 	public function getRevisiones() {
-		if (! $this->permisoEditor) {
+		if (!$this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$listaPendientes = Revision::getPendientes();
@@ -341,7 +360,7 @@ class PageController extends BaseController {
 	 * page-blocked-users.php
 	 */
 	public function getUsuariosBloqueados() {
-		if (! $this->permisoEditor) {
+		if (!$this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
@@ -358,7 +377,7 @@ class PageController extends BaseController {
 	 * page-pending-users.php
 	 */
 	public function getUsuariosPendientes() {
-		if (! $this->permisoEditor) {
+		if (!$this->permisoEditor) {
 			return $this->getError(404);
 		}
 		$listaPendientes = UserPendiente::getByStatus(UserPendiente::PENDIENTE);

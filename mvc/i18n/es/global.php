@@ -43,6 +43,7 @@ return [
 	'comunicacion' => 'comunicación',
 	'comunicacion_y_publicidad' => 'Comunicación y Publicidad',
 	'conciertos' => 'conciertos',
+	'conocenos' => 'conocenos',
 	'conectado_como' => 'conectado como',
 	'corregida' => 'corregida',
 	'corregidas' => 'corregidas',
@@ -71,6 +72,7 @@ return [
 
 	'editor' => 'editor',
 	'eliminar' => 'eliminar',
+	'equipo' => 'equipo',
 	'error' => 'Ocurrió un error inesperado',
 	'estado' => 'estado',
 
