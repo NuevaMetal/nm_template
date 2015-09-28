@@ -42,7 +42,7 @@ class VGenerosPost extends ModelBase {
 	 *        	Identificador de la categoría. Por defecto false.
 	 * @return array<Post> Devuelve
 	 */
-	public static function getPostsRandomByEtiquetas($tags = [], $limit = false, $cat_id = false) {
+	public static function getPostsRandomByEtiquetas($tags = [], $limit = false, $cat_id = false, $notInList = []) {
 		global $wpdb;
 		if (empty($tags)) {
 			return [];
@@ -58,17 +58,25 @@ class VGenerosPost extends ModelBase {
 							and term_id = ' . $cat_id . ') p
 				ON (g.post_id = p.post_id) ';
 		}
-		$sql .= 'WHERE (taxonomy_name = "post_tag"
-				AND ( term_id = ' . $tag->term_id . ' ';
+
+		$sql .= 'WHERE (g.taxonomy_name = "post_tag"
+				AND ( g.term_id = ' . $tag->term_id . ' ';
 		// Después recorremos el resto de etiquetas
 		foreach ($tags as $tag) {
-			$sql .= ' OR term_id = ' . $tag->term_id . ' ';
+			$sql .= ' OR g.term_id = ' . $tag->term_id . ' ';
 		}
 		$sql .= ' )) ';
+		if (is_array($notInList) && count($notInList)){
+			foreach($notInList as $notIn){
+				$sql .= ' AND g.post_id <> ' . $notIn.' ';
+			}
+		}
 		$sql .= ' ORDER BY RAND() ';
 		if ($limit !== false) {
 			$sql .= ' LIMIT ' . $limit;
 		}
+
+		//debug($sql);
 		$posts_id = $wpdb->get_col($sql);
 		$posts = [];
 		foreach ($posts_id as $post_id) {
