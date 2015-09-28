@@ -504,8 +504,8 @@ class Post extends Image {
 	 */
 	public function getSimilares($max = self::NUM_SIMILARES) {
 		$tags = $this->getEtiquetas();
-		//$cat_id = ($cat = $this->getCategoria()) ? $cat->term_id : false;
-		return VGenerosPost::getPostsRandomByEtiquetas($tags, $max);
+		$cat_id = ($cat = $this->getCategoria()) ? $cat->term_id : false;
+		return VGenerosPost::getPostsRandomByEtiquetas($tags, $max,$cat_id);
 	}
 
 	/**
