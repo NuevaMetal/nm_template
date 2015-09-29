@@ -43,7 +43,14 @@
 					</form>
 				</li>				
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Metal <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span data-toggle="tooltip" 
+								data-placement="bottom" 
+								title="Alternative, Black, Death, Melodic, Folk, Gothic, 
+									Groove, Heavy, Industrial, Nu, Power, Progressive, Thrash, Technical">
+							Metal <span class="caret">
+						</span>
+					</a>
 				   	<ul class="dropdown-menu" role="menu">
 						<li ><a href="/tag/alternative-metal/">{{#transu}}generos.alternative-metal{{/transu}}</a></li>
 						<li ><a href="/tag/black-metal/">{{#transu}}generos.black-metal{{/transu}}</a></li>
@@ -65,7 +72,13 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Core <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span data-toggle="tooltip" 
+								data-placement="bottom" 
+								title="Deathcore, Djent, Hardcore, Metalcore, Post-hardcore, Trancecore">
+							Core <span class="caret">
+						</span>
+					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/tag/deathcore/">{{#transu}}generos.deathcore{{/transu}}</a></li>
 						<li><a href="/tag/djent/">{{#transu}}generos.djent{{/transu}}</a></li>
@@ -76,7 +89,16 @@
 					</ul>
 				</li>
 				<li class="dropdown hidden-lg">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{#transu}}secciones{{/transu}} <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span data-toggle="tooltip" 
+								data-placement="bottom" 
+								title="{{#transu}}bandas{{/transu}},{{#transu}}videos{{/transu}},
+								{{#transu}}entrevistas{{/transu}},{{#transu}}criticas{{/transu}},
+								{{#transu}}cronicas{{/transu}},{{#transu}}noticias{{/transu}},
+								{{#transu}}conciertos{{/transu}}">
+							{{#transu}}secciones{{/transu}} <span class="caret"></span>
+						</span>
+					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/category/bandas/">{{#transu}}bandas{{/transu}}</a></li>
 						<li><a href="/category/videos/">{{#transu}}videos{{/transu}}</a></li>
@@ -88,11 +110,27 @@
 						<li><a href="/random/">{{#transu}}aleatorio{{/transu}}</a></li>
 					</ul>
 				</li>
-				<li class="visible-lg"><a href="/random/">{{#transu}}aleatorio{{/transu}}</a></li>
+				<li class="visible-lg">
+					<a href="/random/">
+						<span data-toggle="tooltip" 
+							data-placement="bottom" 
+							title="{{#transu}}aleatorio{{/transu}}">
+								{{#transu}}aleatorio{{/transu}}
+						</span>
+					</a>
+				</li>
 				<li class="visible-lg"><a href="/category/bandas/">{{#transu}}bandas{{/transu}}</a></li>
 				<li class="visible-lg"><a href="/category/videos/">{{#transu}}videos{{/transu}}</a></li>
 				<li class="dropdown visible-lg">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{#transu}}mas{{/transu}} <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span data-toggle="tooltip" 
+							data-placement="bottom" 
+							title="{{#transu}}entrevistas{{/transu}},{{#transu}}criticas{{/transu}},
+							{{#transu}}cronicas{{/transu}},{{#transu}}noticias{{/transu}},
+							{{#transu}}conciertos{{/transu}}">
+								{{#transu}}mas{{/transu}} <span class="caret"></span>
+						</span>
+					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li class="visible-lg"><a href="/category/entrevistas/">{{#transu}}entrevistas{{/transu}}</a></li>
 						<li class="visible-lg"><a href="/category/criticas/">{{#transu}}criticas{{/transu}}</a></li>
@@ -101,7 +139,9 @@
 						<li class="visible-lg"><a href="/category/conciertos/">{{#transu}}conciertos{{/transu}}</a></li>					
 					</ul>
 				</li>
-				<li class="hidden-xs">
+				<li class="hidden-xs" data-toggle="tooltip" 
+						data-placement="bottom" 
+						title="{{#transu}}buscar{{/transu}}">
 					<form action="/" method="get" class="navbar-form form-horizontal" role="search">
 					    <div class="input-group">
 					      <input type="text" name="s" class="form-control">
@@ -114,9 +154,9 @@
 					</form>
 				</li>
 				<li>
-					<a href="/equipo"  data-toggle="tooltip" 
-						data-placement="bottom" 
-						title="{{#transu}}equipo{{/transu}}">
+					<a href="/equipo" data-toggle="tooltip" 
+							data-placement="bottom" 
+							title="{{#transu}}equipo{{/transu}}">
 						<i class="fa fa-users"></i>
 			     	</a>
 			    </li>
@@ -124,7 +164,10 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-flag"></i> {{current_lang}}
+						<span  data-toggle="tooltip" data-placement="bottom" 
+							title="{{#transu}}idioma{{/transu}}">
+							<i class="fa fa-flag"></i> {{current_lang}}
+						</span>
 			     	</a>
 			     	 <ul class="dropdown-menu" role="menu">
 				        <li><a href="/lang?lang=en" class="url-redirect">English [en]</a></li>

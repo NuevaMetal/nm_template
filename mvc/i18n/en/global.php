@@ -96,6 +96,7 @@ return [
 
 	'hola' => 'hello',
 
+	'idioma' => 'language',
 	'informacion' => 'information',
 	'informar' => 'notify',
 	'iniciar_sesion' => 'login',
