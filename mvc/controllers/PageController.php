@@ -183,13 +183,13 @@ class PageController extends BaseController {
 		$chema = User::findAllBy('user_nicename', 'chemaclass', true);
 		$jesus = User::findAllBy('user_nicename', 'jesusva', true);
 		$juan = User::findAllBy('user_nicename', 'juan-valera', true);
-		// $lola = User::findAllBy('username', 'metalola', true);
-		// dd($juan->getNombre());
+		$lola = User::findAllBy('user_nicename', 'metalola', true);
 		return $this->renderPage('pages/equipo', [
 			'admins' => [
 				$chema,
 				$jesus,
-				$juan
+				$juan,
+				$lola
 			]
 		]);
 	}
