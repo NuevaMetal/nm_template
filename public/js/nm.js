@@ -324,7 +324,7 @@ $(document).on('click', '.back-to-top', function(e) {
 	$('html, body #super').animate({
 		scrollTop : 185
 	}, 500);
-	return false;
+	return true;
 });
 
 
