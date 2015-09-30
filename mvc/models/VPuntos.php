@@ -28,7 +28,7 @@ class VPuntos extends VActividad {
 	 * @return number
 	 */
 	public function getPuntosByTipo() {
-		switch ($this->tipo_que) {
+		switch ($this->tipoQue) {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
 				return VActividad::PUNTOS_TIPO_SEGUIMIENTO_USER;
 			case VActividad::TIPO_SEGUIMIENTO_USER_A_TI :
