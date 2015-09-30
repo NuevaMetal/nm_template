@@ -320,7 +320,7 @@ $(document).on('click', '.mostrar-mas', function(e) {
 });
 
 $(document).on('click', '.back-to-top', function(e) {
-	e.preventDefault();
+	//e.preventDefault();
 	$('html, body #super').animate({
 		scrollTop : 185
 	}, 500);
