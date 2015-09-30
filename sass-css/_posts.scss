@@ -32,6 +32,11 @@
 
 	@extend %ul-inline;
 	
+	img {
+		height: auto;
+		max-width: 100%;
+	}
+	
 	iframe {
 		width: 100%;
 	}
