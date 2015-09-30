@@ -7,8 +7,9 @@
 	<tr>
 	{{# getPuntos }}
 		<tr>
-			<td class="titular"><i class="fa fa-2x {{getIcoByTipo}} col-xs-2"></i> <span class="col-xs-10">{{ getTipoTrans }}</span></td>
-			<td>{{ total | formatear_numero}}</td>
+			<td class="titular"><i class="fa fa-2x {{getIcoByTipo}} col-xs-2"></i> 
+				<span class="col-xs-10">{{ getTipoTrans }}</span></td>
+			<td>{{ getTotal | formatear_numero}}</td>
 			<td>{{ getPuntosByTipo }}</td>
 			<td>{{ getTotalPuntosByTipo | formatear_numero}}</td>
 		</tr>

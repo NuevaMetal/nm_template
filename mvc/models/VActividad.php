@@ -15,41 +15,28 @@ use Models\Comment;
  */
 class VActividad extends ModelBase {
 	public static $table = "v_actividades";
-
 	const DATE_FORMAT = 'l, d F Y';
 
 	/*
 	 * Tipos de Actividad
 	 */
 	const TIPO_SEGUIMIENTO_USER = 'tipo_seguimiento_user';
-
 	const TIPO_SEGUIMIENTO_USER_A_TI = 'tipo_seguimiento_user_a_ti';
-
 	const TIPO_FAVORITOS_RECIBIDOS = 'tipo_favoritos_recibidos';
-
 	const TIPO_ME_GUSTA = 'tipo_me_gusta';
-
 	const TIPO_NUEVA_ENTRADA = 'tipo_nueva_entrada';
-
 	const TIPO_ENTRADA_EDITADA = 'tipo_entrada_editada';
-
 	const TIPO_NUEVO_COMENTARIO = 'tipo_nuevo_comentario';
 
 	/*
 	 * Puntos por tipos de actividad
 	 */
 	const PUNTOS_TIPO_SEGUIMIENTO_USER = 1;
-
 	const PUNTOS_TIPO_SEGUIMIENTO_USER_A_TI = 4;
-
 	const PUNTOS_TIPO_FAVORITOS_RECIBIDOS = 2;
-
 	const PUNTOS_TIPO_ME_GUSTA = 1;
-
 	const PUNTOS_TIPO_NUEVA_ENTRADA = 7;
-
 	const PUNTOS_TIPO_ENTRADA_EDITADA = 0;
-
 	const PUNTOS_TIPO_NUEVO_COMENTARIO = 3;
 
 	/*
@@ -69,6 +56,7 @@ class VActividad extends ModelBase {
 	 *        	Identificador del User
 	 * @param string $que_id
 	 *        	Identificador de aquello a seguir
+	 * @param string $updated_at
 	 */
 	public function __construct($tipo_que = false, $user_id = false, $que_id = false, $updated_at = false) {
 		parent::__construct();

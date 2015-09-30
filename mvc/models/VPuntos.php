@@ -12,14 +12,12 @@ class VPuntos extends VActividad {
 	/*
 	 * Miembros
 	 */
-	private $totalPuntos;
+	private $total_puntos;
 	private $total;
-	private $tipoQue;
-
-	public function __construct($tipo, $total){
-		$this->tipoQue = $tipo;
+	public function __construct($tipo, $total) {
+		$this->tipo_que = $tipo;
 		$this->total = $total;
-		$this->totalPuntos = $this->total * $this->getPuntosByTipo();
+		$this->total_puntos = $this->total * $this->getPuntosByTipo();
 	}
 
 	/**
@@ -28,7 +26,7 @@ class VPuntos extends VActividad {
 	 * @return number
 	 */
 	public function getPuntosByTipo() {
-		switch ($this->tipoQue) {
+		switch ($this->tipo_que) {
 			case VActividad::TIPO_SEGUIMIENTO_USER :
 				return VActividad::PUNTOS_TIPO_SEGUIMIENTO_USER;
 			case VActividad::TIPO_SEGUIMIENTO_USER_A_TI :
@@ -54,6 +52,22 @@ class VPuntos extends VActividad {
 	 * @return number
 	 */
 	public function getTotalPuntosByTipo() {
-		return $this->totalPuntos;
+		return $this->total_puntos;
+	}
+
+	/**
+	 *
+	 * @return integer
+	 */
+	public function getTotal() {
+		return $this->total;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getTipoQue() {
+		return $this->tipo_que;
 	}
 }
