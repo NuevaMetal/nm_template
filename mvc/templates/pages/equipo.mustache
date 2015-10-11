@@ -5,20 +5,39 @@
 
 			<h1 class="col-xs-12 titular">{{#transu}}equipo{{/transu}}</h1>
 
-			{{# admins }}
-			<div class="col-xs-12 col-sm-6 col-lg-3 text-center user">
-				<h3 class="col-xs-12 titular">{{getAlias}}</h3>
-				<a href="{{getPerfilUrl}}">
-					<span class="col-xs-12 user-avatar" itemprop="image">
-						<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
-					</span>
-					<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
-				</a>
-				<span class="col-xs-12 bg-danger rol">{{getRol}}</span>					
-				<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
-				{{!> user/_redes_sociales}}
+			<div class="row">
+				{{# admins }}
+				<div class="col-xs-12 col-sm-6 text-center user">
+					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
+					<a href="{{getPerfilUrl}}">
+						<span class="col-xs-12 user-avatar" itemprop="image">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
+						</span>
+						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
+					</a>
+					<span class="col-xs-12 bg-danger rol">{{getRol}}</span>					
+					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
+					{{!> user/_redes_sociales}}
+				</div>
+				{{/ admins }}
 			</div>
-			{{/ admins }}
+			
+			<div class="row">
+				{{# editors }}
+				<div class="col-xs-12 col-sm-6 text-center user">
+					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
+					<a href="{{getPerfilUrl}}">
+						<span class="col-xs-12 user-avatar" itemprop="image">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
+						</span>
+						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
+					</a>
+					<span class="col-xs-12 bg-warning rol">{{getRol}}</span>					
+					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
+					{{!> user/_redes_sociales}}
+				</div>
+				{{/ editors }}
+			</div>
 
 		</div>
 	{{/ content }}
