@@ -1867,6 +1867,20 @@ class User extends Favoriteador
         return $posts;
     }
 
-    public static function findAdmins()
-    {}
+    /**
+     * Return all users by his rol
+     *
+     * @param string $rol
+     *
+     * @return array<User>
+     */
+    public static function findAllByRol($rol)
+    {
+        $wp_users = get_users('role=' . $rol);
+        $result = [];
+        foreach ($wp_users as $wp_user) {
+            $result[] = User::find($wp_user->ID);
+        }
+        return $result;
+    }
 }
