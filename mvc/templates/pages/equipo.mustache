@@ -9,46 +9,52 @@
 				{{# admins }}
 				<div class="col-xs-12 col-sm-6 text-center user">
 					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
-					<a href="{{getPerfilUrl}}">
-						<span class="col-xs-12 user-avatar" itemprop="image">
-							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
-						</span>
-						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
-					</a>
+					<span class="col-xs-12 user-avatar" itemprop="image">
+						<a href="{{getPerfilUrl}}">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">	
+						</a>
+					</span>
+					<span class="col-xs-12 titular url">
+						<a href="{{getPerfilUrl}}">{{getNombreCompleto}}</a>
+					</span>					
 					<span class="col-xs-12 bg-danger rol">{{getRol}}</span>					
 					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
 					{{!> user/_redes_sociales}}
 				</div>
 				{{/ admins }}
 			</div>
-			
+
 			<div class="row col-xs-12">
 				{{# editores }}
 				<div class="col-xs-12 col-sm-6 text-center user">
 					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
-					<a href="{{getPerfilUrl}}">
-						<span class="col-xs-12 user-avatar" itemprop="image">
-							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
-						</span>
-						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
-					</a>
+					<span class="col-xs-12 user-avatar" itemprop="image">
+						<a href="{{getPerfilUrl}}">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">	
+						</a>
+					</span>
+					<span class="col-xs-12 titular url">
+						<a href="{{getPerfilUrl}}">{{getNombreCompleto}}</a>
+					</span>	
 					<span class="col-xs-12 bg-warning rol">{{getRol}}</span>					
 					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
 					{{!> user/_redes_sociales}}
 				</div>
 				{{/ editores }}
 			</div>
-			
+
 			<div class="row col-xs-12">
 				{{# autores }}
 				<div class="col-xs-12 col-sm-6 col-lg-3 text-center user">
 					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
-					<a href="{{getPerfilUrl}}">
-						<span class="col-xs-12 user-avatar" itemprop="image">
-							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
-						</span>
-						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
-					</a>
+					<span class="col-xs-12 user-avatar" itemprop="image">
+						<a href="{{getPerfilUrl}}">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">	
+						</a>
+					</span>
+					<span class="col-xs-12 titular url">
+						<a href="{{getPerfilUrl}}">{{getNombreCompleto}}</a>
+					</span>
 					<span class="col-xs-12 bg-info rol">{{getRol}}</span>					
 					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
 					{{!> user/_redes_sociales}}
