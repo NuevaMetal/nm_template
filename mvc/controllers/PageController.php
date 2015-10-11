@@ -197,10 +197,12 @@ class PageController extends BaseController
         // $juan = User::findAllBy('user_nicename', 'juan-valera', true);
         // $lola = User::findAllBy('user_nicename', 'metalola', true);
         $admins = User::findAllByRol(User::ROL_ADMIN);
-        $editors = User::findAllByRol(User::ROL_EDITOR);
+        $editores = User::findAllByRol(User::ROL_EDITOR);
+        $autores = User::findAllByRol(User::ROL_AUTOR);
         return $this->renderPage('pages/equipo', [
             'admins' => $admins,
-            'editors' => $editors
+            'editores' => $editores,
+            'autores' => $autores
         ]);
     }
 

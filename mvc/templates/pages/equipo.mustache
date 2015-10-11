@@ -23,7 +23,7 @@
 			</div>
 			
 			<div class="row">
-				{{# editors }}
+				{{# editores }}
 				<div class="col-xs-12 col-sm-6 text-center user">
 					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
 					<a href="{{getPerfilUrl}}">
@@ -36,7 +36,24 @@
 					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
 					{{!> user/_redes_sociales}}
 				</div>
-				{{/ editors }}
+				{{/ editores }}
+			</div>
+			
+			<div class="row">
+				{{# autores }}
+				<div class="col-xs-12 col-sm-6 col-lg-3 text-center user">
+					<h3 class="col-xs-12 titular">{{getAlias}}</h3>
+					<a href="{{getPerfilUrl}}">
+						<span class="col-xs-12 user-avatar" itemprop="image">
+							<img alt="{{getAlias}} avatar" src="{{getAvatarPerfil}}" class="avatar">		
+						</span>
+						<span class="col-xs-12 titular url">{{getNombreCompleto}}</span>
+					</a>
+					<span class="col-xs-12 bg-info rol">{{getRol}}</span>					
+					<span class="col-xs-12 descripcion">{{getDescripcion}}</span>
+					{{!> user/_redes_sociales}}
+				</div>
+				{{/ autores }}
 			</div>
 
 		</div>
