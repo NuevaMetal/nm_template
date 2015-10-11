@@ -111,6 +111,8 @@ class PageController extends BaseController {
 						case 'general' :
 							$user = User::findAllBy('user_login', 'JesusVa', true);
 							$emailsDepartamentos[] = $user->getEmail();
+							$user = User::findAllBy('user_login', 'Juan Valera', true);
+							$emailsDepartamentos[] = $user->getEmail();
 							break;
 					}
 				}
