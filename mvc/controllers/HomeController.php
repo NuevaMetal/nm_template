@@ -23,9 +23,9 @@ class HomeController extends BaseController {
 			Post::CATEGORY_BANDAS,
 			Post::CATEGORY_VIDEOS,
 			Post::CATEGORY_CRITICAS,
-			Post::CATEGORY_CRONICAS,
-			Post::CATEGORY_NOTICIAS,
-			Post::CATEGORY_CONCIERTOS,
+			//Post::CATEGORY_CRONICAS,
+			//Post::CATEGORY_NOTICIAS,
+			//Post::CATEGORY_CONCIERTOS,
 			Post::CATEGORY_ENTREVISTAS
 		];
 		$args = [];
