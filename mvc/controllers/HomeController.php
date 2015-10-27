@@ -13,31 +13,41 @@ use Models\Post;
  */
 class HomeController extends BaseController {
 
-	const NUM_POST_POR_SECCION = 8;
+    const NUM_POST_POR_SECCION = 8;
 
-	/**
-	 * home.php
-	 */
-	public function getHome() {
-		$catActivas = [
-			Post::CATEGORY_BANDAS,
-			Post::CATEGORY_VIDEOS,
-			Post::CATEGORY_CRITICAS,
-			//Post::CATEGORY_CRONICAS,
-			//Post::CATEGORY_NOTICIAS,
-			//Post::CATEGORY_CONCIERTOS,
-			Post::CATEGORY_ENTREVISTAS
-		];
-		$args = [];
-		foreach ($catActivas as $cat) {
-			$args[$cat] = [
-				'seccion' => $cat,
-				'url' => '/category/' . $cat,
-				'cantidad_total' => Post::getCantidadTotalEnCategoria($cat)
-			];
-		}
-		return $this->renderPage('home', $args);
-	}
+    const NUM_BANDAS = 8;
+    const NUM_VIDEOS = 4;
+    const NUM_CRITICAS = 2;
+    const NUM_NOTICIAS = 2;
+    const NUM_CRONICAS = 4;
+    const NUM_CONCIERTOS = 4;
+    const NUM_ENTREVISTAS = 4;
+
+    /**
+     * home.php
+     */
+    public function getHome()
+    {
+        $catActivas = [
+            // Post::CATEGORY_CRITICAS=> self::NUM_CRITICAS,
+            // Post::CATEGORY_NOTICIAS=> self::NUM_NOTICIAS,
+            // Post::CATEGORY_CONCIERTOS => self::NUM_CONCIERTOS,
+            Post::CATEGORY_CRONICAS => self::NUM_CRONICAS,
+            Post::CATEGORY_BANDAS => self::NUM_BANDAS,
+            Post::CATEGORY_VIDEOS => self::NUM_VIDEOS,
+            Post::CATEGORY_ENTREVISTAS => self::NUM_ENTREVISTAS
+        ];
+        $args = [];
+        foreach ($catActivas as $categoria => $cantidad) {
+            $args[$categoria] = [
+                'seccion' => $categoria,
+                'url' => '/category/' . $categoria,
+                'cantidad_total' => Post::getCantidadTotalEnCategoria($categoria),
+                'cantidad_limit' => $cantidad
+            ];
+        }
+        return $this->renderPage('home', $args);
+    }
 
 	/**
 	 * Devuelve una sección en base a una categoría o etiqueta

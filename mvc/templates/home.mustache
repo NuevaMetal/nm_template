@@ -20,43 +20,43 @@
 		</div>
 		<div id="home" class="text-center">
 			{{# bandas}}
-			<section id="bandas" class="col-xs-12 seccion-posts">
+			<section id="bandas" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</section>
 			{{/ bandas}}
 		
 			{{# videos}}
-			<div id="videos" class="col-xs-12 seccion-posts">
+			<div id="videos" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ videos}}
 		
 			{{# conciertos }}
-			<div id="conciertos" class="col-xs-12  seccion-posts">
+			<div id="conciertos" class="col-xs-12  seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ conciertos }}
 		
 			{{# noticias }}
-			<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts">
+			<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ noticias }}
 			
 			{{#criticas}}
-			<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts">
+			<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/criticas}}
 			
 			{{#cronicas}}
-			<div id="cronicas" class="col-xs-12 seccion-posts">
+			<div id="cronicas" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/cronicas}}
 		
 			{{# entrevistas }}
-			<div id="entrevistas" class="col-xs-12 seccion-posts">
+			<div id="entrevistas" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ entrevistas }}

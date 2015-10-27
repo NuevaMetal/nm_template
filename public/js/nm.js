@@ -436,13 +436,13 @@ function cargarCarousel() {
  * Cargar las secciones
  */
 function cargarSecciones() {
-	var NUM_BANDAS = 4;
-	var NUM_VIDEOS = 4;
-	var NUM_CONCIERTOS = 4;
-	var NUM_CRONICAS = 4;
-	var NUM_NOTICIAS = 2;
-	var NUM_CRITICAS = 2;
-	var NUM_ENTREVISTAS = 4;
+	var NUM_BANDAS = $('#bandas').attr('data-limit');
+	var NUM_VIDEOS = $('#videos').attr('data-limit');
+	var NUM_CONCIERTOS = $('#conciertos').attr('data-limit');
+	var NUM_CRONICAS = $('#cronicas').attr('data-limit');
+	var NUM_NOTICIAS = $('#noticias').attr('data-limit');
+	var NUM_CRITICAS = $('#criticas').attr('data-limit');
+	var NUM_ENTREVISTAS = $('#entrevistas').attr('data-limit');
 	
 	cargarSeccion('bandas', NUM_BANDAS);
 	
