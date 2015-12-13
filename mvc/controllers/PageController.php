@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use I18n\I18n;
@@ -51,7 +52,7 @@ class PageController extends BaseController
      */
     public function getAnalitica()
     {
-        if (! $this->permisoEditor) {
+        if (!$this->permisoEditor) {
             return $this->getError(404);
         }
         $logueados_hoy = Analitica::getUsersLogueados(50);
@@ -61,14 +62,15 @@ class PageController extends BaseController
         $logueados_ayer_4 = Analitica::getUsersLogueados(50, 'date(now())-4');
         $logueados_ayer_5 = Analitica::getUsersLogueados(50, 'date(now())-5');
 
-        return $this->renderPage('pages/analitica', [
-            'logueados_hoy' => $logueados_hoy,
-            'logueados_ayer' => $logueados_ayer,
-            'logueados_ayer_2' => $logueados_ayer_2,
-            'logueados_ayer_3' => $logueados_ayer_3,
-            'logueados_ayer_4' => $logueados_ayer_4,
-            'logueados_ayer_5' => $logueados_ayer_5
-        ]);
+        return $this->renderPage('pages/analitica',
+            [
+                'logueados_hoy' => $logueados_hoy,
+                'logueados_ayer' => $logueados_ayer,
+                'logueados_ayer_2' => $logueados_ayer_2,
+                'logueados_ayer_3' => $logueados_ayer_3,
+                'logueados_ayer_4' => $logueados_ayer_4,
+                'logueados_ayer_5' => $logueados_ayer_5
+            ]);
     }
 
     /**
@@ -85,7 +87,6 @@ class PageController extends BaseController
 
         $nonce = $_POST['nonce'];
         $captcha = $_POST['captcha'];
-        $toDepart = $_GET['to'];
 
         if ($nonce) {
             // Verificamos si hay nonce
@@ -94,51 +95,52 @@ class PageController extends BaseController
 
                 $mostrarFormulario = false;
 
+                /*
+                 * Can be: desarrollo, general, publicidad
+                 */
                 $departamento = $_POST['departamento'];
                 $email = $_POST['email'];
                 $nombre = $_POST['nombre'];
                 $web = $_POST['web'];
                 $mensaje = $_POST['mensaje'];
 
+                $juan = User::findAllBy('user_login', 'Juan Valera', true);
+                $chema = User::findAllBy('user_login', 'Chemaclass', true);
+                $jesus = User::findAllBy('user_login', 'JesusVa', true);
+
+                /*
+                 * El juan will recieve by default all messages, and only if the msg
+                 * is to desarrollo or general department then chema&sus also will
+                 * recieve another copy from this email.
+                 */
                 $emailsDepartamentos = [
-                    get_option('admin_email')
+                    get_option('admin_email'),
+                    $juan->getEmail()
                 ];
-                if ($departamento) {
-                    switch ($departamento) {
-                        case 'publicidad':
-                            $user = User::findAllBy('user_login', 'Juan Valera', true);
-                            $emailsDepartamentos[] = $user->getEmail();
-                            break;
-                        case 'desarrollo':
-                            $user = User::findAllBy('user_login', 'Chemaclass', true);
-                            $emailsDepartamentos[] = $user->getEmail();
-                            break;
-                        case 'general':
-                            $user = User::findAllBy('user_login', 'JesusVa', true);
-                            $emailsDepartamentos[] = $user->getEmail();
-                            $user = User::findAllBy('user_login', 'Juan Valera', true);
-                            $emailsDepartamentos[] = $user->getEmail();
-                            break;
-                    }
+
+                if (('desarrollo' == $departamento) || ('general' == $departamento)) {
+                    $emailsDepartamentos[] = $chema->getEmail();
+                    $emailsDepartamentos[] = $jesus->getEmail();
                 }
 
                 $blogname = get_option('blogname');
-                $plantillaContacto = I18n::trans('emails.contacto', [
-                    'blogname' => $blogname,
-                    'blogurl' => home_url(),
-                    'departamento' => ucfirst($departamento),
-                    'email' => $email,
-                    'mensaje' => $mensaje,
-                    'nombre' => $nombre,
-                    'web' => $web
-                ]);
+                $plantillaContacto = I18n::trans('emails.contacto',
+                    [
+                        'blogname' => $blogname,
+                        'blogurl' => home_url(),
+                        'departamento' => ucfirst($departamento),
+                        'email' => $email,
+                        'mensaje' => $mensaje,
+                        'nombre' => $nombre,
+                        'web' => $web
+                    ]);
                 $asunto = 'Mensaje de contacto [' . $blogname . ']';
                 $enviado = Correo::enviarCorreoGenerico(array_unique($emailsDepartamentos), $asunto, $plantillaContacto);
-            } else
-                if (! $verify_captcha) {
-                    $errores[] = 'Captcha incorrecto';
-                }
+            } else if (!$verify_captcha) {
+                $errores[] = 'Captcha incorrecto';
+            }
         }
+
         /*
          * Creamos un nuevo nonce y un nuevo captcha en cada petición.
          */
@@ -146,19 +148,21 @@ class PageController extends BaseController
         $nonce = wp_create_nonce($_SESSION[$CLAVE_NONCE]);
         $_SESSION[$CLAVE_CAPTCHA] = 'captcha-contacto' . time();
         $captcha = wp_create_nonce($_SESSION[$CLAVE_CAPTCHA]);
+        $toDepart = $_GET['to'];
 
-        return $this->renderPage('pages/contacto', [
-            'mostrarFormulario' => $mostrarFormulario,
-            'nonce' => $nonce,
-            'captcha' => $captcha,
-            'errores' => $errores,
-            'nombreDepartamento' => $departamento,
-            'toDepart' => [
-                'general' => $toDepart == 'general',
-                'publicidad' => $toDepart == 'publicidad',
-                'desarrollo' => $toDepart == 'desarrollo'
-            ]
-        ]);
+        return $this->renderPage('pages/contacto',
+            [
+                'mostrarFormulario' => $mostrarFormulario,
+                'nonce' => $nonce,
+                'captcha' => $captcha,
+                'errores' => $errores,
+                'nombreDepartamento' => $departamento,
+                'toDepart' => [
+                    'publicidad' => $toDepart == 'publicidad',
+                    'general' => $toDepart == 'general',
+                    'desarrollo' => $toDepart == 'desarrollo'
+                ]
+            ]);
     }
 
     /**
@@ -199,11 +203,12 @@ class PageController extends BaseController
         $admins = User::findAllByRol(User::ROL_ADMIN);
         $editores = User::findAllByRol(User::ROL_EDITOR);
         $autores = User::findAllByRol(User::ROL_AUTOR);
-        return $this->renderPage('pages/equipo', [
-            'admins' => $admins,
-            'editores' => $editores,
-            'autores' => $autores
-        ]);
+        return $this->renderPage('pages/equipo',
+            [
+                'admins' => $admins,
+                'editores' => $editores,
+                'autores' => $autores
+            ]);
     }
 
     /**
@@ -216,7 +221,7 @@ class PageController extends BaseController
             $page = Post::find(get_the_ID());
         }
 
-        if (! isset($page)) {
+        if (!isset($page)) {
             return $this->renderPage('404');
         }
 
@@ -259,15 +264,16 @@ class PageController extends BaseController
             $post = Post::find(get_the_ID());
         }
 
-        if (! isset($post)) {
+        if (!isset($post)) {
             return $this->renderPage('404');
         }
 
-        return $this->renderPage('post', [
-            'post' => $post,
-            'ENTRADAS_SIMILARES' => Post::ENTRADAS_SIMILARES,
-            'ENTRADAS_RELACIONADAS' => Post::ENTRADAS_RELACIONADAS
-        ]);
+        return $this->renderPage('post',
+            [
+                'post' => $post,
+                'ENTRADAS_SIMILARES' => Post::ENTRADAS_SIMILARES,
+                'ENTRADAS_RELACIONADAS' => Post::ENTRADAS_RELACIONADAS
+            ]);
     }
 
     /**
@@ -275,14 +281,15 @@ class PageController extends BaseController
      */
     public function getPostsPendientes()
     {
-        if (! $this->permisoEditor) {
+        if (!$this->permisoEditor) {
             return $this->getError(404);
         }
         $postsPendientes = Post::getPendientes();
-        return $this->renderPage('pages/pendientes_aceptar', [
-            'total_entradas_pendientes' => count($postsPendientes),
-            'entradas_pendientes' => $postsPendientes
-        ]);
+        return $this->renderPage('pages/pendientes_aceptar',
+            [
+                'total_entradas_pendientes' => count($postsPendientes),
+                'entradas_pendientes' => $postsPendientes
+            ]);
     }
 
     /**
@@ -290,34 +297,35 @@ class PageController extends BaseController
      */
     public function getRevisiones()
     {
-        if (! $this->permisoEditor) {
+        if (!$this->permisoEditor) {
             return $this->getError(404);
         }
         $listaPendientes = Revision::getPendientes();
         $listaRevisadas = Revision::getCorregidas();
         $listaBaneos = UserBaneado::getBaneados();
 
-        return $this->renderPage('pages/revisiones', [
-            'total_pendientes' => count($listaPendientes),
-            'total_corregidas' => count($listaRevisadas),
-            'total_baneados' => count($listaBaneos),
+        return $this->renderPage('pages/revisiones',
+            [
+                'total_pendientes' => count($listaPendientes),
+                'total_corregidas' => count($listaRevisadas),
+                'total_baneados' => count($listaBaneos),
 
-            'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
-            'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
-            'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
-            'USER_BANEADO' => UserBaneado::BANEADO,
-            'USER_DESBANEADO' => UserBaneado::DESBANEADO,
+                'ESTADO_BORRADO' => Revision::ESTADO_BORRADO,
+                'ESTADO_CORREGIDO' => Revision::ESTADO_CORREGIDO,
+                'ESTADO_PENDIENTE' => Revision::ESTADO_PENDIENTE,
+                'USER_BANEADO' => UserBaneado::BANEADO,
+                'USER_DESBANEADO' => UserBaneado::DESBANEADO,
 
-            'pendientes' => [
-                'lista' => $listaPendientes
-            ],
-            'corregidas' => [
-                'lista' => $listaRevisadas
-            ],
-            'baneados' => [
-                'lista' => $listaBaneos
-            ]
-        ]);
+                'pendientes' => [
+                    'lista' => $listaPendientes
+                ],
+                'corregidas' => [
+                    'lista' => $listaRevisadas
+                ],
+                'baneados' => [
+                    'lista' => $listaBaneos
+                ]
+            ]);
     }
 
     /**
@@ -369,12 +377,13 @@ class PageController extends BaseController
          */
         $fileGeneros = I18n::getFicheroIdioma('generos', I18n::getLangByCurrentUser());
 
-        return $this->renderPage('busqueda', [
-            'definicion' => $fileGeneros['definicion_' . $term->slug],
-            'seccion' => $args,
-            'total_posts' => count($args['posts']),
-            'tag_trans' => I18n::transu('generos.' . $term->slug)
-        ]);
+        return $this->renderPage('busqueda',
+            [
+                'definicion' => $fileGeneros['definicion_' . $term->slug],
+                'seccion' => $args,
+                'total_posts' => count($args['posts']),
+                'tag_trans' => I18n::transu('generos.' . $term->slug)
+            ]);
     }
 
     /**
@@ -382,17 +391,18 @@ class PageController extends BaseController
      */
     public function getUsuariosBloqueados()
     {
-        if (! $this->permisoEditor) {
+        if (!$this->permisoEditor) {
             return $this->getError(404);
         }
         $listaBloqueados = UserBloqueado::getByStatus(UserBloqueado::ESTADO_BLOQUEADO);
         $totalBloqueados = UserBloqueado::getTotalBloqueados();
 
-        return $this->renderPage('pages/users_bloqueados', [
-            'bloqueados' => $listaBloqueados,
-            'total_bloqueados' => $totalBloqueados,
-            'estado_borrado' => UserBloqueado::ESTADO_BORRADO
-        ]);
+        return $this->renderPage('pages/users_bloqueados',
+            [
+                'bloqueados' => $listaBloqueados,
+                'total_bloqueados' => $totalBloqueados,
+                'estado_borrado' => UserBloqueado::ESTADO_BORRADO
+            ]);
     }
 
     /**
@@ -400,20 +410,21 @@ class PageController extends BaseController
      */
     public function getUsuariosPendientes()
     {
-        if (! $this->permisoEditor) {
+        if (!$this->permisoEditor) {
             return $this->getError(404);
         }
         $listaPendientes = UserPendiente::getByStatus(UserPendiente::PENDIENTE);
         $listaAceptados = UserPendiente::getByStatus(UserPendiente::ACEPTADO);
         $listaRechazados = UserPendiente::getByStatus(UserPendiente::RECHAZADO);
-        return $this->renderPage('pages/users_pendientes', [
-            'pendientes' => $listaPendientes,
-            'total_pendientes' => count($listaPendientes),
-            'aceptados' => $listaAceptados,
-            'total_aceptados' => count($listaAceptados),
-            'rechazados' => $listaRechazados,
-            'total_rechazados' => count($listaRechazados)
-        ]);
+        return $this->renderPage('pages/users_pendientes',
+            [
+                'pendientes' => $listaPendientes,
+                'total_pendientes' => count($listaPendientes),
+                'aceptados' => $listaAceptados,
+                'total_aceptados' => count($listaAceptados),
+                'rechazados' => $listaRechazados,
+                'total_rechazados' => count($listaRechazados)
+            ]);
     }
 
     /**

@@ -92,7 +92,7 @@ abstract class ModelBase {
 	 * @param string $valor
 	 * @param boolean $single
 	 *        	Por defecto false. True si es sólo 1.
-	 * @return array<object>
+	 * @return ModelBase|ModelBase[]
 	 */
 	public static function findAllBy($columna, $valor, $single = false) {
 		global $wpdb;

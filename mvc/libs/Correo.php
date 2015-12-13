@@ -30,6 +30,8 @@ class Correo {
 		$mail->From = 'nuevametal@outlook.com';
 		$mail->FromName = 'NuevaMetal';
 
+		$email = array_unique($email);
+
 		if (is_string($email)) {
 			$mail->addAddress($email);
 		} else if (is_array($email)) {
