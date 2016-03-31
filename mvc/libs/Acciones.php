@@ -578,7 +578,7 @@ class Acciones {
 		add_action('wp', function () {
 			try {
 				$analitica = new Analitica();
-				$analitica->save();
+				//$analitica->save();
 			} catch ( Exception $e ) {
 				info('No se pudo guardar la Analitica ?');
 			}

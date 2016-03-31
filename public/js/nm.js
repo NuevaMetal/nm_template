@@ -438,30 +438,31 @@ function cargarCarousel() {
 function cargarSecciones() {
 	var NUM_BANDAS = $('#bandas').attr('data-limit');
 	var NUM_VIDEOS = $('#videos').attr('data-limit');
-	var NUM_CONCIERTOS = $('#conciertos').attr('data-limit');
-	var NUM_CRONICAS = $('#cronicas').attr('data-limit');
-	var NUM_NOTICIAS = $('#noticias').attr('data-limit');
-	var NUM_CRITICAS = $('#criticas').attr('data-limit');
 	var NUM_ENTREVISTAS = $('#entrevistas').attr('data-limit');
+	var NUM_CONCIERTOS = $('#conciertos').attr('data-limit');
+	var NUM_NOTICIAS = $('#noticias').attr('data-limit');
+	var NUM_CRONICAS = $('#cronicas').attr('data-limit');
+	var NUM_CRITICAS = $('#criticas').attr('data-limit');
 	
 	cargarSeccion('bandas', NUM_BANDAS);
 	
 	setTimeout(function() {
 		cargarSeccion('videos', NUM_VIDEOS);		
-	}, 500);
-	setTimeout(function() {
-		cargarSeccion('conciertos', NUM_CONCIERTOS);
 	}, 1000);
 	setTimeout(function() {
-		cargarSeccion('cronicas', NUM_CRONICAS);
+		cargarSeccion('entrevistas', NUM_ENTREVISTAS);
 	}, 1500);
 	setTimeout(function() {
-		cargarSeccion('noticias', NUM_NOTICIAS);
-		cargarSeccion('criticas', NUM_CRITICAS);
+		cargarSeccion('conciertos', NUM_CONCIERTOS);
 	}, 2000);
 	setTimeout(function() {
-		cargarSeccion('entrevistas', NUM_ENTREVISTAS);
+		cargarSeccion('noticias', NUM_NOTICIAS);
+	}, 2500);
+	setTimeout(function() {
+		cargarSeccion('cronicas', NUM_CRONICAS);
+		cargarSeccion('criticas', NUM_CRITICAS);
 	}, 3000);
+	
 }
 
 /**

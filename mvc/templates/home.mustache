@@ -31,35 +31,35 @@
 			</div>
 			{{/ videos}}
 		
-			{{# conciertos }}
-			<div id="conciertos" class="col-xs-12  seccion-posts" data-limit="{{cantidad_limit}}">
-				{{> home/_seccion_posts }}
-			</div>
-			{{/ conciertos }}
-		
-			{{# noticias }}
-			<div id="noticias" class="col-xs-12 col-lg-6 seccion-posts" data-limit="{{cantidad_limit}}">
-				{{> home/_seccion_posts }}
-			</div>
-			{{/ noticias }}
-			
-			{{#criticas}}
-			<div id="criticas" class="col-xs-12 col-lg-6 seccion-posts" data-limit="{{cantidad_limit}}">
-				{{> home/_seccion_posts }}
-			</div>
-			{{/criticas}}
-			
-			{{#cronicas}}
-			<div id="cronicas" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
-				{{> home/_seccion_posts }}
-			</div>
-			{{/cronicas}}
-		
 			{{# entrevistas }}
 			<div id="entrevistas" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
 				{{> home/_seccion_posts }}
 			</div>
 			{{/ entrevistas }}
+			
+			{{# conciertos }}
+			<div id="conciertos" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
+				{{> home/_seccion_posts }}
+			</div>
+			{{/ conciertos }}
+		
+			{{# noticias }}
+			<div id="noticias" class="col-xs-12 seccion-posts" data-limit="{{cantidad_limit}}">
+				{{> home/_seccion_posts }}
+			</div>
+			{{/ noticias }}
+			
+			{{#cronicas}}
+			<div id="cronicas" class="col-xs-12 col-sm-6 seccion-posts" data-limit="{{cantidad_limit}}">
+				{{> home/_seccion_posts }}
+			</div>
+			{{/cronicas}}
+			
+			{{#criticas}}
+			<div id="criticas" class="col-xs-12 col-sm-6 seccion-posts" data-limit="{{cantidad_limit}}">
+				{{> home/_seccion_posts }}
+			</div>
+			{{/criticas}}
 		</div>
 	{{/ content }}
 {{/ base }}

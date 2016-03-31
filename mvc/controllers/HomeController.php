@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use I18n\I18n;
 use Libs\Utils;
 use Models\Post;
 
@@ -17,11 +16,11 @@ class HomeController extends BaseController {
 
     const NUM_BANDAS = 8;
     const NUM_VIDEOS = 4;
-    const NUM_CRITICAS = 2;
-    const NUM_NOTICIAS = 2;
-    const NUM_CRONICAS = 4;
-    const NUM_CONCIERTOS = 4;
     const NUM_ENTREVISTAS = 4;
+    const NUM_CONCIERTOS = 4;
+    const NUM_NOTICIAS = 4;
+    const NUM_CRONICAS = 2;
+    const NUM_CRITICAS = 2;
 
     /**
      * home.php
@@ -29,13 +28,13 @@ class HomeController extends BaseController {
     public function getHome()
     {
         $catActivas = [
-            // Post::CATEGORY_CRITICAS=> self::NUM_CRITICAS,
-            // Post::CATEGORY_NOTICIAS=> self::NUM_NOTICIAS,
-            // Post::CATEGORY_CONCIERTOS => self::NUM_CONCIERTOS,
-            Post::CATEGORY_CRONICAS => self::NUM_CRONICAS,
             Post::CATEGORY_BANDAS => self::NUM_BANDAS,
             Post::CATEGORY_VIDEOS => self::NUM_VIDEOS,
-            Post::CATEGORY_ENTREVISTAS => self::NUM_ENTREVISTAS
+            Post::CATEGORY_ENTREVISTAS => self::NUM_ENTREVISTAS,
+            Post::CATEGORY_CONCIERTOS => self::NUM_CONCIERTOS,
+            Post::CATEGORY_NOTICIAS=> self::NUM_NOTICIAS,
+            //Post::CATEGORY_CRONICAS => self::NUM_CRONICAS,
+            // Post::CATEGORY_CRITICAS=> self::NUM_CRITICAS,
         ];
         $args = [];
         foreach ($catActivas as $categoria => $cantidad) {
@@ -80,9 +79,9 @@ class HomeController extends BaseController {
 		$TRANSIENT_HOME_SECCION = 'home-seccion-' . $seccion;
 		// Get any existing copy of our transient data
 		if (false === ($posts = get_transient($TRANSIENT_HOME_SECCION))) {
-		// It wasn't there, so regenerate the data and save the transient
-		$posts = self::getPostsByCategory($seccion, $cant, []);
-		set_transient($TRANSIENT_HOME_SECCION, $posts, DAY_IN_SECONDS);
+      		// If wasn't there, so regenerate the data and save the transient
+      		$posts = self::getPostsByCategory($seccion, $cant, []);
+      		set_transient($TRANSIENT_HOME_SECCION, $posts, DAY_IN_SECONDS);
 		}
 		$args['posts'] = $posts;
 		$args['cantidad_total'] = Post::getCantidadTotalEnCategoria($seccionLower);
