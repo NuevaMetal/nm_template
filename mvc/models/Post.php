@@ -222,7 +222,7 @@ class Post extends Image {
 		// Dejo el str en una única línea
 		$the_excerpt = trim(preg_replace('/\s\s+/', ' ', $the_excerpt));
 		// Sustituyo todos los espacios raros por espacios normales
-		$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);
+		//$the_excerpt = preg_replace("/[\xc2|\xa0]/", ' ', $the_excerpt);// make utf8 problems
 		$the_excerpt = self::getPalabrasByStr($the_excerpt, self::CANT_EXCERPT);
 		// Aplicamos negrita a ciertas palabras
 		$the_excerpt = preg_replace([
