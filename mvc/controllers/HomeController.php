@@ -14,7 +14,7 @@ class HomeController extends BaseController {
 
     const NUM_POST_POR_SECCION = 8;
 
-    const NUM_BANDAS = 8;
+    const NUM_BANDAS = 4;
     const NUM_VIDEOS = 4;
     const NUM_ENTREVISTAS = 4;
     const NUM_CONCIERTOS = 4;
